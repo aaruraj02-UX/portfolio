@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arumugam V | Minimal Corporate Portfolio</title>
+  <meta name="description" content="Minimal corporate UX leadership portfolio variant for Arumugam V." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="minimal.css" />
+</head>
+<body>
+  <header>
+    <h1>Arumugam V</h1>
+    <p>Principal UX Engineer I | UX Leadership Portfolio</p>
+    <div class="actions">
+      <a href="index.html">Creative Variant</a>
+      <a href="Profile/Ressume_ArumugamV_UXD.doc" download>Download Executive Resume</a>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>Leadership Summary</h2>
+      <p>
+        Strategic UX leader delivering enterprise outcomes through design strategy, governance-first workflows,
+        and cross-functional product execution.
+      </p>
+    </section>
+
+    <section>
+      <h2>Case Studies</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Strategic Focus</th>
+            <th>Prototype</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>ProServe</td><td>Master data governance, RBAC, dual-approval operations</td><td><a href="Projects/Advance/prototype/landing.html" target="_blank">Open</a></td></tr>
+          <tr><td>Customer App</td><td>Self-service conversion and governed content publishing</td><td><a href="Projects/Customer%20App%20-%20LandingPage/prototype/LandingPage.html" target="_blank">Open</a></td></tr>
+          <tr><td>FieldSync</td><td>SLA-driven task lifecycle and field accountability</td><td><a href="Projects/Engage/prototype/index.html" target="_blank">Open</a></td></tr>
+          <tr><td>FinOps</td><td>Executive KPI observability and exception tracking</td><td><a href="Projects/Fiona/prototype/Dashboard.html" target="_blank">Open</a></td></tr>
+          <tr><td>DocProcess</td><td>AI-assisted response generation with QA controls</td><td><a href="Projects/Summarisation/prototype/index.html" target="_blank">Open</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Project Galleries</h2>
+      <div class="row">
+        <img src="Projects/Customer%20App%20-%20LandingPage/prototype/image/1536-Home.png" alt="Customer app" />
+        <img src="Projects/Engage/business/Job_Details.jpg" alt="FieldSync" />
+        <img src="Projects/Summarisation/prototype/assets/Wokingham.png" alt="DocProcess" />
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2>Leadership Opportunity CTA</h2>
+      <p>Open to Senior UX Manager, Principal UX Manager, Head of UX, and Director of UX opportunities.</p>
+      <a href="https://www.linkedin.com/in/arumugam-vellingiri-32777142/" target="_blank" rel="noreferrer">LinkedIn Profile</a>
+    </section>
+  </main>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

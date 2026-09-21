@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProServe — Reports</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <style>
+    /* -----------------------------------------------------------
+       MET-DS-V2 Design Tokens — Full :root block
+       ----------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      --color-success:         #43A047;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #FF9800;
+      --color-warning-bg:      #FFF3E0;
+      --orange-800:            #E56800;
+
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-icon:           #757575;
+      --topnav-icon-hover:     #616161;
+
+      --table-header:          #F5F5F5;
+      --table-row-hover:       #F5F5F5;
+
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           8px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:     700;
+      --font-weight-semibold: 600;
+      --font-weight-regular:  400;
+      --line-height-heading:  1.2;
+      --line-height-body:     1.5;
+
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --easing-enter:      ease-out;
+
+      --shadow-card:    0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --shadow-focus:   0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* --- Reset / Global --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+    }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    ul { list-style: none; }
+    button { font-family: inherit; }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute; top: -999px; left: var(--space-5);
+      background: var(--color-primary); color: #FFFFFF;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button);
+      z-index: 9999; font-weight: var(--font-weight-semibold);
+    }
+    .skip-link:focus { top: var(--space-3); color: #FFFFFF; text-decoration: none; }
+
+    /* --------------- App Shell --------------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .main-column {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    /* --------------- Left Sidebar --------------- */
+    .leftnav {
+      background: var(--color-card);
+      border-right: var(--border-default);
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      height: 100vh;
+    }
+    .leftnav-brand {
+      display: flex; align-items: center;
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      flex-shrink: 0;
+    }
+    .leftnav-brand img { height: 32px; width: auto; display: block; }
+    .leftnav-brand .fallback-logo {
+      display: inline-flex; align-items: baseline; gap: 2px;
+      font-size: 22px; font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      letter-spacing: -0.5px;
+    }
+    .leftnav-brand .fallback-logo::before {
+      content: ""; display: inline-block; width: 22px; height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--color-primary-200), var(--color-primary-600));
+      margin-right: 4px; transform: translateY(3px);
+    }
+
+    .leftnav-list { padding: var(--space-3) 0; flex: 1; }
+    .leftnav-item {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      color: var(--leftnav-text);
+      font-size: var(--font-size-body);
+      cursor: pointer; min-height: 44px;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+      transition: color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+    }
+    .leftnav-item:hover {
+      color: var(--color-primary);
+      background: var(--color-primary-25);
+      text-decoration: none;
+    }
+    .leftnav-item.active,
+    .leftnav-item[aria-current="page"] {
+      color: var(--leftnav-text-active);
+      font-weight: var(--font-weight-semibold);
+      border-left-color: var(--color-primary);
+      background: var(--color-primary-25);
+    }
+    .leftnav-item:focus-visible {
+      box-shadow: var(--shadow-focus); outline: none;
+      border-radius: var(--radius-button);
+    }
+    .leftnav-icon { width: 20px; height: 20px; flex-shrink: 0; }
+    .leftnav-chevron {
+      width: 16px; height: 16px;
+      margin-left: auto;
+      color: var(--text-secondary);
+    }
+
+    /* --------------- Top Nav --------------- */
+    .topnav {
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--space-7);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      flex-shrink: 0;
+    }
+    .topnav-search {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-input);
+      color: var(--text-secondary);
+      cursor: pointer; min-height: 40px;
+      min-width: 280px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-search:hover { background: var(--grey-100); }
+    .topnav-search svg { width: 16px; height: 16px; }
+    .topnav-right { display: flex; align-items: center; gap: var(--space-5); }
+
+    .icon-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%; border: none; background: transparent;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--topnav-icon); cursor: pointer; position: relative;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .icon-btn:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    .badge-count {
+      position: absolute; top: 2px; right: 0;
+      min-width: 22px; height: 18px;
+      padding: 0 5px;
+      border-radius: var(--radius-pill);
+      background: var(--color-warning);
+      color: #FFFFFF;
+      font-size: 10px; font-weight: var(--font-weight-bold);
+      display: inline-flex; align-items: center; justify-content: center;
+      line-height: 1;
+    }
+
+    .user-dropdown {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2);
+      border-radius: var(--radius-button); cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .user-dropdown:hover { background: var(--grey-100); }
+    .user-dropdown:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--color-primary);
+      color: #FFFFFF; font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-body);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .topnav-greeting {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+    .topnav-greeting strong {
+      display: block;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+    .user-dropdown svg { width: 12px; height: 12px; color: var(--text-secondary); }
+
+    /* --------------- Main / Page Banner --------------- */
+    .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .main-body { flex: 1; overflow-y: auto; min-height: 0; }
+
+    .page-header-banner {
+      background: linear-gradient(90deg, #006494 0%, #8EC0E2 100%);
+      box-shadow: 0 4px 3px 0 rgba(0,0,0,0.10);
+      min-height: 48px;
+      padding: var(--space-4) var(--space-7);
+      display: flex; align-items: center;
+    }
+    .page-header-title {
+      color: #FFFFFF;
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-heading);
+    }
+
+    /* --------------- Reports Layout --------------- */
+    .reports-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: var(--space-7);
+      padding: var(--space-7);
+    }
+    @media (max-width: 960px) {
+      .reports-layout { grid-template-columns: 1fr; }
+    }
+
+    /* --- Sidebar: Category Panel --- */
+    .cat-panel {
+      background: #EDEFF5;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-5);
+      align-self: start;
+      position: sticky;
+      top: 0;
+      max-height: calc(100vh - 56px - 48px - (var(--space-7) * 2));
+      overflow-y: auto;
+    }
+    .search-row {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+    }
+    .search-row label {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+    }
+    .search-row input {
+      flex: 1;
+      height: 36px;
+      padding: 0 var(--space-3);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: inherit;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: #FFFFFF;
+    }
+    .search-row input:focus { outline: none; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+
+    .cat-list {
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      border: var(--border-default);
+      overflow: hidden;
+    }
+    .cat-list li {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      cursor: pointer;
+      color: var(--text-primary);
+      font-size: var(--font-size-body);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .cat-list li:last-child { border-bottom: none; }
+    .cat-list li:hover, .cat-list li:focus-visible {
+      background: var(--color-primary-25); outline: none;
+    }
+    .cat-list li.active {
+      background: var(--color-primary-50);
+      color: var(--color-primary-700);
+      font-weight: var(--font-weight-semibold);
+    }
+    .cat-list .count { color: var(--text-secondary); }
+    .cat-list li.active .count { color: var(--color-primary-700); }
+
+    /* --- Main: Grouped Report Cards --- */
+    .reports-main { display: flex; flex-direction: column; gap: var(--space-6); }
+
+    .group-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-5) var(--space-6) var(--space-6);
+    }
+    .group-card h2 {
+      margin: 0 0 var(--space-4);
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .group-card h2 .count {
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-regular);
+      margin-left: var(--space-2);
+    }
+
+    /* --- Table --- */
+    .report-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); }
+    .report-table thead th {
+      text-align: left;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: var(--border-default);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+    }
+    .report-table thead th .sort {
+      display: inline-block;
+      margin-left: var(--space-2);
+      color: var(--text-secondary);
+      font-size: 10px; line-height: 1;
+    }
+    .report-table tbody td {
+      padding: var(--space-2);
+      border-bottom: var(--border-divider);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+    .report-table tbody tr:last-child td { border-bottom: none; }
+    .report-table tbody tr:hover { background: var(--table-row-hover); }
+    .report-table .col-action { width: 80px; text-align: right; }
+
+    /* --- Row action menu --- */
+    .row-action-wrapper { position: relative; display: inline-block; }
+    .row-action-btn {
+      width: 32px; height: 32px;
+      border: none; background: transparent; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      color: var(--color-primary);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .row-action-btn:hover { background: var(--color-primary-25); }
+    .row-action-btn:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .row-action-btn svg { width: 18px; height: 18px; }
+
+    .row-action-menu {
+      display: none;
+      position: absolute; right: 0; top: calc(100% + 4px);
+      z-index: 50; min-width: 180px;
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-popover);
+      padding: var(--space-2) 0;
+    }
+    .row-action-menu.open { display: block; }
+    .row-action-menu-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      width: 100%; padding: var(--space-3) var(--space-5);
+      border: none; background: transparent; cursor: pointer;
+      font-family: inherit; font-size: var(--font-size-body);
+      color: var(--text-primary); text-align: left;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .row-action-menu-item:hover { background: var(--color-primary-25); }
+    .row-action-menu-item svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--text-secondary); }
+
+    /* --------------- Page Footer --------------- */
+    .page-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) var(--space-7);
+      background: var(--color-card);
+      border-top: var(--border-default);
+      min-height: 48px;
+      flex-shrink: 0;
+    }
+    .footer-links { display: flex; gap: var(--space-5); }
+    .footer-links a {
+      color: var(--text-hyperlink);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      text-decoration: underline;
+    }
+    .footer-links a:hover { color: var(--text-hyperlink-hover); }
+    .footer-branding {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .footer-branding img { height: 24px; width: auto; }
+
+    /* -----------------------------------------------------------
+       PROPERTIES DRAWER (right-side pane)
+       ----------------------------------------------------------- */
+    .drawer-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      opacity: 0; visibility: hidden;
+      transition: opacity var(--duration-standard) var(--easing-enter),
+                  visibility var(--duration-standard) var(--easing-enter);
+      z-index: 1000;
+    }
+    .drawer-overlay.open { opacity: 1; visibility: visible; }
+
+    .drawer {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(1100px, 92vw);
+      background: var(--color-card);
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.18);
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+      z-index: 1001;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .drawer.open { transform: translateX(0); }
+
+    .drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-5) var(--space-7);
+      border-bottom: var(--border-default);
+      flex-shrink: 0;
+    }
+    .drawer-title {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .drawer-title svg { width: 22px; height: 22px; color: var(--text-primary); }
+
+    .drawer-close {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--color-error);
+      color: #FFFFFF;
+      border: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .drawer-close:hover { background: var(--color-error-deeper); }
+    .drawer-close:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .drawer-close svg { width: 14px; height: 14px; }
+
+    /* --- Tabs --- */
+    .drawer-tabs {
+      display: flex; gap: 0;
+      padding: 0 var(--space-7);
+      border-bottom: var(--border-default);
+      flex-shrink: 0;
+      background: var(--color-card);
+    }
+    .drawer-tab {
+      padding: var(--space-4) var(--space-5);
+      border: none; background: transparent;
+      font-family: inherit;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color var(--duration-micro) var(--easing-enter),
+                  border-color var(--duration-micro) var(--easing-enter);
+    }
+    .drawer-tab:hover { color: var(--text-primary); }
+    .drawer-tab:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; border-radius: 2px 2px 0 0; }
+    .drawer-tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--color-primary-700);
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-6) var(--space-7);
+    }
+    .drawer-panel { display: none; }
+    .drawer-panel.active { display: block; }
+
+    /* --- Form fields --- */
+    .field { margin-bottom: var(--space-6); }
+    .field-label {
+      display: block;
+      font-size: var(--font-size-body);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-3);
+    }
+    .field-label .req { color: var(--color-error); margin-left: 2px; }
+    .field-input,
+    .field-textarea {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: inherit;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+    }
+    .field-input:focus,
+    .field-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-focus);
+    }
+    .field-input[readonly],
+    .field-input:disabled {
+      background: var(--grey-100);
+      color: var(--text-primary);
+      cursor: not-allowed;
+    }
+    .field-textarea { resize: vertical; min-height: 80px; }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-7);
+    }
+    .field-static { font-size: var(--font-size-body); color: var(--text-primary); }
+    .field-static-empty { color: var(--text-secondary); font-style: italic; }
+
+    /* --- Date input with icon --- */
+    .date-field { position: relative; }
+    .date-field svg {
+      position: absolute; right: var(--space-3); top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+    .date-field .field-input { padding-right: var(--space-9); }
+
+    /* --- Audit / Schedule mini-tables --- */
+    .drawer-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body);
+    }
+    .drawer-table thead th {
+      text-align: left;
+      padding: var(--space-3) var(--space-4);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      border-bottom: var(--border-default);
+      white-space: nowrap;
+    }
+    .drawer-table thead th .sort { color: var(--text-secondary); font-size: 10px; margin-left: var(--space-2); }
+    .drawer-table tbody td {
+      padding: var(--space-4);
+      border-bottom: var(--border-divider);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+    .drawer-table .empty-row td {
+      text-align: center;
+      color: var(--text-secondary);
+      padding: var(--space-5);
+    }
+    .drawer-table-wrapper {
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      overflow: auto;
+      max-height: 320px;
+    }
+
+    /* --- Audit controls --- */
+    .audit-search-row {
+      display: flex; align-items: flex-end; gap: var(--space-5);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-6);
+    }
+    .audit-search-row .field { margin-bottom: 0; flex: 1; min-width: 180px; }
+    .audit-search-row .btn-search {
+      height: 40px;
+      padding: 0 var(--space-7);
+      border-radius: var(--radius-button);
+      background: var(--color-primary-700);
+      color: #FFFFFF;
+      border: none;
+      font-family: inherit;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .audit-search-row .btn-search:hover { background: var(--color-primary-800); }
+    .audit-search-row .btn-search:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+
+    .show-entries-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      font-size: var(--font-size-body); color: var(--text-primary);
+    }
+    .entries-select {
+      height: 32px;
+      padding: 0 var(--space-7) 0 var(--space-3);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: inherit;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      cursor: pointer;
+    }
+
+    /* --- Drawer table footer --- */
+    .drawer-table-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) 0 0;
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .drawer-table-footer .pager { display: flex; gap: var(--space-5); }
+    .drawer-table-footer .pager a {
+      color: var(--text-hyperlink);
+      font-weight: var(--font-weight-semibold);
+    }
+    .drawer-table-footer .pager a[aria-disabled="true"] {
+      color: var(--text-disabled); pointer-events: none;
+    }
+
+    /* --- Publish matrix --- */
+    .publish-table thead th { background: var(--color-card); }
+    .publish-table tbody tr:nth-child(even) td { background: var(--grey-50); }
+    .publish-table td.center, .publish-table th.center { text-align: center; }
+    .publish-table input[type="checkbox"] {
+      width: 18px; height: 18px;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    /* Publish tab: full-height table with sticky header */
+    #panel-publish.active {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
+    #panel-publish .drawer-table-wrapper {
+      flex: 1;
+      max-height: none;
+      min-height: 0;
+      overflow: auto;
+    }
+    .publish-table thead th {
+      position: sticky;
+      top: 0;
+      background: var(--color-card);
+      z-index: 2;
+      /* Use inset shadow so the divider stays visible when sticky */
+      box-shadow: inset 0 -1px 0 #E0E0E0;
+      border-bottom: none;
+    }
+
+    /* --- Schedule header row --- */
+    .schedule-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-5);
+    }
+    .schedule-header h3 {
+      margin: 0;
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .btn-primary {
+      height: 40px;
+      padding: 0 var(--space-6);
+      border-radius: var(--radius-button);
+      background: var(--color-primary-700);
+      color: #FFFFFF;
+      border: none;
+      font-family: inherit;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .btn-primary:hover { background: var(--color-primary-800); }
+    .btn-primary:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+
+    /* --- Drawer footer --- */
+    .drawer-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: var(--space-6);
+      padding: var(--space-5) var(--space-7);
+      border-top: var(--border-default);
+      background: var(--color-card);
+      flex-shrink: 0;
+    }
+    .btn-cancel {
+      background: transparent; border: none;
+      color: var(--text-hyperlink);
+      font-family: inherit;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      padding: var(--space-3) var(--space-4);
+    }
+    .btn-cancel:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    .btn-cancel:focus-visible { box-shadow: var(--shadow-focus); outline: none; border-radius: 4px; }
+
+    @media (max-width: 720px) {
+      .field-row { grid-template-columns: 1fr; }
+      .drawer-tabs { padding: 0 var(--space-4); overflow-x: auto; }
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 1024px) {
+      .app-shell { grid-template-columns: 72px 1fr; }
+      .leftnav-item span:not(.leftnav-icon),
+      .leftnav-chevron { display: none; }
+      .leftnav-item { justify-content: center; padding: var(--space-4) var(--space-3); gap: 0; }
+      .leftnav-brand .fallback-logo span { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- --- LEFT SIDEBAR --- -->
+    <nav class="leftnav" aria-label="Side navigation">
+      <a class="leftnav-brand" href="landing.html" aria-label="ProServe home">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 32'%3E%3Crect width='140' height='32' rx='4' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3Ctext x='28' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EProServe%3C/text%3E%3C/svg%3E" alt="ProServe"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+        <span class="fallback-logo" style="display:none;"><span>dvance</span></span>
+      </a>
+      <ul class="leftnav-list" role="list">
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span>Navigation</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="quick_list.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span>QuickList</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="advance_contact_service.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-3-3.87"/><path d="M4 21v-2a4 4 0 013-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Records</span>
+            <svg class="leftnav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+        </li>
+        <li class="leftnav-group" id="nav-settings">
+          <a class="leftnav-item" href="#" aria-expanded="false" aria-controls="settings-sub" onclick="toggleSettings(event)">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            <span>Settings</span>
+            <svg class="leftnav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="leftnav-sub" id="settings-sub" role="list">
+            <li><a class="leftnav-sub-item" href="user_details.html">User Details</a></li>
+            <li><a class="leftnav-sub-item" href="roles_details.html">Roles Details</a></li>
+            <li><a class="leftnav-sub-item" href="list_configuration.html">List Configuration</a></li>
+            <li><a class="leftnav-sub-item" href="dynamic_fields.html">Dynamic Fields</a></li>
+            <li><a class="leftnav-sub-item" href="email_template.html">Email Template</a></li>
+            <li><a class="leftnav-sub-item" href="email_queue.html">Email Queue</a></li>
+            <li><a class="leftnav-sub-item" href="documents_upload.html">Documents Upload</a></li>
+            <li><a class="leftnav-sub-item" href="notification.html">Notification</a></li>
+            <li><a class="leftnav-sub-item" href="#" onclick="return false;">Query Builder</a></li>
+            <li><a class="leftnav-sub-item" href="asset_details.html">Asset Details</a></li>
+            <li><a class="leftnav-sub-item" href="engage_bwv_log.html">FieldSync BWV Log Screen</a></li>
+            <li><a class="leftnav-sub-item" href="talos_log.html">Talos Log</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="leftnav-item active" href="reports.html" aria-current="page">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Reports</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- --- COLUMN 2: Topnav + Banner + Main + Footer --- -->
+    <div class="main-column">
+
+      <!-- --- TOP NAV --- -->
+      <header class="topnav" role="banner">
+        <div class="topnav-search" role="search" tabindex="0" aria-label="Global search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search...</span>
+        </div>
+        <div class="topnav-right">
+          <button class="icon-btn" aria-label="Notifications (2536 new)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <span class="badge-count" aria-hidden="true">2536</span>
+          </button>
+          <div class="user-dropdown" role="button" tabindex="0" aria-haspopup="true" aria-label="User profile: Arumugam">
+            <div class="avatar" aria-hidden="true">A</div>
+            <div class="topnav-greeting">
+              <span>Good Afternoon</span>
+              <strong>Arumugam</strong>
+            </div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- --- MAIN CONTENT --- -->
+      <main class="main-content" id="main-content">
+
+        <!-- Page banner -->
+        <div class="page-header-banner">
+          <h1 class="page-header-title">Reports</h1>
+        </div>
+
+        <div class="main-body">
+
+          <div class="reports-layout">
+
+            <!-- --- Category Sidebar --- -->
+            <aside class="cat-panel" aria-label="Report categories">
+              <div class="search-row">
+                <label for="report-search">Search:</label>
+                <input id="report-search" type="search" aria-label="Search report categories" />
+              </div>
+              <ul class="cat-list" role="listbox" aria-label="Report categories">
+                <li role="option" tabindex="0"><span>ProServe Learn</span><span class="count">(2)</span></li>
+                <li role="option" tabindex="0"><span>Appointed Representative Report</span><span class="count">(1)</span></li>
+                <li role="option" tabindex="0"><span>Availability Report</span><span class="count">(1)</span></li>
+                <li role="option" tabindex="0"><span>Dynamic Report</span><span class="count">(50)</span></li>
+                <li role="option" tabindex="0"><span>Finance</span><span class="count">(5)</span></li>
+                <li role="option" tabindex="0"><span>Fleet</span><span class="count">(1)</span></li>
+                <li role="option" tabindex="0"><span>Leavers Report</span><span class="count">(4)</span></li>
+                <li role="option" tabindex="0"><span>Records</span><span class="count">(3)</span></li>
+                <li role="option" tabindex="0"><span>Vetting Report</span><span class="count">(1)</span></li>
+              </ul>
+            </aside>
+
+            <!-- --- Main: Report Groups --- -->
+            <section class="reports-main" aria-label="Report list">
+
+              <!-- Appointed Representative Report -->
+              <article class="group-card" aria-labelledby="grp-appointed-rep">
+                <h2 id="grp-appointed-rep">Appointed Representative Report <span class="count">(1)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">Appointed Representative</a></td>
+                      <td>FieldSync</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Appointed Representative" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <!-- Availability Report -->
+              <article class="group-card" aria-labelledby="grp-availability">
+                <h2 id="grp-availability">Availability Report <span class="count">(1)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">Availability Confirmation</a></td>
+                      <td>FieldSync</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Availability Confirmation" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <!-- Dynamic Report -->
+              <article class="group-card" aria-labelledby="grp-dynamic">
+                <h2 id="grp-dynamic">Dynamic Report <span class="count">(50)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dynamic-report-body"></tbody>
+                </table>
+              </article>
+
+              <!-- Fleet Report -->
+              <article class="group-card" aria-labelledby="grp-fleet">
+                <h2 id="grp-fleet">Fleet Report <span class="count">(1)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">Fleet Weekly Report</a></td>
+                      <td>Fleet</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Fleet Weekly Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9 15 12 18 15 15"/></svg>
+                              Download – CSV
+                            </button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9 15 12 18 15 15"/></svg>
+                              Download – Excel
+                            </button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                              Properties
+                            </button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                              Run
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <!-- Finance Report -->
+              <article class="group-card" aria-labelledby="grp-finance">
+                <h2 id="grp-finance">Finance Report <span class="count">(5)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">Monthly Cheque Assignment</a></td>
+                      <td>Finance</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Monthly Cheque Assignment" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Finance Weekly Report</a></td>
+                      <td>Finance</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Finance Weekly Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Notification Report</a></td>
+                      <td>Finance</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Notification Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Self-employed Master Data Report</a></td>
+                      <td>Finance</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Self-employed Master Data Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Weekly Report - New Starters</a></td>
+                      <td>Finance</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Weekly Report - New Starters" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <!-- Leavers Report -->
+              <article class="group-card" aria-labelledby="grp-leavers">
+                <h2 id="grp-leavers">Leavers Report <span class="count">(4)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">Civea Leavers Report</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Civea Leavers Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">CB Registry Leavers Report</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for CB Registry Leavers Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">TfL Report</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for TfL Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">General Leavers</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for General Leavers" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <!-- ProServe Learn -->
+              <article class="group-card" aria-labelledby="grp-advance-learn">
+                <h2 id="grp-advance-learn">ProServe Learn <span class="count">(2)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">ProServe Learn New Starter</a></td>
+                      <td>ProServe Learn</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for ProServe Learn New Starter" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">ProServe Learn Suspensions</a></td>
+                      <td>ProServe Learn</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for ProServe Learn Suspensions" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <!-- Vetting Report -->
+              <article class="group-card" aria-labelledby="grp-vetting">
+                <h2 id="grp-vetting">Vetting Report <span class="count">(1)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">Vetting Report</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Vetting Report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <!-- Records -->
+              <article class="group-card" aria-labelledby="grp-records">
+                <h2 id="grp-records">Records <span class="count">(3)</span></h2>
+                <table class="report-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Title <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col">Owner <span class="sort" aria-hidden="true">??</span></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a href="#">All Active Records</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for All Active Records" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">All Enforcement Data</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for All Enforcement Data" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Personal report</a></td>
+                      <td>Admin</td>
+                      <td class="col-action">
+                        <div class="row-action-wrapper">
+                          <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for Personal report" onclick="toggleRowMenu(this, event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+                          </button>
+                          <div class="row-action-menu" role="menu">
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                            <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </article>
+
+            </section><!-- /.reports-main -->
+          </div><!-- /.reports-layout -->
+        </div><!-- /.main-body -->
+
+        <!-- --- PAGE FOOTER --- -->
+        <footer class="page-footer" role="contentinfo">
+          <div class="footer-links">
+            <a href="#" onclick="return false;">ProServe Learn</a>
+          </div>
+          <div class="footer-branding">
+            <span>Powered by</span>
+            <img src="images/acme-logo@small-logo.png" alt="Acme"
+                 onerror="this.replaceWith(Object.assign(document.createElement('strong'),{textContent:'acme',style:'color:#22497D;font-weight:700;'}));" />
+          </div>
+        </footer>
+
+      </main>
+
+    </div><!-- /.main-column -->
+  </div>
+
+  <!-- -----------------------------------------------------------
+       PROPERTIES DRAWER
+       ----------------------------------------------------------- -->
+  <div class="drawer-overlay" id="propsOverlay" aria-hidden="true"></div>
+  <aside class="drawer" id="propsDrawer"
+         role="dialog" aria-modal="true" aria-labelledby="propsTitle"
+         aria-hidden="true" tabindex="-1">
+    <header class="drawer-header">
+      <h2 class="drawer-title" id="propsTitle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+        Properties
+      </h2>
+      <button type="button" class="drawer-close" id="propsClose" aria-label="Close Properties">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="drawer-tabs" role="tablist" aria-label="Properties sections">
+      <button type="button" class="drawer-tab active" role="tab" aria-selected="true"  aria-controls="panel-general"  data-tab="general">General</button>
+      <button type="button" class="drawer-tab"        role="tab" aria-selected="false" aria-controls="panel-publish"  data-tab="publish">Publish</button>
+      <button type="button" class="drawer-tab"        role="tab" aria-selected="false" aria-controls="panel-audit"    data-tab="audit">Audit</button>
+      <button type="button" class="drawer-tab"        role="tab" aria-selected="false" aria-controls="panel-schedule" data-tab="schedule">Schedule</button>
+    </div>
+
+    <div class="drawer-body">
+
+      <!-- --- General --- -->
+      <section class="drawer-panel active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
+        <div class="field">
+          <label class="field-label" for="prop-title">Title</label>
+          <input class="field-input" id="prop-title" type="text" readonly value="" />
+        </div>
+        <div class="field">
+          <label class="field-label" for="prop-desc">Description</label>
+          <textarea class="field-textarea" id="prop-desc" rows="3">hgh</textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <span class="field-label">Created</span>
+            <span class="field-static field-static-empty">&nbsp;</span>
+          </div>
+          <div class="field">
+            <span class="field-label">Last Updated</span>
+            <span class="field-static">Admin by 04/06/2025 01:47:56 PM</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- --- Publish --- -->
+      <section class="drawer-panel" id="panel-publish" role="tabpanel" aria-labelledby="tab-publish" hidden>
+        <div class="drawer-table-wrapper">
+          <table class="drawer-table publish-table" id="publish-table">
+            <thead>
+              <tr>
+                <th scope="col">Role Name</th>
+                <th scope="col" class="center">Run</th>
+                <th scope="col" class="center">Properties</th>
+                <th scope="col" class="center">Download</th>
+                <th scope="col" class="center">Sch. Delete</th>
+              </tr>
+            </thead>
+            <tbody><!-- populated by JS --></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- --- Audit --- -->
+      <section class="drawer-panel" id="panel-audit" role="tabpanel" aria-labelledby="tab-audit" hidden>
+        <div class="audit-search-row">
+          <div class="field">
+            <label class="field-label" for="audit-from">From Date<span class="req">*</span></label>
+            <div class="date-field">
+              <input class="field-input" id="audit-from" type="text" value="20/05/2026" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="audit-to">To Date<span class="req">*</span></label>
+            <div class="date-field">
+              <input class="field-input" id="audit-to" type="text" value="27/05/2026" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+          </div>
+          <button type="button" class="btn-search">Search</button>
+        </div>
+
+        <div class="show-entries-row">
+          <span>Show</span>
+          <select class="entries-select" aria-label="Entries per page">
+            <option>10</option><option>25</option><option>50</option><option>100</option>
+          </select>
+          <span>entries</span>
+        </div>
+
+        <div class="drawer-table-wrapper">
+          <table class="drawer-table">
+            <thead>
+              <tr>
+                <th scope="col">Time Stamp</th>
+                <th scope="col">User</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="empty-row"><td colspan="3">No data available in table</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="drawer-table-footer">
+          <span>Showing 0 to 0 of 0 entries</span>
+          <div class="pager">
+            <a href="#" aria-disabled="true" onclick="return false;">Previous</a>
+            <a href="#" aria-disabled="true" onclick="return false;">Next</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- --- Schedule --- -->
+      <section class="drawer-panel" id="panel-schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden>
+        <div class="schedule-header">
+          <h3>Scheduled List</h3>
+          <button type="button" class="btn-primary">Add Schedule</button>
+        </div>
+
+        <div class="drawer-table-wrapper">
+          <table class="drawer-table">
+            <thead>
+              <tr>
+                <th scope="col">From Date <span class="sort" aria-hidden="true">??</span></th>
+                <th scope="col">To Date <span class="sort" aria-hidden="true">??</span></th>
+                <th scope="col">Recipients</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>20/05/2023</td>
+                <td>23/05/2023</td>
+                <td>prasanthhull@gmail.com</td>
+              </tr>
+              <tr>
+                <td>29/10/2023</td>
+                <td>13/11/2023</td>
+                <td>praveen.m@logicvalley.in,vanjimuthu.m@logicvalley.in,dilipkumar@logicvalley.in</td>
+              </tr>
+              <tr>
+                <td>31/10/2023</td>
+                <td>13/06/2025</td>
+                <td>praveen.m@logicvalley.in</td>
+              </tr>
+              <tr>
+                <td>07/11/2023</td>
+                <td>01/12/2023</td>
+                <td>prasanth.k@logicvalley.in,praveen.m@logicvalley.in,Umamaheswari.B@logicvalley.in,vanjimuthu.m@logicvalley.in</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="drawer-table-footer">
+          <span>Showing 1 to 4 of 4 entries</span>
+        </div>
+      </section>
+
+    </div><!-- /.drawer-body -->
+
+    <footer class="drawer-footer">
+      <button type="button" class="btn-cancel" id="propsCancel">Cancel</button>
+      <button type="button" class="btn-primary" id="propsSave">Save</button>
+    </footer>
+  </aside>
+
+  <script>
+    /* --- Category list: filter + active state --- */
+    (function () {
+      const items = document.querySelectorAll('.cat-list li');
+      items.forEach(item => {
+        item.addEventListener('click', () => selectItem(item));
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectItem(item); }
+        });
+      });
+      function selectItem(item) {
+        items.forEach(i => { i.classList.remove('active'); i.removeAttribute('aria-selected'); });
+        item.classList.add('active');
+        item.setAttribute('aria-selected', 'true');
+        scrollToGroup(item);
+      }
+
+      // Build a lookup of category label -> group-card element by matching the
+      // h2 text (with the (n) count stripped) against the cat-list item's label.
+      const groupByLabel = new Map();
+      document.querySelectorAll('.group-card').forEach(card => {
+        const h2 = card.querySelector('h2');
+        if (!h2) return;
+        const label = (h2.firstChild ? h2.firstChild.textContent : h2.textContent)
+          .replace(/\s*\(\d+\)\s*$/, '')
+          .trim()
+          .toLowerCase();
+        if (label) groupByLabel.set(label, card);
+      });
+
+      function scrollToGroup(item) {
+        const label = (item.querySelector('span')
+          ? item.querySelector('span').textContent
+          : item.textContent).trim().toLowerCase();
+        const card = groupByLabel.get(label);
+        if (!card) return;
+        const scroller = document.querySelector('.main-body');
+        if (!scroller) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+        // Scroll the .main-body so the card's top aligns with the scroller top
+        const cardRect = card.getBoundingClientRect();
+        const scrollerRect = scroller.getBoundingClientRect();
+        const delta = cardRect.top - scrollerRect.top;
+        scroller.scrollTo({ top: scroller.scrollTop + delta - 8, behavior: 'smooth' });
+      }
+      const search = document.getElementById('report-search');
+      if (search) {
+        search.addEventListener('input', () => {
+          const q = search.value.trim().toLowerCase();
+          items.forEach(i => {
+            i.style.display = (!q || i.textContent.toLowerCase().includes(q)) ? '' : 'none';
+          });
+        });
+      }
+    })();
+
+    /* --- Row action menus (3-dot dropdown) --- */
+    function toggleRowMenu(btn, e) {
+      e.stopPropagation();
+      const menu = btn.nextElementSibling;
+      const isOpen = menu.classList.contains('open');
+      closeAllRowMenus();
+      if (!isOpen) {
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+    function closeAllRowMenus() {
+      document.querySelectorAll('.row-action-menu.open').forEach(m => m.classList.remove('open'));
+      document.querySelectorAll('.row-action-btn[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    }
+    document.addEventListener('click', closeAllRowMenus);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllRowMenus(); });
+
+    /* --- Dynamic Report rows (data-driven, 50 entries) --- */
+    (function renderDynamicReport() {
+      const rows = [
+        ['LogicValley Personal Report', 'Admin'],
+        ['Karthi', 'Admin'],
+        ['new report', 'Admin'],
+        ['Karthi2724 - Copy', 'Karthi Nagamuthu'],
+        ['test Report - Copy', 'Karthi Nagamuthu'],
+        ['test Report - Copy - Copy', 'Karthi Nagamuthu'],
+        ['SET T 1', 'Admin'],
+        ['New compliance', 'Karthi Nagamuthu'],
+        ['test4b', 'Admin'],
+        ['new report D', 'Admin'],
+        ['ndsmd', 'Karthi Nagamuthu'],
+        ['Karthi2724 - Copy1', 'Karthi Nagamuthu'],
+        ['Karthi2724 - test', 'Karthi Nagamuthu'],
+        ['test report 1', 'Karthi Nagamuthu'],
+        ['Slow test', 'Simon Pousey'],
+        ['testReport - Copy', 'Karthi Nagamuthu'],
+        ['BMV 4', 'Karthi Nagamuthu'],
+        ['New contract1', 'Karthi Nagamuthu'],
+        ['BMV 1', 'Admin'],
+        ['BMV test', 'Karthi Nagamuthu'],
+        ['April test - Copy', 'Karthi Nagamuthu'],
+        ['report check1', 'Karthi Nagamuthu'],
+        ['Demo Report', 'Admin'],
+        ['testadvance', 'Admin'],
+        ['personal detail - Copy', 'User j'],
+        ['personal detail - Copy - Copy', 'User j'],
+        ['test advance', 'Karthi Nagamuthu'],
+        ['test report', 'Karthi Nagamuthu'],
+        ['test report - Copy1', 'Karthi Nagamuthu'],
+        ['sdsdsd', 'Karthi Nagamuthu'],
+        ['test', 'Karthi Nagamuthu'],
+        ['test1', 'Karthi Nagamuthu'],
+        ['test1 - Copy', 'Karthi Nagamuthu'],
+        ['final report test', 'Karthi Nagamuthu'],
+        ['BMV 1 - Copy', 'Unconditional'],
+        ['Personal Details by Admin', 'Dinesh Kumar'],
+        ['Training Details', 'Dinesh Kumar'],
+        ['query build data', 'prasanth'],
+        ['personaltest', 'prasanth'],
+        ['testreport', 'Unconditional'],
+        ['Personal details new', 'prasanth K'],
+        ['Testing', 'Pradeep'],
+        ['abhyacticleading', 'sanjeevkumar M'],
+        ['T6y?', 'Pradeep'],
+        ['tee1MR', 'Sumesa NS'],
+        ['test1est', 'sanjeevkumar M'],
+        ['testbillerypal', 'sanjeevkumar M'],
+        ['dlepit', 'sanjeevkumar M'],
+        ['dabb', 'Macey'],
+        ['final summary', 'Admin'],
+      ];
+
+      const tbody = document.getElementById('dynamic-report-body');
+      if (!tbody) return;
+      const escape = (s) => String(s).replace(/[&<>"']/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[c]));
+
+      tbody.innerHTML = rows.map(([title, owner]) => `
+        <tr>
+          <td><a href="#">${escape(title)}</a></td>
+          <td>${escape(owner)}</td>
+          <td class="col-action">
+            <div class="row-action-wrapper">
+              <button type="button" class="row-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for ${escape(title)}" onclick="toggleRowMenu(this, event)">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+              </button>
+              <div class="row-action-menu" role="menu">
+                <button type="button" class="row-action-menu-item" role="menuitem">Download – CSV</button>
+                <button type="button" class="row-action-menu-item" role="menuitem">Download – Excel</button>
+                <button type="button" class="row-action-menu-item" role="menuitem">Properties</button>
+                <button type="button" class="row-action-menu-item" role="menuitem">Run</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    })();
+
+    /* --- Inject proper icons into all row-action menu items --- */
+    (function injectMenuIcons() {
+      const ICONS = {
+        'Download – CSV':
+          // Document with "CSV" label
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>' +
+          '<polyline points="14 2 14 8 20 8"/>' +
+          '<text x="7" y="18" font-size="6" font-weight="700" fill="currentColor" stroke="none">CSV</text>' +
+          '</svg>',
+        'Download – Excel':
+          // Spreadsheet grid (table) icon
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<rect x="3" y="3" width="18" height="18" rx="2"/>' +
+          '<line x1="3" y1="9" x2="21" y2="9"/>' +
+          '<line x1="3" y1="15" x2="21" y2="15"/>' +
+          '<line x1="9" y1="3" x2="9" y2="21"/>' +
+          '<line x1="15" y1="3" x2="15" y2="21"/>' +
+          '</svg>',
+        'Properties':
+          // Sliders / settings adjust
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<line x1="4" y1="21" x2="4" y2="14"/>' +
+          '<line x1="4" y1="10" x2="4" y2="3"/>' +
+          '<line x1="12" y1="21" x2="12" y2="12"/>' +
+          '<line x1="12" y1="8" x2="12" y2="3"/>' +
+          '<line x1="20" y1="21" x2="20" y2="16"/>' +
+          '<line x1="20" y1="12" x2="20" y2="3"/>' +
+          '<line x1="1" y1="14" x2="7" y2="14"/>' +
+          '<line x1="9" y1="8" x2="15" y2="8"/>' +
+          '<line x1="17" y1="16" x2="23" y2="16"/>' +
+          '</svg>',
+        'Run':
+          // Play triangle (filled)
+          '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">' +
+          '<polygon points="6 4 20 12 6 20 6 4"/>' +
+          '</svg>',
+      };
+
+      document.querySelectorAll('.row-action-menu-item').forEach(item => {
+        const label = item.textContent.trim();
+        const icon = ICONS[label];
+        if (!icon) return;
+        // Reset the button's content with icon + label (overwrites any prior icon)
+        item.innerHTML = icon + '<span>' + label + '</span>';
+      });
+    })();
+
+    /* --- Properties drawer --- */
+    (function initPropertiesDrawer() {
+      const drawer  = document.getElementById('propsDrawer');
+      const overlay = document.getElementById('propsOverlay');
+      const closeBtn = document.getElementById('propsClose');
+      const cancelBtn = document.getElementById('propsCancel');
+      const saveBtn = document.getElementById('propsSave');
+      const titleInput = document.getElementById('prop-title');
+      const tabs = drawer.querySelectorAll('.drawer-tab');
+      const panels = drawer.querySelectorAll('.drawer-panel');
+      let lastTrigger = null;
+
+      // Build the Publish role matrix
+      const roles = [
+        ['Super User',       true,  true,  true,  true],
+        ['Contractor',       true,  true,  true,  true],
+        ['Engage Contractor',false, false, false, false],
+        ['Operational User', false, false, false, false],
+        ['Basic User',       false, false, false, false],
+        ['Admin User',       false, false, false, false],
+        ['Multi Role Test 1',false, false, false, false],
+        ['Multi Role Test 2',false, false, false, false],
+        ['Talos Admin',      false, false, false, false],
+        ['new Role',         false, false, false, false],
+        ['TEST',             false, false, false, false],
+        ['Admin 1',          false, false, false, false],
+        ['PAYE',             false, false, false, false],
+        ['AdvanceTest',      false, false, false, false],
+      ];
+      const escape = (s) => String(s).replace(/[&<>"']/g, c =>
+        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const pubBody = document.querySelector('#publish-table tbody');
+      if (pubBody) {
+        pubBody.innerHTML = roles.map(([name, run, props, dl, schDel], i) => `
+          <tr>
+            <td>${escape(name)}</td>
+            <td class="center"><input type="checkbox" aria-label="Run for ${escape(name)}" ${run?'checked':''}/></td>
+            <td class="center"><input type="checkbox" aria-label="Properties for ${escape(name)}" ${props?'checked':''}/></td>
+            <td class="center"><input type="checkbox" aria-label="Download for ${escape(name)}" ${dl?'checked':''}/></td>
+            <td class="center"><input type="checkbox" aria-label="Sch. Delete for ${escape(name)}" ${schDel?'checked':''}/></td>
+          </tr>
+        `).join('');
+      }
+
+      function activateTab(tabName) {
+        tabs.forEach(t => {
+          const active = t.dataset.tab === tabName;
+          t.classList.toggle('active', active);
+          t.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          const active = p.id === 'panel-' + tabName;
+          p.classList.toggle('active', active);
+          if (active) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+        });
+      }
+      tabs.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));
+
+      function openDrawer(reportTitle, trigger) {
+        lastTrigger = trigger || null;
+        titleInput.value = reportTitle || '';
+        activateTab('general');
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        drawer.classList.add('open');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // Focus the close button (safer than a disabled input)
+        setTimeout(() => closeBtn.focus(), 50);
+      }
+      function closeDrawer() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+      }
+
+      closeBtn.addEventListener('click', closeDrawer);
+      cancelBtn.addEventListener('click', closeDrawer);
+      overlay.addEventListener('click', closeDrawer);
+      saveBtn.addEventListener('click', () => {
+        // Prototype: just close on Save
+        closeDrawer();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+      });
+
+      // Delegate: any "Properties" menu-item click opens the drawer with that row's report title
+      document.addEventListener('click', (e) => {
+        const item = e.target.closest('.row-action-menu-item');
+        if (!item) return;
+        const label = (item.textContent || '').trim();
+        if (label !== 'Properties') return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        // Find the row's report title (first column link or text)
+        const tr = item.closest('tr');
+        let title = '';
+        if (tr) {
+          const firstCell = tr.querySelector('td');
+          if (firstCell) title = firstCell.textContent.trim();
+        }
+        // Identify the triggering 3-dot button so we can return focus to it
+        const trigger = tr ? tr.querySelector('.row-action-btn') : null;
+        closeAllRowMenus();
+        openDrawer(title, trigger);
+      });
+    })();
+  </script>
+  <style>
+    .leftnav-group .leftnav-caret { margin-left:auto; width:14px; height:14px; transition: transform .15s; flex-shrink:0; }
+    .leftnav-group.is-open > .leftnav-item .leftnav-caret { transform: rotate(180deg); }
+    .leftnav-sub { display:none; padding:4px 0 8px; background:#FAFAFA; list-style:none; margin:0; }
+    .leftnav-group.is-open .leftnav-sub { display:block; }
+    .leftnav-sub-item { display:flex; align-items:center; padding:8px 16px 8px 52px; color:#212121; font-size:14px; text-decoration:underline; text-decoration-color:transparent; min-height:36px; border-left:3px solid transparent; transition:color .15s, background .15s, text-decoration-color .15s; }
+    .leftnav-sub-item:hover { color:#3276CF; background:#F2F5FA; text-decoration-color:#3276CF; }
+    .leftnav-sub-item[aria-current="page"], .leftnav-sub-item.active { color:#275798; font-weight:600; border-left-color:#3276CF; background:#F2F5FA; text-decoration-color:#275798; }
+    @media (max-width:1024px){ .leftnav-sub, .leftnav-group .leftnav-caret { display:none !important; } }
+  </style>
+  <script>function toggleSettings(e){
+  e.preventDefault();
+  var g = document.getElementById('nav-settings');
+  if (!g) return;
+  var i = g.querySelector('.leftnav-item');
+  var open = g.classList.toggle('is-open');
+  if (i) i.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+(function initHoverExpandLeftnav(){
+  var DESKTOP_MEDIA = '(min-width: 1025px)';
+  var COLLAPSED_CLASS = 'leftnav-collapsed';
+  var COLLAPSED_BRAND_SRC = 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E';
+
+  function isDesktop() {
+    return window.matchMedia(DESKTOP_MEDIA).matches;
+  }
+
+  function injectCollapsedStyle() {
+    if (document.getElementById('leftnav-collapsible-style')) return;
+    var style = document.createElement('style');
+    style.id = 'leftnav-collapsible-style';
+    style.textContent = [
+      '.app-shell.leftnav-collapsed{grid-template-columns:72px 1fr;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand{padding:var(--space-5, 12px);justify-content:center;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand img{height:24px;width:24px;object-fit:contain;}',
+      '.app-shell.leftnav-collapsed .leftnav-item span:not(.leftnav-icon),',
+      '.app-shell.leftnav-collapsed .leftnav-caret,',
+      '.app-shell.leftnav-collapsed .leftnav-chevron,',
+      '.app-shell.leftnav-collapsed .leftnav-sub,',
+      '.app-shell.leftnav-collapsed .leftnav-submenu{display:none !important;}',
+      '.app-shell.leftnav-collapsed .leftnav-item{justify-content:center;padding:var(--space-4,12px) var(--space-3,8px);gap:0;}'
+    ].join('');
+    document.head.appendChild(style);
+  }
+
+  function init() {
+    var shell = document.querySelector('.app-shell');
+    var leftnav = document.querySelector('.leftnav');
+    var brandImg = document.querySelector('.leftnav-brand img');
+    if (!shell || !leftnav) return;
+
+    injectCollapsedStyle();
+
+    var expandedBrandSrc = brandImg ? brandImg.getAttribute('src') : '';
+
+    function syncBrandImage() {
+      if (!brandImg) return;
+      if (shell.classList.contains(COLLAPSED_CLASS) && isDesktop()) {
+        brandImg.setAttribute('src', COLLAPSED_BRAND_SRC);
+      } else if (expandedBrandSrc) {
+        brandImg.setAttribute('src', expandedBrandSrc);
+      }
+    }
+
+    leftnav.addEventListener('click', function(event) {
+      var item = event.target.closest('.leftnav-item, .leftnav-sub-item, .leftnav-submenu-item');
+      if (!item || !isDesktop()) return;
+
+      var clickedIcon = !!event.target.closest('.leftnav-icon');
+      if (shell.classList.contains(COLLAPSED_CLASS) && clickedIcon) {
+        event.preventDefault();
+        shell.classList.remove(COLLAPSED_CLASS);
+        syncBrandImage();
+        return;
+      }
+
+      var isSettingsToggle = item.matches('.leftnav-item[aria-controls="settings-sub"]');
+      if (isSettingsToggle) return;
+      shell.classList.add(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    window.addEventListener('resize', function() {
+      if (isDesktop()) {
+        syncBrandImage();
+        return;
+      }
+      shell.classList.remove(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    syncBrandImage();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();</script>
+  <script src="notification-panel.js"></script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

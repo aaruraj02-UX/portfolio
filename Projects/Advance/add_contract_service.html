@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProServe — Add Contract Service</title>
+  <style>
+    /* -----------------------------------------------------------
+       MET-DS-V2 Design Tokens — Full :root block
+       ----------------------------------------------------------- */
+    :root {
+      /* --- Brand & Primary Scale --- */
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+
+      /* --- Semantic Colour Aliases --- */
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+
+      /* --- Text --- */
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      /* --- Grey Scale --- */
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      /* --- State — Success --- */
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+
+      /* --- State — Error --- */
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+
+      /* --- State — Warning --- */
+      --color-warning:         #FF9800;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+      --orange-800:            #E56800;
+
+      /* --- Navigation --- */
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --leftnav-icon:          #212121;
+      --leftnav-icon-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-text-active:    #3276CF;
+      --topnav-icon:           #757575;
+      --topnav-icon-active:    #3276CF;
+      --topnav-icon-hover:     #616161;
+
+      /* --- Borders & Radius --- */
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           8px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      /* --- Spacing (8pt grid) --- */
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+      --space-11:  56px;
+      --space-12:  64px;
+
+      /* --- Typography --- */
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:    700;
+      --font-weight-semibold: 600;
+      --font-weight-regular:  400;
+      --line-height-heading: 1.2;
+      --line-height-body:    1.5;
+
+      /* --- Motion --- */
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter:      ease-out;
+      --easing-exit:       ease-in;
+
+      /* --- Shadows --- */
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* -----------------------------------------------------------
+       RESET & GLOBAL
+       ----------------------------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+    }
+
+    /* Skip link (WCAG 2.4.1) */
+    .skip-link {
+      position: absolute;
+      top: -999px;
+      left: var(--space-5);
+      background: var(--color-primary);
+      color: #FFFFFF;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button);
+      z-index: 9999;
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+    }
+    .skip-link:focus { top: var(--space-3); }
+
+    /* -----------------------------------------------------------
+       LAYOUT — App Shell (2-column grid)
+       ----------------------------------------------------------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Column 2 wrapper */
+    .main-column {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    /* --- Top Navigation Bar --- */
+    .topnav {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-7);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      flex-shrink: 0;
+    }
+    .topnav-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+    }
+    .topnav-search {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      color: var(--text-secondary);
+      font-size: var(--font-size-body);
+      cursor: pointer;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-input);
+      transition: background var(--duration-micro) var(--easing-enter);
+      min-height: 44px;
+    }
+    .topnav-search:hover { background: var(--grey-100); }
+    .topnav-search svg { width: 16px; height: 16px; }
+
+    .topnav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+    }
+    .topnav-greeting {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      text-align: right;
+      line-height: 1.3;
+    }
+    .topnav-greeting strong {
+      display: block;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* --- Icon Button --- */
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--topnav-icon);
+      cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .icon-btn:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-warning);
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      cursor: pointer;
+      padding: var(--space-2);
+      border-radius: var(--radius-button);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .user-dropdown:hover { background: var(--grey-100); }
+    .user-dropdown svg { width: 12px; height: 12px; color: var(--text-secondary); }
+
+    /* --- Left Sidebar (Column 1) --- */
+    .leftnav {
+      background: var(--color-card);
+      border-right: var(--border-default);
+      grid-row: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      height: 100vh;
+    }
+    .leftnav-brand {
+      display: flex;
+      align-items: center;
+      padding: var(--space-5) var(--space-5);
+      text-decoration: none;
+      flex-shrink: 0;
+      border-bottom: var(--border-divider);
+    }
+    .leftnav-brand img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    .leftnav-list {
+      list-style: none;
+      padding: var(--space-3) 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .leftnav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      color: var(--leftnav-text);
+      text-decoration: none;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      transition: color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+      cursor: pointer;
+      min-height: 44px;
+      border-left: 3px solid transparent;
+    }
+    .leftnav-item:hover {
+      color: var(--color-primary);
+      background: var(--color-primary-25);
+    }
+    .leftnav-item[aria-current="page"],
+    .leftnav-item.active {
+      color: var(--leftnav-text-active);
+      font-weight: var(--font-weight-semibold);
+      border-left-color: var(--color-primary);
+      background: var(--color-primary-25);
+    }
+    .leftnav-item:focus-visible {
+      box-shadow: var(--shadow-focus);
+      outline: none;
+      border-radius: var(--radius-button);
+    }
+    .leftnav-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .leftnav-chevron {
+      width: 16px;
+      height: 16px;
+      margin-left: auto;
+      color: var(--text-secondary);
+      transition: transform var(--duration-micro) var(--easing-enter);
+    }
+    .leftnav-item.expanded .leftnav-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Submenu */
+    .leftnav-submenu {
+      list-style: none;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height var(--duration-standard) var(--easing-enter);
+    }
+    .leftnav-submenu.open { max-height: 200px; }
+    .leftnav-submenu-item {
+      display: flex;
+      align-items: center;
+      padding: var(--space-3) var(--space-5) var(--space-3) 52px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-body);
+      cursor: pointer;
+      min-height: 40px;
+      transition: color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+    }
+    .leftnav-submenu-item:hover { color: var(--color-primary); background: var(--color-primary-25); }
+    .leftnav-submenu-item.active {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+    .leftnav-submenu-item:focus-visible {
+      box-shadow: var(--shadow-focus);
+      outline: none;
+      border-radius: var(--radius-button);
+    }
+    .leftnav-submenu-item .leftnav-chevron {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* --- Main Content --- */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .main-body {
+      flex: 1;
+      padding: 0;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    /* -----------------------------------------------------------
+       PAGE HEADER BANNER
+       ----------------------------------------------------------- */
+    .page-header-banner {
+      background: var(--Header-Bar, linear-gradient(90deg, #006494 0%, #8EC0E2 100%));
+      box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-7);
+      min-height: 48px;
+    }
+    .page-header-title {
+      color: #FFFFFF;
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-heading);
+    }
+    .page-header-title span {
+      font-weight: var(--font-weight-regular);
+    }
+
+    /* -----------------------------------------------------------
+       BREADCRUMB
+       ----------------------------------------------------------- */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-5) var(--space-7);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .breadcrumb a {
+      color: var(--text-hyperlink);
+      text-decoration: none;
+      font-weight: var(--font-weight-semibold);
+    }
+    .breadcrumb a:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    .breadcrumb a:focus-visible { box-shadow: var(--shadow-focus); outline: none; border-radius: 2px; }
+    .breadcrumb-separator {
+      color: var(--grey-400);
+      font-size: 10px;
+    }
+    .breadcrumb-current {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* -----------------------------------------------------------
+       BUTTONS (MET-DS-V2)
+       ----------------------------------------------------------- */
+    .btn-primary, .btn-secondary, .btn-danger, .btn-text {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-7);
+      border-radius: var(--radius-button);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.25;
+      cursor: pointer;
+      border: none;
+      min-height: 44px;
+      transition: background var(--duration-micro) var(--easing-enter),
+                  box-shadow var(--duration-micro) var(--easing-enter);
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: #FFFFFF;
+    }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-primary:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .btn-primary:disabled { background: var(--color-disabled); cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--color-card);
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-secondary:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .btn-secondary:disabled { border-color: var(--color-disabled); color: var(--text-disabled); cursor: not-allowed; }
+    .btn-danger {
+      background: var(--color-error);
+      color: #FFFFFF;
+    }
+    .btn-danger:hover { background: var(--color-error-dark); }
+    .btn-danger:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .btn-text {
+      background: transparent;
+      color: var(--color-primary);
+      padding: var(--space-3) var(--space-5);
+    }
+    .btn-text:hover { background: var(--color-primary-25); }
+    .btn-text:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+
+    /* -----------------------------------------------------------
+       FORM CARD
+       ----------------------------------------------------------- */
+    .form-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      margin: 0 var(--space-7) var(--space-7);
+      overflow: hidden;
+    }
+    .form-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-5) var(--space-7);
+      border-bottom: var(--border-divider);
+    }
+    .form-card-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .form-card-subtitle {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      margin-top: var(--space-1);
+    }
+    .form-card-body {
+      padding: var(--space-7);
+    }
+    .form-card-footer {
+      display: flex;
+      gap: var(--space-3);
+      justify-content: flex-end;
+      padding: var(--space-5) var(--space-7);
+      border-top: var(--border-divider);
+      background: var(--grey-50);
+    }
+
+    /* -----------------------------------------------------------
+       FORM SECTIONS
+       ----------------------------------------------------------- */
+    .form-section {
+      margin-bottom: var(--space-8);
+    }
+    .form-section:last-child {
+      margin-bottom: 0;
+    }
+    .form-section-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-5);
+      padding-bottom: var(--space-3);
+      border-bottom: var(--border-divider);
+    }
+
+    /* -----------------------------------------------------------
+       FORM FIELDS
+       ----------------------------------------------------------- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5) var(--space-7);
+    }
+    .form-grid-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-5) var(--space-7);
+    }
+    .form-grid .full-width,
+    .form-grid-3col .full-width {
+      grid-column: 1 / -1;
+    }
+    .form-field {
+      margin-bottom: 0;
+    }
+    .form-label {
+      display: block;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .required { color: var(--color-error); }
+    .form-input {
+      width: 100%;
+      height: 44px;
+      padding: 0 var(--space-4);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color var(--duration-micro) var(--easing-enter);
+    }
+    .form-input:focus { border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+    .form-input:disabled { background: var(--grey-100); color: var(--text-disabled); cursor: not-allowed; }
+    .form-input::placeholder { color: var(--grey-400); }
+    .form-hint { font-size: var(--font-size-caption); color: var(--text-secondary); margin-top: var(--space-1); }
+
+    /* Phone country-code prefix */
+    .phone-input-group { display: flex; align-items: stretch; }
+    .phone-prefix {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 var(--space-3); min-width: 48px;
+      background: var(--grey-100); color: var(--text-primary);
+      border: 1.5px solid var(--grey-300); border-right: none;
+      border-radius: var(--radius-input) 0 0 var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body); font-weight: 500;
+      user-select: none;
+    }
+    .phone-input-group .form-input {
+      border-radius: 0 var(--radius-input) var(--radius-input) 0;
+      flex: 1;
+    }
+    .form-field--error .form-input { border-color: var(--color-error); }
+    .form-error {
+      font-size: var(--font-size-caption);
+      color: var(--color-error);
+      margin-top: var(--space-1);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .form-error svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: var(--space-8);
+    }
+    textarea.form-input {
+      height: auto;
+      min-height: 88px;
+      padding: var(--space-4);
+      resize: vertical;
+    }
+
+    /* Checkbox & Radio group */
+    .checkbox-group,
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-5);
+    }
+    .checkbox-label,
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      cursor: pointer;
+      min-height: 44px;
+    }
+    .checkbox-label input,
+    .radio-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    /* -----------------------------------------------------------
+       PAGE FOOTER
+       ----------------------------------------------------------- */
+    .page-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-7);
+      background: var(--color-card);
+      border-top: var(--border-default);
+      min-height: 48px;
+      flex-shrink: 0;
+    }
+    .footer-links {
+      display: flex;
+      gap: var(--space-5);
+    }
+    .footer-links a {
+      color: var(--text-hyperlink);
+      text-decoration: none;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+    }
+    .footer-links a:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    .footer-links a:focus-visible { box-shadow: var(--shadow-focus); outline: none; border-radius: 2px; }
+    .footer-branding {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .footer-branding img { height: 24px; width: auto; }
+
+    /* -----------------------------------------------------------
+       TOAST
+       ----------------------------------------------------------- */
+    .toast {
+      position: fixed;
+      bottom: var(--space-7);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      background: var(--grey-900);
+      color: #FFFFFF;
+      padding: var(--space-4) var(--space-6);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      box-shadow: var(--shadow-modal);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration-standard) var(--easing-enter);
+      z-index: 1000;
+    }
+    .toast.visible { opacity: 1; pointer-events: auto; }
+
+    /* -----------------------------------------------------------
+       RESPONSIVE
+       ----------------------------------------------------------- */
+    @media (max-width: 1024px) {
+      .app-shell { grid-template-columns: 72px 1fr; }
+      .leftnav-brand img { height: 24px; }
+      .leftnav-item span:not(.leftnav-icon),
+      .leftnav-chevron,
+      .leftnav-submenu { display: none; }
+      .leftnav-item { justify-content: center; padding: var(--space-4) var(--space-3); gap: 0; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid-3col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- --- LEFT SIDEBAR NAVIGATION (Column 1) --- -->
+    <nav class="leftnav" aria-label="Side navigation">
+      <a class="leftnav-brand" href="advance_contact_service.html" aria-label="ProServe home">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 32'%3E%3Crect width='140' height='32' rx='4' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3Ctext x='28' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EProServe%3C/text%3E%3C/svg%3E" alt="ProServe" />
+      </a>
+      <ul class="leftnav-list" role="list">
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span>Navigation</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item active expanded" href="#" aria-current="page" onclick="toggleSubmenu(this); return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Records</span>
+            <svg class="leftnav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="leftnav-submenu open" role="list">
+            <li>
+              <a class="leftnav-submenu-item active" href="advance_contact_service.html">Contract services</a>
+            </li>
+            <li>
+              <a class="leftnav-submenu-item" href="#" onclick="return false;">
+                Contract
+                <svg class="leftnav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="leftnav-submenu-item" href="#" onclick="return false;">Compliance</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>Reports</span>
+            <svg class="leftnav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            <span>Settings</span>
+            <svg class="leftnav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- --- COLUMN 2: Header + Main --- -->
+    <div class="main-column">
+
+    <!-- --- TOP NAVIGATION BAR --- -->
+    <header class="topnav" role="banner">
+      <div class="topnav-left">
+        <div class="topnav-search" role="search" tabindex="0" aria-label="Global search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search</span>
+        </div>
+      </div>
+      <div class="topnav-right">
+        <button class="icon-btn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="notification-dot" aria-hidden="true"></span>
+        </button>
+        <div class="user-dropdown" role="button" tabindex="0" aria-label="User profile: Rubalakshmi" aria-haspopup="true">
+          <div class="avatar" aria-hidden="true">RL</div>
+          <div class="topnav-greeting">
+            <span>Good afternoon</span>
+            <strong>Rubalakshmi</strong>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- --- MAIN CONTENT AREA --- -->
+    <main class="main-content" id="main-content">
+      <div class="main-body">
+
+        <!-- --- Page Header Banner --- -->
+        <div class="page-header-banner">
+          <h1 class="page-header-title">Contract services <span>- Add New</span></h1>
+        </div>
+
+        <!-- --- Breadcrumb --- -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="advance_contact_service.html">Contract Services</a>
+          <span class="breadcrumb-separator" aria-hidden="true">›</span>
+          <span class="breadcrumb-current" aria-current="page">Add New Record</span>
+        </nav>
+
+        <!-- --- FORM CARD — Personal Information --- -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div>
+              <h2 class="form-card-title">Personal Information</h2>
+              <p class="form-card-subtitle">Enter the contact's personal details</p>
+            </div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-section">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="title">Title <span class="required">*</span></label>
+                  <select class="form-input" id="title" required>
+                    <option value="">Select title</option>
+                    <option value="mr">Mr.</option>
+                    <option value="mrs">Mrs.</option>
+                    <option value="ms">Ms.</option>
+                    <option value="dr">Dr.</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="firstName">First Name <span class="required">*</span></label>
+                  <input class="form-input" id="firstName" type="text" placeholder="e.g. Benjamin" required />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="lastName">Last Name <span class="required">*</span></label>
+                  <input class="form-input" id="lastName" type="text" placeholder="e.g. Adams" required />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="dob">Date of Birth</label>
+                  <input class="form-input" id="dob" type="date" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- --- FORM CARD — Contact Details --- -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div>
+              <h2 class="form-card-title">Contact Details</h2>
+              <p class="form-card-subtitle">Phone, email, and address information</p>
+            </div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-section">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="phonePersonal">Personal Phone <span class="required">*</span></label>
+                  <div class="phone-input-group">
+                    <span class="phone-prefix">+44</span>
+                    <input class="form-input" id="phonePersonal" type="tel" placeholder="e.g. 7911 123456" required />
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="phoneBusiness">Business Phone</label>
+                  <div class="phone-input-group">
+                    <span class="phone-prefix">+44</span>
+                    <input class="form-input" id="phoneBusiness" type="tel" placeholder="e.g. 2079 460123" />
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="altPhone">Alternative Phone</label>
+                  <div class="phone-input-group">
+                    <span class="phone-prefix">+44</span>
+                    <input class="form-input" id="altPhone" type="tel" placeholder="e.g. 7911 654321" />
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="email">Email <span class="required">*</span></label>
+                  <input class="form-input" id="email" type="email" placeholder="e.g. sample@mail.com" required />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="altEmail">Alternative Email</label>
+                  <input class="form-input" id="altEmail" type="email" placeholder="e.g. alt@mail.com" />
+                </div>
+                <div class="form-field full-width">
+                  <label class="form-label" for="address1">Address Line 1</label>
+                  <input class="form-input" id="address1" type="text" placeholder="e.g. 123 High Street" />
+                </div>
+                <div class="form-field full-width">
+                  <label class="form-label" for="address2">Address Line 2</label>
+                  <input class="form-input" id="address2" type="text" placeholder="e.g. Suite 4" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="city">City</label>
+                  <input class="form-input" id="city" type="text" placeholder="e.g. London" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="postcode">Postcode</label>
+                  <input class="form-input" id="postcode" type="text" placeholder="e.g. SW1A 1AA" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- --- FORM CARD — Service Assignment --- -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div>
+              <h2 class="form-card-title">Service Assignment</h2>
+              <p class="form-card-subtitle">Assign brand, role, and clients</p>
+            </div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-section">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="brand">Brand <span class="required">*</span></label>
+                  <select class="form-input" id="brand" required>
+                    <option value="">Select brand</option>
+                    <option value="engage">FieldSync Services</option>
+                    <option value="acme">Acme Recovery</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="role">Role <span class="required">*</span></label>
+                  <select class="form-input" id="role" required>
+                    <option value="">Select role</option>
+                    <option value="agent">Enforcement Agent</option>
+                    <option value="director">Enforcement Director</option>
+                    <option value="manager">Enforcement Manager</option>
+                  </select>
+                </div>
+                <div class="form-field full-width">
+                  <label class="form-label">Clients</label>
+                  <div class="checkbox-group">
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="clients" value="ovo" /> OVO
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="clients" value="waterplus" /> WaterPlus
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="clients" value="sse" /> SSE
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="clients" value="thames" /> Thames Water
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="clients" value="edf" /> EDF
+                    </label>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="status">Status <span class="required">*</span></label>
+                  <select class="form-input" id="status" required>
+                    <option value="active" selected>Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="suspended">Suspended</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="startDate">Start Date <span class="required">*</span></label>
+                  <input class="form-input" id="startDate" type="date" required />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- --- FORM CARD — Additional Notes --- -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div>
+              <h2 class="form-card-title">Additional Notes</h2>
+              <p class="form-card-subtitle">Any supplementary information</p>
+            </div>
+          </div>
+          <div class="form-card-body">
+            <div class="form-field">
+              <label class="form-label" for="notes">Notes</label>
+              <textarea class="form-input" id="notes" placeholder="Enter any additional notes or comments…" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- --- FORM ACTIONS — Sticky Bottom Bar --- -->
+        <div class="form-card" style="margin-bottom: var(--space-5);">
+          <div class="form-card-footer">
+            <a class="btn-secondary" href="advance_contact_service.html">Cancel</a>
+            <button class="btn-secondary" type="button" onclick="showToast('Draft saved successfully');">Save as Draft</button>
+            <button class="btn-primary" type="button" onclick="showToast('Record created successfully'); setTimeout(function(){ window.location.href='advance_contact_service.html'; }, 1500);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Save Record
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- --- Page Footer --- -->
+      <footer class="page-footer" role="contentinfo">
+        <div class="footer-links">
+          <a href="#" onclick="return false;">Atlas</a>
+          <a href="#" onclick="return false;">ProServe Learn</a>
+        </div>
+        <div class="footer-branding">
+          <span>Powered by</span>
+          <img src="images/acme-logo@small-logo.png" alt="Acme" />
+        </div>
+      </footer>
+    </main>
+
+    </div><!-- /.main-column -->
+  </div>
+
+  <!-- --- TOAST --- -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* --- Sidebar submenu toggle --- */
+    function toggleSubmenu(el) {
+      el.classList.toggle('expanded');
+      var submenu = el.nextElementSibling;
+      if (submenu && submenu.classList.contains('leftnav-submenu')) {
+        submenu.classList.toggle('open');
+      }
+    }
+
+    /* --- Toast notification --- */
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('visible');
+      setTimeout(function() { toast.classList.remove('visible'); }, 3000);
+    }
+
+    /* --- Client-side form validation demo --- */
+    function validateAndSubmit() {
+      var requiredFields = document.querySelectorAll('[required]');
+      var valid = true;
+      requiredFields.forEach(function(field) {
+        var parent = field.closest('.form-field');
+        if (!field.value.trim()) {
+          parent.classList.add('form-field--error');
+          valid = false;
+          // Add error message if not present
+          if (!parent.querySelector('.form-error')) {
+            var err = document.createElement('div');
+            err.className = 'form-error';
+            err.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> This field is required';
+            parent.appendChild(err);
+          }
+        } else {
+          parent.classList.remove('form-field--error');
+          var existing = parent.querySelector('.form-error');
+          if (existing) existing.remove();
+        }
+      });
+      if (valid) {
+        showToast('Record created successfully');
+        setTimeout(function() { window.location.href = 'advance_contact_service.html'; }, 1500);
+      } else {
+        showToast('Please fill in all required fields');
+      }
+    }
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

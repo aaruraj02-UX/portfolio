@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinOps — Loading</title>
+<style>
+  /* MET-DS-V2 tokens */
+  :root {
+    --color-brand-primary: #3276CF;
+    --color-brand-deep:    #1F3C88;
+    --color-brand-cyan:    #03A9F4;
+    --color-brand-aqua:    #56AAC4;
+    --color-page-bg:       #F2F5FA;
+    --color-card-bg:       #FFFFFF;
+    --color-text-body:     #212121;
+    --color-text-muted:    #5B6B82;
+    --radius-pill:         100px;
+    --radius-card:         8px;
+    --space-2:  2px;  --space-4: 4px;  --space-8: 8px;
+    --space-12: 12px; --space-16: 16px; --space-20: 20px;
+    --space-24: 24px; --space-32: 32px; --space-40: 40px; --space-48: 48px;
+    --font-base: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: var(--font-base);
+    color: var(--color-text-body);
+    background: var(--color-page-bg);
+  }
+
+  /* Subtle animated gradient backdrop */
+  body {
+    background:
+      radial-gradient(1200px 600px at 20% 20%, rgba(50, 118, 207, 0.10), transparent 60%),
+      radial-gradient(900px 500px at 80% 80%, rgba(3, 169, 244, 0.10), transparent 60%),
+      var(--color-page-bg);
+  }
+
+  .loader {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-32);
+    padding: var(--space-32);
+  }
+
+  /* Wordmark — scales the source 76x33 viewBox up */
+  .wordmark {
+    width: min(128px, 70vw);
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  /* Each letter group animates in sequence (character-by-character) */
+  .wordmark .letter {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: letterIn 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards,
+               letterBob 2.2s ease-in-out infinite;
+  }
+
+  /* Stagger per letter */
+  .wordmark .letter-F { animation-delay: 0ms,    900ms; }
+  .wordmark .letter-I { animation-delay: 140ms,  1040ms; }
+  .wordmark .letter-O { animation-delay: 280ms,  1180ms; }
+  .wordmark .letter-N { animation-delay: 420ms,  1320ms; }
+  .wordmark .letter-A { animation-delay: 560ms,  1460ms; }
+
+  @keyframes letterIn {
+    0%   { opacity: 0; transform: translateY(18px) scale(0.6); }
+    60%  { opacity: 1; transform: translateY(-4px) scale(1.06); }
+    100% { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+
+  @keyframes letterBob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+
+  /* Tagline */
+  .tagline {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    opacity: 0;
+    animation: fadeIn 600ms ease-out 800ms forwards;
+  }
+
+  .tagline strong {
+    color: var(--color-brand-deep);
+    font-weight: 600;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Progress bar */
+  .progress {
+    width: min(320px, 70vw);
+    height: 6px;
+    background: rgba(31, 60, 136, 0.10);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 600ms ease-out 1000ms forwards;
+  }
+
+  .progress::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg,
+      var(--color-brand-primary),
+      var(--color-brand-cyan),
+      var(--color-brand-primary));
+    border-radius: var(--radius-pill);
+    animation: slide 1.6s ease-in-out infinite;
+  }
+
+  @keyframes slide {
+    0%   { left: -45%; }
+    100% { left: 105%; }
+  }
+
+  /* Loading dots */
+  .dots { display: inline-flex; gap: 4px; margin-left: 4px; vertical-align: middle; }
+  .dots span {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--color-brand-primary);
+    animation: dot 1.2s ease-in-out infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: 0.2s; }
+  .dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dot {
+    0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+    40%           { opacity: 1;    transform: translateY(-3px); }
+  }
+
+  /* Footer credit */
+  .footer {
+    position: fixed;
+    bottom: var(--space-16);
+    left: 0; right: 0;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  /* Accessibility — respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark .letter,
+    .progress::before,
+    .dots span,
+    .tagline,
+    .progress {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .progress::before { width: 60%; left: 20%; }
+  }
+</style>
+</head>
+<body>
+  <main class="loader" role="status" aria-live="polite" aria-label="Loading FinOps">
+    <!-- Inline SVG: each letter wrapped in a <g class="letter ..."> for staggered animation -->
+    <svg class="wordmark" viewBox="0 0 76 33" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <!-- F -->
+      <g class="letter letter-F">
+        <path d="M0.546157 32.2806C0.189968 31.9482 0 31.5089 0 30.9865V12.1797C0.0237459 11.7166 0.166223 11.313 0.439301 10.9805C0.759871 10.5768 1.24666 10.375 1.87593 10.375H12.2291C12.7397 10.375 13.179 10.565 13.547 10.933C13.7014 11.0993 13.832 11.3011 13.927 11.5267C14.022 11.7523 14.0695 12.0016 14.0695 12.2391C14.0695 12.7615 13.8914 13.2008 13.547 13.5688C13.179 13.9369 12.7397 14.1269 12.2291 14.1269H3.75185V20.5383H9.70021C10.2345 20.5383 10.6738 20.7163 11.03 21.0725C11.3862 21.4287 11.5761 21.868 11.5761 22.3904C11.5761 22.9128 11.398 23.3403 11.03 23.6727C10.6738 24.0052 10.2226 24.1832 9.70021 24.1832H3.75185V30.9746C3.75185 31.5089 3.57376 31.96 3.21757 32.3044C2.86138 32.6487 2.41021 32.8149 1.87593 32.8149C1.35352 32.8268 0.902345 32.6487 0.546157 32.2806Z" fill="#1F3C88"/>
+      </g>
+      <!-- i (composed of stem + two accent marks) -->
+      <g class="letter letter-I">
+        <path d="M16.5982 32.2806C16.2183 31.9244 16.0283 31.4851 16.0283 30.9627V18.2586C16.0283 18.0093 16.0758 17.7718 16.1827 17.5462C16.2895 17.3206 16.4201 17.1188 16.6101 16.9526C16.7763 16.7863 16.9782 16.6439 17.2156 16.5489C17.4531 16.442 17.7024 16.3945 17.9636 16.3945C18.4741 16.3945 18.9134 16.5845 19.2815 16.9526C19.4359 17.1188 19.5665 17.3206 19.6614 17.5462C19.7564 17.7718 19.8039 18.0211 19.8039 18.2586V30.9745C19.8039 31.4969 19.6258 31.9362 19.2696 32.2924C18.9134 32.6486 18.4741 32.8267 17.9517 32.8267C17.4056 32.8267 16.9663 32.6486 16.5982 32.2806Z" fill="#03A9F4"/>
+        <path d="M20.9913 16.4885C20.6114 16.1324 20.4214 15.6931 20.4214 15.1706V7.2039C20.4214 6.95457 20.4689 6.71711 20.5757 6.49152C20.6826 6.26593 20.8132 6.06409 21.0032 5.89787C21.1694 5.73165 21.3712 5.58918 21.6087 5.49419C21.8461 5.38734 22.0955 5.33984 22.3567 5.33984C22.8672 5.33984 23.3065 5.52981 23.6746 5.89787C23.8289 6.06409 23.9595 6.26593 24.0545 6.49152C24.1495 6.71711 24.197 6.96644 24.197 7.2039V15.1706C24.197 15.6931 24.0189 16.1324 23.6627 16.4885C23.3065 16.8447 22.8672 17.0228 22.3448 17.0228C21.7986 17.0347 21.3593 16.8566 20.9913 16.4885Z" fill="#56AAC4"/>
+        <path d="M15.7672 14.7106C15.3872 14.3544 15.1973 13.9151 15.1973 13.3927V1.86405C15.1973 1.61472 15.2448 1.37726 15.3516 1.15168C15.4585 0.92609 15.5891 0.72425 15.779 0.558029C15.9453 0.391807 16.1471 0.249332 16.3846 0.154349C16.622 0.0474922 16.8714 0 17.1326 0C17.6431 0 18.0824 0.189967 18.4505 0.558029C18.6048 0.72425 18.7354 0.92609 18.8304 1.15168C18.9254 1.37726 18.9729 1.62659 18.9729 1.86405V13.3927C18.9729 13.9151 18.7948 14.3544 18.4386 14.7106C18.0824 15.0668 17.6431 15.2449 17.1207 15.2449C16.5745 15.2568 16.1352 15.0787 15.7672 14.7106Z" fill="#1F3C88"/>
+      </g>
+      <!-- O -->
+      <g class="letter letter-O">
+        <path d="M27.3673 32.2213C26.3699 31.7939 25.4913 31.2003 24.7196 30.4404C23.9597 29.6924 23.3542 28.8138 22.9268 27.8046C22.4994 26.8073 22.2856 25.7506 22.2856 24.6345C22.2856 23.5185 22.4994 22.4618 22.9268 21.4526C23.3542 20.4434 23.9479 19.5648 24.7196 18.793C25.4795 18.0332 26.3699 17.4395 27.3673 17.0121C28.3646 16.5847 29.4213 16.3828 30.5373 16.3828C31.6534 16.3828 32.7101 16.5965 33.7193 17.024C34.7285 17.4514 35.6071 18.045 36.367 18.793C37.1268 19.5529 37.7086 20.4434 38.136 21.4526C38.5635 22.4618 38.7772 23.5185 38.7772 24.6345C38.7772 25.7506 38.5635 26.8073 38.1479 27.8046C37.7205 28.8019 37.1268 29.6805 36.367 30.4523C35.6071 31.2121 34.7285 31.7939 33.7193 32.2213C32.7101 32.6488 31.6534 32.8625 30.5373 32.8625C29.4213 32.8625 28.3646 32.6488 27.3673 32.2213ZM32.2708 28.7663C32.817 28.5407 33.2919 28.2083 33.7193 27.7927C34.1349 27.3772 34.4554 26.9023 34.681 26.3561C34.9066 25.8218 35.0135 25.24 35.0135 24.6345C35.0135 24.029 34.8947 23.4472 34.6691 22.9129C34.4436 22.3787 34.1111 21.8919 33.6956 21.4763C33.2919 21.0726 32.817 20.7521 32.2589 20.5265C31.7128 20.3009 31.131 20.1822 30.5255 20.1822C29.9318 20.1822 29.3501 20.3009 28.8039 20.5265C28.2577 20.7521 27.771 21.0726 27.3673 21.4763C26.9517 21.8919 26.6312 22.3668 26.3937 22.9129C26.1681 23.4472 26.0494 24.029 26.0494 24.6345C26.0494 25.24 26.1681 25.8218 26.3937 26.3561C26.6193 26.8904 26.9517 27.3772 27.3673 27.7927C27.7828 28.2083 28.2577 28.5289 28.8039 28.7663C29.3501 28.9919 29.92 29.1106 30.5255 29.1106C31.1429 29.1106 31.7246 28.9919 32.2708 28.7663Z" fill="#1F3C88"/>
+      </g>
+      <!-- N -->
+      <g class="letter letter-N">
+        <path d="M41.769 32.5299C41.5315 32.4349 41.3297 32.3043 41.1635 32.1381C40.7717 31.7819 40.5698 31.3426 40.5698 30.8439V24.3732C40.5698 23.2808 40.7717 22.2479 41.1753 21.2862C41.579 20.3126 42.1489 19.4578 42.8851 18.7216C43.6093 17.9736 44.4404 17.4037 45.4021 17.0001C46.3638 16.5964 47.3849 16.3945 48.4772 16.3945C49.5695 16.3945 50.6025 16.5964 51.5879 17.0119C52.5615 17.4275 53.4282 17.9974 54.1525 18.7216C54.9005 19.4696 55.4704 20.3245 55.8859 21.2981C56.3015 22.2716 56.5033 23.2927 56.5033 24.385V30.832C56.5033 31.3545 56.3252 31.7819 55.9809 32.1262C55.6247 32.4824 55.1854 32.6724 54.663 32.6724C54.1287 32.6724 53.6894 32.4943 53.3333 32.1262C52.9533 31.7819 52.7634 31.3426 52.7634 30.832V24.385C52.7515 23.8151 52.6327 23.269 52.4072 22.7466C52.1816 22.2242 51.8729 21.773 51.4811 21.393C51.0893 21.0012 50.6262 20.6925 50.1157 20.4788C49.5933 20.2651 49.059 20.1464 48.4891 20.1464C47.9073 20.1464 47.3612 20.2532 46.8625 20.467C46.3638 20.6807 45.9245 20.9775 45.5327 21.3574C45.1647 21.7374 44.8678 22.1885 44.666 22.7109C44.4523 23.2334 44.3573 23.7795 44.3573 24.3613V30.832C44.3573 31.3545 44.1792 31.7819 43.8349 32.1262C43.6687 32.2924 43.4668 32.423 43.2412 32.518C43.0157 32.613 42.7782 32.6605 42.5289 32.6605C42.2558 32.6724 42.0065 32.6249 41.769 32.5299Z" fill="#1F3C88"/>
+      </g>
+      <!-- A -->
+      <g class="letter letter-A">
+        <path d="M63.8766 32.2213C62.8792 31.7939 62.0006 31.2003 61.2408 30.4523C60.4809 29.6924 59.8873 28.8019 59.4598 27.8046C59.0324 26.8073 58.8306 25.7506 58.8306 24.6345C58.8306 23.5185 59.0443 22.4618 59.4717 21.4526C59.8991 20.4434 60.4928 19.5648 61.2408 18.793C61.9888 18.045 62.8674 17.4514 63.8766 17.024C64.8739 16.5965 65.9306 16.3828 67.0348 16.3828C68.1508 16.3828 69.2075 16.5965 70.2049 17.0121C71.2022 17.4395 72.0808 18.0332 72.8525 18.793C73.6005 19.5529 74.1942 20.4434 74.6216 21.4407C75.049 22.438 75.2509 23.5066 75.2509 24.6345V30.9034C75.2509 31.4377 75.0609 31.877 74.6928 32.257C74.3366 32.6369 73.8855 32.8269 73.3393 32.8269C72.9 32.8269 72.5201 32.7081 72.2114 32.4588C71.8908 32.2213 71.6771 31.8889 71.5702 31.4852C70.193 32.3994 68.6851 32.8506 67.0466 32.8506C65.9306 32.8625 64.8739 32.6488 63.8766 32.2213ZM68.7564 28.7663C69.3025 28.5407 69.7774 28.2083 70.2049 27.7927C70.6085 27.3772 70.9291 26.9023 71.1547 26.3561C71.3803 25.8218 71.4871 25.24 71.4871 24.6345C71.4871 24.029 71.3803 23.4472 71.1547 22.9129C70.9291 22.3787 70.6085 21.8919 70.2049 21.4763C69.8012 21.0726 69.3263 20.7521 68.7682 20.5265C68.2221 20.3009 67.6403 20.1822 67.0348 20.1822C66.4411 20.1822 65.8712 20.289 65.3251 20.5146C64.7789 20.7402 64.304 21.0608 63.8884 21.4763C63.4729 21.8919 63.1523 22.3668 62.9267 22.9129C62.7012 23.4472 62.5943 24.029 62.5943 24.6345C62.5943 25.24 62.7012 25.8218 62.9267 26.3561C63.1523 26.8904 63.4729 27.3772 63.8884 27.7927C64.2921 28.2083 64.767 28.5289 65.3013 28.7663C65.8356 28.9919 66.4174 29.1106 67.0229 29.1106C67.6284 29.1106 68.2102 28.9919 68.7564 28.7663Z" fill="#1F3C88"/>
+      </g>
+    </svg>
+
+    <p class="tagline">
+      <strong>Preparing your workspace</strong><span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="sr-only">Loading, please wait.</span>
+    </p>
+
+    <div class="progress" role="progressbar" aria-label="Loading progress" aria-valuetext="Loading"></div>
+  </main>
+
+  <div class="footer">FinOps &middot; Built on MET-DS-V2</div>
+
+  <script>
+    // Optional: auto-redirect after the intro completes. Set ?redirect=URL to enable.
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const target = params.get('redirect');
+      const delay  = Number(params.get('delay')) || 2600;
+      if (target) {
+        setTimeout(() => { window.location.href = target; }, delay);
+      }
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

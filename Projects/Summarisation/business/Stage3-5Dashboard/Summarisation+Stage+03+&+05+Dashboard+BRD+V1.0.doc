@@ -1,0 +1,2180 @@
+Date: Mon, 29 Jun 2026 04:46:07 +0000 (UTC)
+Message-ID: <1871337826.223.1782708367293@7121cadae9e8>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_222_1638802317.1782708367293"
+
+------=_Part_222_1638802317.1782708367293
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Summarisation Stage 03 &amp; 05 Dashboard BRD V1.0</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Summarisation Stage 03 &amp; 05 Dashboard BRD V1.0</h1>
+    <div class=3D"Section1">
+        <h2 local-id=3D"6e7e774bb091" id=3D"SummarisationStage03&amp;05Dash=
+boardBRDV1.0-1.DocumentControl">1. Document Control</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1249" data-layout=3D"center" data-local-id=3D"c3=
+a01f9a-7ca4-424e-a054-a284a9ba46f7" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 114.0px;">
+<col style=3D"width: 387.0px;">
+<col style=3D"width: 255.0px;">
+<col style=3D"width: 243.0px;">
+<col style=3D"width: 250.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"a4a99f7b-7c94-436a-aca9-a8d6df589690">
+<td data-highlight-colour=3D"#b3bac5" data-local-id=3D"1e317941-2d7a-4fa7-a=
+eba-7c58745ecf04" class=3D"confluenceTd">
+<p local-id=3D"517f5c1d3db7" style=3D"text-align: center;"><strong>Version =
+No.</strong></p></td>
+<td data-highlight-colour=3D"#b3bac5" data-local-id=3D"ef3fdfab-4d0c-47d2-b=
+b11-b91e5abb681a" class=3D"confluenceTd">
+<p local-id=3D"0d671f961569" style=3D"text-align: center;"><strong>Change S=
+ummary</strong></p></td>
+<td data-highlight-colour=3D"#b3bac5" data-local-id=3D"321ccf93-5a7b-402b-9=
+aaa-cb6067b2a72e" class=3D"confluenceTd">
+<p local-id=3D"609e426bffb4" style=3D"text-align: center;"><strong>Prepared=
+/Modified By &amp; Date</strong></p></td>
+<td data-highlight-colour=3D"#b3bac5" data-local-id=3D"a19a9966-7548-4cd4-b=
+f82-9baba2ecf613" class=3D"confluenceTd">
+<p local-id=3D"73f58dcea7c3" style=3D"text-align: center;"><strong>Reviewed=
+ By &amp; Date</strong></p></td>
+<td data-highlight-colour=3D"#b3bac5" data-local-id=3D"e98096a6-418d-4bee-9=
+e44-2641babb7200" class=3D"confluenceTd">
+<p local-id=3D"57ce09b0a6ea" style=3D"text-align: center;"><strong>Approved=
+ By &amp; Date</strong></p></td>
+</tr>
+<tr data-local-id=3D"9a63e926-c26e-4650-9591-bedfaf6cd4fb">
+<td data-local-id=3D"c9f2672d-cbc7-4ca2-a475-de7ab6fcb2ea" class=3D"conflue=
+nceTd">
+<p local-id=3D"3ef2c8389b72">1.0</p></td>
+<td data-local-id=3D"932c2aaf-740b-4eb5-babe-6964055d23af" class=3D"conflue=
+nceTd">
+<p local-id=3D"1cb625db9563">Initial Draft</p></td>
+<td data-local-id=3D"20a9eb33-19f6-46a1-83d3-7c02cfcdd085" class=3D"conflue=
+nceTd">
+<p local-id=3D"d00bd781df0a"><a class=3D"confluence-userlink user-mention" =
+data-account-id=3D"712020:7a36f463-4c2a-4331-b086-04ab04e1dcf5" href=3D"htt=
+ps://marston.atlassian.net/wiki/people/712020:7a36f463-4c2a-4331-b086-04ab0=
+4e1dcf5?ref=3Dconfluence" target=3D"_blank" data-linked-resource-id=3D"8525=
+58272" data-linked-resource-version=3D"1" data-linked-resource-type=3D"user=
+info" data-base-url=3D"https://marston.atlassian.net/wiki">Srinivas M</a> =
+=E2=80=93 24- 06- 2026</p></td>
+<td data-local-id=3D"9a175c96-be68-4f3d-8444-8a5f3328fbe5" class=3D"conflue=
+nceTd">
+<p local-id=3D"b27b6793b360"><a class=3D"confluence-userlink user-mention" =
+data-account-id=3D"712020:047ba0d4-7eea-45e6-addd-150cbe6c06e7" href=3D"htt=
+ps://marston.atlassian.net/wiki/people/712020:047ba0d4-7eea-45e6-addd-150cb=
+e6c06e7?ref=3Dconfluence" target=3D"_blank" data-linked-resource-id=3D"1221=
+656585" data-linked-resource-version=3D"1" data-linked-resource-type=3D"use=
+rinfo" data-base-url=3D"https://marston.atlassian.net/wiki">Amaad.Ali</a> -=
+ 24- 06- 2026</p></td>
+<td data-local-id=3D"5a0d0758-e82f-4011-a098-ed04c2689f89" class=3D"conflue=
+nceTd">
+<p local-id=3D"a85c0fd313a9"><a class=3D"confluence-userlink user-mention" =
+data-account-id=3D"712020:047ba0d4-7eea-45e6-addd-150cbe6c06e7" href=3D"htt=
+ps://marston.atlassian.net/wiki/people/712020:047ba0d4-7eea-45e6-addd-150cb=
+e6c06e7?ref=3Dconfluence" target=3D"_blank" data-linked-resource-id=3D"1221=
+656585" data-linked-resource-version=3D"1" data-linked-resource-type=3D"use=
+rinfo" data-base-url=3D"https://marston.atlassian.net/wiki">Amaad.Ali</a> -=
+ 25-06-2026</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type=3D"text/css">/*<![CDATA[*/
+div.rbtoc1782708367189 {padding: 0px;}
+div.rbtoc1782708367189 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1782708367189 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style>
+<div class=3D"toc-macro rbtoc1782708367189">
+<ul class=3D"toc-indentation">
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-1.DocumentContr=
+ol">1. Document Control</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-2.ProjectOvervi=
+ew">2. Project Overview</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-3.BusinessObjec=
+tive">3. Business Objective</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-4.Scope">4. Sco=
+pe</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-4.1InScope">4.1=
+ In Scope</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-4.2OutofScope">=
+4.2 Out of Scope</a></li>
+</ul></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-5.Stakeholders"=
+>5. Stakeholders</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-6.BusinessRequi=
+rements">6. Business Requirements</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-7.DashboardTabl=
+eRequirements">7. Dashboard Table Requirements</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-7.1TableColumns=
+">7.1 Table Columns</a></li>
+</ul></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-8.WidgetRequire=
+ments">8. Widget Requirements</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-8.1Widget1-Case=
+andMitigationSummary">8.1 Widget 1 - Case and Mitigation Summary</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-8.2Widget2-Gree=
+nBotDecisionSummary">8.2 Widget 2 - Green Bot Decision Summary</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-8.3Widget3-Ambe=
+rBotDecisionSummary">8.3 Widget 3 - Amber Bot Decision Summary</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-8.4Widget4-RedB=
+otDecisionSummary">8.4 Widget 4 - Red Bot Decision Summary</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-8.5Widget5-Lett=
+erAmendmentSummary">8.5 Widget 5 - Letter Amendment Summary</a></li>
+</ul></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-9.DashboardFilt=
+ers">9. Dashboard Filters</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-10.DataDefiniti=
+ons">10. Data Definitions</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-11.BusinessRule=
+s">11. Business Rules</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-12.Reportingand=
+GovernanceUseCases">12. Reporting and Governance Use Cases</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-12.1TemplateCov=
+erageReview">12.1 Template Coverage Review</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-12.2AmberReason=
+Analysis">12.2 Amber Reason Analysis</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-12.3RedCaseMoni=
+toring">12.3 Red Case Monitoring</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-12.4LetterQuali=
+tyMonitoring">12.4 Letter Quality Monitoring</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-12.5CustomMitig=
+ationGovernance">12.5 Custom Mitigation Governance</a></li>
+</ul></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-13.Non-Function=
+alRequirements">13. Non- Functional Requirements</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-14.Assumptions"=
+>14. Assumptions</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-15.Dependencies=
+">15. Dependencies</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-16.Risks&amp;Mi=
+tigations">16. Risks &amp; Mitigations</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-17.OpenQuestion=
+s">17. Open Questions</a></li>
+<li><a href=3D"#SummarisationStage03&amp;05DashboardBRDV1.0-18.SuccessCrite=
+ria">18. Success Criteria</a></li>
+</ul>
+</div>
+<h2 local-id=3D"88903710d2e9" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-2.ProjectOverview">2. Project Overview</h2>
+<p local-id=3D"86a9ea353cca">The Summarisation Stage 3 &amp; Stage 5 Dashbo=
+ard will provide operational and business visibility into AI- assisted deci=
+sioning, mitigation identification, letter generation, agent intervention, =
+and custom mitigation activity.</p>
+<p local-id=3D"08db1649fc18">The dashboard will be hosted in the <strong>ex=
+isting Notice IQ environment</strong>, under the <strong>Summarisation Orga=
+nisation</strong>, where existing dashboards or reporting capabilities for =
+<strong>Stages 1, 2, and 4</strong> are already available.</p>
+<p local-id=3D"677eaee9b982">The dashboard is intended to help business, op=
+erations, QA, and template governance teams monitor:</p>
+<ul local-id=3D"36eeabbe-38db-41b1-a576-063187599ce6">
+<li local-id=3D"60972d22-d716-48fd-b5bc-df9872cc28c4">
+<p local-id=3D"a482cc366d33">how many cases are reviewed,</p></li>
+<li local-id=3D"9c34d77e-ecc6-46bd-92a6-9323ec2b0dc3">
+<p local-id=3D"edb29494c704">whether mitigations are found in policy/templa=
+tes,</p></li>
+<li local-id=3D"49733adc-aba9-46ba-9b1d-cc5a944bc87b">
+<p local-id=3D"ed3557b9c40b">bot decision outcomes,</p></li>
+<li local-id=3D"5ffebc77-ae86-4ee5-8224-c8b0ee4a6700">
+<p local-id=3D"edc32fdc1624">Amber decision reasons,</p></li>
+<li local-id=3D"c1541560-c275-4b8a-a09a-c20608561645">
+<p local-id=3D"36a6dfdea499">letter amendment activity,</p></li>
+<li local-id=3D"87b15c29-da90-4197-9f6b-88b61e418a8a">
+<p local-id=3D"cf57ea618c18">agent- level case activity,</p></li>
+<li local-id=3D"4a427e19-2df1-4265-aa79-0191cce3c6ae">
+<p local-id=3D"812117277569">PCN- level traceability,</p></li>
+<li local-id=3D"ab209465-51a1-4643-8c26-783f212f4a81">
+<p local-id=3D"c8f3d929d849">contravention- level trends,</p></li>
+<li local-id=3D"66d09c8f-c828-416f-84e9-c883e814cc47">
+<p local-id=3D"e5731e0495a7">and custom mitigation inputs requiring busines=
+s/template review.</p></li>
+</ul>
+<h2 local-id=3D"b91d50d4467b" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-3.BusinessObjective">3. Business Objective</h2>
+<p local-id=3D"727a265f3cff">The objective of the Stage 3 &amp; Stage 5 Das=
+hboard is to provide a single reporting view that enables stakeholders to:<=
+/p>
+<ol start=3D"1" local-id=3D"4dcb4060-652c-435e-9168-b1776b7c936b">
+<li local-id=3D"9ec7ed55-4eb0-4493-9cf3-9505fce0637d">
+<p local-id=3D"e7104d946bdd">Monitor the performance and coverage of the mi=
+tigation policy/template.</p></li>
+<li local-id=3D"da1362dc-f4ca-445f-8378-2cb890943ddd">
+<p local-id=3D"69fa60e1e3a2">Track Green, Amber, and Red bot decisions.</p>=
+</li>
+<li local-id=3D"6affc206-b2e8-46e8-bcc6-48e624da0ce3">
+<p local-id=3D"b085bc4733c8">Identify cases where the bot could not determi=
+ne or locate mitigation.</p></li>
+<li local-id=3D"deeaed61-a4f4-479d-aff4-97590f048f52">
+<p local-id=3D"67c7c2905d85">Track agent amendments to generated letter tem=
+plates.</p></li>
+<li local-id=3D"51da93fa-1d16-4f62-bb87-5f7b5d56578b">
+<p local-id=3D"a8189cd3b9bd">Monitor custom mitigations entered by agents.<=
+/p></li>
+<li local-id=3D"5eec9452-e278-486b-9021-851718c9e1b1">
+<p local-id=3D"fa38873b17b5">Support template governance by identifying mis=
+sing mitigation patterns.</p></li>
+<li local-id=3D"1644624d-817f-412b-aa26-01079ea0b739">
+<p local-id=3D"e44c4e0fde36">Provide operational transparency by agent, PCN=
+ number, contravention code, and decision status.</p></li>
+<li local-id=3D"bdd0d8c3-ac0c-4f1c-a7a2-0519850c3626">
+<p local-id=3D"25289c4640a9">Enable the business to improve policy/template=
+ coverage over time.</p></li>
+</ol>
+<h2 local-id=3D"4a72a4ea6443" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-4.Scope">4. Scope</h2>
+<h3 local-id=3D"2ad2d288bb19" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-4.1InScope">4.1 In Scope</h3>
+<p local-id=3D"3c116b877603">The dashboard will include reporting for:</p>
+<ul local-id=3D"bcba1fe0-3efe-4e57-9066-ac30e083999b">
+<li local-id=3D"39a7e074-5d99-4458-b4c6-a3be9183ab35">
+<p local-id=3D"171e96adc130">Summarisation Stage 3.</p></li>
+<li local-id=3D"9e57b040-bec5-478c-9ddd-1d15b7c32b2d">
+<p local-id=3D"8e249a5a4c87">Summarisation Stage 5.</p></li>
+<li local-id=3D"e632afa0-25b6-49e2-8a48-9c97393fced0">
+<p local-id=3D"a38bfa2ae234">Agent- level reporting.</p></li>
+<li local-id=3D"66258491-0221-4753-919e-a25403e138a8">
+<p local-id=3D"5ca514263903">PCN- level reporting.</p></li>
+<li local-id=3D"4d59bc90-6e56-4ffe-b047-695b27b579ba">
+<p local-id=3D"94bc9c754883">Bot decision reporting using Green, Amber, and=
+ Red classifications.</p></li>
+<li local-id=3D"aa6bd9b1-a697-4abe-ad49-af1cdb69c8e4">
+<p local-id=3D"c5d34c8d2874">Mitigation identified vs missing from policy/t=
+emplate.</p></li>
+<li local-id=3D"9368591a-db2d-4b02-ba3a-15fa4a40946a">
+<p local-id=3D"0c337b50399f">Amber reason breakdown.</p></li>
+<li local-id=3D"2ffa8e9b-7a45-4088-b78b-11113017bc15">
+<p local-id=3D"76d596d23df0">Letter amendment activity.</p></li>
+<li local-id=3D"539f1044-1912-460f-8f56-c5bb2df4f8b9">
+<p local-id=3D"9dd953b476be">Custom mitigation reporting.</p></li>
+<li local-id=3D"536a4c63-eaf1-4d03-9c93-600034fb9374">
+<p local-id=3D"ed16bc77c679">Contravention code reporting.</p></li>
+<li local-id=3D"86b4d0e6-ddea-43e8-9a92-40a5212b3aeb">
+<p local-id=3D"0f7ca4fd7b92">Summary widgets for operational monitoring.</p=
+></li>
+<li local-id=3D"8874407b-8149-401f-a165-95e54a99dc1f">
+<p local-id=3D"499628b3a4e5">Detailed table view for case- level analysis.<=
+/p></li>
+</ul>
+<h3 local-id=3D"894096ba306d" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-4.2OutofScope">4.2 Out of Scope</h3>
+<p local-id=3D"15fbee7c9bea">The following are out of scope for this dashbo=
+ard BRD unless confirmed separately:</p>
+<ul local-id=3D"3f979df9-896d-4f80-b85a-06892e7c4df8">
+<li local-id=3D"c6c96b6e-c6a8-4f73-9180-760c6e5c0363">
+<p local-id=3D"20be9f493803">Changes to the underlying Stage 3 or Stage 5 d=
+ecisioning logic.</p></li>
+<li local-id=3D"a1bad622-e7ac-45a4-858a-25f06db71d5f">
+<p local-id=3D"0f5bec10206e">Changes to letter generation logic.</p></li>
+<li local-id=3D"437a392a-0020-40af-b912-509175b759ba">
+<p local-id=3D"8dec2c2566a6">QA workflow configuration.</p></li>
+<li local-id=3D"28a30dc1-22f9-49fe-82a9-b3d618c108cc">
+<p local-id=3D"01dcae851d29">Template update workflow automation.</p></li>
+<li local-id=3D"691fa814-374b-4f0d-b637-ee3b2c7b5ac9">
+<p local-id=3D"74346b6bdccc">Export automation to external BI platforms.</p=
+></li>
+<li local-id=3D"54e733d4-bb36-4827-aabd-481007961de9">
+<p local-id=3D"fe52b41ffc67">Predictive analytics or AI model performance s=
+coring beyond the listed reporting measures.</p></li>
+</ul>
+<h2 local-id=3D"28b1f8a746e3" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-5.Stakeholders">5. Stakeholders</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1593" data-layout=3D"align-start" data-local-id=
+=3D"22c64222-9d3f-4ade-a603-2641fcdbf4d2" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 343.0px;">
+<col style=3D"width: 510.0px;">
+<col style=3D"width: 738.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"5abac49b-0aa3-4483-913b-133bb80ffbf6">
+<th data-local-id=3D"49f93fdb-6272-45bf-8cb9-9ea611a25789" class=3D"conflue=
+nceTh">
+<p local-id=3D"351d3421e45b">Stakeholder</p></th>
+<th data-local-id=3D"b04f78e6-221f-47ea-a9c7-d02fea1c5d67" class=3D"conflue=
+nceTh">
+<p local-id=3D"7762ac8a8248">Role</p></th>
+<th data-local-id=3D"133553da-4f89-4411-91fc-c59f92ff643b" class=3D"conflue=
+nceTh">
+<p local-id=3D"cefbc07058b5">Responsibility</p></th>
+</tr>
+<tr data-local-id=3D"6379807a-93a1-4a2a-82ec-6228900d7892">
+<td data-local-id=3D"52a1c477-1fec-4bdd-9955-2fe4022d17c5" class=3D"conflue=
+nceTd">
+<p local-id=3D"6944206cb8b4">Business Operations Team</p></td>
+<td data-local-id=3D"01fa6b06-1116-470b-ad78-aa25b35eaa87" class=3D"conflue=
+nceTd">
+<p local-id=3D"310045c73ea3">Dashboard Users</p></td>
+<td data-local-id=3D"8f58e79e-02ed-48a7-9898-ed244e20ccb5" class=3D"conflue=
+nceTd">
+<p local-id=3D"a7bf7e79c69a">Monitor operational performance and case outco=
+mes</p></td>
+</tr>
+<tr data-local-id=3D"05e62718-0154-48ac-aacf-c97668b1a2ab">
+<td data-local-id=3D"e02f658b-6b4e-4ef3-a360-5fd348b9bc87" class=3D"conflue=
+nceTd">
+<p local-id=3D"435fae787a39">Natalie Harkin, Zain Mahmood</p></td>
+<td data-local-id=3D"8ae04fd1-f9a5-49a4-8622-ada9253628b5" class=3D"conflue=
+nceTd">
+<p local-id=3D"b416c9942ba6">Template Governance Owners</p></td>
+<td data-local-id=3D"332a7645-d0b5-49c1-8e86-b1d3c722a147" class=3D"conflue=
+nceTd">
+<p local-id=3D"bf152661b716">Review custom mitigations and identify missing=
+ template coverage</p></td>
+</tr>
+<tr data-local-id=3D"150cc984-99cb-407f-984c-5042b1e80239">
+<td data-local-id=3D"ffe92c7e-280b-468e-b427-952121bf3702" class=3D"conflue=
+nceTd">
+<p local-id=3D"cfe6404b48d0">Processing Agents</p></td>
+<td data-local-id=3D"4ea604f7-328a-4b09-a953-1d13479d666b" class=3D"conflue=
+nceTd">
+<p local-id=3D"b40ad945bee3">Case Handlers</p></td>
+<td data-local-id=3D"f7610dac-a44b-4a1a-9a81-789f3d549897" class=3D"conflue=
+nceTd">
+<p local-id=3D"e4b35c2056a7">Generate case activity data through Stage 3 an=
+d Stage 5 workflows</p></td>
+</tr>
+<tr data-local-id=3D"6fece9c8-cd59-4949-a09f-2ef7dc7cb5a0">
+<td data-local-id=3D"8f8f45f6-258a-460a-b17a-3c05743925b6" class=3D"conflue=
+nceTd">
+<p local-id=3D"ecd62dbb4281">QA Team</p></td>
+<td data-local-id=3D"6ef9e63e-4b9d-4e3e-9f55-2b5fe8836a0d" class=3D"conflue=
+nceTd">
+<p local-id=3D"04c8b58338c3">Quality Review Users</p></td>
+<td data-local-id=3D"3d13a09c-e4cc-4341-a63f-3866b58506b7" class=3D"conflue=
+nceTd">
+<p local-id=3D"779ccc06c1e4">Use dashboard outputs to understand amendment =
+and decision trends</p></td>
+</tr>
+<tr data-local-id=3D"533ff310-e8aa-4726-b01d-f2879dbf332a">
+<td data-local-id=3D"8898dadc-8ddd-43d1-8941-bbd8ebc82cf3" class=3D"conflue=
+nceTd">
+<p local-id=3D"9a59750bf3cc">Shelley Stones</p></td>
+<td data-local-id=3D"d2125090-24df-483c-bda5-6b0e39c4a8a4" class=3D"conflue=
+nceTd">
+<p local-id=3D"ab3c7bf7bd4f">Product Decision Maker</p></td>
+<td data-local-id=3D"f2d664d3-a6f0-4a69-b060-eacb337aca91" class=3D"conflue=
+nceTd">
+<p local-id=3D"001743f90718">Prioritise enhancements based on dashboard fin=
+dings</p></td>
+</tr>
+<tr data-local-id=3D"6ea88452-31ca-4ae9-a2e0-04302aaa5e80">
+<td data-local-id=3D"581f4ab3-acc5-45a0-81c0-d8b2f33028f2" class=3D"conflue=
+nceTd">
+<p local-id=3D"ea30481309d4">LV Team / Delivery Team</p></td>
+<td data-local-id=3D"2a360205-a4a4-42fa-89fc-be956943b2ac" class=3D"conflue=
+nceTd">
+<p local-id=3D"2a7acd73f3ab">Implementation Team</p></td>
+<td data-local-id=3D"c25912e8-e091-4669-aa79-3f3605291db2" class=3D"conflue=
+nceTd">
+<p local-id=3D"505e0f1e3508">Build and configure the dashboard in Notice IQ=
+</p></td>
+</tr>
+<tr data-local-id=3D"305396c0-bc77-47c0-b925-41de77b9089f">
+<td data-local-id=3D"75d0b0f1-a380-474b-bad4-5092defb936d" class=3D"conflue=
+nceTd">
+<p local-id=3D"656991d3e585">Amaad Ali, Srinivas M</p></td>
+<td data-local-id=3D"84381660-c404-4b71-8e42-e53e2898764b" class=3D"conflue=
+nceTd">
+<p local-id=3D"1311f4dfb6cf">Requirement Owner</p></td>
+<td data-local-id=3D"83a677dc-1f30-4588-a4b6-88827760582b" class=3D"conflue=
+nceTd">
+<p local-id=3D"c80a58dd9ecf">Define dashboard fields, widgets, and reportin=
+g logic</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"1169e375ce8c" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-6.BusinessRequirements">6. Business Requirements</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1603" data-layout=3D"align-start" data-local-id=
+=3D"4a4096aa-40dc-4a69-9044-578b98c78742" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 161.0px;">
+<col style=3D"width: 1323.0px;">
+<col style=3D"width: 117.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"1b9902df-e18d-4918-9821-80bdf79fa62e">
+<th data-local-id=3D"d8b04258-6751-4466-960c-045dbf79858e" class=3D"conflue=
+nceTh">
+<p local-id=3D"258853edd190">BR ID</p></th>
+<th data-local-id=3D"77fe73d0-9c5a-42ab-9dce-febbce81bb9f" class=3D"conflue=
+nceTh">
+<p local-id=3D"b5a2951e5bd5">Description</p></th>
+<th data-local-id=3D"1d70d3e0-d948-4b13-9646-b73cf0f8cfd1" class=3D"conflue=
+nceTh">
+<p local-id=3D"24dd65b83a55">Priority</p></th>
+</tr>
+<tr data-local-id=3D"2ad8771e-dd5f-4f83-8aae-be794e385df9">
+<td data-local-id=3D"7d78de1c-11b1-4bc7-aff2-09e8aeeb31f1" class=3D"conflue=
+nceTd">
+<p local-id=3D"ff97e6106277">BR- 01</p></td>
+<td data-local-id=3D"ca791198-f413-4e8b-aa3c-8cd99487b56f" class=3D"conflue=
+nceTd">
+<p local-id=3D"ddc1e8173592">The dashboard should be hosted in the existing=
+ Notice IQ environment under the Summarisation Organisation.</p></td>
+<td data-local-id=3D"57b4f945-33b1-4b59-be30-ea833b06b63c" class=3D"conflue=
+nceTd">
+<p local-id=3D"51d0c075637c">High</p></td>
+</tr>
+<tr data-local-id=3D"7cb4c926-2ae7-461c-970c-a23e99c80dfc">
+<td data-local-id=3D"c2eef735-005b-49cb-85d2-99aac31147e9" class=3D"conflue=
+nceTd">
+<p local-id=3D"55baa48f9e0c">BR- 02</p></td>
+<td data-local-id=3D"498c8a70-7f72-4ab8-b82b-9bcb143ddc9e" class=3D"conflue=
+nceTd">
+<p local-id=3D"f1e98d56d744">The dashboard should support reporting for bot=
+h Summarisation Stage 3 and Summarisation Stage 5.</p></td>
+<td data-local-id=3D"9cf02e4e-7dd2-4619-a38c-aeb7797a2f6c" class=3D"conflue=
+nceTd">
+<p local-id=3D"47fb4f66c2c6">High</p></td>
+</tr>
+<tr data-local-id=3D"050d7071-61ad-4e67-b2f5-4daf66f90939">
+<td data-local-id=3D"747ffcbd-2758-4ccd-835b-a033941a77fa" class=3D"conflue=
+nceTd">
+<p local-id=3D"eecd628af712">BR- 03</p></td>
+<td data-local-id=3D"7a5c2943-e59b-4df6-aea4-492021b5ec96" class=3D"conflue=
+nceTd">
+<p local-id=3D"4d44eeab514f">The dashboard should display a table listing c=
+ase- level and agent- level data for reviewed cases.</p></td>
+<td data-local-id=3D"49391c5b-73f5-4278-9df8-23d0329a56ab" class=3D"conflue=
+nceTd">
+<p local-id=3D"e580ba432d77">High</p></td>
+</tr>
+<tr data-local-id=3D"c674ec6d-5b3e-43f8-860c-5b804f3cd242">
+<td data-local-id=3D"8ab9396b-a493-4596-bf83-73a3f993559d" class=3D"conflue=
+nceTd">
+<p local-id=3D"1c7ae71d6abb">BR- 04</p></td>
+<td data-local-id=3D"dd9d560d-c4b6-4c1a-b4a6-ec6032e507cd" class=3D"conflue=
+nceTd">
+<p local-id=3D"5d16b397a045">The dashboard should display the agent name as=
+sociated with each reviewed case.</p></td>
+<td data-local-id=3D"55efc578-1757-4581-b2c6-d97734ac4804" class=3D"conflue=
+nceTd">
+<p local-id=3D"b4cf6e46dfc8">High</p></td>
+</tr>
+<tr data-local-id=3D"2cbb3648-9db6-4a5d-ac9b-d3cdb3f3dcfc">
+<td data-local-id=3D"35ef7121-555d-47b2-a6b5-22f5edc8868a" class=3D"conflue=
+nceTd">
+<p local-id=3D"b0b7ce5bbe2d">BR- 05</p></td>
+<td data-local-id=3D"192e2b91-c0e4-4888-b605-43e72b349522" class=3D"conflue=
+nceTd">
+<p local-id=3D"ec02b5805790">The dashboard should display the PCN number fo=
+r traceability.</p></td>
+<td data-local-id=3D"536073b0-6cba-4bf4-91a8-c87e9d72d058" class=3D"conflue=
+nceTd">
+<p local-id=3D"e629881c12a6">High</p></td>
+</tr>
+<tr data-local-id=3D"34bbb8e7-c4fa-4ea6-8fdb-7ccc4b17b210">
+<td data-local-id=3D"7bddb21d-7fc3-493a-bc54-6894f8307fe7" class=3D"conflue=
+nceTd">
+<p local-id=3D"a9a5fd20892c">BR- 06</p></td>
+<td data-local-id=3D"4ee97b95-ae02-4d91-bdd1-f043d7e47c2c" class=3D"conflue=
+nceTd">
+<p local-id=3D"6a2c435a8c62">The dashboard should show the total number of =
+cases reviewed.</p></td>
+<td data-local-id=3D"c0c22a8f-77ff-4acc-8349-cfc951ad066a" class=3D"conflue=
+nceTd">
+<p local-id=3D"d5eb6f622eac">High</p></td>
+</tr>
+<tr data-local-id=3D"25bb4496-3b7e-426c-802a-4301fcc43bac">
+<td data-local-id=3D"a2ca9301-c3c0-430f-8290-b1dae22efeb2" class=3D"conflue=
+nceTd">
+<p local-id=3D"d530d95d45a1">BR- 07</p></td>
+<td data-local-id=3D"619e897e-93a7-4608-835f-23d2eaa93b60" class=3D"conflue=
+nceTd">
+<p local-id=3D"7c444bf81aec">The dashboard should show the number of cases =
+where mitigation was identified in the policy/template.</p></td>
+<td data-local-id=3D"3d5547b9-89c7-4b21-a334-2e0ace8baae8" class=3D"conflue=
+nceTd">
+<p local-id=3D"0f523e42d38a">High</p></td>
+</tr>
+<tr data-local-id=3D"a6e993fa-cd1e-4dce-8cf1-a10fbff610ab">
+<td data-local-id=3D"4022137b-0d3f-408b-9092-2bd7cfbdb375" class=3D"conflue=
+nceTd">
+<p local-id=3D"f0f25a6933af">BR- 08</p></td>
+<td data-local-id=3D"52a8e18b-9d8f-4778-a93b-c6dc45ddcf78" class=3D"conflue=
+nceTd">
+<p local-id=3D"dd1c5b22cfe2">The dashboard should show the number of cases =
+where mitigation was missing from the policy/template.</p></td>
+<td data-local-id=3D"f5bc194e-535b-46f8-aa9e-fb2f573f0fd4" class=3D"conflue=
+nceTd">
+<p local-id=3D"c95feac92da2">High</p></td>
+</tr>
+<tr data-local-id=3D"db72ae5a-f0f8-4485-ad5d-3a09a2a2229e">
+<td data-local-id=3D"c20f6aa3-5b27-4f29-969f-ac0ac82e35d8" class=3D"conflue=
+nceTd">
+<p local-id=3D"2470cb4a1f2a">BR- 09</p></td>
+<td data-local-id=3D"4cced8d1-4b92-4c99-aa00-d61be778c260" class=3D"conflue=
+nceTd">
+<p local-id=3D"816cbaf28034">The dashboard should display the bot decision =
+colour as Red, Amber, or Green.</p></td>
+<td data-local-id=3D"3c268f79-6ee8-4781-b188-bdcc6851f604" class=3D"conflue=
+nceTd">
+<p local-id=3D"e671e1474968">High</p></td>
+</tr>
+<tr data-local-id=3D"3cf5c2fa-ff2c-493b-beb6-02b2da01eefc">
+<td data-local-id=3D"d972d361-6745-4f1c-83c1-ae4bc5709db4" class=3D"conflue=
+nceTd">
+<p local-id=3D"0bce741cdd54">BR- 10</p></td>
+<td data-local-id=3D"0de8fbe6-21f6-4653-8da8-fb8a2b0d1b15" class=3D"conflue=
+nceTd">
+<p local-id=3D"6ad606bcb47f">The dashboard should display the reason when t=
+he bot decision is Amber.</p></td>
+<td data-local-id=3D"192485ce-706b-427c-803d-16ed0e15271a" class=3D"conflue=
+nceTd">
+<p local-id=3D"025343ae4aa0">High</p></td>
+</tr>
+<tr data-local-id=3D"0ad20fac-473c-4c28-a3e0-367a929f8dc6">
+<td data-local-id=3D"df8e8e93-5833-4fb4-9260-7976f1fb3831" class=3D"conflue=
+nceTd">
+<p local-id=3D"c652d801ac5b">BR- 11</p></td>
+<td data-local-id=3D"5afb80a2-005b-427b-8caf-98c08796fd45" class=3D"conflue=
+nceTd">
+<p local-id=3D"86f270d00d78">The dashboard should show the number of cases =
+where no amendments were needed to the letter template.</p></td>
+<td data-local-id=3D"a89778ca-e45c-4731-9b52-dae10dfdbd79" class=3D"conflue=
+nceTd">
+<p local-id=3D"73a975435f3f">High</p></td>
+</tr>
+<tr data-local-id=3D"faff9d8c-7af3-4be1-b462-54ab715e8c19">
+<td data-local-id=3D"ddd6286c-0fdb-4c71-81dc-b9bb4645f68e" class=3D"conflue=
+nceTd">
+<p local-id=3D"2fff09c4ba3f">BR- 12</p></td>
+<td data-local-id=3D"abcfb0d2-7bc2-4761-ac0b-349f207509d7" class=3D"conflue=
+nceTd">
+<p local-id=3D"3d5b55bd4c6f">The dashboard should show the number of cases =
+where the agent made an amendment to the letter template.</p></td>
+<td data-local-id=3D"2456ed8f-8269-4675-88d4-0520cd93d565" class=3D"conflue=
+nceTd">
+<p local-id=3D"5561b66c9fa2">High</p></td>
+</tr>
+<tr data-local-id=3D"f2d91940-3d9d-48db-8836-a540bbd5f8b3">
+<td data-local-id=3D"7d00fcc5-765f-4e5d-86c7-4566b6f1b099" class=3D"conflue=
+nceTd">
+<p local-id=3D"6bacf82e9086">BR- 13</p></td>
+<td data-local-id=3D"b38f37b0-0ea6-422a-95c2-51d37ea54548" class=3D"conflue=
+nceTd">
+<p local-id=3D"1f7e0b5ea5a3">The dashboard should display the contravention=
+ code associated with each case.</p></td>
+<td data-local-id=3D"c7ca6b72-d7a3-495d-a19d-a32f94b0006f" class=3D"conflue=
+nceTd">
+<p local-id=3D"15064de5e3d2">High</p></td>
+</tr>
+<tr data-local-id=3D"7ad107ac-98f5-404f-8707-3283a1c42c4d">
+<td data-local-id=3D"7cadeb39-ef5e-4208-9d7f-9ecb1b2edabf" class=3D"conflue=
+nceTd">
+<p local-id=3D"e65ea90ff7aa">BR- 14</p></td>
+<td data-local-id=3D"6543ebfd-f95f-4335-a6b4-972d46b8f1f3" class=3D"conflue=
+nceTd">
+<p local-id=3D"2c4cd4f77912">The dashboard should show the number of custom=
+ mitigations and the related agent input.</p></td>
+<td data-local-id=3D"557fe230-6d5d-46e9-9d9d-9b1d361d4154" class=3D"conflue=
+nceTd">
+<p local-id=3D"03d464c4e91b">High</p></td>
+</tr>
+<tr data-local-id=3D"a1420318-ab24-4543-a46f-0b360eef9977">
+<td data-local-id=3D"554837f6-ac6e-4a90-83af-7bbd16620562" class=3D"conflue=
+nceTd">
+<p local-id=3D"25a2b39999f4">BR- 15</p></td>
+<td data-local-id=3D"caec9511-7c02-4298-8582-74138a4cca79" class=3D"conflue=
+nceTd">
+<p local-id=3D"563baf9a9676">The dashboard should include summary widgets f=
+or key operational metrics.</p></td>
+<td data-local-id=3D"535e1066-7eea-4c61-94ee-b4f3f148f589" class=3D"conflue=
+nceTd">
+<p local-id=3D"c70d406a4106">High</p></td>
+</tr>
+<tr data-local-id=3D"e069bafc-ecc2-4a47-b558-78844fbfd1e6">
+<td data-local-id=3D"d931740e-ec13-45c2-8b04-7bb11099d0d0" class=3D"conflue=
+nceTd">
+<p local-id=3D"6da954f28fe7">BR- 16</p></td>
+<td data-local-id=3D"a0bd3db7-2425-4867-9206-45105f6d15ec" class=3D"conflue=
+nceTd">
+<p local-id=3D"479a2ade167b">The dashboard should allow users to review und=
+erlying case details supporting each widget count.</p></td>
+<td data-local-id=3D"694a1ad9-6c4c-4c38-8b9d-13514641b5d0" class=3D"conflue=
+nceTd">
+<p local-id=3D"a38426d0946a">Medium</p></td>
+</tr>
+<tr data-local-id=3D"88ddd47b-7fe9-404a-adc0-3a84938ce53a">
+<td data-local-id=3D"d18466b2-93c0-4bde-9031-ba76636d7fca" class=3D"conflue=
+nceTd">
+<p local-id=3D"c043ca58047b">BR- 17</p></td>
+<td data-local-id=3D"ccf7ebfa-786b-4f5b-83aa-de1269fb6c48" class=3D"conflue=
+nceTd">
+<p local-id=3D"0f8f2f893932">The dashboard should allow filtering by stage,=
+ agent, PCN number, bot decision colour, contravention code, mitigation sta=
+tus, and amendment status.</p></td>
+<td data-local-id=3D"5521e0fc-47df-4a6c-b52f-c9969e221758" class=3D"conflue=
+nceTd">
+<p local-id=3D"b302b8779c3e">Medium</p></td>
+</tr>
+<tr data-local-id=3D"7d7ae626-15c9-4292-9773-92ffc862368e">
+<td data-local-id=3D"2fad4a44-4927-4c44-91cb-e6f165f12678" class=3D"conflue=
+nceTd">
+<p local-id=3D"74b43136cc1e">BR- 18</p></td>
+<td data-local-id=3D"c2608300-838e-4de9-877a-a7010aa94f2c" class=3D"conflue=
+nceTd">
+<p local-id=3D"4326ec23d730">The dashboard should support export of table d=
+ata for offline review, if supported by the existing Notice IQ reporting fr=
+amework.</p></td>
+<td data-local-id=3D"2460b038-fb4e-4255-af29-29f8b418bb0d" class=3D"conflue=
+nceTd">
+<p local-id=3D"b291db9c9f99">Medium</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"0262d6f09af2" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-7.DashboardTableRequirements">7. Dashboard Table Requirements</h2>
+<p local-id=3D"f0c124243f41">The dashboard should include a primary table l=
+isting Stage 3 and Stage 5 case- level records.</p>
+<h3 local-id=3D"0f8e89c40bc4" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-7.1TableColumns">7.1 Table Columns</h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1589" data-layout=3D"align-start" data-local-id=
+=3D"9c683ade-c007-4990-945d-9ce49f68e13a" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 450.0px;">
+<col style=3D"width: 1138.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"72ecf82a-7567-4faf-8934-66aadb8836e1">
+<th data-local-id=3D"2b658eed-af7f-421c-9727-4594c0051782" class=3D"conflue=
+nceTh">
+<p local-id=3D"0e264492f2e0">Column Name</p></th>
+<th data-local-id=3D"ed12568c-cc47-4af7-bd34-005cf777def6" class=3D"conflue=
+nceTh">
+<p local-id=3D"a48ad5517b15">Description</p></th>
+</tr>
+<tr data-local-id=3D"c72dc317-cd77-4913-afe0-4c765a3e022a">
+<td data-local-id=3D"2c42c8ef-88a0-4b01-b4a8-eb70a4efd3cb" class=3D"conflue=
+nceTd">
+<p local-id=3D"12224f28adaf">Stage</p></td>
+<td data-local-id=3D"dba91c85-7359-4221-b067-9a795edf9739" class=3D"conflue=
+nceTd">
+<p local-id=3D"782bd1c25cfc">Indicates whether the record belongs to Stage =
+3 or Stage 5.</p></td>
+</tr>
+<tr data-local-id=3D"e678864e-9bd0-44ee-85ae-09d99992cfdd">
+<td data-local-id=3D"321ff7d3-070c-4305-b07f-9ba78506dd09" class=3D"conflue=
+nceTd">
+<p local-id=3D"5d9976bf95e6">Agent Name</p></td>
+<td data-local-id=3D"fddc29e6-46a2-44a0-b475-e35c2bda80de" class=3D"conflue=
+nceTd">
+<p local-id=3D"3f40e13fa7ee">Name of the agent who reviewed or processed th=
+e case.</p></td>
+</tr>
+<tr data-local-id=3D"a0aeedcd-7ea1-4afe-a625-4bb8dffe7c4f">
+<td data-local-id=3D"6f35e01d-f275-4db3-8c48-5d976e9970f7" class=3D"conflue=
+nceTd">
+<p local-id=3D"230301cb6300">PCN Number</p></td>
+<td data-local-id=3D"f3963f9e-e635-451a-913f-096039fd0cbb" class=3D"conflue=
+nceTd">
+<p local-id=3D"022aae6b00f9">PCN reference number for the case.</p></td>
+</tr>
+<tr data-local-id=3D"999e6b76-317d-4986-b075-9c8d97543e65">
+<td data-local-id=3D"9698716b-b29b-499e-bf1a-1d78a3f04dc2" class=3D"conflue=
+nceTd">
+<p local-id=3D"3cc45008ecdd">Total Number of Cases Reviewed</p></td>
+<td data-local-id=3D"4d3c8bb7-80e4-4fda-afc7-42cb3fb23770" class=3D"conflue=
+nceTd">
+<p local-id=3D"b59485a73f8c">Count of cases reviewed by the agent or within=
+ selected filter criteria.</p></td>
+</tr>
+<tr data-local-id=3D"d60a945c-cb08-4522-86ce-c5f041625d5f">
+<td data-local-id=3D"0ab5814c-77d3-43ef-a723-24e4963f5121" class=3D"conflue=
+nceTd">
+<p local-id=3D"ba2356b7facc">Mitigation Identified in Policy/Template</p></=
+td>
+<td data-local-id=3D"5e9df158-31bc-4cc3-9467-342973b4fdc2" class=3D"conflue=
+nceTd">
+<p local-id=3D"522199494229">Indicates whether mitigation was identified in=
+ the configured policy/template.</p></td>
+</tr>
+<tr data-local-id=3D"68d940ba-40d8-4111-b1a5-127e25a9bd53">
+<td data-local-id=3D"78e3b6f6-ab8b-47fd-ac80-7468b305ce7d" class=3D"conflue=
+nceTd">
+<p local-id=3D"bd4e897f6963">Mitigation Missing from Policy/Template</p></t=
+d>
+<td data-local-id=3D"18827fbc-01bb-40e0-ba80-fb3afe2dad86" class=3D"conflue=
+nceTd">
+<p local-id=3D"26d30d9bb800">Indicates whether mitigation was missing from =
+the configured policy/template.</p></td>
+</tr>
+<tr data-local-id=3D"881992f5-b148-450a-b3dc-92eb2fafcb05">
+<td data-local-id=3D"f785e2dd-17e5-404a-a2c1-e04c5683a0bb" class=3D"conflue=
+nceTd">
+<p local-id=3D"79f35e6d8560">Bot Decision Colour</p></td>
+<td data-local-id=3D"7e2bc235-4d7f-4650-b18b-bd3e677b42ac" class=3D"conflue=
+nceTd">
+<p local-id=3D"74f36aadd6a0">Shows bot decision as Green, Amber, or Red.</p=
+></td>
+</tr>
+<tr data-local-id=3D"a1236dc8-5917-4f10-99af-6b730c035c00">
+<td data-local-id=3D"83bb9fec-aaea-4c49-a804-c64dd8995611" class=3D"conflue=
+nceTd">
+<p local-id=3D"4c18a4bbc53f">Amber Reason</p></td>
+<td data-local-id=3D"0bdb34e1-0208-426d-aa66-3186e69adb6e" class=3D"conflue=
+nceTd">
+<p local-id=3D"805e731a946b">Shows the reason when the bot decision is Ambe=
+r.</p></td>
+</tr>
+<tr data-local-id=3D"d0283d21-4864-4422-86c9-2d592f159131">
+<td data-local-id=3D"cd51e7e6-760b-4d62-8f64-c4a0330aac48" class=3D"conflue=
+nceTd">
+<p local-id=3D"0cdfcff81eba">No Letter Amendment Needed</p></td>
+<td data-local-id=3D"64c6f15e-3c27-4428-a1e0-99ac4ce6c7f0" class=3D"conflue=
+nceTd">
+<p local-id=3D"92003ec29e6e">Indicates whether no amendments were needed to=
+ the generated letter template.</p></td>
+</tr>
+<tr data-local-id=3D"45beed65-8682-4c1a-abaa-54a8a06fc6e6">
+<td data-local-id=3D"06c76587-dc56-46be-bbc3-11844a8a7ed4" class=3D"conflue=
+nceTd">
+<p local-id=3D"aeee13a29d5a">Letter Amendment Made</p></td>
+<td data-local-id=3D"b73cbd96-83a9-47ca-aa55-33f05efa887a" class=3D"conflue=
+nceTd">
+<p local-id=3D"92af0e322b3d">Indicates whether the agent amended the letter=
+ template.</p></td>
+</tr>
+<tr data-local-id=3D"8052e972-1a72-476f-8db8-98fc3ab29ee7">
+<td data-local-id=3D"cb47b65c-4186-4c7b-8ad1-75bafd04c640" class=3D"conflue=
+nceTd">
+<p local-id=3D"cd0e92c1cf8f">Contravention Code</p></td>
+<td data-local-id=3D"ec2aa1df-075d-4c11-950d-163c3901eebb" class=3D"conflue=
+nceTd">
+<p local-id=3D"f139a8fe37e9">Contravention code linked to the PCN/case.</p>=
+</td>
+</tr>
+<tr data-local-id=3D"bf64a29d-c128-48f5-be3a-b178500abd98">
+<td data-local-id=3D"c450ab27-587a-48f1-b2e2-3d26dac09fe7" class=3D"conflue=
+nceTd">
+<p local-id=3D"6cf01ef098db">Custom Mitigation Count</p></td>
+<td data-local-id=3D"b04dbaf5-152e-423a-8b15-9e7999b20a09" class=3D"conflue=
+nceTd">
+<p local-id=3D"8b7ef72dc71e">Number of custom mitigations recorded.</p></td=
+>
+</tr>
+<tr data-local-id=3D"461f4ef9-6da9-4dfe-a76b-02c1952e662d">
+<td data-local-id=3D"5446a2f3-74f6-41ca-a2cf-d29dfd306ef3" class=3D"conflue=
+nceTd">
+<p local-id=3D"11e2a48ff58e">Agent Custom Mitigation Input</p></td>
+<td data-local-id=3D"158e9975-064b-4cea-985e-7414ce621b1d" class=3D"conflue=
+nceTd">
+<p local-id=3D"693ae580a28c">Free- text mitigation input entered by the age=
+nt.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"995b4564ebd6" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-8.WidgetRequirements">8. Widget Requirements</h2>
+<p local-id=3D"91a8488e6898">The dashboard should include five widgets to p=
+rovide summary- level visibility.</p>
+<h3 local-id=3D"5e057a3f7a42" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-8.1Widget1-CaseandMitigationSummary">8.1 Widget 1 - Case and Mitigatio=
+n Summary</h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"b=
+93e506b-3a43-4519-8dea-d5cc739edade" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"f24c4ddb-5cda-4573-8796-44cc922bdd46">
+<th data-local-id=3D"47db732d-c392-46a9-9dff-29a8cea7090e" class=3D"conflue=
+nceTh">
+<p local-id=3D"643969bdddc1">Metric</p></th>
+<th data-local-id=3D"d5453fd5-e243-4cd8-9d38-6cfb049e3f56" class=3D"conflue=
+nceTh">
+<p local-id=3D"95ba041bff93">Description</p></th>
+</tr>
+<tr data-local-id=3D"1f9b8eb3-1297-4191-aba8-98d99e9f3d1c">
+<td data-local-id=3D"80a27370-9be2-4d3b-abde-9eebe12f7db4" class=3D"conflue=
+nceTd">
+<p local-id=3D"d0ccc15be08f">Total Number of Cases Reviewed</p></td>
+<td data-local-id=3D"a5dedd23-d2e2-4564-82fa-870352eb9998" class=3D"conflue=
+nceTd">
+<p local-id=3D"3e207b6d0a2b">Displays total reviewed cases for the selected=
+ filter period.</p></td>
+</tr>
+<tr data-local-id=3D"702169b7-bdff-4a2c-af67-1d5500823759">
+<td data-local-id=3D"0ae1a8d3-f5af-4d1c-9c74-6d2c6e66e1f2" class=3D"conflue=
+nceTd">
+<p local-id=3D"c372f0e270ce">Number of Cases Where Mitigation Was Identifie=
+d in Policy/Template</p></td>
+<td data-local-id=3D"fc20b959-ea2d-48a1-bcba-14ef16e8f6aa" class=3D"conflue=
+nceTd">
+<p local-id=3D"22a8f49b5dc1">Displays count of cases where mitigation match=
+ed the configured template.</p></td>
+</tr>
+<tr data-local-id=3D"4c97e902-9204-4fe9-b938-f86e46782a61">
+<td data-local-id=3D"1aa26e61-0e16-46b2-a62b-3e20e7207c20" class=3D"conflue=
+nceTd">
+<p local-id=3D"91dd2354da2a">Number of Cases Where Mitigation Was Missing f=
+rom Policy/Template</p></td>
+<td data-local-id=3D"b1a2c96c-3301-47eb-ab48-844e7898da9b" class=3D"conflue=
+nceTd">
+<p local-id=3D"ee0fc631e420">Displays count of cases where mitigation was n=
+ot present in the configured template.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"2f9ee5cd55c2"><strong>Purpose:</strong><br>
+To provide a high- level view of overall case volume and mitigation templat=
+e coverage.</p>
+<h3 local-id=3D"e7272338ef2e" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-8.2Widget2-GreenBotDecisionSummary">8.2 Widget 2 - Green Bot Decision =
+Summary</h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"1=
+5aa9fc0-ea08-4cb0-97c2-0ffdce187ca2" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"3b01d269-13d3-449a-aa0e-bc346852ffe0">
+<th data-local-id=3D"84b1bd0c-9ce8-4dee-837a-805ff5c664c7" class=3D"conflue=
+nceTh">
+<p local-id=3D"8606a9e8a876">Metric</p></th>
+<th data-local-id=3D"5fe7b555-d342-4c4f-af08-999024b47e7d" class=3D"conflue=
+nceTh">
+<p local-id=3D"0ccc5de4c849">Description</p></th>
+</tr>
+<tr data-local-id=3D"cf27e74a-4691-4c94-9cfa-a7b3a5eda459">
+<td data-local-id=3D"43dea8bd-ef36-4317-9f78-47aff71fb813" class=3D"conflue=
+nceTd">
+<p local-id=3D"661eae25f7db">Bot Decision - Green Count</p></td>
+<td data-local-id=3D"0cf85da9-bab6-4238-b29f-a800fff3777a" class=3D"conflue=
+nceTd">
+<p local-id=3D"c6e4eb896436">Displays total number of Green bot decisions.<=
+/p></td>
+</tr>
+<tr data-local-id=3D"b5fa52d5-8192-4abd-9bb0-78f9d4f37559">
+<td data-local-id=3D"7cbe400b-9783-4f6b-bc48-3de43ccce14c" class=3D"conflue=
+nceTd">
+<p local-id=3D"5b62a9cc2a8a">Agent Name</p></td>
+<td data-local-id=3D"ea5c7e31-3278-4262-ad62-516d89edfaf1" class=3D"conflue=
+nceTd">
+<p local-id=3D"710115a2c88b">Displays related agent names for Green decisio=
+n cases.</p></td>
+</tr>
+<tr data-local-id=3D"2a3d85a0-ade3-4c4d-a0ab-16a7ceb8dd12">
+<td data-local-id=3D"46fec003-bd98-4b8b-b076-eb026e6250fc" class=3D"conflue=
+nceTd">
+<p local-id=3D"8a1f05804f5b">PCN Number</p></td>
+<td data-local-id=3D"91aeb332-941e-4109-b779-0771ac0b164f" class=3D"conflue=
+nceTd">
+<p local-id=3D"207393768eeb">Displays PCN numbers linked to Green cases.</p=
+></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"9866b64ac9a6"><strong>Purpose:</strong><br>
+To monitor cases where the bot successfully completed decisioning without r=
+eview blockers.</p>
+<h3 local-id=3D"9ade2471b019" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-8.3Widget3-AmberBotDecisionSummary">8.3 Widget 3 - Amber Bot Decision =
+Summary</h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"9=
+8ba94a5-8815-4cfd-8a11-51537585bdf5" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"8cdb36cd-c459-46d7-b164-4bc06b34608c">
+<th data-local-id=3D"5ae8ae75-83f4-4fb7-acfe-227dd9a211a9" class=3D"conflue=
+nceTh">
+<p local-id=3D"0b75e03d2004">Metric</p></th>
+<th data-local-id=3D"bafbf0b9-e8e5-4062-a262-0c691bea8f4f" class=3D"conflue=
+nceTh">
+<p local-id=3D"09eab9562fe1">Description</p></th>
+</tr>
+<tr data-local-id=3D"fb85bdeb-9223-43ab-a641-e4b564c688c8">
+<td data-local-id=3D"73a3fc02-f384-4c54-8d20-e1b82d3eb2f2" class=3D"conflue=
+nceTd">
+<p local-id=3D"e95e117560f2">Bot Decision - Amber Count</p></td>
+<td data-local-id=3D"efa1c185-60b8-4aba-9ec6-3a94b4035607" class=3D"conflue=
+nceTd">
+<p local-id=3D"3b22fc30f302">Displays total number of Amber bot decisions.<=
+/p></td>
+</tr>
+<tr data-local-id=3D"7927c08d-5a30-4e98-9fca-a3aa2c5718fe">
+<td data-local-id=3D"98afd927-6b70-4ccb-9ce5-a55a1d3ce48d" class=3D"conflue=
+nceTd">
+<p local-id=3D"309cc9bc59b5">Amber Reason Breakdown</p></td>
+<td data-local-id=3D"bf027d05-b60b-4dca-b991-f0239f576c7e" class=3D"conflue=
+nceTd">
+<p local-id=3D"799d3bee54b5">Displays breakdown of reasons why cases were m=
+arked Amber.</p></td>
+</tr>
+<tr data-local-id=3D"b607615d-d25f-484e-b989-6d221757a1fb">
+<td data-local-id=3D"65fbebba-2937-4f0d-8940-ab93482ea594" class=3D"conflue=
+nceTd">
+<p local-id=3D"ca4f7b6526ff">Agent Name</p></td>
+<td data-local-id=3D"170e785b-d345-428c-b83f-93e4b1c3cf8f" class=3D"conflue=
+nceTd">
+<p local-id=3D"d46b732ca87f">Displays related agent names for Amber cases.<=
+/p></td>
+</tr>
+<tr data-local-id=3D"b173099d-f10f-4eba-a9df-c97ab2142b45">
+<td data-local-id=3D"1baaadff-3d6b-42b6-a535-a07355b4e7b4" class=3D"conflue=
+nceTd">
+<p local-id=3D"ae8998d1fad4">PCN Number</p></td>
+<td data-local-id=3D"7a117a04-7ae1-43f0-a933-3fc86e301405" class=3D"conflue=
+nceTd">
+<p local-id=3D"5fc93b2f2a16">Displays PCN numbers linked to Amber cases.</p=
+></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"42f0279e780e"><strong>Purpose:</strong><br>
+To identify common reasons why agent review is required and support improve=
+ment of validation, policy, and mitigation logic.</p>
+<h3 local-id=3D"e1222d1b2e80" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-8.4Widget4-RedBotDecisionSummary">8.4 Widget 4 - Red Bot Decision Summ=
+ary</h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"4=
+f3f879d-b004-466e-8e0d-66afa82150c2" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"db2f10cc-0d7e-4f21-8a9b-22779422426b">
+<th data-local-id=3D"d8870e91-60da-449b-a4bb-8a0f4d47353a" class=3D"conflue=
+nceTh">
+<p local-id=3D"d0c0fbc84c18">Metric</p></th>
+<th data-local-id=3D"9cacca80-4baf-4683-a94d-ffe84d9bd9d2" class=3D"conflue=
+nceTh">
+<p local-id=3D"660dcc099f86">Description</p></th>
+</tr>
+<tr data-local-id=3D"2c3dbef9-8e8d-4a45-8dbb-39df2200f7b8">
+<td data-local-id=3D"da351e78-6f2f-48c6-86f3-85f52704c5a8" class=3D"conflue=
+nceTd">
+<p local-id=3D"6aae9de092c4">Bot Decision - Red Count</p></td>
+<td data-local-id=3D"81db5528-e26d-414a-8829-5fb6a0a42768" class=3D"conflue=
+nceTd">
+<p local-id=3D"ec730d17b713">Displays total number of Red bot decisions.</p=
+></td>
+</tr>
+<tr data-local-id=3D"4d312926-a6f0-4498-8d69-81220eef639f">
+<td data-local-id=3D"333c95da-9562-46c8-82ce-57b4b37966b3" class=3D"conflue=
+nceTd">
+<p local-id=3D"d9f87c10d8c6">Agent Name</p></td>
+<td data-local-id=3D"245100a7-3bf2-4028-9fc6-ee4ef518b361" class=3D"conflue=
+nceTd">
+<p local-id=3D"7370ace7a013">Displays related agent names for Red cases.</p=
+></td>
+</tr>
+<tr data-local-id=3D"61113db8-74ef-49cf-b384-328fec4e394f">
+<td data-local-id=3D"f9611d6b-70ff-47a1-850c-de996d7cb39d" class=3D"conflue=
+nceTd">
+<p local-id=3D"62ef10d1190c">PCN Number</p></td>
+<td data-local-id=3D"ba56fce9-2cb3-456d-b3e1-73aec5e35a83" class=3D"conflue=
+nceTd">
+<p local-id=3D"f98f857aa8f6">Displays PCN numbers linked to Red cases.</p><=
+/td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"1ae94998c7e7"><strong>Purpose:</strong><br>
+To monitor cases where mitigation was not identified or the case required m=
+anual handling.</p>
+<h3 local-id=3D"974cd23ac206" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-8.5Widget5-LetterAmendmentSummary">8.5 Widget 5 - Letter Amendment Sum=
+mary</h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"8=
+95d4fb0-724a-4122-b40b-2fb9899b4597" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"74a375ab-ebea-4782-be60-25a2c328f098">
+<th data-local-id=3D"be003ec2-5555-49d1-9404-c5c6236e1b50" class=3D"conflue=
+nceTh">
+<p local-id=3D"e144bcfebb6d">Metric</p></th>
+<th data-local-id=3D"22e37550-73b9-44a0-b732-45468c62d375" class=3D"conflue=
+nceTh">
+<p local-id=3D"853c9014d22d">Description</p></th>
+</tr>
+<tr data-local-id=3D"2863ab62-aac3-44e1-89f8-3a41318703bb">
+<td data-local-id=3D"a39eb170-faa2-4cc8-b6c6-0fd401571873" class=3D"conflue=
+nceTd">
+<p local-id=3D"952887c72314">Number of Cases Where No Amendments Were Neede=
+d</p></td>
+<td data-local-id=3D"8e88d7cc-4572-4f5a-ae76-e20b2feb7a29" class=3D"conflue=
+nceTd">
+<p local-id=3D"301ac040ff71">Displays count of cases where generated letter=
+ was accepted without amendment.</p></td>
+</tr>
+<tr data-local-id=3D"ad116541-6184-46f1-8423-0f61b18b0dab">
+<td data-local-id=3D"0f212f24-71b5-42e5-996d-a71dec6d3d2d" class=3D"conflue=
+nceTd">
+<p local-id=3D"99015ccf916b">Number of Cases Where Agent Made Amendment to =
+Letter Template</p></td>
+<td data-local-id=3D"62c3d3a4-7ebf-4ab3-a087-4e4562974264" class=3D"conflue=
+nceTd">
+<p local-id=3D"6113794b9803">Displays count of cases where the agent amende=
+d the generated letter.</p></td>
+</tr>
+<tr data-local-id=3D"a469ce46-11a9-42ef-aaa8-29fe637c84f9">
+<td data-local-id=3D"1c0e0398-a8dd-4c27-a993-bb025e0fadb1" class=3D"conflue=
+nceTd">
+<p local-id=3D"92c1aa420cc8">Agent Name</p></td>
+<td data-local-id=3D"034ff8cb-f63f-4c29-90bb-f7342d2a8d98" class=3D"conflue=
+nceTd">
+<p local-id=3D"dc9683539f4d">Displays agents associated with amendment/no- =
+amendment cases.</p></td>
+</tr>
+<tr data-local-id=3D"c5367d24-e197-4e3e-914b-046fd8dcede4">
+<td data-local-id=3D"647dd08c-db8d-4766-8a63-7590c8cc5f1a" class=3D"conflue=
+nceTd">
+<p local-id=3D"abac7a7bd0ae">PCN Number</p></td>
+<td data-local-id=3D"f45f87f8-866d-436c-ab6d-8308428bd2c2" class=3D"conflue=
+nceTd">
+<p local-id=3D"35de6ab4a09d">Displays PCN numbers linked to amendment/no- a=
+mendment cases.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"afa48e61d379"><strong>Purpose:</strong><br>
+To measure letter generation quality and identify where agents frequently i=
+ntervene.</p>
+<h2 local-id=3D"ea7592a3d8b6" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-9.DashboardFilters">9. Dashboard Filters</h2>
+<p local-id=3D"98f03c3a1d46">The dashboard should support the following fil=
+ters:</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"a=
+93d309b-1540-494e-8c8f-b6f54def407a" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"364395ec-6381-4267-b842-cc7e2678ace7">
+<th data-local-id=3D"0b8791e6-d266-453a-9479-20d493ce52a1" class=3D"conflue=
+nceTh">
+<p local-id=3D"d6dde832bc5f">Filter</p></th>
+<th data-local-id=3D"71cab973-dd76-4741-92fc-976ab01c5320" class=3D"conflue=
+nceTh">
+<p local-id=3D"e146aca8fdfb">Description</p></th>
+<th data-local-id=3D"b4baa502-0400-497f-8ad2-741dd6ea115d" class=3D"conflue=
+nceTh">
+<p local-id=3D"62e2e73707f5">Priority</p></th>
+</tr>
+<tr data-local-id=3D"c8a1fd27-f2f5-42b3-8868-9ae7f5bd3b47">
+<td data-local-id=3D"72a3e82a-03ce-48de-a27c-c268e223fdfd" class=3D"conflue=
+nceTd">
+<p local-id=3D"37dbe072932f">Date Range</p></td>
+<td data-local-id=3D"0dc230b3-9c8c-4168-8b32-719c7018f157" class=3D"conflue=
+nceTd">
+<p local-id=3D"9299cb2fa205">Filter dashboard by case review date.</p></td>
+<td data-local-id=3D"9eb17534-1cd0-4c5b-ad31-9de3c32001f9" class=3D"conflue=
+nceTd">
+<p local-id=3D"766de7a3b782">High</p></td>
+</tr>
+<tr data-local-id=3D"26bd76bf-c62f-4fd9-8e94-8488e1be3ad0">
+<td data-local-id=3D"30627f4b-9882-452e-9b4f-3efa6e71f87c" class=3D"conflue=
+nceTd">
+<p local-id=3D"44b911f3589b">Stage</p></td>
+<td data-local-id=3D"f13e8db6-90c4-47e2-a4fd-951e055b1bff" class=3D"conflue=
+nceTd">
+<p local-id=3D"d30514758724">Filter by Stage 3 or Stage 5.</p></td>
+<td data-local-id=3D"e3708349-b1b5-4244-94a8-77af491546cd" class=3D"conflue=
+nceTd">
+<p local-id=3D"1b6940644ac0">High</p></td>
+</tr>
+<tr data-local-id=3D"2631d337-5990-4abf-adcf-3b88215e620e">
+<td data-local-id=3D"8df61bd1-f762-4fb2-aa07-214bd7c1c142" class=3D"conflue=
+nceTd">
+<p local-id=3D"a190ea54abda">Agent Name</p></td>
+<td data-local-id=3D"cafba9ed-237f-4418-9c2a-b5e5057c0f98" class=3D"conflue=
+nceTd">
+<p local-id=3D"26dc780470f9">Filter by individual agent.</p></td>
+<td data-local-id=3D"5279e6c2-b022-4f1d-ab8c-6fee20b74c6c" class=3D"conflue=
+nceTd">
+<p local-id=3D"4b780406fad1">High</p></td>
+</tr>
+<tr data-local-id=3D"469b7f29-474f-41bd-a8d0-48aeef2bb7fc">
+<td data-local-id=3D"e7a67ddf-c152-455f-ab36-334be3d97854" class=3D"conflue=
+nceTd">
+<p local-id=3D"bace694fbbc3">PCN Number</p></td>
+<td data-local-id=3D"11a47e0e-9154-4ff5-b023-35a9313d2dd1" class=3D"conflue=
+nceTd">
+<p local-id=3D"62f72df5ee7f">Search/filter by PCN number.</p></td>
+<td data-local-id=3D"f5db842a-0341-46d1-85a7-a688365b2355" class=3D"conflue=
+nceTd">
+<p local-id=3D"71e8c259f100">High</p></td>
+</tr>
+<tr data-local-id=3D"d91042dc-d0f6-453b-aa74-61bedeabdf6f">
+<td data-local-id=3D"5f0068f3-9235-48fa-b50e-4becb9910823" class=3D"conflue=
+nceTd">
+<p local-id=3D"0c43f465c2c6">Bot Decision Colour</p></td>
+<td data-local-id=3D"b556fb53-0086-4be7-83f7-1aa832747aaa" class=3D"conflue=
+nceTd">
+<p local-id=3D"6b870ad9ed3f">Filter by Green, Amber, or Red.</p></td>
+<td data-local-id=3D"a20d03a3-eb60-49e4-8215-d23772d70cfd" class=3D"conflue=
+nceTd">
+<p local-id=3D"7847571cd9ab">High</p></td>
+</tr>
+<tr data-local-id=3D"93069952-bccf-4cd4-a9bc-a54d39000585">
+<td data-local-id=3D"897a9c3a-b8ca-4264-87fe-0d36b8e2e459" class=3D"conflue=
+nceTd">
+<p local-id=3D"3fef86698de5">Amber Reason</p></td>
+<td data-local-id=3D"7fca3b7f-aff3-4187-a6cc-a18fbd0039a7" class=3D"conflue=
+nceTd">
+<p local-id=3D"7ff4319f72e1">Filter by specific Amber reason.</p></td>
+<td data-local-id=3D"f1ff2b67-7085-4340-a9cd-9678f25b8a75" class=3D"conflue=
+nceTd">
+<p local-id=3D"224f87e7e34a">Medium</p></td>
+</tr>
+<tr data-local-id=3D"9a01412a-3ed9-4c05-91ce-0b18694f9811">
+<td data-local-id=3D"0f80954e-8dab-49a8-ab33-da22ffd4d703" class=3D"conflue=
+nceTd">
+<p local-id=3D"cf61123c6497">Mitigation Status</p></td>
+<td data-local-id=3D"477662b3-f4af-4c3c-b45d-a0eb7743fca0" class=3D"conflue=
+nceTd">
+<p local-id=3D"3b594666452c">Filter by mitigation identified or mitigation =
+missing.</p></td>
+<td data-local-id=3D"68b8abb0-2310-45e3-bd07-cf5bf7b542dd" class=3D"conflue=
+nceTd">
+<p local-id=3D"68237cab539a">High</p></td>
+</tr>
+<tr data-local-id=3D"9f84dfbf-44e2-416c-beda-e529343720c6">
+<td data-local-id=3D"c13b50b0-2c45-4a9a-8b33-5f8d81762455" class=3D"conflue=
+nceTd">
+<p local-id=3D"410f995276f5">Amendment Status</p></td>
+<td data-local-id=3D"7c4deed1-bf70-4e40-991e-ec06b76c664e" class=3D"conflue=
+nceTd">
+<p local-id=3D"46774aff16c9">Filter by amended or not amended.</p></td>
+<td data-local-id=3D"f022ef58-2ba1-48bd-8c48-3fb7f680b095" class=3D"conflue=
+nceTd">
+<p local-id=3D"8d9b9fd97355">High</p></td>
+</tr>
+<tr data-local-id=3D"c882153b-ad2e-4f72-bf78-22a4ca4a16d7">
+<td data-local-id=3D"2c58792f-98e7-4df2-be83-ed9e39e046b0" class=3D"conflue=
+nceTd">
+<p local-id=3D"b4f4a18446cb">Contravention Code</p></td>
+<td data-local-id=3D"17f07179-328b-4335-8986-f2644f7cbe9f" class=3D"conflue=
+nceTd">
+<p local-id=3D"e1d221f6e4af">Filter by contravention code.</p></td>
+<td data-local-id=3D"007ac983-c5fe-432f-a58a-8dcb347a6b5d" class=3D"conflue=
+nceTd">
+<p local-id=3D"0e735b098432">Medium</p></td>
+</tr>
+<tr data-local-id=3D"25b664e8-1bba-4097-b14e-25ef3b9e8571">
+<td data-local-id=3D"41642966-f874-496c-8fb1-ed2c3ea6725c" class=3D"conflue=
+nceTd">
+<p local-id=3D"51be3775a5b9">Custom Mitigation Present</p></td>
+<td data-local-id=3D"5cd85b81-9d92-450b-9cdf-41199b5a3721" class=3D"conflue=
+nceTd">
+<p local-id=3D"63319dab33f0">Filter cases where custom mitigation was enter=
+ed.</p></td>
+<td data-local-id=3D"228a5aa4-7811-4fcb-9b7c-d12d76090851" class=3D"conflue=
+nceTd">
+<p local-id=3D"3513ea61f142">Medium</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"750b540c8b73" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-10.DataDefinitions">10. Data Definitions</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"a=
+ae6e08b-f084-4946-b983-ce6255523467" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"cf5d2ddd-93aa-4f3c-ad41-75f14a76ed08">
+<th data-local-id=3D"051550c6-070c-4b04-b1c6-8b9cdeab6bab" class=3D"conflue=
+nceTh">
+<p local-id=3D"a4a6369c0c29">Data Field</p></th>
+<th data-local-id=3D"28e30edc-d783-4921-a5d3-a6fed63ce33a" class=3D"conflue=
+nceTh">
+<p local-id=3D"f603a3ef9185">Definition</p></th>
+</tr>
+<tr data-local-id=3D"1b2a61ab-60ca-4ed4-913a-076b125af510">
+<td data-local-id=3D"fa42b064-0f61-4ebb-bb91-57a87fdd8721" class=3D"conflue=
+nceTd">
+<p local-id=3D"d57783f83dfb">Agent Name</p></td>
+<td data-local-id=3D"240e7aaa-6ac1-4efe-a516-446abb2d272d" class=3D"conflue=
+nceTd">
+<p local-id=3D"5e2dc8c7f115">User who processed or reviewed the Stage 3/Sta=
+ge 5 case.</p></td>
+</tr>
+<tr data-local-id=3D"acb71e76-d6c1-4744-9b80-07556fdf8764">
+<td data-local-id=3D"3ced917d-66cd-460d-8c92-cbed1529c2a8" class=3D"conflue=
+nceTd">
+<p local-id=3D"122b219a6759">PCN Number</p></td>
+<td data-local-id=3D"d50bd1b1-8112-4684-ad1a-9649a4c3582d" class=3D"conflue=
+nceTd">
+<p local-id=3D"8a9bcf3a74df">Unique PCN identifier linked to the challenge.=
+</p></td>
+</tr>
+<tr data-local-id=3D"062db21f-576e-4d7e-86e2-05722a431f9b">
+<td data-local-id=3D"3200d1f7-d495-42c8-afd6-258007be42ae" class=3D"conflue=
+nceTd">
+<p local-id=3D"da5637927674">Total Cases Reviewed</p></td>
+<td data-local-id=3D"4e31dad1-1956-4dec-929e-bc854a768527" class=3D"conflue=
+nceTd">
+<p local-id=3D"6e7c47c8548a">Total count of reviewed cases within selected =
+filter criteria.</p></td>
+</tr>
+<tr data-local-id=3D"f19ea113-c5c6-4e2c-ab3b-294f5ab2a058">
+<td data-local-id=3D"61f2721f-368e-4faf-b5de-e29fe99f67fa" class=3D"conflue=
+nceTd">
+<p local-id=3D"ffd105244995">Mitigation Identified</p></td>
+<td data-local-id=3D"6d3ffe68-7c75-4eb3-bf0e-b2a937f462ec" class=3D"conflue=
+nceTd">
+<p local-id=3D"5767a279670e">Case where the mitigation was successfully mat=
+ched to policy/template.</p></td>
+</tr>
+<tr data-local-id=3D"bb5f91a5-e496-4853-a484-6bcb0ba47ac6">
+<td data-local-id=3D"ada4bcaf-ef7d-44f9-a9ac-02760d4de61c" class=3D"conflue=
+nceTd">
+<p local-id=3D"192c05e5ce5f">Mitigation Missing</p></td>
+<td data-local-id=3D"d884ff62-a3d9-4b66-b04d-c8bd56c088ee" class=3D"conflue=
+nceTd">
+<p local-id=3D"9c6be11170e7">Case where mitigation was not found in policy/=
+template.</p></td>
+</tr>
+<tr data-local-id=3D"45f97d18-d40b-4fa2-a669-ef1f6715ccb9">
+<td data-local-id=3D"c7da89e6-f08c-41a7-95ad-be8a8bab93db" class=3D"conflue=
+nceTd">
+<p local-id=3D"4eba8a12ecf5">Bot Decision Colour</p></td>
+<td data-local-id=3D"44ff0e7e-dcc3-4b7b-bec0-5785653eab6f" class=3D"conflue=
+nceTd">
+<p local-id=3D"6699affd0592">RAG classification generated by the bot: Green=
+, Amber, or Red.</p></td>
+</tr>
+<tr data-local-id=3D"07e9b78e-eb37-4058-bbba-eeafe2617b03">
+<td data-local-id=3D"f4f256b2-4afa-42e8-9aa4-bcd1695a1619" class=3D"conflue=
+nceTd">
+<p local-id=3D"74d819e36052">Amber Reason</p></td>
+<td data-local-id=3D"d58c00e5-273f-42e9-bbd4-0635c58e40c9" class=3D"conflue=
+nceTd">
+<p local-id=3D"b2aac247c490">Reason the bot classified the case as Amber.</=
+p></td>
+</tr>
+<tr data-local-id=3D"62a26507-f674-4761-b7ac-0f2837f441e8">
+<td data-local-id=3D"aa713527-ae04-41f4-bc41-206bde180be8" class=3D"conflue=
+nceTd">
+<p local-id=3D"d2058863aabc">No Amendment Needed</p></td>
+<td data-local-id=3D"4de2cd1c-da15-4eb7-a2e4-cae24d0101ec" class=3D"conflue=
+nceTd">
+<p local-id=3D"4796e2165e9a">Letter template was accepted without agent ame=
+ndment.</p></td>
+</tr>
+<tr data-local-id=3D"9a00cf43-35ea-4750-bbb1-b924b0c1cf29">
+<td data-local-id=3D"284bdf10-53b2-4e47-be2d-e81e33c9edf8" class=3D"conflue=
+nceTd">
+<p local-id=3D"ca5b678bc3f5">Amendment Made</p></td>
+<td data-local-id=3D"62adedcc-4b26-4943-8a03-1746f15292bf" class=3D"conflue=
+nceTd">
+<p local-id=3D"5d87afde948a">Agent changed the generated letter template/co=
+ntent.</p></td>
+</tr>
+<tr data-local-id=3D"0651c7d3-ff52-4940-b3e0-22a97c07f7ed">
+<td data-local-id=3D"8961a24f-2781-4496-8d29-8a73613dc7cf" class=3D"conflue=
+nceTd">
+<p local-id=3D"80af3ab97d01">Contravention Code</p></td>
+<td data-local-id=3D"98a2ed17-73c7-4da1-a49a-dbfa5211979e" class=3D"conflue=
+nceTd">
+<p local-id=3D"49a261e72690">PCN contravention code used for decisioning an=
+d reporting.</p></td>
+</tr>
+<tr data-local-id=3D"dd76b0f5-a1a6-427e-8e42-3bddfb965776">
+<td data-local-id=3D"a29cf6a7-c39d-401c-9d2a-9d1c1d089c84" class=3D"conflue=
+nceTd">
+<p local-id=3D"13bbdebf4975">Custom Mitigation</p></td>
+<td data-local-id=3D"14829314-ad1f-427d-b5f8-280b7ac58ee6" class=3D"conflue=
+nceTd">
+<p local-id=3D"ad23533cf4b0">New mitigation entered by agent when not found=
+ in configured template.</p></td>
+</tr>
+<tr data-local-id=3D"d5590322-9ef2-418b-a45d-4fb8fc01a3d1">
+<td data-local-id=3D"288a8b69-ee90-4790-a166-1ab1b5f0c049" class=3D"conflue=
+nceTd">
+<p local-id=3D"4814037d1ae5">Agent Custom Mitigation Input</p></td>
+<td data-local-id=3D"50651b8f-a131-4506-b657-0ef127b6cd50" class=3D"conflue=
+nceTd">
+<p local-id=3D"11e6fe997f68">Free- text input entered by agent for custom m=
+itigation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"de9d84338335" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-11.BusinessRules">11. Business Rules</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1603" data-layout=3D"align-start" data-local-id=
+=3D"07ff6ba7-799e-4ab3-a9e3-b91177bbd59b" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 140.0px;">
+<col style=3D"width: 1462.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"1cc0dc38-20b3-45b3-bc66-92c57543d0e8">
+<th data-local-id=3D"d7580895-249a-43e6-abf5-ff264830efae" class=3D"conflue=
+nceTh">
+<p local-id=3D"f8e0d50aac72">Rule ID</p></th>
+<th data-local-id=3D"83ce8ba9-7164-4687-8941-4c894764742f" class=3D"conflue=
+nceTh">
+<p local-id=3D"001df8c6d562">Business Rule</p></th>
+</tr>
+<tr data-local-id=3D"6778dd92-ce6b-4415-b65d-dca721344eeb">
+<td data-local-id=3D"238bc9a5-93d0-4598-9675-6c569efb0d4a" class=3D"conflue=
+nceTd">
+<p local-id=3D"8031424ef5fb">BRULE- 01</p></td>
+<td data-local-id=3D"b36ccb04-f772-4460-a03c-672da3095dbe" class=3D"conflue=
+nceTd">
+<p local-id=3D"b139f91d94e5">Each reviewed Stage 3 or Stage 5 case should c=
+reate or update a dashboard record.</p></td>
+</tr>
+<tr data-local-id=3D"5a581dff-b2e3-45d0-8633-9b6ffbee01a3">
+<td data-local-id=3D"70e7d8ea-4fa6-49f9-b49d-120cf1375169" class=3D"conflue=
+nceTd">
+<p local-id=3D"5b7e73612543">BRULE- 02</p></td>
+<td data-local-id=3D"2abc3823-f40f-4dca-a0b3-dcf1ee5d7185" class=3D"conflue=
+nceTd">
+<p local-id=3D"e10819954a99">A case should be counted as =E2=80=9CMitigatio=
+n Identified=E2=80=9D when the mitigation is matched to the configured poli=
+cy/template.</p></td>
+</tr>
+<tr data-local-id=3D"306e6be8-3341-4b65-bbd1-fbdd4f4a7b6c">
+<td data-local-id=3D"ba14d453-0556-4e47-8d0c-14425c91a733" class=3D"conflue=
+nceTd">
+<p local-id=3D"2449322ba72d">BRULE- 03</p></td>
+<td data-local-id=3D"6d58051e-a15e-4b11-bec8-870f465075c3" class=3D"conflue=
+nceTd">
+<p local-id=3D"ab1d4c17e2de">A case should be counted as =E2=80=9CMitigatio=
+n Missing=E2=80=9D when the mitigation is not found in the configured polic=
+y/template.</p></td>
+</tr>
+<tr data-local-id=3D"b9b0f697-f522-4ef4-9c42-098ccef0a326">
+<td data-local-id=3D"d7d412fd-bb26-49c5-b28b-e477b0542e2e" class=3D"conflue=
+nceTd">
+<p local-id=3D"ae3dea7046fc">BRULE- 04</p></td>
+<td data-local-id=3D"0bf065f6-1897-4308-98ff-8782bcc8022b" class=3D"conflue=
+nceTd">
+<p local-id=3D"42efd254dcc7">Bot decision colour should be captured as Gree=
+n, Amber, or Red.</p></td>
+</tr>
+<tr data-local-id=3D"72cb481c-f19b-4ceb-96d1-03cda96f98cd">
+<td data-local-id=3D"99de3706-6fee-411b-b804-22e274450d44" class=3D"conflue=
+nceTd">
+<p local-id=3D"36fb0b66a7ca">BRULE- 05</p></td>
+<td data-local-id=3D"37c93a76-dedf-436e-a0e8-03661fa5d206" class=3D"conflue=
+nceTd">
+<p local-id=3D"fac95d60392b">Amber reason should be mandatory when bot deci=
+sion colour is Amber.</p></td>
+</tr>
+<tr data-local-id=3D"714c85f0-d1a6-431f-8572-f789f6dca5c2">
+<td data-local-id=3D"b4620ff9-8ffe-45e9-9ff0-4931fb67ed20" class=3D"conflue=
+nceTd">
+<p local-id=3D"e24031501b17">BRULE- 06</p></td>
+<td data-local-id=3D"5c8405e4-6ee9-422f-9011-dad207344d5b" class=3D"conflue=
+nceTd">
+<p local-id=3D"13eeb8ab69f2">Letter amendment status should be captured as =
+amended or not amended.</p></td>
+</tr>
+<tr data-local-id=3D"4bb0e20b-01cc-4e27-b4cf-707a27ed03f7">
+<td data-local-id=3D"27db3068-354d-4071-a359-10efdebb6443" class=3D"conflue=
+nceTd">
+<p local-id=3D"27c8090313ef">BRULE- 07</p></td>
+<td data-local-id=3D"4ef048d3-8c2b-4324-9737-d555aa47b46a" class=3D"conflue=
+nceTd">
+<p local-id=3D"e86573ef23d9">Custom mitigation input should be captured whe=
+never an agent enters a mitigation not available in the configured template=
+.</p></td>
+</tr>
+<tr data-local-id=3D"52740314-239a-4c64-b49b-1230654d1358">
+<td data-local-id=3D"c784a114-c1f4-42c8-bcb6-7759c783c485" class=3D"conflue=
+nceTd">
+<p local-id=3D"fe5309e5adc5">BRULE- 08</p></td>
+<td data-local-id=3D"8b49c952-ec20-43ad-ba63-4a2a06b59c4c" class=3D"conflue=
+nceTd">
+<p local-id=3D"a408c8fb6274">Custom mitigation records should be available =
+for business review and template governance.</p></td>
+</tr>
+<tr data-local-id=3D"d70b3443-240a-409b-a5bc-35b5c1b7dfb2">
+<td data-local-id=3D"e3064af4-8de6-421a-a158-a9ffbe036598" class=3D"conflue=
+nceTd">
+<p local-id=3D"8b4561c55d18">BRULE- 09</p></td>
+<td data-local-id=3D"5ed7067d-b5a0-47dc-92c7-154928541df7" class=3D"conflue=
+nceTd">
+<p local-id=3D"dcc66890f7c8">PCN number should be retained in the dashboard=
+ for case traceability.</p></td>
+</tr>
+<tr data-local-id=3D"1ee4b2c2-ce69-4da6-8b46-9262387ccc2c">
+<td data-local-id=3D"a4fdcd13-5e89-4522-a284-ed3e34e27e52" class=3D"conflue=
+nceTd">
+<p local-id=3D"661d0a9206dd">BRULE- 10</p></td>
+<td data-local-id=3D"97672d10-589c-4e35-894b-2b6da49ba09a" class=3D"conflue=
+nceTd">
+<p local-id=3D"32bb4ba16bc1">Contravention code should be captured for tren=
+d analysis.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"bc355272fd3f" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-12.ReportingandGovernanceUseCases">12. Reporting and Governance Use Ca=
+ses</h2>
+<h3 local-id=3D"85c88e1f8460" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-12.1TemplateCoverageReview">12.1 Template Coverage Review</h3>
+<p local-id=3D"db5a5966f628">Business users should be able to identify how =
+many cases were successfully matched to policy/template versus how many wer=
+e missing mitigation coverage.</p>
+<h3 local-id=3D"eefb10d05f6d" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-12.2AmberReasonAnalysis">12.2 Amber Reason Analysis</h3>
+<p local-id=3D"558a9941b1d9">Business and operational users should be able =
+to review Amber reasons to understand why cases require agent intervention.=
+</p>
+<h3 local-id=3D"6f0fcd7af40e" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-12.3RedCaseMonitoring">12.3 Red Case Monitoring</h3>
+<p local-id=3D"9876a0d7f5c5">Business users should be able to monitor Red c=
+ases to identify gaps in template coverage or bot interpretation.</p>
+<h3 local-id=3D"8e9a43906679" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-12.4LetterQualityMonitoring">12.4 Letter Quality Monitoring</h3>
+<p local-id=3D"4f0d2b6dba5a">Operations and QA users should be able to trac=
+k how often generated letters require agent amendment.</p>
+<h3 local-id=3D"a1a629984569" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-12.5CustomMitigationGovernance">12.5 Custom Mitigation Governance</h3>
+<p local-id=3D"575d8c794853">Nat/Zain=E2=80=99s team should be able to revi=
+ew custom mitigations and decide whether new mitigation entries should be a=
+dded to the configurable policy/template.</p>
+<h2 local-id=3D"3fc7165b115d" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-13.Non-FunctionalRequirements">13. Non- Functional Requirements</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1603" data-layout=3D"align-start" data-local-id=
+=3D"23ebcaa1-9eeb-429c-a7c4-ac044e2341c8" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 161.0px;">
+<col style=3D"width: 1441.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"db85d299-c5d8-4f55-ac72-cd3e1fc306e0">
+<th data-local-id=3D"4d954062-4cb6-446a-a0e1-b754c27f8902" class=3D"conflue=
+nceTh">
+<p local-id=3D"d059e5d91fcb">Category</p></th>
+<th data-local-id=3D"1e112637-e4a8-439f-b99d-19e07a594265" class=3D"conflue=
+nceTh">
+<p local-id=3D"46958cfdc770">Requirement</p></th>
+</tr>
+<tr data-local-id=3D"9954762d-d382-4384-a0fd-f4711218b153">
+<td data-local-id=3D"dd746731-624f-47ff-970d-cd6db890cd9b" class=3D"conflue=
+nceTd">
+<p local-id=3D"f12feb9d9e67">Availability</p></td>
+<td data-local-id=3D"30caa767-c6b3-477b-b5e0-3b6843e4247a" class=3D"conflue=
+nceTd">
+<p local-id=3D"9c2a1fcc7423">Dashboard should be available within the exist=
+ing Notice IQ environment during agreed business operating hours.</p></td>
+</tr>
+<tr data-local-id=3D"7bb8f126-ce93-4df3-bfe5-e13267082c91">
+<td data-local-id=3D"80584f07-dabc-40fc-a5b4-033bf65199d7" class=3D"conflue=
+nceTd">
+<p local-id=3D"75ddc2490c6a">Performance</p></td>
+<td data-local-id=3D"5bcd5042-7835-4a3a-9d69-ff48d1955545" class=3D"conflue=
+nceTd">
+<p local-id=3D"cc922ac15988">Dashboard widgets and table should load within=
+ acceptable Notice IQ reporting performance standards.</p></td>
+</tr>
+<tr data-local-id=3D"f62cf8ea-70f2-4b04-a20c-99d4ea3641fc">
+<td data-local-id=3D"53a9e4e6-abcb-4ef3-a4bd-216279d648bc" class=3D"conflue=
+nceTd">
+<p local-id=3D"88662cc4af43">Security</p></td>
+<td data-local-id=3D"38c04026-60c4-4ef4-bd35-be6fb8434e5c" class=3D"conflue=
+nceTd">
+<p local-id=3D"4eede558dab7">Dashboard access should follow existing Notice=
+ IQ user access and permission controls.</p></td>
+</tr>
+<tr data-local-id=3D"8a575207-c9b7-479e-92c9-09b64a227103">
+<td data-local-id=3D"b99fcb3e-d32d-4d59-99ea-b923ac9063fa" class=3D"conflue=
+nceTd">
+<p local-id=3D"008e18413d3e">Data Protection</p></td>
+<td data-local-id=3D"3b043ac0-abcb-46db-9f77-6c155e662d57" class=3D"conflue=
+nceTd">
+<p local-id=3D"235761ba4774">Dashboard should comply with GDPR and internal=
+ data handling rules.</p></td>
+</tr>
+<tr data-local-id=3D"c97b4239-2368-4491-9914-2009cd4097c2">
+<td data-local-id=3D"50214a57-34e6-4e68-a9a2-298742a5a22f" class=3D"conflue=
+nceTd">
+<p local-id=3D"96bcc70db818">Auditability</p></td>
+<td data-local-id=3D"30e4cf33-7ffe-495f-b591-72ea02f75547" class=3D"conflue=
+nceTd">
+<p local-id=3D"60e3c5776abd">Dashboard data should be traceable back to the=
+ originating Stage 3 or Stage 5 case record where permitted.</p></td>
+</tr>
+<tr data-local-id=3D"4cb7ac85-8bb8-47fd-bc84-2b40026570f9">
+<td data-local-id=3D"737881b2-ab8b-442f-a1d8-eefdc04ad8d5" class=3D"conflue=
+nceTd">
+<p local-id=3D"680eda0593ac">Scalability</p></td>
+<td data-local-id=3D"97ec1aa2-84b7-4ea4-99ff-1a62c9099d1f" class=3D"conflue=
+nceTd">
+<p local-id=3D"d3395268f0d0">Dashboard should support increasing case volum=
+es as Stage 3 and Stage 5 usage expands.</p></td>
+</tr>
+<tr data-local-id=3D"a377a818-1041-4cb3-893f-d9bd23b32f05">
+<td data-local-id=3D"f6b3ee05-abdf-4bd4-9ab3-8467fa3e2625" class=3D"conflue=
+nceTd">
+<p local-id=3D"4a9d68e6c7b3">Export</p></td>
+<td data-local-id=3D"dee35d4f-c490-41e2-8b7a-972951bcf605" class=3D"conflue=
+nceTd">
+<p local-id=3D"2e47e50da4cf">Export should be supported where available in =
+the existing Notice IQ reporting framework.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"03aa7e2b557c" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-14.Assumptions">14. Assumptions</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1579" data-layout=3D"align-start" data-local-id=
+=3D"4c3cff80-cffe-44ae-9a6f-5fb30e555550" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 154.0px;">
+<col style=3D"width: 1425.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"7e6bc7db-f147-4458-aade-7982b1f7c345">
+<th data-local-id=3D"4ef6e01c-61cf-4f8b-9ca0-8e75e0cc097c" class=3D"conflue=
+nceTh">
+<p local-id=3D"e810e0f49851">ID</p></th>
+<th data-local-id=3D"22fe6fc0-7149-478b-a8a0-df9aefd52b76" class=3D"conflue=
+nceTh">
+<p local-id=3D"254c271080fa">Assumption</p></th>
+</tr>
+<tr data-local-id=3D"b8c67691-9c42-4f09-a940-b67cf880c088">
+<td data-local-id=3D"b21ca224-b9f4-465e-a24e-ba3ecce57e14" class=3D"conflue=
+nceTd">
+<p local-id=3D"ab6a2635e593">A- 01</p></td>
+<td data-local-id=3D"9a790c2e-1eaf-40f0-a7e3-94c3b593a07a" class=3D"conflue=
+nceTd">
+<p local-id=3D"f9248df8f5c6">The dashboard will be built within the existin=
+g Notice IQ environment under Summarisation Organisation.</p></td>
+</tr>
+<tr data-local-id=3D"1b25b104-c838-4c4c-9f56-4f8aafa3b33a">
+<td data-local-id=3D"23e596a0-4968-47ba-9f56-f45e0448f847" class=3D"conflue=
+nceTd">
+<p local-id=3D"6f368525984d">A- 02</p></td>
+<td data-local-id=3D"70bc388a-6da1-4f91-9ff1-d1252865e846" class=3D"conflue=
+nceTd">
+<p local-id=3D"9dfd83fbad2d">Existing Notice IQ access controls will apply.=
+</p></td>
+</tr>
+<tr data-local-id=3D"102fe4f0-2e93-461c-98e8-e7ebe5d2f71b">
+<td data-local-id=3D"dc97384e-9c11-43d4-aee4-17e4edf06c13" class=3D"conflue=
+nceTd">
+<p local-id=3D"2e57533827b3">A- 03</p></td>
+<td data-local-id=3D"46bf3dff-b8a3-482e-b57d-af3d528d5ce3" class=3D"conflue=
+nceTd">
+<p local-id=3D"25cf58dd160b">Stage 3 and Stage 5 systems will provide requi=
+red data fields to populate the dashboard.</p></td>
+</tr>
+<tr data-local-id=3D"13384d63-5eac-44d9-ac9a-9b6529c848e4">
+<td data-local-id=3D"52d49604-5248-461e-96ce-541e0ca4fd7c" class=3D"conflue=
+nceTd">
+<p local-id=3D"383dd715e346">A- 04</p></td>
+<td data-local-id=3D"e9baf9cd-81a0-4420-a8f2-67df5f24e2b1" class=3D"conflue=
+nceTd">
+<p local-id=3D"127f56611cb0">PCN number and agent name will be available fo=
+r each reviewed case.</p></td>
+</tr>
+<tr data-local-id=3D"4bc511e3-d60c-4eff-b2cb-bd12f6636879">
+<td data-local-id=3D"65eb2ead-f8cf-4255-b6f3-36c30ceb1d9b" class=3D"conflue=
+nceTd">
+<p local-id=3D"2d91b36d365a">A- 05</p></td>
+<td data-local-id=3D"043bc5e8-08a2-4349-bcb8-6409e2c31973" class=3D"conflue=
+nceTd">
+<p local-id=3D"62546bec07df">Bot decision colour will be captured as Green,=
+ Amber, or Red.</p></td>
+</tr>
+<tr data-local-id=3D"8a456d5d-e28f-42ba-b88c-8a69f4eabca7">
+<td data-local-id=3D"a4a26152-0afc-48eb-8e08-6e48af2db4c5" class=3D"conflue=
+nceTd">
+<p local-id=3D"f8b838636095">A- 06</p></td>
+<td data-local-id=3D"7988926e-a9d2-41f1-99f0-816fc1e66526" class=3D"conflue=
+nceTd">
+<p local-id=3D"f48bb5ede840">Amber reason will be captured by the system wh=
+en the bot decision is Amber.</p></td>
+</tr>
+<tr data-local-id=3D"a783f3c9-c056-4993-b6c6-6eb34e0f9f5a">
+<td data-local-id=3D"1fecf4b3-3775-4218-95ab-85dc707a7327" class=3D"conflue=
+nceTd">
+<p local-id=3D"58c1ede5b704">A- 07</p></td>
+<td data-local-id=3D"cdac5cff-7f73-4502-a1ed-80f594b75a24" class=3D"conflue=
+nceTd">
+<p local-id=3D"4ea1fd6ba3d6">Letter amendment status will be captured by th=
+e Stage 3/Stage 5 workflow.</p></td>
+</tr>
+<tr data-local-id=3D"23fb8916-3456-4a95-aaba-374835bfaddc">
+<td data-local-id=3D"7283ede6-0ea7-4d2c-9a3e-8cf09dccbe94" class=3D"conflue=
+nceTd">
+<p local-id=3D"d98642f3c3f1">A- 08</p></td>
+<td data-local-id=3D"5a7a4534-51de-48b3-b986-257e8582e0b5" class=3D"conflue=
+nceTd">
+<p local-id=3D"68df2ae4c0c5">Custom mitigation input will be captured when =
+entered by an agent.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"4bf2c1317a7a" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-15.Dependencies">15. Dependencies</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1580" data-layout=3D"align-start" data-local-id=
+=3D"4ebf077b-e44f-408d-81b9-4293d26fc055" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 157.0px;">
+<col style=3D"width: 1423.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"058b2e95-1697-458a-93b0-feba16285fe9">
+<th data-local-id=3D"83e489e5-8952-4f67-b139-96fb9586423f" class=3D"conflue=
+nceTh">
+<p local-id=3D"1f029f6e8dd1">ID</p></th>
+<th data-local-id=3D"071e821e-1422-4f62-a80d-e96ac0cbc1cf" class=3D"conflue=
+nceTh">
+<p local-id=3D"79a7d2e88059">Dependency</p></th>
+</tr>
+<tr data-local-id=3D"54680698-50bc-44f7-a179-c5a24001499e">
+<td data-local-id=3D"6a9fcd84-5a6e-43c9-9f81-d93c42dc67ad" class=3D"conflue=
+nceTd">
+<p local-id=3D"b34e77c39643">D- 01</p></td>
+<td data-local-id=3D"6bcfe84e-1583-4d15-bcd4-29fe8817018f" class=3D"conflue=
+nceTd">
+<p local-id=3D"5a9b8b3bc77b">Stage 3 workflow must capture mitigation ident=
+ified/missing status.</p></td>
+</tr>
+<tr data-local-id=3D"dae53bac-eca3-4302-97fb-833723984c98">
+<td data-local-id=3D"a85cd796-24fd-483c-97ab-ae0afb933d16" class=3D"conflue=
+nceTd">
+<p local-id=3D"c12b4c9caff7">D- 02</p></td>
+<td data-local-id=3D"fa9fa6cb-12ad-474c-bd6c-418a338eb629" class=3D"conflue=
+nceTd">
+<p local-id=3D"0d5a0d4eda93">Stage 5 workflow must capture mitigation ident=
+ified/missing status.</p></td>
+</tr>
+<tr data-local-id=3D"949b2707-f64b-40f9-baee-5a26672c50fa">
+<td data-local-id=3D"1320710b-12f3-4ef5-bcd4-e29acfff8f8e" class=3D"conflue=
+nceTd">
+<p local-id=3D"bfdaf0a74f7b">D- 03</p></td>
+<td data-local-id=3D"43cf940b-047f-42c8-b3a9-af283daa7e98" class=3D"conflue=
+nceTd">
+<p local-id=3D"4b84d4750e5a">Stage 3 and Stage 5 workflows must capture bot=
+ decision colour.</p></td>
+</tr>
+<tr data-local-id=3D"60e87fc8-7517-4abb-bf94-01a865285417">
+<td data-local-id=3D"a4ab2cdb-195d-4ed2-b55e-33137e437143" class=3D"conflue=
+nceTd">
+<p local-id=3D"4f7328b5b04e">D- 04</p></td>
+<td data-local-id=3D"43eee052-2219-4829-aa04-04c8b91e79c2" class=3D"conflue=
+nceTd">
+<p local-id=3D"0b2cecae4520">Stage 3 and Stage 5 workflows must capture Amb=
+er reason.</p></td>
+</tr>
+<tr data-local-id=3D"02f9397b-b221-4199-9411-a06e5b2ee74a">
+<td data-local-id=3D"d5820691-53bf-4a7d-a59f-f6523c1c11ac" class=3D"conflue=
+nceTd">
+<p local-id=3D"f961995fb57a">D- 05</p></td>
+<td data-local-id=3D"ec85e168-a29f-4457-a0e2-3b8103e37670" class=3D"conflue=
+nceTd">
+<p local-id=3D"09181e41990b">Stage 3 and Stage 5 workflows must capture let=
+ter amendment status.</p></td>
+</tr>
+<tr data-local-id=3D"a14f4021-66f3-4e63-b647-84df211fc17a">
+<td data-local-id=3D"41322142-3972-4a8e-ac56-e9281b5d5803" class=3D"conflue=
+nceTd">
+<p local-id=3D"c301fad25ef4">D- 06</p></td>
+<td data-local-id=3D"0e65a729-c876-40b5-9585-3d4510bbe9aa" class=3D"conflue=
+nceTd">
+<p local-id=3D"260c59aa12d4">Stage 3 and Stage 5 workflows must capture cus=
+tom mitigation inputs.</p></td>
+</tr>
+<tr data-local-id=3D"041ab1e1-e0ce-4698-a422-43de7bd59a72">
+<td data-local-id=3D"bae9bf7f-01e7-469a-b614-65af9cbc08a2" class=3D"conflue=
+nceTd">
+<p local-id=3D"6fc68bc9b252">D- 07</p></td>
+<td data-local-id=3D"5cdade16-36b3-4a9b-b337-dd037d2d7258" class=3D"conflue=
+nceTd">
+<p local-id=3D"e7554131eae6">Notice IQ environment must support creation of=
+ the dashboard under Summarisation Organisation.</p></td>
+</tr>
+<tr data-local-id=3D"c3789849-26d8-44d1-8012-67ec7b9a04ff">
+<td data-local-id=3D"09e6d13a-0262-4cc7-9ef8-f5869799b759" class=3D"conflue=
+nceTd">
+<p local-id=3D"00705cb31dc4">D- 08</p></td>
+<td data-local-id=3D"40de38bc-9d76-4797-9fb7-b6fe306a4065" class=3D"conflue=
+nceTd">
+<p local-id=3D"d01d3e0aa8c0">Data integration must be available between Sta=
+ge 3/Stage 5 source data and Notice IQ dashboard layer.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"b33a0d92041d" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-16.Risks&amp;Mitigations">16. Risks &amp; Mitigations</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"1=
+fe7f3e3-7b8f-447e-a7b5-e27f0302a698" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"84ac988e-ca81-4a9e-a4a4-32ccd667b9ea">
+<th data-local-id=3D"af3b5372-d661-4551-adb0-9e6e6ca01689" class=3D"conflue=
+nceTh">
+<p local-id=3D"52757bf04b95">Risk</p></th>
+<th data-local-id=3D"1ce40e2d-6daa-4c56-ad07-8bbe04a552c1" class=3D"conflue=
+nceTh">
+<p local-id=3D"30f6dd74a199">Impact</p></th>
+<th data-local-id=3D"f223508e-4858-476f-82be-10d9e084f1b0" class=3D"conflue=
+nceTh">
+<p local-id=3D"d05065af0b6c">Mitigation</p></th>
+</tr>
+<tr data-local-id=3D"f73bbfa2-bc12-4812-8bd5-34d55e4038fc">
+<td data-local-id=3D"2da411eb-4c99-47e1-96e9-35300a618864" class=3D"conflue=
+nceTd">
+<p local-id=3D"96d711ac75ec">Required fields are not captured in Stage 3/St=
+age 5</p></td>
+<td data-local-id=3D"f16bea87-bf0e-4f89-87ed-3e197d0cfce8" class=3D"conflue=
+nceTd">
+<p local-id=3D"203c897fab8d">Dashboard metrics may be incomplete</p></td>
+<td data-local-id=3D"15963baf-95ec-4351-a326-8562206f6e6d" class=3D"conflue=
+nceTd">
+<p local-id=3D"fd860c1c650e">Confirm data capture requirements before build=
+</p></td>
+</tr>
+<tr data-local-id=3D"d865813d-d4fd-436b-a7a9-83117e1b04f0">
+<td data-local-id=3D"a95ae112-8fa7-4903-a9c4-d34a3d74ce7a" class=3D"conflue=
+nceTd">
+<p local-id=3D"118cc3172c85">Amber reason is not consistently captured</p><=
+/td>
+<td data-local-id=3D"5056daf0-f30f-429f-9fa8-687a216e9630" class=3D"conflue=
+nceTd">
+<p local-id=3D"edcb6bb18ea6">Amber breakdown may be unreliable</p></td>
+<td data-local-id=3D"f285f9f1-b754-4365-b693-91c628f3c5dc" class=3D"conflue=
+nceTd">
+<p local-id=3D"4e93ae82d5b5">Make Amber reason mandatory for Amber cases</p=
+></td>
+</tr>
+<tr data-local-id=3D"5dbfac77-f155-47c0-912d-b38bd52750b7">
+<td data-local-id=3D"0bbd8992-c32d-49e8-bd29-585c2f3ee3dc" class=3D"conflue=
+nceTd">
+<p local-id=3D"2267603ba131">Custom mitigation inputs are not standardised<=
+/p></td>
+<td data-local-id=3D"5a9f156c-d628-43f4-8dbd-8895e664d671" class=3D"conflue=
+nceTd">
+<p local-id=3D"d62350543659">Difficult to analyse template gaps</p></td>
+<td data-local-id=3D"3b7bfee5-04e8-46d1-82e6-bd9711af7271" class=3D"conflue=
+nceTd">
+<p local-id=3D"04ef3d8486f5">Store original agent input and optionally grou=
+p later by business review</p></td>
+</tr>
+<tr data-local-id=3D"c1ebdf9d-59e1-4e36-9d59-befef8eecce3">
+<td data-local-id=3D"6f854fd4-d502-4ac5-8374-a7f30fe1db19" class=3D"conflue=
+nceTd">
+<p local-id=3D"1116368927a3">Agent amendment status is not captured accurat=
+ely</p></td>
+<td data-local-id=3D"d0e871df-665c-4fe8-8179-06ce70b87775" class=3D"conflue=
+nceTd">
+<p local-id=3D"91b5666a5cde">Letter quality metrics may be misleading</p></=
+td>
+<td data-local-id=3D"f5043ef7-c5b0-4a7f-bf3d-4f731188e4ee" class=3D"conflue=
+nceTd">
+<p local-id=3D"bae2929f8005">Capture edit/amendment flag directly from lett=
+er workflow</p></td>
+</tr>
+<tr data-local-id=3D"d81a4308-543e-4052-8e6e-51fe90bfa465">
+<td data-local-id=3D"28516094-be4b-4a2d-8fde-a3b678a1613f" class=3D"conflue=
+nceTd">
+<p local-id=3D"623faa2b5060">PCN- level data access is restricted</p></td>
+<td data-local-id=3D"9f562dae-6d3c-42fc-950c-a00ef2f96fee" class=3D"conflue=
+nceTd">
+<p local-id=3D"76eb9a3d5175">Case- level traceability may be limited</p></t=
+d>
+<td data-local-id=3D"1142a9d8-f750-4bf5-a293-1d0a68074262" class=3D"conflue=
+nceTd">
+<p local-id=3D"e56ec688cdf5">Align dashboard access with Notice IQ permissi=
+ons</p></td>
+</tr>
+<tr data-local-id=3D"220fc223-e123-4a2a-8c94-647e7a4121de">
+<td data-local-id=3D"59f7de4a-80a1-4038-965b-8bbbc4cd9838" class=3D"conflue=
+nceTd">
+<p local-id=3D"9239a9a5c46c">Dashboard performance is slow with high volume=
+s</p></td>
+<td data-local-id=3D"29cedf5b-3713-43a6-998e-0fe2db1555fe" class=3D"conflue=
+nceTd">
+<p local-id=3D"7efea8ab3ed3">Poor user adoption</p></td>
+<td data-local-id=3D"96ec3125-2dbb-4603-98fa-cd99b14bdd89" class=3D"conflue=
+nceTd">
+<p local-id=3D"b5306c33d5ab">Apply filters, pagination, and summarised widg=
+ets</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"93ba05e2d0d9" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-17.OpenQuestions">17. Open Questions</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"a=
+1fe2a45-9537-4983-ae94-6ee45454b4a8" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"fbd0e783-30ef-44b6-b96d-070365af048f">
+<th data-local-id=3D"918b1ace-9fc9-4fbd-b04c-1c7896385e2a" class=3D"conflue=
+nceTh">
+<p local-id=3D"527d7f10aa63">OQ ID</p></th>
+<th data-local-id=3D"910f3499-9ae2-4a8a-999c-54a0080ab342" class=3D"conflue=
+nceTh">
+<p local-id=3D"da09752d10b8">Open Question</p></th>
+<th data-local-id=3D"56470648-2411-4b05-b783-3fcc192ea455" class=3D"conflue=
+nceTh">
+<p local-id=3D"3d5059117021">Owner</p></th>
+</tr>
+<tr data-local-id=3D"3bf80520-7250-43bc-85cd-d79d31efb402">
+<td data-local-id=3D"50b4de8c-6e16-4011-8852-f0e8e3584d9b" class=3D"conflue=
+nceTd">
+<p local-id=3D"d0fcba5dd38f">OQ- 01</p></td>
+<td data-local-id=3D"dfb6e553-1311-422d-a163-aeb87b2b067a" class=3D"conflue=
+nceTd">
+<p local-id=3D"4b099d6d2cb2">What date field should drive the dashboard rep=
+orting period: case reviewed date, letter generated date, or case completed=
+ date?</p></td>
+<td data-local-id=3D"ad3c43c1-85c8-4484-b2ba-d5551dd9ede3" class=3D"conflue=
+nceTd">
+<p local-id=3D"61fd85facfdf">Business / Product</p></td>
+</tr>
+<tr data-local-id=3D"c9a76896-0373-489f-811b-1a4b75859528">
+<td data-local-id=3D"15262488-303b-4725-a9ec-b856f601a9d4" class=3D"conflue=
+nceTd">
+<p local-id=3D"463adee89cc3">OQ- 02</p></td>
+<td data-local-id=3D"cbd07de7-7ac9-4e66-be33-c58fd2c5fdbc" class=3D"conflue=
+nceTd">
+<p local-id=3D"43f36077a5e6">Should the dashboard show Stage 3 and Stage 5 =
+together by default, or should the default view be separated by stage?</p><=
+/td>
+<td data-local-id=3D"bc188d4f-7ec7-4de2-b6af-f90382f2120c" class=3D"conflue=
+nceTd">
+<p local-id=3D"0f5e95e74f93">Business / Product</p></td>
+</tr>
+<tr data-local-id=3D"bf4c64a9-a1f9-419b-ba4f-e6491398970d">
+<td data-local-id=3D"40de06c1-15aa-4c82-bbcf-958c25f0b008" class=3D"conflue=
+nceTd">
+<p local-id=3D"12cd0b7f5b63">OQ- 03</p></td>
+<td data-local-id=3D"97e48476-74ee-48df-a383-3d6493f9736b" class=3D"conflue=
+nceTd">
+<p local-id=3D"d4525d94a4af">Should the dashboard include export to CSV/Exc=
+el?</p></td>
+<td data-local-id=3D"d78d55a6-339b-4809-a7e7-ac0389ad3a2e" class=3D"conflue=
+nceTd">
+<p local-id=3D"5c04f08d8378">Business / Product</p></td>
+</tr>
+<tr data-local-id=3D"950e34d8-58c0-4997-9225-a64d4e9bc0d3">
+<td data-local-id=3D"cf8df057-0356-4b25-8dcc-49ca17517a81" class=3D"conflue=
+nceTd">
+<p local-id=3D"3eef50af6c8a">OQ- 04</p></td>
+<td data-local-id=3D"bef313ba-4413-4212-8ed9-912bac266fc0" class=3D"conflue=
+nceTd">
+<p local-id=3D"2dd1f840b798">What are the standard Amber reason values to b=
+e used?</p></td>
+<td data-local-id=3D"f28e8a95-dff2-4dc8-8e5b-d55aea04cb55" class=3D"conflue=
+nceTd">
+<p local-id=3D"b15ce1ca3f1b">Business / BA</p></td>
+</tr>
+<tr data-local-id=3D"54d9815f-6161-4903-b901-ff9e16c0b965">
+<td data-local-id=3D"797dc355-db48-42a2-a88b-9e5331f386c6" class=3D"conflue=
+nceTd">
+<p local-id=3D"249890b05028">OQ- 05</p></td>
+<td data-local-id=3D"ce367a06-b4b5-4d4e-84bb-a0b744a4016a" class=3D"conflue=
+nceTd">
+<p local-id=3D"93499eb3c1fe">Should custom mitigation inputs be displayed a=
+s raw agent text only, or should they also be grouped into business- approv=
+ed categories?</p></td>
+<td data-local-id=3D"4a3ad9ef-306e-4b39-a9fa-3042620b97d6" class=3D"conflue=
+nceTd">
+<p local-id=3D"c993933b712e">Business / Nat / Zain</p></td>
+</tr>
+<tr data-local-id=3D"a5a05947-a4c7-4872-b643-5b5c087c0e26">
+<td data-local-id=3D"15f3e145-f1cd-41f5-a738-f23cbec072e1" class=3D"conflue=
+nceTd">
+<p local-id=3D"3cb72368e642">OQ- 06</p></td>
+<td data-local-id=3D"1ab25116-ac56-479d-8a3a-44dfc010348e" class=3D"conflue=
+nceTd">
+<p local-id=3D"b0f37e955ff1">What user roles should have access to the dash=
+board?</p></td>
+<td data-local-id=3D"4986e9de-e35c-4505-8e55-212af71f4217" class=3D"conflue=
+nceTd">
+<p local-id=3D"847b5953b418">Business / Notice IQ Admin</p></td>
+</tr>
+<tr data-local-id=3D"ee865833-fd7f-4369-8baa-2a7f4b301ffa">
+<td data-local-id=3D"264b8c7a-537e-4f34-af0b-e5d033dc1e0d" class=3D"conflue=
+nceTd">
+<p local-id=3D"c13fb31c3fcc">OQ- 07</p></td>
+<td data-local-id=3D"ebe351fd-e324-40cb-9021-8aad3fea5fca" class=3D"conflue=
+nceTd">
+<p local-id=3D"db80cfbf27ec">Should widgets allow drill- down into PCN- lev=
+el table records?</p></td>
+<td data-local-id=3D"c450bc82-afe0-417e-96b7-e84be5cd4978" class=3D"conflue=
+nceTd">
+<p local-id=3D"30516325b32e">Product / Delivery Team</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"28916aba81a1" id=3D"SummarisationStage03&amp;05DashboardBRD=
+V1.0-18.SuccessCriteria">18. Success Criteria</h2>
+<p local-id=3D"2987fe21e5e4">The dashboard will be considered successful if=
+:</p>
+<ul local-id=3D"6c49fb8f-9209-4d33-9045-6e5bb9da0c25">
+<li local-id=3D"dd59ac02-e79c-475e-90cd-5b3e8ef1984b">
+<p local-id=3D"e99e57d0aeb1">Stage 3 and Stage 5 cases are visible in the d=
+ashboard.</p></li>
+<li local-id=3D"7552b00c-2f1d-4ee9-8fe5-6caa9b82d068">
+<p local-id=3D"5e9492f08769">Business users can see total reviewed cases.</=
+p></li>
+<li local-id=3D"0b008339-cfd9-4395-b02d-ef444a2840a3">
+<p local-id=3D"5189a72e226d">Business users can distinguish mitigation iden=
+tified vs mitigation missing cases.</p></li>
+<li local-id=3D"cae6268d-04bf-47a9-96cd-461846bd3e0e">
+<p local-id=3D"c3dfc1805395">Business users can monitor Green, Amber, and R=
+ed bot decisions.</p></li>
+<li local-id=3D"1da18dda-7027-4b2b-b2ce-3f82b78fc6b5">
+<p local-id=3D"c99aa03a4fc5">Amber reasons are visible and reportable.</p><=
+/li>
+<li local-id=3D"6158bf39-5979-4ac1-ae2f-983d7bf6bdc4">
+<p local-id=3D"df4ff7d5def7">Letter amendment activity is visible.</p></li>
+<li local-id=3D"75c84c6f-78c1-423b-b3f7-9bbd305a68eb">
+<p local-id=3D"98065c290ee5">Custom mitigation inputs are captured and revi=
+ewable.</p></li>
+<li local-id=3D"5966b04d-0804-4b61-8776-4ee005ed1aaf">
+<p local-id=3D"9ae841adfa75">Agent name, PCN number, and contravention code=
+ are available for traceability.</p></li>
+<li local-id=3D"ab260766-c199-4102-83cc-2e4d1c6af7c8">
+<p local-id=3D"b3380963147a">Dashboard is available within Notice IQ under =
+Summarisation Organisation.</p></li>
+</ul>
+<p local-id=3D"ea8d699b6bf0"></p>
+<p>Sync Block</p>
+    </div>
+</body>
+</html>
+------=_Part_222_1638802317.1782708367293--

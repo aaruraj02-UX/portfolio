@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Home::Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <style>
+    /* --- MET-DS-V2 Token Block (Light Theme) ------------------ */
+    :root {
+      /* Brand & Primary Scale */
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+
+      /* Semantic Colour Aliases */
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+
+      /* Text */
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      /* Grey Scale */
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      /* State — Success */
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+
+      /* State — Error */
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+
+      /* State — Warning */
+      --color-warning:         #EF6C00;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+
+      /* Navigation */
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --leftnav-icon:          #212121;
+      --leftnav-icon-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-text-active:    #3276CF;
+      --topnav-icon:           #757575;
+      --topnav-icon-active:    #3276CF;
+      --topnav-icon-hover:     #616161;
+
+      /* Borders & Radius */
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           16px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      /* Spacing */
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+
+      /* Typography */
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:    700;
+      --font-weight-semibold: 600;
+      --font-weight-medium:  500;
+      --font-weight-regular: 400;
+
+      /* Motion */
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter:      ease-out;
+      --easing-exit:       ease-in;
+
+      /* Shadows */
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+
+      /* Figma Divider */
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* --- Reset ------------------------------------------------ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+
+    button {
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    /* --- Focus Styles (Accessibility) ------------------------- */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* --- App Shell -------------------------------------------- */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* --- Top Navigation --------------------------------------- */
+    .topnav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-3);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+
+    .topnav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .topnav-brand-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .topnav-logo {
+      height: 28px;
+      width: fit-content;
+    }
+
+    .topnav-tagline {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      letter-spacing: 0.15px;
+      line-height: 1.4;
+    }
+
+    .topnav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+    }
+
+    .topnav-icon-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--topnav-icon);
+      padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover {
+      background: var(--color-primary-25);
+      color: var(--topnav-icon-hover);
+    }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+
+    .notification-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 20px;
+      height: 20px;
+      background: var(--color-warning);
+      color: #FFFFFF;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6.5px;
+      line-height: 1;
+      letter-spacing: 0.14px;
+    }
+
+    .topnav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    /* --- Content Area ----------------------------------------- */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      padding: var(--space-9) var(--space-7);
+      margin-bottom: var(--space-7);
+    }
+
+    .content-inner {
+      max-width: 860px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      padding-bottom: var(--space-9);
+    }
+
+    /* --- Greeting Section ------------------------------------- */
+    .greeting {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .greeting-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: 1.334;
+    }
+
+    .greeting-subtitle {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* --- Module Category -------------------------------------- */
+    .module-category {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .module-category-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      line-height: 1.5;
+      letter-spacing: 0.15px;
+    }
+
+    /* --- Module Cards Grid ------------------------------------ */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+
+    .module-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow var(--duration-micro) var(--easing-enter),
+                  transform var(--duration-micro) var(--easing-enter);
+      min-height: 80px;
+      cursor: pointer;
+      position: relative;
+    }
+    .module-card::after {
+      content: '?';
+      position: absolute;
+      right: var(--space-5);
+      font-size: 20px;
+      color: var(--text-secondary);
+      opacity: 0;
+      transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .module-card:hover::after {
+      opacity: 1;
+    }
+    .module-card:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-1px);
+    }
+    .module-card:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+    .module-card:active {
+      transform: translateY(0);
+    }
+
+    /* Icon circle */
+    .module-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .module-card-icon .material-symbols-outlined {
+      font-size: 24px;
+      color: var(--color-primary);
+    }
+
+    /* Card text */
+    .module-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      min-width: 0;
+    }
+
+    .module-card-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      line-height: 1.43;
+    }
+
+    .module-card-desc {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      line-height: 1.5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* --- Responsive ------------------------------------------- */
+    @media (max-width: 767px) {
+      .module-grid {
+        grid-template-columns: 1fr;
+      }
+      .content-area {
+        padding: var(--space-7) var(--space-5);
+      }
+      .greeting-title {
+        font-size: 18px;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .module-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- --- Top Navigation --- -->
+    <header class="topnav" role="banner">
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E"
+            alt="FinOps — Enterprise Finance Automation Platform"
+            class="topnav-logo"
+          />
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 1 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">1</span>
+        </button>
+        <button aria-label="User profile menu">
+          <img
+            src="https://i.pravatar.cc/64?img=12"
+            alt=""
+            class="topnav-avatar"
+          />
+        </button>
+      </div>
+    </header>
+
+    <!-- --- Main Content --- -->
+    <main class="content-area">
+      <div class="content-inner">
+
+        <!-- Greeting -->
+        <section class="greeting" aria-label="Welcome message">
+          <h1 class="greeting-title" id="greeting-heading">Good Morning, John Doe <span style="font-weight:var(--font-weight-regular)">(Today is Tuesday, 13/01/26).</span></h1>
+          <p class="greeting-subtitle">Select a module to continue</p>
+        </section>
+
+        <!-- --- Treasury --- -->
+        <section class="module-category" aria-labelledby="cat-treasury">
+          <h2 class="module-category-title" id="cat-treasury">Treasury</h2>
+          <div class="module-grid" role="list">
+            <a href="AdHocPayments.html" class="module-card" role="listitem" aria-label="Ad-hoc Payments — Create and manage ad-hoc payment requests">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Ad-hoc payments</span>
+                <span class="module-card-desc">Create and manage ad-hoc payment requests</span>
+              </div>
+            </a>
+            <a href="#" class="module-card" role="listitem" aria-label="Bank Statement Transactions — Upload and view bank statements">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">account_balance</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Bank Statement Transactions</span>
+                <span class="module-card-desc">Upload and view bank statements</span>
+              </div>
+            </a>
+            <a href="#" class="module-card" role="listitem" aria-label="Vehicle Release Payments — Create and manage vehicle release payments">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Vehicle Release Payments</span>
+                <span class="module-card-desc">Create and manage Vehicle release payments</span>
+              </div>
+            </a>
+            <a href="OAP_CurrentTransactions.html" class="module-card" role="listitem" aria-label="Office Account Postings — Manage office account posting entries">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">post_add</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Office Account Postings</span>
+                <span class="module-card-desc">Manage office account posting entries</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- --- Finance System --- -->
+        <section class="module-category" aria-labelledby="cat-finance-system">
+          <h2 class="module-category-title" id="cat-finance-system">Finance System</h2>
+          <div class="module-grid" role="list">
+            <a href="IFM.html" class="module-card" role="listitem" aria-label="Integration Exception Management — Monitor and resolve integration exceptions">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">sync_problem</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Integration Exception Management</span>
+                <span class="module-card-desc">Monitor and resolve integration exceptions</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- --- Client Funds --- -->
+        <section class="module-category" aria-labelledby="cat-client-funds">
+          <h2 class="module-category-title" id="cat-client-funds">Client Funds</h2>
+          <div class="module-grid" role="list">
+            <a href="#" class="module-card" role="listitem" aria-label="All Pay — View and manage allpay files">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">receipt</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">All Pay</span>
+                <span class="module-card-desc">View and manage allpay files</span>
+              </div>
+            </a>
+            <a href="#" class="module-card" role="listitem" aria-label="KEYIVR Payments — View automated KeyIVR payments">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">KEYIVR Payments</span>
+                <span class="module-card-desc">View automated KeyIVR payments</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- --- Payroll --- -->
+        <section class="module-category" aria-labelledby="cat-payroll">
+          <h2 class="module-category-title" id="cat-payroll">Payroll</h2>
+          <div class="module-grid" role="list">
+            <a href="#" class="module-card" role="listitem" aria-label="Variable Pay — Create and manage variable pay requests">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">money_bag</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Variable Pay</span>
+                <span class="module-card-desc">Create &amp; Manage variable pay requests</span>
+              </div>
+            </a>
+            <a href="#" class="module-card" role="listitem" aria-label="Pension Analysis — View and analyse pension records">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">savings</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Pension Analysis</span>
+                <span class="module-card-desc">View &amp; analyze pension records</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- --- Settings --- -->
+        <section class="module-category" aria-labelledby="cat-settings">
+          <h2 class="module-category-title" id="cat-settings">Settings</h2>
+          <div class="module-grid" role="list">
+            <a href="#" class="module-card" role="listitem" aria-label="Configuration — Manage system configuration settings">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">settings</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Configuration</span>
+                <span class="module-card-desc">Manage system configuration settings</span>
+              </div>
+            </a>
+            <a href="#" class="module-card" role="listitem" aria-label="Users — Manage user profiles and access">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">group</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Users</span>
+                <span class="module-card-desc">Manage user profiles and access</span>
+              </div>
+            </a>
+            <!-- Dashboard card — navigates to Dashboard page -->
+            <a href="Dashboard.html" class="module-card" role="listitem" aria-label="Dashboard — View admin dashboard and KPI metrics">
+              <div class="module-card-icon">
+                <span class="material-symbols-outlined" aria-hidden="true">dashboard</span>
+              </div>
+              <div class="module-card-content">
+                <span class="module-card-title">Dashboard</span>
+                <span class="module-card-desc">View admin dashboard and KPI metrics</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+    </main>
+  </div>
+
+  <script>
+    /* -- Dynamic greeting based on time of day -- */
+    (function () {
+      const h = new Date().getHours();
+      let period = 'Good Morning';
+      if (h >= 12 && h < 17) period = 'Good Afternoon';
+      else if (h >= 17) period = 'Good Evening';
+
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const now = new Date();
+      const dayName = days[now.getDay()];
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const yy = String(now.getFullYear()).slice(-2);
+
+      const el = document.getElementById('greeting-heading');
+      if (el) {
+        el.innerHTML = period + ', John Doe <span style="font-weight:var(--font-weight-regular)">(Today is ' + dayName + ', ' + dd + '/' + mm + '/' + yy + ').</span>';
+      }
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

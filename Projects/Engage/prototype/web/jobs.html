@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Jobs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <style>
+    /* ---------------------------------------------------------------
+       MET-DS-V2 Design Tokens — Full :root block (mandatory)
+    ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #FF9800;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+      --orange-50:  #FFF3E0;
+      --orange-600: #FB8C00;
+      --orange-700: #F57C00;
+      --orange-800: #E56800;
+      --orange-900: #CC630C;
+      --red-50:  #FEEBEE;
+      --red-100: #FECDD2;
+      --red-600: #E53935;
+      --red-700: #D32F2F;
+      --red-800: #C62828;
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           8px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-body1: 16px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+      --line-height-heading: 1.2; --line-height-body: 1.43;
+      --duration-micro: 150ms; --duration-standard: 250ms;
+      --easing-enter: ease-out; --easing-exit: ease-in;
+      --shadow-card: 0 1px 4px rgba(50,118,207,0.10);
+      --shadow-modal: 0 8px 32px rgba(0,0,0,0.18);
+      --shadow-focus: 0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --table-header: #F5F5F5;
+      --table-row: #FAFAFA;
+      --table-row-hover: #F5F5F5;
+      --table-row-selected: #F2F5FA;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* -------------------------------------------
+       Base Reset
+    ------------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: var(--line-height-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .skip-link {
+      position: absolute; top: -60px; left: 0;
+      background: var(--color-primary); color: #fff;
+      padding: var(--space-3) var(--space-5);
+      border-radius: 0 0 var(--radius-button) 0;
+      font-weight: var(--font-weight-medium);
+      text-decoration: none; z-index: 1000;
+    }
+    .skip-link:focus { top: 0; }
+
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* -------------------------------------------
+       App Shell — Grid: 68px sidebar + content
+    ------------------------------------------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      grid-template-rows: 60px 1fr;
+      min-height: 100vh;
+    }
+
+    /* -------------------------------------------
+       Top App Bar (60px height)
+    ------------------------------------------- */
+    .top-bar {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      padding: 0 var(--space-5);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      z-index: 100;
+      height: 60px;
+    }
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      flex-shrink: 0;
+    }
+    .hamburger-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px; height: 24px;
+      border: none;
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 0;
+    }
+    .top-bar-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .top-bar-logo img {
+      height: 35px;
+      width: auto;
+    }
+    .top-bar-spacer { flex: 1; }
+    .top-bar-search {
+      position: relative;
+      max-width: 585px;
+      flex: 0 1 585px;
+    }
+    .top-bar-search input {
+      width: 100%;
+      height: 40px;
+      padding: 0 48px 0 var(--space-5);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--grey-50);
+      outline: none;
+      transition: border-color var(--duration-micro) var(--easing-enter);
+    }
+    .top-bar-search input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.12);
+    }
+    .top-bar-search input::placeholder { color: var(--text-secondary); }
+    .top-bar-search .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      pointer-events: none;
+      font-size: 22px;
+    }
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      position: relative;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .icon-btn .notif-dot {
+      position: absolute;
+      top: 4px; right: 4px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--color-error);
+      border: 2px solid var(--color-card);
+    }
+    .user-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: var(--font-weight-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* -------------------------------------------
+       Left Sidebar — Collapsed (68px icon-only)
+    ------------------------------------------- */
+    .sidebar {
+      grid-column: 1;
+      grid-row: 2;
+      background: var(--color-card);
+      border-right: var(--border-default);
+      width: 68px;
+      padding: var(--space-4) 0;
+      overflow-y: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 4px; }
+    .sidebar::-webkit-scrollbar-thumb:hover { background: var(--grey-400); }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-search-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      margin-bottom: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter);
+      border: none;
+      background: transparent;
+    }
+    .sidebar-search-icon:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-1);
+      width: 100%;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-card);
+      color: var(--text-secondary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .nav-item:hover {
+      color: var(--color-primary);
+      background: var(--color-primary-25);
+    }
+    .nav-item.active {
+      color: var(--color-primary);
+      background: var(--color-primary-25);
+    }
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 8px; bottom: 8px;
+      width: 3px;
+      background: var(--color-primary);
+      border-radius: 0 2px 2px 0;
+    }
+    .nav-divider {
+      width: 44px;
+      height: 1px;
+      background: var(--grey-200);
+      margin: var(--space-3) 0;
+    }
+
+    /* -------------------------------------------
+       Main Content
+    ------------------------------------------- */
+    .main-content {
+      grid-column: 2;
+      grid-row: 2;
+      padding: var(--space-4) var(--space-5);
+      overflow-y: auto;
+      background: var(--color-bg);
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+      min-height: 50px;
+    }
+    .header-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 45px;
+      height: 27px;
+      padding: 0 var(--space-3);
+      border-radius: var(--radius-pill);
+      background: var(--color-primary);
+      color: #FFFFFF;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+    }
+    .page-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: var(--line-height-heading);
+    }
+    .header-dropdown {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      height: 42px;
+      padding: 0 var(--space-4);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      cursor: pointer;
+      min-width: 117px;
+    }
+    .page-header-spacer { flex: 1; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-5);
+      border: none;
+      border-radius: var(--radius-button);
+      background: var(--color-primary);
+      color: #FFFFFF;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      height: 30px;
+      transition: background var(--duration-micro) var(--easing-enter);
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+
+    /* -------------------------------------------
+       Stats Cards Row (3 cards)
+    ------------------------------------------- */
+    .stats-row {
+      display: flex;
+      gap: var(--space-7);
+      margin-bottom: var(--space-5);
+    }
+    .stats-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      min-height: 116px;
+    }
+    .stats-card-1 { width: 368px; flex-shrink: 0; }
+    .stats-card-2 { width: 384px; flex-shrink: 0; }
+    .stats-card-3 { flex: 1; min-width: 0; padding: 0; }
+
+    /* Donut chart */
+    .donut-wrap {
+      width: 84px; height: 84px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .donut-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .donut-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      text-align: center;
+    }
+    .donut-val { font-size: 18px; font-weight: var(--font-weight-bold); color: var(--text-primary); line-height: 1; }
+    .donut-lbl { font-size: 10px; color: var(--text-secondary); }
+
+    .stats-right { flex: 1; min-width: 0; }
+    .stats-desc { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .stats-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); line-height: 1.3; margin-bottom: var(--space-2); }
+    .legend { display: flex; flex-direction: column; gap: 5px; }
+    .legend-row { display: flex; align-items: center; gap: var(--space-3); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .legend-dot { width: 10px; height: 5px; border-radius: 2px; flex-shrink: 0; }
+    .legend-name { flex: 1; }
+    .legend-pct { font-weight: var(--font-weight-medium); color: var(--text-primary); min-width: 28px; text-align: right; }
+
+    /* Wide card — metric columns */
+    .metrics-cols {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+    .metric-col {
+      flex: 1;
+      padding: var(--space-5) var(--space-4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .metric-col + .metric-col { border-left: var(--border-divider); }
+    .metric-col-val { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); line-height: 1.2; }
+    .metric-col-lbl { font-size: var(--font-size-caption); color: var(--text-secondary); margin-top: var(--space-2); line-height: 1.3; }
+
+    /* -------------------------------------------
+       Search + Tabs + Filter Toolbar
+    ------------------------------------------- */
+    .tab-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 var(--space-5);
+      background: var(--color-card);
+      border: 1px solid var(--grey-300);
+      border-bottom: 1px solid var(--grey-200);
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+      height: 52px;
+      margin-bottom: 0;
+    }
+    .tab-toolbar .table-search {
+      margin-right: auto;
+    }
+    .tab-toolbar .toolbar-filter-btn {
+      margin-left: auto;
+    }
+    .status-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 100%;
+    }
+    .status-tab {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 16px;
+      height: 100%;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      font-family: var(--font-family);
+      font-size: 12px;
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color var(--duration-micro);
+    }
+    .status-tab::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+      background: transparent;
+      transition: background var(--duration-micro);
+    }
+    .status-tab:hover { color: var(--text-primary); }
+    .status-tab[aria-selected="true"] {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+    .status-tab[aria-selected="true"]::after {
+      background: var(--color-primary);
+    }
+    .tab-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      background: var(--grey-200);
+      color: var(--text-secondary);
+      line-height: 1;
+    }
+    .status-tab[aria-selected="true"] .tab-count {
+      background: var(--color-primary);
+      color: #FFF;
+    }
+
+    /* -------------------------------------------
+       Job Data Table
+    ------------------------------------------- */
+    .table-search {
+      position: relative;
+      width: 240px;
+      flex-shrink: 0;
+    }
+    .table-search input {
+      width: 100%;
+      height: 36px;
+      padding: 0 var(--space-4) 0 36px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+      outline: none;
+      transition: border-color var(--duration-micro);
+    }
+    .table-search input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.12);
+    }
+    .table-search input::placeholder { color: var(--text-secondary); }
+    .table-search .s-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      color: var(--grey-500); pointer-events: none; font-size: 18px;
+    }
+    .table-toolbar-spacer { flex: 1; }
+    .toolbar-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border: none;
+      border-radius: var(--radius-button);
+      background: transparent;
+      color: var(--color-primary);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      height: 36px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      transition: background var(--duration-micro);
+    }
+    .toolbar-filter-btn:hover { background: var(--color-primary-25); }
+
+    .table-wrapper {
+      overflow-x: auto;
+      background: var(--color-card);
+      border-left: var(--border-default);
+      border-right: var(--border-default);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body);
+    }
+    .data-table thead th {
+      background: var(--color-card);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-caption);
+      padding: var(--space-4) var(--space-5);
+      text-align: left;
+      border-bottom: 1px solid var(--grey-200);
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .data-table tbody td {
+      padding: var(--space-4) var(--space-5);
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--grey-200);
+      vertical-align: middle;
+      font-size: var(--font-size-body);
+    }
+    .data-table tbody tr { cursor: pointer; transition: background var(--duration-micro); }
+    .data-table tbody tr:hover { background: var(--grey-50); }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+
+    /* Checkbox column */
+    .col-check { width: 48px; text-align: center; }
+    .col-check input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    /* Column widths */
+    .col-jobid    { width: 100px; }
+    .col-jobtype  { min-width: 160px; }
+    .col-client   { min-width: 140px; }
+    .col-area     { min-width: 130px; }
+    .col-age      { width: 100px; }
+    .col-status   { width: 130px; }
+    .col-action   { width: 56px; text-align: center; }
+
+    .job-id {
+      color: var(--text-hyperlink);
+      font-weight: var(--font-weight-regular);
+      text-decoration: none;
+      white-space: nowrap;
+      font-size: var(--font-size-body);
+    }
+    .job-id:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+
+    /* Status chips — matching screenshot colours */
+    .chip-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: var(--font-weight-medium);
+      line-height: 1.6;
+      white-space: nowrap;
+    }
+    .chip-status-notstarted   { background: transparent; color: var(--grey-600); border: 1px solid var(--grey-300); }
+    .chip-status-inprogress   { background: transparent; color: var(--color-primary); border: 1px solid var(--color-primary-200); }
+    .chip-status-completed    { background: var(--color-success); color: #FFF; border: none; }
+    .chip-status-escalate     { background: var(--color-primary); color: #FFF; border: none; }
+    .chip-status-enroute      { background: transparent; color: #00897B; border: 1px solid #26A69A; }
+    .chip-status-aborted      { background: var(--orange-600); color: #FFF; border: none; }
+    .chip-status-declined     { background: transparent; color: var(--color-error); border: 1px solid var(--color-error); }
+
+    /* Table footer / pagination */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-5);
+      padding: var(--space-4) var(--space-5);
+      border: var(--border-default);
+      border-top: none;
+      border-radius: 0 0 var(--radius-card) var(--radius-card);
+      background: var(--color-card);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .rows-per-page {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .rows-per-page select {
+      height: 28px;
+      padding: 0 var(--space-7) 0 var(--space-3);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-caption);
+      color: var(--text-primary);
+      background: var(--color-card);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%23757575' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+    }
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .page-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background var(--duration-micro);
+    }
+    .page-btn:hover { background: var(--grey-100); color: var(--text-primary); }
+    .page-btn:disabled { cursor: not-allowed; color: var(--grey-300); }
+
+    .chip {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center; gap: var(--space-1);
+      padding: 2px 10px; border-radius: var(--radius-pill);
+      font-size: 11px; font-weight: var(--font-weight-medium); white-space: nowrap; line-height: 1.6;
+    }
+    .chip-critical  { background: var(--color-error); color: #FFF; border: none; }
+    .chip-high      { background: var(--orange-800); color: #FFF; border: none; }
+    .chip-medium    { background: var(--color-warning); color: #FFF; border: none; }
+    .chip-low       { background: var(--color-primary-600); color: #FFF; border: none; }
+
+    .sla-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: var(--font-weight-medium);
+      padding: 2px 8px; border-radius: var(--radius-pill);
+    }
+    .sla-inside      { color: var(--color-success); background: var(--color-success-bg); }
+    .sla-approaching { color: var(--color-warning-dark); background: var(--color-warning-bg); }
+    .sla-overdue     { color: var(--color-error); background: var(--color-error-bg); }
+
+    .risk-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: var(--font-weight-medium);
+      padding: 2px 8px; border-radius: var(--radius-pill);
+    }
+    .risk-high   { color: var(--color-error-dark); background: var(--color-error-bg); }
+    .risk-medium { color: var(--orange-800); background: var(--color-warning-bg); }
+    .risk-low    { color: var(--color-success-dark); background: var(--color-success-bg); }
+
+
+
+    .row-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background var(--duration-micro);
+    }
+    .row-action:hover { background: var(--color-primary-25); color: var(--color-primary); }
+
+    /* Action dropdown menu */
+    .action-wrapper { position: relative; }
+    .action-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      z-index: 50;
+      min-width: 200px;
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+      border: 1px solid var(--grey-200);
+      padding: 4px 0;
+      margin-top: 4px;
+    }
+    .action-dropdown.open { display: block; }
+    .action-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: background var(--duration-micro);
+    }
+    .action-dropdown-item:hover {
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+    }
+    .action-dropdown-item .material-icons-outlined { font-size: 18px; color: var(--text-secondary); }
+    .action-dropdown-item:hover .material-icons-outlined { color: var(--color-primary); }
+
+
+
+
+
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
+
+    /* -------------------------------------------
+       View Details Side Panel
+    ------------------------------------------- */
+    .panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--duration-standard) var(--easing-enter), visibility var(--duration-standard);
+    }
+    .panel-overlay.open { opacity: 1; visibility: visible; }
+
+    .side-panel {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 560px;
+      max-width: 100vw;
+      background: var(--color-card);
+      box-shadow: var(--shadow-modal);
+      z-index: 101;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+    }
+    .side-panel.open { transform: translateX(0); }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5) var(--space-7);
+      border-bottom: var(--border-default);
+      flex-shrink: 0;
+      min-height: 60px;
+    }
+    .panel-title {
+      flex: 1;
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .panel-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border: none; border-radius: 50%;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background var(--duration-micro);
+    }
+    .panel-close:hover { background: var(--color-primary-25); color: var(--color-primary); }
+
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-7);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    /* Panel info grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+    .info-grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+    .info-item { display: flex; flex-direction: column; gap: var(--space-2); }
+    .info-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-regular);
+    }
+    .info-value {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-regular);
+      line-height: 1.5;
+    }
+    .section-divider { border: none; border-top: 1px solid var(--grey-200); margin: var(--space-3) 0; }
+    .section-title {
+      font-size: var(--font-size-body1);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    /* SLA Banner inside panel */
+    .sla-banner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-card);
+      font-size: var(--font-size-body);
+    }
+    .sla-banner-inside      { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .sla-banner-approaching { background: var(--color-warning-bg); color: var(--orange-800); }
+    .sla-banner-overdue     { background: var(--color-error-bg); color: var(--color-error-deeper); }
+    .sla-banner .material-icons-outlined { font-size: 20px; }
+    .sla-banner-label { font-weight: var(--font-weight-medium); }
+    .sla-banner-spacer { flex: 1; }
+    .sla-banner-value { font-weight: var(--font-weight-bold); }
+
+    /* Attachments list in panel */
+    .attachment-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: var(--border-divider);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .attachment-row:last-child { border-bottom: none; }
+    .attachment-icon {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-card);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: var(--font-weight-bold);
+      flex-shrink: 0;
+    }
+    .attachment-icon-pdf { background: var(--color-error-bg); color: var(--color-error); }
+    .attachment-icon-img { background: var(--color-primary-25); color: var(--color-primary); }
+    .attachment-name { flex: 1; color: var(--text-primary); font-weight: var(--font-weight-medium); }
+    .attachment-meta { color: var(--text-secondary); }
+
+    /* Accordion section */
+    .accordion-section {
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      background: var(--grey-50);
+      cursor: pointer;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: background var(--duration-micro);
+    }
+    .accordion-header:hover { background: var(--grey-100); }
+    .accordion-header .material-icons-outlined { font-size: 20px; color: var(--text-secondary); transition: transform var(--duration-micro); }
+    .accordion-header.expanded .material-icons-outlined { transform: rotate(180deg); }
+    .accordion-header-spacer { flex: 1; }
+    .accordion-body {
+      display: none;
+      padding: var(--space-5);
+    }
+    .accordion-body.open { display: block; }
+
+    /* -------------------------------------------
+       Responsive
+    ------------------------------------------- */
+    @media (max-width: 1279px) {
+      .stats-row { flex-wrap: wrap; }
+      .stats-card-1, .stats-card-2 { width: auto; flex: 1; min-width: 300px; }
+      .stats-card-3 { flex-basis: 100%; }
+    }
+    @media (max-width: 1023px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .stats-row { flex-direction: column; }
+      .stats-card-1, .stats-card-2, .stats-card-3 { width: 100%; }
+      .data-table { font-size: var(--font-size-caption); }
+      .side-panel { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+    <!-- ----------- Top App Bar (60px) ----------- -->
+    <header class="top-bar" role="banner">
+      <div class="top-bar-left">
+        <button class="hamburger-btn" aria-label="Toggle navigation">
+          <span class="material-icons-outlined">menu</span>
+        </button>
+        <a href="#" class="top-bar-logo" aria-label="FieldSync Home">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23065f46'/%3E%3Ccircle cx='16' cy='14' r='4' fill='none' stroke='%2334d399' stroke-width='2'/%3E%3Cpath d='M16 10v-2M16 20v2M10 14H8M24 14h-2' stroke='%2334d399' stroke-width='2'/%3E%3C/svg%3E" alt="FieldSync" />
+        </a>
+      </div>
+      <div class="top-bar-spacer"></div>
+      <div class="top-bar-search">
+        <input type="search" placeholder="Search Keywords : Agent ID, Agent Name, Job ID, User, Client Name..." aria-label="Global search" />
+        <span class="material-icons-outlined search-icon" aria-hidden="true">search</span>
+      </div>
+      <button class="icon-btn" aria-label="Clipboard" style="position:relative;">
+        <span class="material-icons-outlined">content_paste</span>
+        <span class="notif-dot" aria-label="Active record"></span>
+      </button>
+      <button class="icon-btn" aria-label="Notifications" style="position:relative;">
+        <span class="material-icons-outlined">notifications_none</span>
+      </button>
+      <div class="user-avatar" role="img" aria-label="User: Admin">AD</div>
+    </header>
+
+    <!-- ----------- Left Sidebar — Collapsed 68px ----------- -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-search-icon" aria-label="Sidebar search">
+        <span class="material-icons-outlined" style="font-size:22px;">search</span>
+      </button>
+      <ul class="nav-list" role="list">
+        <li><a href="#" class="nav-item" aria-label="Dashboard"><span class="material-icons-outlined">dashboard</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Calendar"><span class="material-icons-outlined">calendar_today</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="People"><span class="material-icons-outlined">people_outline</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="jobs.html" class="nav-item active" aria-current="page" aria-label="Jobs"><span class="material-icons-outlined">work_outline</span></a></li>
+        <li><a href="tasks.html" class="nav-item" aria-label="Tasks"><span class="material-icons-outlined">task_alt</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Timesheets"><span class="material-icons-outlined">schedule</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Tools"><span class="material-icons-outlined">build_circle</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Invoices"><span class="material-icons-outlined">receipt_long</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Locations"><span class="material-icons-outlined">location_on</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Configuration"><span class="material-icons-outlined">settings</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Reports"><span class="material-icons-outlined">bar_chart</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Help"><span class="material-icons-outlined">help_outline</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Support"><span class="material-icons-outlined">support_agent</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- ----------- Main Content ----------- -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <span class="header-chip" aria-label="186 total jobs">186</span>
+        <h1 class="page-title">Job(s)</h1>
+        <div class="page-header-spacer"></div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-row" role="group" aria-label="Job statistics">
+        <!-- Card 1 — Status donut -->
+        <div class="stats-card stats-card-1">
+          <div class="donut-wrap" aria-hidden="true">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--grey-200)" stroke-width="4"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--color-success)" stroke-width="4"
+                stroke-dasharray="35.2 87.96" stroke-dashoffset="0" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--orange-600)" stroke-width="4"
+                stroke-dasharray="26.4 87.96" stroke-dashoffset="-35.2" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--grey-400)" stroke-width="4"
+                stroke-dasharray="17.6 87.96" stroke-dashoffset="-61.6" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--color-error)" stroke-width="4"
+                stroke-dasharray="8.8 87.96" stroke-dashoffset="-79.2" stroke-linecap="round"/>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-val">186</div>
+              <div class="donut-lbl">Total</div>
+            </div>
+          </div>
+          <div class="stats-right">
+            <div class="stats-desc">Jobs by status</div>
+            <div class="stats-title">Status</div>
+            <div class="legend">
+              <div class="legend-row"><span class="legend-dot" style="background:var(--color-success);"></span><span class="legend-name">Completed</span><span class="legend-pct">40%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:var(--orange-600);"></span><span class="legend-name">In Progress</span><span class="legend-pct">30%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:var(--grey-400);"></span><span class="legend-name">Not Started</span><span class="legend-pct">20%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:var(--color-error);"></span><span class="legend-name">Cancelled</span><span class="legend-pct">10%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — SLA donut -->
+        <div class="stats-card stats-card-2">
+          <div class="donut-wrap" aria-hidden="true">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--grey-200)" stroke-width="4"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--color-success)" stroke-width="4"
+                stroke-dasharray="44 87.96" stroke-dashoffset="0" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--orange-600)" stroke-width="4"
+                stroke-dasharray="26.4 87.96" stroke-dashoffset="-44" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--color-error)" stroke-width="4"
+                stroke-dasharray="17.6 87.96" stroke-dashoffset="-70.4" stroke-linecap="round"/>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-val">112</div>
+              <div class="donut-lbl">SLA</div>
+            </div>
+          </div>
+          <div class="stats-right">
+            <div class="stats-desc">SLA performance</div>
+            <div class="stats-title">Jobs at Risk</div>
+            <div class="legend">
+              <div class="legend-row"><span class="legend-dot" style="background:var(--color-success);"></span><span class="legend-name">Inside SLA</span><span class="legend-pct">50%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:var(--orange-600);"></span><span class="legend-name">Approaching SLA</span><span class="legend-pct">30%</span></div>
+              <div class="legend-row"><span class="legend-dot" style="background:var(--color-error);"></span><span class="legend-name">Past SLA</span><span class="legend-pct">20%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — Wide 5-column metrics -->
+        <div class="stats-card stats-card-3">
+          <div class="metrics-cols">
+            <div class="metric-col">
+              <div class="metric-col-val">186</div>
+              <div class="metric-col-lbl">Total Jobs</div>
+            </div>
+            <div class="metric-col">
+              <div class="metric-col-val">37</div>
+              <div class="metric-col-lbl">Not Started</div>
+            </div>
+            <div class="metric-col">
+              <div class="metric-col-val">56</div>
+              <div class="metric-col-lbl">In Progress</div>
+            </div>
+            <div class="metric-col">
+              <div class="metric-col-val">74</div>
+              <div class="metric-col-lbl">Completed</div>
+            </div>
+            <div class="metric-col">
+              <div class="metric-col-val">19</div>
+              <div class="metric-col-lbl">At Risk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search + Tabs + Filter Toolbar -->
+      <div class="tab-toolbar">
+        <div class="table-search">
+          <span class="material-icons-outlined s-icon" aria-hidden="true">search</span>
+          <input type="search" placeholder="Search tasks..." aria-label="Search jobs" id="tableSearch" />
+        </div>
+        <div class="status-tabs" role="tablist" aria-label="Filter by status">
+          <button role="tab" class="status-tab" aria-selected="true" onclick="filterByStatus(this,'all')">ALL <span class="tab-count">273</span></button>
+          <button role="tab" class="status-tab" aria-selected="false" onclick="filterByStatus(this,'notstarted')">ASSIGNED <span class="tab-count">45</span></button>
+          <button role="tab" class="status-tab" aria-selected="false" onclick="filterByStatus(this,'inprogress')">IN-PROGRESS <span class="tab-count">38</span></button>
+          <button role="tab" class="status-tab" aria-selected="false" onclick="filterByStatus(this,'enroute')">ESCALATED <span class="tab-count">12</span></button>
+          <button role="tab" class="status-tab" aria-selected="false" onclick="filterByStatus(this,'aborted')">REASSIGNED <span class="tab-count">24</span></button>
+          <button role="tab" class="status-tab" aria-selected="false" onclick="filterByStatus(this,'completed')">COMPLETED <span class="tab-count">154</span></button>
+        </div>
+        <button class="toolbar-filter-btn" aria-label="Filter">
+          <span class="material-icons-outlined" style="font-size:18px;">filter_list</span>
+          Filter
+        </button>
+      </div>
+
+      <!-- Job Data Table -->
+      <div class="table-wrapper" role="region" aria-label="Jobs data grid" tabindex="0">
+        <table class="data-table" id="jobTable">
+          <thead>
+            <tr>
+              <th scope="col" class="col-check"><input type="checkbox" id="selectAll" aria-label="Select all rows" /></th>
+              <th scope="col" class="col-jobid">Job ID</th>
+              <th scope="col" class="col-jobtype">Job Type</th>
+              <th scope="col" class="col-client">Client Name</th>
+              <th scope="col" class="col-area">Business Area</th>
+              <th scope="col" class="col-age">Job Age</th>
+              <th scope="col" class="col-status">Status</th>
+              <th scope="col" class="col-action">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobTableBody">
+            <tr data-status="notstarted" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="job-details.html" class="job-id" onclick="event.stopPropagation();">123456</a></td>
+              <td>Collection</td>
+              <td>BMW</td>
+              <td>Motor</td>
+              <td>New</td>
+              <td><span class="chip-status chip-status-notstarted">Not Started</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="inprogress" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Collection</td>
+              <td>MoneyBarn</td>
+              <td>Motor</td>
+              <td>3 days</td>
+              <td><span class="chip-status chip-status-inprogress">InProgress</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="inprogress" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Repossession</td>
+              <td>BMW</td>
+              <td>Motor</td>
+              <td>3 days</td>
+              <td><span class="chip-status chip-status-inprogress">InProgress</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="completed" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Warrant</td>
+              <td>Boost</td>
+              <td>Metering</td>
+              <td>5 days</td>
+              <td><span class="chip-status chip-status-completed">Completed</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="enroute" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Faulty</td>
+              <td>Boost</td>
+              <td>Metering</td>
+              <td>10days</td>
+              <td><span class="chip-status chip-status-enroute">Enroute</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="completed" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Revenue Protection</td>
+              <td>Boosi</td>
+              <td>Metering</td>
+              <td>3 days</td>
+              <td><span class="chip-status chip-status-completed">Completed</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="completed" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Reconnect</td>
+              <td>Bossi</td>
+              <td>Field</td>
+              <td>2 days</td>
+              <td><span class="chip-status chip-status-completed">Completed</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="completed" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>SDV</td>
+              <td>Lantern</td>
+              <td>Field</td>
+              <td>1 day</td>
+              <td><span class="chip-status chip-status-completed">Completed</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="aborted" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Debt CEV</td>
+              <td>Castle Water</td>
+              <td>Field</td>
+              <td>2 days</td>
+              <td><span class="chip-status chip-status-aborted">Aborted</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="declined" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">133456</a></td>
+              <td>Reconnect</td>
+              <td>Lloyds</td>
+              <td>Field</td>
+              <td>2 days</td>
+              <td><span class="chip-status chip-status-declined">Declined</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="declined" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">133456</a></td>
+              <td>Reconnect</td>
+              <td>Lloyds</td>
+              <td>Field</td>
+              <td>2 days</td>
+              <td><span class="chip-status chip-status-declined">Declined</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+            <tr data-status="declined" onclick="openJobPanel('123456')">
+              <td class="col-check" onclick="event.stopPropagation();"><input type="checkbox" aria-label="Select row" /></td>
+              <td><a href="#" class="job-id" onclick="event.preventDefault();">123456</a></td>
+              <td>Reconnect</td>
+              <td>Lloyds</td>
+              <td>Field</td>
+              <td>2 days</td>
+              <td><span class="chip-status chip-status-declined">Declined</span></td>
+              <td class="col-action"><div class="action-wrapper"><button class="row-action" aria-label="More actions" aria-haspopup="true" onclick="event.stopPropagation();toggleActionMenu(this);"><span class="material-icons-outlined" style="font-size:18px;">more_vert</span></button><div class="action-dropdown" role="menu"><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('optimiser',this);"><span class="material-icons-outlined">auto_fix_high</span>Assign to Optimiser</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('manual',this);"><span class="material-icons-outlined">edit_note</span>Assign to Manual</button><button class="action-dropdown-item" role="menuitem" onclick="event.stopPropagation();handleAction('agent',this);"><span class="material-icons-outlined">person_add</span>Assign to Agent</button></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table Footer / Pagination -->
+      <div class="table-footer">
+        <div class="rows-per-page">
+          <span>Rows per page:</span>
+          <select aria-label="Rows per page">
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+        </div>
+        <span>1-25 of 1</span>
+        <div class="pagination">
+          <button class="page-btn" disabled aria-label="Previous page"><span class="material-icons-outlined" style="font-size:20px;">chevron_left</span></button>
+          <button class="page-btn" disabled aria-label="Next page"><span class="material-icons-outlined" style="font-size:20px;">chevron_right</span></button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ----------- View Job Details Side Panel ----------- -->
+  <div class="panel-overlay" id="jobOverlay" aria-hidden="true"></div>
+  <aside class="side-panel" id="jobDetailPanel" role="dialog" aria-labelledby="jobPanelTitle" aria-modal="true">
+    <div class="panel-header">
+      <h2 class="panel-title" id="jobPanelTitle">Job #JOB-2048</h2>
+      <div style="display:flex; gap:var(--space-3); align-items:center;">
+        <span class="chip chip-high" id="jobPanelPriority">High</span>
+        <span class="risk-chip risk-medium" id="jobPanelRisk"><span class="material-icons-outlined" style="font-size:13px;">warning_amber</span> Medium Risk</span>
+        <span class="chip-status chip-status-inprogress" id="jobPanelStatus">In Progress</span>
+      </div>
+      <button class="panel-close" id="jobPanelClose" aria-label="Close panel">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="panel-body">
+      <!-- SLA Banner -->
+      <div class="sla-banner sla-banner-approaching" id="jobSLABanner">
+        <span class="material-icons-outlined">schedule</span>
+        <span class="sla-banner-label">SLA Remaining</span>
+        <span class="sla-banner-spacer"></span>
+        <span class="sla-banner-value" id="jobSLAValue">2d 5h remaining</span>
+        <span class="sla-chip sla-approaching" id="jobSLAStatus">Approaching</span>
+      </div>
+
+      <!-- Customer Details -->
+      <div>
+        <div class="section-title">Customer Details</div>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Organisation</span>
+            <span class="info-value" id="jobCustOrg">EDF Revenue Protection</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Customer Name</span>
+            <span class="info-value" id="jobCustName">James Jacob</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Contact Number</span>
+            <span class="info-value"><a href="tel:1234512345" style="color:var(--text-hyperlink); text-decoration:none;" id="jobCustPhone">12345 12345</a></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Address</span>
+            <span class="info-value" id="jobCustAddress">22 Southampton Rd, Lymington, Hampshire</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Job Details -->
+      <div>
+        <div class="section-title">Job Details</div>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Visit Type</span>
+            <span class="info-value" id="jobVisitType">Cold Call</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Received Date</span>
+            <span class="info-value" id="jobReceivedDate">11 Mar 2026, 10:22 AM</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Visit Count</span>
+            <span class="info-value" id="jobVisitCount">1 of 3</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Assigned To</span>
+            <span class="info-value" id="jobAssignedTo">Field Team Alpha</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Attachments -->
+      <div>
+        <div class="section-title" style="display:flex; align-items:center; gap:var(--space-3);">
+          Attachments
+          <span style="font-size:var(--font-size-caption); color:var(--text-secondary); font-weight:var(--font-weight-regular);">(4 files)</span>
+          <span class="sla-chip sla-inside" style="margin-left:auto; font-size:10px;">
+            <span class="material-icons-outlined" style="font-size:13px;">my_location</span> Geo-Fence Enabled
+          </span>
+        </div>
+        <div class="attachment-row">
+          <span class="attachment-icon attachment-icon-pdf">PDF</span>
+          <span class="attachment-name">Site_Survey_Report.pdf</span>
+          <span class="attachment-meta">1.2 MB · 10 Mar 2026</span>
+        </div>
+        <div class="attachment-row">
+          <span class="attachment-icon attachment-icon-img">IMG</span>
+          <span class="attachment-name">Meter_Photo_Front.jpg</span>
+          <span class="attachment-meta">3.4 MB · 10 Mar 2026</span>
+        </div>
+        <div class="attachment-row">
+          <span class="attachment-icon attachment-icon-pdf">PDF</span>
+          <span class="attachment-name">Risk_Assessment.pdf</span>
+          <span class="attachment-meta">0.8 MB · 09 Mar 2026</span>
+        </div>
+        <div class="attachment-row">
+          <span class="attachment-icon attachment-icon-img">IMG</span>
+          <span class="attachment-name">Access_Route_Map.png</span>
+          <span class="attachment-meta">2.1 MB · 09 Mar 2026</span>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Accordions: Additional Details, Third-Party, Risk & Safety -->
+      <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+
+        <div class="accordion-section">
+          <button class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">
+            <span class="material-icons-outlined">expand_more</span>
+            Additional Job Details
+          </button>
+          <div class="accordion-body">
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Meter Serial No.</span>
+                <span class="info-value">MSN-78432-A</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Supply Type</span>
+                <span class="info-value">Single Phase</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Access Notes</span>
+                <span class="info-value">Key safe code provided. Use rear entrance.</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Special Instructions</span>
+                <span class="info-value">Customer has requested morning appointment. Elderly resident, allow extra time.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-section">
+          <button class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">
+            <span class="material-icons-outlined">expand_more</span>
+            Third-Party Information
+          </button>
+          <div class="accordion-body">
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Contractor</span>
+                <span class="info-value">Kelsey Electrical Services</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Reference</span>
+                <span class="info-value">KES-2026-00412</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Contact</span>
+                <span class="info-value">07700 987654</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Liaison Status</span>
+                <span class="info-value">Confirmed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-section">
+          <button class="accordion-header expanded" onclick="toggleAccordion(this)" aria-expanded="true">
+            <span class="material-icons-outlined">expand_more</span>
+            Risk &amp; Safety Information
+          </button>
+          <div class="accordion-body open">
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Risk Level</span>
+                <span class="info-value"><span class="risk-chip risk-medium" style="font-size:12px;"><span class="material-icons-outlined" style="font-size:14px;">warning_amber</span> Medium</span></span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Hazard Type</span>
+                <span class="info-value">Electrical</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">PPE Required</span>
+                <span class="info-value">Insulated gloves, safety boots</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Dog on Premises</span>
+                <span class="info-value">No</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Vulnerability Flag</span>
+                <span class="info-value">None recorded</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    /* -------------------------------------------
+       Status Tab Filter
+    ------------------------------------------- */
+    var activeStatusFilter = null;
+
+    function filterByStatus(el, status) {
+      document.querySelectorAll('.status-tab').forEach(function(t) { t.setAttribute('aria-selected', 'false'); });
+      el.setAttribute('aria-selected', 'true');
+      activeStatusFilter = (status === 'all') ? null : status;
+      applyFilters();
+    }
+
+    /* -------------------------------------------
+       Table Search — filters table rows
+    ------------------------------------------- */
+    var searchQuery = '';
+    (function() {
+      var input = document.getElementById('tableSearch');
+      var timer;
+      input.addEventListener('input', function() {
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+          searchQuery = input.value.toLowerCase().trim();
+          applyFilters();
+        }, 300);
+      });
+    })();
+
+    /* Combined filter (status tab + search) */
+    function applyFilters() {
+      document.querySelectorAll('#jobTableBody tr').forEach(function(row) {
+        var matchStatus = !activeStatusFilter || row.getAttribute('data-status') === activeStatusFilter;
+        var matchSearch = !searchQuery || row.textContent.toLowerCase().indexOf(searchQuery) !== -1;
+        row.style.display = (matchStatus && matchSearch) ? '' : 'none';
+      });
+    }
+
+    /* -------------------------------------------
+       Select All Checkbox
+    ------------------------------------------- */
+    document.getElementById('selectAll').addEventListener('change', function() {
+      var checked = this.checked;
+      document.querySelectorAll('#jobTableBody input[type="checkbox"]').forEach(function(cb) {
+        cb.checked = checked;
+      });
+    });
+
+    /* -------------------------------------------
+       Action Dropdown (3-dot menu)
+    ------------------------------------------- */
+    function closeAllMenus() {
+      document.querySelectorAll('.action-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+    }
+    function toggleActionMenu(btn) {
+      var dropdown = btn.nextElementSibling;
+      var isOpen = dropdown.classList.contains('open');
+      closeAllMenus();
+      if (!isOpen) dropdown.classList.add('open');
+    }
+    function handleAction(type, el) {
+      var row = el.closest('tr');
+      var jobId = row ? row.querySelector('.job-id').textContent : '';
+      closeAllMenus();
+      alert('Action: Assign to ' + type.charAt(0).toUpperCase() + type.slice(1) + ' — Job ' + jobId);
+    }
+    document.addEventListener('click', function() { closeAllMenus(); });
+
+    /* -------------------------------------------
+       View Details Side Panel
+    ------------------------------------------- */
+    var jobData = {
+      'JOB-2048': { title: 'Meter Installation — 22 Southampton Rd, Lymington', org: 'EDF Revenue Protection', name: 'James Jacob', phone: '12345 12345', address: '22 Southampton Rd, Lymington, Hampshire', visit: 'Cold Call', date: '11 Mar 2026, 10:22 AM', visitCount: '1 of 3', assignedTo: 'Field Team Alpha', priority: 'high', risk: 'medium', status: 'inprogress', sla: 'approaching', slaValue: '2d 5h remaining' },
+      'JOB-2045': { title: 'Emergency Meter Disconnect — 14 Parkview Crescent', org: 'British Gas', name: 'Robert Mitchell', phone: '07700 123456', address: '14 Parkview Crescent, Southampton', visit: 'Emergency', date: '12 Mar 2026, 08:00 AM', visitCount: '1 of 1', assignedTo: 'Templeton Peck', priority: 'critical', risk: 'high', status: 'notstarted', sla: 'overdue', slaValue: 'Overdue by 4h' },
+      'JOB-2044': { title: 'Routine Meter Reading — 8 Birch Lane, Eastleigh', org: 'SSE Energy', name: 'Patricia Collins', phone: '07700 234567', address: '8 Birch Lane, Eastleigh, Hampshire', visit: 'Scheduled Visit', date: '10 Mar 2026, 09:00 AM', visitCount: '2 of 3', assignedTo: 'Sarah Kim', priority: 'medium', risk: 'low', status: 'inprogress', sla: 'inside', slaValue: '5d 2h remaining' },
+      'JOB-2041': { title: 'Smart Meter Upgrade — 45 Oakfield Gardens', org: 'OVO Energy', name: 'David Thompson', phone: '07700 345678', address: '45 Oakfield Gardens, Fareham', visit: 'Scheduled Visit', date: '08 Mar 2026, 11:00 AM', visitCount: '1 of 1', assignedTo: 'John Doe', priority: 'low', risk: 'low', status: 'completed', sla: 'inside', slaValue: 'Completed inside SLA' },
+      'JOB-2039': { title: 'Gas Safety Inspection — 12 Willow Court, Romsey', org: 'Octopus Energy', name: 'Emma Williams', phone: '07700 456789', address: '12 Willow Court, Romsey, Hampshire', visit: 'Inspection', date: '09 Mar 2026, 14:00 PM', visitCount: '1 of 2', assignedTo: 'Amy Lee', priority: 'medium', risk: 'medium', status: 'onhold', sla: 'approaching', slaValue: '12h remaining' },
+      'JOB-2037': { title: 'Meter Relocation — 7 Cedar Drive, Totton', org: 'EDF Energy', name: 'Thomas Brown', phone: '07700 567890', address: '7 Cedar Drive, Totton, Hampshire', visit: 'Relocation', date: '07 Mar 2026, 10:00 AM', visitCount: '1 of 1', assignedTo: 'Mike Rogers', priority: 'low', risk: 'low', status: 'cancelled', sla: 'inside', slaValue: 'N/A' },
+      'JOB-2035': { title: 'Revenue Protection Visit — 3 Elm Street, Chandlers Ford', org: 'EDF Revenue Protection', name: 'Sarah Walker', phone: '07700 678901', address: '3 Elm Street, Chandlers Ford, Hampshire', visit: 'Cold Call', date: '11 Mar 2026, 08:30 AM', visitCount: '1 of 3', assignedTo: 'Templeton Peck', priority: 'high', risk: 'high', status: 'notstarted', sla: 'inside', slaValue: '3d 8h remaining' },
+      'JOB-2033': { title: 'Electrical Safety Audit — 19 Hawthorn Rd, Winchester', org: 'UKPN', name: 'Karen Davies', phone: '07700 789012', address: '19 Hawthorn Rd, Winchester, Hampshire', visit: 'Inspection', date: '10 Mar 2026, 13:00 PM', visitCount: '2 of 2', assignedTo: 'Sarah Kim', priority: 'high', risk: 'high', status: 'inprogress', sla: 'approaching', slaValue: '6h 30m remaining' },
+      'JOB-2030': { title: 'Pre-Payment Meter Exchange — 55 Victoria Close', org: 'Bulb Energy', name: 'Michael Harris', phone: '07700 890123', address: '55 Victoria Close, Basingstoke', visit: 'Scheduled Visit', date: '09 Mar 2026, 09:30 AM', visitCount: '1 of 1', assignedTo: 'Amy Lee', priority: 'medium', risk: 'low', status: 'completed', sla: 'inside', slaValue: 'Completed inside SLA' }
+    };
+
+    function openJobPanel(jobId) {
+      var d = jobData[jobId];
+      if (!d) return;
+      document.getElementById('jobPanelTitle').textContent = 'Job #' + jobId;
+      document.getElementById('jobCustOrg').textContent = d.org;
+      document.getElementById('jobCustName').textContent = d.name;
+      document.getElementById('jobCustPhone').textContent = d.phone;
+      document.getElementById('jobCustAddress').textContent = d.address;
+      document.getElementById('jobVisitType').textContent = d.visit;
+      document.getElementById('jobReceivedDate').textContent = d.date;
+      document.getElementById('jobVisitCount').textContent = d.visitCount;
+      document.getElementById('jobAssignedTo').textContent = d.assignedTo;
+      document.getElementById('jobSLAValue').textContent = d.slaValue;
+
+      // Update priority chip
+      var prioEl = document.getElementById('jobPanelPriority');
+      prioEl.className = 'chip chip-' + d.priority;
+      prioEl.textContent = d.priority.charAt(0).toUpperCase() + d.priority.slice(1);
+
+      // Update risk chip
+      var riskEl = document.getElementById('jobPanelRisk');
+      riskEl.className = 'risk-chip risk-' + d.risk;
+      riskEl.innerHTML = '<span class="material-icons-outlined" style="font-size:13px;">' + (d.risk === 'low' ? 'check_circle' : 'warning_amber') + '</span> ' + d.risk.charAt(0).toUpperCase() + d.risk.slice(1) + ' Risk';
+
+      // Update status chip
+      var statusEl = document.getElementById('jobPanelStatus');
+      var statusMap = { notstarted: 'Not Started', inprogress: 'In Progress', completed: 'Completed', onhold: 'On Hold', cancelled: 'Cancelled' };
+      statusEl.className = 'chip-status chip-status-' + d.status;
+      statusEl.textContent = statusMap[d.status] || d.status;
+
+      // Update SLA banner
+      var slaBanner = document.getElementById('jobSLABanner');
+      slaBanner.className = 'sla-banner sla-banner-' + d.sla;
+      var slaStatusEl = document.getElementById('jobSLAStatus');
+      var slaMap = { inside: 'Inside SLA', approaching: 'Approaching', overdue: 'Overdue' };
+      slaStatusEl.className = 'sla-chip sla-' + d.sla;
+      slaStatusEl.textContent = slaMap[d.sla] || d.sla;
+
+      // Open panel
+      document.getElementById('jobOverlay').classList.add('open');
+      document.getElementById('jobDetailPanel').classList.add('open');
+      document.getElementById('jobOverlay').setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeJobPanel() {
+      document.getElementById('jobOverlay').classList.remove('open');
+      document.getElementById('jobDetailPanel').classList.remove('open');
+      document.getElementById('jobOverlay').setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('jobPanelClose').addEventListener('click', closeJobPanel);
+    document.getElementById('jobOverlay').addEventListener('click', closeJobPanel);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('jobDetailPanel').classList.contains('open')) closeJobPanel();
+    });
+
+    /* -------------------------------------------
+       Accordion Toggle
+    ------------------------------------------- */
+    function toggleAccordion(header) {
+      var body = header.nextElementSibling;
+      var isExpanded = header.classList.contains('expanded');
+      header.classList.toggle('expanded');
+      header.setAttribute('aria-expanded', !isExpanded);
+      body.classList.toggle('open');
+    }
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

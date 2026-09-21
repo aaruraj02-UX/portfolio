@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page Settings — Acme Recovery</title>
+
+  <!-- Material Symbols Outlined (MUI outlined icon set) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..24,300..500,0,0"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ APP SHELL ============ -->
+  <div class="app">
+
+    <!-- ============ TOP HEADER ============ -->
+    <header class="topbar" role="banner">
+      <div class="topbar__left">
+        <button class="icon-btn" aria-label="Toggle navigation menu" aria-expanded="true" aria-controls="sidebar">
+          <span class="mi" aria-hidden="true">menu</span>
+        </button>
+        <a class="brand" href="#" aria-label="Acme Recovery — Home">
+          <img class="brand__logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 32'%3E%3Crect width='132' height='32' rx='4' fill='%231e3a5f'/%3E%3Cpath d='M8 24V8l8 8-8 8z' fill='%2360a5fa'/%3E%3Ctext x='22' y='21' font-family='system-ui,sans-serif' font-size='12' font-weight='600' fill='white'%3EAcme Recovery%3C/text%3E%3C/svg%3E" alt="Acme Recovery" width="132" height="32" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 32'%3E%3Crect width='132' height='32' rx='4' fill='%231e3a5f'/%3E%3Cpath d='M8 24V8l8 8-8 8z' fill='%2360a5fa'/%3E%3Ctext x='22' y='21' font-family='system-ui,sans-serif' font-size='12' font-weight='600' fill='white'%3EAcme Recovery%3C/text%3E%3C/svg%3E';" />
+        </a>
+      </div>
+
+      <div class="topbar__right">
+        <button type="button" class="btn btn--pill btn--outline">Generate click to pay</button>
+        <span class="topbar__divider" aria-hidden="true"></span>
+        <button class="icon-btn" aria-label="Notifications">
+          <span class="mi" aria-hidden="true">notifications</span>
+        </button>
+        <button class="avatar" aria-label="User menu — James Whitaker">JW</button>
+      </div>
+    </header>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside id="sidebar" class="sidebar" aria-label="Primary">
+      <nav>
+        <ul class="nav">
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">phone_callback</span> Callback Request</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">call</span> Call Log</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">request_quote</span> Income Expenditure</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">fact_check</span> Income Expenditure Review</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">payments</span> Payment Plan</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">receipt_long</span> Payment Plan Review</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">settings</span> Settings</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">task_alt</span> Approved Payment Plan</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">dashboard</span> LandingPage Dashboard</a></li>
+          <li><a href="#" class="nav__item--active" aria-current="page"><span class="mi nav__icon" aria-hidden="true">explore</span> Landing Page</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">download</span> Call Status Report</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">person</span> Customer Profile</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">upload</span> File Upload</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">report</span> QuickBlox Exception</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">swap_horiz</span> Logs</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">history</span> Chat History</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main id="main" class="main" role="main">
+      <div class="page-head">
+        <h1 class="page-title">Landing page settings</h1>
+        <div class="page-actions">
+          <label class="search" aria-label="Search templates">
+            <input type="search" placeholder="Search" />
+          </label>
+          <button type="button" class="btn btn--primary">Add New Template</button>
+          <button type="button" class="btn btn--primary">Add Media Files</button>
+        </div>
+      </div>
+
+      <section class="card-grid" aria-label="Templates">
+
+        <!-- Card 1 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title">All Working template</h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> James Whitaker</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 01/08/2025 05:15</p>
+          </div>
+          <footer class="template-card__foot">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+              <span class="toggle__label">Active</span>
+            </label>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></button>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title">Final UAT</h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> Sophie Marchant</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 31/07/2025 14:13</p>
+          </div>
+          <footer class="template-card__foot">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+              <span class="toggle__label">Active</span>
+            </label>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></button>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title">noe testing uat</h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> Charlotte Pemberton</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 31/07/2025 02:31</p>
+          </div>
+          <footer class="template-card__foot">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+              <span class="toggle__label">Active</span>
+            </label>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></button>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title">NOE Template</h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> Daniel Beaumont</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 29/07/2025 09:35</p>
+          </div>
+          <footer class="template-card__foot">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+              <span class="toggle__label">Active</span>
+            </label>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></button>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title">Default Template</h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> Admin</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 19/12/2024 09:19</p>
+          </div>
+          <footer class="template-card__foot">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+              <span class="toggle__label">Active</span>
+            </label>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></button>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title">NOE</h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> Oliver Hartley</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 18/03/2025 12:10</p>
+          </div>
+          <footer class="template-card__foot">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+              <span class="toggle__label">Active</span>
+            </label>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></button>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title"><a href="make-a-payment.html">Make a Payment</a></h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> James Whitaker</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 05/05/2026 09:20</p>
+          </div>
+          <footer class="template-card__foot">
+            <span class="status-badge status-badge--review"><span class="mi" aria-hidden="true">hourglass_top</span> Awaiting review</span>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <a class="icon-btn icon-btn--sm action--info" href="make-a-payment.html" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></a>
+              <a class="icon-btn icon-btn--sm action--info" href="make-a-payment.html" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></a>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title"><a href="enforcement-stages.html">Enforcement Agent</a></h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> Charlotte Pemberton</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 10/05/2026 11:45</p>
+          </div>
+          <footer class="template-card__foot">
+            <span class="status-badge status-badge--publish"><span class="mi" aria-hidden="true">schedule_send</span> Awaiting publish</span>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <a class="icon-btn icon-btn--sm action--info" href="enforcement-stages.html" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></a>
+              <a class="icon-btn icon-btn--sm action--info" href="enforcement-stages.html" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></a>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- Card 9 -->
+        <article class="template-card">
+          <header class="template-card__head">
+            <h2 class="template-card__title"><a href="support.html">Support</a></h2>
+            <div class="template-card__meta">
+              <span class="tag-muted">Private Campaign</span>
+              <button class="icon-btn icon-btn--sm" aria-label="Favourite"><span class="mi" aria-hidden="true">star</span></button>
+            </div>
+          </header>
+          <div class="template-card__body">
+            <p class="meta-row"><span class="mi meta-row__icon" aria-hidden="true">person</span> Oliver Hartley</p>
+            <p class="meta-row meta-row--right"><span class="mi meta-row__icon" aria-hidden="true">calendar_today</span> 15/05/2026 16:05</p>
+          </div>
+          <footer class="template-card__foot">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+              <span class="toggle__label">Active</span>
+            </label>
+            <div class="action-row" role="group" aria-label="Template actions">
+              <button class="icon-btn icon-btn--sm action--info" aria-label="History"><span class="mi" aria-hidden="true">history</span></button>
+              <button class="icon-btn icon-btn--sm action--info" aria-label="Copy link"><span class="mi" aria-hidden="true">link</span></button>
+              <a class="icon-btn icon-btn--sm action--info" href="support.html" aria-label="View"><span class="mi" aria-hidden="true">visibility</span></a>
+              <a class="icon-btn icon-btn--sm action--info" href="support.html" aria-label="Edit"><span class="mi" aria-hidden="true">edit</span></a>
+              <button class="icon-btn icon-btn--sm action--danger" aria-label="Delete"><span class="mi" aria-hidden="true">delete</span></button>
+            </div>
+          </footer>
+        </article>
+
+      </section>
+    </main>
+
+    <!-- ============ SIDEBAR TOGGLE SCRIPT ============ -->
+    <script>
+      (function () {
+        var app = document.querySelector('.app');
+        var btn = document.querySelector('[aria-controls="sidebar"]');
+        var sidebar = document.getElementById('sidebar');
+        if (!app || !btn || !sidebar) return;
+        btn.addEventListener('click', function () {
+          var collapsed = app.classList.toggle('is-collapsed');
+          btn.setAttribute('aria-expanded', String(!collapsed));
+          sidebar.setAttribute('aria-hidden', String(collapsed));
+        });
+      })();
+    </script>
+
+    <!-- ============ LIVE CHAT WIDGET ============ -->
+    <button class="chat-widget" aria-label="Open live chat">
+      <span class="chat-widget__icon" aria-hidden="true">
+        <span class="mi">chat</span>
+      </span>
+      <span class="chat-widget__label">Live Chat</span>
+      <span class="chat-widget__dot" aria-hidden="true"></span>
+      <span class="mi chat-widget__refresh" aria-hidden="true">refresh</span>
+    </button>
+
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

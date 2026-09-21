@@ -1,0 +1,402 @@
+Date: Fri, 10 Apr 2026 07:52:22 +0000 (UTC)
+Message-ID: <1340985936.65.1775807542484@7ac6d240e502>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_64_1975871475.1775807542484"
+
+------=_Part_64_1975871475.1775807542484
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Summarisation Dashboard Requirements v1.1</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Summarisation Dashboard Requirements v1.1</h1>
+    <div class=3D"Section1">
+        <p local-id=3D"6c335cd5-4f09-4669-a153-6ee81e892e57"><strong><u>Ove=
+rall Summarisation Dashboard Requirements</u></strong>&nbsp;</p>
+<ol start=3D"1" local-id=3D"b24ede0d-4483-4884-b928-95dbe0c21f72">
+<li local-id=3D"ddab0b05-aa5a-4f2b-8d4e-ce8a77bb778b">
+<p local-id=3D"78d5ee3f-4067-4a03-aecf-8bf4081a26a0">We want to have one da=
+shboard space that displays all the summarisation stages 2-5 dashboards as =
+separate tabs.&nbsp;</p></li>
+</ol>
+<p local-id=3D"ac5d37bf-1f2e-4803-9b59-973240dc6106"><strong><u>Summarisati=
+on Stage 1 Standalone Tool Requirements</u></strong>&nbsp;</p>
+<ol start=3D"1" local-id=3D"3b0296d5-b539-44f5-8714-f47c6c24eb56">
+<li local-id=3D"2c8e1019-19d8-4ab9-8456-846626b0b650">
+<p local-id=3D"8eddb7a0-439b-48c5-abe8-c4e9f87f5477">Display the number of =
+times an agent has used the summarisation tool by clicking the summarise bu=
+tton. Want to receive a daily excel report to show the previous day's usage=
+. Display in a table format with the column titles:&nbsp;</p>
+<ol start=3D"1" local-id=3D"b8f83848-8279-419d-abd0-1360a53dde38">
+<li local-id=3D"e4b13ed0-61c9-4551-8080-8f45ea99f497">
+<p local-id=3D"8b2938eb-2c97-4630-9abe-90cac6ce92f4">Agent name - <strong>(=
+Implemented)</strong></p></li>
+<li local-id=3D"90d75e70-e41b-43b2-b405-da19fa694118">
+<p local-id=3D"ea1a054b-f67c-4098-931d-61ba11a3c2cd">Total count of letters=
+ summarised - <strong>(Implemented)</strong></p></li>
+<li local-id=3D"fc910f6e-0f79-4034-b9cc-87fb97f35298">
+<p local-id=3D"bc91d59b-c18a-4434-8d13-dc01e19038e4">Letters summarised by =
+PDF upload - <strong>(Implemented)</strong></p></li>
+<li local-id=3D"0683071d-b415-497e-a723-e91dd2a20038">
+<p local-id=3D"691bd9e4-e83d-4fa2-897a-9a1012973817">Letters summarised by =
+Copy and paste - <strong>(Implemented)</strong></p></li>
+<li local-id=3D"a1a3373f-707d-4308-bc13-2af24f300dda">
+<p local-id=3D"244f6a25-bb9b-4606-a1cd-95c7f18cd32a">Login Time - <strong>(=
+Implemented)</strong></p></li>
+<li local-id=3D"c30c559f-819c-46bd-9d7c-66b842ccb4c5">
+<p local-id=3D"2905a56e-9357-4e87-beaa-6c714494b2f5">Logout Time - <strong>=
+(Implemented)</strong></p></li>
+<li local-id=3D"96c92758-cf7f-4a6c-941c-b80167f5f904">
+<p local-id=3D"7444da8c-bb66-43f9-81e4-94e21339b7fe">Logout Reason - <stron=
+g>(Implemented)</strong></p></li>
+<li local-id=3D"3d26942d-6f92-4718-b9eb-4113424f8de2">
+<p local-id=3D"0adca91e-8534-4264-ac86-ed30cd7b63a8">Session Duration - <st=
+rong>(Implemented)</strong></p></li>
+</ol></li>
+</ol>
+<p local-id=3D"719d823f-13b4-42a6-a942-4dde078797e7"><strong><u>Validation =
+Stage 2 &amp; 4 Requirements</u></strong>&nbsp;</p>
+<ol start=3D"1" local-id=3D"ac33f9fc-ba86-407d-8975-c322f46cd05f">
+<li local-id=3D"7faa8d56-e999-4444-82c0-2fc7c3146520">
+<p local-id=3D"1e5ffb0b-76d8-4fec-b506-65913a373111">On the main dashboard =
+page, we want the following buttons:</p>
+<ol start=3D"1" local-id=3D"1f08fa25-9759-4794-b59a-3747a312c0b2">
+<li local-id=3D"0ded1e10-9a8e-4d8f-90f0-76a69432cc9b">
+<p local-id=3D"8d5ee5de-e90c-4634-91ab-4ac0d662e057">Dropdown button named =
+=E2=80=98Councils=E2=80=99 with the options for =E2=80=98All=E2=80=99 and t=
+he =E2=80=98Individual Councils=E2=80=99 (MNPS &amp; 3<sup>rd</sup> Party) =
+listed - <strong>(Implemented)</strong></p></li>
+<li local-id=3D"76108377-4a5b-47be-a21b-5a2f0b651f60">
+<p local-id=3D"fccacbae-5a22-4bfc-8c4f-6fc037f5cf28">A button that displays=
+ the start date (DD/MM/YYYY) and end date (DD/MM/YYYY) - <strong>(Implement=
+ed)</strong></p></li>
+</ol></li>
+<li local-id=3D"6051531b-e801-4272-a8cd-067417eb1d49">
+<p local-id=3D"57e1bdba-0825-4ca0-8548-a4ee9c6f0d5b">Display a table that l=
+ists out the following:</p>
+<ol start=3D"1" local-id=3D"17b97d37-8290-4507-8919-e71bc044dc78">
+<li local-id=3D"fa4d23c3-40b6-422b-b837-7ec68cb7e9fe">
+<p local-id=3D"4b9fa4a9-2e3b-4b90-a1af-cac1f6cb9574">VRM mismatches and Mak=
+e &amp; Colour mismatches with the total count for both - <strong>(New Requ=
+irement)</strong></p></li>
+<li local-id=3D"9dc18990-b183-432f-bd4c-18d14a4dc127">
+<p local-id=3D"2342f3d3-464d-4605-bbb1-45c9410fb5c2">Number of cases where =
+the agent has selected override - <strong>(New Requirement)</strong></p></l=
+i>
+<li local-id=3D"976101e7-28ea-41cb-96e6-bf0718a85d3a">
+<p local-id=3D"3be94853-35df-4286-84ea-97dec8e321f5">The reason for the ove=
+rride - <strong>(Implemented)</strong></p></li>
+<li local-id=3D"9ba373d6-8633-4997-ae99-ecd21c258823">
+<p local-id=3D"d1840991-7f01-446a-a86d-310e89156d03">Name of the agent - <s=
+trong>(Implemented)</strong></p></li>
+<li local-id=3D"73cca29e-e727-44db-9856-b9af92c9d793">
+<p local-id=3D"d7bc7335-4974-451c-a3e3-24c8e04b5b71">A count of the total c=
+ases an agent has worked during a selected date period - <strong>(New Requi=
+rement)</strong></p></li>
+</ol></li>
+<li local-id=3D"6e144a37-d104-4062-98e6-a8f8bfdbbdef">
+<p local-id=3D"261a238f-5228-4ad3-b771-53b8e3cd1a53">Display the count for =
+the number of times the VRM and Make &amp; Colour has been passed or failed=
+ due to the bot. Display this as a table with the column titles:</p>
+<ol start=3D"1" local-id=3D"18bec6fb-c963-4b57-9435-285febeb6ed5">
+<li local-id=3D"c0f8e47e-f2e9-4a84-945e-34d164f23b27">
+<p local-id=3D"28de44b2-7435-49b8-90a0-f74775fa3fbf">VRM (Passed or Failed)=
+ - <strong>(Implemented)</strong></p></li>
+<li local-id=3D"cfcafaca-4d3d-4415-bc4c-78ee17c8c245">
+<p local-id=3D"427cf628-6db5-4075-bf29-696f7f0f084f">Make &amp; Colour (Pas=
+sed or Failed) - <strong>(Implemented)</strong></p></li>
+<li local-id=3D"c6c41bcd-eaba-4133-97e7-238ad12bf868">
+<p local-id=3D"34b8642c-f274-4d1b-8745-a0bfb015d93b">VRM Count - <strong>(N=
+ew Requirement)</strong></p></li>
+<li local-id=3D"1ea251d5-2bb5-4f96-a5bd-404d2e889c1b">
+<p local-id=3D"ddeb3683-69cc-4fad-9769-2f3f98ed4b9e">Make &amp; Colour Coun=
+t - <strong>(New Requirement)</strong></p></li>
+<li local-id=3D"c46ecfa2-db38-4e49-97a0-5a85127b661b">
+<p local-id=3D"62f88cff-e77e-45b6-bc42-6b8ae9c32335">Total Count - <strong>=
+(New Requirement)</strong></p></li>
+</ol></li>
+</ol>
+<p local-id=3D"608f796c-a95a-4f56-b602-9d42cc4974f7" style=3D"margin-left: =
+30.0px;">Add View more button that will display a breakdown in a table form=
+at that shows the following: <strong>(New Requirement)</strong></p>
+<ul local-id=3D"942c5043-eceb-4b32-89fa-69e940c17d0f">
+<li local-id=3D"7640608e-aece-4c47-9c95-15e1b71875ed">
+<p local-id=3D"e7a495f6-9531-4e21-95d9-5e97ad77f7d0">PCN Number - <strong>(=
+New Requirement)</strong></p></li>
+<li local-id=3D"1ba48723-97f4-4f41-a36f-d0b107ab250f">
+<p local-id=3D"c9233bba-fc0f-43f7-bcf5-d65edef5bf10">VRM (Passed or Failed)=
+ - <strong>(New Requirement)</strong></p></li>
+<li local-id=3D"d5aa237a-be68-4649-bc00-bf9558eab8a9">
+<p local-id=3D"84d3c66f-a243-4f51-951d-fa5730c22701">Make &amp; Colour (Pas=
+sed or Failed) - <strong>(New Requirement)</strong></p></li>
+<li local-id=3D"4b6d1cc6-2d2a-497f-831b-c23e20974475">
+<p local-id=3D"39c43489-6031-4810-8b22-44cb88830950">VRM Count - <strong>(N=
+ew Requirement)</strong></p></li>
+<li local-id=3D"08f183a4-7e3d-4f60-8a35-d0042cadb216">
+<p local-id=3D"f9cca87f-ea38-4b4b-8143-7945a115f256">Make &amp; Colour Coun=
+t - <strong>(New Requirement)</strong></p></li>
+<li local-id=3D"0229f0f2-3bf9-48cd-a31f-01bcfe30ffc7">
+<p local-id=3D"341ec1ce-9ff4-4fa0-bbef-c21e61cd2bbb">Total Count - <strong>=
+(New Requirement)</strong></p></li>
+</ul>
+<p local-id=3D"534342e8-d4ba-4971-8126-444486d2a4c9" style=3D"margin-left: =
+30.0px;">Above the table we want to have a dropdown listed all of the conve=
+ntion codes and another drop down listing the clients - <strong>(New Requir=
+ement)</strong></p>
+<ol start=3D"4" local-id=3D"0d29ff85-00c4-4dc3-a4f3-21030c960878">
+<li local-id=3D"4472b195-012e-42a2-9fff-bb1b1fc01a34">
+<p local-id=3D"7439f887-5956-4469-b25c-9070e3b460c1">For Stage 4 (Not techn=
+ically feasible 3rd Party clients), display the number of times an agent ha=
+s used the summarisation tool by clicking the summarise button. Display in =
+a table format with the column titles:&nbsp;<strong>(New Requirement)</stro=
+ng></p>
+<ol start=3D"1" local-id=3D"d8e24eb8-2eef-421c-9350-ad22dbfa31a6">
+<li local-id=3D"8b3cda62-dc77-4d64-86f6-991790418b91">
+<p local-id=3D"08b51b62-01e0-472d-9ae5-02a16da66871">Agent name - <strong>(=
+New Requirement)</strong></p></li>
+<li local-id=3D"11a793aa-7026-4c7b-9e4b-568e55b2ab03">
+<p local-id=3D"dd6fb248-b794-432a-ba19-c051040a1e81">Total count of letters=
+ summarised - <strong>(New Requirement)</strong></p></li>
+<li local-id=3D"05c9af84-739e-46da-b092-0d31ec6c5d0d">
+<p local-id=3D"615d07b0-5b97-46a1-9a14-f95a50556ec7">Letters summarised by =
+PDF upload - <strong>(New Requirement)</strong></p></li>
+<li local-id=3D"d600ffbf-624d-4d84-90f5-81497540c3ff">
+<p local-id=3D"d5fb88d2-dce8-4ad0-b725-1ec2b4c2c610">Letters summarised by =
+Copy and paste - <strong>(New Requirement)</strong></p></li>
+<li local-id=3D"2c28c532-b23f-4ec5-ac92-555d32a851da">
+<p local-id=3D"22d21691-85d8-48ff-9509-8f825ee9403e">Login Time - <strong>(=
+New Requirement)</strong></p></li>
+<li local-id=3D"8e528620-2ccd-4c9f-9a31-2db5f4489441">
+<p local-id=3D"80d8fe6b-6e50-4479-ae50-a1d1fc69195a">Logout Time - <strong>=
+(New Requirement)</strong></p></li>
+<li local-id=3D"92b0dbbf-ce5f-491e-bf9f-2440a56f0188">
+<p local-id=3D"aa5047f5-41d9-4721-a2c9-8385ba16b26e">Logout Reason - <stron=
+g>(New Requirement)</strong></p></li>
+<li local-id=3D"9612eb1e-939f-48c9-8db5-7c8c9b0849be">
+<p local-id=3D"90b48549-b503-4f10-89c1-11eaa034bc9f">Session Duration - <st=
+rong>(New Requirement)</strong></p></li>
+</ol></li>
+</ol>
+    </div>
+</body>
+</html>
+------=_Part_64_1975871475.1775807542484--

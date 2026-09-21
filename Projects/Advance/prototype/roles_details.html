@@ -1,0 +1,2428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProServe — Roles Details</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <style>
+    /* --------- MET-DS-V2 Design Tokens --------- */
+    :root {
+      --color-primary-25:#F2F5FA; --color-primary-50:#DEE8F7; --color-primary-75:#C2D7F2;
+      --color-primary-100:#A2C1EA; --color-primary-200:#84ADE4; --color-primary-300:#6599DE;
+      --color-primary-400:#4B87D6; --color-primary-500:#3276CF; --color-primary-600:#2C66B4;
+      --color-primary-700:#275798; --color-primary-800:#22497D; --color-primary-900:#1C3A62;
+      --color-primary-950:#152B48;
+      --color-primary:var(--color-primary-500); --color-primary-hover:var(--color-primary-600);
+      --color-bg:var(--color-primary-25); --color-card:#FFFFFF; --color-disabled:#BDBDBD;
+      --text-primary:#212121; --text-secondary:#757575;
+      --text-hyperlink:#3276CF; --text-hyperlink-hover:#2C66B4; --text-disabled:#BDBDBD;
+      --grey-50:#FAFAFA; --grey-100:#F5F5F5; --grey-200:#EEEEEE; --grey-300:#E0E0E0;
+      --grey-400:#BDBDBD; --grey-500:#9E9E9E; --grey-600:#757575; --grey-700:#616161;
+      --grey-800:#424242; --grey-900:#212121;
+      --color-success:#43A047; --color-success-darker:#2E7D32; --color-success-bg:#E8F5E9;
+      --color-error:#E53935; --color-error-deeper:#C62828; --color-error-bg:#FEEBEE;
+      --color-warning:#FF9800; --color-warning-bg:#FFF3E0;
+      --leftnav-text:#212121; --leftnav-text-active:#3276CF;
+      --topnav-icon:#757575; --topnav-icon-hover:#616161;
+      --border-default:1px solid #E0E0E0;
+      --border-divider:1px solid #EEEEEE;
+      --radius-card:12px; --radius-button:8px; --radius-input:8px; --radius-pill:100px;
+      --space-1:2px; --space-2:4px; --space-3:8px; --space-4:12px;
+      --space-5:16px; --space-6:20px; --space-7:24px; --space-8:32px;
+      --space-9:40px; --space-10:48px;
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1:24px; --font-size-h2:20px; --font-size-h3:16px;
+      --font-size-body:14px; --font-size-caption:12px;
+      --font-weight-bold:700; --font-weight-semibold:600; --font-weight-medium:500; --font-weight-regular:400;
+      --duration-micro:150ms; --duration-standard:250ms; --easing-enter:ease-out;
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-hover:  0 4px 16px rgba(50, 118, 207, 0.14);
+      --shadow-popover:0 8px 24px rgba(0, 0, 0, 0.14);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html, body { height:100%; font-family:var(--font-family); font-size:var(--font-size-body); line-height:1.5; color:var(--text-primary); background:var(--color-bg); }
+    a { color:var(--text-hyperlink); text-decoration:none; }
+    a:hover { color:var(--text-hyperlink-hover); text-decoration:underline; }
+    ul { list-style:none; }
+    button { font-family:inherit; }
+    .skip-link { position:absolute; top:-999px; left:var(--space-5); background:var(--color-primary); color:#FFF; padding:var(--space-3) var(--space-5); border-radius:var(--radius-button); z-index:9999; font-weight:600; }
+    .skip-link:focus { top:var(--space-3); color:#FFF; text-decoration:none; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    /* --------- App Shell --------- */
+    .app-shell { display:grid; grid-template-columns:220px 1fr; height:100vh; overflow:hidden; }
+    .main-column { display:flex; flex-direction:column; min-width:0; overflow:hidden; }
+
+    .leftnav { background:var(--color-card); border-right:var(--border-default); display:flex; flex-direction:column; overflow-y:auto; height:100vh; }
+    .leftnav-brand { display:flex; align-items:center; padding:var(--space-4) var(--space-5); border-bottom:var(--border-divider); flex-shrink:0; }
+    .leftnav-brand img { height:32px; width:auto; display:block; }
+    .leftnav-list { padding:var(--space-3) 0; flex:1; }
+    .leftnav-item {
+      display:flex; align-items:center; gap:var(--space-4);
+      padding:var(--space-4) var(--space-5);
+      color:var(--leftnav-text); font-size:var(--font-size-body);
+      cursor:pointer; min-height:44px; border-left:3px solid transparent;
+      text-decoration:none;
+      transition: color var(--duration-micro), background var(--duration-micro);
+    }
+    .leftnav-item:hover { color:var(--color-primary); background:var(--color-primary-25); text-decoration:none; }
+    .leftnav-item.active, .leftnav-item[aria-current="page"] {
+      color:var(--leftnav-text-active); font-weight:600;
+      border-left-color:var(--color-primary); background:var(--color-primary-25);
+    }
+    .leftnav-item:focus-visible { box-shadow:var(--shadow-focus); outline:none; border-radius:var(--radius-button); }
+    .leftnav-icon { width:20px; height:20px; flex-shrink:0; }
+
+    .topnav { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-7); background:var(--color-card); border-bottom:var(--border-default); flex-shrink:0; }
+    .topnav-search { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-5); border-radius:var(--radius-input); color:var(--text-secondary); cursor:pointer; min-height:40px; min-width:280px; transition:background var(--duration-micro); }
+    .topnav-search:hover { background:var(--grey-100); }
+    .topnav-search svg { width:16px; height:16px; }
+    .topnav-right { display:flex; align-items:center; gap:var(--space-5); }
+    .icon-btn { width:40px; height:40px; border-radius:50%; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center; color:var(--topnav-icon); cursor:pointer; position:relative; transition:background var(--duration-micro); }
+    .icon-btn:hover { background:var(--color-primary-25); color:var(--topnav-icon-hover); }
+    .icon-btn:focus-visible { box-shadow:var(--shadow-focus); outline:none; }
+    .icon-btn svg { width:20px; height:20px; }
+    .badge-count { position:absolute; top:2px; right:0; min-width:22px; height:18px; padding:0 5px; border-radius:var(--radius-pill); background:var(--color-warning); color:#FFF; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; line-height:1; }
+
+    .user-dropdown { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-2); border-radius:var(--radius-button); cursor:pointer; transition:background var(--duration-micro); }
+    .user-dropdown:hover { background:var(--grey-100); }
+    .user-dropdown:focus-visible { box-shadow:var(--shadow-focus); outline:none; }
+    .avatar { width:36px; height:36px; border-radius:50%; background:var(--color-primary); color:#FFF; font-weight:700; font-size:var(--font-size-body); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .topnav-greeting { font-size:var(--font-size-caption); color:var(--text-secondary); line-height:1.3; }
+    .topnav-greeting strong { display:block; font-size:var(--font-size-body); color:var(--text-primary); font-weight:600; }
+    .user-dropdown svg { width:12px; height:12px; color:var(--text-secondary); }
+
+    .main-content { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+    .main-body { flex:1; overflow-y:auto; min-height:0; }
+
+    /* --------- Page Hero --------- */
+    .page-hero {
+      background: linear-gradient(135deg, #006494 0%, #3276CF 55%, #8EC0E2 100%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+      padding: var(--space-5);
+      color: #FFFFFF;
+      position: relative;
+    }
+    .page-hero::after {
+      content:""; position:absolute; right:-40px; top:-40px;
+      width: 240px; height: 240px; border-radius:50%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.18), transparent 60%);
+      pointer-events:none;
+    }
+    .crumbs { display:flex; align-items:center; gap:var(--space-2); font-size:var(--font-size-caption); color:rgba(255,255,255,0.85); margin-bottom:var(--space-3); }
+    .crumbs a { color:rgba(255,255,255,0.85); }
+    .crumbs a:hover { color:#FFF; text-decoration:underline; }
+    .crumbs svg { width:12px; height:12px; opacity:.7; }
+    .hero-row { display:flex; align-items:center; justify-content:space-between; gap:var(--space-7); flex-wrap:wrap; }
+    .hero-title { font-size:var(--font-size-h1); font-weight:700; letter-spacing:-0.4px; margin-bottom:var(--space-2); }
+    .hero-sub { display: none; font-size:var(--font-size-body); color:rgba(255,255,255,0.92); max-width:640px; }
+
+    /* Quick stat cards */
+    .stat-row {
+      display:grid; grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: var(--space-5);
+      padding: 0 var(--space-8);
+      /* margin-top: calc(-1 * var(--space-7)); */
+      margin-top: calc(var(--space-7));
+      position: relative; z-index: 2;
+    }
+    .stat-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-5) var(--space-6);
+      box-shadow: var(--shadow-card);
+      display:flex; align-items:center; gap:var(--space-5);
+      transition: transform var(--duration-micro), box-shadow var(--duration-micro);
+    }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .stat-icon {
+      width:48px; height:48px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .stat-icon svg { width:22px; height:22px; }
+    .stat-icon.tone-blue { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .stat-icon.tone-green { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .stat-icon.tone-orange { background: var(--color-warning-bg); color: #E56800; }
+    .stat-icon.tone-purple { background: #EEE7FB; color: #6E3BC8; }
+    .stat-label { font-size:var(--font-size-caption); color:var(--text-secondary); text-transform:uppercase; letter-spacing:.4px; font-weight:600; }
+    .stat-value { font-size:22px; font-weight:700; color: var(--text-primary); line-height:1.1; margin-top:2px; }
+    .stat-delta { font-size: var(--font-size-caption); color: var(--color-success-darker); font-weight:600; margin-top:2px; }
+    .stat-delta.is-down { color: var(--color-error-deeper); }
+
+    /* --------- Tab Surface --------- */
+    .um-surface {
+      margin: var(--space-7) var(--space-8) var(--space-8);
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .um-tabs {
+      display:flex; align-items:center; gap:0;
+      border-bottom: var(--border-default);
+      padding: 0 var(--space-6);
+      background: linear-gradient(180deg, #FBFCFE 0%, #FFFFFF 100%);
+    }
+    .um-tab {
+      position: relative;
+      display:inline-flex; align-items:center; gap:var(--space-3);
+      padding: var(--space-5) var(--space-5);
+      border:none; background:transparent;
+      font-family:inherit; font-size:var(--font-size-body); font-weight:600;
+      color: var(--text-secondary); cursor:pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: color var(--duration-micro);
+    }
+    .um-tab:hover { color: var(--text-primary); }
+    .um-tab[aria-selected="true"] { color: var(--color-primary-700); border-bottom-color: var(--color-primary); }
+    .um-tab:focus-visible { outline: 2px solid var(--color-primary); outline-offset:-4px; border-radius: 6px; }
+    .um-tab svg { width:16px; height:16px; }
+    .um-tab .tab-count {
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:22px; height:20px; padding: 0 var(--space-2);
+      border-radius: var(--radius-pill);
+      background: var(--grey-200); color: var(--text-secondary);
+      font-size:11px; font-weight:700;
+    }
+    .um-tab[aria-selected="true"] .tab-count { background: var(--color-primary-50); color: var(--color-primary-700); }
+
+    .um-panel { display:none; padding: var(--space-6); }
+    .um-panel.is-active { display:block; }
+
+    /* Toolbar */
+    .um-toolbar {
+      display:flex; align-items:center; justify-content:space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+      flex-wrap: wrap;
+    }
+    .um-search-input {
+      position:relative; min-width: 280px; flex:1 1 300px; max-width: 420px;
+    }
+    .um-search-input svg {
+      position:absolute; left: var(--space-4); top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; color: var(--text-secondary);
+      pointer-events:none;
+    }
+    .um-search-input input {
+      width:100%; height: 40px;
+      padding: 0 var(--space-4) 0 var(--space-9);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: inherit; font-size: var(--font-size-body);
+      color: var(--text-primary);
+      transition: border-color var(--duration-micro), box-shadow var(--duration-micro);
+    }
+    .um-search-input input:focus { outline:none; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+    .um-search-input input::placeholder { color: var(--grey-500); }
+
+    .um-toolbar-actions { display:flex; align-items:center; gap: var(--space-3); flex-wrap:wrap; }
+    .btn {
+      display:inline-flex; align-items:center; gap:var(--space-2);
+      height:40px; padding: 0 var(--space-5);
+      border-radius: var(--radius-button);
+      font-family:inherit; font-size: var(--font-size-body); font-weight:600;
+      cursor:pointer; border: 1.5px solid transparent;
+      transition: background var(--duration-micro), border-color var(--duration-micro), color var(--duration-micro), box-shadow var(--duration-micro);
+      white-space: nowrap;
+    }
+    .btn svg { width:16px; height:16px; }
+    .btn:focus-visible { box-shadow: var(--shadow-focus); outline:none; }
+    .btn-primary { background: var(--color-primary); color:#FFF; border-color: var(--color-primary); }
+    .btn-primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+    .btn-ghost { background: var(--color-card); color: var(--text-primary); border-color: var(--grey-300); }
+    .btn-ghost:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-25); }
+    .btn-icon-only { width:40px; padding:0; justify-content:center; }
+
+    /* Filter chips */
+    .um-filter-bar {
+      display:flex; align-items:center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-4);
+      background: var(--grey-50);
+      border: 1px dashed var(--grey-300);
+      border-radius: var(--radius-button);
+      flex-wrap: wrap;
+    }
+    .um-filter-bar > span { font-size: var(--font-size-caption); color: var(--text-secondary); font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
+    .filter-chip {
+      display:inline-flex; align-items:center; gap: var(--space-2);
+      height: 28px; padding: 0 var(--space-4);
+      background: var(--color-card);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption); font-weight:600;
+      color: var(--text-primary); cursor:pointer;
+      transition: background var(--duration-micro), color var(--duration-micro), border-color var(--duration-micro);
+    }
+    .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip[aria-pressed="true"] {
+      background: var(--color-primary); color:#FFF; border-color: var(--color-primary);
+    }
+
+    /* Table */
+    .um-table-wrap {
+      border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+    .um-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); }
+    .um-table thead th {
+      text-align:left;
+      padding: var(--space-4) var(--space-5);
+      background: var(--grey-50);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: var(--font-size-caption);
+      text-transform: uppercase; letter-spacing:.4px;
+      border-bottom: 1px solid var(--grey-200);
+      white-space: nowrap;
+      cursor: pointer; user-select: none;
+    }
+    .um-table thead th .sort-icon {
+      display:inline-flex; vertical-align: middle; margin-left: var(--space-2);
+      color: var(--grey-400);
+    }
+    .um-table thead th[aria-sort="ascending"] .sort-icon,
+    .um-table thead th[aria-sort="descending"] .sort-icon { color: var(--color-primary); }
+    .um-table thead th.col-action { text-align: right; width: 64px; cursor:default; }
+    .um-table tbody td {
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      vertical-align: middle;
+      color: var(--text-primary);
+    }
+    .um-table tbody tr:last-child td { border-bottom: none; }
+    .um-table tbody tr { transition: background var(--duration-micro); }
+    .um-table tbody tr:hover td { background: var(--color-primary-25); }
+
+    .cell-name {
+      display:flex; align-items:center; gap: var(--space-4);
+    }
+    .cell-avatar {
+      width: 36px; height: 36px; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center;
+      color:#FFF; font-weight:700; font-size:13px;
+      flex-shrink:0;
+      letter-spacing: 0.2px;
+    }
+    .cell-name-text { display:flex; flex-direction:column; gap:2px; }
+    .cell-name-text strong { font-weight:600; color: var(--text-primary); }
+    .cell-name-text .cell-name-sub { font-size: var(--font-size-caption); color: var(--text-secondary); }
+
+    .role-pill {
+      display:inline-flex; align-items:center; gap: var(--space-2);
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: 600;
+      background: var(--color-primary-50);
+      color: var(--color-primary-700);
+    }
+    .role-pill.tone-purple { background: #EEE7FB; color: #6E3BC8; }
+    .role-pill.tone-orange { background: var(--color-warning-bg); color: #E56800; }
+    .role-pill.tone-teal { background: #DCF3EE; color: #0F766E; }
+    .role-pill.tone-grey { background: var(--grey-200); color: var(--grey-700); }
+
+    .status-pill {
+      display:inline-flex; align-items:center; gap: var(--space-2);
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: 600;
+      background: var(--color-success-bg);
+      color: var(--color-success-darker);
+    }
+    .status-pill::before { content:""; width:6px; height:6px; border-radius:50%; background: var(--color-success); }
+    .status-pill.is-inactive { background: var(--grey-100); color: var(--grey-700); }
+    .status-pill.is-inactive::before { background: var(--grey-500); }
+
+    .desc-empty { color: var(--text-disabled); font-style: italic; }
+
+    .col-action { width: 64px; text-align:right; }
+    .row-actions-inline { display:inline-flex; gap: var(--space-1); justify-content:flex-end; }
+    .row-icon-btn {
+      width: 32px; height: 32px; border-radius:8px;
+      border:none; background:transparent; cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center;
+      color: var(--text-secondary);
+      transition: background var(--duration-micro), color var(--duration-micro);
+    }
+    .row-icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .row-icon-btn.is-delete:hover { background: var(--color-error-bg); color: var(--color-error-deeper); }
+    .row-icon-btn:focus-visible { box-shadow: var(--shadow-focus); outline:none; }
+    .row-icon-btn svg { width:16px; height:16px; }
+
+    /* Row kebab + popover (mobile/dense) */
+    .row-action-wrapper { position: relative; display:none; }
+    .row-action-menu {
+      display:none; position:absolute; right:0; top:calc(100% + 4px);
+      z-index:50; min-width:160px;
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-popover);
+      padding: var(--space-2) 0;
+    }
+    .row-action-menu.open { display:block; }
+    .row-action-menu-item {
+      display:flex; align-items:center; gap:var(--space-3);
+      width:100%; padding: var(--space-3) var(--space-5);
+      border:none; background:transparent; cursor:pointer;
+      font-family:inherit; font-size:var(--font-size-body);
+      color: var(--text-primary); text-align:left;
+    }
+    .row-action-menu-item:hover { background: var(--color-primary-25); }
+    .row-action-menu-item.is-delete { color: var(--color-error-deeper); }
+    .row-action-menu-item svg { width:16px; height:16px; }
+
+    /* Empty state */
+    .um-empty {
+      padding: var(--space-9) var(--space-7);
+      text-align:center;
+      color: var(--text-secondary);
+    }
+    .um-empty svg { width: 48px; height: 48px; color: var(--grey-400); margin-bottom: var(--space-3); }
+    .um-empty h3 { font-size: var(--font-size-h3); color: var(--text-primary); margin-bottom: var(--space-2); }
+    .um-empty p { font-size: var(--font-size-body); }
+
+    /* Table footer / pagination */
+    .um-table-footer {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--space-4) var(--space-2) 0;
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+      flex-wrap:wrap; gap: var(--space-4);
+    }
+    .um-show-entries { display:inline-flex; align-items:center; gap: var(--space-3); }
+    .um-entries-select {
+      height: 32px;
+      padding: 0 var(--space-7) 0 var(--space-3);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: inherit; font-size: var(--font-size-body);
+      color: var(--text-primary);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      cursor: pointer;
+    }
+    .um-pager { display:flex; gap: var(--space-2); align-items:center; }
+    .um-pager button {
+      min-width:32px; height:32px; padding: 0 var(--space-3);
+      border:1px solid var(--grey-300);
+      background: var(--color-card); color: var(--text-primary);
+      font-family:inherit; font-size: var(--font-size-caption); font-weight:600;
+      border-radius: var(--radius-input); cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background var(--duration-micro), color var(--duration-micro), border-color var(--duration-micro);
+    }
+    .um-pager button:hover:not([disabled]):not([aria-current="true"]) {
+      border-color: var(--color-primary); color: var(--color-primary);
+    }
+    .um-pager button[aria-current="true"] {
+      background: var(--color-primary); color:#FFF; border-color: var(--color-primary);
+    }
+    .um-pager button[disabled] { color: var(--grey-400); cursor:not-allowed; }
+
+    .page-footer { display:flex; align-items:center; justify-content:space-between; padding:var(--space-4) var(--space-7); background:var(--color-card); border-top:var(--border-default); min-height:48px; flex-shrink:0; }
+    .footer-links { display:flex; gap:var(--space-5); }
+    .footer-links a { color:var(--text-hyperlink); font-size:var(--font-size-body); font-weight:600; text-decoration:underline; }
+    .footer-branding { display:flex; align-items:center; gap:var(--space-3); font-size:var(--font-size-caption); color:var(--text-secondary); }
+    .footer-branding img { height:24px; width:auto; }
+
+    @media (max-width: 1180px) {
+      .stat-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 1024px) {
+      .app-shell { grid-template-columns: 72px 1fr; }
+      .leftnav-item span:not(.leftnav-icon) { display:none; }
+      .leftnav-item { justify-content:center; padding: var(--space-4) var(--space-3); gap:0; }
+      .row-actions-inline { display:none; }
+      .row-action-wrapper { display:inline-block; }
+    }
+    @media (max-width: 720px) {
+      .um-surface { margin: var(--space-5); }
+      .page-hero { padding: var(--space-5); }
+      .stat-row { grid-template-columns: 1fr; padding: 0 var(--space-5); }
+      .um-toolbar { flex-direction: column; align-items: stretch; }
+      .um-toolbar-actions { justify-content: flex-start; }
+    }
+
+    /* Dedicated page: hide intra-page tab switcher */
+    .um-tabs { display: none; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- --- LEFT SIDEBAR --- -->
+    <nav class="leftnav" aria-label="Side navigation">
+      <a class="leftnav-brand" href="landing.html" aria-label="ProServe home">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 32'%3E%3Crect width='140' height='32' rx='4' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3Ctext x='28' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EProServe%3C/text%3E%3C/svg%3E" alt="ProServe" />
+      </a>
+      <ul class="leftnav-list" role="list">
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span>Navigation</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="quick_list.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span>QuickList</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="advance_contact_service.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-3-3.87"/><path d="M4 21v-2a4 4 0 013-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Records</span>
+          </a>
+        </li>
+        <li class="leftnav-group is-open" id="nav-settings">
+          <a class="leftnav-item active" href="#" aria-expanded="true" aria-controls="settings-sub" onclick="toggleSettings(event)">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            <span>Settings</span>
+            <svg class="leftnav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="leftnav-sub" id="settings-sub" role="list">
+            <li><a class="leftnav-sub-item" href="user_details.html">User Details</a></li>
+            <li><a class="leftnav-sub-item active" href="roles_details.html" aria-current="page">Roles Details</a></li>
+            <li><a class="leftnav-sub-item" href="list_configuration.html">List Configuration</a></li>
+            <li><a class="leftnav-sub-item" href="dynamic_fields.html">Dynamic Fields</a></li>
+            <li><a class="leftnav-sub-item" href="email_template.html">Email Template</a></li>
+            <li><a class="leftnav-sub-item" href="email_queue.html">Email Queue</a></li>
+            <li><a class="leftnav-sub-item" href="documents_upload.html">Documents Upload</a></li>
+            <li><a class="leftnav-sub-item" href="notification.html">Notification</a></li>
+            <li><a class="leftnav-sub-item" href="#" onclick="return false;">Query Builder</a></li>
+            <li><a class="leftnav-sub-item" href="asset_details.html">Asset Details</a></li>
+            <li><a class="leftnav-sub-item" href="engage_bwv_log.html">FieldSync BWV Log Screen</a></li>
+            <li><a class="leftnav-sub-item" href="talos_log.html">Talos Log</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="leftnav-item" href="reports.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Reports</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- --- COLUMN 2 --- -->
+    <div class="main-column">
+
+      <!-- --- TOP NAV --- -->
+      <header class="topnav" role="banner">
+        <div class="topnav-search" role="search" tabindex="0" aria-label="Global search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search...</span>
+        </div>
+        <div class="topnav-right">
+          <button class="icon-btn" aria-label="Notifications (2536 new)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <span class="badge-count" aria-hidden="true">2536</span>
+          </button>
+          <div class="user-dropdown" role="button" tabindex="0" aria-haspopup="true" aria-label="User profile: Arumugam">
+            <div class="avatar" aria-hidden="true">A</div>
+            <div class="topnav-greeting">
+              <span>Good Afternoon</span>
+              <strong>Arumugam</strong>
+            </div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content" id="main-content">
+
+        <!-- --- HERO --- -->
+        <div class="page-hero">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="landing.html">Home</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            <a href="#" onclick="return false;">Settings</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            <span aria-current="page">Roles Details</span>
+          </nav>
+          <div class="hero-row">
+            <div>
+              <h1 class="hero-title">Roles Details</h1>
+              <p class="hero-sub">Manage roles, privileges and accounts. Add new users, fine-tune access levels, and audit changes from one place.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-body">
+
+          <!-- --- STAT CARDS --- -->
+          <section class="stat-row" aria-label="Key metrics">
+            <div class="stat-card">
+              <div class="stat-icon tone-blue" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div>
+                <div class="stat-label">Total Users</div>
+                <div class="stat-value" id="stat-total-users">0</div>
+                <div class="stat-delta">? 4 this week</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon tone-green" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div>
+                <div class="stat-label">Active</div>
+                <div class="stat-value" id="stat-active-users">0</div>
+                <div class="stat-delta">96% utilisation</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon tone-purple" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1l3 6 6 .9-4.5 4.3 1 6.3L12 15.8 6.5 18.5l1-6.3L3 7.9 9 7z"/></svg>
+              </div>
+              <div>
+                <div class="stat-label">Roles</div>
+                <div class="stat-value" id="stat-roles">0</div>
+                <div class="stat-delta">15 with privileges</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon tone-orange" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="stat-label">Pending Invites</div>
+                <div class="stat-value">3</div>
+                <div class="stat-delta is-down">? 1 since yesterday</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- --- TAB SURFACE --- -->
+          <section class="um-surface">
+
+            <div class="um-tabs" role="tablist" aria-label="User management sections">
+              <button class="um-tab" role="tab" id="tab-users" aria-selected="true" aria-controls="panel-users" data-tab="users">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                User Details <span class="tab-count" id="count-users">0</span>
+              </button>
+              <button class="um-tab" role="tab" id="tab-roles" aria-selected="false" aria-controls="panel-roles" data-tab="roles" tabindex="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Roles Details <span class="tab-count" id="count-roles">0</span>
+              </button>
+            </div>
+
+            <!-- --- User Details panel --- -->
+            <div class="um-panel is-active" id="panel-users" role="tabpanel" aria-labelledby="tab-users">
+              <div class="um-toolbar">
+                <div class="um-search-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="search" placeholder="Search users by name, email or ID…" aria-label="Search users" data-search="users" />
+                </div>
+                <div class="um-toolbar-actions">
+                  <button type="button" class="btn btn-ghost" data-action="filter-users" aria-label="Filter users">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    Filter
+                  </button>
+                  <button type="button" class="btn btn-ghost" data-action="export-users">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Export
+                  </button>
+                  <button type="button" class="btn btn-primary" data-action="add-user">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add New User
+                  </button>
+                </div>
+              </div>
+
+              <div class="um-filter-bar" role="group" aria-label="Quick filters">
+                <span>User Type</span>
+                <button type="button" class="filter-chip" aria-pressed="true" data-filter="userType" data-value="all">All</button>
+                <button type="button" class="filter-chip" aria-pressed="false" data-filter="userType" data-value="Admin">Admin</button>
+                <button type="button" class="filter-chip" aria-pressed="false" data-filter="userType" data-value="Contractor">Contractor</button>
+                <button type="button" class="filter-chip" aria-pressed="false" data-filter="userType" data-value="Engage Contractor">Engage Contractor</button>
+                <button type="button" class="filter-chip" aria-pressed="false" data-filter="userType" data-value="Basic User">Basic User</button>
+                <button type="button" class="filter-chip" aria-pressed="false" data-filter="userType" data-value="Operational User">Operational User</button>
+              </div>
+
+              <div class="um-table-wrap">
+                <table class="um-table" aria-label="Users">
+                  <thead>
+                    <tr>
+                      <th scope="col" data-sort-key="id">User ID <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="name" aria-sort="ascending">Full Name <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="email">Email <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="userType">User Type <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="status">Status <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="body-users"></tbody>
+                </table>
+              </div>
+
+              <div class="um-table-footer">
+                <div class="um-show-entries">
+                  Show
+                  <select class="um-entries-select" aria-label="Entries per page" data-size="users">
+                    <option>10</option><option>25</option><option>50</option><option>100</option>
+                  </select>
+                  entries
+                </div>
+                <div id="summary-users">Showing 0 entries</div>
+                <div class="um-pager" id="pager-users"></div>
+              </div>
+            </div>
+
+            <!-- --- Roles Details panel --- -->
+            <div class="um-panel" id="panel-roles" role="tabpanel" aria-labelledby="tab-roles" hidden>
+              <div class="um-toolbar">
+                <div class="um-search-input">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="search" placeholder="Search roles by name or description…" aria-label="Search roles" data-search="roles" />
+                </div>
+                <div class="um-toolbar-actions">
+                  <button type="button" class="btn btn-ghost" data-action="filter-roles" aria-label="Filter roles">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    Filter
+                  </button>
+                  <button type="button" class="btn btn-primary" data-action="add-role">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add New Role
+                  </button>
+                </div>
+              </div>
+
+              <div class="um-filter-bar" role="group" aria-label="Quick filters">
+                <span>Status</span>
+                <button type="button" class="filter-chip" aria-pressed="true" data-filter="status" data-value="all">All</button>
+                <button type="button" class="filter-chip" aria-pressed="false" data-filter="status" data-value="Active">Active</button>
+                <button type="button" class="filter-chip" aria-pressed="false" data-filter="status" data-value="Inactive">Inactive</button>
+              </div>
+
+              <div class="um-table-wrap">
+                <table class="um-table" aria-label="Roles">
+                  <thead>
+                    <tr>
+                      <th scope="col" data-sort-key="name" aria-sort="ascending">Role <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="description">Description <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="status">Status <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="body-roles"></tbody>
+                </table>
+              </div>
+
+              <div class="um-table-footer">
+                <div class="um-show-entries">
+                  Show
+                  <select class="um-entries-select" aria-label="Entries per page" data-size="roles">
+                    <option>10</option><option>25</option><option>50</option><option>100</option>
+                  </select>
+                  entries
+                </div>
+                <div id="summary-roles">Showing 0 entries</div>
+                <div class="um-pager" id="pager-roles"></div>
+              </div>
+            </div>
+
+          </section>
+
+        </div>
+
+        <footer class="page-footer" role="contentinfo">
+          <div class="footer-links">
+            <a href="#" onclick="return false;">ProServe Learn</a>
+          </div>
+          <div class="footer-branding">
+            <span>Powered by</span>
+            <img src="images/acme-logo@small-logo.png" alt="Acme"
+                 onerror="this.replaceWith(Object.assign(document.createElement('strong'),{textContent:'acme',style:'color:#22497D;font-weight:700;'}));" />
+          </div>
+        </footer>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    /* ----- Sample Data ----- */
+    const ROLES = [
+      { name:'Admin 1', description:'Administrator with full module access', status:'Active' },
+      { name:'Admin User', description:'Standard administrator', status:'Active' },
+      { name:'AdvanceTest', description:'Test', status:'Active' },
+      { name:'Basic User', description:'Read-only access across modules', status:'Active' },
+      { name:'Contractor', description:'External contractor with limited scope', status:'Active' },
+      { name:'Engage Contractor', description:'Engage-services contractor profile', status:'Active' },
+      { name:'ITserviceDesk', description:'Service desk support role', status:'Active' },
+      { name:'Multi Role Test 1', description:'', status:'Active' },
+      { name:'Multi Role Test 2', description:'', status:'Active' },
+      { name:'Operational User', description:'Field operations user', status:'Active' },
+      { name:'PAYE', description:'Payroll / PAYE handler', status:'Active' },
+      { name:'Super User', description:'Highest privilege tier', status:'Active' },
+      { name:'Talos Admin', description:'Talos product admin', status:'Active' },
+      { name:'TEST', description:'Sandbox role', status:'Inactive' },
+      { name:'new Role', description:'Newly provisioned role', status:'Active' },
+    ];
+    const USERS = [
+      { id:'2',   name:'Shabeen Saleemi', email:'shabeen.saleemi@acmeholdings.co.uk', userType:'Admin', status:'Active' },
+      { id:'002', name:'umesh',           email:'umesh12@gmail.com',                     userType:'Admin', status:'Active' },
+      { id:'3',   name:'Tracey Harrold',  email:'tracey.harrold@acmeholdings.co.uk',  userType:'Admin', status:'Active' },
+      { id:'4',   name:'Janine Johnston', email:'janine.johnston@acmeholdings.co.uk', userType:'Admin', status:'Active' },
+      { id:'5',   name:'Cassie Hendy',    email:'cassie.hendy@acmeholdings.co.uk',    userType:'Admin', status:'Active' },
+      { id:'6',   name:'Rebecca Allison', email:'rebecca.allison@engage-services.co.uk', userType:'Admin', status:'Active' },
+      { id:'7',   name:'Cheryll Howett',  email:'cheryll.howett@acmeholdings.co.uk',  userType:'Admin', status:'Active' },
+      { id:'8',   name:'Nadia Ilyas',     email:'nadia.ilyas@acmeholdings.co.uk',     userType:'Admin', status:'Active' },
+      { id:'9',   name:'James Hopkins',   email:'james.hopkins@acmeholdings.co.uk',   userType:'Contractor', status:'Active' },
+      { id:'10',  name:'Sarah Mitchell',  email:'sarah.mitchell@acmeholdings.co.uk',  userType:'Basic User', status:'Active' },
+      { id:'11',  name:'David Dk',        email:'david.dk@engage-services.co.uk',        userType:'Engage Contractor', status:'Active' },
+      { id:'12',  name:'Ram Prakashh',    email:'ram.prakashh@logicvalley.in',           userType:'Operational User', status:'Active' },
+      { id:'13',  name:'Tim J J',         email:'tim.jj@acmeholdings.co.uk',          userType:'Admin', status:'Active' },
+      { id:'14',  name:'Karthi Nagamuthu',email:'karthi.n@logicvalley.in',               userType:'Contractor', status:'Inactive' },
+      { id:'15',  name:'Simon Pousey',    email:'simon.pousey@acmeholdings.co.uk',    userType:'Admin', status:'Active' },
+    ];
+
+    /* ----- Helpers ----- */
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const AVATAR_PALETTE = ['#3276CF','#2C66B4','#6E3BC8','#0F766E','#E56800','#C62828','#2E7D32','#22497D','#9C27B0','#FB8C00'];
+    function hashTone(s) { let h = 0; for (let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) | 0; return AVATAR_PALETTE[Math.abs(h) % AVATAR_PALETTE.length]; }
+    function initials(name) { return (name || '?').split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0].toUpperCase()).join(''); }
+
+    const ROLE_TONE = {
+      'Admin':'tone-purple','Contractor':'tone-orange','Engage Contractor':'tone-teal',
+      'Basic User':'tone-grey','Operational User':''
+    };
+    function roleTone(t) { return ROLE_TONE[t] !== undefined ? ROLE_TONE[t] : ''; }
+
+    const ICONS = {
+      edit:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+      del:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
+      view:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+      kebab: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>',
+    };
+
+    /* ----- Tab switching ----- */
+    document.querySelectorAll('.um-tab').forEach(tab => {
+      tab.addEventListener('click', () => activateTab(tab));
+      tab.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const tabs = [...document.querySelectorAll('.um-tab')];
+        const i = tabs.indexOf(tab);
+        const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+        activateTab(next); next.focus();
+      });
+    });
+    function activateTab(tab) {
+      document.querySelectorAll('.um-tab').forEach(t => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
+      });
+      document.querySelectorAll('.um-panel').forEach(p => {
+        const on = p.id === 'panel-' + tab.dataset.tab;
+        p.classList.toggle('is-active', on); p.hidden = !on;
+      });
+    }
+
+    /* ----- Controllers ----- */
+    function makeController(opts) {
+      const body = document.getElementById('body-' + opts.key);
+      const summary = document.getElementById('summary-' + opts.key);
+      const pager = document.getElementById('pager-' + opts.key);
+      const countEl = document.getElementById('count-' + opts.key);
+      const searchInput = document.querySelector(`input[data-search="${opts.key}"]`);
+      const sizeSelect = document.querySelector(`select[data-size="${opts.key}"]`);
+      const panel = document.getElementById('panel-' + opts.key);
+      const headThs = panel.querySelectorAll('thead th[data-sort-key]');
+      const chips = panel.querySelectorAll('.filter-chip');
+
+      const state = {
+        page: 1,
+        size: parseInt(sizeSelect.value, 10) || 10,
+        query: '',
+        sortKey: opts.defaultSort,
+        sortDir: 'asc',
+        filters: {},
+      };
+      chips.forEach(c => { if (c.getAttribute('aria-pressed') === 'true') state.filters[c.dataset.filter] = c.dataset.value; });
+
+      function getFiltered() {
+        let rows = opts.data.slice();
+        if (state.query) {
+          const q = state.query.toLowerCase();
+          rows = rows.filter(r => opts.searchable.some(k => String(r[k] || '').toLowerCase().includes(q)));
+        }
+        Object.entries(state.filters).forEach(([k, v]) => {
+          if (v && v !== 'all') rows = rows.filter(r => String(r[k]) === v);
+        });
+        if (state.sortKey) {
+          const dir = state.sortDir === 'asc' ? 1 : -1;
+          rows.sort((a, b) => {
+            const av = String(a[state.sortKey] || '').toLowerCase();
+            const bv = String(b[state.sortKey] || '').toLowerCase();
+            if (av < bv) return -dir; if (av > bv) return dir; return 0;
+          });
+        }
+        return rows;
+      }
+
+      function renderRow(r) {
+        return opts.renderRow(r);
+      }
+
+      function renderEmpty() {
+        return `<tr><td colspan="${opts.colCount}">
+          <div class="um-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <h3>No matching ${opts.labelPlural}</h3>
+            <p>Try adjusting your search or clearing filters.</p>
+          </div>
+        </td></tr>`;
+      }
+
+      function render() {
+        const filtered = getFiltered();
+        const total = filtered.length;
+        const totalPages = Math.max(1, Math.ceil(total / state.size));
+        if (state.page > totalPages) state.page = totalPages;
+        const start = (state.page - 1) * state.size;
+        const slice = filtered.slice(start, start + state.size);
+
+        body.innerHTML = slice.length ? slice.map(renderRow).join('') : renderEmpty();
+        summary.textContent = total === 0
+          ? 'No entries to show'
+          : `Showing ${start + 1}–${Math.min(start + state.size, total)} of ${total}`;
+        countEl.textContent = opts.data.length;
+
+        // sort indicators
+        headThs.forEach(th => {
+          if (th.dataset.sortKey === state.sortKey) th.setAttribute('aria-sort', state.sortDir === 'asc' ? 'ascending' : 'descending');
+          else th.removeAttribute('aria-sort');
+        });
+
+        // pager
+        let html = `<button type="button" data-jump="prev" ${state.page === 1 ? 'disabled' : ''} aria-label="Previous page">‹</button>`;
+        const max = 5;
+        let from = Math.max(1, state.page - 2);
+        let to = Math.min(totalPages, from + max - 1);
+        from = Math.max(1, to - max + 1);
+        for (let p = from; p <= to; p++) {
+          html += `<button type="button" data-page="${p}" ${p === state.page ? 'aria-current="true"' : ''}>${p}</button>`;
+        }
+        html += `<button type="button" data-jump="next" ${state.page === totalPages ? 'disabled' : ''} aria-label="Next page">›</button>`;
+        pager.innerHTML = html;
+      }
+
+      /* Bind */
+      searchInput.addEventListener('input', () => { state.query = searchInput.value.trim(); state.page = 1; render(); });
+      sizeSelect.addEventListener('change', () => { state.size = parseInt(sizeSelect.value, 10) || 10; state.page = 1; render(); });
+      pager.addEventListener('click', e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.jump === 'prev' && state.page > 1) state.page--;
+        else if (b.dataset.jump === 'next') state.page++;
+        else if (b.dataset.page) state.page = parseInt(b.dataset.page, 10);
+        render();
+      });
+      headThs.forEach(th => th.addEventListener('click', () => {
+        const k = th.dataset.sortKey;
+        if (state.sortKey === k) state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+        else { state.sortKey = k; state.sortDir = 'asc'; }
+        render();
+      }));
+      chips.forEach(c => c.addEventListener('click', () => {
+        const group = c.dataset.filter;
+        panel.querySelectorAll(`.filter-chip[data-filter="${group}"]`).forEach(x => x.setAttribute('aria-pressed', x === c ? 'true' : 'false'));
+        state.filters[group] = c.dataset.value;
+        state.page = 1;
+        render();
+      }));
+
+      render();
+      return { render, state };
+    }
+
+    /* ----- Row renderers ----- */
+    const ROLE_ICON_TONE = {
+      Admin: 'tone-purple', Contractor: 'tone-orange',
+      'Engage Contractor':'tone-teal', 'Basic User':'tone-grey',
+      'Operational User':'tone-blue', Super: 'tone-purple'
+    };
+    function rolePillFromName(name) {
+      const n = String(name).toLowerCase();
+      let tone = 'tone-grey';
+      if (n.includes('admin') || n.includes('super')) tone = 'tone-purple';
+      else if (n.includes('contractor')) tone = 'tone-orange';
+      else if (n.includes('engage')) tone = 'tone-teal';
+      else if (n.includes('test')) tone = 'tone-grey';
+      else if (n.includes('basic') || n.includes('user')) tone = '';
+      return tone;
+    }
+
+    function renderRoleRow(r) {
+      const desc = r.description ? esc(r.description) : '<span class="desc-empty">No description</span>';
+      const pillTone = rolePillFromName(r.name);
+      const tone = hashTone(r.name);
+      return `
+        <tr data-role-name="${esc(r.name)}">
+          <td>
+            <div class="cell-name">
+              <div class="cell-avatar" style="background:${tone}">${esc(initials(r.name))}</div>
+              <div class="cell-name-text">
+                <strong>${esc(r.name)}</strong>
+                <span class="cell-name-sub"><span class="role-pill ${pillTone}">Role</span></span>
+              </div>
+            </div>
+          </td>
+          <td>${desc}</td>
+          <td><span class="status-pill ${r.status === 'Inactive' ? 'is-inactive' : ''}">${esc(r.status)}</span></td>
+          <td class="col-action">
+            <div class="row-actions-inline" role="group" aria-label="Row actions">
+              <button type="button" class="row-icon-btn" aria-label="View ${esc(r.name)}" data-row-action="view">${ICONS.view}</button>
+              <button type="button" class="row-icon-btn" aria-label="Edit ${esc(r.name)}" data-row-action="edit">${ICONS.edit}</button>
+              <button type="button" class="row-icon-btn is-delete" aria-label="Delete ${esc(r.name)}" data-row-action="delete">${ICONS.del}</button>
+            </div>
+            <div class="row-action-wrapper">
+              <button type="button" class="row-icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for ${esc(r.name)}" onclick="umToggleMenu(this, event)">${ICONS.kebab}</button>
+              <div class="row-action-menu" role="menu">
+                <button type="button" class="row-action-menu-item" role="menuitem">${ICONS.view}<span>View</span></button>
+                <button type="button" class="row-action-menu-item" role="menuitem">${ICONS.edit}<span>Edit</span></button>
+                <button type="button" class="row-action-menu-item is-delete" role="menuitem">${ICONS.del}<span>Delete</span></button>
+              </div>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    function renderUserRow(u) {
+      const tone = hashTone(u.name);
+      const pillTone = ROLE_ICON_TONE[u.userType] || 'tone-grey';
+      return `
+        <tr>
+          <td><strong style="color: var(--text-secondary); font-weight:600;">#${esc(u.id)}</strong></td>
+          <td>
+            <div class="cell-name">
+              <div class="cell-avatar" style="background:${tone}">${esc(initials(u.name))}</div>
+              <div class="cell-name-text">
+                <strong>${esc(u.name)}</strong>
+                <span class="cell-name-sub">${esc(u.email.split('@')[1] || '')}</span>
+              </div>
+            </div>
+          </td>
+          <td><a href="mailto:${esc(u.email)}">${esc(u.email)}</a></td>
+          <td><span class="role-pill ${pillTone}">${esc(u.userType)}</span></td>
+          <td><span class="status-pill ${u.status === 'Inactive' ? 'is-inactive' : ''}">${esc(u.status)}</span></td>
+          <td class="col-action">
+            <div class="row-actions-inline" role="group" aria-label="Row actions">
+              <button type="button" class="row-icon-btn" aria-label="View ${esc(u.name)}" data-row-action="view">${ICONS.view}</button>
+              <button type="button" class="row-icon-btn" aria-label="Edit ${esc(u.name)}" data-row-action="edit">${ICONS.edit}</button>
+              <button type="button" class="row-icon-btn is-delete" aria-label="Delete ${esc(u.name)}" data-row-action="delete">${ICONS.del}</button>
+            </div>
+            <div class="row-action-wrapper">
+              <button type="button" class="row-icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for ${esc(u.name)}" onclick="umToggleMenu(this, event)">${ICONS.kebab}</button>
+              <div class="row-action-menu" role="menu">
+                <button type="button" class="row-action-menu-item" role="menuitem">${ICONS.view}<span>View</span></button>
+                <button type="button" class="row-action-menu-item" role="menuitem">${ICONS.edit}<span>Edit</span></button>
+                <button type="button" class="row-action-menu-item is-delete" role="menuitem">${ICONS.del}<span>Delete</span></button>
+              </div>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    /* ----- Kebab popover (used on small screens) ----- */
+    function umToggleMenu(btn, e) {
+      e.stopPropagation();
+      const menu = btn.nextElementSibling;
+      const wasOpen = menu.classList.contains('open');
+      umCloseAllMenus();
+      if (!wasOpen) { menu.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    }
+    function umCloseAllMenus() {
+      document.querySelectorAll('.row-action-menu.open').forEach(m => m.classList.remove('open'));
+      document.querySelectorAll('[aria-expanded="true"][aria-haspopup="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+    }
+    document.addEventListener('click', umCloseAllMenus);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') umCloseAllMenus(); });
+
+    /* ----- Stats ----- */
+    document.getElementById('stat-total-users').textContent = USERS.length;
+    document.getElementById('stat-active-users').textContent = USERS.filter(u => u.status === 'Active').length;
+    document.getElementById('stat-roles').textContent = ROLES.length;
+
+    /* ----- Init ----- */
+    makeController({
+      key: 'roles', data: ROLES, colCount: 4,
+      searchable: ['name', 'description', 'status'],
+      defaultSort: 'name', labelPlural: 'roles',
+      renderRow: renderRoleRow,
+    });
+    makeController({
+      key: 'users', data: USERS, colCount: 6,
+      searchable: ['id', 'name', 'email', 'userType', 'status'],
+      defaultSort: 'name', labelPlural: 'users',
+      renderRow: renderUserRow,
+    });
+
+    activateTab(document.getElementById('tab-roles'));
+
+    /* ----- Stub handlers ----- */
+    document.addEventListener('click', e => {
+      const act = e.target.closest('[data-action]');
+      if (act) console.log('[User Mgmt]', act.dataset.action);
+      const rowAct = e.target.closest('[data-row-action]');
+      if (rowAct) {
+        const tr = rowAct.closest('tr');
+        const nm = tr.querySelector('.cell-name strong') ? tr.querySelector('.cell-name strong').textContent : '';
+        console.log('[User Mgmt] row:', rowAct.dataset.rowAction, '?', nm);
+      }
+    });
+  </script>
+
+  <!-- --------- User Drawer (Add / Edit / View) --------- -->
+  <style>
+    .um-drawer-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(33, 41, 52, 0.45);
+      opacity: 0; transition: opacity 200ms ease;
+      z-index: 1000;
+    }
+    .um-drawer-backdrop.is-open { opacity: 1; }
+    .um-drawer-backdrop[hidden] { display:none; }
+
+    .um-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(480px, 100%);
+      background: #FFFFFF;
+      box-shadow: -8px 0 24px rgba(0,0,0,0.18);
+      transform: translateX(100%);
+      transition: transform 250ms ease;
+      z-index: 1001;
+      display: flex; flex-direction: column;
+    }
+    .um-drawer.is-open { transform: translateX(0); }
+    .um-drawer[hidden] { display:none; }
+
+    .um-drawer-head {
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #006494 0%, #3276CF 65%, #4B87D6 100%);
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .um-drawer-eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: .4px;
+      text-transform: uppercase; color: rgba(255,255,255,0.85);
+      margin-bottom: 4px;
+    }
+    .um-drawer-title { font-size: 20px; font-weight: 700; letter-spacing: -0.2px; }
+    .um-drawer-sub { font-size: 13px; color: rgba(255,255,255,0.88); margin-top: 4px; }
+    .um-drawer-close {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: none; background: rgba(255,255,255,0.14);
+      color: #FFFFFF; cursor: pointer;
+      display: inline-flex; align-items:center; justify-content:center;
+      transition: background 150ms;
+      flex-shrink: 0;
+    }
+    .um-drawer-close:hover { background: rgba(255,255,255,0.26); }
+    .um-drawer-close:focus-visible { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #1C3A62; outline:none; }
+    .um-drawer-close svg { width: 18px; height: 18px; }
+
+    .um-drawer-body { flex: 1; overflow-y: auto; padding: 24px; }
+    .um-drawer-foot {
+      display:flex; justify-content:flex-end; gap: 12px;
+      padding: 16px 24px;
+      border-top: 1px solid #E0E0E0;
+      background: #FAFAFA;
+      flex-shrink: 0;
+    }
+    .um-drawer-foot .btn-danger {
+      background:#FFFFFF; color:#C62828; border-color:#E0E0E0;
+    }
+    .um-drawer-foot .btn-danger:hover { background:#FEEBEE; border-color:#C62828; color:#C62828; }
+
+    /* Form */
+    .form-field { display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
+    .form-field label.field-label {
+      font-size: 14px; font-weight: 600; color: #424242;
+      display:inline-flex; align-items:center; gap: 4px;
+    }
+    .form-field label.field-label .req { color: #E53935; font-weight: 700; }
+    .form-field .field-help { font-size: 12px; color: #757575; margin-top: -2px; }
+    .form-field .field-error { font-size: 12px; color: #C62828; display:none; }
+    .form-field.has-error .field-error { display:block; }
+    .form-field.has-error input,
+    .form-field.has-error .multi-select-trigger { border-color: #C62828; }
+
+    .form-field input[type="text"],
+    .form-field input[type="email"] {
+      height: 44px;
+      padding: 0 14px;
+      border: 1.5px solid #E0E0E0;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-family: inherit; font-size: 14px;
+      color: #212121;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .form-field input::placeholder { color: #9E9E9E; }
+    .form-field input:focus {
+      outline:none; border-color:#3276CF;
+      box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+    .form-field input[readonly] { background:#F5F5F5; color:#616161; }
+
+    /* Multi-select */
+    .multi-select { position: relative; }
+    .multi-select-trigger {
+      width: 100%; min-height: 44px;
+      padding: 8px 40px 8px 14px;
+      border: 1.5px solid #E0E0E0;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-family: inherit; font-size: 14px;
+      color: #212121; text-align: left; cursor: pointer;
+      display:flex; align-items:center; flex-wrap:wrap; gap:6px;
+      position: relative;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .multi-select-trigger:focus-visible { outline:none; border-color:#3276CF; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF; }
+    .multi-select-trigger[aria-disabled="true"] { background:#F5F5F5; color:#616161; cursor:not-allowed; }
+    .multi-select-trigger .ms-placeholder { color: #9E9E9E; }
+    .multi-select-trigger .ms-caret {
+      position:absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; color:#757575; pointer-events:none;
+    }
+    .multi-select-trigger .ms-chip {
+      display:inline-flex; align-items:center; gap:4px;
+      padding: 2px 8px;
+      background: #DEE8F7; color: #275798;
+      border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+    }
+    .multi-select-trigger .ms-chip button {
+      border:none; background:transparent; cursor:pointer; color:#275798;
+      padding: 0; line-height: 1;
+    }
+    .multi-select-menu {
+      display:none; position:absolute; left:0; right:0; top: calc(100% + 4px);
+      max-height: 240px; overflow-y: auto;
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0; border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+      padding: 4px 0; z-index: 10;
+    }
+    .multi-select-menu.is-open { display:block; }
+    .ms-option {
+      display:flex; align-items:center; gap:10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 14px; color:#212121;
+    }
+    .ms-option:hover { background: #F2F5FA; }
+    .ms-option input { width:16px; height:16px; accent-color:#3276CF; cursor:pointer; }
+
+    /* Switch */
+    .switch { display:inline-flex; align-items:center; gap:10px; cursor:pointer; user-select:none; font-weight:600; color:#212121; }
+    .switch input { position:absolute; opacity:0; pointer-events:none; }
+    .switch-track {
+      width: 38px; height: 22px;
+      background: #BDBDBD; border-radius: 100px;
+      position: relative; transition: background 150ms;
+      flex-shrink: 0;
+    }
+    .switch-thumb {
+      position:absolute; top: 2px; left: 2px;
+      width: 18px; height: 18px;
+      background:#FFFFFF; border-radius:50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: transform 150ms;
+    }
+    .switch input:checked + .switch-track { background:#3276CF; }
+    .switch input:checked + .switch-track .switch-thumb { transform: translateX(16px); }
+    .switch input:focus-visible + .switch-track { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF; }
+    .switch input:disabled + .switch-track { opacity:.6; cursor:not-allowed; }
+
+    /* View mode rows */
+    .view-row { display:flex; flex-direction:column; gap:4px; padding: 12px 0; border-bottom: 1px solid #EEEEEE; }
+    .view-row:last-child { border-bottom: none; }
+    .view-row .view-label { font-size: 12px; color:#757575; text-transform:uppercase; letter-spacing:.4px; font-weight:600; }
+    .view-row .view-value { font-size: 14px; color:#212121; word-break: break-word; }
+    .view-row .view-value.is-empty { color:#BDBDBD; font-style:italic; }
+    .view-row .view-roles { display:flex; flex-wrap:wrap; gap:6px; }
+    .view-row .view-roles .role-pill { font-size:12px; padding:2px 10px; }
+
+    .view-header {
+      display:flex; align-items:center; gap:14px;
+      padding: 8px 0 20px;
+      border-bottom: 1px solid #EEEEEE;
+      margin-bottom: 8px;
+    }
+    .view-header .cell-avatar { width:56px; height:56px; font-size:18px; }
+    .view-header .view-name { font-size: 18px; font-weight:700; color:#212121; }
+    .view-header .view-email { font-size: 13px; color:#757575; }
+
+    @media (max-width: 520px) {
+      .um-drawer { width: 100%; }
+    }
+  </style>
+
+  <div class="um-drawer-backdrop" id="um-drawer-backdrop" hidden onclick="umCloseDrawer()"></div>
+  <aside class="um-drawer" id="um-drawer" role="dialog" aria-modal="true" aria-labelledby="um-drawer-title" hidden>
+    <header class="um-drawer-head">
+      <div>
+        <div class="um-drawer-eyebrow" id="um-drawer-eyebrow">User</div>
+        <h2 class="um-drawer-title" id="um-drawer-title">Add New User</h2>
+        <div class="um-drawer-sub" id="um-drawer-sub">Provision a new account and assign roles.</div>
+      </div>
+      <button type="button" class="um-drawer-close" aria-label="Close panel" onclick="umCloseDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+
+    <div class="um-drawer-body" id="um-drawer-body">
+      <!-- Form (Add / Edit) -->
+      <form id="um-user-form" novalidate>
+        <div class="form-field" id="ff-uid">
+          <label class="field-label" for="f-uid">User ID<span class="req">*</span></label>
+          <input id="f-uid" name="id" type="text" autocomplete="off" required />
+          <span class="field-error">User ID is required.</span>
+        </div>
+        <div class="form-field" id="ff-name">
+          <label class="field-label" for="f-name">Full Name<span class="req">*</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="off" required />
+          <span class="field-error">Full Name is required.</span>
+        </div>
+        <div class="form-field" id="ff-email">
+          <label class="field-label" for="f-email">Email Address<span class="req">*</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="off" required />
+          <span class="field-error">A valid email is required.</span>
+        </div>
+        <div class="form-field" id="ff-role">
+          <label class="field-label" for="f-role-trigger">Role<span class="req">*</span></label>
+          <div class="multi-select" id="f-role-wrap">
+            <button type="button" class="multi-select-trigger" id="f-role-trigger" aria-haspopup="listbox" aria-expanded="false" onclick="umToggleRolePicker(event)">
+              <span class="ms-placeholder" id="f-role-label">None selected</span>
+              <svg class="ms-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="multi-select-menu" id="f-role-menu" role="listbox" aria-multiselectable="true"></div>
+          </div>
+          <span class="field-error">Select at least one role.</span>
+        </div>
+        <div class="form-field">
+          <label class="switch">
+            <input type="checkbox" id="f-status" checked />
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+            <span id="f-status-label">Active</span>
+          </label>
+        </div>
+      </form>
+
+      <!-- View (read-only) -->
+      <div id="um-user-view" hidden></div>
+    </div>
+
+    <footer class="um-drawer-foot" id="um-drawer-foot">
+      <button type="button" class="btn btn-ghost" onclick="umCloseDrawer()">Cancel</button>
+      <button type="button" class="btn btn-primary" id="um-drawer-primary" onclick="umSubmitDrawer()">Save User</button>
+    </footer>
+  </aside>
+
+  <script>
+    /* ----- User drawer controller ----- */
+    (function(){
+      const backdrop = document.getElementById('um-drawer-backdrop');
+      const drawer   = document.getElementById('um-drawer');
+      const form     = document.getElementById('um-user-form');
+      const view     = document.getElementById('um-user-view');
+      const foot     = document.getElementById('um-drawer-foot');
+      const eyebrow  = document.getElementById('um-drawer-eyebrow');
+      const title    = document.getElementById('um-drawer-title');
+      const sub      = document.getElementById('um-drawer-sub');
+      const primary  = document.getElementById('um-drawer-primary');
+      const roleMenu = document.getElementById('f-role-menu');
+      const roleTrigger = document.getElementById('f-role-trigger');
+      const roleLabel   = document.getElementById('f-role-label');
+      const inUid    = document.getElementById('f-uid');
+      const inName   = document.getElementById('f-name');
+      const inEmail  = document.getElementById('f-email');
+      const inStatus = document.getElementById('f-status');
+      const statusLbl= document.getElementById('f-status-label');
+
+      let mode = 'add';      // 'add' | 'edit' | 'view'
+      let currentUser = null;
+      let selectedRoles = [];
+      let lastFocus = null;
+
+      /* Build role picker options from ROLES (already declared above) */
+      function buildRolePicker() {
+        roleMenu.innerHTML = ROLES.map(r => `
+          <label class="ms-option" role="option">
+            <input type="checkbox" value="${esc(r.name)}" />
+            <span>${esc(r.name)}</span>
+          </label>`).join('');
+        roleMenu.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          cb.addEventListener('change', () => {
+            const v = cb.value;
+            if (cb.checked) { if (!selectedRoles.includes(v)) selectedRoles.push(v); }
+            else { selectedRoles = selectedRoles.filter(r => r !== v); }
+            renderRoleTrigger();
+          });
+        });
+      }
+      function renderRoleTrigger() {
+        const current = document.getElementById('f-role-label');
+        if (!selectedRoles.length) {
+          current.outerHTML = `<span class="ms-placeholder" id="f-role-label">None selected</span>`;
+          return;
+        }
+        const html = selectedRoles.map(r => `
+          <span class="ms-chip">${esc(r)}<button type="button" aria-label="Remove ${esc(r)}" data-chip="${esc(r)}">×</button></span>
+        `).join('');
+        current.outerHTML = `<span id="f-role-label" style="display:contents">${html}</span>`;
+      }
+      // chip removal
+      roleTrigger.addEventListener('click', e => {
+        const chip = e.target.closest('[data-chip]');
+        if (!chip) return;
+        e.stopPropagation();
+        const v = chip.dataset.chip;
+        selectedRoles = selectedRoles.filter(r => r !== v);
+        const cb = roleMenu.querySelector(`input[value="${CSS.escape(v)}"]`);
+        if (cb) cb.checked = false;
+        renderRoleTrigger();
+      });
+
+      window.umToggleRolePicker = function(e) {
+        e.stopPropagation();
+        if (roleTrigger.getAttribute('aria-disabled') === 'true') return;
+        const open = roleMenu.classList.toggle('is-open');
+        roleTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      document.addEventListener('click', e => {
+        if (!roleMenu.classList.contains('is-open')) return;
+        if (e.target.closest('#f-role-wrap')) return;
+        roleMenu.classList.remove('is-open');
+        roleTrigger.setAttribute('aria-expanded', 'false');
+      });
+
+      function setStatusLabel() { statusLbl.textContent = inStatus.checked ? 'Active' : 'Inactive'; }
+      inStatus.addEventListener('change', setStatusLabel);
+
+      function clearErrors() {
+        form.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
+      }
+      function resetForm() {
+        clearErrors();
+        inUid.value = ''; inName.value = ''; inEmail.value = '';
+        inStatus.checked = true; setStatusLabel();
+        selectedRoles = [];
+        roleMenu.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        renderRoleTrigger();
+      }
+      function fillForm(u) {
+        resetForm();
+        inUid.value = u.id || '';
+        inName.value = u.name || '';
+        inEmail.value = u.email || '';
+        inStatus.checked = u.status !== 'Inactive'; setStatusLabel();
+        const roles = u.roles || (u.userType ? [u.userType] : []);
+        roles.forEach(r => {
+          const cb = roleMenu.querySelector(`input[value="${CSS.escape(r)}"]`);
+          if (cb) { cb.checked = true; selectedRoles.push(r); }
+        });
+        renderRoleTrigger();
+      }
+      function setReadOnly(ro) {
+        [inUid, inName, inEmail].forEach(el => { el.readOnly = ro; });
+        inStatus.disabled = ro;
+        roleTrigger.setAttribute('aria-disabled', ro ? 'true' : 'false');
+      }
+
+      function renderView(u) {
+        const roles = u.roles || (u.userType ? [u.userType] : []);
+        const initialsStr = (u.name || '?').split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0].toUpperCase()).join('');
+        const tone = hashTone(u.name || '');
+        const roleChips = roles.length
+          ? `<div class="view-roles">${roles.map(r => `<span class="role-pill">${esc(r)}</span>`).join('')}</div>`
+          : `<span class="view-value is-empty">No roles assigned</span>`;
+        view.innerHTML = `
+          <div class="view-header">
+            <div class="cell-avatar" style="background:${tone}">${esc(initialsStr)}</div>
+            <div>
+              <div class="view-name">${esc(u.name)}</div>
+              <div class="view-email">${esc(u.email || '')}</div>
+            </div>
+          </div>
+          <div class="view-row">
+            <span class="view-label">User ID</span>
+            <span class="view-value">#${esc(u.id)}</span>
+          </div>
+          <div class="view-row">
+            <span class="view-label">Full Name</span>
+            <span class="view-value">${esc(u.name)}</span>
+          </div>
+          <div class="view-row">
+            <span class="view-label">Email Address</span>
+            <span class="view-value">${esc(u.email || '')}</span>
+          </div>
+          <div class="view-row">
+            <span class="view-label">Role${roles.length>1?'s':''}</span>
+            ${roleChips}
+          </div>
+          <div class="view-row">
+            <span class="view-label">Status</span>
+            <span class="view-value"><span class="status-pill ${u.status === 'Inactive' ? 'is-inactive' : ''}">${esc(u.status || 'Active')}</span></span>
+          </div>`;
+      }
+
+      function setMode(m, u) {
+        mode = m; currentUser = u || null;
+        if (m === 'add') {
+          eyebrow.textContent = 'User';
+          title.textContent = 'Add New User';
+          sub.textContent = 'Provision a new account and assign roles.';
+          form.hidden = false; view.hidden = true;
+          setReadOnly(false); resetForm();
+          primary.textContent = 'Save User'; primary.hidden = false;
+          foot.querySelector('.btn-ghost').textContent = 'Cancel';
+        } else if (m === 'edit') {
+          eyebrow.textContent = 'User #' + (u.id || '');
+          title.textContent = 'Edit User';
+          sub.textContent = 'Update account details and role assignments.';
+          form.hidden = false; view.hidden = true;
+          setReadOnly(false); fillForm(u);
+          primary.textContent = 'Save Changes'; primary.hidden = false;
+          foot.querySelector('.btn-ghost').textContent = 'Cancel';
+        } else if (m === 'view') {
+          eyebrow.textContent = 'User #' + (u.id || '');
+          title.textContent = 'User Details';
+          sub.textContent = 'Read-only summary of this user account.';
+          form.hidden = true; view.hidden = false;
+          renderView(u);
+          primary.textContent = 'Edit User'; primary.hidden = false;
+          foot.querySelector('.btn-ghost').textContent = 'Close';
+        }
+      }
+
+      window.umOpenDrawer = function(m, u) {
+        if (!roleMenu.children.length) buildRolePicker();
+        lastFocus = document.activeElement;
+        setMode(m, u);
+        drawer.hidden = false; backdrop.hidden = false;
+        // force reflow then apply class for transition
+        requestAnimationFrame(() => {
+          drawer.classList.add('is-open');
+          backdrop.classList.add('is-open');
+        });
+        // focus first interactive element
+        setTimeout(() => {
+          const f = drawer.querySelector(m === 'view' ? '#um-drawer-primary' : 'input, button, [tabindex]:not([tabindex="-1"])');
+          if (f) f.focus();
+        }, 50);
+        document.body.style.overflow = 'hidden';
+      };
+      window.umCloseDrawer = function() {
+        drawer.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        setTimeout(() => {
+          drawer.hidden = true; backdrop.hidden = true;
+          document.body.style.overflow = '';
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }, 250);
+      };
+
+      window.umSubmitDrawer = function() {
+        if (mode === 'view') {
+          // switch to edit
+          setMode('edit', currentUser);
+          setTimeout(() => inName.focus(), 30);
+          return;
+        }
+        clearErrors();
+        let ok = true;
+        if (!inUid.value.trim())   { document.getElementById('ff-uid').classList.add('has-error'); ok = false; }
+        if (!inName.value.trim())  { document.getElementById('ff-name').classList.add('has-error'); ok = false; }
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inEmail.value.trim());
+        if (!emailOk)              { document.getElementById('ff-email').classList.add('has-error'); ok = false; }
+        if (!selectedRoles.length) { document.getElementById('ff-role').classList.add('has-error'); ok = false; }
+        if (!ok) return;
+
+        const payload = {
+          id: inUid.value.trim(),
+          name: inName.value.trim(),
+          email: inEmail.value.trim(),
+          roles: selectedRoles.slice(),
+          userType: selectedRoles[0],
+          status: inStatus.checked ? 'Active' : 'Inactive',
+        };
+        if (mode === 'add') {
+          USERS.unshift(payload);
+        } else if (mode === 'edit' && currentUser) {
+          Object.assign(currentUser, payload);
+        }
+        // Re-render users table by re-initialising; simplest: dispatch event the controller listens to. Instead refresh by re-calling makeController is expensive, so just trigger a manual render via the existing controller path:
+        const usersInput = document.querySelector('input[data-search="users"]');
+        if (usersInput) { usersInput.dispatchEvent(new Event('input')); }
+        document.getElementById('stat-total-users').textContent = USERS.length;
+        document.getElementById('stat-active-users').textContent = USERS.filter(u => u.status === 'Active').length;
+        umCloseDrawer();
+      };
+
+      /* ESC to close, focus trap */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !drawer.hidden) { e.preventDefault(); umCloseDrawer(); }
+        if (e.key === 'Tab' && !drawer.hidden) {
+          const focusables = drawer.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+          if (!focusables.length) return;
+          const first = focusables[0], last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+
+      /* Hook into existing buttons */
+      document.addEventListener('click', e => {
+        const addBtn = e.target.closest('[data-action="add-user"]');
+        if (addBtn) { e.preventDefault(); umOpenDrawer('add'); return; }
+
+        const rowAct = e.target.closest('[data-row-action]');
+        if (!rowAct) return;
+        const tr = rowAct.closest('tr');
+        if (!tr || !tr.closest('#body-users')) return;     // ignore roles table
+        const idCell = tr.querySelector('td:first-child');
+        if (!idCell) return;
+        const id = idCell.textContent.replace(/^#/, '').trim();
+        const u = USERS.find(x => String(x.id) === id);
+        if (!u) return;
+        const act = rowAct.dataset.rowAction;
+        if (act === 'view') { e.preventDefault(); umOpenDrawer('view', u); }
+        else if (act === 'edit') { e.preventDefault(); umOpenDrawer('edit', u); }
+        // delete uses existing console-log stub; left untouched
+      });
+    })();
+  </script>
+
+  <!-- ------------- Role drawer (Add / Edit / View) ------------- -->
+  <style>
+    #rm-drawer {
+      width: min(980px, 98vw);
+    }
+
+    .rm-tabs { display:flex; gap:0; border-bottom:1px solid #E0E0E0; margin:-8px -24px 20px; padding:0 24px; }
+    .rm-tab {
+      background:transparent; border:0; padding:12px 4px; margin-right:24px;
+      font:600 14px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color:#616161; cursor:pointer; border-bottom:2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .rm-tab:hover { color:#3276CF; }
+    .rm-tab[aria-selected="true"] { color:#3276CF; border-bottom-color:#3276CF; }
+    .rm-tab:focus-visible { outline:none; box-shadow:0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF; border-radius:4px; }
+    .rm-panel[hidden] { display:none; }
+
+    .rm-grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    @media (max-width:520px){ .rm-grid-2 { grid-template-columns: 1fr; } }
+    .form-field select {
+      width:100%; padding:10px 12px; border:1px solid #BDBDBD; border-radius:8px;
+      font:14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color:#212121; background:#FFFFFF;
+      appearance:none; -webkit-appearance:none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23616161' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat:no-repeat; background-position: right 10px center; background-size:18px; padding-right:36px;
+    }
+    .form-field select:focus { border-color:#3276CF; box-shadow:0 0 0 3px rgba(50,118,207,.2); outline:none; }
+    .form-field textarea {
+      width:100%; min-height:72px; padding:10px 12px; border:1px solid #BDBDBD; border-radius:8px;
+      font:14px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color:#212121; background:#FFFFFF; resize:vertical;
+    }
+    .form-field textarea:focus { border-color:#3276CF; box-shadow:0 0 0 3px rgba(50,118,207,.2); outline:none; }
+
+    .rm-section-title {
+      font:700 12px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      letter-spacing:.6px; color:#424242; text-transform:uppercase;
+      margin: 8px 0 12px;
+    }
+    .rm-priv-tools { display:flex; gap:8px; align-items:center; margin-bottom:12px; }
+    .rm-priv-search {
+      flex:1; padding:8px 12px; border:1px solid #BDBDBD; border-radius:8px;
+      font:14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+    .rm-priv-search:focus { border-color:#3276CF; box-shadow:0 0 0 3px rgba(50,118,207,.2); outline:none; }
+    .rm-priv-list { display:flex; flex-direction:column; gap:8px; }
+    .rm-priv-item {
+      border:1px solid #E0E0E0; border-radius:8px; background:#FFFFFF;
+      transition: border-color .15s, background .15s;
+    }
+    .rm-priv-item:hover { border-color:#BDBDBD; }
+    .rm-priv-head {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:12px 14px;
+      background:#FFFFFF;
+    }
+    .rm-priv-name-btn {
+      border:none; background:transparent; cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:0; color:#212121;
+      font:500 14px/1.3 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      text-align:left;
+    }
+    .rm-priv-name-btn::after {
+      content:'?'; color:#757575; font-size:12px;
+      transform: rotate(-90deg); transition: transform .15s;
+    }
+    .rm-priv-item.is-open .rm-priv-name-btn::after { transform: rotate(0deg); }
+    .rm-priv-name { font:500 14px/1.3 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color:#212121; }
+    .rm-priv-state {
+      display:inline-flex; align-items:center; gap:8px;
+      font:600 12px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color:#2E7D32;
+    }
+    .rm-priv-item.is-off .rm-priv-state { color:#9E9E9E; }
+    .rm-priv-options {
+      display:grid; grid-template-columns:1fr;
+      gap:8px;
+      padding:10px 14px 12px;
+      border-top:1px solid #EEEEEE;
+      background:#FAFAFA;
+    }
+    .rm-priv-item .rm-priv-options { display:none; }
+    .rm-priv-item.is-open .rm-priv-options { display:grid; }
+    .rm-field-perm {
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 190px;
+      gap:10px;
+      align-items:center;
+      font-size:12px;
+      color:#424242;
+      padding:6px 0;
+    }
+    .rm-field-name {
+      color:#424242;
+      line-height:1.35;
+    }
+    .rm-field-select {
+      width:100%;
+      height:32px;
+      padding:0 28px 0 10px;
+      border:1px solid #BDBDBD;
+      border-radius:8px;
+      background:#FFFFFF;
+      color:#212121;
+      font:500 12px/1.2 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      appearance:none;
+      -webkit-appearance:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23616161' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat:no-repeat;
+      background-position:right 8px center;
+      background-size:14px;
+    }
+    .rm-field-select:focus { border-color:#3276CF; box-shadow:0 0 0 3px rgba(50,118,207,.2); outline:none; }
+    .rm-field-select:disabled { opacity:.55; cursor:not-allowed; background-color:#F5F5F5; }
+    .rm-priv-item.is-off .rm-field-name { color:#9E9E9E; }
+    .rm-opt {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:12px; color:#424242;
+    }
+    .rm-opt input[type="checkbox"] { width:12px; height:12px; accent-color:#3276CF; }
+    .rm-opt input[type="checkbox"][disabled] { opacity:.45; cursor:not-allowed; }
+    .rm-priv-item.is-off .rm-opt { color:#9E9E9E; }
+    #rf-priv-list-details .rm-priv-options {
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:8px 14px;
+    }
+    #rf-priv-list .rm-priv-options {
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:8px 14px;
+    }
+    #rf-priv-list .rm-field-perm {
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+      padding:0;
+      min-width:0;
+    }
+    #rf-priv-list .rm-field-name {
+      display:block;
+    }
+    #rf-priv-list .rm-field-select {
+      width:100%;
+      height:34px;
+    }
+    @media (max-width:900px){
+      #rf-priv-list-details .rm-priv-options { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      #rf-priv-list .rm-priv-options { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width:520px){
+      #rf-priv-list-details .rm-priv-options { grid-template-columns:1fr; }
+      #rf-priv-list .rm-priv-options { grid-template-columns:1fr; }
+    }
+    @media (max-width:720px){
+      .rm-field-perm { grid-template-columns:1fr; }
+    }
+
+    .view-priv-grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px 16px; margin-top:8px; }
+    @media (max-width:520px){ .view-priv-grid { grid-template-columns: 1fr; } }
+    .view-priv-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:8px 12px; border:1px solid #EEEEEE; border-radius:8px; background:#FAFAFA;
+      font-size:13px;
+    }
+    .view-priv-row .pv-on  { color:#2E7D32; font-weight:600; }
+    .view-priv-row .pv-off { color:#9E9E9E; font-weight:600; }
+  </style>
+
+  <div class="um-drawer-backdrop" id="rm-drawer-backdrop" hidden onclick="rmCloseDrawer()"></div>
+  <aside class="um-drawer" id="rm-drawer" role="dialog" aria-modal="true" aria-labelledby="rm-drawer-title" hidden>
+    <header class="um-drawer-head">
+      <div>
+        <div class="um-drawer-eyebrow" id="rm-drawer-eyebrow">Role</div>
+        <h2 class="um-drawer-title" id="rm-drawer-title">Add New Role</h2>
+        <div class="um-drawer-sub" id="rm-drawer-sub">Create a role and assign action privileges.</div>
+      </div>
+      <button type="button" class="um-drawer-close" aria-label="Close panel" onclick="rmCloseDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+
+    <div class="um-drawer-body" id="rm-drawer-body">
+      <!-- Add / Edit -->
+      <form id="rm-role-form" novalidate>
+        <div class="rm-tabs" role="tablist" aria-label="Role sections">
+          <button type="button" class="rm-tab" role="tab" id="rm-tab-details" aria-controls="rm-panel-details" aria-selected="true" onclick="rmSwitchTab('details')">Details</button>
+          <button type="button" class="rm-tab" role="tab" id="rm-tab-priv" aria-controls="rm-panel-priv" aria-selected="false" tabindex="-1" onclick="rmSwitchTab('priv')">Privileges</button>
+        </div>
+
+        <section class="rm-panel" id="rm-panel-details" role="tabpanel" aria-labelledby="rm-tab-details">
+          <div class="rm-grid-2">
+            <div class="form-field" id="rf-title-wrap">
+              <label class="field-label" for="rf-title">Role Title<span class="req">*</span></label>
+              <input id="rf-title" name="title" type="text" autocomplete="off" required />
+              <span class="field-error">Role title is required.</span>
+            </div>
+            <div class="form-field" id="rf-status-wrap">
+              <label class="field-label" for="rf-status">Status<span class="req">*</span></label>
+              <select id="rf-status" name="status" required>
+                <option value="">Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+              <span class="field-error">Status is required.</span>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="field-label" for="rf-desc">Role Description</label>
+            <textarea id="rf-desc" name="description" rows="3"></textarea>
+          </div>
+
+          <div class="rm-section-title">Action Privileges</div>
+          <div class="rm-priv-tools">
+            <input type="search" class="rm-priv-search" id="rf-priv-search-details" placeholder="Search privileges..." aria-label="Search privileges in details tab" />
+            <button type="button" class="btn btn-ghost" id="rf-priv-all-details" onclick="rmTogglePrivAll()">Toggle all</button>
+          </div>
+          <div class="rm-priv-list" id="rf-priv-list-details" role="group" aria-label="Action privileges in details tab"></div>
+        </section>
+
+        <section class="rm-panel" id="rm-panel-priv" role="tabpanel" aria-labelledby="rm-tab-priv" hidden>
+          <div class="rm-section-title">Privileges</div>
+          <div class="rm-priv-tools">
+            <input type="search" class="rm-priv-search" id="rf-priv-search" placeholder="Search privileges…" aria-label="Search privileges" />
+            <button type="button" class="btn btn-ghost" id="rf-priv-all" onclick="rmTogglePrivAll()">Toggle all</button>
+          </div>
+          <div class="rm-priv-list" id="rf-priv-list" role="group" aria-label="Action privileges"></div>
+        </section>
+      </form>
+
+      <!-- View (read-only) -->
+      <div id="rm-role-view" hidden></div>
+    </div>
+
+    <footer class="um-drawer-foot" id="rm-drawer-foot">
+      <button type="button" class="btn btn-ghost" onclick="rmCloseDrawer()">Cancel</button>
+      <button type="button" class="btn btn-primary" id="rm-drawer-primary" onclick="rmSubmitDrawer()">Add</button>
+    </footer>
+  </aside>
+
+  <script>
+    /* ----- Role drawer controller ----- */
+    (function(){
+      const PRIVILEGES = [
+        'QuickList','Personal Details','Compliance',
+        'Current Certification Processing','Current Certification Status',
+        'Previous Certification Processing','Previous Certification Status',
+        'Current Bond Status','Previous Bond Status',
+        'Current Contract Status','Previous Contract Status',
+        'User Details','Role Details','List Configuration',
+        'Dynamic Fields','Email Template','Email Queue',
+        'Documents Upload','Reports','Notification',
+        'Query Builder','Asset Details','FieldSync BWV Log Screen','Talos Log'
+      ];
+      // Seed every existing role with all privileges Active (mirrors screenshot defaults)
+      ROLES.forEach(r => { if (!r.privileges) r.privileges = Object.fromEntries(PRIVILEGES.map(p => [p, true])); });
+
+      const backdrop = document.getElementById('rm-drawer-backdrop');
+      const drawer   = document.getElementById('rm-drawer');
+      const form     = document.getElementById('rm-role-form');
+      const view     = document.getElementById('rm-role-view');
+      const foot     = document.getElementById('rm-drawer-foot');
+      const eyebrow  = document.getElementById('rm-drawer-eyebrow');
+      const title    = document.getElementById('rm-drawer-title');
+      const sub      = document.getElementById('rm-drawer-sub');
+      const primary  = document.getElementById('rm-drawer-primary');
+      const inTitle  = document.getElementById('rf-title');
+      const inStatus = document.getElementById('rf-status');
+      const inDesc   = document.getElementById('rf-desc');
+      const fieldsPrivList = document.getElementById('rf-priv-list');
+      const detailsPrivList = document.getElementById('rf-priv-list-details');
+      const privSearches = [
+        document.getElementById('rf-priv-search'),
+        document.getElementById('rf-priv-search-details')
+      ].filter(Boolean);
+
+      let mode = 'add';        // 'add' | 'edit' | 'view'
+      let current = null;
+      let workingPriv = {};    // working copy of privileges
+      let workingPrivActions = {}; // working copy of action options per privilege
+      let workingPrivFields = {}; // working copy of field permissions per privilege
+      let openPrivRows = {};   // expanded rows keyed by privilege
+      let lastFocus = null;
+
+      const PRIV_ACTIONS = {
+        'QuickList': ['Add', 'Edit', 'Delete', 'OtherLinks', 'OfficerAvailability', 'Recovery Payment'],
+        'Compliance': ['Add', 'Edit', 'Delete', 'Archive'],
+        'Current Certification Processing': ['Add', 'Edit', 'Delete', 'Archive'],
+        'Current Bond Status': ['Add', 'Edit', 'Delete', 'Archive'],
+        'Current Contract Status': ['Add', 'Edit', 'Delete', 'Archive'],
+        'User Details': ['Add', 'Edit', 'Delete', 'Activate'],
+        'Role Details': ['Add', 'Edit', 'Delete'],
+        'List Configuration': ['Add', 'Edit', 'Delete'],
+        'Dynamic Fields': ['Add', 'Edit'],
+        'Email Template': ['Add', 'Edit', 'Clone', 'Run', 'Delete'],
+        'Documents Upload': ['Add', 'Edit', 'Delete'],
+        'Query Builder': ['Add', 'Edit', 'Clone', 'Delete', 'Run'],
+        'Asset Details': ['Edit', 'Add']
+      };
+
+      const PERMISSION_OPTIONS = ['Hidden', 'View', 'View & Edit'];
+      const PRIV_FIELDS = {
+        'Personal Details': [
+          'Client Name', 'Client Type', 'Reference Number', 'Court Type', 'Date of Birth',
+          'Work Pattern', 'Case Number', 'Address', 'Town', 'County', 'Postal Code', 'Country',
+          'Mobile Number', 'Personal Email Address', 'Start Date', 'End Date'
+        ],
+        'Compliance': [
+          'Compliance Name', 'Status', 'Verification Date', 'Expiry Date', 'Notes',
+          'Compliance Checks Conducted by', 'Compliance Checks Conducted on'
+        ],
+        'Current Certification Processing': [
+          'Certificate Name', 'Certification Type', 'Status', 'Issue Date', 'Expiry Date',
+          'Reference Number', 'Renewal Required', 'Certification Body', 'Upload Certificate', 'Notes'
+        ],
+        'Current Certification Status': [
+          'Certification Name', 'Status', 'Date of Certification', 'Last Updated',
+          'Verified By', 'Verification Method', 'Reference ID', 'Upload Evidence', 'Notes'
+        ],
+        'Previous Certification Processing': [
+          'Previous Certificate Name', 'Previous Certification Type', 'Previous Status',
+          'Previous Issue Date', 'Previous Expiry Date', 'Previous Reference Number', 'Previous Notes'
+        ],
+        'Previous Certification Status': [
+          'Previous Certification Name', 'Previous Status', 'Previous Date of Certification',
+          'Previous Last Updated', 'Previous Verified By', 'Previous Reference ID', 'Previous Notes'
+        ],
+        'Current Bond Status': [
+          'Contractor Name', 'Bond Type ID', 'Bond Number', 'Bond Hold', 'Bond Expiry Date',
+          'Bond Cancelled', 'Copy of Bond', 'Notes'
+        ],
+        'Previous Bond Status': [
+          'Previous Contractor Name', 'Previous Bond Type ID', 'Previous Bond Number',
+          'Previous Bond Expiry Date', 'Previous Bond Cancelled', 'Previous Copy of Bond', 'Previous Notes'
+        ],
+        'Current Contract Status': [
+          'Contract Name', 'Contract Type', 'Contract Start Date', 'Contract End Date',
+          'Contract Value', 'Contract Status', 'Payment Terms', 'Contract Owner', 'Contract Notes'
+        ],
+        'Previous Contract Status': [
+          'Previous Contract Name', 'Previous Contract Type', 'Previous Contract Start Date',
+          'Previous Contract End Date', 'Previous Contract Value', 'Previous Contract Status', 'Previous Contract Notes'
+        ],
+        'User Details': ['User ID', 'Full Name', 'Email Address', 'Role', 'Status'],
+        'Role Details': ['Role Title', 'Role Description', 'Status'],
+        'List Configuration': ['List Name', 'Field Name', 'Display Order', 'Status'],
+        'Dynamic Fields': ['Field Label', 'Field Type', 'Default Value', 'Mandatory'],
+        'Email Template': ['Template Name', 'Subject', 'Body', 'Status'],
+        'Email Queue': ['Queue Name', 'Recipient', 'Status', 'Created Date'],
+        'Documents Upload': ['Document Type', 'Document Name', 'Upload Date', 'Uploaded By'],
+        'Reports': ['Report Name', 'Parameters', 'Generated By', 'Generated Date'],
+        'Notification': ['Notification Name', 'Channel', 'Recipient', 'Status'],
+        'Query Builder': ['Query Name', 'Data Source', 'Filter Criteria', 'Saved By'],
+        'Asset Details': ['Asset ID', 'Asset Type', 'Location', 'Status'],
+        'FieldSync BWV Log Screen': ['Event ID', 'Officer Name', 'Event Type', 'Timestamp'],
+        'Talos Log': ['Log ID', 'Source', 'Severity', 'Message', 'Created Date'],
+        'QuickList': ['QuickList Name', 'Description', 'Owner', 'Status']
+      };
+
+      function ensureActionState() {
+        PRIVILEGES.forEach(function(privilege) {
+          if (!workingPrivActions[privilege]) workingPrivActions[privilege] = {};
+          (PRIV_ACTIONS[privilege] || []).forEach(function(actionName) {
+            if (typeof workingPrivActions[privilege][actionName] !== 'boolean') {
+              workingPrivActions[privilege][actionName] = false;
+            }
+          });
+        });
+      }
+
+      function ensureFieldState() {
+        PRIVILEGES.forEach(function(privilege) {
+          if (!workingPrivFields[privilege]) workingPrivFields[privilege] = {};
+          (PRIV_FIELDS[privilege] || []).forEach(function(fieldName) {
+            if (!workingPrivFields[privilege][fieldName]) {
+              workingPrivFields[privilege][fieldName] = 'View';
+            }
+          });
+        });
+      }
+
+      function buildPrivList() {
+        ensureActionState();
+        ensureFieldState();
+
+        const detailsHtml = PRIVILEGES.map(function(p) {
+          const on = !!workingPriv[p];
+          const actions = PRIV_ACTIONS[p] || [];
+          const open = !!openPrivRows[p] && actions.length > 0;
+          const optionsHtml = actions.map(function(actionName) {
+            const checked = workingPrivActions[p][actionName] ? 'checked' : '';
+            return '<label class="rm-opt"><input type="checkbox" data-action-priv="' + esc(p) + '" data-action-key="' + esc(actionName) + '" ' + checked + (on ? '' : ' disabled') + ' />' + esc(actionName) + '</label>';
+          }).join('');
+          return `
+            <div class="rm-priv-item ${on ? '' : 'is-off'} ${open ? 'is-open' : ''}" data-priv="${esc(p)}">
+              <div class="rm-priv-head">
+                <button type="button" class="rm-priv-name-btn" data-priv-expand="${esc(p)}"><span class="rm-priv-name">${esc(p)}</span></button>
+                <label class="switch" aria-label="${esc(p)} privilege">
+                  <input type="checkbox" data-priv-toggle="${esc(p)}" ${on ? 'checked' : ''} />
+                  <span class="switch-track"><span class="switch-thumb"></span></span>
+                  <span class="rm-priv-state">${on ? 'Active' : 'Inactive'}</span>
+                </label>
+              </div>
+              <div class="rm-priv-options">${optionsHtml}</div>
+            </div>`;
+        }).join('');
+
+        const fieldsHtml = PRIVILEGES.map(function(p) {
+          const on = !!workingPriv[p];
+          const fields = PRIV_FIELDS[p] || [];
+          const open = !!openPrivRows[p] && fields.length > 0;
+          const optionsHtml = fields.map(function(fieldName) {
+            const selected = workingPrivFields[p][fieldName] || 'View';
+            const optionList = PERMISSION_OPTIONS.map(function(opt) {
+              return '<option value="' + esc(opt) + '"' + (selected === opt ? ' selected' : '') + '>' + esc(opt) + '</option>';
+            }).join('');
+            return '<label class="rm-field-perm"><span class="rm-field-name">' + esc(fieldName) + '</span><select class="rm-field-select" data-field-priv="' + esc(p) + '" data-field-name="' + esc(fieldName) + '"' + (on ? '' : ' disabled') + '>' + optionList + '</select></label>';
+          }).join('');
+          return `
+            <div class="rm-priv-item ${on ? '' : 'is-off'} ${open ? 'is-open' : ''}" data-priv="${esc(p)}">
+              <div class="rm-priv-head">
+                <button type="button" class="rm-priv-name-btn" data-priv-expand="${esc(p)}"><span class="rm-priv-name">${esc(p)}</span></button>
+                <label class="switch" aria-label="${esc(p)} privilege">
+                  <input type="checkbox" data-priv-toggle="${esc(p)}" ${on ? 'checked' : ''} />
+                  <span class="switch-track"><span class="switch-thumb"></span></span>
+                  <span class="rm-priv-state">${on ? 'Active' : 'Inactive'}</span>
+                </label>
+              </div>
+              <div class="rm-priv-options">${optionsHtml}</div>
+            </div>`;
+        }).join('');
+
+        if (detailsPrivList) detailsPrivList.innerHTML = detailsHtml;
+        if (fieldsPrivList) fieldsPrivList.innerHTML = fieldsHtml;
+        applyPrivFilters();
+      }
+
+      function applyPrivFilters() {
+        const activeQuery = (privSearches[0] ? privSearches[0].value : '').trim().toLowerCase();
+        [detailsPrivList, fieldsPrivList].filter(Boolean).forEach(function(list) {
+          list.querySelectorAll('.rm-priv-item').forEach(function(item) {
+            item.style.display = item.dataset.priv.toLowerCase().includes(activeQuery) ? '' : 'none';
+          });
+        });
+      }
+
+      [detailsPrivList, fieldsPrivList].filter(Boolean).forEach(function(list) {
+        list.addEventListener('change', function(e) {
+          const cb = e.target.closest('[data-priv-toggle]');
+          if (cb) {
+            workingPriv[cb.dataset.privToggle] = cb.checked;
+            buildPrivList();
+            return;
+          }
+
+          const actionCb = e.target.closest('[data-action-priv][data-action-key]');
+          if (actionCb) {
+            const priv = actionCb.dataset.actionPriv;
+            const actionName = actionCb.dataset.actionKey;
+            if (!workingPrivActions[priv]) workingPrivActions[priv] = {};
+            workingPrivActions[priv][actionName] = actionCb.checked;
+            buildPrivList();
+            return;
+          }
+
+          const permSelect = e.target.closest('[data-field-priv][data-field-name]');
+          if (!permSelect) return;
+          const priv = permSelect.dataset.fieldPriv;
+          const fieldName = permSelect.dataset.fieldName;
+          if (!workingPrivFields[priv]) workingPrivFields[priv] = {};
+          workingPrivFields[priv][fieldName] = permSelect.value;
+          buildPrivList();
+        });
+
+        list.addEventListener('click', function(e) {
+          const expander = e.target.closest('[data-priv-expand]');
+          if (!expander) return;
+          const priv = expander.dataset.privExpand;
+          openPrivRows[priv] = !openPrivRows[priv];
+          buildPrivList();
+        });
+      });
+
+      privSearches.forEach(function(input) {
+        input.addEventListener('input', function() {
+          const value = input.value;
+          privSearches.forEach(function(other) {
+            if (other !== input) other.value = value;
+          });
+          applyPrivFilters();
+        });
+      });
+
+      window.rmTogglePrivAll = function() {
+        const anyOff = PRIVILEGES.some(p => !workingPriv[p]);
+        PRIVILEGES.forEach(p => { workingPriv[p] = anyOff; });
+        buildPrivList();
+      };
+
+      window.rmSwitchTab = function(which) {
+        const isDetails = which === 'details';
+        document.getElementById('rm-tab-details').setAttribute('aria-selected', isDetails ? 'true' : 'false');
+        document.getElementById('rm-tab-priv').setAttribute('aria-selected', isDetails ? 'false' : 'true');
+        document.getElementById('rm-tab-details').tabIndex = isDetails ? 0 : -1;
+        document.getElementById('rm-tab-priv').tabIndex = isDetails ? -1 : 0;
+        document.getElementById('rm-panel-details').hidden = !isDetails;
+        document.getElementById('rm-panel-priv').hidden = isDetails;
+      };
+
+      function clearErrors() {
+        form.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
+      }
+
+      function renderView(r) {
+        const activeCount = PRIVILEGES.filter(p => r.privileges && r.privileges[p]).length;
+        const items = PRIVILEGES.map(p => {
+          const on = !!(r.privileges && r.privileges[p]);
+          return `<div class="view-priv-row"><span>${esc(p)}</span><span class="${on ? 'pv-on' : 'pv-off'}">${on ? 'Active' : 'Inactive'}</span></div>`;
+        }).join('');
+        view.innerHTML = `
+          <div class="view-header">
+            <div class="cell-avatar" style="background:${hashTone(r.name)};width:48px;height:48px;font-size:18px">${esc(initials(r.name))}</div>
+            <div>
+              <div class="view-name">${esc(r.name)}</div>
+              <div class="view-email">${esc(r.description || 'No description provided')}</div>
+            </div>
+          </div>
+          <div class="view-row"><span class="view-row-label">Status</span><span class="view-row-value"><span class="status-pill ${r.status === 'Inactive' ? 'is-inactive' : ''}">${esc(r.status)}</span></span></div>
+          <div class="view-row"><span class="view-row-label">Privileges</span><span class="view-row-value">${activeCount} of ${PRIVILEGES.length} active</span></div>
+          <div class="rm-section-title" style="margin-top:20px">Action Privileges</div>
+          <div class="view-priv-grid">${items}</div>`;
+      }
+
+      window.rmOpenDrawer = function(m, role) {
+        lastFocus = document.activeElement;
+        mode = m;
+        current = role || null;
+        clearErrors();
+        rmSwitchTab('details');
+        if (mode === 'add') {
+          eyebrow.textContent = 'Role';
+          title.textContent = 'Add New Role';
+          sub.textContent = 'Create a role and assign action privileges.';
+          inTitle.value = ''; inStatus.value = ''; inDesc.value = '';
+          workingPriv = Object.fromEntries(PRIVILEGES.map(p => [p, true]));
+          workingPrivActions = {};
+          workingPrivFields = {};
+          openPrivRows = {};
+          form.hidden = false; view.hidden = true;
+          primary.textContent = 'Add'; primary.hidden = false;
+          foot.querySelector('.btn-ghost').textContent = 'Cancel';
+          buildPrivList();
+        } else if (mode === 'edit') {
+          eyebrow.textContent = 'Role';
+          title.textContent = 'Edit Role';
+          sub.textContent = `Update details and privileges for ${role.name}.`;
+          inTitle.value = role.name;
+          inStatus.value = role.status;
+          inDesc.value = role.description || '';
+          workingPriv = { ...(role.privileges || {}) };
+          workingPrivActions = role.privilegeActions ? JSON.parse(JSON.stringify(role.privilegeActions)) : {};
+          workingPrivFields = role.privilegeFields ? JSON.parse(JSON.stringify(role.privilegeFields)) : {};
+          openPrivRows = {};
+          PRIVILEGES.forEach(p => { if (!(p in workingPriv)) workingPriv[p] = false; });
+          form.hidden = false; view.hidden = true;
+          primary.textContent = 'Save Role'; primary.hidden = false;
+          foot.querySelector('.btn-ghost').textContent = 'Cancel';
+          buildPrivList();
+        } else { /* view */
+          eyebrow.textContent = 'Role';
+          title.textContent = 'Role Details';
+          sub.textContent = `Read-only view for ${role.name}.`;
+          form.hidden = true; view.hidden = false;
+          renderView(role);
+          primary.textContent = 'Edit Role'; primary.hidden = false;
+          foot.querySelector('.btn-ghost').textContent = 'Close';
+        }
+
+        backdrop.hidden = false; drawer.hidden = false;
+        requestAnimationFrame(() => { backdrop.classList.add('is-open'); drawer.classList.add('is-open'); });
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => { (mode === 'view' ? primary : inTitle).focus(); }, 60);
+      };
+
+      window.rmCloseDrawer = function() {
+        backdrop.classList.remove('is-open'); drawer.classList.remove('is-open');
+        setTimeout(() => { backdrop.hidden = true; drawer.hidden = true; }, 220);
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      };
+
+      window.rmSubmitDrawer = function() {
+        if (mode === 'view') { rmOpenDrawer('edit', current); return; }
+        clearErrors();
+        let ok = true;
+        if (!inTitle.value.trim()) { document.getElementById('rf-title-wrap').classList.add('has-error'); ok = false; }
+        if (!inStatus.value) { document.getElementById('rf-status-wrap').classList.add('has-error'); ok = false; }
+        if (!ok) { rmSwitchTab('details'); inTitle.focus(); return; }
+
+        const payload = {
+          name: inTitle.value.trim(),
+          description: inDesc.value.trim(),
+          status: inStatus.value,
+          privileges: { ...workingPriv },
+          privilegeActions: JSON.parse(JSON.stringify(workingPrivActions)),
+          privilegeFields: JSON.parse(JSON.stringify(workingPrivFields))
+        };
+
+        if (mode === 'add') {
+          ROLES.unshift(payload);
+        } else if (mode === 'edit' && current) {
+          Object.assign(current, payload);
+        }
+
+        // Refresh roles table via the search input event (controller listens on input)
+        const rolesSearch = document.querySelector('#tab-roles input[type="search"], #panel-roles input[type="search"], input[data-search="roles"]');
+        if (rolesSearch) rolesSearch.dispatchEvent(new Event('input', { bubbles:true }));
+        else {
+          // Fallback: re-render rows directly if controller exposes nothing
+          const body = document.getElementById('body-roles');
+          if (body) body.innerHTML = ROLES.map(renderRoleRow).join('');
+        }
+        // Update Roles stat counter if present
+        const totalRoles = document.getElementById('stat-total-roles');
+        if (totalRoles) totalRoles.textContent = ROLES.length;
+        const activeRoles = document.getElementById('stat-active-roles');
+        if (activeRoles) activeRoles.textContent = ROLES.filter(r => r.status === 'Active').length;
+
+        rmCloseDrawer();
+      };
+
+      /* ESC + focus trap */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !drawer.hidden) { e.preventDefault(); rmCloseDrawer(); }
+        if (e.key === 'Tab' && !drawer.hidden) {
+          const focusables = drawer.querySelectorAll('input:not([type="hidden"]), select, textarea, button, [tabindex]:not([tabindex="-1"])');
+          const visible = Array.from(focusables).filter(el => el.offsetParent !== null && !el.disabled);
+          if (!visible.length) return;
+          const first = visible[0], last = visible[visible.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+
+      /* Wire triggers */
+      document.addEventListener('click', e => {
+        const addBtn = e.target.closest('[data-action="add-role"]');
+        if (addBtn) { e.preventDefault(); rmOpenDrawer('add'); return; }
+
+        const rowAct = e.target.closest('[data-row-action]');
+        if (!rowAct) return;
+        const tr = rowAct.closest('tr[data-role-name]');
+        if (!tr || !tr.closest('#body-roles')) return;
+        const name = tr.dataset.roleName;
+        const r = ROLES.find(x => x.name === name);
+        if (!r) return;
+        const act = rowAct.dataset.rowAction;
+        if (act === 'view') { e.preventDefault(); rmOpenDrawer('view', r); }
+        else if (act === 'edit') { e.preventDefault(); rmOpenDrawer('edit', r); }
+      });
+    })();
+  </script>
+
+  <style>
+    .leftnav-group .leftnav-caret { margin-left:auto; width:14px; height:14px; transition: transform .15s; flex-shrink:0; }
+    .leftnav-group.is-open > .leftnav-item .leftnav-caret { transform: rotate(180deg); }
+    .leftnav-sub { display:none; padding:4px 0 8px; background:#FAFAFA; list-style:none; margin:0; }
+    .leftnav-group.is-open .leftnav-sub { display:block; }
+    .leftnav-sub-item { display:flex; align-items:center; padding:8px 16px 8px 52px; color:#212121; font-size:14px; text-decoration:underline; text-decoration-color:transparent; min-height:36px; border-left:3px solid transparent; transition:color .15s, background .15s, text-decoration-color .15s; }
+    .leftnav-sub-item:hover { color:#3276CF; background:#F2F5FA; text-decoration-color:#3276CF; }
+    .leftnav-sub-item[aria-current="page"], .leftnav-sub-item.active { color:#275798; font-weight:600; border-left-color:#3276CF; background:#F2F5FA; text-decoration-color:#275798; }
+    @media (max-width:1024px){ .leftnav-sub, .leftnav-group .leftnav-caret { display:none !important; } }
+  </style>
+  <script>function toggleSettings(e){
+  e.preventDefault();
+  var g = document.getElementById('nav-settings');
+  if (!g) return;
+  var i = g.querySelector('.leftnav-item');
+  var open = g.classList.toggle('is-open');
+  if (i) i.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+(function initHoverExpandLeftnav(){
+  var DESKTOP_MEDIA = '(min-width: 1025px)';
+  var COLLAPSED_CLASS = 'leftnav-collapsed';
+  var COLLAPSED_BRAND_SRC = 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E';
+
+  function isDesktop() {
+    return window.matchMedia(DESKTOP_MEDIA).matches;
+  }
+
+  function injectCollapsedStyle() {
+    if (document.getElementById('leftnav-collapsible-style')) return;
+    var style = document.createElement('style');
+    style.id = 'leftnav-collapsible-style';
+    style.textContent = [
+      '.app-shell.leftnav-collapsed{grid-template-columns:72px 1fr;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand{padding:var(--space-5, 12px);justify-content:center;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand img{height:24px;width:24px;object-fit:contain;}',
+      '.app-shell.leftnav-collapsed .leftnav-item span:not(.leftnav-icon),',
+      '.app-shell.leftnav-collapsed .leftnav-caret,',
+      '.app-shell.leftnav-collapsed .leftnav-chevron,',
+      '.app-shell.leftnav-collapsed .leftnav-sub,',
+      '.app-shell.leftnav-collapsed .leftnav-submenu{display:none !important;}',
+      '.app-shell.leftnav-collapsed .leftnav-item{justify-content:center;padding:var(--space-4,12px) var(--space-3,8px);gap:0;}'
+    ].join('');
+    document.head.appendChild(style);
+  }
+
+  function init() {
+    var shell = document.querySelector('.app-shell');
+    var leftnav = document.querySelector('.leftnav');
+    var brandImg = document.querySelector('.leftnav-brand img');
+    if (!shell || !leftnav) return;
+
+    injectCollapsedStyle();
+
+    var expandedBrandSrc = brandImg ? brandImg.getAttribute('src') : '';
+
+    function syncBrandImage() {
+      if (!brandImg) return;
+      if (shell.classList.contains(COLLAPSED_CLASS) && isDesktop()) {
+        brandImg.setAttribute('src', COLLAPSED_BRAND_SRC);
+      } else if (expandedBrandSrc) {
+        brandImg.setAttribute('src', expandedBrandSrc);
+      }
+    }
+
+    leftnav.addEventListener('click', function(event) {
+      var item = event.target.closest('.leftnav-item, .leftnav-sub-item, .leftnav-submenu-item');
+      if (!item || !isDesktop()) return;
+
+      var clickedIcon = !!event.target.closest('.leftnav-icon');
+      if (shell.classList.contains(COLLAPSED_CLASS) && clickedIcon) {
+        event.preventDefault();
+        shell.classList.remove(COLLAPSED_CLASS);
+        syncBrandImage();
+        return;
+      }
+
+      var isSettingsToggle = item.matches('.leftnav-item[aria-controls="settings-sub"]');
+      if (isSettingsToggle) return;
+      shell.classList.add(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    window.addEventListener('resize', function() {
+      if (isDesktop()) {
+        syncBrandImage();
+        return;
+      }
+      shell.classList.remove(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    syncBrandImage();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();</script>
+  <script src="notification-panel.js"></script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — IFM · Configuration · Failure Types</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* --- MET-DS-V2 Token Block (Light Theme) — aligned with IFM -- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #EF6C00;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-icon:           #757575;
+      --topnav-icon-hover:     #616161;
+
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           16px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+
+      --duration-micro: 150ms; --duration-standard: 250ms;
+      --easing-enter: ease-out; --easing-exit: ease-in;
+
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --divider-color: rgba(22, 43, 72, 0.12);
+
+      /* Role accent palette */
+      --role-finance-bg:  #E3F2FD; --role-finance-fg:  #1565C0;
+      --role-master-bg:   #E0F2F1; --role-master-fg:   #00695C;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-bg);
+      line-height: 1.5; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: var(--font-family); cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    /* --- Shell -- */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* --- Top Nav -- */
+    .topnav {
+      display: flex; align-items: center; padding: var(--space-3); gap: var(--space-3);
+      background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0;
+    }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; }
+    .topnav-logo { height: 28px; width: fit-content; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: 16px; font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn {
+      position: relative; width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--topnav-icon); padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge {
+      position: absolute; top: 0; right: 0; min-width: 20px; height: 20px;
+      background: var(--color-warning); color: #FFFFFF;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 6.5px; line-height: 1;
+    }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+
+    /* --- Role Switcher -- */
+    .role-switcher { position: relative; }
+    .role-switcher-trigger {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+      border: 1px solid var(--grey-300); border-radius: var(--radius-pill);
+      background: var(--color-card); color: var(--text-primary);
+      transition: background var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter);
+    }
+    .role-switcher-trigger:hover { background: var(--color-primary-25); border-color: var(--color-primary-100); }
+    .role-switcher-trigger .role-switcher-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+    .role-switcher-trigger .role-switcher-eyebrow { font-size: 10px; font-weight: var(--font-weight-medium); letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-secondary); }
+    .role-switcher-trigger .role-switcher-name { font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); }
+    .role-switcher-trigger .material-symbols-outlined { font-size: 18px; color: var(--text-secondary); }
+    .role-switcher-menu {
+      position: absolute; top: calc(100% + 6px); right: 0; z-index: 60;
+      min-width: 280px; background: var(--color-card); border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card); box-shadow: var(--shadow-modal);
+      padding: var(--space-3); display: none;
+    }
+    .role-switcher.is-open .role-switcher-menu { display: block; }
+    .role-switcher-menu-heading { font-size: 10px; font-weight: var(--font-weight-bold); letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-secondary); padding: var(--space-2) var(--space-3) var(--space-3); }
+    .role-option { display: flex; gap: var(--space-3); align-items: flex-start; width: 100%; padding: var(--space-3); border-radius: var(--radius-button); text-align: left; transition: background var(--duration-micro) var(--easing-enter); }
+    .role-option:hover { background: var(--color-primary-25); }
+    .role-option.is-current { background: var(--color-primary-25); }
+    .role-option .role-option-icon { width: 32px; height: 32px; border-radius: var(--radius-pill); flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--color-primary-50); color: var(--color-primary-700); }
+    .role-option .role-option-icon .material-symbols-outlined { font-size: 18px; }
+    .role-option-body { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .role-option-name { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .role-option-desc { font-size: var(--font-size-caption); color: var(--text-secondary); line-height: 1.4; }
+    .role-option-check { color: var(--color-success); display: none; }
+    .role-option.is-current .role-option-check { display: inline-flex; }
+
+    .role-banner {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary-25); border: 1px solid var(--color-primary-75);
+      border-radius: var(--radius-button); color: var(--text-primary);
+      margin-bottom: var(--space-5);
+    }
+    .role-banner .material-symbols-outlined { color: var(--color-primary-700); font-size: 20px; }
+    .role-banner-text { flex: 1; font-size: var(--font-size-caption); line-height: 1.4; }
+    .role-banner-text strong { font-weight: var(--font-weight-semibold); }
+
+    [data-role-allow].is-role-hidden { display: none !important; }
+
+    /* --- Main Layout -- */
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* --- Sidebar -- */
+    .sidebar {
+      width: 56px; flex-shrink: 0; background: var(--color-card);
+      border-right: 1px solid var(--divider-color);
+      display: flex; flex-direction: column; padding: var(--space-5) 0;
+      overflow-x: hidden; overflow-y: hidden;
+      transition: width var(--duration-standard) var(--easing-enter); z-index: 10;
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading {
+      font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5);
+      white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-3); color: var(--text-secondary); text-decoration: none;
+      white-space: nowrap; min-height: 40px; margin: 0 var(--space-3);
+      border-radius: 8px;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+    .sidebar-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: var(--radius-button);
+      color: var(--text-secondary); flex-shrink: 0;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+
+    /* --- Content -- */
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+
+    .page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .page-subtitle { font-size: var(--font-size-body); color: var(--text-secondary); }
+    .page-header-actions { display: flex; gap: var(--space-3); }
+
+    /* --- Buttons -- */
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5); border-radius: var(--radius-button);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      min-height: 40px; white-space: nowrap;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+    .btn:disabled, .btn[disabled] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+    .btn-danger { background: var(--color-error); color: #FFFFFF; }
+    .btn-danger:hover { background: var(--color-error-dark); }
+
+    /* --- Toolbar -- */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; }
+    .toolbar-left { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+    .toolbar-right { display: flex; align-items: center; gap: var(--space-3); }
+    .search-box {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card); min-width: 240px;
+    }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .filter-select {
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card);
+      font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary);
+      min-height: 40px;
+    }
+
+    /* --- Data Table -- */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-5); }
+    .table-container { overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); table-layout: fixed; min-width: 1100px; }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th {
+      padding: var(--space-4) var(--space-3); text-align: left;
+      font-weight: var(--font-weight-semibold); color: var(--text-primary);
+      font-size: var(--font-size-caption); text-transform: uppercase;
+      letter-spacing: 0.5px; white-space: nowrap;
+      border-bottom: 1px solid var(--grey-300); user-select: none;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .data-table td {
+      padding: var(--space-3); border-bottom: 1px solid var(--grey-200);
+      color: var(--text-primary); vertical-align: middle;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .data-table td.cell-wrap { white-space: normal; }
+    .data-table td:last-child { overflow: visible; text-overflow: clip; }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); cursor: pointer; }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+
+    /* --- Chips -- */
+    .chip-list { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: var(--space-2) 0; }
+    .chip {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 2px var(--space-3); border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      background: var(--color-primary-50); color: var(--color-primary-800);
+      line-height: 1.6;
+    }
+    .chip--muted { background: var(--grey-100); color: var(--grey-700); }
+    .chip--bad   { background: var(--color-error-bg); color: var(--color-error-dark); }
+    .chip--need  { background: #E3F2FD; color: #1565C0; }
+    .chip--none  { background: transparent; color: var(--text-secondary); padding: 0; font-style: italic; }
+
+    /* Role chips (table cell) */
+    .role-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px var(--space-3); border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      line-height: 1.6;
+    }
+    .role-chip .material-symbols-outlined { font-size: 14px; }
+    .role-chip--finance { background: var(--role-finance-bg); color: var(--role-finance-fg); }
+    .role-chip--master  { background: var(--role-master-bg);  color: var(--role-master-fg); }
+
+    /* --- Row actions -- */
+    .row-edit-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: var(--radius-button);
+      color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .row-edit-btn:hover { background: var(--grey-100); color: var(--color-primary); }
+    .row-edit-btn .material-symbols-outlined { font-size: 18px; }
+
+    /* --- Panel Tabs -- */
+    .panel-tabs {
+      display: flex; gap: var(--space-2); padding: 0 var(--space-7);
+      border-bottom: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .panel-tab {
+      padding: var(--space-4) var(--space-3); font-family: var(--font-family);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); border-bottom: 2px solid transparent;
+      margin-bottom: -1px; display: inline-flex; align-items: center; gap: var(--space-2);
+      background: transparent; border-left: 0; border-top: 0; border-right: 0;
+      cursor: pointer;
+      transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter);
+    }
+    .panel-tab .material-symbols-outlined { font-size: 18px; }
+    .panel-tab:hover { color: var(--text-primary); }
+    .panel-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .panel-tabpanel { display: flex; flex-direction: column; gap: var(--space-5); }
+    .panel-tabpanel.is-hidden { display: none; }
+
+    /* --- Audit timeline -- */
+    .audit-list {
+      position: relative; display: flex; flex-direction: column; padding: var(--space-2) 0;
+    }
+    .audit-list::before {
+      content: ''; position: absolute; left: 11px; top: var(--space-5); bottom: var(--space-5);
+      width: 2px; background: var(--grey-200); border-radius: 2px;
+    }
+    .audit-item {
+      position: relative; display: grid;
+      grid-template-columns: 24px 32px 1fr; align-items: start;
+      column-gap: var(--space-4); padding: var(--space-4) 0;
+    }
+    .audit-item + .audit-item { border-top: 1px dashed var(--grey-200); }
+    .audit-dot {
+      grid-column: 1; justify-self: center; margin-top: 8px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--color-card); border: 2px solid var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-card); flex-shrink: 0;
+    }
+    .audit-dot--create   { border-color: var(--color-success); background: var(--color-success); }
+    .audit-dot--edit     { border-color: var(--color-primary); }
+    .audit-dot--status   { border-color: var(--color-warning); }
+    .audit-dot--role     { border-color: #C49000; }
+    .audit-avatar {
+      grid-column: 2; width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: var(--color-primary-100); color: var(--color-primary-700);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: var(--font-weight-semibold); font-size: 12px;
+    }
+    .audit-body { grid-column: 3; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .audit-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: var(--space-3); flex-wrap: wrap;
+    }
+    .audit-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+    .audit-author { font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: var(--font-size-body); }
+    .audit-action { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .audit-text { font-size: var(--font-size-body); color: var(--text-primary); line-height: 1.45; margin-top: 2px; }
+    .audit-empty {
+      padding: var(--space-7) var(--space-5); text-align: center;
+      color: var(--text-secondary); font-size: var(--font-size-body);
+    }
+    .row-actions { display: inline-flex; align-items: center; gap: var(--space-2); }
+
+    /* --- Status pill -- */
+    .badge {
+      display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium); line-height: 1.5;
+    }
+    .badge--active   { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge--inactive { background: var(--grey-100); color: var(--grey-700); }
+    .badge--cat-email   { background: #E3F2FD; color: #1565C0; }
+    .badge--cat-noemail { background: var(--grey-100); color: var(--grey-700); }
+
+    /* --- Empty state -- */
+    .empty-state {
+      padding: var(--space-9) var(--space-7); text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+      color: var(--text-secondary);
+    }
+    .empty-state .material-symbols-outlined { font-size: 48px; color: var(--grey-400); }
+    .empty-state-title { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+
+    /* --- Table Footer -- */
+    .table-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) 0 0; border-top: 1px solid var(--grey-200);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-button); color: var(--text-secondary);
+    }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; }
+    .pagination-btn .material-symbols-outlined { font-size: 20px; }
+
+    /* --- Right-Side Panel -- */
+    .edit-panel-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 100;
+    }
+    .edit-panel-overlay.is-open { display: block; }
+    .edit-panel {
+      position: fixed; top: 0; right: -640px; bottom: 0;
+      width: 640px; max-width: 95vw; background: var(--color-card);
+      box-shadow: var(--shadow-modal); z-index: 101;
+      display: flex; flex-direction: column;
+      transition: right var(--duration-standard) var(--easing-enter);
+    }
+    .edit-panel.is-open { right: 0; }
+    .edit-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-6) var(--space-7); border-bottom: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .edit-panel-header-content { display: flex; flex-direction: column; gap: 2px; }
+    .edit-panel-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .edit-panel-subtitle { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .edit-panel-close {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: var(--radius-button); color: var(--text-secondary);
+    }
+    .edit-panel-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .edit-panel-close .material-symbols-outlined { font-size: 22px; }
+    .edit-panel-body {
+      flex: 1; overflow-y: auto; padding: var(--space-7);
+      display: flex; flex-direction: column; gap: var(--space-5);
+    }
+    .edit-panel-section-title {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;
+      padding-bottom: var(--space-2); border-bottom: 1px solid var(--grey-200);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .edit-panel-section-title .material-symbols-outlined { font-size: 18px; color: var(--color-primary); }
+    .edit-field { display: flex; flex-direction: column; gap: var(--space-1); }
+    .edit-field-label {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .edit-field-required { color: var(--color-error); }
+    .edit-field-input, .edit-field-select, .edit-field-textarea {
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card);
+      color: var(--text-primary); min-height: 40px; width: 100%;
+    }
+    .edit-field-textarea { min-height: 80px; resize: vertical; }
+    .edit-field-input:focus, .edit-field-select:focus, .edit-field-textarea:focus {
+      outline: none; border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(50,118,207,0.15);
+    }
+    .edit-field-input[readonly], .edit-field-input:disabled { background: var(--grey-50); color: var(--text-secondary); }
+    .edit-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: top; margin-block: var(--space-4); }
+    .edit-field-hint { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* -- Inline validation -- */
+    .edit-field.has-error .edit-field-input,
+    .edit-field.has-error .edit-field-textarea,
+    .edit-field.has-error .edit-field-select {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 2px rgba(229,57,53,0.12);
+    }
+    .field-error {
+      display: none;
+      font-size: var(--font-size-caption);
+      color: var(--color-error);
+      margin-top: 4px;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .edit-field.has-error .field-error,
+    .field-error.is-visible { display: inline-flex; }
+    .field-error .material-symbols-outlined { font-size: 14px; }
+    .role-picker.has-error .role-pick-chip {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 1px rgba(229,57,53,0.12);
+    }
+
+    /* --- Role picker (panel multi-select) -- */
+    .role-picker { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .role-pick-chip {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-pill);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      background: var(--color-card); color: var(--text-primary);
+      border: 1.5px solid var(--grey-300);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  border-color var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .role-pick-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .role-pick-chip.is-selected {
+      background: var(--color-primary); border-color: var(--color-primary); color: #FFFFFF;
+    }
+    .role-pick-chip .material-symbols-outlined { font-size: 18px; }
+    .role-summary {
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+
+    .edit-panel-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+      padding: var(--space-5) var(--space-7); border-top: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .edit-panel-footer-left, .edit-panel-footer-right { display: flex; gap: var(--space-3); }
+    .edit-panel-footer-right { margin-left: auto; }
+
+    /* --- Modal -- */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4); z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.is-open { display: flex; }
+    .modal {
+      background: var(--color-card); border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal); width: 480px; max-width: 90vw;
+      padding: var(--space-7); display: flex; flex-direction: column; gap: var(--space-5);
+    }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .modal-body { font-size: var(--font-size-body); color: var(--text-primary); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: var(--space-3); }
+
+    /* --- Toast -- */
+    .toast {
+      position: fixed; top: var(--space-7); left: 50%; transform: translateX(-50%) translateY(-20px);
+      background: var(--color-success); color: #fff; padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-button); font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; gap: var(--space-3);
+      box-shadow: 0 4px 12px rgba(0,0,0,.18); opacity: 0; pointer-events: none;
+      transition: opacity var(--duration-micro) var(--easing-enter), transform var(--duration-micro) var(--easing-enter);
+      z-index: 1100;
+    }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast .material-symbols-outlined { font-size: 20px; color: #fff; }
+    .toast--error { background: var(--color-error); }
+
+    /* --- Panel heading + info banner -- */
+    .panel-heading { display: flex; align-items: center; gap: var(--space-3); margin: 0; }
+    .panel-heading-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); margin: 0; }
+    .panel-heading-count {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 24px; height: 22px; padding: 0 var(--space-2);
+      border-radius: 100px; background: var(--color-primary-50);
+      color: var(--color-primary); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+    }
+    .info-banner {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-primary-25); border: 1px solid var(--color-primary-50);
+      border-radius: var(--radius-input); font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .info-banner .material-symbols-outlined { font-size: 18px; color: var(--color-primary); flex-shrink: 0; margin-top: 1px; }
+    .info-banner strong { color: var(--text-primary); }
+
+    /* --- Toggle Switch (status) -- */
+    .toggle-switch { position: relative; display: inline-flex; align-items: center; cursor: pointer; gap: var(--space-3); }
+    .toggle-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: relative; width: 36px; height: 20px; border-radius: var(--radius-pill);
+      background: var(--grey-400); transition: background var(--duration-micro) var(--easing-enter); flex-shrink: 0;
+    }
+    .toggle-track::after {
+      content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+      border-radius: 50%; background: #FFFFFF; transition: transform var(--duration-micro) var(--easing-enter);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .toggle-switch input:checked + .toggle-track { background: var(--color-success); }
+    .toggle-switch input:checked + .toggle-track::after { transform: translateX(16px); }
+    .toggle-switch input:focus-visible + .toggle-track { box-shadow: var(--shadow-focus); }
+    .toggle-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); user-select: none; }
+    .toggle-switch input:checked ~ .toggle-label { color: var(--color-success-dark); }
+    .toggle-switch input:not(:checked) ~ .toggle-label { color: var(--grey-600); }
+
+    /* --- Sort icons in table headers -- */
+    .data-table th { position: relative; cursor: pointer; }
+    .data-table th:hover { color: var(--color-primary); }
+    .data-table th .sort-icon { font-size: 16px; vertical-align: middle; margin-left: 2px; opacity: 0.4; }
+    .data-table th.sorted .sort-icon { opacity: 1; color: var(--color-primary); }
+    .data-table th::after {
+      content: ''; position: absolute; right: 0; top: 25%; height: 50%;
+      width: 2px; background: var(--grey-300);
+    }
+    .data-table th:last-child::after { display: none; }
+
+    /* --- Responsive -- */
+    @media (max-width: 767px) {
+      .sidebar { display: none; }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .edit-panel { width: 100%; max-width: 100%; }
+      .edit-field-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- --- Top Navigation --- -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" aria-label="Toggle sidebar" id="sidebarToggle">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Integration Exception Management</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 2 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">2</span>
+        </button>
+        <!-- Role Switcher (RBAC: Masterdata User · Finance Systems User · Approver) -->
+        <div class="role-switcher" id="roleSwitcher">
+          <button type="button" class="role-switcher-trigger" id="roleSwitcherBtn"
+                  aria-haspopup="menu" aria-expanded="false" aria-controls="roleSwitcherMenu"
+                  aria-label="Change role — currently viewing as Finance Systems User">
+            <img src="https://i.pravatar.cc/64?img=15" alt="" class="topnav-avatar" />
+            <span class="role-switcher-label">
+              <span class="role-switcher-eyebrow">Viewing as</span>
+              <span class="role-switcher-name" id="roleSwitcherName">Finance Systems User</span>
+            </span>
+            <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+          </button>
+          <div class="role-switcher-menu" id="roleSwitcherMenu" role="menu" aria-labelledby="roleSwitcherBtn">
+            <div class="role-switcher-menu-heading">Change role</div>
+            <button type="button" class="role-option" role="menuitem" data-role="finance-systems">
+              <span class="role-option-icon"><span class="material-symbols-outlined" aria-hidden="true">account_balance</span></span>
+              <span class="role-option-body">
+                <span class="role-option-name">Finance Systems User</span>
+                <span class="role-option-desc">Manage failure types and role assignments.</span>
+              </span>
+              <span class="role-option-check material-symbols-outlined" aria-hidden="true">check_circle</span>
+            </button>
+            <button type="button" class="role-option" role="menuitem" data-role="masterdata">
+              <span class="role-option-icon"><span class="material-symbols-outlined" aria-hidden="true">badge</span></span>
+              <span class="role-option-body">
+                <span class="role-option-name">Masterdata User</span>
+                <span class="role-option-desc">Read-only view of failure type configuration.</span>
+              </span>
+              <span class="role-option-check material-symbols-outlined" aria-hidden="true">check_circle</span>
+            </button>
+            <button type="button" class="role-option" role="menuitem" data-role="approver">
+              <span class="role-option-icon"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span></span>
+              <span class="role-option-body">
+                <span class="role-option-name">Approver</span>
+                <span class="role-option-desc">Read-only view of failure type configuration.</span>
+              </span>
+              <span class="role-option-check material-symbols-outlined" aria-hidden="true">check_circle</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- --- Main Layout --- -->
+    <div class="main-layout">
+      <!-- --- Sidebar --- -->
+      <nav class="sidebar" id="sidebar" aria-label="IFM navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Records</span>
+          <a href="IFM.html#filter=all" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">database</span>
+            <span class="sidebar-link-text">All Records</span>
+          </a>
+          <a href="IFM.html#filter=all-open" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">sync_problem</span>
+            <span class="sidebar-link-text">Open Records</span>
+          </a>
+          <a href="IFM.html#filter=resolved" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">task_alt</span>
+            <span class="sidebar-link-text">Resolved Records</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Configuration</span>
+          <a href="IFM_FailureTypes.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">flag</span>
+            <span class="sidebar-link-text">Failure Types</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- --- Content --- -->
+      <main class="content-area" id="main-content">
+        <div class="content-inner">
+
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header-left">
+              <div style="display:flex; align-items:center; gap: var(--space-3);">
+                <h1 class="page-title">Failure Types</h1>
+                <span class="panel-heading-count" id="panelCount" aria-label="failure type count">0</span>
+              </div>
+              <span class="page-subtitle" hidden>Define integration exception categories and the roles responsible for resolving them.</span>
+            </div>
+          </div>
+
+          <!-- Role banner (updated by role-switcher script) -->
+          <div class="role-banner" id="roleBanner" role="status" aria-live="polite">
+            <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+            <span class="role-banner-text" id="roleBannerText">
+              Viewing as <strong>Finance Systems User</strong> — full access to manage failure type configuration.
+            </span>
+          </div>
+
+          <!-- --- Content Card --- -->
+          <div class="card-container">
+
+            <div class="panel-heading" style="display:none;">
+              <h2 class="panel-heading-title">Failure Types</h2>
+            </div>
+
+            <div class="info-banner" hidden style="display:none;">
+              <span class="material-symbols-outlined" aria-hidden="true">info</span>
+              <span><strong>Role-based routing:</strong> each failure type is assigned to a single role — <em>Finance Systems</em> or <em>Master Data</em>. Incoming integration exceptions are routed to all active users holding the assigned role.</span>
+            </div>
+
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="search-box">
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                  <input type="search" id="searchInput" placeholder="Search failure type or description…" aria-label="Search failure types" />
+                </div>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn btn-text-primary" aria-label="Choose visible columns">
+                  <span class="material-symbols-outlined" aria-hidden="true" style="font-variation-settings: 'FILL' 1">view_column</span>
+                  Column
+                </button>
+                <button class="btn btn-text-primary" id="exportBtn" aria-label="Export failure types to CSV">
+                  <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                  Export
+                </button>
+                <button class="btn btn-primary" id="addBtn" aria-label="Add new failure type"
+                        data-role-allow="finance-systems">
+                  <span class="material-symbols-outlined" aria-hidden="true">add</span>
+                  Add New
+                </button>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <div class="table-scroll">
+                <table class="data-table" aria-label="Failure types with role assignments">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="width:22%;" class="sorted">Failure Type <span class="sort-icon material-symbols-outlined" aria-hidden="true">expand_less</span></th>
+                      <th scope="col" style="width:35%;">Description <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                      <th scope="col" style="width:25%;">Assigned Roles <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                      <th scope="col" style="width:10%;">Status <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                      <th scope="col" style="width:80px; text-align:right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ftTableBody">
+                    <!-- Rows injected by script -->
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <span id="tableCount">—</span>
+                <div class="pagination">
+                  <button class="pagination-btn" disabled aria-label="Previous page">
+                    <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                  </button>
+                  <span>Page 1 of 1</span>
+                  <button class="pagination-btn" disabled aria-label="Next page">
+                    <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /card-container -->
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- --- Right-Side Panel — Add / Edit Failure Type --- -->
+  <div class="edit-panel-overlay" id="ftOverlay"></div>
+  <aside class="edit-panel" id="ftPanel" role="dialog" aria-modal="true" aria-labelledby="ftPanelTitle">
+    <div class="edit-panel-header">
+      <div class="edit-panel-header-content">
+        <h2 class="edit-panel-title" id="ftPanelTitle">Add Failure Type</h2>
+        <span class="edit-panel-subtitle" id="ftPanelSubtitle">Define a new integration exception</span>
+      </div>
+      <button class="edit-panel-close" id="ftPanelClose" aria-label="Close panel">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+
+    <div class="panel-tabs" id="ftPanelTabs" role="tablist" aria-label="Failure type sections">
+      <button type="button" class="panel-tab is-active" id="ft-tab-details" data-tab="details" role="tab" aria-selected="true" aria-controls="ft-tabpanel-details">
+        <span class="material-symbols-outlined" aria-hidden="true">edit_note</span>
+        Details
+      </button>
+      <button type="button" class="panel-tab" id="ft-tab-audit" data-tab="audit" role="tab" aria-selected="false" aria-controls="ft-tabpanel-audit">
+        <span class="material-symbols-outlined" aria-hidden="true">history</span>
+        Audit Trail
+      </button>
+    </div>
+
+    <div class="edit-panel-body">
+
+      <div class="panel-tabpanel" id="ft-tabpanel-details" data-panel="details" role="tabpanel" aria-labelledby="ft-tab-details">
+
+      <span class="edit-panel-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">flag</span>
+        Failure Type
+      </span>
+      <div class="edit-field" id="ftNameField">
+        <label class="edit-field-label" for="ft-name">Name <span class="edit-field-required">*</span></label>
+        <input class="edit-field-input" type="text" id="ft-name" placeholder="e.g. Missing VAT Code" maxlength="80" aria-describedby="ft-name-error" />
+        <span class="field-error" id="ft-name-error" role="alert">
+          <span class="material-symbols-outlined" aria-hidden="true">error</span>
+          <span class="field-error-text"></span>
+        </span>
+        <span class="edit-field-hint">Shown in the IFM record form and assignment picker. Must be unique.</span>
+      </div>
+
+      <div class="edit-field">
+        <label class="edit-field-label">Status</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="ft-status" checked />
+          <span class="toggle-track"></span>
+          <span class="toggle-label" id="ft-statusLabel">Active</span>
+        </label>
+      </div>
+
+      <div class="edit-field">
+        <label class="edit-field-label" for="ft-description">Description</label>
+        <textarea class="edit-field-textarea" id="ft-description" placeholder="Brief explanation shown to agents when logging a failure"></textarea>
+      </div>
+
+      <!-- Role Assignment -->
+      <span class="edit-panel-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">groups</span>
+        Assigned Roles <span class="edit-field-required" style="font-size:14px;">*</span>
+      </span>
+      <span class="role-summary">Select <strong>one</strong> role responsible for this failure type. Members of the selected role will receive incoming records.</span>
+      <div class="role-picker" id="rolePicker" role="radiogroup" aria-label="Role assignment" aria-describedby="ft-role-error">
+        <button type="button" class="role-pick-chip" data-role="Finance Systems" role="radio" aria-checked="false">
+          <span class="material-symbols-outlined" aria-hidden="true">account_balance</span>
+          <span>Finance Systems</span>
+        </button>
+        <button type="button" class="role-pick-chip" data-role="Master Data" role="radio" aria-checked="false">
+          <span class="material-symbols-outlined" aria-hidden="true">database</span>
+          <span>Master Data</span>
+        </button>
+      </div>
+      <span class="field-error" id="ft-role-error" role="alert">
+        <span class="material-symbols-outlined" aria-hidden="true">error</span>
+        <span class="field-error-text"></span>
+      </span>
+      <div class="info-banner" id="masterdataMailNote" hidden style="display:none; margin-top: var(--space-3);" role="status" aria-live="polite">
+        <span class="material-symbols-outlined" aria-hidden="true">forward_to_inbox</span>
+        <span><strong>Mail will trigger</strong> — records of this failure type will send an email to the Master Data team on creation.</span>
+      </div>
+
+      </div><!-- /ft-tabpanel-details -->
+
+      <div class="panel-tabpanel is-hidden" id="ft-tabpanel-audit" data-panel="audit" role="tabpanel" aria-labelledby="ft-tab-audit">
+        <span class="edit-panel-section-title">
+          <span class="material-symbols-outlined" aria-hidden="true">history</span>
+          Change History
+        </span>
+        <div class="audit-list" id="ftAuditList"></div>
+      </div>
+
+    </div>
+    <div class="edit-panel-footer">
+      <div class="edit-panel-footer-right">
+        <button class="btn btn-ghost" id="ftPanelCancel">Cancel</button>
+        <button class="btn btn-primary" id="ftPanelSave" data-role-allow="finance-systems">
+          <span class="material-symbols-outlined" aria-hidden="true">save</span>
+          Save Failure Type
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- --- Toast --- -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script>
+    /* -- Sidebar toggle -- */
+    (function() {
+      var sb = document.getElementById('sidebar');
+      var btn = document.getElementById('sidebarToggle');
+      btn.addEventListener('click', function() {
+        sb.classList.toggle('is-expanded');
+        var expanded = sb.classList.contains('is-expanded');
+        btn.setAttribute('aria-label', expanded ? 'Collapse sidebar' : 'Expand sidebar');
+      });
+    })();
+
+    /* -- Role Switcher (IFM RBAC) --
+       Roles per business/IFM/IFM_RBAC.xls:
+         · finance-systems ? Finance Systems User (default, manages config)
+         · masterdata      ? Masterdata User (read-only here)
+         · approver        ? Approver (read-only here)
+       Persists selection in localStorage so it carries across IFM pages. */
+    (function() {
+      var ROLES = {
+        'finance-systems': { name: 'Finance Systems User', banner: 'Viewing as <strong>Finance Systems User</strong> — full access to manage failure type configuration.' },
+        'masterdata':      { name: 'Masterdata User',      banner: 'Viewing as <strong>Masterdata User</strong> — read-only view of failure type configuration.' },
+        'approver':        { name: 'Approver',             banner: 'Viewing as <strong>Approver</strong> — read-only view of failure type configuration.' }
+      };
+      var STORAGE_KEY = 'fionaIfmRole';
+      function getRole() { var r = null; try { r = localStorage.getItem(STORAGE_KEY); } catch (e) {} return (r && ROLES[r]) ? r : 'finance-systems'; }
+      function setRoleStore(r) { try { localStorage.setItem(STORAGE_KEY, r); } catch (e) {} }
+      function applyRoleGates() {
+        var role = document.body.dataset.role || 'finance-systems';
+        document.querySelectorAll('[data-role-allow]').forEach(function(el) {
+          var allow = (el.getAttribute('data-role-allow') || '').split(/\s+/);
+          el.classList.toggle('is-role-hidden', allow.indexOf(role) === -1);
+        });
+      }
+      window.__applyRoleGates = applyRoleGates;
+      function applyRole(role) {
+        if (!ROLES[role]) role = 'finance-systems';
+        document.body.dataset.role = role;
+        setRoleStore(role);
+        var nameEl    = document.getElementById('roleSwitcherName');
+        var triggerEl = document.getElementById('roleSwitcherBtn');
+        var bannerEl  = document.getElementById('roleBannerText');
+        if (nameEl)    nameEl.textContent = ROLES[role].name;
+        if (triggerEl) triggerEl.setAttribute('aria-label', 'Change role — currently viewing as ' + ROLES[role].name);
+        if (bannerEl)  bannerEl.innerHTML = ROLES[role].banner;
+        document.querySelectorAll('.role-option').forEach(function(opt) { opt.classList.toggle('is-current', opt.dataset.role === role); });
+        applyRoleGates();
+      }
+      window.__applyRole = applyRole;
+      function closeMenu() {
+        var sw = document.getElementById('roleSwitcher');
+        var btn = document.getElementById('roleSwitcherBtn');
+        if (sw) sw.classList.remove('is-open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        var sw = document.getElementById('roleSwitcher');
+        var btn = document.getElementById('roleSwitcherBtn');
+        if (!sw || !btn) return;
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = sw.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.querySelectorAll('.role-option').forEach(function(opt) {
+          opt.addEventListener('click', function() {
+            var role = opt.dataset.role;
+            applyRole(role);
+            closeMenu();
+            if (window.__showToast) window.__showToast('Switched to ' + ROLES[role].name);
+          });
+        });
+        document.addEventListener('click', function(e) { if (!sw.contains(e.target)) closeMenu(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+        applyRole(getRole());
+      });
+    })();
+
+    /* -- Toast helper -- */
+    window.__showToast = function(msg, isError) {
+      var t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.toggle('toast--error', !!isError);
+      t.classList.add('is-visible');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(function() { t.classList.remove('is-visible'); }, 2400);
+    };
+
+    /* -- Constants -- */
+    var ALL_ROLES = ['Finance Systems', 'Master Data'];
+    var ROLE_META = {
+      'Finance Systems': { cls: 'role-chip--finance', icon: 'account_balance' },
+      'Master Data':     { cls: 'role-chip--master',  icon: 'database' }
+    };
+
+    /* -- Failure Type definitions (managed, mutable) -- */
+    var FAILURE_TYPE_DEFS = [
+      { id:'FT-001', name:'Bad Fail',                     description:'System cannot route the file — internal review only.',  status:'Active',  roles:['Finance Systems'] },
+      { id:'FT-002', name:'Missing Customer Translation', description:'Customer code missing in the D365 translation table.',  status:'Active',  roles:['Master Data'] },
+      { id:'FT-003', name:'Missing Supplier Translation', description:'Supplier code missing in the D365 translation table.',  status:'Active',  roles:['Master Data'] },
+      { id:'FT-004', name:'Customer on Hold',             description:'Customer is flagged on hold in D365.',                  status:'Active',  roles:['Master Data'] },
+      { id:'FT-005', name:'Supplier on Hold',             description:'Supplier is flagged on hold in D365.',                  status:'Active',  roles:['Master Data'] },
+      { id:'FT-006', name:'Missing Client Fund Code',     description:'Client fund code is not configured.',                   status:'Active',  roles:['Finance Systems'] },
+      { id:'FT-007', name:'Period closed',                description:'Posting period is closed in D365.',                     status:'Active',  roles:['Finance Systems'] },
+      { id:'FT-008', name:'Other',                        description:'Free-text failure reason captured on the record.',     status:'Active',  roles:['Finance Systems'] }
+    ];
+
+    /* -- State -- */
+    var FILTER_STATE = { q:'' };
+    var EDIT_ID = null; // null = add mode
+
+    /* -- Audit history (per failure type) -- */
+    var AUDIT_HISTORY = {
+      'FT-001': [
+        { dot:'create', author:'System',         role:'Migration', when:'12/01/2024 09:00', action:'Type created',  text:'Imported from legacy IFM configuration.' }
+      ],
+      'FT-002': [
+        { dot:'create', author:'System',         role:'Migration', when:'12/01/2024 09:00', action:'Type created',  text:'Imported from legacy IFM configuration.' },
+        { dot:'edit',   author:'Sarah Mitchell', role:'Finance Systems', when:'08/03/2025 14:22', action:'Description updated', text:'Clarified that the check runs against the D365 translation table.' }
+      ],
+      'FT-003': [
+        { dot:'create', author:'System',         role:'Migration', when:'12/01/2024 09:00', action:'Type created',  text:'Imported from legacy IFM configuration.' }
+      ],
+      'FT-004': [
+        { dot:'create', author:'System',         role:'Migration', when:'12/01/2024 09:00', action:'Type created',  text:'Imported from legacy IFM configuration.' },
+        { dot:'role',   author:'Paul Edwards',   role:'Admin',           when:'19/05/2025 11:10', action:'Role re-assigned', text:'Routed to <strong>Master Data</strong> team.' }
+      ],
+      'FT-005': [
+        { dot:'create', author:'System',         role:'Migration', when:'12/01/2024 09:00', action:'Type created',  text:'Imported from legacy IFM configuration.' }
+      ],
+      'FT-006': [
+        { dot:'create', author:'Sarah Mitchell', role:'Finance Systems', when:'04/09/2025 10:15', action:'Type created',  text:'Added to capture missing client fund code failures.' }
+      ],
+      'FT-007': [
+        { dot:'create', author:'System',         role:'Migration', when:'12/01/2024 09:00', action:'Type created',  text:'Imported from legacy IFM configuration.' },
+        { dot:'status', author:'Paul Edwards',   role:'Admin',           when:'02/01/2026 08:45', action:'Status changed', text:'Reactivated for FY26 month-end cycle.' }
+      ],
+      'FT-008': [
+        { dot:'create', author:'System',         role:'Migration', when:'12/01/2024 09:00', action:'Type created',  text:'Imported from legacy IFM configuration.' }
+      ]
+    };
+    function getAudit(id) {
+      if (!AUDIT_HISTORY[id]) AUDIT_HISTORY[id] = [];
+      return AUDIT_HISTORY[id];
+    }
+    function nowStamp() {
+      var d = new Date();
+      var pad = function(n){ return String(n).padStart(2,'0'); };
+      return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+    }
+    function appendAudit(id, entry) {
+      getAudit(id).push(entry);
+    }
+
+    /* -- Helpers -- */
+    function escapeHtml(s) {
+      return (s == null ? '' : String(s)).replace(/[&<>"']/g, function(c){
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+      });
+    }
+    function nextId() {
+      var maxN = 0;
+      FAILURE_TYPE_DEFS.forEach(function(d){
+        var m = /^FT-(\d+)$/.exec(d.id); if (m) maxN = Math.max(maxN, parseInt(m[1],10));
+      });
+      return 'FT-' + String(maxN+1).padStart(3,'0');
+    }
+    function getFtChipClass(name) {
+      var def = FAILURE_TYPE_DEFS.find(function(d){ return d.name === name; });
+      if (!def) return 'chip--muted';
+      return (def.roles || []).indexOf('Master Data') !== -1 ? 'chip--need' : 'chip--muted';
+    }
+    function roleChipHtml(role) {
+      var meta = ROLE_META[role] || { cls: 'chip--muted', icon: 'shield_person' };
+      return '<span class="role-chip ' + meta.cls + '">' +
+               '<span class="material-symbols-outlined" aria-hidden="true">' + meta.icon + '</span>' +
+               escapeHtml(role) +
+             '</span>';
+    }
+
+    /* -- Render table -- */
+    function renderTable() {
+      var tbody = document.getElementById('ftTableBody');
+      tbody.innerHTML = '';
+      var q = (FILTER_STATE.q || '').toLowerCase().trim();
+      var visible = 0;
+
+      FAILURE_TYPE_DEFS.forEach(function(d) {
+        var rowText = (d.name + ' ' + (d.description||'') + ' ' + (d.roles||[]).join(' ')).toLowerCase();
+        var match =
+          (!q                          || rowText.indexOf(q) !== -1);
+        if (!match) return;
+        visible++;
+
+        var statusBadge = d.status === 'Active'
+          ? '<span class="badge badge--active">Active</span>'
+          : '<span class="badge badge--inactive">Inactive</span>';
+
+        var rolesHtml = (d.roles && d.roles.length)
+          ? '<div class="chip-list">' + d.roles.map(roleChipHtml).join('') + '</div>'
+          : '<span class="chip chip--none">No roles assigned</span>';
+
+        var tr = document.createElement('tr');
+        tr.dataset.id = d.id;
+        tr.innerHTML =
+          '<td><span class="chip ' + getFtChipClass(d.name) + '">' + escapeHtml(d.name) + '</span></td>' +
+          '<td class="cell-wrap" title="' + escapeHtml(d.description||'') + '">' + escapeHtml(d.description||'—') + '</td>' +
+          '<td class="cell-wrap">' + rolesHtml + '</td>' +
+          '<td>' + statusBadge + '</td>' +
+          '<td style="text-align:right;">' +
+            '<div class="row-actions">' +
+              '<button class="row-edit-btn" data-role-allow="finance-systems" data-edit="' + d.id + '" aria-label="Edit ' + escapeHtml(d.name) + '" title="Edit">' +
+                '<span class="material-symbols-outlined" aria-hidden="true">edit</span></button>' +
+              '<button class="row-edit-btn" data-audit="' + d.id + '" aria-label="Audit trail for ' + escapeHtml(d.name) + '" title="Audit trail">' +
+                '<span class="material-symbols-outlined" aria-hidden="true">history</span></button>' +
+            '</div>' +
+          '</td>';
+        tbody.appendChild(tr);
+      });
+
+      if (visible === 0) {
+        tbody.innerHTML =
+          '<tr><td colspan="5">' +
+            '<div class="empty-state">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">flag</span>' +
+              '<span class="empty-state-title">No failure types match your filters</span>' +
+              '<span>Try clearing a filter or add a new failure type.</span>' +
+            '</div>' +
+          '</td></tr>';
+      }
+
+      var total = FAILURE_TYPE_DEFS.length;
+      document.getElementById('tableCount').textContent =
+        visible === total
+          ? 'Showing ' + visible + ' of ' + total + ' failure types'
+          : 'Showing ' + visible + ' of ' + total + ' failure types (filtered)';
+
+      bindRowEvents();
+      document.getElementById('panelCount').textContent = total;
+      if (window.__applyRoleGates) window.__applyRoleGates();
+    }
+
+    /* -- Row events -- */
+    function bindRowEvents() {
+      document.querySelectorAll('[data-edit]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openPanel(btn.getAttribute('data-edit'));
+        });
+      });
+      document.querySelectorAll('[data-audit]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openPanel(btn.getAttribute('data-audit'), 'audit');
+        });
+      });
+      document.querySelectorAll('#ftTableBody tr[data-id]').forEach(function(tr) {
+        tr.addEventListener('click', function(e) {
+          if (e.target.closest('.row-edit-btn')) return;
+          openPanel(tr.dataset.id);
+        });
+      });
+    }
+
+    /* -- Toolbar search -- */
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      FILTER_STATE.q = e.target.value; renderTable();
+    });
+
+    /* -- Role picker (single-select radio chips inside panel) -- */
+    function updateMasterdataMailNote() {
+      var note = document.getElementById('masterdataMailNote');
+      if (!note) return;
+      var sel = document.querySelector('#rolePicker .role-pick-chip.is-selected');
+      var show = !!sel && sel.dataset.role === 'Master Data';
+      note.hidden = !show;
+      note.style.display = show ? '' : 'none';
+    }
+    function setSelectedRoles(roles) {
+      // Single-select: take the first role only.
+      var pick = (roles && roles.length) ? roles[0] : null;
+      document.querySelectorAll('#rolePicker .role-pick-chip').forEach(function(btn) {
+        var on = btn.dataset.role === pick;
+        btn.classList.toggle('is-selected', on);
+        btn.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+      updateMasterdataMailNote();
+    }
+    function getSelectedRoles() {
+      var btn = document.querySelector('#rolePicker .role-pick-chip.is-selected');
+      return btn ? [btn.dataset.role] : [];
+    }
+    document.querySelectorAll('#rolePicker .role-pick-chip').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#rolePicker .role-pick-chip').forEach(function(b) {
+          b.classList.remove('is-selected');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('is-selected');
+        btn.setAttribute('aria-checked', 'true');
+        updateMasterdataMailNote();
+      });
+    });
+
+    /* -- Panel open/close -- */
+    var ftOverlay = document.getElementById('ftOverlay');
+    var ftPanel   = document.getElementById('ftPanel');
+    var ftTitleEl = document.getElementById('ftPanelTitle');
+    var ftSubEl   = document.getElementById('ftPanelSubtitle');
+    var ftSaveBtn = document.getElementById('ftPanelSave');
+
+    function openPanel(id, initialTab) {
+      EDIT_ID = id || null;
+      if (id) {
+        var d = FAILURE_TYPE_DEFS.find(function(x){ return x.id === id; });
+        if (!d) return;
+        ftTitleEl.textContent = 'Edit Failure Type';
+        ftSubEl.textContent   = d.name;
+        document.getElementById('ft-name').value        = d.name;
+        setStatusToggle('ft-status', 'ft-statusLabel', d.status === 'Active');
+        document.getElementById('ft-description').value = d.description || '';
+        setSelectedRoles(d.roles || []);
+        ftSaveBtn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">save</span>Save Changes';
+      } else {
+        ftTitleEl.textContent = 'Add Failure Type';
+        ftSubEl.textContent   = 'Define a new integration exception';
+        document.getElementById('ft-name').value        = '';
+        setStatusToggle('ft-status', 'ft-statusLabel', true);
+        document.getElementById('ft-description').value = '';
+        setSelectedRoles([]);
+        ftSaveBtn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">save</span>Save Failure Type';
+      }
+      setFtActiveTab(initialTab === 'audit' ? 'audit' : 'details');
+      renderFtAudit(id);
+      if (typeof clearAllErrors === 'function') clearAllErrors();
+      ftOverlay.classList.add('is-open');
+      ftPanel.classList.add('is-open');
+      setTimeout(function(){
+        if (initialTab !== 'audit') document.getElementById('ft-name').focus();
+      }, 200);
+    }
+    function closePanel() {
+      ftOverlay.classList.remove('is-open');
+      ftPanel.classList.remove('is-open');
+      EDIT_ID = null;
+    }
+
+    document.getElementById('addBtn').addEventListener('click', function() { openPanel(null); });
+    document.getElementById('ftPanelClose').addEventListener('click', closePanel);
+    document.getElementById('ftPanelCancel').addEventListener('click', closePanel);
+    ftOverlay.addEventListener('click', closePanel);
+
+    /* -- Inline validation helpers -- */
+    function setFieldError(fieldId, message) {
+      var field = document.getElementById(fieldId);
+      if (!field) return;
+      var txt = field.querySelector('.field-error-text');
+      if (txt) txt.textContent = message;
+      field.classList.add('has-error');
+    }
+    function clearFieldError(fieldId) {
+      var field = document.getElementById(fieldId);
+      if (!field) return;
+      var txt = field.querySelector('.field-error-text');
+      if (txt) txt.textContent = '';
+      field.classList.remove('has-error');
+    }
+    function setRoleError(message) {
+      var picker = document.getElementById('rolePicker');
+      var err    = document.getElementById('ft-role-error');
+      if (picker) picker.classList.add('has-error');
+      if (err) {
+        err.classList.add('is-visible');
+        var t = err.querySelector('.field-error-text');
+        if (t) t.textContent = message;
+      }
+    }
+    function clearRoleError() {
+      var picker = document.getElementById('rolePicker');
+      var err    = document.getElementById('ft-role-error');
+      if (picker) picker.classList.remove('has-error');
+      if (err) {
+        err.classList.remove('is-visible');
+        var t = err.querySelector('.field-error-text');
+        if (t) t.textContent = '';
+      }
+    }
+    function clearAllErrors() {
+      clearFieldError('ftNameField');
+      clearRoleError();
+    }
+    // Clear errors as the user corrects fields.
+    document.getElementById('ft-name').addEventListener('input', function() {
+      if (this.value.trim()) clearFieldError('ftNameField');
+    });
+    document.querySelectorAll('#rolePicker .role-pick-chip').forEach(function(chip) {
+      chip.addEventListener('click', clearRoleError);
+    });
+
+    /* -- Save (add or edit) -- */
+    ftSaveBtn.addEventListener('click', function() {
+      var name  = document.getElementById('ft-name').value.trim();
+      var st    = document.getElementById('ft-status').checked ? 'Active' : 'Inactive';
+      var desc  = document.getElementById('ft-description').value.trim();
+      var roles = getSelectedRoles();
+
+      clearAllErrors();
+      var firstInvalid = null;
+
+      if (!name) {
+        setFieldError('ftNameField', 'Failure type name is required.');
+        firstInvalid = firstInvalid || document.getElementById('ft-name');
+      } else {
+        var dup = FAILURE_TYPE_DEFS.find(function(d){
+          return d.name.toLowerCase() === name.toLowerCase() && d.id !== EDIT_ID;
+        });
+        if (dup) {
+          setFieldError('ftNameField', 'A failure type with this name already exists.');
+          firstInvalid = firstInvalid || document.getElementById('ft-name');
+        }
+      }
+      if (st === 'Active' && roles.length === 0) {
+        setRoleError('Select a role for an active failure type.');
+        firstInvalid = firstInvalid || document.querySelector('#rolePicker .role-pick-chip');
+      }
+      if (firstInvalid) {
+        setFtActiveTab('details');
+        if (typeof firstInvalid.focus === 'function') firstInvalid.focus();
+        return;
+      }
+
+      if (EDIT_ID) {
+        var d = FAILURE_TYPE_DEFS.find(function(x){ return x.id === EDIT_ID; });
+        if (d) {
+          var changes = [];
+          if (d.name !== name) changes.push('name (“' + d.name + '” ? “' + name + '”)');
+          if (d.status !== st) changes.push('status (' + d.status + ' ? ' + st + ')');
+          if ((d.description || '') !== desc) changes.push('description');
+          var prevRoles = (d.roles || []).join(', ');
+          var nextRoles = roles.join(', ');
+          if (prevRoles !== nextRoles) changes.push('role (' + (prevRoles || 'none') + ' ? ' + (nextRoles || 'none') + ')');
+          d.name = name; d.status = st; d.description = desc; d.roles = roles;
+          if (changes.length) {
+            var dot = changes.some(function(c){ return c.indexOf('status') === 0; }) ? 'status'
+                    : changes.some(function(c){ return c.indexOf('role') === 0; })   ? 'role'
+                    : 'edit';
+            appendAudit(d.id, {
+              dot: dot, author:'You', role:'Finance Systems', when: nowStamp(),
+              action:'Type updated',
+              text:'Changed ' + changes.join(', ') + '.'
+            });
+          }
+        }
+        window.__showToast('Failure type updated');
+      } else {
+        var newId = nextId();
+        FAILURE_TYPE_DEFS.push({
+          id: newId, name: name, status: st, description: desc, roles: roles
+        });
+        appendAudit(newId, {
+          dot:'create', author:'You', role:'Finance Systems', when: nowStamp(),
+          action:'Type created',
+          text:'Created with status <strong>' + st + '</strong>' + (roles.length ? ' and assigned to <strong>' + roles.join(', ') + '</strong>' : '') + '.'
+        });
+        window.__showToast('Failure type added');
+      }
+      closePanel();
+      renderTable();
+    });
+
+    /* -- Export (stub) -- */
+    document.getElementById('exportBtn').addEventListener('click', function() {
+      window.__showToast('Export started \u2014 CSV will download shortly');
+    });
+
+    /* -- Status toggle helper + auto-label wiring -- */
+    function setStatusToggle(inputId, labelId, isActive) {
+      var input = document.getElementById(inputId);
+      var label = document.getElementById(labelId);
+      if (input) input.checked = !!isActive;
+      if (label) label.textContent = isActive ? 'Active' : 'Inactive';
+    }
+    (function(){
+      var input = document.getElementById('ft-status');
+      input.addEventListener('change', function() {
+        document.getElementById('ft-statusLabel').textContent = input.checked ? 'Active' : 'Inactive';
+      });
+    })();
+
+    /* -- Escape closes panel -- */
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      if (ftPanel.classList.contains('is-open')) closePanel();
+    });
+
+    /* -- Panel tab switching + audit render -- */
+    function setFtActiveTab(tab) {
+      document.querySelectorAll('#ftPanelTabs .panel-tab').forEach(function(t) {
+        var on = t.dataset.tab === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      document.querySelectorAll('.panel-tabpanel').forEach(function(p) {
+        var on = p.dataset.panel === tab;
+        p.classList.toggle('is-hidden', !on);
+      });
+      if (ftSaveBtn) ftSaveBtn.style.display = (tab === 'audit') ? 'none' : '';
+    }
+    document.querySelectorAll('#ftPanelTabs .panel-tab').forEach(function(t) {
+      t.addEventListener('click', function() {
+        setFtActiveTab(t.dataset.tab);
+        if (t.dataset.tab === 'audit') renderFtAudit(EDIT_ID);
+      });
+    });
+    function ftInitials(name) {
+      return (name || '?').split(/\s+/).map(function(p){ return p[0]; }).slice(0,2).join('').toUpperCase();
+    }
+    function renderFtAudit(id) {
+      var target = document.getElementById('ftAuditList');
+      if (!target) return;
+      if (!id) {
+        target.innerHTML = '<div class="audit-empty">Save this failure type to start tracking its history.</div>';
+        return;
+      }
+      var events = getAudit(id);
+      if (!events.length) {
+        target.innerHTML = '<div class="audit-empty">No changes recorded for this failure type yet.</div>';
+        return;
+      }
+      target.innerHTML = events.map(function(e) {
+        return '<div class="audit-item">' +
+          '<span class="audit-dot audit-dot--' + (e.dot || 'edit') + '" aria-hidden="true"></span>' +
+          '<div class="audit-avatar">' + ftInitials(e.author) + '</div>' +
+          '<div class="audit-body">' +
+            '<div class="audit-row">' +
+              '<span class="audit-author">' + escapeHtml(e.author || '') + '</span>' +
+              '<span class="audit-meta">' + escapeHtml(e.when || '') + '</span>' +
+            '</div>' +
+            '<span class="audit-action">' + escapeHtml(e.role || '') + ' · ' + escapeHtml(e.action || '') + '</span>' +
+            '<span class="audit-text">' + (e.text || '') + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    /* -- Init -- */
+    renderTable();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

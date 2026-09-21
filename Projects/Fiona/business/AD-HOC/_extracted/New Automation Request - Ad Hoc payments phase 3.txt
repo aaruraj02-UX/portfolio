@@ -1,0 +1,60 @@
+Public 
+ 
+New Automation Request - Ad Hoc payments phase 3 
+ 
+ 
+Summary 
+ 
+Further enhancements have been identified to make the process more user friendly, and prompt led, rather than the requester having to guess or ask for advice. It will also improve some current functionality, to further reduce need for manual manipulation of output, and allow all types of ad-hoc payment requests (it is currently restricted to direct bank payments only, not suppliers or vendors) 
+ 
+ 
+Proposed Process - High Level 
+ 
+• The requestor will complete a request for an ad-hoc payment based on a series of intuitive prompts rather than having to 'guess' some mandatory required info o A lot of these 'prompts' will be drop-downs populated by editable tables within the module 
+ 
+ 
+Change Requirements 
+ 
+• Fundamental changes to the layout and behaviour of the Request Form o The form will now be question led and we are moving everything around 
+* The first prompt will be a question with a box for the user to complete 
+* Who are we paying (please type the Beneficiary name - limited to 15 characters) 
+	• 	The user will type in the name of the Beneficiary 
+* The second question will be 'Is this an international payment (are we paying someone with a non-UK bank account) 
+• If user completes yes then bring up four boxes Sort Code Account Number IBAN (Optional) BIC (Optional) with wording above saying 'Please complete as much of the below as you can' and then when they have completed 'please click next' and display a next button o Display some wording that says 'Whilst most international payments can be same day we cannot guarantee this due to specific country rules - if the request is submitted after 14:00 it will be paid next working day) 
+• If user clicks 'No' then bring up sort code and account number box with wording' please complete the sort code and account number of the account we are paying to' and a currency box with wording what currency is this to be paid in then have a next button 
+* A question that says what is the net value to be paid 
+* Then the next question 'Is VAT applicable yes/no - if yes then bring up another box for VAT and another box for VAT amount 
+* After clicking next bring up a box titled Total to be paid' and fill in amount 
+* After clicking next new question 'When is the payment due' with some wording that says  
+• If FP /CHAPS request Is submitted before 14:00 it will reach recipient bank account same day 
+• If FP / CHAPS request is submitted after 14:00 it will reach recipient bank account next working day 
+• If BACS request is submitted before 14:00 it will reach recipient bank account in three working days 
+• If BACS request is submitted after 14:00 it will reach recipient bank account in four working days 
+• Bring up a payment box with wording that says will reach recipient date and auto-complete based on above rules 
+Public 
+ 
+• After clicking next a new question that Says 'What is the payment for' and then a drop down box 
+• This drop down box will be auto-populated by a payment reason list that we are able to manage and edit - this will be a new link / table on the side of the module under Generated Files called Payment Types lookup) 
+• Depending on the payment reason selected it will bring up some new boxes with wording 
+• Bank Account and sort code and currency and Legal Entity to be paid from - these will auto populate based on above 
+• It will also bring up another header and some new boxes that say Ledger account type to be debited and ledger account number to be debited and with Ledger legal entity description / case reference and additional comments  and supporting documentation ability to attach - some of these will autofill and some will need to be populated by user 
+• After clicking next it will present all info in summary format with question are you sure the above is correct 
+	• 	Yes enables submit button - no allows to edit 
+ 
+ 
+Additional Requirements: 
+ 
+• Some wording in the supporting documentation (tooltip?) saying' Please upload line managers approval' *please attach email) 
+• When an email notification is sent for a bulk upload it needs to send one email not one for each individual payment 
+• When Treasury click generate it needs to generate the Lloyds file but not the journal 
+• When Treasury update payment status with complete or failed - if marked completed at this point the journal file should be generated - if failed it should ask for reason and send notification to requester 
+• Note at the moment neither payment success or payment failure notifications are working - this needs 
+fixing 
+ 
+Note: 
+ 
+Treasury Team are to provide lookup table information where required 
+ 
+There will be some enhancements to the journal output in offset is customer - details to follow 
+ 
+ 

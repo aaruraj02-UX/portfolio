@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flow Map — FieldSync Task Module</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .ia-canvas{background:#f8fafc;border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;position:relative;overflow-x:auto}
+    .ia-canvas::before{content:'INFORMATION ARCHITECTURE';position:absolute;top:12px;left:16px;font-size:.6rem;letter-spacing:.1em;color:var(--text-muted);font-weight:600}
+    .ia-root{text-align:center;margin-bottom:1.5rem}
+    .ia-root-node{display:inline-block;background:linear-gradient(135deg,#065f46,#10b981);color:#fff;padding:.75rem 2rem;border-radius:8px;font-weight:700;font-size:.9rem;box-shadow:0 4px 12px rgba(16,185,129,.3)}
+    .ia-vline{width:2px;height:24px;background:#6ee7b7;margin:0 auto}
+    .ia-level{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin:.5rem 0}
+    .ia-card{background:#fff;border:2px solid #6ee7b7;border-radius:8px;padding:.6rem 1rem;min-width:130px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+    .ia-card h4{font-size:.72rem;font-weight:700;color:#065f46;margin-bottom:.25rem}
+    .ia-card p{font-size:.62rem;color:var(--text-muted);line-height:1.3}
+    .ia-card--active{border-color:#10b981;background:#ecfdf5}
+    .ia-children{display:flex;flex-direction:column;gap:.2rem;margin-top:.4rem;padding-top:.4rem;border-top:1px dashed #cbd5e1}
+    .ia-child{font-size:.58rem;color:var(--text-secondary);padding:.1rem .3rem;background:#f1f5f9;border-radius:3px}
+    .lifecycle-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;padding:1.5rem 0}
+    .lf-node{background:#fff;border:2px solid var(--border);border-radius:8px;padding:.5rem .75rem;font-size:.72rem;font-weight:600;text-align:center;min-width:90px}
+    .lf-node--active{border-color:#10b981;background:#ecfdf5}
+    .lf-node--end{border-color:#ef4444;background:#fef2f2}
+    .lf-arrow{width:30px;height:2px;background:#10b981;position:relative}
+    .lf-arrow::after{content:'▸';position:absolute;right:-4px;top:-8px;color:#10b981;font-size:.8rem}
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FieldSync</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html" class="active">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/index.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>Information Architecture — Flow Map</h1>
+      <div class="doc-meta"><span>📐 FieldSync Task Module</span><span>📅 10 March 2026</span><span>🔖 v1.0</span></div>
+    </header>
+
+    <section class="doc-section">
+      <h2>Application Sitemap</h2>
+      <div class="ia-canvas">
+        <div class="ia-root"><div class="ia-root-node">FieldSync Web Application</div></div>
+        <div class="ia-vline"></div>
+        <div class="ia-level">
+          <div class="ia-card">
+            <h4>Dashboard</h4>
+            <div class="ia-children"><span class="ia-child">Total Tasks</span><span class="ia-child">Inside SLA</span><span class="ia-child">Approaching SLA</span><span class="ia-child">Overdue</span></div>
+          </div>
+          <div class="ia-card ia-card--active">
+            <h4>Tasks</h4>
+            <div class="ia-children"><span class="ia-child">My Tasks (Agent)</span><span class="ia-child">Area Tasks (Manager)</span><span class="ia-child">All Tasks (Admin)</span><span class="ia-child">Completed / Cancelled</span><span class="ia-child">+ Create Task</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Task Detail</h4>
+            <div class="ia-children"><span class="ia-child">Header + SLA pill</span><span class="ia-child">Description</span><span class="ia-child">History / Audit</span><span class="ia-child">Action Panel</span><span class="ia-child">Confirmation Modal</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Admin</h4>
+            <div class="ia-children"><span class="ia-child">SLA Configuration</span><span class="ia-child">Priority Table</span><span class="ia-child">Edit Duration</span><span class="ia-child">SLA Audit Trail</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Search</h4>
+            <div class="ia-children"><span class="ia-child">By ID / Agent</span><span class="ia-child">By Type / Status</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Task Lifecycle Flow</h2>
+      <div class="lifecycle-flow">
+        <div class="lf-node">Created</div><div class="lf-arrow"></div>
+        <div class="lf-node lf-node--active">Assigned</div><div class="lf-arrow"></div>
+        <div class="lf-node lf-node--active">In Progress</div><div class="lf-arrow"></div>
+        <div class="lf-node" style="border-color:#10b981;background:#dcfce7">Completed ✓</div>
+      </div>
+      <div class="lifecycle-flow" style="margin-top:.5rem">
+        <div class="lf-node">Any Status</div><div class="lf-arrow"></div>
+        <div class="lf-node" style="border-color:#8b5cf6;background:#ede9fe">Reassigned</div><div class="lf-arrow"></div>
+        <div class="lf-node" style="border-color:#f59e0b;background:#fef3c7">Escalated</div>
+        <span style="margin:0 1rem;color:var(--text-muted)">or</span>
+        <div class="lf-node lf-node--end">Cancelled ✗</div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Role-Based Visibility Matrix</h2>
+      <table class="doc-table">
+        <thead><tr><th>Feature</th><th>Agent</th><th>Manager</th><th>Admin</th></tr></thead>
+        <tbody>
+          <tr><td>My Tasks</td><td><span class="badge badge--green">✓</span></td><td><span class="badge badge--green">✓</span></td><td><span class="badge badge--green">✓</span></td></tr>
+          <tr><td>Area Tasks</td><td>—</td><td><span class="badge badge--green">✓</span></td><td><span class="badge badge--green">✓</span></td></tr>
+          <tr><td>All Tasks</td><td>—</td><td>—</td><td><span class="badge badge--green">✓</span></td></tr>
+          <tr><td>Create Task</td><td>—</td><td><span class="badge badge--green">✓</span></td><td><span class="badge badge--green">✓</span></td></tr>
+          <tr><td>Reassign</td><td>—</td><td><span class="badge badge--green">✓</span></td><td><span class="badge badge--green">✓</span></td></tr>
+          <tr><td>Escalate</td><td><span class="badge badge--green">✓</span></td><td><span class="badge badge--green">✓</span></td><td><span class="badge badge--green">✓</span></td></tr>
+          <tr><td>SLA Config</td><td>—</td><td>—</td><td><span class="badge badge--green">✓</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

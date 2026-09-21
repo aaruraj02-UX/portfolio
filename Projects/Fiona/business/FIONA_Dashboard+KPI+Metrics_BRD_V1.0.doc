@@ -1,0 +1,1721 @@
+Date: Tue, 7 Apr 2026 10:59:37 +0000 (UTC)
+Message-ID: <22811532.27.1775559577742@5fd5e5c4fe36>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_26_1171133440.1775559577741"
+
+------=_Part_26_1171133440.1775559577741
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>FIONA_Dashboard KPI Metrics_BRD_V1.0</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>FIONA_Dashboard KPI Metrics_BRD_V1.0</h1>
+    <div class=3D"Section1">
+        <p local-id=3D"985ea92dd9ff"></p><span class=3D"confluence-embedded=
+-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img cl=
+ass=3D"confluence-embedded-image image-center" alt=3D"att_1_for_973373540.p=
+ng" width=3D"400" loading=3D"lazy" src=3D"8b10d02a5ac0b1144acd39ca456bd0b6f=
+ebf8c848c90190a1730cc8e58f69fb7" data-image-src=3D"https://marston.atlassia=
+n.net/wiki/download/attachments/1778253865/306e18c6-de12-4d64-b9e0-9577a665=
+fb41%23media-blob-url=3Dtrue%26id=3D11549088-2064-439f-8b46-37d0f6fe5030%26=
+contextId=3D1224507393%26collection=3DcontentId-1224507393?version=3D1&amp;=
+modificationDate=3D1773640001706&amp;cacheVersion=3D1&amp;api=3Dv2" data-he=
+ight=3D"312" data-width=3D"1000" data-unresolved-comment-count=3D"0" data-l=
+inked-resource-id=3D"1778909199" data-linked-resource-version=3D"1" data-li=
+nked-resource-type=3D"attachment" data-linked-resource-default-alias=3D"306=
+e18c6-de12-4d64-b9e0-9577a665fb41#media-blob-url=3Dtrue&amp;id=3D11549088-2=
+064-439f-8b46-37d0f6fe5030&amp;contextId=3D1224507393&amp;collection=3Dcont=
+entId-1224507393" data-base-url=3D"https://marston.atlassian.net/wiki" data=
+-linked-resource-content-type=3D"image/jpeg" data-linked-resource-container=
+-id=3D"1778253865" data-linked-resource-container-version=3D"4" data-media-=
+id=3D"c196df35-4807-46b1-add7-29cfd02c1699" data-media-type=3D"file" height=
+=3D"124"></span>
+<p local-id=3D"54bb3ec0a6e3" style=3D"text-align: center;">&nbsp;</p>
+<p local-id=3D"d89f4511e6b9" style=3D"text-align: center;">&nbsp;</p>
+<p local-id=3D"167edbdaa3d6" style=3D"text-align: center;"><strong>Admin Da=
+shboard KPI Metrics =E2=80=93 Business Requirement Document</strong></p>
+<p local-id=3D"dc9b35c118e5"><strong>&nbsp;</strong></p>
+<p local-id=3D"3a471533685e"><strong>&nbsp;</strong></p>
+<p local-id=3D"5afa67cf3310"><strong>&nbsp;</strong>Betaspace, No.2224/3, 2=
+nd Floor, Trichy Road, Reliance Garden, Singanallur, Coimbatore, Tamil Nadu=
+ 641005.</p>
+<p local-id=3D"52251c594065">Phone: (+91) 422 497 4006 e-mail: <a class=3D"=
+external-link" href=3D"mailto:info@logicvalley.in" rel=3D"nofollow"><u>info=
+@logicvalley.in</u></a> website: <a class=3D"external-link" href=3D"http://=
+www.logicvalley.in/" rel=3D"nofollow"><u>www.logicvalley.in</u></a></p>
+<p local-id=3D"5bc046278f61"><strong>&nbsp;</strong></p>
+<h1 local-id=3D"f28a9624-4b29-4296-8965-b4b52c56283d" id=3D"FIONA_Dashboard=
+KPIMetrics_BRD_V1.0-DocumentDetails"><strong>Document Details</strong></h1>
+<div class=3D"table-wrap">
+<table data-table-width=3D"921" data-layout=3D"align-start" data-local-id=
+=3D"b4a26e34-a37e-4b5b-84fc-14ee9d03cc7b" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"b33a9f2e-0c96-486a-9da1-7ab1c133757c">
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"7ec300fb-8aa8-4bd7-9=
+7ac-4915293a8bd5" class=3D"confluenceTd">
+<p local-id=3D"75ac13478f9c"><strong>Project name</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"9b050794-f5d0-4ef4-8=
+64e-6ecc4f5ade51" class=3D"confluenceTd">
+<p local-id=3D"b30bc501dba1">Admin Dashboard KPI Metrics</p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"30104cc7-e4fc-49c0-a=
+49d-ff15304dcbdf" class=3D"confluenceTd">
+<p local-id=3D"f9481909bafc"><strong>Project No.</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"e143a85d-10a7-434a-8=
+b18-4e7f15148bea" class=3D"confluenceTd">
+<p local-id=3D"7098ac792761">1</p></td>
+</tr>
+<tr data-local-id=3D"2454c421-3113-471a-baa6-503df06235c5">
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"ace3fea8-3a57-4af2-b=
+be7-c7fb0d77520f" class=3D"confluenceTd">
+<p local-id=3D"35355db4811f"><strong>Version No.</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"c5a117bc-66d5-4e2e-8=
+ddd-d0353bac623f" class=3D"confluenceTd">
+<p local-id=3D"8e949511db6d">1.0</p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"ad2f26b2-40d5-4c8a-a=
+0f4-5b8c2b657104" class=3D"confluenceTd">
+<p local-id=3D"8b68c1fe1760"><strong>Author</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"c8736e4c-8f17-4b3d-b=
+f23-c8cc5431e6bd" class=3D"confluenceTd">
+<p local-id=3D"9f5ecdd18877">Seema Mathiyarasu</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"c41c0d2c514d"></p>
+<p local-id=3D"1fdaf5559ffe"><strong>Document History</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"932" data-layout=3D"align-start" data-local-id=
+=3D"96cc2ecb-4f76-4518-a6e8-2b32753fb908" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 80.0px;">
+<col style=3D"width: 236.0px;">
+<col style=3D"width: 213.0px;">
+<col style=3D"width: 201.0px;">
+<col style=3D"width: 202.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"e07a52e0-5e98-4914-9d6d-d39a54a6ce7f">
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"2abee2d5-f02f-4a7e-9=
+3f6-5949ea98b624" class=3D"confluenceTd">
+<p local-id=3D"d08b0e22eb5b" style=3D"text-align: center;"><strong>Version =
+No.</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"1494afc2-1fb8-4a86-9=
+92d-b31f16c1279a" class=3D"confluenceTd">
+<p local-id=3D"f0e2b15b5eb9" style=3D"text-align: center;"><strong>Change S=
+ummary</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"820a6d76-5244-4cc1-a=
+b5f-51428aba8074" class=3D"confluenceTd">
+<p local-id=3D"112daf5f2a1e" style=3D"text-align: center;"><strong>Prepared=
+/Modified By &amp; Date</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"5bb012c3-11d0-4a36-b=
+d3f-97a65596a4b3" class=3D"confluenceTd">
+<p local-id=3D"669c601c17bc" style=3D"text-align: center;"><strong>Reviewed=
+ By &amp; Date</strong></p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"51babd38-25da-437b-9=
+959-b3a066077040" class=3D"confluenceTd">
+<p local-id=3D"a28124ec8436" style=3D"text-align: center;"><strong>Approved=
+ By &amp; Date</strong></p></td>
+</tr>
+<tr data-local-id=3D"5c28efd3-c4ae-430d-8791-77e83bf62a03">
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"dcab9b53-03ac-4e38-8=
+29c-c4dbb09365a2" class=3D"confluenceTd">
+<p local-id=3D"190516c2b4da">1.0</p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"5ca3917d-2656-42f7-9=
+3c7-87d617bfbece" class=3D"confluenceTd">
+<p local-id=3D"3e24fd4ed9c1">Initial Draft - Business Spec</p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"be2019ca-ee55-47cd-8=
+dc9-616a884a7aed" class=3D"confluenceTd">
+<p local-id=3D"b9e87ff0e490"><a class=3D"confluence-userlink user-mention" =
+data-account-id=3D"712020:d0b2ace0-46a6-40ab-9cab-bf81eeb1227c" href=3D"htt=
+ps://marston.atlassian.net/wiki/people/712020:d0b2ace0-46a6-40ab-9cab-bf81e=
+eb1227c?ref=3Dconfluence" target=3D"_blank" data-linked-resource-id=3D"9929=
+03178" data-linked-resource-version=3D"1" data-linked-resource-type=3D"user=
+info" data-base-url=3D"https://marston.atlassian.net/wiki">Seema Mathiyaras=
+u</a> / 19-Mar-2026</p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"706ca0cf-e9d2-4b60-b=
+d77-5199265f8647" class=3D"confluenceTd">
+<p local-id=3D"7bf44f71bd49">&nbsp;<a class=3D"confluence-userlink user-men=
+tion" data-account-id=3D"712020:300e5caa-a789-4719-989f-417c90ba872c" href=
+=3D"https://marston.atlassian.net/wiki/people/712020:300e5caa-a789-4719-989=
+f-417c90ba872c?ref=3Dconfluence" target=3D"_blank" data-linked-resource-id=
+=3D"1556414472" data-linked-resource-version=3D"1" data-linked-resource-typ=
+e=3D"userinfo" data-base-url=3D"https://marston.atlassian.net/wiki">Shruthi=
+ Ramachandran</a> / 16-03-2026</p></td>
+<td data-highlight-colour=3D"#ffffff" data-local-id=3D"ca784ca0-918d-40b8-9=
+466-5fb4ac9db0cd" class=3D"confluenceTd">
+<p local-id=3D"bddcc847232c"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"2b754fb33440">&nbsp;</p>
+<p local-id=3D"8b0c1b5e2458"></p>
+<p local-id=3D"ab3fcb559c0a">COPYRIGHT NOTICE</p>
+<p local-id=3D"0209315d1ba3">=C2=A9 2022-23 Logic Valley Technologies Priva=
+te Limited. All rights reserved. These materials are confidential and propr=
+ietary to Logic Valley Technologies Private Limited, and no part of these m=
+aterials should be reproduced, or published in any form by any means, elect=
+ronic or mechanical including photocopy or any information storage or retri=
+eval system nor should the materials be disclosed to third parties without =
+the express written authorization of Logic Valley Technologies Private Limi=
+ted.</p>
+<p local-id=3D"d9e434a59a4d"></p>
+<style type=3D"text/css">/*<![CDATA[*/
+div.rbtoc1775559577170 {padding: 0px;}
+div.rbtoc1775559577170 ul {list-style: none;margin-left: 0px;}
+div.rbtoc1775559577170 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style>
+<div class=3D"toc-macro rbtoc1775559577170">
+<ul class=3D"toc-indentation">
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-DocumentDetails">Documen=
+t Details</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-1.ExecutiveSummary">1. E=
+xecutive Summary</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-2.BusinessContext&amp;Ba=
+ckground">2. Business Context &amp; Background</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-3.BusinessObjective">3. =
+Business Objective</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-4.Scope">4. Scope</a></l=
+i>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.FunctionalRequirements=
+">5. Functional Requirements</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.1SystemOverviewKPIs">5=
+.1 System Overview KPIs</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.2WorkflowActivityMonit=
+oring">5.2 Workflow Activity Monitoring</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.3ApprovalDelayMonitori=
+ng">5.3 Approval Delay Monitoring</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.4AutomationEfficiency"=
+>5.4 Automation Efficiency</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.4.1AllPay">5.4.1 All P=
+ay</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.4.2KEYIVR">5.4.2 KEYIV=
+R</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.4.3BankStatementModule=
+">5.4.3 Bank Statement Module</a></li>
+</ul></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.5DashboardFilters">5.5=
+ Dashboard Filters</a></li>
+</ul></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.6ActionableInsights">5=
+.6 Actionable Insights</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.1Exception=E2=80=91B=
+asedKPIs">5.6.1 Exception=E2=80=91Based KPIs</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.1.1LongestPendingApp=
+rovalHighlight">5.6.1.1 Longest Pending Approval Highlight</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.1.2ModulesWithHighes=
+tRejectionRate">5.6.1.2 Modules With Highest Rejection Rate</a></li>
+</ul></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.2Trend=E2=80=91Based=
+KPIs">5.6.2 Trend=E2=80=91Based KPIs</a></li>
+</ul></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-6.Stakeholders">6. Stake=
+holders</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-7.AccessControlRequireme=
+nts">7. Access Control Requirements</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-8.Assumptions">8. Assump=
+tions</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-9.Dependencies">9. Depen=
+dencies</a></li>
+<li><a href=3D"#FIONA_DashboardKPIMetrics_BRD_V1.0-10.Appendix">10. Appendi=
+x</a></li>
+</ul></li>
+</ul>
+</div>
+<p local-id=3D"554a293d87fe"></p>
+<p local-id=3D"26e6639b8a31"></p>
+<h2 local-id=3D"527e283315c0" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-1.Ex=
+ecutiveSummary">1. Executive Summary</h2>
+<p local-id=3D"2b5450481d00">The Fiona Admin Dashboard will provide adminis=
+trators with a centralized view of system usage, workflow performance, and =
+automation activity across Fiona modules. The dashboard will consolidate ke=
+y performance indicators (KPIs) related to user engagement, request and app=
+roval activities, and bot processing metrics into a single interface.</p>
+<p local-id=3D"c07be13267fe">This will enable administrators to monitor mod=
+ule usage, track operational performance, identify approval delays, and ove=
+rsee bot-driven processes such as All Pay and KEYIVR. By providing clear vi=
+sibility into system activity and automation performance, the dashboard wil=
+l support improved operational monitoring and data-driven decision making.<=
+/p>
+<h2 local-id=3D"97fc029dbe55" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-2.Bu=
+sinessContext&amp;Background">2. Business Context &amp; Background</h2>
+<p local-id=3D"44ebffacef73">Fiona is an internal automation platform suppo=
+rting multiple business processes across Treasury, Payroll, and Finance tea=
+ms. The platform includes modules such as Ad Hoc Payments, Bank Statement p=
+rocessing, Variable Pay, Pension Analysis, Vehicle Release Payments, and bo=
+t-driven processes like All Pay and KEYIVR.</p>
+<p local-id=3D"473996dc3642">As the platform expands, administrators requir=
+e improved visibility into system usage, workflow activity, and automation =
+performance. Currently, monitoring these activities requires manual effort =
+or fragmented information sources.</p>
+<p local-id=3D"cc6da0941cd6">The introduction of the Admin Dashboard will p=
+rovide a consolidated monitoring capability, enabling administrators to tra=
+ck user activity, workflow metrics, and bot performance in a structured and=
+ efficient manner.</p>
+<h2 local-id=3D"3fa4db8f8d64" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-3.Bu=
+sinessObjective">3. Business Objective</h2>
+<p local-id=3D"2170a8178920">The main objective of the Fiona Admin Dashboar=
+d is to provide authorized administrators with a centralized interface to:<=
+/p>
+<ul local-id=3D"c727200d-4791-47bf-9f70-c2fec3f6a37e">
+<li local-id=3D"8b0707ef-de48-4f1d-b432-1f25917bc7e0">
+<p local-id=3D"43efcd64fa2d">Monitor user activity and overall system engag=
+ement</p></li>
+<li local-id=3D"c2348e91-6be4-470b-8fc8-8647942a480a">
+<p local-id=3D"08cd9a76cd2c">Track workflow requests, approvals, and reject=
+ions</p></li>
+<li local-id=3D"ae50fe4c-e2a4-4b7d-9033-4f1f316966fe">
+<p local-id=3D"19dee0ec6572">Analyse usage patterns across all Fiona module=
+s</p></li>
+<li local-id=3D"232293fb-c8c5-4adc-b11f-a26368b1c23c">
+<p local-id=3D"1e1b66cc8c23">Monitor bot-driven processing activity</p></li=
+>
+<li local-id=3D"b6460f62-4c80-4864-9a9a-5ac15031c088">
+<p local-id=3D"2426e3b79a91">Identify manual interventions required due to =
+bot failures</p></li>
+<li local-id=3D"e20af577-04a1-4ddd-a4ef-890ea5b29944">
+<p local-id=3D"5e5204d65120">Detect delays, bottlenecks, and operational in=
+efficiencies</p></li>
+</ul>
+<p local-id=3D"21bc1d7c7c82">The dashboard will support calendar=E2=80=91ba=
+sed filtering (daily, weekly, monthly, custom) to allow trend analysis and =
+performance monitoring over time.</p>
+<h2 local-id=3D"86b736e549dd" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-4.Sc=
+ope">4. Scope</h2>
+<p local-id=3D"4b5eac8842c8">The dashboard will consolidate activity and op=
+erational data across all the modules:</p>
+<p local-id=3D"0f2d97c88de7"><strong>In-scope:</strong></p>
+<ul local-id=3D"deb039e3-165e-4789-948f-a728526d61e9">
+<li local-id=3D"53acb9bb-cbdf-4cf4-8997-80bb060393fb">
+<p local-id=3D"2106690deb6a">Data visualization and KPI reporting</p></li>
+<li local-id=3D"4036c0e49c3a">
+<p local-id=3D"e8879db78e01">Highlights modules with unusually high rejecti=
+on counts</p></li>
+<li local-id=3D"507c797e-d926-46a1-86db-9a6388e8a92b">
+<p local-id=3D"291af0fb39e9">User activity metrics</p></li>
+<li local-id=3D"01dd6d62-782e-4a89-8533-970379d9b557">
+<p local-id=3D"9c7e6cbec4e2">Workflow request monitoring</p></li>
+<li local-id=3D"8d669018-5b9b-4d16-8cf8-dae6d59f8126">
+<p local-id=3D"ce84c0a66fdc">Approval delay tracking</p></li>
+<li local-id=3D"ce037363-49e9-4488-9961-9efc06fdb4a8">
+<p local-id=3D"2ff9cecdacb7">Automation efficiency metrics</p></li>
+<li local-id=3D"f56fc821-47ac-4ef2-817b-84f199010b24">
+<p local-id=3D"ed62d919bc24">Dashboard filtering</p></li>
+<li local-id=3D"644cadca-0b23-4165-bf0d-0077aa6c2370">
+<p local-id=3D"712dc1bc13ef">Export capabilities</p></li>
+</ul>
+<p local-id=3D"1072bb84962d"><strong>Out of scope:</strong></p>
+<ul local-id=3D"8c007dd7-bb3d-46e5-99d0-830fb1e1c68f">
+<li local-id=3D"138fed69-79b4-47cd-9659-638715c1f8cc">
+<p local-id=3D"542a552ed136">Editing or modifying records</p></li>
+<li local-id=3D"81069ee6-2e87-4037-8752-afa0454f5451">
+<p local-id=3D"b655725946cf">User management or configuration changes</p></=
+li>
+<li local-id=3D"e0106d2d-9f32-4f35-b4d4-1587559c9bac">
+<p local-id=3D"b882c1f33bad">Workflow rule configuration</p></li>
+<li local-id=3D"ff9dfc4f-9c58-4d67-b43a-ef0b12e090ce">
+<p local-id=3D"445270c06645">Bot configuration or scheduling management</p>=
+</li>
+</ul>
+<h2 local-id=3D"15caafa00215" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.Fu=
+nctionalRequirements">5. <strong>Functional Requirements</strong></h2>
+<h3 local-id=3D"988d359eefd6" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.1S=
+ystemOverviewKPIs">5.1 System Overview KPIs</h3>
+<p local-id=3D"865dd75eac7e">The dashboard shall display the following high=
+=E2=80=91level metrics:</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"979" data-layout=3D"align-start" data-local-id=
+=3D"a30d45f3-e467-469a-9113-37b471e71636" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 257.0px;">
+<col style=3D"width: 722.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"2c373161-a22e-4a4f-896d-4c68445cd13c">
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"de5baaa1-d647-404=
+3-af26-4b083387b554" class=3D"confluenceTd">
+<p local-id=3D"fbdec6057cc1"><strong>KPI</strong></p></td>
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"f5918ea8-afca-427=
+8-a6ee-697aa52be67c" class=3D"confluenceTd">
+<p local-id=3D"1c43a68b42db"><strong>Description</strong></p></td>
+</tr>
+<tr data-local-id=3D"f009376f-6652-403c-8324-d3a1c262031e">
+<td data-local-id=3D"89fd01e8-c38b-4dbf-b961-e2fb4a512379" class=3D"conflue=
+nceTd">
+<p local-id=3D"ba2899f4fa6f">Total Active Users</p></td>
+<td data-local-id=3D"538c3381-3d48-4319-9b5d-1f8eb497c766" class=3D"conflue=
+nceTd">
+<p local-id=3D"efd9878e4f56">Count and user details of unique users accessi=
+ng Fiona in the selected period.</p></td>
+</tr>
+<tr data-local-id=3D"ac01c9f7706a">
+<td data-local-id=3D"a0088771-7bc9-4d8f-8104-ac1848cd997e" class=3D"conflue=
+nceTd">
+<p local-id=3D"8312550c490f">Total Active Users by module wise</p></td>
+<td data-local-id=3D"1f9000e7cd2c" class=3D"confluenceTd">
+<p local-id=3D"9bcdebf75282">Count and user details of unique users accessi=
+ng Fiona modules in the selected period</p></td>
+</tr>
+<tr data-local-id=3D"b758a00c-daaa-4f3f-a4b9-e50f34592a33">
+<td data-local-id=3D"f94c61d7-c896-4f9d-babf-eeffea4ee9df" class=3D"conflue=
+nceTd">
+<p local-id=3D"242a7ebfbeaf">Module with Highest Activity</p></td>
+<td data-local-id=3D"017c780e-e2f7-42a0-973b-94027bcff2cb" class=3D"conflue=
+nceTd">
+<p local-id=3D"04655f5cb380">Module with maximum user interactions</p></td>
+</tr>
+<tr data-local-id=3D"e54e2d2d-dd88-4d4a-ab57-de179d174afa">
+<td data-local-id=3D"90fc9eef-481b-4523-ac15-37d4ebdc7cba" class=3D"conflue=
+nceTd">
+<p local-id=3D"784336734fad">Peak Usage Time</p></td>
+<td data-local-id=3D"8c31e78f-4e98-49ce-81fb-e8abd35ccc31" class=3D"conflue=
+nceTd">
+<p local-id=3D"9d03c947d272">Time period of highest activity</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"42428c3dfb21">These metrics shall be filterable by date rang=
+e</p>
+<h3 local-id=3D"0cb5253ddc47" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.2W=
+orkflowActivityMonitoring">5.2 Workflow Activity Monitoring</h3>
+<p local-id=3D"1ec1ac056353">The dashboard shall display workflow-based met=
+rics for all relevant modules:</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"977" data-layout=3D"align-start" data-local-id=
+=3D"b319790d-d355-45cf-9d40-8660d4991988" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 259.0px;">
+<col style=3D"width: 717.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"58820ca8-d004-4303-aa9e-cada31d3a5cf">
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"ce20850d-753b-48d=
+6-a29a-719f69bb0ab3" class=3D"confluenceTd">
+<p local-id=3D"1b9947c99b1a"><strong>KPI</strong></p></td>
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"43fabe3e-dbb2-4ee=
+4-ad35-093fc96bd65b" class=3D"confluenceTd">
+<p local-id=3D"4681480ef4f4"><strong>Description</strong></p></td>
+</tr>
+<tr data-local-id=3D"35e6a222-40ff-44ff-8cb6-2130ccde20a1">
+<td data-local-id=3D"45d9279e-66d3-4f83-b129-903d6e320088" class=3D"conflue=
+nceTd">
+<p local-id=3D"55b04784aef1">Requests Raised</p></td>
+<td data-local-id=3D"4be57736-fc8e-4319-bfd9-718d408859ca" class=3D"conflue=
+nceTd">
+<p local-id=3D"a5bb7c1c9e10">Total requests created</p></td>
+</tr>
+<tr data-local-id=3D"7d9339fb-4779-4e2e-a57f-4e2d5105703d">
+<td data-local-id=3D"dabe8091-992b-4b10-bb83-9db4874a6f5b" class=3D"conflue=
+nceTd">
+<p local-id=3D"5c46c66ef4ff">Approvals Completed</p></td>
+<td data-local-id=3D"295ae7c4-6414-4e24-b285-9c5d02a93f59" class=3D"conflue=
+nceTd">
+<p local-id=3D"d2bdf2ca4149">Total approved requests</p></td>
+</tr>
+<tr data-local-id=3D"1edaf2d8-6ea8-4103-b2ba-06d6d5a39239">
+<td data-local-id=3D"611d5c78-c805-43ea-84a5-d9461bb43e51" class=3D"conflue=
+nceTd">
+<p local-id=3D"2e28245eacea">Rejected Requests</p></td>
+<td data-local-id=3D"8b7e237c-6007-4989-948c-346eff5764ef" class=3D"conflue=
+nceTd">
+<p local-id=3D"e4212bc891a2">Total rejected requests</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"fdcf0525fa2d">These metrics shall be filterable by module, d=
+ate range</p>
+<h3 local-id=3D"2f7c8670e715" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.3A=
+pprovalDelayMonitoring">5.3 Approval Delay Monitoring</h3>
+<p local-id=3D"a2a0ee7c73cc">The dashboard shall categorize pending approva=
+ls into the following age brackets to help administrators monitor delays an=
+d identify bottlenecks:</p>
+<ul local-id=3D"d1602c77-22be-4fb6-a62b-92c4700cb729">
+<li local-id=3D"bc1975ce-e623-4553-bcf2-091c35f4e2aa">
+<p local-id=3D"d05f10e0e094"><strong>&lt; 1 day</strong></p></li>
+<li local-id=3D"0bfb1e2c-3bbf-4717-85c0-dd63939df222">
+<p local-id=3D"44a824a90fd4"><strong>1=E2=80=933 days</strong></p></li>
+<li local-id=3D"a6d9fe63-9ce8-47e1-8da3-e81984c6d8a6">
+<p local-id=3D"95b6d51cc9e4"><strong>3=E2=80=935 days</strong></p></li>
+<li local-id=3D"81d792ee-e4aa-4809-b199-bcdb99a35426">
+<p local-id=3D"dd44ebe94817"><strong>More than 5 days</strong></p></li>
+</ul>
+<p local-id=3D"5b429a4cc40b">This enables administrators to identify bottle=
+necks and escalation points within the approval workflow.</p>
+<h3 local-id=3D"30aa8b99d485" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.4A=
+utomationEfficiency">5.4 Automation Efficiency</h3>
+<h4 local-id=3D"1d7c506fc355" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.4.=
+1AllPay">5.4.1 All Pay</h4>
+<div class=3D"table-wrap">
+<table data-table-width=3D"977" data-layout=3D"align-start" data-local-id=
+=3D"46b768ac-19ba-4c0d-a06a-046bc781e010" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 266.0px;">
+<col style=3D"width: 711.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"8df52a6e-d9ec-4bc2-ad3f-d22f99e65990">
+<td data-local-id=3D"daac0800-f3a6-4cd7-9311-dfb9351ded62" class=3D"conflue=
+nceTd">
+<p local-id=3D"6d74feeb0a7e"><strong>KPI</strong></p></td>
+<td data-local-id=3D"a7aaa2cd-11db-41ad-aac9-9ddb20d3f0b9" class=3D"conflue=
+nceTd">
+<p local-id=3D"8ad209f26409"><strong>Description</strong></p></td>
+</tr>
+<tr data-local-id=3D"89d436de-2e49-46d7-bae1-fbf2ade1c9bb">
+<td data-local-id=3D"1ca45d0e-92fb-4984-9ac4-5d012dda10d7" class=3D"conflue=
+nceTd">
+<p local-id=3D"288ac0b01167">Average Time for Bot Completion</p></td>
+<td data-local-id=3D"ddbb8ab8-d26e-4c2e-b89a-b22c30a220c9" class=3D"conflue=
+nceTd">
+<p local-id=3D"519abc83d70f">The average time taken by the All Pay bot to c=
+omplete processing of a file</p></td>
+</tr>
+<tr data-local-id=3D"e2c78a33-2943-4ca4-af20-432492ce6470">
+<td data-local-id=3D"922cdbec-5caa-45df-ba0a-251a656f09f1" class=3D"conflue=
+nceTd">
+<p local-id=3D"e81595e49a2a">Number of Files Received</p></td>
+<td data-local-id=3D"0e1371e7-de41-4f15-874a-e9831e2dfd65" class=3D"conflue=
+nceTd">
+<p local-id=3D"025a2e831f68">Total number of files received for processing,=
+ displayed based on the selected calendar period (daily, weekly, or monthly=
+, Custom).</p></td>
+</tr>
+<tr data-local-id=3D"b25ec3d5-63f0-4e4f-8eae-9ad87bb572f7">
+<td data-local-id=3D"c5e7b272-e7d1-4bf7-869d-fc67b1d6eb7a" class=3D"conflue=
+nceTd">
+<p local-id=3D"ba523eeb3654">Success Rate</p></td>
+<td data-local-id=3D"dc4bd813-b504-4216-91b6-6a644097389e" class=3D"conflue=
+nceTd">
+<p local-id=3D"f8a90594f42e">Percentage of files successfully processed by =
+the bot without failure.</p></td>
+</tr>
+<tr data-local-id=3D"47cd1306-e757-4d42-ba5b-c8cf65c33ec6">
+<td data-local-id=3D"fdefe54c-c2f3-4fd7-91dc-98cfcf99ef92" class=3D"conflue=
+nceTd">
+<p local-id=3D"21fbb5f8cf9d">Failure Rate</p></td>
+<td data-local-id=3D"822e60d8-7799-45c1-9834-6c5a36a95869" class=3D"conflue=
+nceTd">
+<p local-id=3D"1ab6d59145e1">Percentage of transactions that failed bot pro=
+cessing and required manual intervention.</p></td>
+</tr>
+<tr data-local-id=3D"49ffb68186a7">
+<td data-local-id=3D"d74ce23cf48c" class=3D"confluenceTd">
+<p local-id=3D"08fd2ddd42a0">Last Bot Execution Time</p></td>
+<td data-local-id=3D"8ca9f08da73f" class=3D"confluenceTd">
+<p local-id=3D"72e4c994b98d">Timestamp of last run</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 local-id=3D"21f55dcd010d" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.4.=
+2KEYIVR">5.4.2 KEYIVR</h4>
+<div class=3D"table-wrap">
+<table data-table-width=3D"975" data-layout=3D"align-start" data-local-id=
+=3D"9de66688e995" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 266.0px;">
+<col style=3D"width: 709.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"d1db3d33-99c2-424e-a60d-59c1ac0f7f69">
+<td data-local-id=3D"7819130b-af46-490c-aa29-25e5de5e5f6a" class=3D"conflue=
+nceTd">
+<p local-id=3D"ab44b6d03615"><strong>KPI</strong></p></td>
+<td data-local-id=3D"18e6f8b5-a21f-4c78-8eaa-ce1fdcc7f7a8" class=3D"conflue=
+nceTd">
+<p local-id=3D"a3511dd4b530"><strong>Description</strong></p></td>
+</tr>
+<tr data-local-id=3D"f7db42dc-d93c-4c44-96e5-fcc3d41b89f0">
+<td data-local-id=3D"a7143a8a-f8af-4b67-880a-ee9682bb7afe" class=3D"conflue=
+nceTd">
+<p local-id=3D"605fa2772ae3">Average Time for Bot Completion</p></td>
+<td data-local-id=3D"0313f83c-68bf-4cd5-a028-25cc6ab0c5bb" class=3D"conflue=
+nceTd">
+<p local-id=3D"bd81433aa66c">The average time taken by the KEYIVR bot to co=
+mplete processing of a file inside columbus</p></td>
+</tr>
+<tr data-local-id=3D"a1949a48-ea62-426c-8f7f-2584ea8a0910">
+<td data-local-id=3D"6cd79e6f-063d-4000-a437-2d66dd053db3" class=3D"conflue=
+nceTd">
+<p local-id=3D"bd0a57e5a81b">Number of Files Received</p></td>
+<td data-local-id=3D"ded00604-9474-4ad3-9ad2-761fb7190d61" class=3D"conflue=
+nceTd">
+<p local-id=3D"53259ef9a071">Total number of files received in columbus for=
+ processing, displayed based on the selected calendar period (daily, weekly=
+, or monthly, Custom).</p></td>
+</tr>
+<tr data-local-id=3D"f2676df4-e2ff-46d2-a53c-778fb23d1e3a">
+<td data-local-id=3D"f9191f2f-d270-479c-983a-ea1a6c72ee52" class=3D"conflue=
+nceTd">
+<p local-id=3D"ee0f655642b0">Success Rate</p></td>
+<td data-local-id=3D"f947766e-4560-419c-b9b0-d20b231f2477" class=3D"conflue=
+nceTd">
+<p local-id=3D"1a06bc07c732">Percentage of files successfully processed by =
+the bot without failure</p></td>
+</tr>
+<tr data-local-id=3D"49742bcf-73a6-4739-82c2-ba779cea02eb">
+<td data-local-id=3D"c08198d0-5fb5-413d-bfd2-369822b33b27" class=3D"conflue=
+nceTd">
+<p local-id=3D"c1903454683f">Failure Rate / Manual Work Rate</p></td>
+<td data-local-id=3D"31c8155b-3595-43e1-93fe-0381c99215ef" class=3D"conflue=
+nceTd">
+<p local-id=3D"a0c87a4efc69">Percentage of transactions that failed bot pro=
+cessing</p></td>
+</tr>
+<tr data-local-id=3D"4ea85908-f1c3-4e75-af44-a153ec380fc9">
+<td data-local-id=3D"19b28e6f-f2f6-40de-bc7b-6f8cb363c965" class=3D"conflue=
+nceTd">
+<p local-id=3D"69c52c3ac428">Manual resolved Rate</p></td>
+<td data-local-id=3D"1e58afaa-85ba-42eb-a453-f0db0a74ecf2" class=3D"conflue=
+nceTd">
+<p local-id=3D"5e2081d07d3b">Percentage of transactions that failed bot pro=
+cessing and resolved manually</p></td>
+</tr>
+<tr data-local-id=3D"62580ad22e08">
+<td data-local-id=3D"d0637e9e-49cb-4f21-8095-ca69e2849b31" class=3D"conflue=
+nceTd">
+<p local-id=3D"767b2693c89f">Last Bot Execution Time</p></td>
+<td data-local-id=3D"bca48595-8300-4955-8619-2f18ccf9f4d7" class=3D"conflue=
+nceTd">
+<p local-id=3D"155c3c3984c9">Timestamp of last run</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 local-id=3D"b8757e245c31" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.4.=
+3BankStatementModule">5.4.3 Bank Statement Module</h4>
+<div class=3D"table-wrap">
+<table data-table-width=3D"980" data-layout=3D"align-start" data-local-id=
+=3D"6dcb512b-b594-49c6-a0d0-59040536ae25" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 264.0px;">
+<col style=3D"width: 715.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"34f23a4e-b62c-4393-b49d-6ac07ec2ff72">
+<td data-local-id=3D"d6973392-fe0e-4305-9deb-1d069b1dfed0" class=3D"conflue=
+nceTd">
+<p local-id=3D"3cff8b5d1564"><strong>KPI</strong></p></td>
+<td data-local-id=3D"dee1a3b0-cf33-40a7-a147-51c596e3e2fa" class=3D"conflue=
+nceTd">
+<p local-id=3D"6106438b0b42"><strong>Description</strong></p></td>
+</tr>
+<tr data-local-id=3D"96f8a99f-64aa-4275-aded-bce0582c8fd5">
+<td data-local-id=3D"efbe86a9-4142-49cc-8eb7-13fdd0b16258" class=3D"conflue=
+nceTd">
+<p local-id=3D"9c5a7c8cec55">Number of Files Uploaded</p></td>
+<td data-local-id=3D"936935f5-1649-46e9-8af6-6f67719cbea7" class=3D"conflue=
+nceTd">
+<p local-id=3D"39f94dfa92c9">Total number of bank statement files uploaded =
+into the system during the selected reporting period.</p></td>
+</tr>
+<tr data-local-id=3D"0d11f2c7-813e-47ac-b1cd-e77d4b102f8f">
+<td data-local-id=3D"b519d4fc-df18-488d-bd11-680fffb25c6b" class=3D"conflue=
+nceTd">
+<p local-id=3D"01d641170a58">Processing Rate</p></td>
+<td data-local-id=3D"90e8fc05-5bee-4cd5-a6de-58669e0b7357" class=3D"conflue=
+nceTd">
+<p local-id=3D"2381394d7559">Percentage of uploaded files successfully proc=
+essed and validated by the system.</p></td>
+</tr>
+<tr data-local-id=3D"fbeb9964-3a6d-47b9-a311-a0fd7b6380a3">
+<td data-local-id=3D"c5524342-3a8c-47eb-9901-10722da3ee2c" class=3D"conflue=
+nceTd">
+<p local-id=3D"68d8aa35c293">Error Rate</p></td>
+<td data-local-id=3D"f1c18410-f8a9-4146-b7db-dea77489607a" class=3D"conflue=
+nceTd">
+<p local-id=3D"9cce4f3cbf19">Percentage of uploaded files that failed valid=
+ation due to format errors, duplicate files, or data inconsistencies.</p></=
+td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"cdf215c64f28">These metrics shall be filterable by date rang=
+e.</p>
+<h3 local-id=3D"633c08ab4377" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.5D=
+ashboardFilters">5.5 Dashboard Filters</h3>
+<p local-id=3D"0ee62cfca4b1">The following dynamic filters will be availabl=
+e:</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"967" data-layout=3D"align-start" data-local-id=
+=3D"a28800df-888a-45b9-adae-cffb52e3d508" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 169.0px;">
+<col style=3D"width: 798.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"7c2ef007-c491-48cf-a760-a48c1d1caf94">
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"5d97b842-409a-492=
+9-948e-f6448fca4f36" class=3D"confluenceTd">
+<p local-id=3D"f547a4183643"><strong>Filter</strong></p></td>
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"3f1d8a9c-dcf7-424=
+c-8d15-33c098320a6f" class=3D"confluenceTd">
+<p local-id=3D"2e99633d36b7"><strong>Description</strong></p></td>
+</tr>
+<tr data-local-id=3D"46069e66-fad7-47fa-b3d0-7e32031053ae">
+<td data-local-id=3D"8b0c185d-f2c8-45d9-94ce-c25b61a09808" class=3D"conflue=
+nceTd">
+<p local-id=3D"933bf61cfb13">Date Range</p></td>
+<td data-local-id=3D"c6991e7b-6f82-46c4-8182-e97a0e26bf91" class=3D"conflue=
+nceTd">
+<p local-id=3D"dd706dece39d">Daily, Weekly, Monthly, Custom</p></td>
+</tr>
+<tr data-local-id=3D"efc0707d-b3c7-4bc8-ae54-c7885897de43">
+<td data-local-id=3D"5062c0a4-6637-4e61-8fc3-d349ff873d21" class=3D"conflue=
+nceTd">
+<p local-id=3D"dcc825003e7e">Module</p></td>
+<td data-local-id=3D"aea23d25-225c-4e31-bd01-b4ada146f0d0" class=3D"conflue=
+nceTd">
+<p local-id=3D"1af285b1f4dd">Filter by individual modules</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"eb4afac746a0">Selecting filters shall refresh all dashboard =
+visualizations in real time.</p>
+<h2 local-id=3D"2d435b69f5c7" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.6A=
+ctionableInsights">5.6 Actionable Insights</h2>
+<p local-id=3D"df8410f8e40d">To enhance administrative visibility and reduc=
+e the effort required to identify operational issues, the dashboard shall i=
+nclude an <strong>Actionable Insights</strong> panel that highlights key ex=
+ceptions, performance outliers, and trend-based deviations.</p>
+<h3 local-id=3D"516c7b784b79" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.=
+1Exception=E2=80=91BasedKPIs">5.6.1 Exception=E2=80=91Based KPIs</h3>
+<h4 local-id=3D"aa91c7eac3ba" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.=
+1.1LongestPendingApprovalHighlight">5.6.1.1 Longest Pending Approval Highli=
+ght</h4>
+<p local-id=3D"bc1edce0ecdd">In addition to age=E2=80=91based categorizatio=
+n, the dashboard highlights <strong>the longest pending approvals</strong> =
+across all modules. and Display key attributes for each record</p>
+<p local-id=3D"f32c22880ba6">This feature ensures administrators can quickl=
+y detect high=E2=80=91risk delays and take timely escalation actions.</p>
+<h4 local-id=3D"c0d7b606b8e1" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.=
+1.2ModulesWithHighestRejectionRate">5.6.1.2 Modules With Highest Rejection =
+Rate</h4>
+<p local-id=3D"6180fb69f05d">The system shall display a ranked list of modu=
+les based on their rejection percentage for the selected period.</p>
+<ul local-id=3D"79bd4533-c033-4272-96a9-d4af952d2a21">
+<li local-id=3D"71436f98-63f6-4f30-89fc-e169c9fd7893">
+<p local-id=3D"9039090c20c7">Highlights modules with unusually high rejecti=
+on counts</p></li>
+<li local-id=3D"7d088f07-ee4a-40f3-b6bc-fe2e132b0bb0">
+<p local-id=3D"b8d039acde28">Supports drilldown into rejection reasons and =
+request details</p></li>
+</ul>
+<h3 local-id=3D"0e98e185eb36" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-5.6.=
+2Trend=E2=80=91BasedKPIs">5.6.2 Trend=E2=80=91Based KPIs<strong> </strong><=
+/h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"951" data-layout=3D"align-start" data-local-id=
+=3D"b610274d-53b0-4f70-b9b1-222e6c6c2aee" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 289.0px;">
+<col style=3D"width: 662.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"f8bae09b47e1">
+<th data-local-id=3D"f90939e58c07" class=3D"confluenceTh">
+<p local-id=3D"bbb82c40c863"><strong>KPI</strong></p></th>
+<th data-local-id=3D"a813499ae23c" class=3D"confluenceTh">
+<p local-id=3D"132293a95298"><strong>Description</strong></p></th>
+</tr>
+<tr data-local-id=3D"55950823537d">
+<td data-local-id=3D"f1a8b029f514" class=3D"confluenceTd">
+<p local-id=3D"b64970cfcf12">Rejection Rate Trend</p></td>
+<td data-local-id=3D"18fbd1bf40ae" class=3D"confluenceTd">
+<p local-id=3D"d13a47c4e0d5">The system shall compare the current rejection=
+ rate with the previous reporting period (Daily, Weekly, Monthly, or Custom=
+) and display the increase or decrease graph</p></td>
+</tr>
+<tr data-local-id=3D"7deb90c718ab">
+<td data-local-id=3D"20a1775e6b29" class=3D"confluenceTd">
+<p local-id=3D"b242f654196c">Bot Failure Trend</p></td>
+<td data-local-id=3D"fcf7cd541b62" class=3D"confluenceTd">
+<p local-id=3D"cd936b97d04b">The dashboard shall track changes in bot failu=
+re counts across All Pay and KEYIVR, highlighting increases or decreases re=
+lative to the previous reporting period</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"3cf97f24e906" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-6.St=
+akeholders">6. Stakeholders</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"989" data-layout=3D"align-start" data-local-id=
+=3D"340b4930-d069-4a42-897b-9536a814f911" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 141.0px;">
+<col style=3D"width: 848.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"0e3c46a1-0b06-4f74-a875-3ec9cb2d3a44">
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"16e646d7-2b6e-43a=
+2-aed7-f0386cd59e38" class=3D"confluenceTd">
+<p local-id=3D"fba30a2970bc"><strong>Role</strong></p></td>
+<td data-highlight-colour=3D"whitesmoke" data-local-id=3D"29f87f1a-329b-455=
+c-969d-014691215be4" class=3D"confluenceTd">
+<p local-id=3D"edf3dade14de"><strong>Responsibility</strong></p></td>
+</tr>
+<tr data-local-id=3D"3811570e-b69e-4c4a-af16-90c50f000ed6">
+<td data-local-id=3D"6e2ca864-3506-4441-8d2f-35f6816e15ab" class=3D"conflue=
+nceTd">
+<p local-id=3D"7ccfa188701b">Admin Users</p></td>
+<td data-local-id=3D"3e7da5ba-cc32-4cf1-90a5-2c843eed0cb3" class=3D"conflue=
+nceTd">
+<p local-id=3D"155af75a2ae5">Primary users of the dashboard; monitor operat=
+ions</p></td>
+</tr>
+<tr data-local-id=3D"7c9ef747-c331-4609-9913-034f69852f50">
+<td data-local-id=3D"5369009e-84be-4cbd-9a30-9231396431b7" class=3D"conflue=
+nceTd">
+<p local-id=3D"905e74701223">Developers</p></td>
+<td data-local-id=3D"b95fd8f4-760a-40bf-8b78-f1d59ddb3e87" class=3D"conflue=
+nceTd">
+<p local-id=3D"673c28c43493">Build and maintain dashboard features</p></td>
+</tr>
+<tr data-local-id=3D"86172713-b8c0-409e-94ff-4d59af25f33b">
+<td data-local-id=3D"6a15f852-c0ae-4c80-bc14-bed3ba320fd4" class=3D"conflue=
+nceTd">
+<p local-id=3D"d5f781f0113c">Automation Team</p></td>
+<td data-local-id=3D"562ffa82-535b-4e27-81e4-46ab08ffc927" class=3D"conflue=
+nceTd">
+<p local-id=3D"e3906cfe90e2">Provide the required bot process details to su=
+pport dashboard monitoring.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 local-id=3D"8091a8522c78" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-7.Ac=
+cessControlRequirements">7. Access Control Requirements</h2>
+<ul local-id=3D"82c5a2f1-d3ff-456a-8f81-29145ef22703">
+<li local-id=3D"3e3cda65-1081-44b5-8e8a-bacdea666c46">
+<p local-id=3D"f835aa69afb4">Only users with <strong>Administrator</strong>=
+ privileges shall access the Admin Dashboard</p></li>
+<li local-id=3D"574db82f-710a-4a2d-a5b6-ca4b3c52d42d">
+<p local-id=3D"a1a3d4801c0c">Admins shall <strong>view-only</strong> analyt=
+ics except default grid actions.</p></li>
+<li local-id=3D"e35661b8-3dfe-4885-8e1b-193af5aaa63f">
+<p local-id=3D"96770cf0bd4c">No modification, editing, or configuration cap=
+abilities shall be allowed</p></li>
+</ul>
+<h2 local-id=3D"3e102c8b7efc" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-8.As=
+sumptions">8. Assumptions</h2>
+<ul local-id=3D"de824615-a324-4dd8-a74d-32418b7b59b9">
+<li local-id=3D"0f1114a6-cd06-44a9-93ae-954a101fa21d">
+<p local-id=3D"ac80f98b4cb8">All required module data is available via syst=
+em APIs or database connectors</p></li>
+<li local-id=3D"0ac4fde2-07f7-484d-ac86-81a935aa5fa2">
+<p local-id=3D"02a9a25f9aea">User role mapping is already established in Fi=
+ona</p></li>
+<li local-id=3D"a9374f40-6f1e-4730-ba2a-6eefdc4406b6">
+<p local-id=3D"fb77aebb79d1">Bot logs are stored in a structured and retrie=
+vable manner</p></li>
+</ul>
+<h2 local-id=3D"d3e4b7550425" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-9.De=
+pendencies">9. Dependencies</h2>
+<ul local-id=3D"9bf91ae7-97a8-4edb-a452-5748a5a49b4b">
+<li local-id=3D"3140ca61-8dc6-4d67-b085-dd315624c171">
+<p local-id=3D"32488da8cdd9">Module databases and Bot logs</p></li>
+<li local-id=3D"db2a918d-02d6-486b-92ec-5df5b430c6af">
+<p local-id=3D"04f24dc72a77">Authentication and role management system</p><=
+/li>
+<li local-id=3D"97d9261e-f915-4026-88cd-792249f940d2">
+<p local-id=3D"7954c3851373">Bot execution logs (All Pay &amp; KEYIVR)</p><=
+/li>
+</ul>
+<h2 local-id=3D"be98dade3254" id=3D"FIONA_DashboardKPIMetrics_BRD_V1.0-10.A=
+ppendix">10. Appendix</h2>
+<p local-id=3D"8909563e981e"><strong>Glossary</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"989" data-layout=3D"align-start" data-local-id=
+=3D"34b349d4-a07b-4a5e-92fb-3eb29e5bed64" class=3D"confluenceTable">
+<colgroup>
+<col style=3D"width: 264.0px;">
+<col style=3D"width: 724.0px;">
+</colgroup>
+<tbody>
+<tr data-local-id=3D"2a16ab3a-6eaa-48ce-9c23-b5822fc7aa38">
+<th data-local-id=3D"9c8df37e-3990-4c61-8871-f4c0f20d256e" class=3D"conflue=
+nceTh">
+<p local-id=3D"bec8aa1801eb">Term</p></th>
+<th data-local-id=3D"1da2d5c3-ded1-489d-ade3-3ad4a60a9caa" class=3D"conflue=
+nceTh">
+<p local-id=3D"2ff5c9870286">Definition</p></th>
+</tr>
+<tr data-local-id=3D"681f216c-a56f-4b88-809a-9abe7430e2b7">
+<td data-local-id=3D"7b4f648e-00c2-4a7b-9f1f-44ae1ca34df7" class=3D"conflue=
+nceTd">
+<p local-id=3D"10a38b45f93c">Fiona</p></td>
+<td data-local-id=3D"7df57dc3-87a7-470a-9c6e-140851e14877" class=3D"conflue=
+nceTd">
+<p local-id=3D"94c97a4fca7a">Internal automation platform used to manage fi=
+nancial and operational workflows across Treasury, Payroll, and Finance tea=
+ms.</p></td>
+</tr>
+<tr data-local-id=3D"2c5ad6f0-0578-45a7-a0b0-66cf7fb81a80">
+<td data-local-id=3D"bfdd8474-2e31-4020-a6b4-59fae0e794b6" class=3D"conflue=
+nceTd">
+<p local-id=3D"09a1181a8851">Admin Dashboard</p></td>
+<td data-local-id=3D"7687f5f1-669c-4957-a6d0-61a3d8640a9f" class=3D"conflue=
+nceTd">
+<p local-id=3D"deabb5fa0264">Centralized interface that provides administra=
+tors with insights into system usage, workflow performance, and automation =
+metrics.</p></td>
+</tr>
+<tr data-local-id=3D"bde58284-a8e2-4ac6-841d-caafd103b6a1">
+<td data-local-id=3D"a1ddb6df-ef9f-41f1-91d0-4e7a00a4e567" class=3D"conflue=
+nceTd">
+<p local-id=3D"531a0cc93747">KPI (Key Performance Indicator)</p></td>
+<td data-local-id=3D"173628e0-b90b-4d1f-a2d9-ccc89f52682f" class=3D"conflue=
+nceTd">
+<p local-id=3D"5200c637a491">A measurable metric used to evaluate system pe=
+rformance, user activity, or process efficiency.</p></td>
+</tr>
+<tr data-local-id=3D"03f84e4a-db26-4c01-976f-e5a0308577cf">
+<td data-local-id=3D"e2f157db-45d2-41de-9e43-7def425fbdf3" class=3D"conflue=
+nceTd">
+<p local-id=3D"2a5769e74c1c">Active User</p></td>
+<td data-local-id=3D"8144f9d8-49f6-4ecc-9d6f-ac1b9c360e97" class=3D"conflue=
+nceTd">
+<p local-id=3D"961df79cad37">A user who has accessed the Fiona system withi=
+n a specified reporting period.</p></td>
+</tr>
+<tr data-local-id=3D"4ece532c-33b4-44eb-b0d6-45a2113a8ce3">
+<td data-local-id=3D"72aa894a-a717-4475-ba85-59c4b56f8bb9" class=3D"conflue=
+nceTd">
+<p local-id=3D"9beb56113ebf">Workflow</p></td>
+<td data-local-id=3D"2b8fb46f-fd16-42b0-b19b-700d27b46316" class=3D"conflue=
+nceTd">
+<p local-id=3D"8df5bbc53991">A structured process involving request creatio=
+n, approval, and completion within Fiona modules.</p></td>
+</tr>
+<tr data-local-id=3D"8fb447b9-dde5-415a-9b98-58ff133f0414">
+<td data-local-id=3D"cac505e0-e0fd-4b13-93ab-0165c77f7b56" class=3D"conflue=
+nceTd">
+<p local-id=3D"b18cdc0eff14">Bot</p></td>
+<td data-local-id=3D"6f43c8c2-f8a7-4cbc-a70e-832068cb509d" class=3D"conflue=
+nceTd">
+<p local-id=3D"130bee69569d">An automated process (RPA) used to perform rep=
+etitive tasks such as file processing or data handling.</p></td>
+</tr>
+<tr data-local-id=3D"7ac44383-a785-42d4-9f21-ed31503fbd39">
+<td data-local-id=3D"2a0afa22-0ff7-4390-ac97-06a2eb1ef158" class=3D"conflue=
+nceTd">
+<p local-id=3D"2646a444fb0f">Bot Success Rate</p></td>
+<td data-local-id=3D"574155e4-63d9-42aa-9b09-b371679bc781" class=3D"conflue=
+nceTd">
+<p local-id=3D"a0639fcae42f">Percentage of tasks successfully completed by =
+a bot without errors.</p></td>
+</tr>
+<tr data-local-id=3D"ee30e5e5-120f-4957-8b39-45dc8b02bb36">
+<td data-local-id=3D"2189eb3f-a66e-4eb6-a6b9-75dbf582e3be" class=3D"conflue=
+nceTd">
+<p local-id=3D"15f10d1e486c">Bot Failure Rate</p></td>
+<td data-local-id=3D"667856ee-7ccc-405f-ae12-7d196e50f0f7" class=3D"conflue=
+nceTd">
+<p local-id=3D"8c9a90c81e43">Percentage of bot processes that fail and may =
+require manual intervention.</p></td>
+</tr>
+<tr data-local-id=3D"d70b10ef-934d-4857-9815-9a4e7f62bd4c">
+<td data-local-id=3D"5212a32c-039c-4697-8dfe-ffa3fae8c183" class=3D"conflue=
+nceTd">
+<p local-id=3D"e216efafeb82">Manual Intervention</p></td>
+<td data-local-id=3D"3f2d393d-b921-4c7a-8462-7ff7138e6309" class=3D"conflue=
+nceTd">
+<p local-id=3D"4411c1d74de2">Cases where a user must manually resolve issue=
+s when automated processing fails.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"80f10e505ebd">&nbsp;</p>
+<p local-id=3D"ec9831f4622a"></p>
+<p local-id=3D"c942d81d8cc4">----------------------------------------------=
+------------------End------------------------------------------------------=
+--------</p>
+    </div>
+</body>
+</html>
+------=_Part_26_1171133440.1775559577741
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/8b10d02a5ac0b1144acd39ca456bd0b6febf8c848c90190a1730cc8e58f69fb7
+
+/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCAD6AyEDAREAAhEBAxEB/9sAQwAIBgYHBgUIBwcHCQkI
+CgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJ
+CQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy
+MjIyMjIy/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+gAo
+AKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgA
+oAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACg
+AoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAC
+gAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKA
+CgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAK
+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
+hQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAF
+ABQAUAFABQAUAFABQAUAFABQAUAFABQB478cvE3kWFr4dgf95cET3GOyA/KPxIz+HvW9COtzKpLo
+eFV0mJ9I/B7wz/YnhFb+ePbd6ifNbPUR/wAA/LJ/GuOrLmZ0U42R6NWZYUAFABQAUAFABQAUAFAB
+QAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFA
+BQAUAFADJYkmiaORFdGGCrDINCbWwmk1ZnOXngXQ7tywtmgY85hbaPy6V0RxVSK3OKpl9Cbva3oZ
+3/CtNN35+13W30+X/CtPrk+xj/ZVLuy/Z+AtDtG3NBJcHt5z5A/AYrOWKqvrY1hl1CG6v6nRwQR2
+8SxQxrHGvAVRgCudtvc7oxUVZEtAwoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAC
+gAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAPN/EPwhsPEuu3O
+q3ur3wmnI+VVXagAwFHHQYrWNVpWsZumnqZ0fwG0RJUZtUv5FDAlCEww9OlP28hKmj1aKNYoljRQ
+qKAqqOgArE1H0AFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAU
+AFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQA
+UAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQ
+AUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFAB
+QAUAFABQAUAFABQAUAFABQAjMEUsxAA6kmgDk774keG7CdoTdPO6nB8iMsB+PAP4UAb2kavaa5py
+X1kzNA5IBZdpyOvFAF+gBCcUAGeaAFFABQAUAFABQAmeaAFoAKACgAoAKACgAoAKACgAoAKACgAo
+AKACgAoAKACgAoAKACgAoAKACgAoAQnFABmgBaACgANACZoAWgAoAKACgAoAqalqVrpFjJe3svlW
+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
+------=_Part_26_1171133440.1775559577741--

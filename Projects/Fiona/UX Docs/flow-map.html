@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flow Map — FinOps Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .ia-canvas{background:#f8fafc;border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;position:relative;overflow-x:auto}
+    .ia-canvas::before{content:'INFORMATION ARCHITECTURE';position:absolute;top:12px;left:16px;font-size:.6rem;letter-spacing:.1em;color:var(--text-muted);font-weight:600}
+    .ia-root{text-align:center;margin-bottom:1.5rem}
+    .ia-root-node{display:inline-block;background:linear-gradient(135deg,#312e81,#6366f1);color:#fff;padding:.75rem 2rem;border-radius:8px;font-weight:700;font-size:.9rem;box-shadow:0 4px 12px rgba(99,102,241,.3)}
+    .ia-vline{width:2px;height:24px;background:#a5b4fc;margin:0 auto}
+    .ia-level{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin:.5rem 0}
+    .ia-card{background:#fff;border:2px solid #a5b4fc;border-radius:8px;padding:.6rem 1rem;min-width:130px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+    .ia-card h4{font-size:.72rem;font-weight:700;color:#312e81;margin-bottom:.25rem}
+    .ia-card--active{border-color:#6366f1;background:#eef2ff}
+    .ia-children{display:flex;flex-direction:column;gap:.2rem;margin-top:.4rem;padding-top:.4rem;border-top:1px dashed #cbd5e1}
+    .ia-child{font-size:.58rem;color:var(--text-secondary);padding:.1rem .3rem;background:#f1f5f9;border-radius:3px}
+    .dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1.5rem 0}
+    .dash-card{border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center}
+    .dash-card h4{font-size:.7rem;font-weight:600;color:var(--text-secondary);margin-bottom:.5rem}
+    .dash-card .dash-val{font-size:1.4rem;font-weight:800;color:var(--accent)}
+    .dash-card .dash-trend{font-size:.65rem;margin-top:.25rem}
+    .dash-card .dash-trend.up{color:#10b981}
+    .dash-card .dash-trend.down{color:#ef4444}
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FinOps</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html" class="active">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/Dashboard.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>Information Architecture — Flow Map</h1>
+      <div class="doc-meta"><span>📐 FinOps Admin Dashboard</span><span>📅 10 April 2026</span></div>
+    </header>
+    <section class="doc-section">
+      <h2>Dashboard Architecture</h2>
+      <div class="ia-canvas">
+        <div class="ia-root"><div class="ia-root-node">FinOps Admin Dashboard</div></div>
+        <div class="ia-vline"></div>
+        <div class="ia-level">
+          <div class="ia-card ia-card--active">
+            <h4>KPI Overview</h4>
+            <div class="ia-children"><span class="ia-child">Active Users (peak/avg)</span><span class="ia-child">Most Active Module</span><span class="ia-child">Period Filter</span><span class="ia-child">Trend Arrows</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Approval Analytics</h4>
+            <div class="ia-children"><span class="ia-child">Donut: Approved/Rejected</span><span class="ia-child">Pending > 5 days (red)</span><span class="ia-child">By Module breakdown</span><span class="ia-child">Drill-down grid</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Module Activity</h4>
+            <div class="ia-children"><span class="ia-child">Request counts per module</span><span class="ia-child">Stacked bar by status</span><span class="ia-child">Legend-click filter</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Automation Health</h4>
+            <div class="ia-children"><span class="ia-child">AllPay bot status</span><span class="ia-child">KEYIVR bot status</span><span class="ia-child">Success/Failure rates</span><span class="ia-child">Last execution time</span></div>
+          </div>
+        </div>
+        <div class="ia-vline"></div>
+        <div class="ia-level">
+          <div class="ia-card">
+            <h4>Drill-Down Grid</h4>
+            <div class="ia-children"><span class="ia-child">Individual records</span><span class="ia-child">Sort/filter/export</span><span class="ia-child">Row click → detail</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Export</h4>
+            <div class="ia-children"><span class="ia-child">CSV export</span><span class="ia-child">PDF export</span><span class="ia-child">3 clicks max</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Dashboard KPI Card Layout (Visual)</h2>
+      <div class="dash-grid">
+        <div class="dash-card"><h4>Active Users</h4><div class="dash-val">247</div><div class="dash-trend up">↑ 12% vs last period</div></div>
+        <div class="dash-card"><h4>Approvals (Pending)</h4><div class="dash-val" style="color:#ef4444">18</div><div class="dash-trend down">3 breached SLA (&gt;5d)</div></div>
+        <div class="dash-card"><h4>Most Active Module</h4><div class="dash-val" style="font-size:1rem">Ad Hoc Payments</div><div class="dash-trend up">↑ 8% volume</div></div>
+        <div class="dash-card"><h4>Bot Success Rate</h4><div class="dash-val" style="color:#10b981">96.4%</div><div class="dash-trend up">↑ 2.1% improvement</div></div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Drill-Down Interaction Flow</h2>
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:1rem 0;">
+        <div style="background:#eef2ff;border:2px solid #6366f1;border-radius:8px;padding:.5rem 1rem;font-size:.72rem;font-weight:600;">KPI Card</div>
+        <span style="color:var(--text-muted)">→ click →</span>
+        <div style="background:#eef2ff;border:2px solid #6366f1;border-radius:8px;padding:.5rem 1rem;font-size:.72rem;font-weight:600;">Donut Segment</div>
+        <span style="color:var(--text-muted)">→ click →</span>
+        <div style="background:#eef2ff;border:2px solid #6366f1;border-radius:8px;padding:.5rem 1rem;font-size:.72rem;font-weight:600;">Filtered Grid</div>
+        <span style="color:var(--text-muted)">→ click row →</span>
+        <div style="background:#dcfce7;border:2px solid #10b981;border-radius:8px;padding:.5rem 1rem;font-size:.72rem;font-weight:600;">Record Detail</div>
+      </div>
+      <p style="text-align:center;font-size:.75rem;color:var(--text-muted);margin-top:.5rem;">Maximum 2 clicks from overview to individual record</p>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

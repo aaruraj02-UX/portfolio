@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Brief — FieldSync Task Module</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FieldSync</span>
+    <a href="ux-brief.html" class="active">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/index.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Brief — FieldSync Task Management & SLA Workflow</h1>
+      <div class="doc-meta"><span>📋 FieldSync Field App — Task Module</span><span>🏢 LogicValley Technologies</span><span>📅 10 March 2026</span><span>🔖 v1.0</span></div>
+    </header>
+
+    <section class="doc-section">
+      <h2>1. Background</h2>
+      <p>The FieldSync Field App is an operational platform used by field agents, area managers, and system administrators to coordinate and track field-based work across multiple business areas. The absence of standardised task-handling processes leads to:</p>
+      <ul>
+        <li>Delays in task resolution due to no SLA enforcement</li>
+        <li>Lack of accountability when tasks change hands without recorded context</li>
+        <li>Limited visibility for managers and admins over task health and urgency</li>
+        <li>No structured mechanism for escalation or priority management</li>
+      </ul>
+      <p>The <strong>Task Management and SLA Workflow Module</strong> introduces a governed task lifecycle, mandatory comment-driven audit trails, SLA monitoring with configurable thresholds, escalation workflows, and role-based dashboard visibility.</p>
+    </section>
+
+    <section class="doc-section">
+      <h2>2. Objectives</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Provide a structured, auditable task lifecycle from creation to completion or cancellation</td></tr>
+          <tr><td>2</td><td>Enforce mandatory comments on every task action for operational transparency</td></tr>
+          <tr><td>3</td><td>Introduce SLA monitoring with priority-based timers (Critical 30 min, High 60 min, Medium 4 h, Low 8 h)</td></tr>
+          <tr><td>4</td><td>Deliver proactive notifications when tasks approach SLA thresholds (25% remaining) or breach</td></tr>
+          <tr><td>5</td><td>Enable task escalation and reassignment with traceable ownership transfer</td></tr>
+          <tr><td>6</td><td>Provide role-based dashboards with Inside SLA / Approaching SLA / Overdue metrics</td></tr>
+          <tr><td>7</td><td>Maintain a complete, timestamped audit trail for every task action</td></tr>
+          <tr><td>8</td><td>Allow administrators to configure SLA durations per priority through Business Configuration</td></tr>
+          <tr><td>9</td><td>Support field app integration for lightweight task acknowledgement</td></tr>
+          <tr><td>10</td><td>Meet WCAG 2.2 AA accessibility standards across all task-related interfaces</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="doc-section">
+      <h2>3. Target Users</h2>
+      <table class="doc-table">
+        <thead><tr><th>Persona</th><th>Platform</th><th>Business Role</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Agent / Assignee</strong></td><td>Web + Field App</td><td>Field operative assigned tasks; must action within SLA; requires simplicity</td></tr>
+          <tr><td><strong>Manager</strong></td><td>Web</td><td>Business area supervisor monitoring SLA compliance and team workload</td></tr>
+          <tr><td><strong>Admin</strong></td><td>Web</td><td>System administrator with global visibility; configures SLA rules and audits</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="doc-section">
+      <h2>4. User Needs</h2>
+      <table class="doc-table">
+        <thead><tr><th>User</th><th>Core Need</th></tr></thead>
+        <tbody>
+          <tr><td>Agent</td><td>Know exactly what tasks are assigned, what actions to take, and track status clearly</td></tr>
+          <tr><td>Agent</td><td>Receive clear, timely notifications for overdue or approaching-SLA tasks</td></tr>
+          <tr><td>Manager</td><td>See all tasks with SLA proximity indicators on one screen</td></tr>
+          <tr><td>Manager</td><td>Reassign or escalate tasks without losing audit history</td></tr>
+          <tr><td>Admin</td><td>Configure SLA thresholds per priority with full change audit</td></tr>
+          <tr><td>All</td><td>Trust that every action is recorded with user, timestamp, and comment</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="doc-section">
+      <h2>5. SLA Configuration</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value" style="color:#ef4444">30m</div><div class="kpi-label">Critical Priority</div></div>
+        <div class="kpi-card"><div class="kpi-value" style="color:#f59e0b">60m</div><div class="kpi-label">High Priority</div></div>
+        <div class="kpi-card"><div class="kpi-value" style="color:#3b82f6">4h</div><div class="kpi-label">Medium Priority</div></div>
+        <div class="kpi-card"><div class="kpi-value" style="color:#10b981">8h</div><div class="kpi-label">Low Priority</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

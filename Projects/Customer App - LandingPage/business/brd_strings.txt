@@ -1,0 +1,2758 @@
+﻿Date: Mon, 25 May 2026 06:39:56 +0000 (UTC)
+Message-ID: `n
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related;
+boundary="----=_Part_514_614887706.1779691196726"
+------=_Part_514_614887706.1779691196726
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+`n
+`n
+`n
+`nBRD Landing Page`n
+`n
+`n
+`n
+`n1024x640`n
+`n72`n
+`n
+`n
+`n
+`nPrint`n
+`n90`n
+`n
+`n
+`n
+`n
+`n
+`n
+`nBRD Landing Page`n
+`n
+`n
+`nBusiness Requirement Document `n`n
+`nNew Landing Page`n
+`nMarston Customer App`n
+`n`n
+`n`n
+`n`n`n`n`n
+`n`n
+`n `n
+`n`n
+`n`n
+`n`n
+`n`n
+`n`nLogicValley Technologies Pvt Ltd,`n`n
+`nBetaspace, No.2224/3, 2nd Floor, Trichy Road, Reliance Garden, Singanallur, Coimbatore, Tamil Nadu 641005.`n
+`nPhone: (+91) 422 497 4006  || e-mail: `ninfo@logicvalley.in`n || website: `nhttp://www.logicvalley.in`n`n
+`n`n
+`n`n
+`n`nDocument Details`n`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n`nProject Name`n`n`n
+`n
+`nMarston Customer App Landing Page`n`n
+`n
+`n`nProject No.`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n`nVersion`n`n`n
+`n
+`n1.0`n`n
+`n
+`n`nAuthor`n`n`n
+`n
+`nManoj Prabhakar KS`n`n
+`n
+`n
+`n
+`n
+`n`n
+`n`nDocument History`n`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n
+`n`nVersion No.`n`n`n
+`n
+`n`nChange Summary`n`n`n
+`n
+`n`nPrepared/ Modified By & Date`n`n`n
+`n
+`n`nReviewed By `n`n`n& Date`n`n`n
+`n
+`n`nApproved By `n`n`n& Date`n`n`n
+`n
+`n
+`n
+`n1.0`n`n
+`n
+`nInitial Draft`n`n
+`n
+`nManoj /21-May-26`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n`n`n
+`n
+`n
+`n
+`n
+`n`n`n
+`nContents`n
+`n`n
+`n
+`n
+`n`nBusiness Requirement Document`n`n
+`n`nNew Landing Page`n`n
+`n`nMarston Customer App`n`n
+`n`nContents`n`n
+`n`nExecutive Summary`n`n
+`n`nBusiness Objectives`n`n
+`n`nScope`n`n
+`n`nUsers and Roles`n`n
+`n`nLanding Page Overview (End-User Journey Summary)`n`n
+`n`nCustomer App =E2=80=93 Landing Page Settings Overview`n`n
+`n`nFunctional Requirements`n`n
+`n`nBusiness Requirements (BR)`n`n
+`n`nBusiness Rules`n`n
+`n`nPersonalisation Logic`n`n
+`n`nBusiness Process / Workflow`n`n
+`n`nTracking & Reporting Requirements`n`n
+`n`nConfiguration Requirements`n`n
+`n`nLink & Access Requirements`n`n
+`n`nNon-Functional Requirements`n`n
+`n`nUI / UX Behaviour (Customer App Editor)`n`n
+`n`nRisks & Dependencies`n`n
+`n
+`n
+`n`n`n
+`n`n`n`n`nExecutive Summary`n
+`nThis Business Requirements Document (BRD) defines the combined capability of customer-facing Landing Pages and the internal Customer App Landing Page Settings module, enabling a fully controlled, secure, and business-managed digital experience.`n
+`nThe customer-facing Landing Pages provide a structured, end-to-end self-service journey for customers to securely access their case information, understand their enforcement stage, and complete key actions such as making payments or seeking support. These pages are personalised post-authentication and are designed to drive clarity, reduce confusion, and increase successful digital engagement and payment conversion while maintaining compliance and accessibility standards.`n
+`nComplementing this experience, the Customer App Landing Page Settings module enables authorised business users to manage and control the content displayed on these Landing Pages without requiring technical intervention. Through this capability, users can access structured content areas aligned to Landing Page sections (such as Payment, Enforcement, and Support), edit content in a format that reflects the end-user view, apply formatting, insert variables, and manage hyperlinks, while preserving the overall layout and structure of the pages.`n
+`nAll content changes are governed by a structured approval workflow comprising Author, Reviewer, and Publisher roles, ensuring that updates are validated for accuracy, compliance, and policy alignment before being released to production. The system enforces segregation of duties, maintains a complete audit trail, and supports traceability through logged actions and timestamps at each stage of the approval process.`n
+`nThis combined solution ensures:`n
+`n
+`n
+`nA consistent and compliant customer experience across all Landing Pages`n`n
+`n
+`nBusiness-led control over content and messaging`n`n
+`n
+`nReduced dependency on development teams for content updates`n`n
+`n
+`nFull auditability and governance of all changes`n`n
+`n
+`nAlignment between backend case data, frontend presentation, and controlled content evolution`n`n
+`n
+`nThe BRD provides a comprehensive definition of functional behaviour, governance rules, workflows, and system requirements necessary to deliver and manage both the customer journey and the supporting content management capability effectively.`n
+`n`n`n
+`n`n
+`n`n`n`n`nBusiness Objectives`n
+`nThe primary objective of this initiative is to deliver a controlled, scalable, and business-managed digital capability that enables both an effective customer self-service journey and a governed content management framework through the Customer App.`n
+`n`nCustomer-Facing Objectives`n`n
+`n
+`n
+`nEnable customers to securely access and view their case information through Landing Pages following successful authentication`n`n
+`n
+`nProvide clear, structured, and personalised information to help customers understand their enforcement stage, outstanding balance, and next steps`n`n
+`n
+`nDrive increased self-service adoption and reduce dependency on agent-assisted interactions`n`n
+`n
+`nImprove payment conversion by guiding users toward the primary action using clear messaging and structured page design`n`n
+`n
+`nReduce disputes and confusion by presenting enforcement information in a simplified and understandable format`n`n
+`n
+`nEnsure all customer-facing content remains compliant, transparent, and accessible`n`n
+`n
+`n`nBusiness and Operational Objectives`n`n
+`n
+`n
+`nEnable business users to manage Landing Page content directly through the Customer App without requiring technical intervention`n`n
+`n
+`nEnsure all updates to Landing Page content, messaging, and journey elements are controlled through a structured approval process`n`n
+`n
+`nMaintain consistency across all customer-facing touchpoints by centralising content management`n`n
+`n
+`nReduce operational overhead and turnaround time for content updates by removing dependency on development cycles`n`n
+`n
+`n`nGovernance and Compliance Objectives`n`n
+`n
+`n
+`nEnforce a three-step governance model (Author =E2=86=92 Reviewer =E2=86=92 Publisher) for all content changes`n`n
+`n
+`nEnsure segregation of duties across all stages of the content update lifecycle`n`n
+`n
+`nMaintain a complete and traceable audit trail of all changes, approvals, and publishing actions`n`n
+`n
+`nEnsure all published content is reviewed and approved for accuracy, compliance, and policy alignment before being made live`n`n
+`n
+`nSupport audit, compliance review, and regulatory requirements through systematic tracking and logging`n`n
+`n
+`n`nTechnology and Process Objectives`n`n
+`n
+`n
+`nProvide an intuitive content editing interface within the Customer App that reflects the structure and layout of the Landing Pages`n`n
+`n
+`nAllow business users to format content, insert variables, and configure hyperlinks while preserving page structure`n`n
+`n
+`nIntegrate with existing ticketing systems to manage approval workflows and track change requests`n`n
+`n
+`nEnsure reliable and secure publication of approved content directly to production environments`n`n
+`n
+`nThese objectives collectively ensure that the solution delivers a high-quality customer experience while maintaining strong governance, operational efficiency, and compliance control.`n
+`n`n`n
+`n`n
+`n`n`n`n`nScope`n
+`n`n
+`n`nIn Scope`n`n
+`nThe scope of this capability includes both the `ncustomer-facing Landing Pages`n and the `nCustomer App Landing Page Settings module`n, along with all associated content management, governance, and supporting functionality.`n
+`n`n
+`n`nCustomer-Facing Landing Pages`n`n
+`n
+`n
+`nSign-In / ID&V Entry Page`n`n
+`n
+`nHome / Timeline Page (Primary Landing Page)`n`n
+`n
+`nMake a Payment Page`n`n
+`n
+`nEnforcement Information Pages (full-page and modal views)`n`n
+`n
+`nSupport Pages`n`n
+`n
+`nShared global components including header, footer, modals, notifications, and error states`n`n
+`n
+`nPersonalised content rendering based on verified case data`n`n
+`n
+`nIntegration with backend systems for case data (e.g., Columbus) and payment gateway`n`n
+`n
+`nTracking of user interactions and engagement events across the journey`n`n
+`n
+`n`n
+`n`nCustomer App =E2=80=93 Landing Page Settings Module`n`n
+`n
+`n
+`nLanding Page Settings interface displaying content areas as structured cards (e.g., Payment, Enforcement, Support)`n`n
+`n
+`nNavigation from card view to detailed content editing view for each landing page section`n`n
+`n
+`nContent editing capability with:`n
+`n
+`n
+`nEditable structured panels reflecting Landing Page layout`n`n
+`n
+`nAbility to modify content directly as it appears to end users`n`n
+`n
+`nFormatting options for content editing`n`n
+`n
+`nAbility to insert variables`n`n
+`n
+`nAbility to create and manage hyperlinks`n`n
+`n`n
+`n
+`nRetention of page structure and layout during content editing`n`n
+`n
+`nMapping of panel names in the editor to corresponding Landing Page headings`n`n
+`n
+`nLogging of all changes within the audit trail`n`n
+`n
+`n`n
+`n`nGovernance and Approval Workflow`n`n
+`n
+`n
+`nThree-step approval process:`n
+`n
+`n
+`nAuthor (create/edit content)`n`n
+`n
+`nReviewer (validate content)`n`n
+`n
+`nPublisher (final release to production)`n`n
+`n`n
+`n
+`nIntegration with ticketing system for:`n
+`n
+`n
+`nChange request creation`n`n
+`n
+`nTracking approvals and rejections`n`n
+`n`n
+`n
+`nEnforcement of role-based segregation within the workflow`n`n
+`n
+`nCapture of approval decisions, comments, and timestamps`n`n
+`n
+`nPublishing of approved content to production`n`n
+`n
+`n`n
+`n`nAudit, Tracking, and Reporting`n`n
+`n
+`n
+`nAudit logs capturing:`n
+`n
+`n
+`nContent changes`n`n
+`n
+`nUser actions`n`n
+`n
+`nWorkflow status transitions`n`n
+`n
+`nApproval and publishing records`n`n
+`n`n
+`n
+`nTracking of workflow activities including:`n
+`n
+`n
+`nTicket creation`n`n
+`n
+`nApproval/rejection events`n`n
+`n
+`nPublishing confirmation`n`n
+`n`n
+`n
+`nTime and user stamp tracking for all actions`n`n
+`n
+`n`n
+`n`nOut of Scope`n`n
+`nThe following items are explicitly excluded from this capability:`n
+`n
+`n
+`nDevelopment of a system-level permissions framework`n`n
+`n
+`nRole-Based Access Control (RBAC) system implementation`n`n
+`n
+`nAutomated approval or decision-making workflows`n`n
+`n
+`nRedesign or modification of existing Landing Page UI/UX layouts created by external teams`n`n
+`n
+`nEditing of structural components such as the timeline visualisation`n`n
+`n
+`nBackend system changes related to case data management (e.g., Columbus system redesign)`n`n
+`n
+`nLive chat handling logic or integration within the support journey`n`n
+`n
+`nDispute handling, payment plan creation, or case modification functionality`n`n
+`n
+`nPassing personally identifiable information through external links or URLs`n`n
+`n
+`n`n
+`nThis scope ensures clear separation between `ncontent management capability`n, `ncustomer-facing functionality`n, and `nunderlying system responsibilities`n, enabling controlled and compliant implementation.`n
+`n`n
+`n`n`n`n`nUsers and Roles`n
+`nThis capability involves multiple user types across both the customer-facing journey and the internal Customer App, with clearly defined responsibilities to ensure controlled content management and governance.`n
+`n`n
+`n`nCustomer-Facing Users`n`n
+`n`nCustomer`n`n
+`n
+`n
+`nPrimary end user of the Landing Pages`n`n
+`n
+`nAccesses the journey via SMS link and completes authentication`n`n
+`n
+`nInteracts with:`n
+`n
+`n
+`nHome / Timeline page`n`n
+`n
+`nPayment page`n`n
+`n
+`nEnforcement information`n`n
+`n
+`nSupport pages`n`n
+`n`n
+`n
+`nPerforms key actions such as:`n
+`n
+`n
+`nViewing case details`n`n
+`n
+`nUnderstanding enforcement stage`n`n
+`n
+`nMaking payments`n`n
+`n
+`nAccessing support`n`n
+`n`n
+`n
+`nCustomers do not have any content editing capability and only interact with published content.`n
+`n`n
+`n`nCustomer App Users (Internal Business Users)`n`n
+`nAll internal users access the `nCustomer App Landing Page Settings module`n to manage and govern content displayed on Landing Pages. These users are assigned specific roles within the approval workflow.`n
+`n`n
+`n`nAuthor`n`n
+`n
+`n
+`nBusiness user responsible for creating or editing Landing Page content`n`n
+`n
+`nUses the Customer App editor to:`n
+`n
+`n
+`nAccess Landing Page settings`n`n
+`n
+`nEdit content within structured panels`n`n
+`n
+`nApply formatting, insert variables, and configure hyperlinks`n`n
+`n`n
+`n
+`nInitiates change requests via the ticketing system`n`n
+`n
+`nResponsible for ensuring initial accuracy of content updates`n`n
+`n
+`nCannot approve or publish their own changes`n`n
+`n
+`n`n
+`n`nReviewer`n`n
+`n
+`n
+`nBusiness or compliance user responsible for validating changes`n`n
+`n
+`nReviews submitted content updates for:`n
+`n
+`n
+`nAccuracy`n`n
+`n
+`nCompliance with policies and regulations`n`n
+`n
+`nAlignment with enforcement and business messaging`n`n
+`n`n
+`n
+`nCan:`n
+`n
+`n
+`nApprove changes for publishing`n`n
+`n
+`nReject changes with feedback for rework`n`n
+`n`n
+`n
+`nMust not be the same individual as the Author or Publisher for the same request`n`n
+`n
+`n`n
+`n`nPublisher`n`n
+`n
+`n
+`nFinal approver responsible for releasing content to production`n`n
+`n
+`nReviews approved changes before publishing`n`n
+`n
+`nEnsures readiness and correctness of content prior to go-live`n`n
+`n
+`nExecutes publishing action to make content visible on customer-facing Landing Pages`n`n
+`n
+`nAccountable for final sign-off`n`n
+`n
+`n`n
+`n`nCompliance Leads`n`n
+`n
+`n
+`nOversight role across the entire process`n`n
+`n
+`nMonitors:`n
+`n
+`n
+`nAdherence to governance model`n`n
+`n
+`nAudit logs and change history`n`n
+`n`n
+`n
+`nSupports compliance reviews and internal audits`n`n
+`n
+`nDoes not directly perform editing, reviewing, or publishing actions`n`n
+`n
+`n`n
+`n`nRole Governance Constraints`n`n
+`n
+`n
+`nA single user must not perform multiple roles within the same request:`n
+`n
+`n
+`nAuthor and Reviewer`n`n
+`n
+`nReviewer and Publisher`n`n
+`n
+`nAuthor and Publisher`n`n
+`n`n
+`n
+`nAll content changes must pass through all three roles:`n
+`n
+`n
+`nAuthor =E2=86=92 Reviewer =E2=86=92 Publisher`n`n
+`n`n
+`n
+`nRole assignments and actions must be fully traceable through audit logs`n`n
+`n
+`n`n
+`n`n
+`n`n`n`n`nLanding Page Overview (End-User Journey Summary)`n
+`nThe Landing Pages represent a structured, secure, and personalised digital journey that enables customers to access case information, understand their enforcement status, and complete key actions such as making a payment or seeking support. This journey is initiated through a controlled entry point and progresses through a series of defined stages designed to ensure clarity, security, and compliance.`n
+`n`n
+`n`nEntry and Authentication`n`n
+`nThe journey begins when a customer accesses the system via a generic SMS link. Upon entry, the user is presented with a Sign-In / Identity Verification page where they must provide required credentials (such as postcode and other validation inputs). Authentication is enforced with controlled attempt limits, and access to any personal or case-related information is restricted until verification is successfully completed.`n
+`nIf authentication fails, the system provides controlled retry attempts and recovery options. Upon exceeding the allowed attempts, the user is restricted from further access and directed to recovery or support channels.`n
+`n`n
+`n`nCase Retrieval and Personalisation`n`n
+`nOnce authenticated, the system retrieves the customer's case data from backend systems. This includes key attributes such as case reference, enforcement stage, outstanding balance, and applicable fees. This data drives all subsequent page behaviour, including content personalisation, timeline positioning, and action prioritisation.`n
+`nPersonalisation is dynamically applied based on verified data, ensuring that all information displayed is accurate, relevant, and contextual to the customer's situation.`n
+`n`n
+`n`nHome / Timeline Page (Primary Landing Page)`n`n
+`nThe Home / Timeline page serves as the central point of the journey and the primary decision-making interface for the customer. This page provides:`n
+`n
+`n
+`nA visual timeline representing the customer's enforcement stage`n`n
+`n
+`nA summary of the case, including balance and status`n`n
+`n
+`nContextual messaging explaining the current position and next steps`n`n
+`n
+`nA clearly defined primary call-to-action (typically "Pay Now")`n`n
+`n
+`nThe timeline simplifies complex backend enforcement stages into a clear, structured visual representation to improve customer understanding and reduce confusion.`n
+`n`n
+`n`nCustomer Decision Paths`n`n
+`nFrom the Home / Timeline page, the user is guided into one of the following paths:`n
+`n`n1. Payment Path (Primary Path)`n`n
+`nThe user selects the primary call-to-action and is directed to the Payment page, where they can:`n
+`n
+`n
+`nReview outstanding balance and fees`n`n
+`n
+`nConfirm payment details`n`n
+`n
+`nProceed to a secure external payment gateway`n`n
+`n
+`nUpon successful payment, the system confirms the transaction and updates the case status accordingly.`n
+`n`n
+`n`n2. Enforcement Information Path`n`n
+`nUsers may choose to view additional information about their enforcement stage. This provides:`n
+`n
+`n
+`nStage-specific explanations`n`n
+`n
+`nConsequences of non-payment`n`n
+`n
+`nClear description of what happens next`n`n
+`n
+`nThis path is designed to improve understanding and encourage informed decision-making without causing confusion or escalation.`n
+`n`n
+`n`n3. Support Path`n`n
+`nUsers can access support-related content which includes:`n
+`n
+`n
+`nFrequently asked questions`n`n
+`n
+`nVulnerability support options`n`n
+`n
+`nComplaint and assistance routes`n`n
+`n
+`nThis path provides reassurance and assistance while maintaining alignment with the overall journey objectives.`n
+`n`n
+`n`nJourney Outcomes`n`n
+`nThe journey supports multiple outcomes:`n
+`n
+`n
+`n`nSuccessful outcome:`n Payment completed and case updated`n`n
+`n
+`n`nReturn path:`n User navigates back to the Home page or continues the journey`n`n
+`n
+`n`nExit path:`n User leaves the journey or transitions to offline support channels`n`n
+`n
+`n`n
+`n`nJourney Design Principles`n`n
+`nThe Landing Page journey is built on the following principles:`n
+`n
+`n
+`n`nSecurity:`n No personal data is exposed prior to successful authentication`n`n
+`n
+`n`nClarity:`n Complex information is simplified through visual and structured presentation`n`n
+`n
+`n`nGuided Action:`n Primary actions are clearly highlighted to drive completion`n`n
+`n
+`n`nCompliance:`n Content and messaging follow regulatory and policy requirements`n`n
+`n
+`n`nContinuity:`n The journey avoids dead ends, always providing a next actionable step`n`n
+`n
+`n`n
+`n`n
+`n`n`n`n`nCustomer App =E2=80=93 Landing Page Settings Overview`n
+`nThe Customer App Landing Page Settings module provides authorised business users with the capability to manage, edit, review, and publish content that is displayed across all customer-facing Landing Pages. This module acts as the central content management interface, enabling controlled updates while ensuring consistency, compliance, and auditability.`n
+`n`n
+`n`nAccess and Navigation`n`n
+`nWhen a user accesses the Landing Page Settings section within the Customer App, they are presented with a structured interface consisting of visually distinct cards. Each card represents a major Landing Page content area, such as:`n
+`n
+`n
+`nMake a Payment`n`n
+`n
+`nEnforcement`n`n
+`n
+`nSupport`n`n
+`n
+`nThese cards serve as entry points for managing content associated with specific sections of the customer journey.`n
+`n`n
+`n`nContent Editing Experience`n`n
+`nUpon selecting and editing a card, the user is navigated to a dedicated content editing view corresponding to that section. The editor is designed to mirror the structure and layout of the actual customer-facing Landing Pages, allowing users to view and modify content in the same format as it appears to end users.`n
+`nThe content editing interface includes the following capabilities:`n
+`n
+`n
+`n`nDirect content editing within structured panels`n, maintaining alignment with Landing Page layout`n`n
+`n
+`n`nPanel-based organisation`n, where each panel represents a distinct content block or section`n`n
+`n
+`n`nPanel names mapped to Landing Page headings`n, ensuring clarity and consistency between editor and live pages`n`n
+`n
+`n`nPreservation of layout and structure`n, preventing unintended changes to page design`n`n
+`n
+`n`n
+`n`nContent Authoring Capabilities`n`n
+`nBusiness users are able to manage content using the following features:`n
+`n
+`n
+`nApply formatting to content (e.g., structured text presentation)`n`n
+`n
+`nInsert variables to dynamically reflect case-specific or contextual information`n`n
+`n
+`nCreate and configure hyperlinks within content`n`n
+`n
+`nThese capabilities enable flexible yet controlled content management while ensuring the output remains consistent with the defined Landing Page experience.`n
+`n`n
+`n`nContent Lifecycle and Workflow Integration`n`n
+`nAll changes made within the editor are part of a controlled lifecycle aligned with the governance model. Users can:`n
+`n
+`n
+`nSave changes within the editor`n`n
+`n
+`nSubmit changes for review through the defined approval process`n`n
+`n
+`nThe workflow consists of:`n
+`n
+`n
+`n`nAuthoring`n =E2=80=93 content creation and editing`n`n
+`n
+`n`nReview`n =E2=80=93 validation of content for compliance and accuracy`n`n
+`n
+`n`nPublishing`n =E2=80=93 final approval and release to production`n`n
+`n
+`nUsers cannot directly publish content without completing the required review and approval stages.`n
+`n`n
+`n`nAudit and Traceability`n`n
+`nEvery action within the Landing Page Settings module is tracked to ensure full transparency and accountability. This includes:`n
+`n
+`n
+`nLogging of all content changes`n`n
+`n
+`nRecording user actions (create, edit, submit, approve, reject, publish)`n`n
+`n
+`nCapturing timestamps and user identifiers for each action`n`n
+`n
+`nMaintaining an audit log that reflects the complete history of changes`n`n
+`n
+`nThis ensures that all modifications to customer-facing content are traceable and compliant with governance requirements.`n
+`n`n
+`n`nDesign Principles`n`n
+`nThe Customer App editor is designed with the following principles:`n
+`n
+`n
+`n`nWhat-you-see-is-what-you-edit approach`n, ensuring consistency between editor and live pages`n`n
+`n
+`n`nStructured editing`n, preventing deviation from approved page layouts`n`n
+`n
+`n`nControlled flexibility`n, allowing content updates without impacting system behaviour or layout`n`n
+`n
+`n`nGovernance-first design`n, ensuring all changes pass through review and approval controls`n`n
+`n
+`n`n
+`n`n
+`n`n`n`n`nFunctional Requirements`n
+`n`n7.1 Landing Pages (Customer-Facing)`n`n
+`nThe system shall provide a set of customer-facing Landing Pages that enable a secure, personalised, and structured journey from authentication to payment completion.`n
+`n
+`n
+`nThe system shall display a Sign-In / ID&V page as the entry point, restricting access to case data until successful verification`n`n
+`n
+`nThe system shall retrieve and render case data dynamically post-authentication, including enforcement stage, balance, and fees`n`n
+`n
+`nThe system shall display a Home / Timeline page with a visual representation of the customer's enforcement stage`n`n
+`n
+`nThe system shall present a primary Call-to-Action (CTA) to guide users toward payment`n`n
+`n
+`nThe system shall allow navigation to the Payment page, Enforcement Information pages, and Support pages from the Home page`n`n
+`n
+`nThe system shall display the Payment page with accurate case summary, balance, and applicable fees`n`n
+`n
+`nThe system shall enable redirection to a secure external payment gateway for transaction processing`n`n
+`n
+`nThe system shall handle payment success and failure states and provide appropriate feedback to the user`n`n
+`n
+`nThe system shall display Enforcement Information pages with stage-specific explanations and consequences`n`n
+`n
+`nThe system shall display Support pages with structured assistance options, including FAQs and escalation routes`n`n
+`n
+`nThe system shall ensure all pages are session-bound and accessible only after successful authentication`n`n
+`n
+`nThe system shall track all user interactions and key events across the Landing Page journey`n`n
+`n
+`n`n
+`n`n7.2 Customer App =E2=80=93 Content Editor`n`n
+`nThe system shall provide a Landing Page Settings module within the Customer App to enable business users to manage and control Landing Page content.`n
+`n
+`n
+`nThe system shall display Landing Page content areas as structured cards (e.g., Payment, Enforcement, Support)`n`n
+`n
+`nThe system shall allow users to select and edit a specific card, navigating to a corresponding content editing screen`n`n
+`n
+`nThe system shall present content in a structured format that mirrors the layout and appearance of the customer-facing Landing Pages`n`n
+`n
+`nThe system shall organise content into panels, with each panel representing a section of the Landing Page`n`n
+`n
+`nThe system shall display panel names aligned with corresponding headings in the Landing Pages`n`n
+`n
+`nThe system shall allow users to edit content directly within panels without altering the overall page structure`n`n
+`n
+`nThe system shall provide formatting options to modify content presentation`n`n
+`n
+`nThe system shall allow insertion of variables within content`n`n
+`n
+`nThe system shall allow creation and configuration of hyperlinks within content`n`n
+`n
+`nThe system shall preserve the visual structure and layout of Landing Pages during editing`n`n
+`n
+`nThe system shall allow users to save content changes prior to submission`n`n
+`n
+`nThe system shall ensure that all content changes are captured and reflected in the audit log`n`n
+`n
+`n`n
+`n`n7.3 Governance and Approval Workflow`n`n
+`nThe system shall enforce a structured, business-led approval workflow governing all content changes.`n
+`n
+`n
+`nThe system shall support a three-step workflow: Author =E2=86=92 Reviewer =E2=86=92 Publisher`n`n
+`n
+`nThe system shall allow Authors to create and submit content changes for review`n`n
+`n
+`nThe system shall enable integration with a ticketing system for managing change requests`n`n
+`n
+`nThe system shall allow assignment of Author, Reviewer, and Publisher roles per request`n`n
+`n
+`nThe system shall prevent a single user from performing multiple roles within the same request`n`n
+`n
+`nThe system shall allow Reviewers to approve or reject submitted changes`n`n
+`n
+`nThe system shall require Reviewers to provide feedback when rejecting changes`n`n
+`n
+`nThe system shall allow only approved changes to proceed to the publishing stage`n`n
+`n
+`nThe system shall allow Publishers to perform final review and publish content to production`n`n
+`n
+`nThe system shall prevent publishing without prior approval`n`n
+`n
+`nThe system shall capture all workflow actions including submission, approval, rejection, and publishing`n`n
+`n
+`nThe system shall record timestamps and user identifiers for each workflow stage`n`n
+`n
+`n`n
+`n`n
+`n`n`n`n`nBusiness Requirements (BR)`n
+`n
+`n
+`n
+`n
+`n
+`n`nBR ID`n`n`n
+`n
+`n`nRequirement`n`n`n
+`n
+`n
+`n
+`nBR=E2=80=9101`n`n
+`n
+`nThe system must provide secure access to Landing Pages, ensuring no customer data is exposed prior to successful authentication`n`n
+`n
+`n
+`n
+`nBR=E2=80=9102`n`n
+`n
+`nThe system must generate and display personalised Landing Page content based on verified case data`n`n
+`n
+`n
+`n
+`nBR=E2=80=9103`n`n
+`n
+`nThe system must track all user interactions across Landing Pages, including navigation, engagement, and actions`n`n
+`n
+`n
+`n
+`nBR=E2=80=9104`n`n
+`n
+`nThe system must integrate with external forms and support channels for customer assistance`n`n
+`n
+`n
+`n
+`nBR=E2=80=9105`n`n
+`n
+`nThe system must enable escalation to appropriate support channels where required`n`n
+`n
+`n
+`n
+`nBR=E2=80=9106`n`n
+`n
+`nThe system must display accurate and real-time case details including balance, fees, and enforcement stage`n`n
+`n
+`n
+`n
+`nBR=E2=80=9107`n`n
+`n
+`nThe system must support time-sensitive and enforcement-based messaging to guide customer actions`n`n
+`n
+`n
+`n
+`nBR=E2=80=9108`n`n
+`n
+`nThe system must enforce business rules related to case prioritisation and visibility within the customer journey`n`n
+`n
+`n
+`n
+`n
+`n`n
+`n
+`n
+`n
+`n
+`n
+`n`nBR ID`n`n`n
+`n
+`n`nCustomer App & Governance Requirements`n`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9101`n`n
+`n
+`nThe system must enforce a three-step approval workflow (Author =E2=86=92 Reviewer =E2=86=92 Publisher) for all content changes`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9102`n`n
+`n
+`nThe system must prevent a single user from performing multiple roles within the same request`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9103`n`n
+`n
+`nThe system must maintain a complete and traceable audit log of all content changes and workflow actions`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9104`n`n
+`n
+`nThe system must enable business users to manage Landing Page content without requiring technical system changes`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9105`n`n
+`n
+`nThe system must ensure all content updates are reviewed and approved before being published to production`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9106`n`n
+`n
+`nThe system must allow business users to edit Landing Page content via a structured Customer App interface`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9107`n`n
+`n
+`nThe system must ensure that content editing retains the structure and layout of the Landing Pages`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9108`n`n
+`n
+`nThe system must support formatting, variable insertion, and hyperlink creation within content`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9109`n`n
+`n
+`nThe system must log all changes made within the Customer App editor, including user actions and timestamps`n`n
+`n
+`n
+`n
+`nBR=E2=80=91P=E2=80=9110`n`n
+`n
+`nThe system must support integration with a ticketing system to manage content change requests and approvals`n`n
+`n
+`n
+`n
+`n
+`n`n
+`n`n
+`n`n
+`n`n`n`n`nBusiness Rules`n
+`nThe following business rules govern the behaviour of both the customer-facing Landing Pages and the Customer App Landing Page Settings module, ensuring consistency, compliance, and controlled content management.`n
+`n`n
+`n`nCustomer-Facing Business Rules`n`n
+`n
+`n
+`nCustomers must not be able to access any case or personal data prior to successful authentication`n`n
+`n
+`nAccess to Landing Pages must be restricted to verified sessions only`n`n
+`n
+`nThe system must display information for one case at a time within the Landing Pages`n`n
+`n
+`nIn scenarios with multiple cases, a default case must be selected based on defined prioritisation logic (e.g., urgency)`n`n
+`n
+`nAll case-related data (balance, fees, enforcement stage) must match backend system values at all times`n`n
+`n
+`nEnforcement messaging must be accurate, factual, and compliant with applicable policies`n`n
+`n
+`nTimeline representation must reflect the mapped enforcement stage and must not be editable through the Customer App`n`n
+`n
+`nPayment actions must always be tied to the currently active case`n`n
+`n
+`nPayment attempts must not restrict or lock the user out of the overall journey`n`n
+`n
+`nAll navigation paths must ensure no dead-end states, providing users with clear next actions`n`n
+`n
+`n`n
+`n`nCustomer App =E2=80=93 Content Management Rules`n`n
+`n
+`n
+`nBusiness users must only be able to edit content within predefined structured panels`n`n
+`n
+`nThe layout and structural elements of Landing Pages must remain unchanged during content editing`n`n
+`n
+`nPanel names within the editor must align with corresponding headings in the Landing Pages`n`n
+`n
+`nAll content changes must be saved before being submitted for review`n`n
+`n
+`nContent editing must support formatting, variable insertion, and hyperlink configuration`n`n
+`n
+`nAll changes made within the editor must be logged in the audit trail with user and timestamp details`n`n
+`n
+`nContent must reflect how it appears to end users, ensuring consistency between editor and live view`n`n
+`n
+`n`n
+`n`nGovernance and Approval Rules`n`n
+`n
+`n
+`nA single user must not perform multiple roles within the same request:`n
+`n
+`n
+`nAuthor and Reviewer`n`n
+`n
+`nReviewer and Publisher`n`n
+`n
+`nAuthor and Publisher`n`n
+`n`n
+`n
+`nEvery content change must pass through all three stages:`n
+`n
+`n
+`nAuthor`n`n
+`n
+`nReviewer`n`n
+`n
+`nPublisher`n`n
+`n`n
+`n
+`nContent must not be published without:`n
+`n
+`n
+`nExplicit approval from the Reviewer`n`n
+`n
+`nFinal sign-off from the Publisher`n`n
+`n`n
+`n
+`nRejected changes:`n
+`n
+`n
+`nMust be returned to the Author with clear feedback`n`n
+`n
+`nMust not proceed further in the workflow until updated and resubmitted`n`n
+`n`n
+`n
+`nPublishing actions must only be available after successful completion of the review stage`n`n
+`n
+`n`n
+`n`nAudit and Compliance Rules`n`n
+`n
+`n
+`nAll actions, including creation, editing, submission, approval, rejection, and publishing must be fully logged`n`n
+`n
+`nEach action must include:`n
+`n
+`n
+`nUser identifier`n`n
+`n
+`nTimestamp`n`n
+`n
+`nAction performed`n`n
+`n`n
+`n
+`nAudit logs must be immutable and available for internal audit and compliance review`n`n
+`n
+`nContent updates must not bypass the defined governance workflow`n`n
+`n
+`n`n
+`n`n
+`n`n`n`n`nPersonalisation Logic`n
+`nPersonalisation across the Landing Pages is driven entirely by verified case data retrieved post-authentication and system-defined contextual factors. The logic ensures that all customer-facing content remains accurate, relevant, and aligned with the customer's current case status while maintaining strict control over data exposure and content consistency.`n
+`n`n
+`n`nCustomer-Facing Personalisation`n`n
+`n
+`n
+`nPersonalisation is applied `nonly after successful authentication`n`n`n
+`n
+`nNo personal or case-related data is displayed prior to verification`n`n
+`n
+`nPersonalised elements include:`n
+`n
+`n
+`nCustomer-specific greeting (where applicable)`n`n
+`n
+`nCase reference and associated details`n`n
+`n
+`nDebt type`n`n
+`n
+`nEnforcement stage`n`n
+`n
+`nOutstanding balance and applicable fees`n`n
+`n
+`nTime-sensitive indicators (e.g., countdowns where applicable)`n`n
+`n`n
+`n
+`nThe system must dynamically adapt page content based on:`n
+`n
+`n
+`nThe currently selected case`n`n
+`n
+`nEnforcement stage progression`n`n
+`n
+`nCase status and conditions (e.g., active, on hold)`n`n
+`n
+`nSingle-case versus multi-case scenarios`n`n
+`n`n
+`n
+`nIn multi-case scenarios:`n
+`n
+`n
+`nThe system must default to a selected case based on defined prioritisation logic`n`n
+`n
+`nUsers must be able to switch between cases where applicable`n`n
+`n
+`nAll displayed content must refresh dynamically based on the selected case`n`n
+`n`n
+`n
+`nEnforcement messaging, urgency indicators, and call-to-action (CTA) content must adapt based on:`n
+`n
+`n
+`nStage progression (e.g., pre-compliance, compliance, enforcement)`n`n
+`n
+`nSeverity of enforcement position`n`n
+`n
+`nApplicable fees and consequences`n`n
+`n`n
+`n
+`nPersonalisation must be rendered dynamically at runtime and must not be stored client-side`n`n
+`n
+`n`n
+`n`nCustomer App Content Personalisation`n`n
+`n
+`n
+`nThe Customer App does not directly control personalisation logic but enables the management of content that supports personalised rendering`n`n
+`n
+`nBusiness users can:`n
+`n
+`n
+`nDefine and edit content templates that include placeholders or variables`n`n
+`n
+`nInsert variables into content which will be resolved dynamically at runtime based on case data`n`n
+`n`n
+`n
+`nVariables inserted through the editor must:`n
+`n
+`n
+`nResolve to appropriate values during runtime based on backend data`n`n
+`n
+`nMaintain consistency with system-defined personalisation logic`n`n
+`n
+`nNot expose sensitive data prior to authentication`n`n
+`n`n
+`n
+`nContent updated via the Customer App must remain compatible with:`n
+`n
+`n
+`nExisting personalisation rules`n`n
+`n
+`nCase-based rendering logic`n`n
+`n
+`nEnforcement stage-based messaging`n`n
+`n`n
+`n
+`n`n
+`n`nGovernance of Personalised Content`n`n
+`n
+`n
+`nAll updates to content that influences personalisation must follow the defined approval workflow:`n
+`n
+`n
+`nAuthor =E2=86=92 Reviewer =E2=86=92 Publisher`n`n
+`n`n
+`n
+`nPersonalisation-related updates must be:`n
+`n
+`n
+`nReviewed for accuracy and correctness of variable usage`n`n
+`n
+`nValidated for compliance with regulatory and policy requirements`n`n
+`n`n
+`n
+`nNo personalised messaging or variable usage may be published without approval`n`n
+`n
+`n`n
+`n`nPersonalisation Constraints`n`n
+`n
+`n
+`nPersonalisation must not:`n
+`n
+`n
+`nOverride system-driven data such as balance, fees, or enforcement stage`n`n
+`n
+`nAlter structural components such as the timeline`n`n
+`n
+`nIntroduce inconsistencies between displayed content and backend data`n`n
+`n`n
+`n
+`nAll personalised outputs must:`n
+`n
+`n
+`nReflect real-time system data`n`n
+`n
+`nRemain consistent across all Landing Pages and related components`n`n
+`n`n
+`n
+`n`n
+`n`n
+`n`n`n`n`nBusiness Process / Workflow`n
+`nThe solution follows a structured, end-to-end workflow covering both the `ncustomer-facing journey`n and the `ninternal Customer App content management and governance process`n. This ensures a seamless customer experience while maintaining strict control over content changes.`n
+`n`n
+`n`n1. Customer Journey Workflow`n`n
+`n`n1.1 Entry`n`n
+`n
+`n
+`nCustomer receives an SMS containing a generic link`n`n
+`n
+`nCustomer clicks the link and is directed to the Sign-In / ID&V page`n`n
+`n
+`n`n
+`n`n1.2 Authentication`n`n
+`n
+`n
+`nCustomer enters required verification details`n`n
+`n
+`nSystem validates input against backend system`n`n
+`n
+`nOutcomes:`n
+`n
+`n
+`n`nSuccess:`n Secure session is created =E2=86=92 proceed to case retrieval`n`n
+`n
+`n`nFailure:`n Remaining attempts are reduced`n`n
+`n
+`n`nMaximum attempts reached:`n Customer is redirected to recovery/support options`n`n
+`n`n
+`n
+`n`n
+`n`n1.3 Case Retrieval`n`n
+`n
+`n
+`nSystem retrieves all active cases from backend systems`n`n
+`n
+`nData includes:`n
+`n
+`n
+`nCase reference`n`n
+`n
+`nEnforcement stage`n`n
+`n
+`nBalance and fees`n`n
+`n`n
+`n
+`nA default case is selected for display`n`n
+`n
+`n`n
+`n`n1.4 Home / Timeline Page`n`n
+`n
+`n
+`nTimeline is rendered based on enforcement stage`n`n
+`n
+`nCase summary and personalised content are displayed`n`n
+`n
+`nPrimary CTA (e.g., "Pay Now") is presented`n`n
+`n
+`n`n
+`n`n1.5 Customer Decision Paths`n`n
+`nFrom the Home page, the customer can choose:`n
+`n`na. Payment Path`n`n
+`n
+`n
+`nCustomer selects "Pay Now"`n`n
+`n
+`nSystem loads Payment page with case details`n`n
+`n
+`nCustomer proceeds to secure payment gateway`n`n
+`n
+`nOutcomes:`n
+`n
+`n
+`n`nSuccess:`n Payment confirmed and case updated`n`n
+`n
+`n`nFailure:`n Error displayed, retry allowed`n`n
+`n`n
+`n
+`n`n
+`n`nb. Enforcement Information Path`n`n
+`n
+`n
+`nCustomer accesses stage-specific explanation`n`n
+`n
+`nSystem displays:`n
+`n
+`n
+`nCurrent stage`n`n
+`n
+`nConsequences`n`n
+`n
+`nNext steps`n`n
+`n`n
+`n
+`nCustomer can:`n
+`n
+`n
+`nProceed to payment`n`n
+`n
+`nReturn to Home page`n`n
+`n`n
+`n
+`n`n
+`n`nc. Support Path`n`n
+`n
+`n
+`nCustomer accesses support options`n`n
+`n
+`nSystem displays:`n
+`n
+`n
+`nFAQs`n`n
+`n
+`nVulnerability options`n`n
+`n
+`nComplaint forms`n`n
+`n`n
+`n
+`nCustomer can:`n
+`n
+`n
+`nSubmit request via external forms`n`n
+`n
+`nReturn to journey`n`n
+`n`n
+`n
+`n`n
+`n`n1.6 Journey Outcomes`n`n
+`n
+`n
+`n`nSuccessful outcome:`n Payment completed`n`n
+`n
+`n`nReturn path:`n Customer navigates back within journey`n`n
+`n
+`n`nExit path:`n Customer leaves or moves to offline support channels`n`n
+`n
+`n`n
+`n`n2. Customer App Content Management Workflow`n`n
+`n`n2.1 Access Landing Page Settings`n`n
+`n
+`n
+`nBusiness user logs into Customer App`n`n
+`n
+`nNavigates to Landing Page Settings`n`n
+`n
+`nSystem displays content cards (e.g., Payment, Enforcement, Support)`n`n
+`n
+`n`n
+`n`n2.2 Content Editing (Author Stage)`n`n
+`n
+`n
+`nUser selects a card and opens content editor`n`n
+`n
+`nSystem displays structured panels reflecting Landing Page layout`n`n
+`n
+`nUser performs:`n
+`n
+`n
+`nContent updates`n`n
+`n
+`nFormatting changes`n`n
+`n
+`nVariable insertion`n`n
+`n
+`nHyperlink creation`n`n
+`n`n
+`n
+`nUser saves the changes`n`n
+`n
+`nUser submits changes for review`n`n
+`n
+`n`n
+`n`n2.3 Review Stage (Reviewer)`n`n
+`n
+`n
+`nReviewer receives change request via ticketing system`n`n
+`n
+`nReviewer validates:`n
+`n
+`n
+`nAccuracy`n`n
+`n
+`nCompliance`n`n
+`n
+`nPolicy alignment`n`n
+`n`n
+`n
+`nOutcomes:`n
+`n
+`n
+`n`nApprove:`n Moves to Publisher stage`n`n
+`n
+`n`nReject:`n Returned to Author with feedback`n`n
+`n`n
+`n
+`n`n
+`n`n2.4 Publishing Stage (Publisher)`n`n
+`n
+`n
+`nPublisher reviews approved content`n`n
+`n
+`nPerforms final validation`n`n
+`n
+`nPublishes content to production`n`n
+`n
+`nContent becomes visible on customer-facing Landing Pages`n`n
+`n
+`n`n
+`n`n3. Audit and Tracking Workflow`n`n
+`n
+`n
+`nEach stage in the process is logged:`n
+`n
+`n
+`nContent creation and edits`n`n
+`n
+`nSubmission for review`n`n
+`n
+`nApproval / rejection actions`n`n
+`n
+`nPublishing actions`n`n
+`n`n
+`n
+`nSystem captures:`n
+`n
+`n
+`nUser ID`n`n
+`n
+`nTimestamp`n`n
+`n
+`nAction performed`n`n
+`n`n
+`n
+`nAudit logs support:`n
+`n
+`n
+`nCompliance review`n`n
+`n
+`nInternal audits`n`n
+`n
+`nTraceability of all changes`n`n
+`n`n
+`n
+`n`n
+`n`n4. Governance Workflow Summary`n`n
+`nAuthor =E2=86=92 Edit & Submit`n
+`n=E2=86=93`n
+`nReviewer =E2=86=92 Approve / Reject`n
+`n=E2=86=93`n
+`nPublisher =E2=86=92 Final Approval & Publish`n
+`n
+`n
+`nNo stage can be skipped`n`n
+`n
+`nRole segregation enforced`n`n
+`n
+`nPublishing only possible after approval`n`n
+`n
+`n`n
+`n`n5. End-to-End Integration Flow`n`n
+`n
+`n
+`nCustomer App content updates =E2=86=92 Approved =E2=86=92 Published`n`n
+`n
+`nPublished content =E2=86=92 Rendered in Landing Pages`n`n
+`n
+`nLanding Pages =E2=86=92 Driven by real-time backend data + managed content`n`n
+`n
+`n`n
+`n`n`n`n`nTracking & Reporting Requirements`n
+`nThe system must implement comprehensive tracking and reporting capabilities across both the `ncustomer-facing Landing Pages`n and the `nCustomer App content management workflow`n to ensure full visibility, performance monitoring, and audit compliance.`n
+`n`n
+`n`n1. Customer Journey Tracking`n`n
+`nThe system must track all key user interactions across the Landing Pages to enable behavioural analysis, conversion monitoring, and performance optimisation.`n
+`n`nTracked Events`n`n
+`n
+`n
+`nPage load events for all Landing Pages`n`n
+`n
+`nAuthentication attempts (success and failure)`n`n
+`n
+`nNavigation between pages (Home, Payment, Enforcement, Support)`n`n
+`n
+`nTimeline interactions (hover, tap, selection)`n`n
+`n
+`nCase selection and switching (for multi-case scenarios)`n`n
+`n
+`nPrimary CTA clicks (e.g., "Pay Now")`n`n
+`n
+`nSecondary CTA clicks (e.g., support links, informational links)`n`n
+`n
+`nPayment journey events:`n
+`n
+`n
+`nPayment initiation`n`n
+`n
+`nPayment method selection`n`n
+`n
+`nPayment submission`n`n
+`n
+`nPayment success`n`n
+`n
+`nPayment failure`n`n
+`n`n
+`n
+`n`nCaptured Attributes`n`n
+`nEach tracked event must include:`n
+`n
+`n
+`nCase reference`n`n
+`n
+`nEnforcement stage`n`n
+`n
+`nDebt type (where applicable)`n`n
+`n
+`nMulti-case indicator (true/false)`n`n
+`n
+`nPage identifier`n`n
+`n
+`nTimestamp`n`n
+`n
+`n`nPurpose`n`n
+`n
+`n
+`nAnalyse user behaviour and drop-off points within the journey`n`n
+`n
+`nMeasure payment conversion rates`n`n
+`n
+`nIdentify friction points in authentication and payment flows`n`n
+`n
+`nSupport continuous optimisation of the Landing Page experience`n`n
+`n
+`n`n
+`n`n2. Customer App Tracking (Content Management)`n`n
+`nThe system must track all activities performed within the Customer App Landing Page Settings module to ensure traceability and governance.`n
+`n`nTracked Actions`n`n
+`n
+`n
+`nAccess to Landing Page Settings module`n`n
+`n
+`nSelection of content cards (e.g., Payment, Enforcement, Support)`n`n
+`n
+`nContent edits within panels`n`n
+`n
+`nSave actions`n`n
+`n
+`nSubmission for review`n`n
+`n
+`nApproval actions by Reviewer`n`n
+`n
+`nRejection actions with feedback`n`n
+`n
+`nPublishing actions by Publisher`n`n
+`n
+`n`nCaptured Attributes`n`n
+`nEach activity must capture:`n
+`n
+`n
+`nUser identifier (Author, Reviewer, Publisher)`n`n
+`n
+`nAction performed`n`n
+`n
+`nAffected content section`n`n
+`n
+`nTimestamp`n`n
+`n
+`nStatus of request (pending, approved, rejected, published)`n`n
+`n
+`n`nPurpose`n`n
+`n
+`n
+`nMonitor content management activity`n`n
+`n
+`nTrack user actions for audit and governance`n`n
+`n
+`nIdentify bottlenecks in approval workflow`n`n
+`n
+`n`n
+`n`n3. Governance and Audit Tracking`n`n
+`nThe system must maintain a complete and immutable audit trail for all content changes and workflow transitions.`n
+`n`nAudit Log Requirements`n`n
+`n
+`n
+`nRecord all content modifications, including before and after states`n`n
+`n
+`nCapture all workflow transitions:`n
+`n
+`n
+`nCreated`n`n
+`n
+`nSubmitted`n`n
+`n
+`nApproved`n`n
+`n
+`nRejected`n`n
+`n
+`nPublished`n`n
+`n`n
+`n
+`nStore user and timestamp details for each action`n`n
+`n
+`nMaintain association between content changes and related ticket/request`n`n
+`n
+`n`nPurpose`n`n
+`n
+`n
+`nSupport internal and external audits`n`n
+`n
+`nEnsure compliance with governance policies`n`n
+`n
+`nProvide full traceability of all content changes`n`n
+`n
+`n`n
+`n`n4. Reporting Requirements`n`n
+`nThe system must support reporting capabilities to provide insights into both customer behaviour and internal operational efficiency.`n
+`n`nCustomer Journey Reports`n`n
+`n
+`n
+`nPage-level engagement metrics`n`n
+`n
+`nDrop-off analysis across journey stages`n`n
+`n
+`nPayment conversion rates`n`n
+`n
+`nAuthentication success and failure rates`n`n
+`n
+`n`nContent Management Reports`n`n
+`n
+`n
+`nVolume of content changes over time`n`n
+`n
+`nApproval and rejection rates`n`n
+`n
+`nTime taken for each workflow stage (Author =E2=86=92 Reviewer =E2=86=92 Publisher)`n`n
+`n
+`nUser activity reports by role`n`n
+`n
+`n`n
+`n`n5. Data Handling and Constraints`n`n
+`n
+`n
+`nAll tracking data must be captured securely and aligned with data protection policies`n`n
+`n
+`nNo sensitive personal data should be exposed unnecessarily in reporting outputs`n`n
+`n
+`nTracking mechanisms must not impact page performance or user experience`n`n
+`n
+`n`n
+`n`n
+`n`n
+`n`n`n`n`nConfiguration Requirements`n
+`nThe system must support configurable elements across both the `ncustomer-facing Landing Pages`n and the `nCustomer App Landing Page Settings module`n to ensure flexibility, scalability, and ease of maintenance without requiring code-level changes.`n
+`n`n
+`n`n1. Customer-Facing Configuration Requirements`n`n
+`n
+`n
+`nLanding Page content must be configurable through the Customer App, allowing updates without system deployment`n`n
+`n
+`nContent displayed across all Landing Pages must be dynamically driven based on configured values and backend data`n`n
+`n
+`nThe following elements must be configurable:`n
+`n
+`n
+`nText content (headings, descriptions, messages)`n`n
+`n
+`nCall-to-Action (CTA) labels and messaging`n`n
+`n
+`nSupport-related content and links`n`n
+`n
+`nEnforcement-related messaging and explanatory content`n`n
+`n
+`nPayment-related messaging and instructions`n`n
+`n`n
+`n
+`nThreshold-based elements must be configurable where applicable:`n
+`n
+`n
+`nTime-sensitive messaging triggers`n`n
+`n
+`nCountdown thresholds (if applicable to enforcement stages)`n`n
+`n`n
+`n
+`nAll configurable content must be centrally managed through the Customer App to ensure consistency across pages`n`n
+`n
+`n`n
+`n`n2. Customer App Configuration Requirements`n`n
+`n
+`n
+`nThe Landing Page Settings module must allow configuration of:`n
+`n
+`n
+`nContent mapped to different Landing Page sections (e.g., Payment, Enforcement, Support)`n`n
+`n
+`nStructured panels aligned to Landing Page layout and headings`n`n
+`n`n
+`n
+`nThe system must support:`n
+`n
+`n
+`nConfiguration of variables that can be inserted into content`n`n
+`n
+`nConfiguration of hyperlink destinations used within content`n`n
+`n
+`nConfiguration of formatting options available within the editor`n`n
+`n`n
+`n
+`nPanel structures and layout definitions must be predefined and remain consistent across environments`n`n
+`n
+`nThe system must allow configuration of:`n
+`n
+`n
+`nVisibility of content sections (where applicable)`n`n
+`n
+`nContextual content alignment with specific Landing Page areas`n`n
+`n`n
+`n
+`n`n
+`n`n3. Governance and Workflow Configuration`n`n
+`n
+`n
+`nThe approval workflow must be configurable within the existing ticketing system, including:`n
+`n
+`n
+`nWorkflow stages (Author, Reviewer, Publisher)`n`n
+`n
+`nStatus transitions (Pending, Approved, Rejected, Published)`n`n
+`n`n
+`n
+`nThe system must allow configuration of:`n
+`n
+`n
+`nRole definitions (Author, Reviewer, Publisher)`n`n
+`n
+`nNotification triggers (e.g., email alerts for submission, approval, rejection)`n`n
+`n
+`nRouting of requests between roles`n`n
+`n`n
+`n
+`n`n
+`n`n4. Integration Configuration`n`n
+`n
+`n
+`nIntegration endpoints must be configurable for:`n
+`n
+`n
+`nBackend case data system (e.g., Columbus)`n`n
+`n
+`nPayment gateway redirection`n`n
+`n
+`nExternal support forms`n`n
+`n`n
+`n
+`nURLs used within Landing Pages must be configurable and centrally maintained`n`n
+`n
+`nAny environment-specific configurations (e.g., test vs production endpoints) must be manageable without code changes`n`n
+`n
+`n`n
+`n`n5. Audit and Tracking Configuration`n`n
+`n
+`n
+`nThe system must allow configuration of:`n
+`n
+`n
+`nAudit logging parameters`n`n
+`n
+`nTracking event definitions (where applicable)`n`n
+`n
+`nRetention of audit and tracking data`n`n
+`n`n
+`n
+`n`n
+`n`n6. Constraints`n`n
+`n
+`n
+`nStructural components such as the timeline visualisation must not be configurable through the Customer App`n`n
+`n
+`nConfiguration must not allow changes that impact system-driven logic such as:`n
+`n
+`n
+`nEnforcement stage mapping`n`n
+`n
+`nCase data retrieval`n`n
+`n
+`nPayment processing logic`n`n
+`n`n
+`n
+`nAll configuration changes must be subject to the defined governance and approval workflow before becoming active`n`n
+`n
+`n`n
+`n`n
+`n`n
+`n`n`n`n`nLink & Access Requirements`n
+`nThe system must enforce controlled, secure, and appropriate access mechanisms for both `ncustomer-facing Landing Pages`n and the `nCustomer App Landing Page Settings module`n, ensuring that all access points, navigation paths, and external links comply with security, privacy, and governance requirements.`n
+`n`n
+`n`n1. Customer-Facing Access Requirements`n`n
+`n
+`n
+`nAll Landing Pages must be accessible `nonly after successful user authentication`n`n`n
+`n
+`nThe system must ensure that:`n
+`n
+`n
+`nNo unauthorised or unauthenticated access to case data is possible`n`n
+`n
+`nAll pages are session-bound and tied to a verified user session`n`n
+`n`n
+`n
+`nSession handling must ensure:`n
+`n
+`n
+`nAccess continuity across the customer journey`n`n
+`n
+`nAutomatic restriction of access once the session is terminated or expired`n`n
+`n`n
+`n
+`nDirect URL access to internal pages (e.g., Payment, Enforcement, Support) must not bypass authentication or session validation`n`n
+`n
+`n`n
+`n`n2. URL and Navigation Requirements`n`n
+`n
+`n
+`nAll Landing Page URLs must:`n
+`n
+`n
+`nBe secure and not expose any personally identifiable information (PII)`n`n
+`n
+`nAvoid embedding customer-specific identifiers (e.g., case reference, postcode)`n`n
+`n`n
+`n
+`nNavigation between pages must:`n
+`n
+`n
+`nBe handled internally within the secured session`n`n
+`n
+`nPreserve context (e.g., selected case, enforcement stage)`n`n
+`n`n
+`n
+`nExternal links (e.g., support forms, payment gateway) must:`n
+`n
+`n
+`nOpen in a controlled manner (same tab or new tab as defined by design)`n`n
+`n
+`nNot expose sensitive session or customer data via URL parameters`n`n
+`n`n
+`n
+`n`n
+`n`n3. Payment Gateway Access`n`n
+`n
+`n
+`nThe system must allow access to the payment gateway `nonly from an authenticated session`n`n`n
+`n
+`nRedirection to the payment gateway must:`n
+`n
+`n
+`nBe secure and validated`n`n
+`n
+`nInclude only necessary, non-sensitive transaction data`n`n
+`n`n
+`n
+`nReturn from the payment gateway must:`n
+`n
+`n
+`nBe validated against the originating session`n`n
+`n
+`nRoute the user back to the appropriate state within the journey (success or failure)`n`n
+`n`n
+`n
+`n`n
+`n`n4. Support and External Links`n`n
+`n
+`n
+`nLinks to external support forms (e.g., complaints, vulnerability, "Not at this address") must:`n
+`n
+`n
+`nOpen securely in a new tab or controlled context`n`n
+`n
+`nNot pass any sensitive personal or case data via URL`n`n
+`n`n
+`n
+`nUpon returning from external links:`n
+`n
+`n
+`nThe user's session context should be preserved where applicable`n`n
+`n`n
+`n
+`n`n
+`n`n5. Customer App Access Requirements`n`n
+`n
+`n
+`nThe Landing Page Settings module must be accessible `nonly to authorised internal business users`n`n`n
+`n
+`nAccess must be restricted to:`n
+`n
+`n
+`nUsers assigned appropriate roles (Author, Reviewer, Publisher)`n`n
+`n`n
+`n
+`nThe system must ensure:`n
+`n
+`n
+`nNo customer-facing exposure of internal tools or content editor`n`n
+`n
+`nSecure authentication and access to the Customer App`n`n
+`n`n
+`n
+`nActions performed within the Customer App must:`n
+`n
+`n
+`nBe linked to authenticated user identities`n`n
+`n
+`nBe logged for audit and traceability`n`n
+`n`n
+`n
+`n`n
+`n`n6. Governance and Workflow Access`n`n
+`n
+`n
+`nAccess to workflow actions must be role-based:`n
+`n
+`n
+`nOnly Authors can create and submit changes`n`n
+`n
+`nOnly Reviewers can approve or reject changes`n`n
+`n
+`nOnly Publishers can publish approved content`n`n
+`n`n
+`n
+`nThe system must enforce:`n
+`n
+`n
+`nUsers cannot perform multiple roles within the same request`n`n
+`n
+`nWorkflow actions are accessible only at the appropriate stage`n`n
+`n`n
+`n
+`n`n
+`n`n7. Security and Data Protection Constraints`n`n
+`n
+`n
+`nNo Personally Identifiable Information (PII) must be:`n
+`n
+`n
+`nExposed in URLs`n`n
+`n
+`nPassed through external links`n`n
+`n
+`nStored client-side beyond session requirements`n`n
+`n`n
+`n
+`nAll links and access points must comply with:`n
+`n
+`n
+`nApplicable data protection and security standards`n`n
+`n
+`nInternal security and governance policies`n`n
+`n`n
+`n
+`n`n
+`n`n
+`n`n
+`n`n`n`n`nNon-Functional Requirements`n
+`nThe system must meet defined non-functional requirements to ensure performance, scalability, security, accessibility, and reliability across both the `ncustomer-facing Landing Pages`n and the `nCustomer App Landing Page Settings module`n.`n
+`n`n
+`n`n1. Performance Requirements`n`n
+`n
+`n
+`nAll Landing Pages must load within `n2 seconds under standard operating conditions`n`n`n
+`n
+`nTimeline rendering and dynamic data loading must be `nnear-instantaneous post-authentication`n`n`n
+`n
+`nCustomer App editor screens must load without noticeable delay, ensuring a smooth editing experience`n`n
+`n
+`nContent updates and publishing actions must be executed without impacting system responsiveness`n`n
+`n
+`n`n
+`n`n2. Availability and Reliability`n`n
+`n
+`n
+`nThe system must maintain `nhigh availability`n during operational hours, ensuring uninterrupted access for customers and business users`n`n
+`n
+`nIntegration points (e.g., backend data systems, payment gateway, ticketing system) must be reliable and monitored`n`n
+`n
+`nThe system must handle partial failures gracefully, ensuring:`n
+`n
+`n
+`nClear error messaging`n`n
+`n
+`nNo data corruption or inconsistent states`n`n
+`n`n
+`n
+`nPublished content must be consistently available across all Landing Pages without delay`n`n
+`n
+`n`n
+`n`n3. Security Requirements`n`n
+`n
+`n
+`nAll data exchanges must be `nsecure and encrypted`n`n`n
+`n
+`nAccess to customer-facing pages must be restricted to `nauthenticated sessions only`n`n`n
+`n
+`nCustomer App access must be restricted to `nauthorised business users`n`n`n
+`n
+`nNo sensitive data must be:`n
+`n
+`n
+`nExposed before authentication`n`n
+`n
+`nStored unnecessarily on the client side`n`n
+`n
+`nPassed through URLs or external links`n`n
+`n`n
+`n
+`nThe system must comply with applicable `ndata protection and security standards`n`n`n
+`n
+`n`n
+`n`n4. Accessibility Requirements`n`n
+`n
+`n
+`nAll customer-facing Landing Pages must adhere to `nWCAG 2.1 / 2.2 AA compliance standards`n`n`n
+`n
+`nPages must be:`n
+`n
+`n
+`nFully navigable via keyboard`n`n
+`n
+`nCompatible with screen readers`n`n
+`n
+`nDesigned with sufficient colour contrast and readable typography`n`n
+`n`n
+`n
+`nCustomer App interfaces must also follow accessibility best practices to ensure usability for all business users`n`n
+`n
+`n`n
+`n`n5. Scalability Requirements`n`n
+`n
+`n
+`nThe system must support increasing volumes of:`n
+`n
+`n
+`nCustomer traffic`n`n
+`n
+`nContent updates`n`n
+`n
+`nConcurrent users on the Customer App`n`n
+`n`n
+`n
+`nThe architecture must allow for `nscaling without degradation of performance`n`n`n
+`n
+`n`n
+`n`n6. Usability Requirements`n`n
+`n
+`n
+`nLanding Pages must follow a `nclear, intuitive design`n allowing users to easily understand their case and next steps`n`n
+`n
+`nThe Customer App editor must provide a `nstructured and easy-to-use interface`n that reflects the end-user view`n`n
+`n
+`nContent editing must be straightforward, ensuring minimal training is required for business users`n`n
+`n
+`n`n
+`n`n7. Maintainability Requirements`n`n
+`n
+`n
+`nContent updates must be manageable without requiring system deployment`n`n
+`n
+`nConfiguration changes must be applied without impacting live system stability`n`n
+`n
+`nThe system must support easy maintenance of:`n
+`n
+`n
+`nContent structures`n`n
+`n
+`nWorkflow configurations`n`n
+`n
+`nIntegration endpoints`n`n
+`n`n
+`n
+`n`n
+`n`n8. Audit and Logging Requirements`n`n
+`n
+`n
+`nThe system must maintain `ncomplete audit logs`n for all actions within the Customer App`n`n
+`n
+`nLogs must be:`n
+`n
+`n
+`nAccurate`n`n
+`n
+`nTime-stamped`n`n
+`n
+`nUser-specific`n`n
+`n`n
+`n
+`nAudit data must be retained as per organisational and regulatory policies`n`n
+`n
+`nLogging mechanisms must not impact system performance`n`n
+`n
+`n`n
+`n`n9. Compatibility and Responsiveness`n`n
+`n
+`n
+`nLanding Pages must be fully `nresponsive across devices`n:`n
+`n
+`n
+`nDesktop`n`n
+`n
+`nTablet`n`n
+`n
+`nMobile`n`n
+`n`n
+`n
+`nThe system must support all major modern browsers`n`n
+`n
+`nCustomer App interfaces must also adapt across supported resolutions and devices`n`n
+`n
+`n`n
+`n`n10. Compliance Requirements`n`n
+`n
+`n
+`nThe system must adhere to:`n
+`n
+`n
+`nData protection regulations (e.g., GDPR principles where applicable)`n`n
+`n
+`nIndustry standards related to payment processing (e.g., PCI-DSS compliance via payment gateway)`n`n
+`n
+`nInternal compliance and governance policies`n`n
+`n`n
+`n
+`n`n
+`n`n
+`n`n
+`n`n`n`n`nUI / UX Behaviour (Customer App Editor)`n
+`nThe Customer App Landing Page Settings module must provide a structured, intuitive, and controlled user interface that enables business users to manage Landing Page content effectively while preserving the integrity of the end-user experience.`n
+`n`n
+`n`n1. Landing Page Settings Overview Screen`n`n
+`n
+`n
+`nThe system must display Landing Page sections as `nindividual cards`n, representing key areas such as:`n
+`n
+`n
+`nMake a Payment`n`n
+`n
+`nEnforcement`n`n
+`n
+`nSupport`n`n
+`n`n
+`n
+`nEach card must:`n
+`n
+`n
+`nClearly represent a distinct Landing Page section`n`n
+`n
+`nProvide a visual entry point to manage corresponding content`n`n
+`n`n
+`n
+`nSelecting a card must:`n
+`n
+`n
+`nNavigate the user to the detailed content editing interface for that section`n`n
+`n`n
+`n
+`n`n
+`n`n2. Content Editing Interface`n`n
+`n
+`n
+`nThe system must present a `nstructured editing view`n that mirrors the layout and appearance of the corresponding customer-facing Landing Page`n`n
+`n
+`nContent must be organised into `npanels`n, where:`n
+`n
+`n
+`nEach panel represents a specific section or content block`n`n
+`n
+`nPanel names must match the headings displayed on the Landing Pages`n`n
+`n`n
+`n
+`nThe editor must follow a `nWhat-You-See-Is-What-You-Edit (WYSIWYE)`n approach, ensuring:`n
+`n
+`n
+`nVisual alignment between editor and live page`n`n
+`n
+`nClear understanding of how content will appear to end users`n`n
+`n`n
+`n
+`n`n
+`n`n3. Content Editing Capabilities`n`n
+`n
+`n
+`nThe system must allow users to:`n
+`n
+`n
+`nEdit text content directly within panels`n`n
+`n
+`nApply formatting to content (e.g., structured text presentation)`n`n
+`n
+`nInsert variables to support dynamic content rendering`n`n
+`n
+`nCreate and manage hyperlinks within content`n`n
+`n`n
+`n
+`nThe system must ensure:`n
+`n
+`n
+`nThe structural layout of the page is preserved at all times`n`n
+`n
+`nUsers cannot alter non-editable components such as layout or timeline elements`n`n
+`n`n
+`n
+`n`n
+`n`n4. Interaction Behaviour`n`n
+`n
+`n
+`nThe system must allow users to:`n
+`n
+`n
+`nSave changes during editing`n`n
+`n
+`nSubmit content for review after saving`n`n
+`n`n
+`n
+`nThe UI must clearly indicate:`n
+`n
+`n
+`nCurrent state of the content (e.g., edited, submitted)`n`n
+`n
+`nAvailable actions based on workflow stage`n`n
+`n`n
+`n
+`nNavigation within the editor must:`n
+`n
+`n
+`nAllow users to move between panels easily`n`n
+`n
+`nMaintain context without losing unsaved changes`n`n
+`n`n
+`n
+`n`n
+`n`n5. Workflow Visibility`n`n
+`n
+`n
+`nThe interface must provide clear visual indicators of workflow status, including:`n
+`n
+`n
+`nPending`n`n
+`n
+`nApproved`n`n
+`n
+`nRejected`n`n
+`n
+`nPublished`n`n
+`n`n
+`n
+`nUsers must be able to:`n
+`n
+`n
+`nIdentify the current stage of a content change`n`n
+`n
+`nView feedback in case of rejection`n`n
+`n`n
+`n
+`n]`n
+`n`n6. Audit Visibility`n`n
+`n
+`n
+`nThe system must provide visibility into audit-related information, including:`n
+`n
+`n
+`nChanges made to content`n`n
+`n
+`nUser who performed the change`n`n
+`n
+`nTimestamp of change`n`n
+`n`n
+`n
+`nAudit information may be displayed within:`n
+`n
+`n
+`nA dedicated audit log view`n`n
+`n
+`nOr as contextual information within the editor`n`n
+`n`n
+`n
+`n`n
+`n`n7. Usability and Accessibility`n`n
+`n
+`n
+`nThe editor must:`n
+`n
+`n
+`nBe intuitive and require minimal training for business users`n`n
+`n
+`nProvide clear labelling of panels and actions`n`n
+`n
+`nMaintain consistency across all sections`n`n
+`n`n
+`n
+`nThe interface must:`n
+`n
+`n
+`nSupport responsive behaviour across screen sizes`n`n
+`n
+`nFollow accessibility best practices where applicable`n`n
+`n`n
+`n
+`n`n
+`n`n8. Constraints`n`n
+`n
+`n
+`nUsers must not be able to:`n
+`n
+`n
+`nModify structural elements of the Landing Page`n`n
+`n
+`nChange layout or positioning of components`n`n
+`n
+`nEdit system-driven elements such as timeline visualisation`n`n
+`n`n
+`n
+`nAll editing actions must:`n
+`n
+`n
+`nBe part of the defined governance workflow`n`n
+`n
+`nBe logged for audit and traceability`n`n
+`n`n
+`n
+`n`n
+`n`n
+`n`n`n`n`nRisks & Dependencies`n
+`nThe successful implementation and operation of the Landing Pages and Customer App Landing Page Settings module are dependent on multiple systems, processes, and design considerations. The following risks and dependencies have been identified.`n
+`n`n
+`n`n1. Risks`n`n
+`n`n1.1 Customer Journey Risks`n`n
+`n
+`n
+`nRisk of `nuser drop-off during authentication`n due to failed attempts or friction in the sign-in process`n`n
+`n
+`nRisk of `nuser abandonment`n if enforcement messaging is perceived as too aggressive or unclear`n`n
+`n
+`nRisk of `npayment drop-off`n during redirection to the external payment gateway`n`n
+`n
+`nRisk of `nconfusion in multi-case scenarios`n if case prioritisation and selection are not clearly understood by users`n`n
+`n
+`n`n
+`n`n1.2 Content and UX Risks`n`n
+`n
+`n
+`nRisk of `nincorrect or misleading content`n being published if not properly reviewed`n`n
+`n
+`nRisk of `ninconsistent messaging`n across Landing Pages if content updates are not centrally controlled`n`n
+`n
+`nRisk of `nlayout inconsistency`n if editing controls are not strictly enforced`n`n
+`n
+`nRisk of `ncontent complexity increasing`n, reducing clarity for end users`n`n
+`n
+`n`n
+`n`n1.3 Governance and Process Risks`n`n
+`n
+`n
+`nRisk of `ndelays in content publishing`n due to dependency on Author =E2=86=92 Reviewer =E2=86=92 Publisher workflow`n`n
+`n
+`nRisk of `nworkflow bottlenecks`n if roles are not adequately resourced`n`n
+`n
+`nRisk of `nprocess bypass`n if governance controls are not strictly enforced`n`n
+`n
+`nRisk of `nhuman error`n during manual approval processes`n`n
+`n
+`n`n
+`n`n1.4 Technical Risks`n`n
+`n
+`n
+`nRisk of `ndependency on external systems`n (e.g., backend case system, payment gateway, ticketing system) affecting availability and performance`n`n
+`n
+`nRisk of `ndata inconsistency`n if backend system data is delayed or inaccurate`n`n
+`n
+`nRisk of `nintegration failures`n between systems impacting user journey or content publishing`n`n
+`n
+`nRisk of `nperformance degradation`n under high traffic conditions`n`n
+`n
+`n`n
+`n`n1.5 Compliance and Security Risks`n`n
+`n
+`n
+`nRisk of `ndata exposure`n if access controls and session management are not properly enforced`n`n
+`n
+`nRisk of `nnon-compliance`n due to incorrect enforcement messaging or content updates`n`n
+`n
+`nRisk of `nincomplete audit trails`n affecting compliance and audit requirements`n`n
+`n
+`n`n
+`n`n2. Dependencies`n`n
+`n`n2.1 System Dependencies`n`n
+`n
+`n
+`nBackend case management system (e.g., Columbus) for:`n
+`n
+`n
+`nCase data retrieval`n`n
+`n
+`nEnforcement stage and status`n`n
+`n
+`nBalance and fee information`n`n
+`n`n
+`n
+`nPayment gateway provider for:`n
+`n
+`n
+`nSecure payment processing`n`n
+`n
+`nTransaction confirmation and status updates`n`n
+`n`n
+`n
+`nTicketing system for:`n
+`n
+`n
+`nManaging content change requests`n`n
+`n
+`nSupporting approval workflow (Author, Reviewer, Publisher)`n`n
+`n`n
+`n
+`n`n
+`n`n2.2 Content and Governance Dependencies`n`n
+`n
+`n
+`nAvailability and definition of:`n
+`n
+`n
+`nBusiness users (Authors, Reviewers, Publishers)`n`n
+`n
+`nCompliance teams for review and oversight`n`n
+`n`n
+`n
+`nTimely review and approval of content updates`n`n
+`n
+`nAdherence to governance processes and role segregation`n`n
+`n
+`n`n
+`n`n2.3 Design and UX Dependencies`n`n
+`n
+`n
+`nFinalised Landing Page designs provided by external/offshore teams`n`n
+`n
+`nAlignment between Customer App editor layout and Landing Page structure`n`n
+`n
+`nAvailability of approved content templates and messaging guidelines`n`n
+`n
+`n`n
+`n`n2.4 Operational Dependencies`n`n
+`n
+`n
+`nAvailability of resources to manage content updates and workflow stages`n`n
+`n
+`nCoordination between business, compliance, and technical teams`n`n
+`n
+`nMonitoring and support for system health, performance, and incidents`n`n
+`n
+`n`n
+`n`n2.5 Data and Integration Dependencies`n`n
+`n
+`n
+`nAccuracy and availability of real-time case data`n`n
+`n
+`nStability and performance of API integrations`n`n
+`n
+`nSecure handling of data during external interactions (e.g., payment gateway, support forms)`n`n
+`n
+`n`n
+`n`n3. Mitigation Considerations`n`n
+`n
+`n
+`nEnforce strict governance rules and audit logging for all content changes`n`n
+`n
+`nProvide clear UI feedback and guidance to reduce user confusion and error`n`n
+`n
+`nEnsure robust integration monitoring and fallback mechanisms`n`n
+`n
+`nDefine operational SLAs for content approval and publishing`n`n
+`n
+`nRegularly review content and workflows for compliance and effectiveness`n`n
+`n
+`n
+`n
+`n
+------=_Part_514_614887706.1779691196726
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/ea1efee776f33cfd6adc22f9a8c3f18b15a6b41535d90d40438790225ca47abb
+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
+i09s1QAAAABJRU5ErkJggg=------=_Part_514_614887706.1779691196726--

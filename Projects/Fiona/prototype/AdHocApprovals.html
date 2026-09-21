@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Ad-hoc Payments · Approvals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* ----------------------------------------------------------------
+       MET-DS-V2 — Token Block (Light)
+       ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-75:  #C2D7F2;
+      --color-primary-100: #A2C1EA;
+      --color-primary-200: #84ADE4;
+      --color-primary-300: #6599DE;
+      --color-primary-400: #4B87D6;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-800: #22497D;
+      --color-primary-900: #1C3A62;
+
+      --color-primary:        var(--color-primary-500);
+      --color-primary-hover:  var(--color-primary-600);
+      --color-bg:             var(--color-primary-25);
+      --color-card:           #FFFFFF;
+
+      --text-primary:   #212121;
+      --text-secondary: #757575;
+      --text-tertiary:  #9E9E9E;
+      --text-hyperlink: #3276CF;
+      --text-hyperlink-hover: #2C66B4;
+
+      --grey-50:  #FAFAFA; --grey-100: #F5F5F5; --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0; --grey-400: #BDBDBD; --grey-500: #9E9E9E;
+      --grey-600: #757575; --grey-700: #616161; --grey-800: #424242; --grey-900: #212121;
+
+      --color-success: #43A047; --color-success-dark: #388E3C; --color-success-bg: #E8F5E9;
+      --color-error:   #E53935; --color-error-dark:   #D32F2F; --color-error-bg:   #FEEBEE;
+      --color-warning: #EF6C00; --color-warning-dark: #F57C00; --color-warning-bg: #FFF3E0;
+      --color-info:    #1976D2; --color-info-bg:     #E3F2FD;
+      --color-teal:    #00A99D; --color-teal-bg:     #E0F5F3;
+      
+      --topnav-icon:       #757575;
+      --topnav-icon-hover: #616161;
+
+      --radius-card:    16px;
+      --radius-button:  8px;
+      --radius-input:   8px;
+      --radius-pill:    100px;
+
+      --space-1: 2px;  --space-2: 4px;  --space-3: 8px;  --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-caption: 12px;
+      --font-weight-regular: 400; --font-weight-medium: 500;
+      --font-weight-semibold: 600; --font-weight-bold: 700;
+
+      --duration-micro: 150ms; --duration-standard: 250ms; --easing-enter: ease-out;
+
+      --shadow-card:  0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.18);
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); background: var(--color-bg); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+[hidden]{ display:none !important; }
+    .skip-link {
+      position: absolute; top: -100px; left: var(--space-5);
+      background: var(--color-primary); color: #FFFFFF;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button);
+      font-weight: var(--font-weight-medium);
+      z-index: 1000;
+      transition: top var(--duration-micro) var(--easing-enter);
+    }
+    .skip-link:focus { top: var(--space-3); color: #FFFFFF; }
+
+    /* Shell */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .topnav { display: flex; align-items: center; padding: var(--space-3); gap: var(--space-3); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; min-width: 0; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .topnav-logo { height: 28px; width: auto; }
+    .topnav-tagline { display: none; font-size: var(--font-size-caption); color: var(--text-secondary); letter-spacing: 0.15px; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn { position: relative; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--topnav-icon); padding: var(--space-3); transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge { position: absolute; top: 0; right: 0; min-width: 20px; height: 20px; background: var(--color-warning); color: #FFFFFF; font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; padding: 0 6.5px; line-height: 1; }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+    @media (min-width: 1280px) { .topnav-tagline { display: block; } }
+
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    .sidebar { width: 56px; flex-shrink: 0; background: var(--color-card); border-right: 1px solid var(--divider-color); display: flex; flex-direction: column; padding: var(--space-5) 0; overflow-x: hidden; overflow-y: hidden; transition: width var(--duration-standard) var(--easing-enter); z-index: 10; }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius-button); color: var(--text-secondary); flex-shrink: 0; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading { font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5); white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3); color: var(--text-secondary); text-decoration: none; white-space: nowrap; min-height: 40px; margin: 0 var(--space-3); border-radius: 8px; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-5); }
+
+    /* ----- Status Tabs ----- */
+    .status-tabs { display: flex; align-items: center; gap: 0; padding: var(--space-3) var(--space-5) 0; border-bottom: 1px solid var(--grey-200); }
+    .status-tab { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-5); font-size: var(--font-size-body); font-weight: var(--font-weight-medium); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); position: relative; }
+    .status-tab:hover { color: var(--color-primary); }
+    .status-tab.is-active { color: var(--text-primary); border-bottom-color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+    .status-tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 var(--space-3); border-radius: var(--radius-pill); font-size: 11px; font-weight: var(--font-weight-bold); letter-spacing: 0; color: #FFFFFF; line-height: 1; }
+    .status-tab-count.tone-pending   { background: var(--color-teal); }
+    .status-tab-count.tone-completed { background: var(--color-success); }
+    .status-tab-count.tone-failed    { background: var(--color-error); }
+
+
+    .breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .breadcrumb a { color: var(--text-hyperlink); font-weight: var(--font-weight-medium); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); font-size: 16px; line-height: 1; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+    .page-header { display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+
+    .btn { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-5); border-radius: var(--radius-button); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); min-height: 40px; white-space: nowrap; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); border: 1.5px solid transparent; }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border-color: var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-danger { background: var(--color-error); color: #FFFFFF; }
+    .btn-danger:hover { background: var(--color-error-dark); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+    .btn-sm { min-height: 32px; padding: var(--space-2) var(--space-4); font-size: var(--font-size-caption); gap: var(--space-2); }
+    .btn-sm .material-symbols-outlined { font-size: 16px; }
+    .material-symbols-outlined.is-filled { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 20; }
+
+    /* Status cards */
+    .status-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4); }
+    .status-card { background: var(--color-card); border-radius: var(--radius-card); padding: var(--space-5) var(--space-6); display: flex; align-items: center; gap: var(--space-5); }
+    .status-card-icon { width: 40px; height: 40px; border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .status-card-icon .material-symbols-outlined { font-size: 22px; }
+    .status-card-info { display: flex; flex-direction: column; }
+    .status-card-number { font-size: var(--font-size-h1); font-weight: var(--font-weight-bold); color: var(--text-primary); line-height: 1.2; }
+    .status-card-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+    .status-card.is-attention { outline: 2px solid var(--color-warning); outline-offset: -2px; }
+
+    /* Toolbar */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding: var(--space-5); flex-wrap: wrap; border-bottom: 1px solid var(--grey-200); }
+    .toolbar-left, .toolbar-right { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .toolbar-selection-actions { display: none; align-items: center; gap: var(--space-3); }
+    .toolbar-selection-actions.is-active { display: inline-flex; }
+    .toolbar-selection-count { font-size: var(--font-size-caption); color: var(--text-secondary); font-weight: var(--font-weight-semibold); }
+    .search-box { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); min-width: 260px; }
+    .search-box:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.15); }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .search-box input::placeholder { color: var(--grey-400); }
+
+    .filter-chip { display: inline-flex; align-items: center; gap: var(--space-2); height: 36px; padding: 0 var(--space-4); border-radius: var(--radius-pill); background: var(--color-card); border: 1px solid var(--grey-300); color: var(--text-secondary); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); transition: border-color var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter), background var(--duration-micro) var(--easing-enter); }
+    button.filter-chip { display: none; }
+    .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip.is-active { background: var(--color-primary-25); border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip .material-symbols-outlined { font-size: 16px; }
+    .filter-chip .chip-count { display: inline-flex; min-width: 18px; padding: 0 6px; align-items: center; justify-content: center; background: var(--grey-200); color: var(--text-secondary); border-radius: var(--radius-pill); font-size: 11px; font-weight: var(--font-weight-semibold); }
+    .filter-chip.is-active .chip-count { background: var(--color-primary); color: #FFFFFF; }
+
+    /* Bulk-action bar (visible when rows selected) */
+    .bulk-bar { display: none; align-items: center; gap: var(--space-4); padding: var(--space-4) var(--space-5); background: var(--color-primary-25); border-bottom: 1px solid var(--color-primary-50); color: var(--color-primary-700); font-weight: var(--font-weight-medium); }
+    .bulk-bar.is-active { display: flex; }
+    .bulk-bar-count { font-weight: var(--font-weight-semibold); }
+    .bulk-bar-spacer { flex: 1; }
+
+    /* Table */
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); min-width: 1100px; }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th { padding: var(--space-4); text-align: left; font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; border-bottom: 1px solid var(--grey-300); position: relative; }
+    .data-table th + th::before { content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px; background: var(--grey-200); }
+    .data-table td { padding: var(--space-4); border-bottom: 1px solid var(--grey-200); color: var(--text-primary); vertical-align: middle; }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+    .data-table tbody tr.is-selected { background: var(--color-primary-25); }
+    .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .data-table .col-check { width: 36px; }
+    .data-table .col-action { width: 220px; text-align: right; }
+    .data-table input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--color-primary); cursor: pointer; }
+    .data-table.is-selection-disabled .col-check,
+    .data-table.is-selection-disabled tbody td:first-child { display: none; }
+
+    .row-inline-actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2); }
+    .btn-row-action { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 32px; padding: var(--space-2) var(--space-4); border-radius: var(--radius-button); font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); border: 1px solid transparent; }
+    .btn-row-action .material-symbols-outlined { font-size: 16px; }
+    .btn-row-approve { background: var(--color-success-bg); color: var(--color-success-dark); border-color: var(--color-success); }
+    .btn-row-approve:hover { background: var(--color-success); color: #FFFFFF; }
+    .btn-row-reject { background: var(--color-error-bg); color: var(--color-error-dark); border-color: var(--color-error); }
+    .btn-row-reject:hover { background: var(--color-error); color: #FFFFFF; }
+
+    .row-action-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius-button); color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .row-action-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .row-action-btn.approve:hover { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .row-action-btn.reject:hover { background: var(--color-error-bg); color: var(--color-error-dark); }
+    .row-action-btn .material-symbols-outlined { font-size: 18px; }
+    .row-actions { display: flex; gap: var(--space-1); justify-content: flex-end; }
+
+    /* SLA / time chips */
+    .sla-chip { display: inline-flex; align-items: center; gap: var(--space-1); padding: 2px var(--space-3); border-radius: var(--radius-pill); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); }
+    .sla-chip.is-warn { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .sla-chip.is-ok   { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .sla-chip.is-late { background: var(--color-error-bg);   color: var(--color-error-dark); }
+    .sla-chip.is-info { background: var(--color-info-bg);    color: var(--color-primary-700); }
+    .sla-chip .material-symbols-outlined { font-size: 14px; }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); line-height: 1.5; white-space: nowrap; }
+    .badge .material-symbols-outlined { font-size: 14px; }
+    .badge--pending   { background: var(--color-warning-bg);  color: var(--color-warning-dark); }
+    .badge--approved  { background: var(--color-info-bg);     color: var(--color-primary-700); }
+    .badge--rejected  { background: var(--color-error-bg);    color: var(--color-error-dark); }
+    .badge--neutral   { background: var(--grey-200);          color: var(--grey-700); }
+    .badge--int       { background: #E3F2FD;                  color: #1565C0; }
+
+    /* Assignee chip */
+    .assignee { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .assignee .avatar { width: 22px; height: 22px; border-radius: 50%; background: var(--color-primary-50); color: var(--color-primary); display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: var(--font-weight-semibold); }
+    .assignee.is-you .avatar { background: var(--color-primary); color: #FFFFFF; }
+    .assignee.is-you { color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+
+    /* Pagination */
+    .table-footer { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); border-top: 1px solid var(--grey-200); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-button); color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; background: none; }
+
+    /* ----- View Drawer (right pane) ----- */
+    .view-backdrop { position: fixed; inset: 0; background: rgba(12, 26, 45, 0.35); z-index: 90; display: none; }
+    .view-backdrop[data-open="true"] { display: block; }
+    .view-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(540px, 100vw); background: var(--color-bg); box-shadow: var(--shadow-modal); z-index: 95; transform: translateX(100%); transition: transform var(--duration-standard) var(--easing-enter); display: flex; flex-direction: column; }
+    .view-drawer[data-open="true"] { transform: translateX(0); }
+    .view-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) var(--space-6); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .view-header-text { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; flex: 1; }
+    .view-subtitle { font-size: var(--font-size-caption); color: var(--text-secondary); font-weight: var(--font-weight-medium); letter-spacing: 0.5px; }
+    .view-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); line-height: 1.3; word-break: break-word; }
+    .drawer-close { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .drawer-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .drawer-close .material-symbols-outlined { font-size: 24px; }
+
+    .view-tabs { display: flex; gap: 0; padding: 0 var(--space-6); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .view-tab { padding: var(--space-4); font-size: var(--font-size-body); font-weight: var(--font-weight-medium); color: var(--text-secondary); border-bottom: 2px solid transparent; transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); margin-bottom: -1px; display: inline-flex; align-items: center; gap: var(--space-2); }
+    .view-tab:hover { color: var(--color-primary); }
+    .view-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .view-tab .tab-count { display: inline-flex; min-width: 18px; padding: 0 6px; align-items: center; justify-content: center; background: var(--grey-200); color: var(--text-secondary); border-radius: var(--radius-pill); font-size: 11px; font-weight: var(--font-weight-semibold); }
+    .view-tab.is-active .tab-count { background: var(--color-primary-25); color: var(--color-primary); }
+
+    .view-body { flex: 1; overflow-y: auto; padding: var(--space-6); }
+    .view-panel { display: none; flex-direction: column; gap: var(--space-5); }
+    .view-panel.is-active { display: flex; }
+
+    .view-section { background: var(--color-card); border-radius: var(--radius-card); padding: var(--space-5); border: 1px solid var(--divider-color); }
+    .view-section-title { font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2); }
+    .view-section-title .material-symbols-outlined { font-size: 16px; color: var(--color-primary); }
+
+    .view-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr 1fr; }
+    .view-cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .view-cell.full { grid-column: 1 / -1; }
+    .view-cell-label { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .view-cell-value { font-size: var(--font-size-body); color: var(--text-primary); font-weight: var(--font-weight-medium); word-break: break-word; }
+    .view-cell-value.num { font-variant-numeric: tabular-nums; }
+    .view-cell-value.big { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); }
+
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item { display: flex; gap: var(--space-4); padding-bottom: var(--space-5); position: relative; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--grey-200); }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary-25); color: var(--color-primary); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; border: 2px solid var(--color-card); }
+    .timeline-dot.success { background: var(--color-success-bg); color: var(--color-success); }
+    .timeline-dot.warn    { background: var(--color-warning-bg); color: var(--color-warning); }
+    .timeline-dot.error   { background: var(--color-error-bg);   color: var(--color-error); }
+    .timeline-dot .material-symbols-outlined { font-size: 18px; }
+    .timeline-body { flex: 1; padding-top: 4px; min-width: 0; }
+    .timeline-text { font-size: var(--font-size-body); color: var(--text-primary); line-height: 1.45; }
+    .timeline-text strong { font-weight: var(--font-weight-semibold); }
+    .timeline-meta { font-size: var(--font-size-caption); color: var(--text-tertiary); margin-top: 2px; }
+
+    .file-list { display: flex; flex-direction: column; gap: var(--space-2); }
+    .file-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); background: var(--color-card); border: 1px solid var(--grey-300); border-radius: var(--radius-button); font-size: var(--font-size-body); }
+    .file-item .material-symbols-outlined { font-size: 20px; color: var(--color-primary); }
+    .file-item .file-name { flex: 1; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file-item .file-size { color: var(--text-tertiary); font-size: var(--font-size-caption); }
+
+    .view-empty { padding: var(--space-8) var(--space-5); text-align: center; color: var(--text-secondary); }
+    .view-empty .material-symbols-outlined { font-size: 40px; color: var(--grey-400); display: block; margin: 0 auto var(--space-3); }
+
+    .view-footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: var(--color-card); border-top: 1px solid var(--divider-color); flex-shrink: 0; flex-wrap: wrap; }
+    .view-footer-spacer { flex: 1; }
+
+    /* Reject reason modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(12, 26, 45, 0.55); z-index: 200; display: none; align-items: center; justify-content: center; padding: var(--space-5); }
+    .modal-backdrop[data-open="true"] { display: flex; }
+    .modal { background: var(--color-card); border-radius: var(--radius-card); box-shadow: var(--shadow-modal); width: 100%; max-width: 480px; display: flex; flex-direction: column; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-5) var(--space-6); border-bottom: 1px solid var(--divider-color); }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .modal-body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); }
+    .modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-top: 1px solid var(--divider-color); }
+    .field-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-primary); }
+    .textarea { width: 100%; min-height: 96px; padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); resize: vertical; }
+    .textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.18); }
+
+    .data-table a[href="#"] { cursor: pointer; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: var(--space-7); left: 50%; transform: translateX(-50%) translateY(20px); background: var(--color-success-dark); color: #FFFFFF; padding: var(--space-4) var(--space-6); border-radius: var(--radius-button); box-shadow: var(--shadow-modal); display: flex; align-items: center; gap: var(--space-3); font-weight: var(--font-weight-medium); opacity: 0; pointer-events: none; z-index: 300; transition: opacity var(--duration-standard) var(--easing-enter), transform var(--duration-standard) var(--easing-enter); }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast .material-symbols-outlined { font-size: 20px; }
+
+    @media (max-width: 768px) {
+      .content-area { padding: var(--space-5); }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .view-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .view-drawer { width: 100vw; }
+      .view-header, .view-tabs, .view-body, .view-footer { padding-left: var(--space-5); padding-right: var(--space-5); }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- Top Nav -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Ad-hoc Payments · Approvals</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 4 awaiting your approval">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">4</span>
+        </button>
+        <button aria-label="User profile menu — John Doe">
+          <img src="https://i.pravatar.cc/64?img=12" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+
+      <!-- Sidebar -->
+      <nav class="sidebar" id="sidebar" aria-label="Ad-hoc Payments navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Ad-hoc Payments</span>
+          <a href="AdHocPayments.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Requests</span>
+          </a>
+          <a href="AdHocApprovals.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">approval</span>
+            <span class="sidebar-link-text">Approvals</span>
+          </a>
+          <!-- <a href="AdHocGeneratedFiles.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">folder_zip</span>
+            <span class="sidebar-link-text">Generated Files</span>
+          </a> -->
+          <a href="AdHocExportedFiles.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">outbox</span>
+            <span class="sidebar-link-text">Exported Files</span>
+          </a>
+          <a href="AdHocPaymentTypeLookup.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_search</span>
+            <span class="sidebar-link-text">Payment Reason</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <main class="content-area" id="main-content" tabindex="-1">
+        <div class="content-inner">
+
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="LandingPage.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <a href="AdHocPayments.html">Ad-hoc Payments</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">Approvals</span>
+          </nav>
+
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title">Approvals</h1>
+            </div>
+          </div>
+
+          <!-- Status cards -->
+          <!-- <div class="status-row" role="list" aria-label="Approval queue summary">
+            <div class="status-card is-attention" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-warning-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-warning);" aria-hidden="true">person_alert</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">4</span>
+                <span class="status-card-label">Awaiting your approval</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-primary-50);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);" aria-hidden="true">groups</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">8</span>
+                <span class="status-card-label">Awaiting team</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-success-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-success);" aria-hidden="true">verified</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">12</span>
+                <span class="status-card-label">Approved this week</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-error-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-error);" aria-hidden="true">cancel</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">1</span>
+                <span class="status-card-label">Rejected this week</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-info-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-info);" aria-hidden="true">schedule</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">3.4h</span>
+                <span class="status-card-label">Avg response time</span>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- Toolbar + Table -->
+          <div class="card-container">
+            <!-- Status Tabs -->
+            <div class="status-tabs" role="tablist" aria-label="Exported file status">
+              <button class="status-tab is-active" type="button" role="tab" aria-selected="true" data-tab="pending">
+                Pending
+                <span class="status-tab-count tone-pending" aria-label="4 pending">4</span>
+              </button>
+              <button class="status-tab" type="button" role="tab" aria-selected="false" data-tab="completed">
+                Approved
+                <span class="status-tab-count tone-completed" aria-label="1 approved">1</span>
+              </button>
+              <button class="status-tab" type="button" role="tab" aria-selected="false" data-tab="failed">
+                Rejected
+                <span class="status-tab-count tone-failed" aria-label="0 rejected">0</span>
+              </button>
+            </div>
+
+
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="search-box">
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                  <input type="search" placeholder="Search by reference, beneficiary or requester…" aria-label="Search approvals" />
+                </div>
+                <button class="filter-chip is-active" type="button" aria-pressed="true" data-filter="me">
+                  Awaiting me <span class="chip-count">4</span>
+                </button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-filter="team">
+                  Awaiting team <span class="chip-count">8</span>
+                </button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-filter="approved">
+                  Approved <span class="chip-count">12</span>
+                </button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-filter="rejected">
+                  Rejected <span class="chip-count">1</span>
+                </button>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn btn-text-primary" type="button" id="columnFilterBtn" aria-haspopup="menu" aria-expanded="false" aria-label="Open column filter menu">
+                  <span class="material-symbols-outlined is-filled" aria-hidden="true">view_column</span>
+                  Column
+                </button>
+                <button class="btn btn-text-primary" type="button" aria-label="Export to CSV">
+                  <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                  Export
+                </button>
+                <div class="toolbar-selection-actions" id="toolbarSelectionActions" aria-live="polite">
+                  <span class="toolbar-selection-count" id="toolbarSelectionCount">0 selected</span>
+                  <button class="btn btn-ghost btn-sm" type="button" id="toolbarClearBtn">Clear</button>
+                  <button class="btn btn-danger btn-sm" type="button" id="toolbarRejectBtn">
+                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                    Reject
+                  </button>
+                  <button class="btn btn-primary btn-sm" type="button" id="toolbarApproveBtn">
+                    <span class="material-symbols-outlined" aria-hidden="true">check</span>
+                    Approve
+                  </button>
+                  <button class="btn btn-primary btn-sm" type="button" id="toolbarGenerateBtn" hidden>
+                    <span class="material-symbols-outlined" aria-hidden="true">description</span>
+                    Generate File
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-scroll">
+              <table class="data-table" aria-label="Approval queue">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-check"><input type="checkbox" id="selectAll" aria-label="Select all on this page" /></th>
+                    <th scope="col">Req. ID</th>
+                    <th scope="col">Requester Name</th>
+                    <th scope="col">Beneficiary</th>
+                    <th scope="col">Region</th>
+                    <th scope="col" class="num">Total</th>
+                    <th scope="col">Payment for</th>
+                    <th scope="col"><!-- Submitted --> Due Date</th>
+                    <th scope="col" class="col-action">Action</th>
+                    <!-- <th scope="col">SLA</th>
+                    <th scope="col">Approver</th>
+                    <th scope="col">Status</th> -->
+                  </tr>
+                </thead>
+                <tbody id="approvalRows">
+                  <!-- Awaiting You — 4 rows -->
+                  <tr data-status="pending" data-bucket="me">
+                    <td><input type="checkbox" class="row-check" aria-label="Select AHP-2026-0151" /></td>
+                    <td><a href="#" style="font-weight:var(--font-weight-medium);">AHP-2026-0151</a></td>
+                    <td>Sarah K.</td>
+                    <td>Avalon Engineering Ltd</td>
+                    <td><span class="badge badge--int"><span class="material-symbols-outlined" aria-hidden="true">public</span>International</span></td>
+                    <td class="num">€ 8,400.00</td>
+                    <td>Supplier — services</td>
+                    <td>24/06/2026 10:42</td>
+                    <td>
+                      <div class="row-inline-actions">
+                        <button class="btn btn-row-action btn-primary" type="button" data-act="approve" aria-label="Approve AHP-2026-0151"><span class="material-symbols-outlined" aria-hidden="true">check</span>Approve</button>
+                        <button class="btn btn-row-action btn-danger" type="button" data-act="reject" aria-label="Reject AHP-2026-0151"><span class="material-symbols-outlined" aria-hidden="true">close</span>Reject</button>
+                      </div>
+                    </td>
+                    <!-- <td><span class="sla-chip is-warn"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>2 days</span></td> -->
+                    <!-- <td><span class="assignee is-you"><span class="avatar">JD</span>You</span></td> -->
+                    <!-- <td><span class="badge badge--pending"><span class="material-symbols-outlined" aria-hidden="true">pending_actions</span>Awaiting</span></td> -->
+                  </tr>
+
+                  <tr data-status="pending" data-bucket="me">
+                    <td><input type="checkbox" class="row-check" aria-label="Select AHP-2026-0150" /></td>
+                    <td><a href="#">AHP-2026-0150</a></td>
+                    <td>Tom B.</td>
+                    <td>Greater Manchester Police</td>
+                    <td><span class="badge badge--neutral"><!-- Domestic -->UK</span></td>
+                    <td class="num">£ 1,820.00</td>
+                    <td>Court fee</td>
+                    <td>24/06/2026 09:18</td>
+                    <td>
+                      <div class="row-inline-actions">
+                        <button class="btn btn-row-action btn-primary" type="button" data-act="approve" aria-label="Approve AHP-2026-0150"><span class="material-symbols-outlined" aria-hidden="true">check</span>Approve</button>
+                        <button class="btn btn-row-action btn-danger" type="button" data-act="reject" aria-label="Reject AHP-2026-0150"><span class="material-symbols-outlined" aria-hidden="true">close</span>Reject</button>
+                      </div>
+                    </td>
+                    <!-- <td><span class="sla-chip is-warn"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>2 days</span></td> -->
+                    <!-- <td><span class="assignee is-you"><span class="avatar">JD</span>You</span></td> -->
+                    <!-- <td><span class="badge badge--pending"><span class="material-symbols-outlined" aria-hidden="true">pending_actions</span>Awaiting</span></td> -->
+                  </tr>
+
+                  <tr data-status="pending" data-bucket="me">
+                    <td><input type="checkbox" class="row-check" aria-label="Select AHP-2026-0149" /></td>
+                    <td><a href="#">AHP-2026-0149</a></td>
+                    <td>Priya M.</td>
+                    <td>Westside Council</td>
+                    <td><span class="badge badge--neutral"><!-- Domestic -->UK</span></td>
+                    <td class="num">£ 6,250.00</td>
+                    <td>Council fund refund</td>
+                    <td>24/06/2026 08:30</td>
+                    <td>
+                      <div class="row-inline-actions">
+                        <button class="btn btn-row-action btn-primary" type="button" data-act="approve" aria-label="Approve AHP-2026-0149"><span class="material-symbols-outlined" aria-hidden="true">check</span>Approve</button>
+                        <button class="btn btn-row-action btn-danger" type="button" data-act="reject" aria-label="Reject AHP-2026-0149"><span class="material-symbols-outlined" aria-hidden="true">close</span>Reject</button>
+                      </div>
+                    </td>
+                    <!-- <td><span class="sla-chip is-late"><span class="material-symbols-outlined" aria-hidden="true">priority_high</span>Due today</span></td> -->
+                    <!-- <td><span class="assignee is-you"><span class="avatar">JD</span>You</span></td> -->
+                    <!-- <td><span class="badge badge--pending"><span class="material-symbols-outlined" aria-hidden="true">pending_actions</span>Awaiting</span></td> -->
+                  </tr>
+
+                  <tr data-status="pending" data-bucket="me">
+                    <td><input type="checkbox" class="row-check" aria-label="Select AHP-2026-0147" /></td>
+                    <td><a href="#">AHP-2026-0147</a></td>
+                    <td>John Doe</td>
+                    <td>Lambeth BC</td>
+                    <td><span class="badge badge--neutral"><!-- Domestic -->UK</span></td>
+                    <td class="num">£ 4,680.00</td>
+                    <td>Court fee</td>
+                    <td>23/06/2026 14:30</td>
+                    <td>
+                      <div class="row-inline-actions">
+                        <button class="btn btn-row-action btn-primary" type="button" data-act="approve" aria-label="Approve AHP-2026-0147"><span class="material-symbols-outlined" aria-hidden="true">check</span>Approve</button>
+                        <button class="btn btn-row-action btn-danger" type="button" data-act="reject" aria-label="Reject AHP-2026-0147"><span class="material-symbols-outlined" aria-hidden="true">close</span>Reject</button>
+                      </div>
+                    </td>
+                    <!-- <td><span class="sla-chip is-ok"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>1 day</span></td> -->
+                    <!-- <td><span class="assignee is-you"><span class="avatar">JD</span>You</span></td> -->
+                    <!-- <td><span class="badge badge--pending"><span class="material-symbols-outlined" aria-hidden="true">pending_actions</span>Awaiting</span></td> -->
+                  </tr>
+
+                  <tr data-status="approved" data-bucket="me">
+                    <td><input type="checkbox" class="row-check" aria-label="Select AHP-2026-0138" /></td>
+                    <td><a href="#">AHP-2026-0138</a></td>
+                    <td>Elena P.</td>
+                    <td>Northumbria NHS Trust</td>
+                    <td><span class="badge badge--neutral">UK</span></td>
+                    <td class="num">£ 3,420.00</td>
+                    <td>Clinical supplies</td>
+                    <td>20/06/2026 11:10</td>
+                    <td>
+                      <div class="row-inline-actions">
+                        <button class="btn btn-row-action btn-primary" type="button" data-act="generate" aria-label="Generate file for AHP-2026-0138"><span class="material-symbols-outlined" aria-hidden="true">description</span>Generate File</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr data-status="rejected" data-bucket="me">
+                    <td><input type="checkbox" class="row-check" aria-label="Select AHP-2026-0129" /></td>
+                    <td><a href="#">AHP-2026-0129</a></td>
+                    <td>Mark T.</td>
+                    <td>Leeds City Council</td>
+                    <td><span class="badge badge--neutral">UK</span></td>
+                    <td class="num">£ 2,150.00</td>
+                    <td>Grant payment</td>
+                    <td>19/06/2026 09:35</td>
+                    <td>—</td>
+                  </tr>
+
+                  <tr data-status="rejected" data-bucket="me">
+                    <td><input type="checkbox" class="row-check" aria-label="Select AHP-2026-0118" /></td>
+                    <td><a href="#">AHP-2026-0118</a></td>
+                    <td>Nina S.</td>
+                    <td>Riverside Housing</td>
+                    <td><span class="badge badge--neutral">UK</span></td>
+                    <td class="num">£ 1,090.00</td>
+                    <td>Maintenance invoice</td>
+                    <td>18/06/2026 13:40</td>
+                    <td>—</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-footer">
+              <span>Showing 4 of 4 awaiting your approval</span>
+              <nav class="pagination" aria-label="Pagination">
+                <button class="pagination-btn" type="button" aria-label="Previous page" disabled><span class="material-symbols-outlined">chevron_left</span></button>
+                <span>1 / 1</span>
+                <button class="pagination-btn" type="button" aria-label="Next page" disabled><span class="material-symbols-outlined">chevron_right</span></button>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- View Drawer -->
+  <div class="view-backdrop" id="viewBackdrop" data-open="false"></div>
+  <aside class="view-drawer" id="viewDrawer" role="dialog" aria-modal="true" aria-labelledby="viewTitle" data-open="false">
+    <header class="view-header">
+      <div class="view-header-text">
+        <span class="view-subtitle" id="viewSubtitle">—</span>
+        <h2 class="view-title" id="viewTitle">—</h2>
+        <span id="viewStatusBadge"></span>
+      </div>
+      <button class="drawer-close" id="viewClose" type="button" aria-label="Close details">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+
+    <nav class="view-tabs" role="tablist" aria-label="Request sections">
+      <button class="view-tab is-active" role="tab" aria-selected="true" type="button" data-tab="details" id="tab-details">Details</button>
+      <button class="view-tab" role="tab" aria-selected="false" type="button" data-tab="activity" id="tab-activity">Activity <span class="tab-count" id="activityCount">0</span></button>
+      <button class="view-tab" role="tab" aria-selected="false" type="button" data-tab="files" id="tab-files">Files <span class="tab-count" id="filesCount">0</span></button>
+    </nav>
+
+    <div class="view-body">
+      <div class="view-panel is-active" data-panel="details" role="tabpanel" aria-labelledby="tab-details">
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">person</span> Beneficiary &amp; bank</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Beneficiary</span><span class="view-cell-value" id="vw-beneficiary">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Type</span><span class="view-cell-value" id="vw-intl">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Sort code / IBAN</span><span class="view-cell-value" id="vw-account">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Account / BIC</span><span class="view-cell-value" id="vw-accountNum">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Currency</span><span class="view-cell-value" id="vw-ccy">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">payments</span> Amount</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Net</span><span class="view-cell-value num" id="vw-net">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">VAT</span><span class="view-cell-value num" id="vw-vat">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Total to be paid</span><span class="view-cell-value num big" id="vw-total">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">event</span> Timing</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Method</span><span class="view-cell-value" id="vw-method">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Submission</span><span class="view-cell-value" id="vw-submission">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Reaches recipient on</span><span class="view-cell-value" id="vw-reach">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">balance</span> Payment reason &amp; ledger</h3>
+          <div class="view-grid">
+            <div class="view-cell full"><span class="view-cell-label">Payment reason</span><span class="view-cell-value" id="vw-reason">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Ledger account</span><span class="view-cell-value" id="vw-ledger">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Description</span><span class="view-cell-value" id="vw-caseref">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Comments</span><span class="view-cell-value" id="vw-comments">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">person_check</span> Requester</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Raised by</span><span class="view-cell-value" id="vw-requester">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Raised on</span><span class="view-cell-value" id="vw-raised">—</span></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="view-panel" data-panel="activity" role="tabpanel" aria-labelledby="tab-activity" hidden>
+        <ol class="timeline" id="vw-timeline"></ol>
+      </div>
+
+      <div class="view-panel" data-panel="files" role="tabpanel" aria-labelledby="tab-files" hidden>
+        <div class="file-list" id="vw-files"></div>
+      </div>
+    </div>
+
+    <footer class="view-footer" id="viewFooter"></footer>
+  </aside>
+
+  <!-- Reject modal -->
+  <div class="modal-backdrop" id="rejectBackdrop" data-open="false">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rejectTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="rejectTitle">Reject request</h3>
+        <button class="drawer-close" id="rejectClose" type="button" aria-label="Close">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-secondary);">You are about to reject <strong id="rejectRef">—</strong>. The requester will be notified with your reason.</p>
+        <div>
+          <label class="field-label" for="rejectReason">Reason for rejection <span style="color: var(--color-error);">*</span></label>
+          <textarea id="rejectReason" class="textarea" placeholder="e.g. Missing line-manager approval — please re-attach"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" type="button" id="rejectCancel">Cancel</button>
+        <button class="btn btn-danger" type="button" id="rejectConfirm">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+          Confirm rejection
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script>
+    /* -- Sidebar toggle -- */
+    (function () {
+      const sidebar = document.getElementById('sidebar');
+      const toggle  = document.getElementById('sidebarToggle');
+      toggle.addEventListener('click', () => {
+        const expanded = sidebar.classList.toggle('is-expanded');
+        toggle.setAttribute('aria-expanded', String(expanded));
+      });
+    })();
+
+    /* -- Toast helper (exposed globally for reuse) -- */
+    (function () {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      let t;
+      window.__fionaToast = function (msg, isError) {
+        toastMsg.textContent = msg;
+        toast.style.background = isError ? 'var(--color-error-dark)' : 'var(--color-success-dark)';
+        toast.classList.add('is-visible');
+        clearTimeout(t);
+        t = setTimeout(() => toast.classList.remove('is-visible'), 2800);
+      };
+    })();
+
+    /* ----------------------------------------------------------------
+       Approval-page logic: filters · selection · view drawer · decisions
+       ---------------------------------------------------------------- */
+    (function () {
+      const toast    = (m, e) => window.__fionaToast(m, e);
+      const tbody    = document.getElementById('approvalRows');
+      const chips    = Array.from(document.querySelectorAll('.filter-chip[data-filter]'));
+      const selectAll = document.getElementById('selectAll');
+      const toolbarSelectionActions = document.getElementById('toolbarSelectionActions');
+      const toolbarSelectionCount = document.getElementById('toolbarSelectionCount');
+      const toolbarClearBtn = document.getElementById('toolbarClearBtn');
+      const toolbarApproveBtn = document.getElementById('toolbarApproveBtn');
+      const toolbarRejectBtn  = document.getElementById('toolbarRejectBtn');
+      const toolbarGenerateBtn = document.getElementById('toolbarGenerateBtn');
+      const statusTabs = Array.from(document.querySelectorAll('.status-tab[data-tab]'));
+      let activeStatus = 'pending';
+
+      function getVisibleMode() {
+        const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(tr => tr.style.display !== 'none');
+        const statuses = new Set(visibleRows.map(tr => tr.dataset.status).filter(Boolean));
+        if (statuses.size !== 1) return 'pending';
+        return Array.from(statuses)[0] || 'pending';
+      }
+
+      function isSelectionEnabled() {
+        return getVisibleMode() !== 'rejected';
+      }
+
+      function syncSelectionAndActionsMode() {
+        const selectionEnabled = isSelectionEnabled();
+        const mode = getVisibleMode();
+        const isApprovedMode = mode === 'approved';
+        const isPendingMode = mode === 'pending';
+        const showActionColumn = isPendingMode || isApprovedMode;
+        const table = document.querySelector('.data-table');
+
+        if (table) {
+          table.classList.toggle('is-selection-disabled', !selectionEnabled);
+        }
+
+        if (selectAll) {
+          selectAll.hidden = !selectionEnabled;
+          selectAll.disabled = !selectionEnabled;
+          if (!selectionEnabled) {
+            selectAll.checked = false;
+            selectAll.indeterminate = false;
+          }
+        }
+
+        tbody.querySelectorAll('.row-check').forEach(c => {
+          c.hidden = !selectionEnabled;
+          c.disabled = !selectionEnabled;
+          if (!selectionEnabled) c.checked = false;
+        });
+
+        if (table) {
+          const actionHeader = table.querySelector('th.col-action');
+          if (actionHeader) actionHeader.style.display = showActionColumn ? '' : 'none';
+          table.querySelectorAll('tbody tr').forEach(tr => {
+            const actionCell = tr.querySelector('td:last-child');
+            if (actionCell) actionCell.style.display = showActionColumn ? '' : 'none';
+          });
+        }
+
+        toolbarRejectBtn.hidden = !isPendingMode;
+        toolbarApproveBtn.hidden = !isPendingMode;
+        toolbarGenerateBtn.hidden = !isApprovedMode;
+      }
+
+      function getStatusFromTab(tabName) {
+        if (tabName === 'completed') return 'approved';
+        if (tabName === 'failed') return 'rejected';
+        return 'pending';
+      }
+
+      function applyStatusFilter() {
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.forEach(tr => {
+          const matches = tr.dataset.status === activeStatus;
+          tr.style.display = matches ? '' : 'none';
+        });
+
+        syncSelectionAndActionsMode();
+
+        const visibleChecks = rows
+          .filter(tr => tr.style.display !== 'none')
+          .map(tr => tr.querySelector('.row-check'))
+          .filter(Boolean);
+        const checked = visibleChecks.filter(c => c.checked).length;
+        const allVisible = visibleChecks.length;
+        selectAll.checked = (checked === allVisible && allVisible > 0);
+        selectAll.indeterminate = (checked > 0 && checked < allVisible);
+        refreshBulkBar();
+      }
+
+      statusTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const nextStatus = getStatusFromTab(tab.dataset.tab);
+          activeStatus = nextStatus;
+          statusTabs.forEach(t => {
+            const on = t === tab;
+            t.classList.toggle('is-active', on);
+            t.setAttribute('aria-selected', String(on));
+          });
+          applyStatusFilter();
+          const label = activeStatus === 'approved' ? 'approved' : activeStatus === 'rejected' ? 'rejected' : 'pending';
+          toast('Showing ' + label + ' requests');
+        });
+      });
+
+      /* Records — approval-relevant statuses only (pending / approved / rejected) */
+      const records = {
+        /* Awaiting You */
+        'AHP-2026-0151': {
+          beneficiary:'Avalon Engineering Ltd', intl:'International',
+          account:'IT60 X054 2811 1010 0000 0123 456', accountNum:'BCITITMMXXX',
+          ccy:'EUR', sym:'€',
+          net:7000.00, vat:1400.00, total:8400.00,
+          method:'CHAPS', submission:'24/06/2026 10:42', reach:'24/06/2026',
+          reason:'Supplier — services',
+          ledger:'Supplier · 60914200', caseref:'PO-2026-0901',
+          comments:'Q2 contract milestone — INV-0901 attached.',
+          requester:'Sarah K.', raised:'24/06/2026 10:42',
+          status:'pending', bucket:'me',
+          timeline:[
+            { kind:'primary', icon:'edit', text:'<strong>Sarah K.</strong> created the request', meta:'24/06/2026 10:38' },
+            { kind:'warn',    icon:'send', text:'Submitted for approval to <strong>You</strong>', meta:'24/06/2026 10:42' }
+          ],
+          files:[{name:'INV-0901-Avalon.pdf', size:'182 KB'},{name:'line-manager-approval.msg', size:'42 KB'}]
+        },
+        'AHP-2026-0150': {
+          beneficiary:'Greater Manchester Police', intl:'Domestic (UK)',
+          account:'20-00-00', accountNum:'80445599',
+          ccy:'GBP', sym:'£', net:1820.00, vat:0, total:1820.00,
+          method:'CHAPS', submission:'24/06/2026 09:18', reach:'24/06/2026',
+          reason:'Court fee',
+          ledger:'Customer · 60912100', caseref:'C000412GMPL',
+          comments:'Court hearing on 27/06.',
+          requester:'Tom B.', raised:'24/06/2026 09:14',
+          status:'pending', bucket:'me',
+          timeline:[
+            { kind:'primary', icon:'edit', text:'<strong>Tom B.</strong> created the request', meta:'24/06/2026 09:14' },
+            { kind:'warn',    icon:'send', text:'Submitted for approval', meta:'24/06/2026 09:18' }
+          ],
+          files:[{name:'court-order-GMPL.pdf', size:'168 KB'}]
+        },
+        'AHP-2026-0149': {
+          beneficiary:'Westside Council', intl:'Domestic (UK)',
+          account:'40-20-15', accountNum:'33112299',
+          ccy:'GBP', sym:'£', net:5208.33, vat:1041.67, total:6250.00,
+          method:'Faster Payments (FP)', submission:'24/06/2026 08:30', reach:'24/06/2026',
+          reason:'Council fund refund',
+          ledger:'Customer · 60919910', caseref:'C000401WSCC',
+          comments:'Refund of overpayment — agreed by council finance team.',
+          requester:'Priya M.', raised:'24/06/2026 08:21',
+          status:'pending', bucket:'me',
+          timeline:[
+            { kind:'primary', icon:'edit', text:'<strong>Priya M.</strong> created the request', meta:'24/06/2026 08:21' },
+            { kind:'warn',    icon:'send', text:'Submitted for approval', meta:'24/06/2026 08:30' }
+          ],
+          files:[{name:'refund-agreement-WSCC.pdf', size:'212 KB'},{name:'line-manager-approval.msg', size:'46 KB'}]
+        },
+        'AHP-2026-0147': {
+          beneficiary:'Lambeth BC', intl:'Domestic (UK)',
+          account:'20-00-00', accountNum:'50447733',
+          ccy:'GBP', sym:'£', net:4680.00, vat:0, total:4680.00,
+          method:'CHAPS', submission:'23/06/2026 14:30', reach:'25/06/2026',
+          reason:'Court fee',
+          ledger:'Customer · 60912100', caseref:'C000301LMBT',
+          comments:'Statutory court filing fee — due before hearing.',
+          requester:'John Doe', raised:'23/06/2026 14:22',
+          status:'pending', bucket:'me',
+          timeline:[
+            { kind:'primary', icon:'edit', text:'<strong>John Doe</strong> created the request', meta:'23/06/2026 14:22' },
+            { kind:'warn',    icon:'send', text:'Submitted for approval to <strong>You</strong>', meta:'23/06/2026 14:30' }
+          ],
+          files:[{name:'court-order-LMBT.pdf', size:'212 KB'}]
+        },
+        'AHP-2026-0138': {
+          beneficiary:'Northumbria NHS Trust', intl:'Domestic (UK)',
+          account:'40-20-15', accountNum:'33112299',
+          ccy:'GBP', sym:'£', net:3420.00, vat:0, total:3420.00,
+          method:'Faster Payments (FP)', submission:'20/06/2026 11:10', reach:'20/06/2026',
+          reason:'Clinical supplies',
+          ledger:'Supplier · 60917000', caseref:'PO-2026-0881',
+          comments:'Approved by finance lead on 20/06/2026.',
+          requester:'Elena P.', raised:'20/06/2026 11:05',
+          status:'approved', bucket:'me',
+          timeline:[
+            { kind:'primary', icon:'edit', text:'<strong>Elena P.</strong> created the request', meta:'20/06/2026 11:05' },
+            { kind:'success', icon:'check_circle', text:'Approved by <strong>You</strong>', meta:'20/06/2026 11:10' }
+          ],
+          files:[{name:'PO-2026-0881.pdf', size:'128 KB'}]
+        },
+        'AHP-2026-0129': {
+          beneficiary:'Leeds City Council', intl:'Domestic (UK)',
+          account:'20-00-00', accountNum:'22001199',
+          ccy:'GBP', sym:'£', net:2150.00, vat:0, total:2150.00,
+          method:'CHAPS', submission:'19/06/2026 09:35', reach:'19/06/2026',
+          reason:'Grant payment',
+          ledger:'Customer · 60918820', caseref:'C000302LCC',
+          comments:'Rejected due to missing grant evidence.',
+          requester:'Mark T.', raised:'19/06/2026 09:22',
+          status:'rejected', bucket:'me',
+          timeline:[
+            { kind:'primary', icon:'edit', text:'<strong>Mark T.</strong> created the request', meta:'19/06/2026 09:22' },
+            { kind:'error', icon:'cancel', text:'Rejected by <strong>You</strong>', meta:'19/06/2026 09:35' }
+          ],
+          files:[{name:'grant-approval-brief.pdf', size:'95 KB'}]
+        },
+        'AHP-2026-0118': {
+          beneficiary:'Riverside Housing', intl:'Domestic (UK)',
+          account:'30-10-40', accountNum:'66778800',
+          ccy:'GBP', sym:'£', net:1090.00, vat:0, total:1090.00,
+          method:'Faster Payments (FP)', submission:'18/06/2026 13:40', reach:'18/06/2026',
+          reason:'Maintenance invoice',
+          ledger:'Supplier · 60917050', caseref:'PO-2026-0842',
+          comments:'Rejected due to duplicate invoice attachment.',
+          requester:'Nina S.', raised:'18/06/2026 13:28',
+          status:'rejected', bucket:'me',
+          timeline:[
+            { kind:'primary', icon:'edit', text:'<strong>Nina S.</strong> created the request', meta:'18/06/2026 13:28' },
+            { kind:'error', icon:'cancel', text:'Rejected by <strong>You</strong>', meta:'18/06/2026 13:40' }
+          ],
+          files:[{name:'invoice-duplicate.pdf', size:'81 KB'}]
+        }
+      };
+
+      /* -- Filter chips -- */
+      chips.forEach(c => c.addEventListener('click', () => {
+        chips.forEach(o => { o.classList.remove('is-active'); o.setAttribute('aria-pressed', 'false'); });
+        c.classList.add('is-active');
+        c.setAttribute('aria-pressed', 'true');
+        const f = c.dataset.filter;
+        if (f === 'approved') activeStatus = 'approved';
+        else if (f === 'rejected') activeStatus = 'rejected';
+        else activeStatus = 'pending';
+        statusTabs.forEach(t => {
+          const tabStatus = getStatusFromTab(t.dataset.tab);
+          const on = tabStatus === activeStatus;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', String(on));
+        });
+        applyStatusFilter();
+        const label = activeStatus === 'approved' ? 'approved' : activeStatus === 'rejected' ? 'rejected' : 'pending';
+        toast('Showing ' + label + ' requests');
+      }));
+
+      /* -- Selection & bulk bar -- */
+      function refreshBulkBar() {
+        const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(tr => tr.style.display !== 'none');
+        const checked = visibleRows.map(tr => tr.querySelector('.row-check')).filter(Boolean).filter(c => c.checked);
+        const n = checked.length;
+        const enabled = isSelectionEnabled();
+        const mode = getVisibleMode();
+        const isApprovedMode = mode === 'approved';
+        toolbarSelectionActions.classList.toggle('is-active', enabled && (n > 0 || isApprovedMode));
+        toolbarSelectionCount.textContent = n + ' selected';
+        toolbarClearBtn.disabled = (n === 0);
+        toolbarApproveBtn.disabled = toolbarRejectBtn.disabled = (n === 0);
+        toolbarGenerateBtn.disabled = (n === 0);
+        visibleRows.forEach(tr => {
+          const c = tr.querySelector('.row-check');
+          tr.classList.toggle('is-selected', !!(c && c.checked));
+        });
+        const all = visibleRows.map(tr => tr.querySelector('.row-check')).filter(Boolean).length;
+        selectAll.checked = (n === all && all > 0);
+        selectAll.indeterminate = (n > 0 && n < all);
+      }
+      tbody.addEventListener('change', e => {
+        if (e.target.classList.contains('row-check')) refreshBulkBar();
+      });
+      selectAll.addEventListener('change', () => {
+        if (!isSelectionEnabled()) return;
+        Array.from(tbody.querySelectorAll('tr')).forEach(tr => {
+          if (tr.style.display === 'none') return;
+          const c = tr.querySelector('.row-check');
+          if (c) c.checked = selectAll.checked;
+        });
+        refreshBulkBar();
+      });
+      document.getElementById('toolbarClearBtn').addEventListener('click', () => {
+        tbody.querySelectorAll('.row-check').forEach(c => { c.checked = false; });
+        refreshBulkBar();
+      });
+
+      function bulkApprove() {
+        const refs = collectSelectedRefs();
+        if (!refs.length) return;
+        refs.forEach(removeRow);
+        toast(refs.length + ' request' + (refs.length>1?'s':'') + ' approved');
+        refreshBulkBar();
+      }
+      function bulkReject() {
+        const refs = collectSelectedRefs();
+        if (!refs.length) return;
+        toast(refs.length + ' request' + (refs.length>1?'s':'') + ' rejected — requesters notified', false);
+        refs.forEach(removeRow);
+        refreshBulkBar();
+      }
+      function bulkGenerate() {
+        const refs = collectSelectedRefs();
+        if (!refs.length) return;
+        toast('Generate file started for ' + refs.length + ' approved request' + (refs.length > 1 ? 's' : ''));
+      }
+      function collectSelectedRefs() {
+        return Array.from(tbody.querySelectorAll('.row-check:checked'))
+          .map(c => c.closest('tr').querySelector('td a')?.textContent.trim())
+          .filter(Boolean);
+      }
+      function removeRow(ref) {
+        const a = Array.from(tbody.querySelectorAll('td a')).find(x => x.textContent.trim() === ref);
+        a?.closest('tr')?.remove();
+      }
+
+      toolbarApproveBtn.addEventListener('click', bulkApprove);
+      toolbarRejectBtn.addEventListener('click', bulkReject);
+      toolbarGenerateBtn.addEventListener('click', bulkGenerate);
+
+      applyStatusFilter();
+
+      /* -- Row-level click delegation -- */
+      tbody.addEventListener('click', e => {
+        const link = e.target.closest('a[href="#"]');
+        const btn  = e.target.closest('button[aria-label]');
+        const tr   = e.target.closest('tr');
+        if (!tr) return;
+        const ref = tr.querySelector('td a')?.textContent.trim();
+        if (!ref) return;
+        const idCell = tr.querySelector('td:nth-child(2)');
+        const clickedIdCell = !!e.target.closest('td') && e.target.closest('td') === idCell;
+        if (link || clickedIdCell) { e.preventDefault(); openView(ref); return; }
+        if (!btn) return;
+        const label = (btn.getAttribute('aria-label') || '').toLowerCase();
+        if (label.startsWith('view')) { openView(ref); return; }
+        if (btn.dataset.act === 'approve') {
+          toast('Request ' + ref + ' approved');
+          tr.remove();
+          refreshBulkBar();
+          return;
+        }
+        if (btn.dataset.act === 'reject') {
+          openReject(ref);
+          return;
+        }
+        if (btn.dataset.act === 'generate') {
+          toast('Generate file started for ' + ref);
+          return;
+        }
+      });
+
+      /* -------- View drawer -------- */
+      const drawer   = document.getElementById('viewDrawer');
+      const backdrop = document.getElementById('viewBackdrop');
+      const closeBtn = document.getElementById('viewClose');
+      const subtitle = document.getElementById('viewSubtitle');
+      const title    = document.getElementById('viewTitle');
+      const statusEl = document.getElementById('viewStatusBadge');
+      const footer   = document.getElementById('viewFooter');
+      const tabs     = Array.from(document.querySelectorAll('.view-tab'));
+      const panels   = Array.from(document.querySelectorAll('.view-panel'));
+      let lastFocus  = null;
+
+      const badges = {
+        pending:   { cls:'badge--pending',   icon:'pending_actions', label:'Awaiting approval' },
+        approved:  { cls:'badge--approved',  icon:'verified',        label:'Approved' },
+        rejected:  { cls:'badge--rejected',  icon:'cancel',          label:'Rejected' }
+      };
+
+      function openView(ref) {
+        const d = records[ref];
+        if (!d) { toast('Request ' + ref + ' not found', true); return; }
+        lastFocus = document.activeElement;
+        render(ref, d);
+        backdrop.dataset.open = 'true';
+        drawer.dataset.open = 'true';
+        setTimeout(() => closeBtn.focus(), 250);
+        document.addEventListener('keydown', onKey);
+      }
+      function closeView() {
+        backdrop.dataset.open = 'false';
+        drawer.dataset.open = 'false';
+        document.removeEventListener('keydown', onKey);
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      function onKey(e) { if (e.key === 'Escape') closeView(); }
+      closeBtn.addEventListener('click', closeView);
+      backdrop.addEventListener('click', closeView);
+
+      tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+      function switchTab(name) {
+        tabs.forEach(t => {
+          const on = t.dataset.tab === name;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', String(on));
+        });
+        panels.forEach(p => {
+          const on = p.dataset.panel === name;
+          p.classList.toggle('is-active', on);
+          p.hidden = !on;
+        });
+      }
+
+      function render(ref, d) {
+        switchTab('details');
+        subtitle.textContent = ref;
+        title.textContent = d.beneficiary;
+        const b = badges[d.status];
+        statusEl.innerHTML = b
+          ? '<span class="badge ' + b.cls + '"><span class="material-symbols-outlined" aria-hidden="true">' + b.icon + '</span>' + b.label + '</span>'
+          : '';
+
+        set('vw-beneficiary', d.beneficiary);
+        set('vw-intl', d.intl);
+        set('vw-account', d.account);
+        set('vw-accountNum', d.accountNum);
+        set('vw-ccy', d.ccy);
+        set('vw-net',   d.sym + ' ' + fmt(d.net));
+        set('vw-vat',   d.sym + ' ' + fmt(d.vat));
+        set('vw-total', d.sym + ' ' + fmt(d.total));
+        set('vw-method', d.method);
+        set('vw-submission', d.submission);
+        set('vw-reach', d.reach);
+        set('vw-reason', d.reason);
+        set('vw-ledger', d.ledger);
+        set('vw-caseref', d.caseref);
+        set('vw-comments', d.comments || '—');
+        set('vw-requester', d.requester);
+        set('vw-raised', d.raised);
+
+        const tl = document.getElementById('vw-timeline');
+        tl.innerHTML = (d.timeline || []).map(i => (
+          '<li class="timeline-item">' +
+            '<span class="timeline-dot ' + (i.kind || '') + '" aria-hidden="true">' +
+              '<span class="material-symbols-outlined">' + i.icon + '</span></span>' +
+            '<div class="timeline-body">' +
+              '<p class="timeline-text">' + i.text + '</p>' +
+              '<p class="timeline-meta">' + i.meta + '</p></div></li>'
+        )).join('') || emptyHtml('history', 'No activity yet');
+        document.getElementById('activityCount').textContent = (d.timeline || []).length;
+
+        const fl = document.getElementById('vw-files');
+        fl.innerHTML = (d.files || []).map(f => (
+          '<div class="file-item">' +
+            '<span class="material-symbols-outlined" aria-hidden="true">description</span>' +
+            '<span class="file-name">' + esc(f.name) + '</span>' +
+            '<span class="file-size">' + esc(f.size) + '</span>' +
+            '<button class="row-action-btn" type="button" aria-label="Download ' + esc(f.name) + '"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>' +
+          '</div>'
+        )).join('') || emptyHtml('attach_file', 'No attachments');
+        document.getElementById('filesCount').textContent = (d.files || []).length;
+        fl.querySelectorAll('button').forEach(b => b.addEventListener('click', () => toast('File download started')));
+
+        /* Footer — approver actions */
+        if (d.status === 'pending') {
+          footer.innerHTML =
+            '<span class="view-footer-spacer"></span>' +
+            '<button class="btn btn-ghost" type="button" id="vf-back"><!-- Decide later --></button>' +
+            '<button class="btn btn-danger" type="button" id="vf-reject"><span class="material-symbols-outlined" aria-hidden="true">close</span>Reject</button>' +
+            '<button class="btn btn-primary" type="button" id="vf-approve"><span class="material-symbols-outlined" aria-hidden="true">check</span>Approve</button>';
+          document.getElementById('vf-back').addEventListener('click', closeView);
+          document.getElementById('vf-approve').addEventListener('click', () => {
+            toast('Request ' + ref + ' approved');
+            removeRow(ref);
+            refreshBulkBar();
+            closeView();
+          });
+          document.getElementById('vf-reject').addEventListener('click', () => {
+            closeView();
+            setTimeout(() => openReject(ref), 220);
+          });
+        } else {
+          footer.innerHTML =
+            '<span class="view-footer-spacer"></span>' +
+            '<button class="btn btn-secondary" type="button" id="vf-back">Close</button>';
+          document.getElementById('vf-back').addEventListener('click', closeView);
+        }
+      }
+      function set(id, v) { const el = document.getElementById(id); if (el) el.textContent = (v === null || v === undefined || v === '') ? '—' : v; }
+      function fmt(n) { return typeof n === 'number' ? n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00'; }
+      function emptyHtml(i, m) { return '<div class="view-empty"><span class="material-symbols-outlined" aria-hidden="true">' + i + '</span>' + m + '</div>'; }
+      function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+      /* -------- Reject modal -------- */
+      const rejectBackdrop = document.getElementById('rejectBackdrop');
+      const rejectRef      = document.getElementById('rejectRef');
+      const rejectReason   = document.getElementById('rejectReason');
+      let rejectCurrent = null;
+      function openReject(ref) {
+        rejectCurrent = ref;
+        rejectRef.textContent = ref;
+        rejectReason.value = '';
+        rejectBackdrop.dataset.open = 'true';
+        setTimeout(() => rejectReason.focus(), 100);
+      }
+      function closeReject() { rejectBackdrop.dataset.open = 'false'; rejectCurrent = null; }
+      document.getElementById('rejectClose').addEventListener('click', closeReject);
+      document.getElementById('rejectCancel').addEventListener('click', closeReject);
+      rejectBackdrop.addEventListener('click', e => { if (e.target === rejectBackdrop) closeReject(); });
+      document.getElementById('rejectConfirm').addEventListener('click', () => {
+        const reason = rejectReason.value.trim();
+        if (!reason) { rejectReason.focus(); toast('Please provide a reason', true); return; }
+        if (rejectCurrent) {
+          toast('Request ' + rejectCurrent + ' rejected — requester notified');
+          removeRow(rejectCurrent);
+          refreshBulkBar();
+        }
+        closeReject();
+      });
+    })();
+  </script>
+
+  <!-- ----- Column Header Menu (3-dot) ----- -->
+  <style>
+    .data-table th { position: relative; }
+    .th-menu-btn {
+      position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 4px; padding: 0;
+      border: none; background: transparent; color: var(--text-secondary, #616161);
+      cursor: pointer; opacity: 0; transition: opacity 120ms ease, background 120ms ease;
+    }
+    .th-menu-btn .material-symbols-outlined { font-size: 18px; }
+    .data-table th:hover .th-menu-btn,
+    .th-menu-btn.is-open,
+    .th-menu-btn:focus-visible { opacity: 1; }
+    .th-menu-btn:hover { background: var(--grey-100, #f0f0f0); }
+
+    .col-menu {
+      position: absolute; z-index: 1000; min-width: 210px;
+      background: #FFFFFF; border: 1px solid var(--grey-200, #E0E0E0);
+      border-radius: 8px; box-shadow: 0 6px 20px rgba(12, 26, 45, 0.14);
+      padding: 6px 0; display: none; font-size: 13px;
+    }
+    .col-menu.is-open { display: block; }
+    .col-menu button {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 8px 16px; background: transparent; border: none;
+      text-align: left; cursor: pointer; color: var(--text-primary, #212121);
+      font-size: 13px; text-transform: none; letter-spacing: 0;
+    }
+    .col-menu button:hover,
+    .col-menu button:focus-visible { background: var(--color-primary-25, #F0F5FC); outline: none; }
+    .col-menu button.is-selected { background: var(--color-primary-25, #F0F5FC); font-weight: 600; }
+    .col-menu .material-symbols-outlined { font-size: 18px; color: var(--text-secondary, #616161); }
+    .col-menu hr { border: none; border-top: 1px solid var(--grey-200, #E0E0E0); margin: 4px 0; }
+
+    .column-filter-panel {
+      position: absolute; z-index: 1000; min-width: 240px;
+      background: #FFFFFF; border: 1px solid var(--grey-200, #E0E0E0);
+      border-radius: 8px; box-shadow: 0 6px 20px rgba(12, 26, 45, 0.14);
+      padding: 8px 0; display: none;
+    }
+    .column-filter-panel.is-open { display: block; }
+    .column-filter-title {
+      font-size: 12px; font-weight: 600; color: var(--text-secondary, #616161);
+      text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 16px 8px;
+    }
+    .column-filter-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 16px; font-size: 13px; color: var(--text-primary, #212121);
+    }
+    .column-filter-item:hover { background: var(--color-primary-25, #F0F5FC); }
+    .column-filter-item input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--color-primary);
+    }
+  </style>
+  <script>
+    (function () {
+      function initColumnMenus(root) {
+        var scope = root || document;
+        var tables = scope.querySelectorAll('table.data-table');
+        tables.forEach(function (table) {
+          table.querySelectorAll('thead th').forEach(function (th) {
+            if (th.classList.contains('col-check')) return;
+            if (!th.dataset.colLabel) {
+              th.dataset.colLabel = (th.textContent || '').trim();
+            }
+            var label = (th.textContent || '').trim().toLowerCase();
+            if (!label || label === 'action' || label === 'actions') return;
+            if (th.querySelector('.th-menu-btn')) return;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'th-menu-btn';
+            btn.setAttribute('aria-label', 'Column options');
+            btn.setAttribute('aria-haspopup', 'menu');
+            btn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">more_vert</span>';
+            th.appendChild(btn);
+          });
+        });
+      }
+
+      function ensureMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) return menu;
+        menu = document.createElement('div');
+        menu.id = 'columnMenuPopup';
+        menu.className = 'col-menu';
+        menu.setAttribute('role', 'menu');
+        menu.innerHTML = [
+          '<button type="button" data-act="sort-asc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>Sort by ASC</button>',
+          '<button type="button" data-act="sort-desc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span>Sort by DESC</button>',
+          '<hr>',
+          '<button type="button" data-act="pin-left" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to left</button>',
+          '<button type="button" data-act="pin-right" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to right</button>',
+          '<hr>',
+          '<button type="button" data-act="filter" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">filter_alt</span>Filter</button>',
+          '<button type="button" data-act="hide" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>Hide Column</button>',
+          '<button type="button" data-act="manage" role="menuitem" class="is-selected"><span class="material-symbols-outlined" aria-hidden="true">view_column</span>Manage Column</button>'
+        ].join('');
+        document.body.appendChild(menu);
+        return menu;
+      }
+
+      var currentBtn = null;
+      var currentTh = null;
+      var currentFilterBtn = null;
+      var currentFilterTable = null;
+
+      function ensureFilterPanel() {
+        var panel = document.getElementById('columnFilterPanel');
+        if (panel) return panel;
+        panel = document.createElement('div');
+        panel.id = 'columnFilterPanel';
+        panel.className = 'column-filter-panel';
+        panel.setAttribute('role', 'menu');
+        panel.innerHTML = '<div class="column-filter-title">Visible Columns</div><div id="columnFilterList"></div>';
+        document.body.appendChild(panel);
+        return panel;
+      }
+
+      function toggleColumn(table, colIndex, visible) {
+        if (!table || colIndex < 0) return;
+        var headerRow = table.querySelector('thead tr');
+        if (!headerRow) return;
+        var th = headerRow.children[colIndex];
+        if (th) th.style.display = visible ? '' : 'none';
+        table.querySelectorAll('tbody tr').forEach(function (tr) {
+          var td = tr.children[colIndex];
+          if (td) td.style.display = visible ? '' : 'none';
+        });
+      }
+
+      function buildFilterList(table) {
+        var list = document.getElementById('columnFilterList');
+        if (!list || !table) return;
+        var headers = Array.from(table.querySelectorAll('thead th'));
+        list.innerHTML = headers
+          .map(function (th, index) {
+            if (th.classList.contains('col-check')) return '';
+            var label = th.dataset.colLabel || (th.textContent || '').trim() || ('Column ' + (index + 1));
+            var checked = th.style.display === 'none' ? '' : 'checked';
+            return (
+              '<label class="column-filter-item">' +
+                '<input type="checkbox" data-col-index="' + index + '" ' + checked + ' />' +
+                '<span>' + label + '</span>' +
+              '</label>'
+            );
+          })
+          .join('');
+      }
+
+      function closeFilterPanel() {
+        var panel = document.getElementById('columnFilterPanel');
+        if (panel) panel.classList.remove('is-open');
+        if (currentFilterBtn) currentFilterBtn.setAttribute('aria-expanded', 'false');
+        currentFilterBtn = null;
+        currentFilterTable = null;
+      }
+
+      function openFilterPanel(btn) {
+        closeMenu();
+        var panel = ensureFilterPanel();
+        currentFilterBtn = btn;
+        currentFilterTable = btn.closest('.card-container')?.querySelector('table.data-table') || document.querySelector('table.data-table');
+        buildFilterList(currentFilterTable);
+        var rect = btn.getBoundingClientRect();
+        panel.style.top = (window.scrollY + rect.bottom + 6) + 'px';
+        panel.style.left = (window.scrollX + rect.left) + 'px';
+        panel.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      function openMenuFor(btn) {
+        var menu = ensureMenu();
+        closeFilterPanel();
+        closeMenu();
+        currentBtn = btn;
+        currentTh = btn.closest('th');
+        btn.classList.add('is-open');
+        var rect = btn.getBoundingClientRect();
+        menu.style.top = (window.scrollY + rect.bottom + 4) + 'px';
+        menu.style.left = (window.scrollX + rect.left) + 'px';
+        menu.classList.add('is-open');
+      }
+
+      function closeMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) menu.classList.remove('is-open');
+        if (currentBtn) currentBtn.classList.remove('is-open');
+        currentBtn = null;
+        currentTh = null;
+      }
+
+      document.addEventListener('click', function (e) {
+        var filterBtn = e.target.closest && e.target.closest('#columnFilterBtn');
+        if (filterBtn) {
+          e.stopPropagation();
+          var panel = document.getElementById('columnFilterPanel');
+          var isOpen = panel && panel.classList.contains('is-open') && currentFilterBtn === filterBtn;
+          if (isOpen) {
+            closeFilterPanel();
+          } else {
+            openFilterPanel(filterBtn);
+          }
+          return;
+        }
+
+        var filterCheck = e.target.closest && e.target.closest('#columnFilterPanel input[type="checkbox"]');
+        if (filterCheck) {
+          e.stopPropagation();
+          var idx = Number(filterCheck.getAttribute('data-col-index'));
+          toggleColumn(currentFilterTable, idx, !!filterCheck.checked);
+          return;
+        }
+
+        var btn = e.target.closest && e.target.closest('.th-menu-btn');
+        if (btn) {
+          e.stopPropagation();
+          if (btn === currentBtn) { closeMenu(); return; }
+          openMenuFor(btn);
+          return;
+        }
+        var item = e.target.closest && e.target.closest('#columnMenuPopup button');
+        if (item) {
+          e.stopPropagation();
+          handleMenuAction(item.getAttribute('data-act'));
+          closeMenu();
+          return;
+        }
+        if (e.target.closest && e.target.closest('#columnFilterPanel')) return;
+        if (e.target.closest && e.target.closest('#columnMenuPopup')) return;
+        closeMenu();
+        closeFilterPanel();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          closeMenu();
+          closeFilterPanel();
+        }
+      });
+      window.addEventListener('scroll', function () { closeMenu(); closeFilterPanel(); }, true);
+      window.addEventListener('resize', function () { closeMenu(); closeFilterPanel(); });
+
+      function handleMenuAction(act) {
+        if (!currentTh || act !== 'hide') return;
+        var table = currentTh.closest('table');
+        var headerRow = currentTh.parentElement;
+        var colIndex = Array.prototype.indexOf.call(headerRow.children, currentTh);
+        toggleColumn(table, colIndex, false);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { initColumnMenus(); });
+      } else {
+        initColumnMenus();
+      }
+      window.reinitColumnMenus = initColumnMenus;
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

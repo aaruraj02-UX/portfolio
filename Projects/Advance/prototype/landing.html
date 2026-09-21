@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProServe — Working Prototype Demo – Select Role</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <style>
+    /* -----------------------------------------------------------
+       MET-DS-V2 Design Tokens
+       ----------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-600:  #757575;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      --color-success:         #43A047;
+      --color-success-bg:      #E8F5E9;
+      --color-success-darker:  #2E7D32;
+      --color-warning:         #FF9800;
+      --color-warning-bg:      #FFF3E0;
+      --orange-800:            #E56800;
+
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --radius-card:           8px;
+      --radius-button:         8px;
+      --radius-pill:           100px;
+
+      --space-1:  2px;  --space-2:  4px;  --space-3:  8px;
+      --space-4:  12px; --space-5:  16px; --space-6:  20px;
+      --space-7:  24px; --space-8:  32px; --space-9:  40px;
+      --space-10: 48px;
+
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:      700;
+      --font-weight-semibold:  600;
+      --font-weight-medium:    500;
+      --font-weight-regular:   400;
+      --line-height-heading:   1.2;
+      --line-height-body:      1.5;
+
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --easing-enter:      ease-out;
+
+      --shadow-card:   0 1px 4px rgba(50,118,207,0.10);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- HEADER --- */
+    .landing-header {
+      background: linear-gradient(135deg, var(--color-primary-950) 0%, var(--color-primary-700) 100%);
+      padding: var(--space-10) var(--space-7);
+      text-align: center;
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+    .landing-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(50,118,207,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .landing-header-inner {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .landing-logo {
+      height: 36px;
+      margin-bottom: var(--space-7);
+    }
+    .landing-title {
+      font-size: 28px;
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-heading);
+      margin-bottom: var(--space-3);
+    }
+    .landing-subtitle {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-regular);
+      opacity: 0.85;
+      margin-bottom: var(--space-2);
+    }
+    .landing-desc {
+      font-size: var(--font-size-body);
+      opacity: 0.7;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* --- MAIN --- */
+    .landing-main {
+      flex: 1;
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      padding: var(--space-9) var(--space-7) var(--space-10);
+    }
+
+    .section-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-5);
+    }
+
+    /* --- ROLE GRID --- */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-5);
+    }
+
+    .role-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-5);
+      padding: var(--space-6);
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  box-shadow var(--duration-micro) var(--easing-enter),
+                  transform var(--duration-micro) var(--easing-enter);
+    }
+    .role-card:hover {
+      border-color: var(--color-primary-200);
+      box-shadow: 0 4px 16px rgba(50,118,207,0.12);
+      transform: translateY(-2px);
+    }
+    .role-card:focus-visible {
+      box-shadow: var(--shadow-focus);
+      outline: none;
+    }
+    .role-card:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-card);
+    }
+
+    .role-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-card);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .role-icon svg { width: 20px; height: 20px; }
+
+    /* Icon colour variants */
+    .role-icon--admin    { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .role-icon--member   { background: var(--color-primary-50); color: var(--color-primary); }
+    .role-icon--it       { background: #E3F2FD; color: #1565C0; }
+    .role-icon--director { background: #F3E5F5; color: #7B1FA2; }
+    .role-icon--senior   { background: #E8EAF6; color: #283593; }
+    .role-icon--manager  { background: #E0F2F1; color: #00695C; }
+    .role-icon--ea       { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .role-icon--finance  { background: var(--color-warning-bg); color: var(--orange-800); }
+    .role-icon--facility { background: #FBE9E7; color: #D84315; }
+    .role-icon--fleet    { background: #E1F5FE; color: #0277BD; }
+    .role-icon--audit    { background: #EFEBE9; color: #4E342E; }
+
+    .role-info { flex: 1; min-width: 0; }
+    .role-name {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-heading);
+      margin-bottom: var(--space-1);
+    }
+    .role-desc {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      line-height: var(--line-height-body);
+    }
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.4;
+      margin-top: var(--space-2);
+    }
+    .role-badge--full  { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .role-badge--view  { background: var(--color-primary-50); color: var(--color-primary-800); }
+    .role-badge--limited { background: var(--grey-100); color: var(--grey-600); }
+
+    .role-arrow {
+      align-self: center;
+      color: var(--grey-400);
+      flex-shrink: 0;
+      transition: color var(--duration-micro) var(--easing-enter),
+                  transform var(--duration-micro) var(--easing-enter);
+    }
+    .role-card:hover .role-arrow {
+      color: var(--color-primary);
+      transform: translateX(3px);
+    }
+    .role-arrow svg { width: 16px; height: 16px; }
+
+    /* --- FOOTER --- */
+    .landing-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-5) var(--space-7);
+      border-top: var(--border-divider);
+      background: var(--color-card);
+    }
+    .footer-text {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .footer-branding {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .footer-branding img { height: 18px; }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 640px) {
+      .landing-header { padding: var(--space-8) var(--space-5); }
+      .landing-title { font-size: var(--font-size-h1); }
+      .landing-main { padding: var(--space-7) var(--space-5); }
+      .role-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- --- HEADER --- -->
+  <header class="landing-header">
+    <div class="landing-header-inner">
+      <img class="landing-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 32'%3E%3Crect width='140' height='32' rx='4' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3Ctext x='28' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EProServe%3C/text%3E%3C/svg%3E" alt="ProServe" />
+      <h1 class="landing-title">Master EA Record — Prototype Demo</h1>
+      <p class="landing-subtitle">Role-Based Access Control (RBAC) Walkthrough</p>
+      <p class="landing-desc">Select a role below to experience the prototype with that role's permissions, views, and workflows.</p>
+    </div>
+  </header>
+
+  <!-- --- ROLE SELECTION --- -->
+  <main class="landing-main" id="main-content">
+    <p class="section-label">Select a role to continue</p>
+
+    <div class="role-grid">
+
+      <!-- 1. Contract Service Team Lead – Admin -->
+      <a class="role-card" href="advance_contact_service.html?role=cs-lead-admin" onclick="sessionStorage.setItem('demoRoleKey','cs-lead-admin')">
+        <div class="role-icon role-icon--admin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Contractor Services Team Lead</div>
+          <div class="role-desc">Full edit access across Personal, Compliance, Certificate, Contract &amp; Bond. No Asset / Enforcement entity access. Creator &amp; Approver rights.</div>
+          <span class="role-badge role-badge--full">Full Access</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 2. Contract Service Team Member -->
+      <a class="role-card" href="advance_contact_service.html?role=cs-member" onclick="sessionStorage.setItem('demoRoleKey','cs-member')">
+        <div class="role-icon role-icon--member">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Contractor Services Team Member</div>
+          <div class="role-desc">Edit Personal, Compliance, Certificate, Contract &amp; Bond entities. No Asset / Enforcement access. Creator only — no approval rights.</div>
+          <span class="role-badge role-badge--full">Full Edit</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 3. IT / Service Desk -->
+      <a class="role-card" href="advance_contact_service.html?role=it-service-desk" onclick="sessionStorage.setItem('demoRoleKey','it-service-desk')">
+        <div class="role-icon role-icon--it">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">IT / Service Desk</div>
+          <div class="role-desc">View Personal details. Edit Asset Management. Access to Audit Log &amp; Reports. Creator &amp; Approver.</div>
+          <span class="role-badge role-badge--view">View + IT Edit</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 4. Enforcement Directors -->
+      <a class="role-card" href="advance_contact_service.html?role=enforcement-director" onclick="sessionStorage.setItem('demoRoleKey','enforcement-director')">
+        <div class="role-icon role-icon--director">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Enforcement Directors</div>
+          <div class="role-desc">Edit Personal (partial) &amp; Enforcement. View-only Certificate, Bond &amp; Asset. No Compliance / Contract. Approver rights.</div>
+          <span class="role-badge role-badge--full">Edit (Partial)</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 5. Senior Enforcement Managers -->
+      <a class="role-card" href="advance_contact_service.html?role=senior-em" onclick="sessionStorage.setItem('demoRoleKey','senior-em')">
+        <div class="role-icon role-icon--senior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Senior Enforcement Managers</div>
+          <div class="role-desc">Edit Personal (partial) &amp; Enforcement. View-only Certificate, Bond &amp; Asset. No Compliance / Contract.</div>
+          <span class="role-badge role-badge--full">Edit (Partial)</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 6. Enforcement Manager -->
+      <a class="role-card" href="advance_contact_service.html?role=enforcement-manager" onclick="sessionStorage.setItem('demoRoleKey','enforcement-manager')">
+        <div class="role-icon role-icon--manager">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Enforcement Manager</div>
+          <div class="role-desc">Edit Personal (partial) &amp; Enforcement. View Cert Processing, Cert Status, Bond &amp; Asset. No Compliance/Contract.</div>
+          <span class="role-badge role-badge--full">Edit (Partial)</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 7. EA (Enforcement Agent) -->
+      <a class="role-card" href="advance_contact_service.html?role=ea" onclick="sessionStorage.setItem('demoRoleKey','ea')">
+        <div class="role-icon role-icon--ea">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">EA (Enforcement Agent)</div>
+          <div class="role-desc">Edit limited Personal fields (phone, email, address). View-only Certificate, Bond, Asset &amp; Enforcement.</div>
+          <span class="role-badge role-badge--view">Limited Edit</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 8. Finance -->
+      <a class="role-card" href="advance_contact_service.html?role=finance" onclick="sessionStorage.setItem('demoRoleKey','finance')">
+        <div class="role-icon role-icon--finance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Finance</div>
+          <div class="role-desc">View-only access to Personal details and Contract entity. No edit or approval permissions.</div>
+          <span class="role-badge role-badge--limited">View Only</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 9. Facilities -->
+      <a class="role-card" href="advance_contact_service.html?role=facilities" onclick="sessionStorage.setItem('demoRoleKey','facilities')">
+        <div class="role-icon role-icon--facility">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Facilities</div>
+          <div class="role-desc">View-only access to Personal details. No access to other entities or workflows.</div>
+          <span class="role-badge role-badge--limited">View Only</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 10. Fleet -->
+      <a class="role-card" href="advance_contact_service.html?role=fleet" onclick="sessionStorage.setItem('demoRoleKey','fleet')">
+        <div class="role-icon role-icon--fleet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 4v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Fleet</div>
+          <div class="role-desc">View-only access to Personal details. No access to other entities or workflows.</div>
+          <span class="role-badge role-badge--limited">View Only</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 11. SLT (Senior Leadership Team) -->
+      <a class="role-card" href="advance_contact_service.html?role=slt" onclick="sessionStorage.setItem('demoRoleKey','slt')">
+        <div class="role-icon role-icon--director">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">SLT (Senior Leadership Team)</div>
+          <div class="role-desc">Read-only oversight across Personal, Certificate, Contract, Bond, Asset &amp; Enforcement.</div>
+          <span class="role-badge role-badge--limited">View Only</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+      <!-- 12. Audit -->
+      <a class="role-card" href="advance_contact_service.html?role=audit" onclick="sessionStorage.setItem('demoRoleKey','audit')">
+        <div class="role-icon role-icon--audit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="role-info">
+          <div class="role-name">Audit</div>
+          <div class="role-desc">View-only access to Personal, Compliance, Certification &amp; Bond. Read-only audit inspection.</div>
+          <span class="role-badge role-badge--limited">View Only</span>
+        </div>
+        <div class="role-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- --- FOOTER --- -->
+  <footer class="landing-footer" role="contentinfo">
+    <span class="footer-text">&copy; 2026 Acme Holdings. Prototype for demonstration purposes only.</span>
+    <div class="footer-branding">
+      <span>Powered by</span>
+      <img src="images/acme-logo@small-logo.png" alt="Acme" />
+    </div>
+  </footer>
+
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

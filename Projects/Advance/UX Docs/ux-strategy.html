@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Strategy — ProServe Master EA Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">ProServe</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html" class="active">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../Advance/prototype/landing.html">Prototype</a>
+  </nav>
+
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Strategy — ProServe Master EA Platform</h1>
+      <div class="doc-meta">
+        <span>📋 ProServe — Enforcement Agent Master Data Platform</span>
+        <span>📅 20 April 2026</span>
+        <span>🔖 v1.0 — Draft</span>
+      </div>
+    </header>
+
+    <!-- Vision -->
+    <section class="doc-section">
+      <h2>1. Vision</h2>
+      <blockquote style="border-left: 4px solid var(--accent); padding: .75rem 1.25rem; background: var(--accent-light); border-radius: 0 8px 8px 0; font-style: italic; font-size: 1.05rem; color: var(--text-primary);">
+        <strong>One platform, one record, one truth.</strong> The ProServe Master EA Platform delivers a role-appropriate, accessible, and governed experience for managing Enforcement Agent data — replacing fragmented multi-system workflows with a single, authoritative, and auditable interface.
+      </blockquote>
+    </section>
+
+    <!-- UX Principles -->
+    <section class="doc-section">
+      <h2>2. UX Principles</h2>
+      <div class="principle-grid">
+        <div class="principle-card"><h4>P-1 · Clarity</h4><p>Every interface element communicates its purpose. Editable vs. view-only fields are visually distinct. Role context is always visible.</p></div>
+        <div class="principle-card"><h4>P-2 · Reliability</h4><p>Users trust that data entered once propagates correctly. Save states are explicit. Sync status is transparent.</p></div>
+        <div class="principle-card"><h4>P-3 · Guidance</h4><p>Progressive disclosure leads users through complex workflows. Steppers, validation, and contextual help prevent errors before they occur.</p></div>
+        <div class="principle-card"><h4>P-4 · Transparency</h4><p>Approval status, audit history, and sync health are always accessible. Nothing is a black box.</p></div>
+        <div class="principle-card"><h4>P-5 · Consistency</h4><p>All interfaces follow MET-DS-V2 patterns. Same components, same interactions, same language across all roles and views.</p></div>
+        <div class="principle-card"><h4>P-6 · Efficiency</h4><p>Minimise clicks, eliminate redundant entry, support keyboard navigation, provide smart defaults and auto-population.</p></div>
+      </div>
+    </section>
+
+    <!-- Strategic Objectives & KPIs -->
+    <section class="doc-section">
+      <h2>3. Strategic Objectives & KPIs</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th><th>KPI</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>SO-1</td><td><strong>Reduce onboarding time</strong> — guided stepper replacing multi-system workflow</td><td>Time from EA data receipt to complete profile</td><td>≤ 15 min (from 45+)</td></tr>
+          <tr><td>SO-2</td><td><strong>Eliminate multi-system entry</strong> — single data entry point</td><td>Number of systems a user must touch</td><td>1 (from 3–4)</td></tr>
+          <tr><td>SO-3</td><td><strong>Accelerate approval cycle</strong> — contextual approval with change highlighting</td><td>Average approval turnaround time</td><td>&lt; 4 hours (from 2+ days)</td></tr>
+          <tr><td>SO-4</td><td><strong>Reduce rejection rework</strong> — section-level rejection comments</td><td>Rejection resubmission success rate</td><td>≥ 90% first-time fix</td></tr>
+          <tr><td>SO-5</td><td><strong>Increase role clarity</strong> — RBAC with visual field indicators</td><td>User-reported permission confusion</td><td>≤ 2% of sessions</td></tr>
+          <tr><td>SO-6</td><td><strong>Achieve data completeness</strong> — mandatory field validation</td><td>Active EA profile completeness</td><td>100%</td></tr>
+          <tr><td>SO-7</td><td><strong>WCAG 2.2 AA compliance</strong> — accessible to all users</td><td>Automated + manual audit pass rate</td><td>100% AA conformance</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- UX Pillars -->
+    <section class="doc-section">
+      <h2>4. UX Pillars</h2>
+
+      <h3>Pillar 1 — Simplified Workflows</h3>
+      <p><strong>Problem:</strong> Users currently navigate 3–4 systems to complete a single task.</p>
+      <ul>
+        <li>8-step guided stepper for Add/Edit workflows with "Save & Continue" per step</li>
+        <li>Steps dynamically filtered by RBAC — users only see entities relevant to their role</li>
+        <li>Save-as-Draft capability to prevent data loss</li>
+        <li>Auto-population from Talos integration for new EA onboarding</li>
+        <li>Last visible step automatically converts "Save & Continue" to "Save Record"</li>
+      </ul>
+
+      <h3>Pillar 2 — Role-Appropriate Views</h3>
+      <p><strong>Problem:</strong> All users see the same interface regardless of their permissions, causing confusion and errors.</p>
+      <ul>
+        <li>Entity-level RBAC: hide entities the role cannot access, show view-only badge for read-only entities</li>
+        <li>Field-level RBAC: disable individual fields within editable entities, add "View" tag indicator</li>
+        <li>Role banner always visible showing current role, access level, and "Switch Role" option</li>
+        <li>Reject modal filtered by role — only shows sections the approver can comment on</li>
+        <li>View page shows only accessible record cards per role</li>
+      </ul>
+
+      <h3>Pillar 3 — Transparent Governance</h3>
+      <p><strong>Problem:</strong> Users lack visibility into approval status, change history, and sync health.</p>
+      <ul>
+        <li>Approval status banner on every record page (Pending / Approved / Rejected)</li>
+        <li>Section-by-section rejection comments in reject modal</li>
+        <li>Dual-control (Keyer/Verifier) workflow enforced at the UI level</li>
+        <li>Full audit trail accessible from the record (who, when, what, from which system)</li>
+        <li>Integration sync status visible per EA — success/failure per downstream system</li>
+      </ul>
+
+      <h3>Pillar 4 — Progressive Disclosure</h3>
+      <p><strong>Problem:</strong> 8 entities with 100+ fields overwhelm users, especially those with limited access.</p>
+      <ul>
+        <li>Stepper workflow reveals one entity at a time</li>
+        <li>360° Profile View (read-only) organises entities into collapsible cards</li>
+        <li>Personal Details tab in view page provides summary; other entities in record cards</li>
+        <li>Complex fields (postcodes, attachments, banking) use contextual expansion panels</li>
+      </ul>
+    </section>
+
+    <!-- KPI Impact -->
+    <section class="doc-section">
+      <h2>5. Expected Impact</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">67%</div><div class="kpi-label">Onboarding Time Reduction</div></div>
+        <div class="kpi-card"><div class="kpi-value">75%</div><div class="kpi-label">System Touches Eliminated</div></div>
+        <div class="kpi-card"><div class="kpi-value">92%</div><div class="kpi-label">Faster Approval Cycle</div></div>
+        <div class="kpi-card"><div class="kpi-value">90%+</div><div class="kpi-label">First-Time Fix Rate</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

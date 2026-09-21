@@ -1,0 +1,2615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocProcessor Tool - Stage 3 &amp; 5</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    body {   
+    background: #ffffff;}
+    .main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 16px solid #F2F5FA;
+	}
+	.sidebar{border-right: 0px solid #e5e7eb;}
+	
+	.m-header {border-bottom: 0px solid #e5e7eb;
+	}
+  .page-content { 
+    background: #ffffff;
+}
+    /* -- View Challenge popup panel -- */
+    .vc-overlay { display: none; position: fixed; inset: 0; z-index: 900; background: rgba(0,0,0,0.45); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); opacity: 0; transition: opacity 0.2s; }
+    .vc-overlay.open { display: block; opacity: 1; }
+    .vc-panel { position: fixed; top: 0; right: 0; width: 768px; max-width: 96vw; height: 100vh; background: #fff; box-shadow: -4px 0 32px rgba(0,0,0,0.18); display: flex; flex-direction: column; z-index: 901; transform: translateX(100%); transition: transform 0.25s cubic-bezier(.4,0,.2,1); }
+    .vc-overlay.open .vc-panel { transform: translateX(0); }
+    .vc-header { display: flex; flex-direction: column; gap: 6px; padding: 18px 22px 14px; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+    .vc-header-top { display: flex; align-items: center; justify-content: space-between; }
+    .vc-title { font-size: 17px; font-weight: 700; color: #111827; }
+    .vc-close { background: none; border: none; cursor: pointer; color: #6b7280; padding: 4px; display: flex; align-items: center; border-radius: 5px; transition: background 0.12s, color 0.12s; }
+    .vc-close:hover { background: #f3f4f6; color: #111827; }
+    .vc-meta { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; flex-wrap: wrap; }
+    .vc-meta-sep { color: #d1d5db; margin: 0 4px; }
+    .vc-meta-bold { font-weight: 600; color: #111827; }
+    .vc-status-chip { display: inline-flex; align-items: center; border: 1.5px solid #9ca3af; border-radius: 20px; font-size: 12px; font-weight: 500; color: #374151; padding: 1px 11px; background: #fff; }
+    .vc-body { flex: 1; overflow-y: auto; padding: 0; }
+    .vc-body::-webkit-scrollbar { width: 5px; }
+    .vc-body::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    .vc-cv-section { padding: 18px 22px 0; }
+    .vc-cv-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .vc-cv-title { font-size: 15px; font-weight: 700; color: #111827; }
+    .vc-first-time-badge { font-size: 12px; font-weight: 500; color: #374151; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 20px; padding: 2px 12px; }
+    .vc-warn-banner { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 14px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 7px; margin-bottom: 4px; }
+    .vc-warn-left { display: flex; align-items: center; gap: 9px; font-size: 13px; color: #92400e; font-weight: 500; }
+    .vc-view-details-btn { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #374151; background: none; border: none; cursor: pointer; white-space: nowrap; letter-spacing: 0.04em; padding: 0; text-transform: uppercase; flex-shrink: 0; }
+    .vc-view-details-btn:hover { color: #111827; }
+    .vc-view-details-btn svg { transition: transform 0.18s; }
+    .vc-view-details-btn.open svg { transform: rotate(180deg); }
+    .vc-val-rows { display: flex; flex-direction: column; padding-bottom: 6px; }
+    .vc-val-row { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #f3f4f6; }
+    .vc-val-row:last-child { border-bottom: none; }
+    .vc-val-label { flex: 1; font-size: 13px; color: #111827; }
+    .vc-marked-valid-chip { font-size: 12px; font-weight: 500; color: #3b82f6; border: 1.5px solid #3b82f6; border-radius: 20px; padding: 2px 14px; background: #fff; white-space: nowrap; }
+    .vc-override-text { font-size: 11.5px; color: #6b7280; white-space: nowrap; }
+    .vc-override-text strong { color: #374151; font-weight: 600; }
+    .vc-evidence-section { border-top: 1px solid #e5e7eb; padding: 16px 22px; }
+    .vc-evidence-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+    .vc-evidence-question { font-size: 13.5px; font-weight: 700; color: #111827; }
+    .vc-yes-no { display: flex; border: 1px solid #d1d5db; border-radius: 7px; overflow: hidden; flex-shrink: 0; }
+    .vc-yn-btn { display: flex; align-items: center; gap: 6px; padding: 8px 22px; font-size: 13px; font-weight: 600; background: #fff; border: none; cursor: pointer; color: #374151; transition: background 0.12s, color 0.12s; letter-spacing: 0.03em; }
+    .vc-yn-btn:first-child { border-right: 1px solid #d1d5db; }
+    .vc-yn-btn.active-yes { background: #e5e7eb; color: #374151; }
+    .vc-yn-btn.active-no  { background: #e5e7eb; color: #374151; }
+    .vc-yn-btn:hover:not(.active-yes):not(.active-no) { background: #f3f4f6; }
+    .vc-evidence-cols { display: flex; gap: 40px; align-items: flex-start; padding-bottom: 4px; }
+    .vc-contrav-col { flex: 1; min-width: 0; }
+    .vc-col-label { font-size: 13px; font-weight: 600; color: #111827; margin: 0 0 5px; }
+    .vc-contrav-col-text { font-size: 12.5px; color: #6b7280; line-height: 1.6; margin: 0; }
+    .vc-evidence-col { flex-shrink: 0; min-width: 100px; }
+    .vc-view-evidence-link { display: block; font-size: 13px; font-weight: 600; color: #3276CF; text-decoration: none; }
+    .vc-view-evidence-link:hover { text-decoration: underline; }
+    .vc-ceo-section { border-top: 1px solid #e5e7eb; padding: 16px 22px 20px; }
+    .vc-ceo-header { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; color: #111827; margin: 0 0 8px; }
+    .vc-ceo-text { font-size: 12.5px; color: #4b5563; line-height: 1.65; margin: 0; }
+    .vc-challenge-section { border-top: 1px solid #e5e7eb; padding: 16px 22px 0; }
+    .vc-challenge-title { font-size: 15px; font-weight: 700; color: #111827; margin: 0 0 12px; }
+    .vc-challenge-tab-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; padding: 10px 16px; border-bottom: 1px solid #e5e7eb; }
+    .vc-challenge-tab { display: flex; align-items: center; gap: 10px; }
+    .vc-challenge-tab-label { font-size: 13px; font-weight: 600; color: #111827; }
+    .vc-challenge-tab-date { font-size: 12px; color: #6b7280; border-left: 1px solid #d1d5db; padding-left: 10px; }
+    .vc-ocr-row { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #374151; white-space: nowrap; }
+    .vc-ocr-bar { width: 64px; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+    .vc-ocr-bar-fill { height: 100%; background: #22c55e; border-radius: 3px; }
+    .vc-summary-card { background: #f8faff; border: 1px solid #e0eaff; border-radius: 8px; padding: 0; overflow: hidden; margin-bottom: 16px; }
+    .vc-summary-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 0; margin-bottom: 12px; }
+    .vc-summary-title { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; color: #111827; }
+    .vc-copy-btn { display: flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; color: #3276CF; background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 4px; letter-spacing: 0.04em; transition: background 0.12s; text-transform: uppercase; }
+    .vc-copy-btn:hover { background: #eff6ff; }
+    .vc-summary-list { list-style: none; margin: 0; padding: 0 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+    .vc-summary-list li { font-size: 12.5px; color: #374151; line-height: 1.65; padding-left: 36px; position: relative; }
+    .vc-summary-list li::before { content: '\2022'; position: absolute; left: 24px; color: #6b7280; }
+    .vc-summary-list li strong { color: #111827; }
+    .vc-support-docs { padding-left: 38px; }
+    .vc-docs-label { font-size: 13px; font-weight: 700; color: #111827; margin: 0 0 6px; }
+    .vc-docs-desc { font-size: 12px; color: #6b7280; line-height: 1.6; margin: 0 0 12px; }
+    .vc-doc-item { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; background: #fff; border: 1px solid #e5e7eb; border-radius: 7px; font-size: 12.5px; color: #374151; margin-bottom: 16px; }
+    .vc-doc-thumb { width: 36px; height: 24px; border-radius: 5px; object-fit: cover; flex-shrink: 0; background: #e5e7eb; }
+    .vc-doc-name { font-size: 12.5px; color: #3276CF; }
+    .vc-doc-dl { color: #6b7280; background: none; border: none; cursor: pointer; padding: 2px; display: flex; align-items: center; transition: color 0.12s; }
+    .vc-doc-dl:hover { color: #3276CF; }
+    .vc-corr-section { border-top: 1px solid #e5e7eb; padding-bottom: 8px; }
+    .vc-corr-section-title { font-size: 14px; font-weight: 700; color: #111827; padding: 14px 22px 8px; }
+    .vc-corr-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 22px; border-top: 1px solid #f3f4f6; font-size: 13px; color: #374151; }
+    .vc-corr-eye { color: #9ca3af; background: none; border: none; cursor: pointer; padding: 2px; display: flex; align-items: center; transition: color 0.12s; }
+    .vc-corr-eye:hover { color: #3276CF; }
+    .corr-modal-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.55); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+    .corr-modal-overlay.open { display: flex; opacity: 1; }
+    .corr-modal { background: #f3f4f6; border-radius: 8px; box-shadow: 0 12px 48px rgba(0,0,0,0.22); width: 680px; max-width: 96vw; max-height: 92vh; display: flex; flex-direction: column; z-index: 1001; transform: scale(0.97); opacity: 0; transition: transform 0.2s cubic-bezier(.4,0,.2,1), opacity 0.2s; }
+    .corr-modal-overlay.open .corr-modal { transform: scale(1); opacity: 1; }
+    .corr-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #fff; border-radius: 8px 8px 0 0; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+    .corr-modal-date { font-size: 13px; font-weight: 600; color: #111827; }
+    .corr-modal-actions { display: flex; align-items: center; gap: 4px; }
+    .corr-modal-icon-btn { background: none; border: none; cursor: pointer; color: #6b7280; padding: 5px; border-radius: 5px; display: flex; align-items: center; transition: background 0.12s, color 0.12s; }
+    .corr-modal-icon-btn:hover { background: #f3f4f6; color: #111827; }
+    .corr-modal-body { flex: 1; overflow-y: auto; padding: 20px; }
+    .corr-modal-body::-webkit-scrollbar { width: 5px; }
+    .corr-modal-body::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    .corr-letter { background: #fff; border: 1.5px dashed #3b82f6; border-radius: 4px; padding: 32px 36px; font-size: 12px; color: #111827; line-height: 1.65; min-height: 600px; }
+    .corr-letter-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+    .corr-letter-logo { display: flex; flex-direction: column; }
+    .corr-letter-logo img { height: 52px; }
+    .corr-letter-sender { text-align: left; font-size: 11.5px; color: #374151; line-height: 1.7; }
+    .corr-letter-sender-line { font-size: 11.5px; color: #374151; line-height: 1.7; }
+
+    /* -- RAG Status Banner -- */
+    .v-section-header.rag-amber { background: #fcd34d; border-bottom: 1px solid #f59e0b; }
+    .v-section-header.rag-red   { background: #fff5f5; border-bottom: 2px solid #ef4444; }
+    .v-section-header.rag-green { background: #f0fdf4; border-bottom: 2px solid #22c55e; }
+    .rag-red   .rag-dot { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.2); }
+    .rag-green .rag-dot { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
+
+    /* -- Validated items collapse -- */
+    .val-group-validated-header { display: flex; align-items: center; justify-content: space-between; cursor: default; }
+
+
+    /* -- Left panel collapse toggle -- */
+    .btn-collapse-left { position: absolute; top: 8px; right: 5px; z-index: 10; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1px solid #e5e7eb; box-shadow: 0 2px 6px rgba(0,0,0,0.12); cursor: pointer; display: flex; align-items: center; justify-content: center; color: #6b7280; transition: background 0.12s, color 0.12s, box-shadow 0.12s, right 0.3s ease; }
+    .btn-collapse-left:hover { background: #f3f4f6; color: #374151; box-shadow: 0 2px 10px rgba(0,0,0,0.16); }
+    .btn-collapse-left svg { transition: transform 0.2s; }
+    .btn-collapse-left.collapsed svg { transform: rotate(180deg); }
+
+    /* -- Upload source popup -- */
+    .upload-source-overlay { display: none; position: fixed; inset: 0; z-index: 1200; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); align-items: center; justify-content: center; }
+    .upload-source-overlay.open { display: flex; }
+    .upload-source-modal { background: #fff; border-radius: 12px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); padding: 0; width: 360px; max-width: 96vw; display: flex; flex-direction: column; overflow: hidden; }
+    .upload-source-modal-body { padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 16px; }
+    .upload-source-title { font-size: 15px; font-weight: 700; color: #111827; margin: 0; }
+    .upload-source-subtitle { font-size: 12.5px; color: #6b7280; margin: -8px 0 0; }
+    .upload-source-options { display: flex; flex-direction: column; gap: 10px; }
+    .upload-source-btn { display: flex; align-items: center; gap: 12px; padding: 13px 15px; border: 1.5px solid #e5e7eb; border-radius: 9px; background: #fff; cursor: pointer; text-align: left; transition: border-color 0.15s, background 0.15s; }
+    .upload-source-btn:hover { border-color: #3276CF; background: #eff6ff; }
+    .upload-source-btn-icon { width: 38px; height: 38px; border-radius: 8px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #374151; }
+    .upload-source-btn-text { flex: 1; }
+    .upload-source-btn-label { font-size: 13px; font-weight: 600; color: #111827; display: block; }
+    .upload-source-btn-desc { font-size: 11.5px; color: #6b7280; display: block; margin-top: 2px; }
+    .upload-source-modal-footer { border-top: 1px solid #f0f0f0; padding: 14px 22px; }
+    .upload-source-cancel { text-transform: uppercase; letter-spacing: 0.04em; background: transparent; border: none; cursor: pointer; font-size: 13px; font-weight: 600; color: #3276CF; font-family: inherit; padding: 4px 14px; border-radius: 4px; transition: background 120ms, color 120ms; }
+    .upload-source-cancel:hover { background: #eff6ff; color: #2563eb; }
+    .delivery-actions-row { justify-content: flex-end; border-top: 1px solid #e5e7eb; padding-top: 14px; margin-top: 4px; }
+
+    /* -- Linked cases (PCN header) -- */
+    .lc-add-btn { display: none !important; }
+    .lc-add-btn svg { flex-shrink: 0; }
+    .lc-add-btn[hidden], .lc-chips[hidden] { display: none !important; }
+    .lc-chips { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 4px 10px; background: #f8faff; border: 1px solid #e0eaff; border-radius: 6px; }
+    .lc-chips-label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; }
+    .lc-chips-list { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .lc-chip { display: inline-flex; align-items: center; padding: 2px 10px; background: #fff; border: 1px solid #A2C1EA; border-radius: 12px; font-size: 12px; font-weight: 600; color: #3276CF; }
+    .lc-chip-more { display: inline-flex; align-items: center; padding: 2px 10px; background: #eff6ff; border: 1px dashed #A2C1EA; border-radius: 12px; font-size: 12px; font-weight: 600; color: #3276CF; cursor: help; }
+    .lc-tip { position: fixed; z-index: 1400; background: #111827; color: #fff; font-size: 11.5px; font-weight: 500; padding: 8px 12px; border-radius: 6px; line-height: 1.55; box-shadow: 0 4px 14px rgba(0,0,0,0.22); pointer-events: none; opacity: 0; transition: opacity 0.15s; max-width: 260px; }
+    .lc-tip.show { opacity: 1; }
+    .lc-tip-arrow { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border: 5px solid transparent; border-bottom-color: #111827; border-top: 0; }
+    .lc-tip-item { display: block; }
+    .lc-edit-btn { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 600; color: #3276CF; font-family: inherit; transition: background 120ms; }
+    .lc-edit-btn:hover { background: #eff6ff; }
+
+    /* -- Linked cases selector modal -- */
+    .lc-overlay { display: none; position: fixed; inset: 0; z-index: 1250; background: rgba(0,0,0,0.45); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+    .lc-overlay.open { display: flex; opacity: 1; }
+    .lc-modal { background: #fff; border-radius: 10px; box-shadow: 0 12px 48px rgba(0,0,0,0.22); width: 960px; max-width: 96vw; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.97); opacity: 0; transition: transform 0.2s cubic-bezier(.4,0,.2,1), opacity 0.2s; }
+    .lc-overlay.open .lc-modal { transform: scale(1); opacity: 1; }
+    .lc-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+    .lc-title { font-size: 16px; font-weight: 700; color: #111827; }
+    .lc-close { background: none; border: none; cursor: pointer; color: #6b7280; padding: 4px; border-radius: 5px; display: flex; align-items: center; transition: background 0.12s, color 0.12s; }
+    .lc-close:hover { background: #f3f4f6; color: #111827; }
+    .lc-body { flex: 1; overflow-y: auto; padding: 0; }
+    .lc-body::-webkit-scrollbar { width: 6px; }
+    .lc-body::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+    .lc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .lc-table thead th { background: #fff; padding: 12px 18px; font-weight: 600; color: #111827; text-align: left; border-bottom: 1px solid #e5e7eb; white-space: nowrap; }
+    .lc-th-inner { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .lc-th-handle { width: 14px; height: 14px; display: inline-flex; flex-direction: column; justify-content: center; gap: 2px; color: #9ca3af; flex-shrink: 0; cursor: grab; }
+    .lc-th-handle span { display: block; height: 1.5px; background: currentColor; border-radius: 1px; }
+    .lc-table tbody td { padding: 14px 18px; color: #374151; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
+    .lc-table tbody tr:nth-child(odd) td { background: #f8faff; }
+    .lc-table tbody tr:hover td { background: #eff6ff; }
+    .lc-table tbody tr.is-selected td { background: #eff6ff; }
+    .lc-col-check { width: 44px; padding-right: 0 !important; }
+    .lc-checkbox { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border: 1.5px solid #9ca3af; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: #fff; position: relative; vertical-align: middle; transition: background 0.12s, border-color 0.12s; margin: 0; }
+    .lc-checkbox:hover { border-color: #3276CF; }
+    .lc-checkbox:checked { background: #3276CF; border-color: #3276CF; }
+    .lc-checkbox:checked::after { content: ''; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
+    .lc-case-link { color: #3276CF; text-decoration: underline; font-weight: 500; cursor: pointer; }
+    .lc-case-link:hover { color: #2563eb; }
+    .lc-footer { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 16px 24px; border-top: 1px solid #e5e7eb; background: #fff; flex-shrink: 0; }
+    .lc-btn-cancel { min-width: 96px; height: 38px; padding: 0 22px; border-radius: 6px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; background: #fff; border: 1.5px solid #3276CF; color: #3276CF; transition: background 0.12s; }
+    .lc-btn-cancel:hover { background: #eff6ff; }
+    .lc-btn-select { min-width: 96px; height: 38px; padding: 0 22px; border-radius: 6px; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; background: #3276CF; border: 1.5px solid #3276CF; color: #fff; transition: background 0.12s; }
+    .lc-btn-select:hover { background: #2C66B4; border-color: #2C66B4; }
+    .lc-btn-select:disabled { background: #9ca3af; border-color: #9ca3af; cursor: not-allowed; }
+
+    /* --- Letter: related data table (editable) --- */
+    .letter-section-title { font-size: 12.5px; font-weight: 700; color: #111827; margin: 18px 0 8px; }
+    .letter-table-section { margin: 6px 0 18px; }
+    .letter-table-toolbar { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+    .ltbl-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 500; color: #3276CF; background: #fff; border: 1px solid #cfdef5; border-radius: 4px; padding: 3px 9px; cursor: pointer; font-family: inherit; line-height: 1.4; transition: background 0.12s, border-color 0.12s; }
+    .ltbl-btn:hover { background: #eff6ff; border-color: #3276CF; }
+    .ltbl-btn.is-danger { color: #b91c1c; border-color: #fecaca; }
+    .ltbl-btn.is-danger:hover { background: #fef2f2; border-color: #ef4444; }
+    .letter-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+    .letter-table th, .letter-table td { border: 1px solid #d1d5db; padding: 6px 8px; vertical-align: top; text-align: left; word-break: break-word; }
+    .letter-table th { background: #f3f4f6; font-weight: 600; color: #111827; }
+    .letter-table td { color: #374151; background: #fff; }
+    .letter-table th.is-active, .letter-table td.is-active { background: #f0f7ff; outline: 2px solid #3276CF; outline-offset: -2px; }
+    .letter-table th:hover, .letter-table td:hover { background: #f0f7ff; cursor: text; }
+
+    /* --- Letter: evidence images (editable) --- */
+    .letter-evidence-section { margin: 4px 0 18px; }
+    .letter-evidence-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .letter-evidence { position: relative; margin: 0; border: 1px solid #d1d5db; border-radius: 6px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
+    .letter-evidence img { width: 100%; height: 110px; object-fit: cover; display: block; background: #f3f4f6; }
+    .letter-evidence figcaption { font-size: 11px; color: #374151; padding: 6px 8px; line-height: 1.4; min-height: 18px; border-top: 1px solid #f3f4f6; }
+    .lev-edit { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid #d1d5db; background: rgba(255,255,255,0.95); color: #3276CF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: background 0.12s, border-color 0.12s; }
+    .lev-edit:hover { background: #eff6ff; border-color: #3276CF; }
+
+    /* --- Letter: editable link --- */
+    .letter-ref-link { margin: 6px 0 14px; font-size: 12.5px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .lev-edit-link { width: 22px; height: 22px; border-radius: 4px; border: 1px solid #d1d5db; background: #fff; color: #3276CF; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: background 0.12s, border-color 0.12s; }
+    .lev-edit-link:hover { background: #eff6ff; border-color: #3276CF; }
+    .letter-link-editor { display: none; align-items: center; gap: 6px; margin-left: 4px; }
+    .letter-link-editor.is-open { display: inline-flex; }
+    .letter-link-editor input { font-size: 12px; padding: 3px 6px; border: 1px solid #d1d5db; border-radius: 4px; min-width: 220px; font-family: inherit; }
+    .letter-link-editor input:focus { outline: none; border-color: #3276CF; box-shadow: 0 0 0 2px rgba(50,118,207,0.18); }
+    .ltbl-btn.is-primary { color: #fff; background: #3276CF; border-color: #3276CF; }
+    .ltbl-btn.is-primary:hover { background: #2C66B4; border-color: #2C66B4; }
+  </style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- Header (full width) -->
+  <header class="m-header">
+    <div class="m-brand">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 32'%3E%3Crect width='160' height='32' rx='4' fill='%23374151'/%3E%3Crect x='8' y='6' width='12' height='16' rx='2' fill='none' stroke='%2393c5fd' stroke-width='1.5'/%3E%3Cline x1='11' y1='10' x2='17' y2='10' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='13' x2='17' y2='13' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='16' x2='15' y2='16' stroke='%2393c5fd' stroke-width='1'/%3E%3Ctext x='26' y='20' font-family='system-ui,sans-serif' font-size='11' font-weight='600' fill='white'%3EAcme NPS%3C/text%3E%3C/svg%3E" alt="Acme Notice Processing System" class="m-logo" />
+    </div>
+    <div class="m-search">
+      <input type="text" placeholder="Search with PCN number or VRM" />
+      <button class="m-search-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+    <div class="m-header-right">
+      <div class="m-notif-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+        <span class="m-notif-badge">1</span>
+      </div>
+      <div class="m-user">
+        <div class="m-avatar">JS</div>
+        <span class="m-username">John William</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- View Challenge modal -->
+  <div class="vc-overlay" id="vc-overlay">
+    <div class="vc-panel" id="vc-panel">
+      <div class="vc-header">
+        <div class="vc-header-top">
+          <span class="vc-title">CW00004041</span>
+          <button class="vc-close" id="vc-close" aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="vc-meta">
+          <span>Name: <span class="vc-meta-bold">John Doe</span></span>
+          <span class="vc-meta-sep">|</span>
+          <span>Stage: <span class="vc-meta-bold">14 days letter</span></span>
+          <span class="vc-meta-sep">|</span>
+          <span>Status: <span class="vc-status-chip">Active</span></span>
+        </div>
+      </div>
+      <div class="vc-body">
+        <div class="vc-cv-section">
+          <div class="vc-cv-header">
+            <span class="vc-cv-title">Case Validation</span>
+            <span class="vc-first-time-badge">First time offender</span>
+          </div>
+          <div class="vc-warn-banner">
+            <div class="vc-warn-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Permit/Ringo was active when PCN was issued. Please review the details.
+            </div>
+            <button class="vc-view-details-btn" id="vc-view-details-btn">VIEW DETAILS <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>
+          <div class="vc-val-rows">
+            <div class="vc-val-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="10" fill="#ef4444"/><line x1="15" y1="9" x2="9" y2="15" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              <span class="vc-val-label">VRM Mismatch</span>
+              <span class="vc-marked-valid-chip">Marked as valid</span>
+              <span class="vc-override-text">Override: <strong>IMAGE QUALITY ACCEPTABLE</strong></span>
+            </div>
+            <div class="vc-val-row">
+              <svg width="20" height="20" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="10" fill="#22c55e"/><polyline points="8 12 11 15 16 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              <span class="vc-val-label">Make &amp; Colour Match</span>
+            </div>
+          </div>
+        </div>
+        <div class="vc-evidence-section">
+          <div class="vc-evidence-top">
+            <span class="vc-evidence-question">Does this evidence confirm the contravention?</span>
+            <div class="vc-yes-no">
+              <button class="vc-yn-btn active-yes" id="vc-yn-yes"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> YES</button>
+              <button class="vc-yn-btn" id="vc-yn-no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> NO</button>
+            </div>
+          </div>
+          <div class="vc-evidence-cols">
+            <div class="vc-contrav-col">
+              <p class="vc-col-label">Contravention Description</p>
+              <p class="vc-contrav-col-text">Contravention Code: 01 - This code pertains to parking a vehicle in a restricted zone without permission, which may include areas like bus lanes or no-parking zones.</p>
+            </div>
+            <div class="vc-evidence-col">
+              <p class="vc-col-label">Evidence:</p>
+              <a href="#" class="vc-view-evidence-link" id="btn-view-evidence-vc">VIEW CEO IMAGES</a>
+            </div>
+          </div>
+        </div>
+        <div class="vc-ceo-section">
+          <div class="vc-ceo-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round"><path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+            CEO Notes
+          </div>
+          <p class="vc-ceo-text">Vehicle observed parked on double yellow lines at High Street near junction with Church Road. No loading/unloading activity noted during observation period (10:05–10:11). Driver not present. Photographic evidence captured showing vehicle position and signage</p>
+        </div>
+        <div class="vc-challenge-section">
+          <p class="vc-challenge-title">Challenge</p>
+          <div class="vc-summary-card">
+            <div class="vc-challenge-tab-row">
+              <div class="vc-challenge-tab">
+                <span class="vc-challenge-tab-label">Challenge Details</span>
+                <span class="vc-challenge-tab-date">14-08-2025 10:59</span>
+              </div>
+              <div class="vc-ocr-row">
+                OCR Confidence Score
+                <div class="vc-ocr-bar"><div class="vc-ocr-bar-fill" style="width:95%"></div></div>
+                <strong>95%</strong>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              </div>
+            </div>
+            <div class="vc-summary-header">
+              <span class="vc-summary-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#3276CF"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12zm7.5 4.5l-1.25 2.75L15 18l2.75 1.25L19 22l1.25-2.75L23 18l-2.75-1.25z"/></svg>
+                Challenge Summary
+              </span>
+              <button class="vc-copy-btn" id="vc-copy-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Summary</button>
+            </div>
+            <ul class="vc-summary-list">
+              <li><strong>Challenge Reason:</strong> The appellant requests cancellation of the PCN due to an unexpected medical emergency. The appellant claims they did not exceed the free parking period.</li>
+              <li><strong>Assessment:</strong> The appellant parked in a car park with one hour of free parking. They left the car to purchase water due to an allergic reaction. They forgot to register for the free parking and returned to find a Civil Enforcement Officer issuing a PCN. The appellant attempted to explain the situation but was dismissed.</li>
+              <li><strong>Unexpected Circumstances/Concerns:</strong> The appellant experienced a medical emergency due to a possible allergic reaction. The appellant is concerned about the conduct of the Civil Enforcement Officer, who took photographs of the appellant and their friend in a manner they found inappropriate.</li>
+            </ul>
+            <div class="vc-support-docs">
+              <p class="vc-docs-label">Supported documents</p>
+              <p class="vc-docs-desc">Description: This screenshot shows the outbound flight boarding pass for Charlotte Harris departing to Sardinia on 17 May 2025. It supports the claim that she was out of the country starting before the date of the first PCN, proving she could not have seen the suspension notices.</p>
+              <div class="vc-doc-item">
+                <div class="vc-doc-thumb" style="display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+                <span class="vc-doc-name">Boarding Pass Screenshot 1</span>
+                <button class="vc-doc-dl" aria-label="Download"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vc-corr-section">
+          <div class="vc-corr-section-title">Correspondences</div>
+          <div class="vc-corr-row">
+            <span>14-08-2025 10:59</span>
+            <button class="vc-corr-eye" aria-label="View"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+          <div class="vc-corr-row">
+            <span>14-08-2025 10:59</span>
+            <button class="vc-corr-eye" aria-label="View"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Correspondence letter preview modal -->
+  <div class="corr-modal-overlay" id="corr-modal-overlay">
+    <div class="corr-modal" id="corr-modal">
+      <div class="corr-modal-header">
+        <span class="corr-modal-date" id="corr-modal-date">14-08-2025 10:59</span>
+        <div class="corr-modal-actions">
+          <button class="corr-modal-icon-btn" id="corr-zoom-in" title="Zoom in"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>
+          <button class="corr-modal-icon-btn" id="corr-zoom-out" title="Zoom out"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></button>
+          <button class="corr-modal-icon-btn" id="corr-modal-close" title="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        </div>
+      </div>
+      <div class="corr-modal-body">
+        <div class="corr-letter" id="corr-letter-content">
+          <div class="corr-letter-top">
+            <div class="corr-letter-logo"><img src="assets/Wokingham.png" alt="Hampshire County Council" /></div>
+            <div class="corr-letter-sender">
+              <div class="corr-letter-sender-line">Hampshire County Council</div>
+              <div class="corr-letter-sender-line">Parking Services</div>
+              <div class="corr-letter-sender-line">PO Box 314</div>
+              <div class="corr-letter-sender-line">Sheffield</div>
+              <div class="corr-letter-sender-line">S98 1YA</div>
+              <div class="corr-letter-sender-line" style="margin-top:6px;">T:0333 006 8349</div>
+              <div class="corr-letter-sender-line">Online at:</div>
+              <div class="corr-letter-sender-line"><a href="#" style="color:#3276CF;">www.councilparking.org/hampshire</a></div>
+            </div>
+          </div>
+          <div style="text-align:right;font-size:11.5px;color:#374151;margin-bottom:20px;">Date: 08/05/2026</div>
+          <div style="font-size:12px;color:#111827;margin-bottom:14px;">Dear Mr Doe,</div>
+          <div style="margin-bottom:16px;padding-left:20px;font-size:12px;color:#111827;line-height:2;">
+            <div><strong>Penalty Charge Notice number:</strong> 00345678</div>
+            <div><strong>Date of service:</strong> 10/04/2026</div>
+            <div><strong>Vehicle registration number:</strong> AB21 XYZ</div>
+            <div><strong>Location of contravention:</strong> High Street, Wokingham</div>
+          </div>
+          <div style="font-size:12px;color:#374151;line-height:1.75;margin-bottom:12px;">I refer to the enquiry made by you in connection with the issue of the above Penalty Charge Notice (PCN).</div>
+          <div style="font-size:12px;color:#374151;line-height:1.75;margin-bottom:12px;">Under the Traffic Management Act 2004, I can only treat your enquiry as an <strong>informal representation against the imposition of the charge</strong>.</div>
+          <div style="font-size:12px;color:#374151;line-height:1.75;margin-bottom:12px;">I have investigated your case, noted your comments, and can confirm I have used my discretion and cancelled the penalty charge on discretionary grounds. Although you have provided a copy of a valid disabled badge, for the disabled badge concession to apply, it is a legal requirement that the badge is displayed so that all the details on the front of the badge (the side with the hologram) and the time clock set to display the time of arrival where necessary, are clearly visible from outside the vehicle in accordance with the blue badge scheme handbook which states you must display the badge on the dashboard or facia panel.</div>
+          <div style="font-size:12px;color:#374151;line-height:1.75;margin-bottom:12px;">Please note that each PCN is considered on the merits of the case, and this does not set a precedent for any future PCNs issued under similar circumstances.</div>
+          <div style="font-size:12px;color:#374151;line-height:1.75;margin-bottom:24px;">Please be advised, you are no longer liable for the PCN, and all enforcement for the PCN has now ceased.</div>
+
+          <!-- Preview: Case-related data table -->
+          <div style="font-size:12px;font-weight:700;color:#111827;margin:0 0 6px;">Case-related data</div>
+          <div id="corr-prev-table-wrap" style="margin:0 0 18px;"></div>
+
+          <!-- Preview: Photographic evidence -->
+          <div style="font-size:12px;font-weight:700;color:#111827;margin:0 0 6px;">Photographic evidence</div>
+          <div id="corr-prev-evidence" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px;"></div>
+
+          <!-- Preview: Reference link -->
+          <div id="corr-prev-link-row" style="font-size:11.5px;color:#374151;margin:0 0 18px;">
+            Further information:
+            <a id="corr-prev-link" href="#" style="color:#3276CF;text-decoration:underline;" target="_blank" rel="noopener">link</a>
+          </div>
+
+          <div style="font-size:12px;color:#374151;margin-bottom:48px;">Yours sincerely</div>
+          <div style="margin-top:8px;">
+            <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:8px;">Parking Administration</div>
+            <hr style="border:none;border-top:1px solid #d1d5db;margin-bottom:8px;">
+            <div style="display:flex;gap:14px;align-items:center;margin:10px 0 12px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:6px;background:#fafafa;">
+              <div style="width:72px;height:72px;flex-shrink:0;background:#fff;border:1px solid #e5e7eb;padding:4px;box-sizing:border-box;">
+                <svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-label="QR code"><defs><pattern id="qrpat-a" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#fff"/><rect width="3" height="3" fill="#000"/><rect x="3" y="3" width="3" height="3" fill="#000"/></pattern></defs><rect width="100" height="100" fill="url(#qrpat-a)"/><rect width="30" height="30" fill="#fff"/><rect x="70" width="30" height="30" fill="#fff"/><rect y="70" width="30" height="30" fill="#fff"/><rect width="26" height="26" fill="#000"/><rect x="4" y="4" width="18" height="18" fill="#fff"/><rect x="8" y="8" width="10" height="10" fill="#000"/><rect x="74" width="26" height="26" fill="#000"/><rect x="78" y="4" width="18" height="18" fill="#fff"/><rect x="82" y="8" width="10" height="10" fill="#000"/><rect y="74" width="26" height="26" fill="#000"/><rect x="4" y="78" width="18" height="18" fill="#fff"/><rect x="8" y="82" width="10" height="10" fill="#000"/><rect x="74" y="74" width="14" height="14" fill="#fff"/><rect x="76" y="76" width="10" height="10" fill="#000"/><rect x="79" y="79" width="4" height="4" fill="#fff"/><rect x="80" y="80" width="2" height="2" fill="#000"/></svg>
+              </div>
+              <div style="font-size:10.5px;color:#374151;line-height:1.55;">
+                <div style="font-weight:600;color:#111827;margin-bottom:3px;">Scan to manage your PCN</div>
+                Use your phone camera to view this notice online, pay your charge, or submit a representation.<br>
+                <span style="color:#6b7280;">PCN ref: 00345678 &middot; wokingham.gov.uk/pcn</span>
+              </div>
+            </div>
+            <div style="font-size:10.5px;color:#6b7280;">Privacy Notice: To view our privacy notice, please visit <a href="#" style="color:#3276CF;">www.wokingham.gov.uk/parkingservicesprivacy</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body: sidebar + main -->
+  <div class="app-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-back">
+      <button class="sidebar-back-btn">&#171;</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="m-nav-item" data-page="home">
+        <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Home
+      </div>
+      <div class="m-nav-item" data-page="client">
+        <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        Client Setup
+      </div>
+      <div class="m-nav-item" data-page="cr-config">
+        <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06-.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+        CR Configuration
+      </div>
+      <div class="m-nav-item active" data-page="summarizer" id="nav-summarizer">
+        <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+        </svg>
+        Challenge Summarizer
+      </div>
+      <div class="m-nav-sub">
+        <div class="m-nav-sub-item active" data-page="challenge-review" id="nav-challenge-review">
+          Challenge Review
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+
+    <!-- Page Title -->
+    <!-- <div class="page-title-bar">
+      <span class="page-title-text">Send Correspondence</span>
+    </div> -->
+
+    <!-- PCN Info Bar -->
+    <div class="pcn-info-bar">
+      <div class="pcn-info-left">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <a href="my-workflow.html" aria-label="Back to My Workflow" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;color:#374151;text-decoration:none;transition:background 120ms;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='transparent'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          </a>
+          <span class="pcn-number">CW00004041</span>
+          <button class="btn btn-sm btn-secondary lc-add-btn" id="lc-add-btn" type="button" aria-haspopup="dialog" aria-controls="lc-overlay">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add linked cases
+          </button>
+          <div class="lc-chips" id="lc-chips" hidden>
+            <span class="lc-chips-label">Linked:</span>
+            <div class="lc-chips-list" id="lc-chips-list"></div>
+            <button class="lc-edit-btn" id="lc-edit-btn" type="button" aria-controls="lc-overlay">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              Edit
+            </button>
+          </div>
+        </div>
+        <div class="pcn-meta">
+          <div class="pcn-meta-item">Council:<span class="pcn-meta-value">Wokingham</span></div>
+          <div class="pcn-meta-item">Stage:<span class="stage-chip">14 days letter</span></div>
+          <div class="pcn-meta-item">Status:<span class="status-active">Active</span></div>
+          <div class="pcn-meta-item">Name:<span class="pcn-meta-value">John Doe</span></div>
+        </div>
+      </div>
+      <div class="pcn-info-right">
+        <div class="btn-group-actions" role="group" aria-label="PCN actions">
+          <button class="btn-view-evidence" id="btn-view-evidence" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            CEO Images
+          </button>
+          <button class="btn-view-challenge" id="btn-view-challenge-pcn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Challenge</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+
+      <!-- PAGE: Challenge Summarizer -->
+      <div id="page-summarizer" style="display:flex;flex:1;overflow:hidden;">
+
+        <div class="challenge-layout">
+
+          <!-- LEFT: Validation Results -->
+          <div class="validation-panel">
+
+            <button class="btn-collapse-left" id="btn-collapse-left" title="Collapse">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+
+            <div class="v-section">
+              <div class="v-section-header rag-amber">
+                <div class="v-section-title-group">
+                  <span class="v-section-title">Validation Results</span>
+                  <span class="val-score-chip">7<span class="val-score-total">/9</span></span>
+                </div>
+              </div>
+
+              <div class="validation-list" id="validation-list">
+
+                <!-- -- IDENTIFIED MITIGATION -- -->
+                <div class="val-mitigation-banner">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#3276CF" class="val-mit-icon" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 4a1.25 1.25 0 1 1 0 2.5A1.25 1.25 0 0 1 12 6zm1.5 12h-3v-1h1v-5h-1v-1h2.5v6h.5v1z" fill-rule="evenodd"/></svg>
+                  <div class="val-mit-body">
+                    <span class="val-mit-label">Identified Mitigation</span>
+                    <div class="val-mit-values">
+                      <span class="val-mit-value">I was loading and unloading</span>
+                      <span class="val-mit-value">My Blue Badge was on display, didn't realise it had expired</span>
+                      <span class="val-mit-value">I was attending a medical emergency</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- -- ISSUES GROUP -- -->
+                <div class="val-issues-group">
+                <div class="val-group-label val-group-issues">
+                  Needs Review
+                  <span class="val-group-count issues-count">2</span>
+                </div>
+
+                <!-- Issue item 1 — Mismatched -->
+                <div class="val-row val-issue" data-item="1">
+                  <div class="val-row-top">
+                    <svg class="val-icon-warn" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Vehicle Make &amp; Colour Verification</span>
+                      <span class="val-row-note">Registered: <strong>Blue Vauxhall Astra</strong> · PCN states: <strong>Red Ford Focus</strong></span>
+                    </div>
+                    <div class="val-verdict-wrap" id="verdict-wrap-1">
+                      <button class="btn-verdict-toggle" id="verdict-btn-1" data-target="1">
+                        <span class="verdict-label" id="verdict-label-1">Resolve Validation</span>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                      </button>
+                      <div class="verdict-dropdown" id="verdict-drop-1">
+                        <button class="verdict-opt opt-verified" data-target="1" data-value="verified">Manually verified</button>
+                        <button class="verdict-opt opt-ai-issue" data-target="1" data-value="ai-issue">AI extraction issue</button>
+                        <button class="verdict-opt opt-ocr-issue" data-target="1" data-value="ocr-issue">OCR recognition issue</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Issue item 2 — Unrecognized -->
+                <div class="val-row val-issue" data-item="2">
+                  <div class="val-row-top">
+                    <svg class="val-icon-warn" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Vehicle Identification Validation</span>
+                      <span class="val-row-note">VRM <strong>AB21 XYZ</strong> could not be matched against DVLA records.</span>
+                    </div>
+                    <div class="val-verdict-wrap" id="verdict-wrap-2">
+                      <button class="btn-verdict-toggle" id="verdict-btn-2" data-target="2">
+                        <span class="verdict-label" id="verdict-label-2">Resolve Validation</span>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                      </button>
+                      <div class="verdict-dropdown" id="verdict-drop-2">
+                        <button class="verdict-opt opt-verified" data-target="2" data-value="verified">Manually verified</button>
+                        <button class="verdict-opt opt-ai-issue" data-target="2" data-value="ai-issue">AI extraction issue</button>
+                        <button class="verdict-opt opt-ocr-issue" data-target="2" data-value="ocr-issue">OCR recognition issue</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div><!-- /.val-issues-group -->
+
+                <!-- -- VALIDATED GROUP -- -->
+                <div class="val-group-label val-group-validated val-group-validated-header">
+                  <span>Validation Completed <span class="val-group-count validated-count">7</span></span>
+                  <button class="btn-toggle-validated" id="btn-toggle-validated">Show</button>
+                </div>
+
+                <div id="validated-items">
+                  <div class="val-row">
+                  <div class="val-row-top">
+                    <svg class="val-icon-pass" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Contravention Code Accuracy</span>
+                      <span class="val-row-note">Code 1 verified — Single Yellow Line, Hampshire policy</span>
+                    </div>
+                  </div>
+                  </div>
+
+                <div class="val-row">
+                  <div class="val-row-top">
+                    <svg class="val-icon-pass" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">CEO Observation Notes</span>
+                      <span class="val-row-note">Notes present and timestamped — 09:14 to 09:36</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="val-row">
+                  <div class="val-row-top">
+                    <svg class="val-icon-pass" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Initial PCN Verification</span>
+                      <span class="val-row-note">PCN 00345678 — date, location and stage confirmed</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="val-row">
+                  <div class="val-row-top">
+                    <svg class="val-icon-pass" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Restriction Signage Compliance</span>
+                      <span class="val-row-note">Single yellow line restriction times confirmed on CEO images — signs meet TSRGD requirements</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="val-row">
+                  <div class="val-row-top">
+                    <svg class="val-icon-pass" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Loading / Unloading Activity Check</span>
+                      <span class="val-row-note">No loading or unloading observed by CEO during observation period (09:14–09:36)</span>
+                    </div>
+                  </div>
+                  <!-- Supported documents -->
+                  <div class="val-support-docs">
+                    <span class="val-support-docs-label">Supported documents</span>
+                    <div class="val-doc-item">
+                      <div class="val-doc-thumb">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      </div>
+                      <span class="val-doc-name">Boarding Pass Screenshot 1</span>
+                      <a class="val-doc-download" href="#" download title="Download">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="val-row">
+                  <div class="val-row-top">
+                    <svg class="val-icon-pass" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Blue Badge Concession Check</span>
+                      <span class="val-row-note">No valid Blue Badge displayed at time of contravention — concession not applicable</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="val-row">
+                  <div class="val-row-top">
+                    <svg class="val-icon-pass" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="val-row-body">
+                      <span class="val-row-label">Mitigation Categorisation</span>
+                      <span class="val-row-note">Challenge reason matched to Hampshire policy — vehicle make/colour mismatch flagged for manual review</span>
+                    </div>
+                  </div>
+                </div>
+
+                </div><!-- /#validated-items -->
+
+              </div>
+            </div>
+          </div><!-- /.validation-panel -->
+
+          <!-- RIGHT: Generated Correspondence -->
+          <div class="correspondence-panel" id="correspondence-panel">
+            <!-- Loader overlay — shown while correspondence regenerates -->
+            <div class="corr-loader-overlay" id="corr-loader-overlay">
+              <div class="corr-loader-spinner"></div>
+              <span class="corr-loader-text">Regenerating correspondence…</span>
+            </div>
+            <div class="corr-header">
+              <div class="corr-title-row">
+                <svg class="corr-sparkle" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12zm7.5 4.5l-1.25 2.75L15 18l2.75 1.25L19 22l1.25-2.75L23 18l-2.75-1.25z"/>
+                </svg>
+                <div class="corr-title-col">
+                  <span class="corr-title">Generated Correspondence</span>
+                  <span class="corr-subtitle">Automated letter based on PCN details</span>
+                </div>
+              </div>
+              <div class="corr-meta-row">
+                <span class="template-select-wrap">
+                  <span class="template-select-prefix">Template:</span>
+                  <div class="template-dropdown" id="template-dropdown">
+                    <button class="template-dropdown-trigger" id="template-dropdown-trigger" type="button">
+                      <span id="template-dropdown-value">Double-Yellow Line</span>
+                      <svg class="template-dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="template-dropdown-menu" id="template-dropdown-menu">
+                      <div class="template-dropdown-option selected" data-value="Double-Yellow Line">Double-Yellow Line</div>
+                      <div class="template-dropdown-option" data-value="Single-Yellow Line">Single-Yellow Line</div>
+                      <div class="template-dropdown-option" data-value="Permit Zone">Permit Zone</div>
+                      <div class="template-dropdown-option" data-value="Pay &amp; Display">Pay &amp; Display</div>
+                      <div class="template-dropdown-option" data-value="Disabled Bay">Disabled Bay</div>
+                      <div class="template-dropdown-option" data-value="Loading Restriction">Loading Restriction</div>
+                      <div class="template-dropdown-option" data-value="Bus Stop Clearway">Bus Stop Clearway</div>
+                      <div class="template-dropdown-option" data-value="School Zig-Zag">School Zig-Zag</div>
+                    </div>
+                  </div>
+                </span>
+                <span class="decision-enforce-chip">Enforce</span>
+              </div>
+            </div>
+            <div class="corr-scroll-body">
+            <div class="letter-content-area">
+              <div class="letter-doc">
+
+                <!-- Date -->
+                <div class="letter-date">Date: 08/05/2026</div>
+
+                <!-- Salutation -->
+                <p class="letter-salutation">Dear Mr Doe,</p>
+
+                <!-- PCN reference block -->
+                <div class="letter-pcn-block">
+                  <div><strong>Penalty Charge Notice number: 00345678</strong></div>
+                  <div><strong>Date of service: 10/04/2026</strong></div>
+                  <div><strong>Vehicle registration number: AB21 XYZ</strong></div>
+                  <div><strong>Location of contravention: High Street, Wokingham</strong></div>
+                </div>
+
+                <!-- Body paragraphs -->
+                <div class="letter-body">
+                  <p>I refer to the enquiry made by you in connection with the issue of the above Penalty Charge Notice (PCN).</p>
+                  <p>Under the Traffic Management Act 2004, I can only treat your enquiry as an informal representation against the imposition of the charge.</p>
+                  <p>I have investigated your case, noted your comments, and can confirm I have used my discretion and cancelled the penalty charge on discretionary grounds. Although you have provided a copy of a valid disabled badge, for the disabled badge concession to apply, it is a legal requirement that the badge is displayed so that all the details on the front of the badge (the side with the hologram) and the time clock set to display the time of arrival where necessary, are clearly visible from outside the vehicle in accordance with the blue badge scheme handbook which states you must display the badge on the dashboard or facia panel.</p>
+                  <p>Please note that each PCN is considered on the merits of the case, and this does not set a precedent for any future PCNs issued under similar circumstances.</p>
+                  <p>Please be advised, you are no longer liable for the PCN, and all enforcement for the PCN has now ceased.</p>
+
+                  <!-- Related data table (editable) -->
+                  <div class="letter-table-section">
+                    <div class="letter-section-title">Case-related data</div>
+                    <div class="letter-table-toolbar" id="letter-table-toolbar">
+                      <button class="ltbl-btn" type="button" data-act="add-row" title="Add a row below the current row">+ Row</button>
+                      <button class="ltbl-btn is-danger" type="button" data-act="del-row" title="Delete the current row">&minus; Row</button>
+                      <button class="ltbl-btn" type="button" data-act="add-col" title="Add a column to the right of the current column">+ Column</button>
+                      <button class="ltbl-btn is-danger" type="button" data-act="del-col" title="Delete the current column">&minus; Column</button>
+                    </div>
+                    <table class="letter-table" id="letter-table">
+                      <thead>
+                        <tr><th>Field</th><th>Detail</th><th>Date / Time</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>PCN reference</td><td>00345678</td><td>10/04/2026</td></tr>
+                        <tr><td>Vehicle registration</td><td>AB21 XYZ</td><td>&mdash;</td></tr>
+                        <tr><td>Contravention code</td><td>Code 12 &ndash; Permit zone</td><td>10/04/2026 11:32</td></tr>
+                        <tr><td>Issuing officer</td><td>Marshal Doe (CEO 045)</td><td>&mdash;</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Evidence images (editable) -->
+                  <div class="letter-evidence-section">
+                    <div class="letter-section-title">Photographic evidence</div>
+                    <div class="letter-evidence-row" id="letter-evidence-row">
+                      <figure class="letter-evidence" data-ev-slot="0">
+                        <img src="assets/evidence_rear_AB12CDE.png" alt="Evidence 1" />
+                        <button class="lev-edit" type="button" title="Replace image" aria-label="Replace image">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                        <figcaption class="letter-editable-block">Rear plate captured at point of contravention.</figcaption>
+                      </figure>
+                      <figure class="letter-evidence" data-ev-slot="1">
+                        <img src="assets/evidence_front_AB12CDE.png" alt="Evidence 2" />
+                        <button class="lev-edit" type="button" title="Replace image" aria-label="Replace image">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                        <figcaption class="letter-editable-block">Front view showing vehicle position.</figcaption>
+                      </figure>
+                      <figure class="letter-evidence" data-ev-slot="2">
+                        <img src="assets/evidence_rear_AB12CFE.png" alt="Evidence 3" />
+                        <button class="lev-edit" type="button" title="Replace image" aria-label="Replace image">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </button>
+                        <figcaption class="letter-editable-block">Signage clearly visible from the bay.</figcaption>
+                      </figure>
+                    </div>
+                    <input type="file" id="letter-ev-input" accept="image/*" hidden />
+                  </div>
+
+                  <!-- Editable reference link -->
+                  <p class="letter-ref-link">
+                    Further information:
+                    <a href="https://www.wokingham.gov.uk/parking" class="letter-link" id="letter-ref-anchor" target="_blank" rel="noopener">www.wokingham.gov.uk/parking</a>
+                    <button class="lev-edit-link" type="button" id="letter-ref-edit" title="Edit link URL" aria-label="Edit link URL">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                    <span class="letter-link-editor" id="letter-ref-editor">
+                      <input type="url" id="letter-ref-url" placeholder="https://..." />
+                      <button class="ltbl-btn is-primary" type="button" id="letter-ref-save">Save</button>
+                      <button class="ltbl-btn" type="button" id="letter-ref-cancel">Cancel</button>
+                    </span>
+                  </p>
+                </div>
+
+                <!-- Sign-off -->
+                <div class="letter-signoff">
+                  <p>Yours sincerely</p>
+                  <div class="letter-sig-gap"></div>
+                  <p class="letter-sig-name"><strong>Parking Administration</strong></p>
+                  <div style="display:flex;gap:14px;align-items:center;margin:14px 0 12px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:6px;background:#fafafa;">
+                    <div style="width:78px;height:78px;flex-shrink:0;background:#fff;border:1px solid #e5e7eb;padding:4px;box-sizing:border-box;">
+                      <svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-label="QR code"><defs><pattern id="qrpat-b" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#fff"/><rect width="3" height="3" fill="#000"/><rect x="3" y="3" width="3" height="3" fill="#000"/></pattern></defs><rect width="100" height="100" fill="url(#qrpat-b)"/><rect width="30" height="30" fill="#fff"/><rect x="70" width="30" height="30" fill="#fff"/><rect y="70" width="30" height="30" fill="#fff"/><rect width="26" height="26" fill="#000"/><rect x="4" y="4" width="18" height="18" fill="#fff"/><rect x="8" y="8" width="10" height="10" fill="#000"/><rect x="74" width="26" height="26" fill="#000"/><rect x="78" y="4" width="18" height="18" fill="#fff"/><rect x="82" y="8" width="10" height="10" fill="#000"/><rect y="74" width="26" height="26" fill="#000"/><rect x="4" y="78" width="18" height="18" fill="#fff"/><rect x="8" y="82" width="10" height="10" fill="#000"/><rect x="74" y="74" width="14" height="14" fill="#fff"/><rect x="76" y="76" width="10" height="10" fill="#000"/><rect x="79" y="79" width="4" height="4" fill="#fff"/><rect x="80" y="80" width="2" height="2" fill="#000"/></svg>
+                    </div>
+                    <div style="font-size:11px;color:#374151;line-height:1.55;">
+                      <div style="font-weight:600;color:#111827;margin-bottom:3px;">Scan to manage your PCN</div>
+                      Use your phone camera to view this notice online, pay your charge, or submit a representation.<br>
+                      <span style="color:#6b7280;">PCN ref: 00345678 &middot; wokingham.gov.uk/pcn</span>
+                    </div>
+                  </div>
+                  <p class="letter-privacy">Privacy Notice: To view our privacy notice, please visit <a href="#" class="letter-link">www.wokingham.gov.uk/parkingservicesprivacy</a></p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Delivery Method + Attachments (moved to bottom) -->
+            <div class="delivery-section">
+              <div class="delivery-row">
+                <span class="delivery-label">Delivery Method</span>
+                <div class="delivery-options">
+                  <label class="delivery-option active" id="delivery-email">
+                    <input type="radio" name="delivery" value="email" checked hidden />
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                    Email
+                  </label>
+                  <label class="delivery-option" id="delivery-post">
+                    <input type="radio" name="delivery" value="post" hidden />
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Post
+                  </label>
+                  <label class="delivery-option" id="delivery-both">
+                    <input type="radio" name="delivery" value="both" hidden />
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="13" height="10" rx="1.5"/><path d="M2 6l6.5 4.5L15 6"/><path d="M22 20V11l-5-4-5 4v9"/><polyline points="15 20 15 14 19 14 19 20"/></svg>
+                    Both
+                  </label>
+                </div>
+              </div>
+
+              <!-- Email address field (shown when Email selected) -->
+              <div class="delivery-row" id="delivery-email-row">
+                <span class="delivery-label">Email Address</span>
+                <input type="email" class="delivery-input" id="delivery-email-input" placeholder="recipient@example.com" value="marshal@123.com" readonly />
+              </div>
+
+              <!-- Postal address (shown when Post selected) -->
+              <div class="delivery-row" id="delivery-post-row" style="display:none;">
+                <span class="delivery-label">Postal Address</span>
+                <input type="text" class="delivery-input" id="delivery-post-input" placeholder="Full postal address" value="Marshall John, 42 Elm Street, London, EC1A 1BB" readonly />
+              </div>
+              <div class="delivery-row">
+                <span class="delivery-label  attachments-label">Attachments <span class="delivery-hint">(max 3)</span></span>
+                <div class="attach-area" id="attach-area">
+                  <button class="attach-upload-btn" id="btn-upload-source" type="button">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Upload
+                  </button>
+                  <input type="file" id="attach-input" accept="image/*" multiple hidden />
+                  <div class="attach-previews" id="attach-previews"></div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="corr-action-bar">
+              <div class="btn-group-actions btn-group-actions--left" role="group" aria-label="Letter actions">
+                <button class="btn-preview-letter" id="btn-preview-letter" type="button" title="Preview letter">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><polyline points="2 7 12 13 22 7"/></svg>
+                  <span>Preview letter</span>
+                </button>
+                <button class="btn-add-notes" id="btn-add-notes" type="button" title="Add notes">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  <span class="btn-add-notes-label">Add notes</span>
+                </button>
+              </div>
+              <button class="btn-save-draft">SAVE DRAFT</button>
+              <button class="btn-send-corr">Send</button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PAGE: Challenge Review (Wireframe) -->
+      <div id="page-challenge-review" class="cr-page" style="display:none;">
+
+        <div class="cr-page-header">
+          <button class="btn-view-challenge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Challenge</button>
+        </div>
+
+        <div class="cr-body">
+
+          <!-- Left Column -->
+          <div class="cr-left">
+            <div class="cr-section-label">Case Details</div>
+            <div class="cr-grey-bar"></div>
+
+            <div class="cr-data-row">
+              <span class="cr-data-label">C</span>
+            </div>
+
+            <div class="cr-agent-row">
+              <span class="cr-agent-name">Agent Eve</span>
+              <a href="#" class="cr-view-more">View More</a>
+            </div>
+
+            <div class="cr-status-item">
+              <svg class="cr-warn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>N+ Decision</span>
+            </div>
+
+            <div class="cr-status-item">
+              <svg class="cr-pass-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/>
+              </svg>
+              <span>Contravention code verified</span>
+            </div>
+
+            <div class="cr-status-item">
+              <svg class="cr-pass-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/>
+              </svg>
+              <span>Initial PCN verification complete</span>
+            </div>
+
+            <div class="cr-template-label">Template</div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="cr-right">
+            <div class="cr-right-inner">
+
+              <button class="btn-decision">Decision</button>
+
+              <div>
+                <div class="cr-dark-section">
+                  <div class="cr-dark-section-title">Delivery Method</div>
+                </div>
+                <div class="cr-section-body">
+                  <div class="delivery-option">Email / Post</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="cr-dark-section">
+                  <div class="cr-dark-section-title">
+                    Add Images
+                    <button class="btn-add-images">add Images</button>
+                  </div>
+                </div>
+                <div class="cr-section-body">
+                  <div class="image-slots">
+                    <div class="image-slot">1</div>
+                    <div class="image-slot">2</div>
+                    <div class="image-slot">3</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="template-letter-section">
+                <div class="template-letter-header">Template of Letter</div>
+                <div class="template-para" contenteditable="true">Para</div>
+                <div class="template-para" contenteditable="true">para</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div><!-- /.app-body -->
+</div>
+
+<script>
+  /* Clipboard helper: works in both secure (HTTPS) and non-secure (file://) contexts */
+  function copyTextToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy') ? resolve() : reject(new Error('Copy failed'));
+      } catch(e) {
+        reject(e);
+      } finally {
+        document.body.removeChild(ta);
+      }
+    });
+  }
+
+(function () {
+  const pages = {
+    'summarizer':       'page-summarizer',
+    'challenge-review': 'page-challenge-review',
+  };
+
+  function showPage(key) {
+    document.getElementById('page-summarizer').style.display        = 'none';
+    document.getElementById('page-challenge-review').style.display  = 'none';
+
+    const el = document.getElementById(pages[key]);
+    if (el) el.style.display = key === 'summarizer' ? 'flex' : 'flex';
+  }
+
+  /* Sidebar nav clicks */
+  document.querySelectorAll('[data-page]').forEach(el => {
+    el.addEventListener('click', function (e) {
+      const pg = this.dataset.page;
+      if (!pages[pg]) return;
+      e.stopPropagation();
+
+      document.querySelectorAll('.m-nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.m-nav-sub-item').forEach(n => n.classList.remove('active'));
+
+      if (pg === 'summarizer' || pg === 'challenge-review') {
+        document.getElementById('nav-summarizer').classList.add('active');
+      }
+      if (pg === 'challenge-review') {
+        document.getElementById('nav-challenge-review').classList.add('active');
+      }
+
+      showPage(pg);
+    });
+  });
+
+  /* Parent nav click — open Challenge Summarizer */
+  const navSum = document.getElementById('nav-summarizer');
+  navSum.addEventListener('click', function (e) {
+    e.stopPropagation();
+    document.querySelectorAll('.m-nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.m-nav-sub-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+    showPage('summarizer');
+  });
+
+  /* Collapse toggles */
+  function collapseToggle(btnId, listId) {
+    const btn = document.getElementById(btnId);
+    const list = document.getElementById(listId);
+    if (!btn || !list) return;
+    let collapsed = false;
+    btn.addEventListener('click', () => {
+      collapsed = !collapsed;
+      list.style.display = collapsed ? 'none' : '';
+      const svg = btn.querySelector('svg');
+      if (svg) svg.style.transform = collapsed ? 'rotate(180deg)' : '';
+    });
+  }
+  collapseToggle('btn-collapse-summary', 'challenge-summary-list');
+
+  /* Copy Summary */
+  const copyBtn = document.getElementById('btn-copy-summary');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const text = [...document.querySelectorAll('.challenge-summary-list li')]
+        .map(li => '• ' + li.textContent.trim()).join('\n');
+      const orig = copyBtn.innerHTML;
+      copyTextToClipboard(text).then(function() {
+        copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> COPIED!';
+        setTimeout(function() { copyBtn.innerHTML = orig; }, 2000);
+      }).catch(function() {
+        copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> COPIED!';
+        setTimeout(function() { copyBtn.innerHTML = orig; }, 2000);
+      });
+    });
+  }
+
+  /* CLEAR buttons */
+  document.querySelectorAll('.val-override-row').forEach(row => {
+    const sel = row.querySelector('.override-select');
+    const btn = row.querySelector('.btn-clear');
+    if (sel && btn) btn.addEventListener('click', () => { sel.value = ''; });
+  });
+
+  /* -- Correspondence panel loader helper -- */
+  function showCorrLoader(durationMs) {
+    var overlay = document.getElementById('corr-loader-overlay');
+    if (!overlay) return;
+    overlay.classList.add('active');
+    setTimeout(function () { overlay.classList.remove('active'); }, durationMs || 1800);
+  }
+
+  /* Verdict dropdown (Correct / Wrong) */
+  document.querySelectorAll('.btn-verdict-toggle').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const drop = document.getElementById('verdict-drop-' + btn.dataset.target);
+      document.querySelectorAll('.verdict-dropdown').forEach(d => { if (d !== drop) d.classList.remove('open'); });
+      drop.classList.toggle('open');
+    });
+  });
+  document.querySelectorAll('.verdict-opt').forEach(opt => {
+    opt.addEventListener('click', e => {
+      e.stopPropagation();
+      const target = opt.dataset.target;
+      const toggleBtn = document.getElementById('verdict-btn-' + target);
+      const label = document.getElementById('verdict-label-' + target);
+      const drop = document.getElementById('verdict-drop-' + target);
+      drop.querySelectorAll('.verdict-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      toggleBtn.className = 'btn-verdict-toggle selected-resolved';
+      label.textContent = opt.textContent.trim();
+      drop.classList.remove('open');
+      showCorrLoader(1800);
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.verdict-dropdown').forEach(d => d.classList.remove('open'));
+  });
+
+  /* Delivery Method toggle */
+  const emailRow = document.getElementById('delivery-email-row');
+  const postRow  = document.getElementById('delivery-post-row');
+  document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.delivery-option').forEach(l => l.classList.remove('active'));
+      radio.closest('.delivery-option').classList.add('active');
+      const v = radio.value;
+      const showEmail = (v === 'email' || v === 'both');
+      const showPost  = (v === 'post'  || v === 'both');
+      if (emailRow) emailRow.style.display = showEmail ? '' : 'none';
+      if (postRow)  postRow.style.display  = showPost  ? '' : 'none';
+    });
+  });
+
+  /* Attachment upload (max 3 images) */
+  const attachInput = document.getElementById('attach-input');
+  const attachPreviews = document.getElementById('attach-previews');
+  let attachFiles = [];
+
+  function rebuildPreviews() {
+    attachPreviews.innerHTML = '';
+    attachFiles.forEach((item, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'attach-thumb';
+      wrap.innerHTML = `<img src="${item.src}" alt="${item.name}" /><button class="attach-remove" data-idx="${i}" title="Remove">&times;</button>`;
+      attachPreviews.appendChild(wrap);
+    });
+    const uploadBtn = document.getElementById('btn-upload-source');
+    if (uploadBtn) uploadBtn.style.display = attachFiles.length >= 3 ? 'none' : '';
+  }
+
+  if (attachInput) {
+    attachInput.addEventListener('change', () => {
+      Array.from(attachInput.files).forEach(file => {
+        if (attachFiles.length >= 3) return;
+        if (!file.type.startsWith('image/')) return;
+        attachFiles.push({ src: URL.createObjectURL(file), name: file.name, captured: '' });
+      });
+      attachInput.value = '';
+      rebuildPreviews();
+    });
+    attachPreviews.addEventListener('click', e => {
+      const btn = e.target.closest('.attach-remove');
+      if (!btn) return;
+      attachFiles.splice(parseInt(btn.dataset.idx), 1);
+      rebuildPreviews();
+    });
+  }
+
+  /* -- Open CEO image case picker -- */
+  window.openCasePicker = function () {
+    var remaining = 3 - attachFiles.length;
+    if (remaining <= 0) return;
+    var pickerOverlay = document.getElementById('case-picker-overlay');
+    var grid     = document.getElementById('case-picker-grid');
+    var hint     = document.getElementById('case-picker-hint');
+    var subtitle = document.getElementById('case-picker-subtitle');
+    var addBtn   = document.getElementById('case-picker-add');
+    var selectedIdxs = [];
+    subtitle.textContent = 'Select up to ' + remaining + ' image(s) to attach';
+    hint.textContent = '0 selected';
+    addBtn.disabled = true;
+    addBtn.textContent = 'Add Selected';
+    grid.innerHTML = '';
+    evidenceImages.forEach(function (img, i) {
+      var alreadyAttached = attachFiles.some(function (f) { return f.name === img.name; });
+      var item = document.createElement('div');
+      item.className = 'case-picker-item' + (alreadyAttached ? ' already-attached' : '');
+      item.innerHTML = '<img src="' + img.src + '" alt="' + img.name + '" />'
+        + '<div class="case-picker-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>'
+        + (img.captured ? '<span class="case-picker-caption">' + img.captured + '</span>' : '');
+      if (!alreadyAttached) {
+        item.addEventListener('click', function () {
+          var pos = selectedIdxs.indexOf(i);
+          if (pos > -1) {
+            selectedIdxs.splice(pos, 1);
+            item.classList.remove('selected');
+          } else {
+            if (selectedIdxs.length >= remaining) return;
+            selectedIdxs.push(i);
+            item.classList.add('selected');
+          }
+          hint.textContent = selectedIdxs.length + ' selected';
+          addBtn.disabled = selectedIdxs.length === 0;
+          addBtn.textContent = selectedIdxs.length > 0 ? 'Add ' + selectedIdxs.length + ' Image(s)' : 'Add Selected';
+        });
+      }
+      grid.appendChild(item);
+    });
+    addBtn.onclick = function () {
+      selectedIdxs.forEach(function (i) {
+        if (attachFiles.length >= 3) return;
+        attachFiles.push({ src: evidenceImages[i].src, name: evidenceImages[i].name, captured: evidenceImages[i].captured || '' });
+      });
+      rebuildPreviews();
+      pickerOverlay.classList.remove('open');
+    };
+    pickerOverlay.classList.add('open');
+  };
+
+  /* Default page */
+  showPage('summarizer');
+
+  /* -- Click-to-edit letter content -- */
+  (function () {
+    var editableSelectors = [
+      '.letter-date', '.letter-salutation',
+      '.letter-pcn-block', '.letter-body p',
+      '.letter-signoff p:not(.letter-privacy)', '.letter-sig-name'
+    ];
+    var letterDoc = document.querySelector('.letter-doc');
+    if (!letterDoc) return;
+    editableSelectors.forEach(function (sel) {
+      letterDoc.querySelectorAll(sel).forEach(function (el) {
+        el.classList.add('letter-editable-block');
+        el.addEventListener('click', function () {
+          if (this.getAttribute('contenteditable') === 'true') return;
+          this.setAttribute('contenteditable', 'true');
+          this.focus();
+          var range = document.createRange();
+          var sel = window.getSelection();
+          range.selectNodeContents(this);
+          range.collapse(false);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        });
+        el.addEventListener('blur', function () {
+          this.removeAttribute('contenteditable');
+        });
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { this.blur(); }
+        });
+      });
+    });
+  })();
+
+  /* -- Letter: editable related-data table (add/delete rows & columns) -- */
+  (function () {
+    var table = document.getElementById('letter-table');
+    var toolbar = document.getElementById('letter-table-toolbar');
+    if (!table || !toolbar) return;
+
+    var activeCell = null;
+
+    function clearActive() {
+      table.querySelectorAll('th.is-active, td.is-active').forEach(function (c) {
+        c.classList.remove('is-active');
+      });
+    }
+    function setActive(cell) {
+      clearActive();
+      activeCell = cell;
+      if (cell) cell.classList.add('is-active');
+    }
+    function makeEditable(cell) {
+      if (!cell || cell.getAttribute('contenteditable') === 'true') return;
+      cell.setAttribute('contenteditable', 'true');
+      cell.focus();
+      var range = document.createRange();
+      var s = window.getSelection();
+      range.selectNodeContents(cell);
+      range.collapse(false);
+      s.removeAllRanges();
+      s.addRange(range);
+    }
+
+    table.addEventListener('click', function (e) {
+      var cell = e.target.closest('th, td');
+      if (!cell || !table.contains(cell)) return;
+      setActive(cell);
+      makeEditable(cell);
+    });
+    table.addEventListener('focusout', function (e) {
+      var cell = e.target.closest('th, td');
+      if (cell) cell.removeAttribute('contenteditable');
+    });
+    table.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && e.target.closest('th, td')) e.target.blur();
+    });
+
+    function colIndex(cell) {
+      var row = cell.parentElement;
+      return Array.prototype.indexOf.call(row.children, cell);
+    }
+    function rowsAll() {
+      return Array.prototype.slice.call(table.querySelectorAll('tr'));
+    }
+
+    toolbar.addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      var act = btn.getAttribute('data-act');
+      var tbody = table.tBodies[0];
+      if (!tbody) return;
+
+      if (act === 'add-row') {
+        var cols = table.rows[0] ? table.rows[0].children.length : 1;
+        var newRow = document.createElement('tr');
+        for (var i = 0; i < cols; i++) {
+          var td = document.createElement('td');
+          td.textContent = '\u2014';
+          newRow.appendChild(td);
+        }
+        var refRow = activeCell && activeCell.parentElement && activeCell.parentElement.parentElement === tbody
+          ? activeCell.parentElement
+          : null;
+        if (refRow && refRow.nextSibling) tbody.insertBefore(newRow, refRow.nextSibling);
+        else tbody.appendChild(newRow);
+        setActive(newRow.children[0]);
+      }
+      else if (act === 'del-row') {
+        var refRow2 = activeCell && activeCell.parentElement && activeCell.parentElement.parentElement === tbody
+          ? activeCell.parentElement
+          : tbody.lastElementChild;
+        if (refRow2 && tbody.children.length > 1) {
+          refRow2.parentElement.removeChild(refRow2);
+          activeCell = null;
+        }
+      }
+      else if (act === 'add-col') {
+        var idx = activeCell ? colIndex(activeCell) : (table.rows[0].children.length - 1);
+        rowsAll().forEach(function (row, ri) {
+          var isHead = row.parentElement.tagName === 'THEAD';
+          var newCell = document.createElement(isHead ? 'th' : 'td');
+          newCell.textContent = isHead ? 'New column' : '\u2014';
+          var ref = row.children[idx];
+          if (ref && ref.nextSibling) row.insertBefore(newCell, ref.nextSibling);
+          else row.appendChild(newCell);
+        });
+      }
+      else if (act === 'del-col') {
+        var idx2 = activeCell ? colIndex(activeCell) : (table.rows[0].children.length - 1);
+        var firstRow = table.rows[0];
+        if (!firstRow || firstRow.children.length <= 1) return;
+        rowsAll().forEach(function (row) {
+          if (row.children[idx2]) row.removeChild(row.children[idx2]);
+        });
+        activeCell = null;
+      }
+    });
+  })();
+
+  /* -- Letter: editable evidence images -- */
+  (function () {
+    var row = document.getElementById('letter-evidence-row');
+    var input = document.getElementById('letter-ev-input');
+    if (!row || !input) return;
+    var targetSlot = null;
+
+    row.addEventListener('click', function (e) {
+      var btn = e.target.closest('.lev-edit');
+      if (!btn) return;
+      targetSlot = btn.closest('.letter-evidence');
+      if (!targetSlot) return;
+      input.value = '';
+      input.click();
+    });
+    input.addEventListener('change', function () {
+      var file = input.files && input.files[0];
+      if (!file || !targetSlot) return;
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        var img = targetSlot.querySelector('img');
+        if (img) {
+          img.src = ev.target.result;
+          img.alt = file.name;
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  })();
+
+  /* -- Letter: editable reference link (URL + label) -- */
+  (function () {
+    var anchor = document.getElementById('letter-ref-anchor');
+    var editBtn = document.getElementById('letter-ref-edit');
+    var editor = document.getElementById('letter-ref-editor');
+    var urlInput = document.getElementById('letter-ref-url');
+    var saveBtn = document.getElementById('letter-ref-save');
+    var cancelBtn = document.getElementById('letter-ref-cancel');
+    if (!anchor || !editBtn || !editor || !urlInput || !saveBtn || !cancelBtn) return;
+
+    anchor.classList.add('letter-editable-block');
+    anchor.addEventListener('click', function (e) {
+      if (anchor.getAttribute('contenteditable') === 'true') { e.preventDefault(); return; }
+      if (e.metaKey || e.ctrlKey) return;
+      e.preventDefault();
+      anchor.setAttribute('contenteditable', 'true');
+      anchor.focus();
+      var range = document.createRange();
+      var s = window.getSelection();
+      range.selectNodeContents(anchor);
+      s.removeAllRanges();
+      s.addRange(range);
+    });
+    anchor.addEventListener('blur', function () { anchor.removeAttribute('contenteditable'); });
+    anchor.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); anchor.blur(); }
+    });
+
+    editBtn.addEventListener('click', function () {
+      urlInput.value = anchor.getAttribute('href') || '';
+      editor.classList.add('is-open');
+      urlInput.focus();
+      urlInput.select();
+    });
+    saveBtn.addEventListener('click', function () {
+      var v = urlInput.value.trim();
+      if (v) anchor.setAttribute('href', v);
+      editor.classList.remove('is-open');
+    });
+    cancelBtn.addEventListener('click', function () { editor.classList.remove('is-open'); });
+    urlInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); saveBtn.click(); }
+      else if (e.key === 'Escape') { e.preventDefault(); cancelBtn.click(); }
+    });
+  })();
+
+  /* -- Template dropdown -- */
+  (function () {
+    var tTrigger = document.getElementById('template-dropdown-trigger');
+    var tMenu    = document.getElementById('template-dropdown-menu');
+    var tValue   = document.getElementById('template-dropdown-value');
+    if (!tTrigger || !tMenu) return;
+    tTrigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var opening = !tMenu.classList.contains('open');
+      tMenu.classList.toggle('open', opening);
+      tTrigger.classList.toggle('open', opening);
+    });
+    tMenu.addEventListener('click', function (e) {
+      var opt = e.target.closest('.template-dropdown-option');
+      if (!opt) return;
+      tMenu.querySelectorAll('.template-dropdown-option').forEach(function (o) { o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      tValue.textContent = opt.dataset.value;
+      tMenu.classList.remove('open');
+      tTrigger.classList.remove('open');
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('#template-dropdown')) {
+        tMenu.classList.remove('open');
+        tTrigger.classList.remove('open');
+      }
+    });
+  })();
+
+  /* -- Evidence Viewer -- */
+  const evidenceImages = [
+    { src: 'assets/evidence_rear_AB12CDE.png',  name: 'evidence_rear_AB12CDE.png',  captured: '25/11/2025 12:47' },
+    { src: 'assets/evidence_front_AB12CDE.png', name: 'evidence_front_AB12CDE.png', captured: '25/11/2025 12:48' },
+    { src: 'assets/evidence_front_AB12CDK.png', name: 'evidence_front_AB12CDK.png', captured: '25/11/2025 12:50' },
+    { src: 'assets/evidence_rear_AB12CFE.png',  name: 'evidence_rear_AB12CFE.png',  captured: '25/11/2025 12:52' },
+    { src: 'assets/evidence_rear_AB12CWQ.png',  name: 'evidence_rear_AB12CWQ.png',  captured: '25/11/2025 12:54' },
+  ];
+  let evIdx = 0;
+  let evZoom = 1;
+
+  const evModal = document.createElement('div');
+  evModal.className = 'ev-modal';
+  evModal.innerHTML = `
+    <div class="ev-dialog">
+      <div class="ev-header">
+        <span class="ev-filename" id="ev-filename"></span>
+        <button class="ev-close" id="ev-close" title="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="ev-body">
+        <div class="ev-main">
+          <button class="ev-nav ev-prev" id="ev-prev" title="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="ev-img-wrap">
+            <div class="ev-zoom-controls">
+              <button class="ev-zoom-btn" id="ev-zoom-out" title="Zoom out"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+              <button class="ev-zoom-btn" id="ev-zoom-in"  title="Zoom in"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+              <button class="ev-zoom-btn" id="ev-zoom-reset" title="Reset zoom"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></button>
+            </div>
+            <img class="ev-main-img" id="ev-main-img" src="" alt="" />
+          </div>
+          <button class="ev-nav ev-next" id="ev-next" title="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="ev-thumbs" id="ev-thumbs"></div>
+      </div>
+      <div class="ev-footer">
+        <span class="ev-captured" id="ev-captured"></span>
+        <a class="ev-download-btn" id="ev-download" download>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          DOWNLOAD
+        </a>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(evModal);
+
+  function evLoad(idx) {
+    evIdx = idx;
+    evZoom = 1;
+    const img = evidenceImages[idx];
+    document.getElementById('ev-filename').textContent = img.name;
+    document.getElementById('ev-captured').textContent = 'Captured on: ' + img.captured;
+    const mainImg = document.getElementById('ev-main-img');
+    mainImg.src = img.src;
+    mainImg.style.transform = 'scale(1)';
+    const dl = document.getElementById('ev-download');
+    dl.href = img.src;
+    dl.download = img.name;
+    document.querySelectorAll('.ev-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
+  }
+
+  // Build thumbnails
+  const thumbsEl = document.getElementById('ev-thumbs');
+  evidenceImages.forEach((img, i) => {
+    const t = document.createElement('div');
+    t.className = 'ev-thumb' + (i === 0 ? ' active' : '');
+    t.innerHTML = `<img src="${img.src}" alt="${img.name}" />`;
+    t.addEventListener('click', () => evLoad(i));
+    thumbsEl.appendChild(t);
+  });
+
+  document.getElementById('ev-prev').addEventListener('click', () => evLoad((evIdx - 1 + evidenceImages.length) % evidenceImages.length));
+  document.getElementById('ev-next').addEventListener('click', () => evLoad((evIdx + 1) % evidenceImages.length));
+
+  document.getElementById('ev-zoom-in').addEventListener('click', () => {
+    evZoom = Math.min(evZoom + 0.25, 3);
+    document.getElementById('ev-main-img').style.transform = `scale(${evZoom})`;
+  });
+  document.getElementById('ev-zoom-out').addEventListener('click', () => {
+    evZoom = Math.max(evZoom - 0.25, 0.5);
+    document.getElementById('ev-main-img').style.transform = `scale(${evZoom})`;
+  });
+  document.getElementById('ev-zoom-reset').addEventListener('click', () => {
+    evZoom = 1;
+    document.getElementById('ev-main-img').style.transform = 'scale(1)';
+  });
+  document.getElementById('ev-close').addEventListener('click', () => evModal.classList.remove('open'));
+  evModal.addEventListener('click', e => { if (e.target === evModal) evModal.classList.remove('open'); });
+
+  document.querySelector('.btn-view-evidence').addEventListener('click', () => {
+    evLoad(0);
+    evModal.classList.add('open');
+  });
+})();
+</script>
+<script>
+  /* -- View Challenge popup -- */
+  (function () {
+    var overlay  = document.getElementById('vc-overlay');
+    var closeBtn = document.getElementById('vc-close');
+    function openPanel() { overlay.style.display = 'block'; overlay.getBoundingClientRect(); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closePanel() { overlay.classList.remove('open'); document.body.style.overflow = ''; overlay.addEventListener('transitionend', function h() { if (!overlay.classList.contains('open')) overlay.style.display = 'none'; overlay.removeEventListener('transitionend', h); }); }
+    document.querySelectorAll('.btn-view-challenge').forEach(function (b) { b.addEventListener('click', openPanel); });
+    closeBtn.addEventListener('click', closePanel);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closePanel(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
+    var yesBtn = document.getElementById('vc-yn-yes'), noBtn = document.getElementById('vc-yn-no');
+    if (yesBtn && noBtn) {
+      yesBtn.addEventListener('click', function () { yesBtn.classList.add('active-yes'); noBtn.classList.remove('active-no'); });
+      noBtn.addEventListener('click', function () { noBtn.classList.add('active-no'); yesBtn.classList.remove('active-yes'); });
+    }
+    var vdb = document.getElementById('vc-view-details-btn');
+    if (vdb) vdb.addEventListener('click', function () { vdb.classList.toggle('open'); });
+    var copyBtn = document.getElementById('vc-copy-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var list = document.querySelector('.vc-summary-list');
+        if (!list) return;
+        var text = Array.from(list.querySelectorAll('li')).map(function (li) { return li.innerText; }).join('\n\n');
+        copyTextToClipboard(text).then(function () {
+          var orig = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+          setTimeout(function () { copyBtn.innerHTML = orig; }, 1800);
+        }).catch(function () {});
+      });
+    }
+  })();
+
+  /* -- Correspondence letter preview modal -- */
+  (function () {
+    var corrOverlay = document.getElementById('corr-modal-overlay');
+    var corrClose   = document.getElementById('corr-modal-close');
+    var corrLetter  = document.getElementById('corr-letter-content');
+    var corrDate    = document.getElementById('corr-modal-date');
+    var zoomIn      = document.getElementById('corr-zoom-in');
+    var zoomOut     = document.getElementById('corr-zoom-out');
+    var zoom = 1;
+    function syncPreviewFromLetter() {
+      /* Table */
+      var liveTable = document.getElementById('letter-table');
+      var prevWrap = document.getElementById('corr-prev-table-wrap');
+      if (liveTable && prevWrap) {
+        var clone = liveTable.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.querySelectorAll('[contenteditable]').forEach(function (n) { n.removeAttribute('contenteditable'); });
+        clone.querySelectorAll('.is-active').forEach(function (n) { n.classList.remove('is-active'); });
+        clone.setAttribute('style', 'width:100%;border-collapse:collapse;font-size:11.5px;font-family:inherit;');
+        clone.querySelectorAll('th').forEach(function (th) {
+          th.setAttribute('style', 'border:1px solid #d1d5db;padding:5px 8px;text-align:left;font-weight:600;color:#111827;background:#f3f4f6;');
+        });
+        clone.querySelectorAll('td').forEach(function (td) {
+          td.setAttribute('style', 'border:1px solid #d1d5db;padding:5px 8px;text-align:left;color:#374151;background:#fff;vertical-align:top;');
+        });
+        prevWrap.innerHTML = '';
+        prevWrap.appendChild(clone);
+      }
+      /* Evidence images */
+      var evRow = document.getElementById('letter-evidence-row');
+      var prevEv = document.getElementById('corr-prev-evidence');
+      if (evRow && prevEv) {
+        prevEv.innerHTML = '';
+        evRow.querySelectorAll('.letter-evidence').forEach(function (fig) {
+          var srcImg = fig.querySelector('img');
+          var cap = fig.querySelector('figcaption');
+          var f = document.createElement('figure');
+          f.setAttribute('style', 'margin:0;border:1px solid #d1d5db;border-radius:4px;overflow:hidden;background:#fff;');
+          var img = document.createElement('img');
+          img.src = srcImg ? srcImg.src : '';
+          img.alt = srcImg ? (srcImg.alt || '') : '';
+          img.setAttribute('style', 'width:100%;height:110px;object-fit:cover;display:block;');
+          f.appendChild(img);
+          var fc = document.createElement('figcaption');
+          fc.textContent = cap ? cap.textContent.trim() : '';
+          fc.setAttribute('style', 'font-size:10.5px;padding:5px 7px;color:#374151;line-height:1.4;border-top:1px solid #f3f4f6;');
+          f.appendChild(fc);
+          prevEv.appendChild(f);
+        });
+      }
+      /* Link */
+      var liveLink = document.getElementById('letter-ref-anchor');
+      var prevLink = document.getElementById('corr-prev-link');
+      if (liveLink && prevLink) {
+        prevLink.href = liveLink.getAttribute('href') || '#';
+        prevLink.textContent = liveLink.textContent.trim();
+      }
+    }
+    function openCorrModal(date) { syncPreviewFromLetter(); corrDate.textContent = date || '14-08-2025 10:59'; zoom = 1; corrLetter.style.transform = 'scale(1)'; corrLetter.style.transformOrigin = 'top center'; corrOverlay.style.display = 'flex'; corrOverlay.getBoundingClientRect(); corrOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeCorrModal() { corrOverlay.classList.remove('open'); document.body.style.overflow = ''; corrOverlay.addEventListener('transitionend', function h() { if (!corrOverlay.classList.contains('open')) corrOverlay.style.display = 'none'; corrOverlay.removeEventListener('transitionend', h); }); }
+    document.querySelectorAll('.vc-corr-eye').forEach(function (btn) { btn.addEventListener('click', function (e) { e.stopPropagation(); var row = btn.closest('.vc-corr-row'); var date = row ? row.querySelector('span').textContent : ''; openCorrModal(date); }); });
+    var previewBtn = document.getElementById('btn-preview-letter');
+    if (previewBtn) previewBtn.addEventListener('click', function () { openCorrModal(); });
+    corrClose.addEventListener('click', closeCorrModal);
+    corrOverlay.addEventListener('click', function (e) { if (e.target === corrOverlay) closeCorrModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && corrOverlay.classList.contains('open')) closeCorrModal(); });
+    zoomIn.addEventListener('click', function () { zoom = Math.min(zoom + 0.15, 2); corrLetter.style.transform = 'scale(' + zoom + ')'; });
+    zoomOut.addEventListener('click', function () { zoom = Math.max(zoom - 0.15, 0.5); corrLetter.style.transform = 'scale(' + zoom + ')'; });
+  })();
+</script>
+
+<!-- Left panel collapse + Validated items toggle -->
+<script>
+  /* -- Left validation panel collapse -- */
+  (function () {
+    var btn   = document.getElementById('btn-collapse-left');
+    var layout = document.querySelector('.challenge-layout');
+    if (!btn || !layout) return;
+    btn.addEventListener('click', function () {
+      var collapsed = layout.classList.toggle('layout-collapsed');
+      btn.classList.toggle('collapsed', collapsed);
+      btn.title = collapsed ? 'Expand' : 'Collapse';
+    });
+  })();
+
+  /* -- Validated items show / hide -- */
+  (function () {
+    var toggleBtn = document.getElementById('btn-toggle-validated');
+    var items     = document.getElementById('validated-items');
+    if (!toggleBtn || !items) return;
+    toggleBtn.addEventListener('click', function () {
+      var visible = items.style.display !== 'none' && items.style.display !== '';
+      items.style.display = visible ? 'none' : 'block';
+      toggleBtn.textContent = visible ? 'Show' : 'Hide';
+    });
+  })();
+
+</script>
+
+<!-- Upload Source Modal -->
+<div class="upload-source-overlay" id="upload-source-overlay">
+  <div class="upload-source-modal">
+    <div class="upload-source-modal-body">
+      <p class="upload-source-title">Add Attachment</p>
+      <p class="upload-source-subtitle">Choose where to add the attachment from</p>
+      <div class="upload-source-options">
+        <button class="upload-source-btn" id="btn-upload-from-case">
+          <div class="upload-source-btn-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="upload-source-btn-text">
+            <span class="upload-source-btn-label">From Case (CEO Images)</span>
+            <span class="upload-source-btn-desc">Select from CEO images already captured for this PCN</span>
+          </div>
+        </button>
+        <button class="upload-source-btn" id="btn-upload-from-device">
+          <div class="upload-source-btn-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="upload-source-btn-text">
+            <span class="upload-source-btn-label">From Local / Device</span>
+            <span class="upload-source-btn-desc">Upload a file from your computer or device</span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="upload-source-modal-footer">
+      <button class="upload-source-cancel" id="btn-upload-source-cancel" style="width:100%;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* -- Upload source picker -- */
+  (function () {
+    var overlay   = document.getElementById('upload-source-overlay');
+    var btnOpen   = document.getElementById('btn-upload-source');
+    var btnCancel = document.getElementById('btn-upload-source-cancel');
+    var btnDevice = document.getElementById('btn-upload-from-device');
+    var btnCase   = document.getElementById('btn-upload-from-case');
+    var fileInput = document.getElementById('attach-input');
+
+    if (btnOpen) btnOpen.addEventListener('click', function () {
+      overlay.classList.add('open');
+    });
+    function closeOverlay() { overlay.classList.remove('open'); }
+    if (btnCancel) btnCancel.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
+
+    if (btnDevice) btnDevice.addEventListener('click', function () {
+      closeOverlay();
+      if (fileInput) fileInput.click();
+    });
+
+    if (btnCase) btnCase.addEventListener('click', function () {
+      closeOverlay();
+      if (window.openCasePicker) window.openCasePicker();
+    });
+  })();
+</script>
+
+<!-- CEO image case picker modal -->
+<div class="case-picker-overlay" id="case-picker-overlay">
+  <div class="case-picker-modal">
+    <div class="case-picker-header">
+      <span class="case-picker-title">Select from CEO Images</span>
+      <button class="case-picker-close" id="case-picker-close" title="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p class="case-picker-subtitle" id="case-picker-subtitle">Select images to attach</p>
+    <div class="case-picker-grid" id="case-picker-grid"></div>
+    <div class="case-picker-footer">
+      <span class="case-picker-hint" id="case-picker-hint">0 selected</span>
+      <div class="case-picker-footer-btns">
+        <button class="case-picker-cancel" id="case-picker-cancel">Cancel</button>
+        <button class="case-picker-add" id="case-picker-add" disabled>Add Selected</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var overlay   = document.getElementById('case-picker-overlay');
+    var closeBtn  = document.getElementById('case-picker-close');
+    var cancelBtn = document.getElementById('case-picker-cancel');
+    function closePicker() { overlay.classList.remove('open'); }
+    if (closeBtn)  closeBtn.addEventListener('click', closePicker);
+    if (cancelBtn) cancelBtn.addEventListener('click', closePicker);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closePicker(); });
+  })();
+</script>
+
+<!-- Linked cases selector modal -->
+<div class="lc-overlay" id="lc-overlay" role="dialog" aria-modal="true" aria-labelledby="lc-title">
+  <div class="lc-modal">
+    <div class="lc-header">
+      <span class="lc-title" id="lc-title">Select Case Number</span>
+      <button class="lc-close" id="lc-close" type="button" title="Close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="lc-body">
+      <table class="lc-table">
+        <thead>
+          <tr>
+            <th class="lc-col-check"><input type="checkbox" class="lc-checkbox" id="lc-check-all" aria-label="Select all"></th>
+            <th><div class="lc-th-inner"><span>Case Number</span><span class="lc-th-handle"><span></span><span></span><span></span></span></div></th>
+            <th><div class="lc-th-inner"><span>Stage</span><span class="lc-th-handle"><span></span><span></span><span></span></span></div></th>
+            <th><div class="lc-th-inner"><span>Status</span><span class="lc-th-handle"><span></span><span></span><span></span></span></div></th>
+            <th><div class="lc-th-inner"><span>Path</span><span class="lc-th-handle"><span></span><span></span><span></span></span></div></th>
+            <th><div class="lc-th-inner"><span>Balance</span><span class="lc-th-handle"><span></span><span></span><span></span></span></div></th>
+          </tr>
+        </thead>
+        <tbody id="lc-tbody">
+          <!-- rows injected via JS -->
+        </tbody>
+      </table>
+    </div>
+    <div class="lc-footer">
+      <button class="lc-btn-cancel" id="lc-cancel" type="button">Cancel</button>
+      <button class="lc-btn-select" id="lc-select" type="button">Select</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var cases = [
+      { id: 'CW00004041', stage: 'Live', status: 'Informal', path: 'Parking',  balance: '£ 50.00' },
+      { id: 'CW00004042', stage: 'Live', status: 'Informal', path: 'Bus Lane', balance: '£ 50.00' },
+      { id: 'CW00004043', stage: 'Live', status: 'Informal', path: 'Parking',  balance: '£ 50.00' },
+      { id: 'CW00004044', stage: 'Live', status: 'Informal', path: 'Bus Lane', balance: '£ 50.00' },
+      { id: 'CW00004045', stage: 'Live', status: 'Informal', path: 'Parking',  balance: '£ 50.00' }
+    ];
+    var selected = [];                          // committed selections
+    var draft    = [];                          // working selection while modal is open
+
+    var overlay   = document.getElementById('lc-overlay');
+    var addBtn    = document.getElementById('lc-add-btn');
+    var editBtn   = document.getElementById('lc-edit-btn');
+    var closeBtn  = document.getElementById('lc-close');
+    var cancelBtn = document.getElementById('lc-cancel');
+    var selectBtn = document.getElementById('lc-select');
+    var checkAll  = document.getElementById('lc-check-all');
+    var tbody     = document.getElementById('lc-tbody');
+    var chipsWrap = document.getElementById('lc-chips');
+    var chipsList = document.getElementById('lc-chips-list');
+
+    function renderRows() {
+      tbody.innerHTML = cases.map(function (c) {
+        var checked = draft.indexOf(c.id) !== -1;
+        return '<tr class="' + (checked ? 'is-selected' : '') + '" data-id="' + c.id + '">'
+          +   '<td class="lc-col-check"><input type="checkbox" class="lc-checkbox lc-row-check" ' + (checked ? 'checked' : '') + ' aria-label="Select ' + c.id + '"></td>'
+          +   '<td><a class="lc-case-link" href="#" onclick="return false;">' + c.id + '</a></td>'
+          +   '<td>' + c.stage + '</td>'
+          +   '<td>' + c.status + '</td>'
+          +   '<td>' + c.path + '</td>'
+          +   '<td>' + c.balance + '</td>'
+          + '</tr>';
+      }).join('');
+      syncCheckAll();
+    }
+
+    function syncCheckAll() {
+      checkAll.checked = draft.length === cases.length && cases.length > 0;
+      checkAll.indeterminate = draft.length > 0 && draft.length < cases.length;
+    }
+
+    function renderChips() {
+      if (selected.length === 0) {
+        chipsWrap.hidden = true;
+        chipsList.innerHTML = '';
+        addBtn.hidden = false;
+        hideTip();
+        return;
+      }
+      chipsWrap.hidden = false;
+      addBtn.hidden = true;
+      var MAX = 3;
+      var visible = selected.slice(0, MAX);
+      var extra   = selected.slice(MAX);
+      var html = visible.map(function (id) {
+        return '<span class="lc-chip">' + id + '</span>';
+      }).join('');
+      if (extra.length > 0) {
+        var tipHtml = extra.map(function (id) { return '<span class="lc-tip-item">' + id + '</span>'; }).join('');
+        html += '<span class="lc-chip-more" tabindex="0" data-tip="' + encodeURIComponent(tipHtml) + '" aria-label="' + extra.length + ' more: ' + extra.join(', ') + '">+' + extra.length + '\u2026</span>';
+      }
+      chipsList.innerHTML = html;
+    }
+
+    var tipEl = document.createElement('div');
+    tipEl.className = 'lc-tip';
+    tipEl.innerHTML = '<span class="lc-tip-body"></span><span class="lc-tip-arrow"></span>';
+    document.body.appendChild(tipEl);
+    var tipBody  = tipEl.querySelector('.lc-tip-body');
+    var tipArrow = tipEl.querySelector('.lc-tip-arrow');
+
+    function showTip(target) {
+      var content = target.getAttribute('data-tip');
+      if (!content) return;
+      tipBody.innerHTML = decodeURIComponent(content);
+      tipEl.classList.add('show');
+      var r = target.getBoundingClientRect();
+      var tr = tipEl.getBoundingClientRect();
+      var top  = r.bottom + 8;
+      var left = r.left + (r.width / 2) - (tr.width / 2);
+      var maxLeft = window.innerWidth - tr.width - 8;
+      if (left < 8) left = 8;
+      if (left > maxLeft) left = maxLeft;
+      tipEl.style.top  = top + 'px';
+      tipEl.style.left = left + 'px';
+      var arrowLeft = r.left + (r.width / 2) - left;
+      tipArrow.style.left = arrowLeft + 'px';
+    }
+    function hideTip() { tipEl.classList.remove('show'); }
+
+    chipsList.addEventListener('mouseover', function (e) {
+      var t = e.target.closest('.lc-chip-more');
+      if (t) showTip(t);
+    });
+    chipsList.addEventListener('mouseout', function (e) {
+      var t = e.target.closest('.lc-chip-more');
+      if (t) hideTip();
+    });
+    chipsList.addEventListener('focusin', function (e) {
+      var t = e.target.closest('.lc-chip-more');
+      if (t) showTip(t);
+    });
+    chipsList.addEventListener('focusout', function (e) {
+      var t = e.target.closest('.lc-chip-more');
+      if (t) hideTip();
+    });
+    window.addEventListener('scroll', hideTip, true);
+    window.addEventListener('resize', hideTip);
+
+    function openModal() {
+      draft = selected.slice();
+      renderRows();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    addBtn.addEventListener('click', openModal);
+    editBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+    tbody.addEventListener('change', function (e) {
+      var cb = e.target.closest('.lc-row-check');
+      if (!cb) return;
+      var row = cb.closest('tr');
+      var id  = row.getAttribute('data-id');
+      var idx = draft.indexOf(id);
+      if (cb.checked) {
+        if (idx === -1) draft.push(id);
+        row.classList.add('is-selected');
+      } else {
+        if (idx !== -1) draft.splice(idx, 1);
+        row.classList.remove('is-selected');
+      }
+      syncCheckAll();
+    });
+
+    checkAll.addEventListener('change', function () {
+      if (checkAll.checked) {
+        draft = cases.map(function (c) { return c.id; });
+      } else {
+        draft = [];
+      }
+      renderRows();
+    });
+
+    selectBtn.addEventListener('click', function () {
+      selected = draft.slice();
+      renderChips();
+      closeModal();
+    });
+  })();
+</script>
+
+<!-- Send-for-QA confirmation modal + toast -->
+<div class="send-confirm-overlay" id="send-confirm-overlay">
+  <div class="send-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="send-confirm-title" aria-describedby="send-confirm-body">
+    <h3 class="send-confirm-title" id="send-confirm-title">Send for QA review?</h3>
+    <p class="send-confirm-body" id="send-confirm-body">Are you sure you want to send this correspondence for QA review? You won't be able to edit it once submitted.</p>
+    <div class="send-confirm-actions">
+      <button class="send-confirm-cancel" id="send-confirm-cancel" type="button">No</button>
+      <button class="send-confirm-ok" id="send-confirm-ok" type="button">Yes</button>
+    </div>
+  </div>
+</div>
+<div class="send-toast" id="send-toast" role="status" aria-live="polite">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span>Sent for QA review</span>
+</div>
+<style>
+  /* Send confirm modal — see design_system/send-confirm-modal.guidelines.md */
+  .send-confirm-overlay { display:none; position:fixed; inset:0; z-index:1300; background:rgba(0,0,0,0.45); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
+  .send-confirm-overlay.open { display:flex; opacity:1; }
+  .send-confirm-modal { background:#fff; border-radius:12px; box-shadow:0 12px 48px rgba(0,0,0,0.22); padding:28px 32px; width:520px; max-width:96vw; text-align:left; font-family:inherit; transform:scale(.97); opacity:0; transition:transform .2s, opacity .2s; }
+  .send-confirm-overlay.open .send-confirm-modal { transform:scale(1); opacity:1; }
+  .send-confirm-title { font-size:18px; font-weight:700; color:#111827; line-height:1.3; margin:0 0 12px; }
+  .send-confirm-body { font-size:15px; color:#4b5563; line-height:1.55; margin:0 0 28px; }
+  .send-confirm-actions { display:flex; gap:12px; justify-content:flex-end; }
+  .send-confirm-cancel, .send-confirm-ok { min-width:96px; padding:10px 28px; border-radius:6px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; transition:background .12s, color .12s, border-color .12s; }
+  .send-confirm-cancel { background:#fff; border:1.5px solid #3276CF; color:#3276CF; }
+  .send-confirm-cancel:hover { background:#eff6ff; }
+  .send-confirm-cancel:focus-visible { outline:2px solid #3276CF; outline-offset:2px; }
+  .send-confirm-ok { background:#3276CF; border:1.5px solid #3276CF; color:#fff; }
+  .send-confirm-ok:hover { background:#2C66B4; border-color:#2C66B4; }
+  .send-confirm-ok:focus-visible { outline:2px solid #3276CF; outline-offset:2px; }
+  .send-toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); z-index:1400; display:flex; align-items:center; gap:8px; padding:10px 18px; background:#111827; color:#fff; border-radius:8px; font-size:13px; font-weight:500; box-shadow:0 8px 24px rgba(0,0,0,0.22); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+  .send-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+<script>
+  (function () {
+    var overlay = document.getElementById('send-confirm-overlay');
+    var cancel  = document.getElementById('send-confirm-cancel');
+    var ok      = document.getElementById('send-confirm-ok');
+    var toast   = document.getElementById('send-toast');
+    function openModal()  { overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeModal() { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+    function showToast()  { toast.classList.add('show'); setTimeout(function () { toast.classList.remove('show'); }, 2400); }
+    document.querySelectorAll('.btn-send-corr').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        if (btn.disabled) return;
+        e.preventDefault();
+        openModal();
+      });
+    });
+    if (cancel) cancel.addEventListener('click', closeModal);
+    if (ok) ok.addEventListener('click', function () {
+      closeModal();
+      showToast();
+      setTimeout(function () { history.back(); }, 900);
+    });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+  })();
+</script>
+<!-- Add notes modal (shared block) -->
+<div class="notes-overlay" id="notes-overlay" role="dialog" aria-modal="true" aria-labelledby="notes-title">
+  <div class="notes-modal">
+    <div class="notes-header">
+      <h3 class="notes-title" id="notes-title">Add notes</h3>
+      <button class="notes-close" id="notes-close" type="button" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="notes-body">
+      <label class="notes-label" for="notes-text">Notes for this correspondence</label>
+      <textarea id="notes-text" class="notes-textarea" rows="6" placeholder="Add any context, reminders, or instructions for this case…"></textarea>
+      <p class="notes-hint">Visible to QA reviewers and other agents working on this case.</p>
+    </div>
+    <div class="notes-footer">
+      <button class="notes-btn-cancel" id="notes-cancel" type="button">Cancel</button>
+      <button class="notes-btn-save"   id="notes-save"   type="button">Save notes</button>
+    </div>
+  </div>
+</div>
+<style>
+  .notes-overlay { display:none; position:fixed; inset:0; z-index:1300; background:rgba(0,0,0,0.45); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
+  .notes-overlay.open { display:flex; opacity:1; }
+  .notes-modal { background:#fff; border-radius:10px; box-shadow:0 12px 48px rgba(0,0,0,0.22); width:560px; max-width:96vw; max-height:92vh; display:flex; flex-direction:column; overflow:hidden; transform:scale(.97); opacity:0; transition:transform .2s cubic-bezier(.4,0,.2,1), opacity .2s; }
+  .notes-overlay.open .notes-modal { transform:scale(1); opacity:1; }
+  .notes-header { display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid #e5e7eb; }
+  .notes-title  { font-size:16px; font-weight:700; color:#111827; margin:0; }
+  .notes-close  { background:none; border:none; cursor:pointer; color:#6b7280; padding:4px; border-radius:5px; display:flex; align-items:center; transition:background .12s, color .12s; }
+  .notes-close:hover { background:#f3f4f6; color:#111827; }
+  .notes-body   { padding:18px 22px; display:flex; flex-direction:column; gap:6px; }
+  .notes-label  { font-size:13px; font-weight:600; color:#111827; }
+  .notes-textarea { width:100%; min-height:140px; max-height:320px; padding:10px 12px; border:1.5px solid #d1d5db; border-radius:6px; font-size:14px; font-family:inherit; color:#111827; line-height:1.5; resize:vertical; transition:border-color .12s, box-shadow .12s; box-sizing:border-box; }
+  .notes-textarea::placeholder { color:#9ca3af; }
+  .notes-textarea:hover { border-color:#9ca3af; }
+  .notes-textarea:focus { outline:none; border-color:#3276CF; box-shadow:0 0 0 3px rgba(50,118,207,0.18); }
+  .notes-hint   { font-size:12px; color:#6b7280; margin:2px 0 0; }
+  .notes-footer { display:flex; align-items:center; justify-content:flex-end; gap:10px; padding:14px 22px; border-top:1px solid #e5e7eb; background:#fff; }
+  .notes-btn-cancel, .notes-btn-save { min-width:96px; height:38px; padding:0 18px; border-radius:6px; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; transition:background .12s, border-color .12s; }
+  .notes-btn-cancel { background:#fff; border:1.5px solid #3276CF; color:#3276CF; }
+  .notes-btn-cancel:hover { background:#eff6ff; }
+  .notes-btn-save   { background:#3276CF; border:1.5px solid #3276CF; color:#fff; }
+  .notes-btn-save:hover { background:#2C66B4; border-color:#2C66B4; }
+</style>
+<script>
+  (function () {
+    var addBtn   = document.getElementById('btn-add-notes');
+    var overlay  = document.getElementById('notes-overlay');
+    var closeBtn = document.getElementById('notes-close');
+    var cancelBtn= document.getElementById('notes-cancel');
+    var saveBtn  = document.getElementById('notes-save');
+    var textarea = document.getElementById('notes-text');
+    if (!addBtn || !overlay || !textarea) return;
+    var savedNotes = '';
+    function open() {
+      textarea.value = savedNotes;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { textarea.focus(); }, 50);
+    }
+    function close() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    addBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    cancelBtn.addEventListener('click', close);
+    saveBtn.addEventListener('click', function () {
+      savedNotes = (textarea.value || '').trim();
+      addBtn.classList.toggle('has-notes', savedNotes.length > 0);
+      var label = addBtn.querySelector('.btn-add-notes-label');
+      if (label) label.textContent = savedNotes ? 'Edit notes' : 'Add notes';
+      addBtn.setAttribute('title', savedNotes ? 'Edit notes' : 'Add notes');
+      addBtn.setAttribute('aria-label', savedNotes ? 'Edit notes' : 'Add notes');
+      close();
+    });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
+  })();
+</script>
+<!-- Email address picker modal (shared block) -->
+<div class="email-picker-overlay" id="email-picker-overlay" role="dialog" aria-modal="true" aria-labelledby="email-picker-title">
+  <div class="email-picker-modal">
+    <div class="email-picker-header">
+      <h3 class="email-picker-title" id="email-picker-title">Select email address</h3>
+      <button class="email-picker-close" id="email-picker-close" type="button" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="email-picker-body">
+      <table class="email-picker-table" id="email-picker-table">
+        <thead>
+          <tr>
+            <th>Source <span class="ep-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Title <span class="ep-sort" aria-hidden="true">&#8801;</span></th>
+            <th>First Name <span class="ep-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Surname <span class="ep-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Company Name <span class="ep-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Email Address <span class="ep-sort" aria-hidden="true">&#8801;</span></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="email-picker-footer">
+      <button class="email-picker-cancel" id="email-picker-cancel" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
+<style>
+  .email-picker-overlay { display:none; position:fixed; inset:0; z-index:1300; background:rgba(0,0,0,0.45); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
+  .email-picker-overlay.open { display:flex; opacity:1; }
+  .email-picker-modal { background:#fff; border-radius:10px; box-shadow:0 12px 48px rgba(0,0,0,0.22); width:880px; max-width:96vw; max-height:88vh; display:flex; flex-direction:column; overflow:hidden; transform:scale(.97); opacity:0; transition:transform .2s cubic-bezier(.4,0,.2,1), opacity .2s; }
+  .email-picker-overlay.open .email-picker-modal { transform:scale(1); opacity:1; }
+  .email-picker-header { display:flex; align-items:center; justify-content:space-between; padding:16px 22px; border-bottom:1px solid #e5e7eb; }
+  .email-picker-title { font-size:16px; font-weight:700; color:#111827; margin:0; }
+  .email-picker-close { background:none; border:none; cursor:pointer; color:#6b7280; padding:4px; border-radius:5px; display:flex; align-items:center; transition:background .12s, color .12s; }
+  .email-picker-close:hover { background:#f3f4f6; color:#111827; }
+  .email-picker-body { padding:0; overflow:auto; flex:1; }
+  .email-picker-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .email-picker-table thead th { position:sticky; top:0; background:#fff; text-align:left; padding:12px 16px; font-size:12px; font-weight:700; color:#111827; border-bottom:1px solid #e5e7eb; white-space:nowrap; letter-spacing:0; text-transform:none; }
+  .email-picker-table thead th .ep-sort { display:inline-block; margin-left:10px; color:#9ca3af; font-size:14px; line-height:1; vertical-align:middle; }
+  .email-picker-table tbody tr { cursor:pointer; transition:background .12s; }
+  .email-picker-table tbody tr:nth-child(even) td { background:#f5f7fa; }
+  .email-picker-table tbody tr:hover td { background:#eff6ff; }
+  .email-picker-table tbody tr.is-active td { background:#D6E7FB; color:#0b3e7c; font-weight:600; }
+  .email-picker-table tbody td { padding:14px 16px; color:#374151; border-bottom:1px solid #eef0f3; vertical-align:middle; white-space:nowrap; }
+  .email-picker-table tbody td.is-muted { color:#9ca3af; }
+  .email-picker-footer { display:flex; align-items:center; justify-content:flex-end; gap:10px; padding:12px 18px; border-top:1px solid #e5e7eb; background:#fff; }
+  .email-picker-cancel { min-width:96px; height:36px; padding:0 18px; border-radius:6px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; background:#fff; border:1.5px solid #3276CF; color:#3276CF; transition:background .12s; }
+  .email-picker-cancel:hover { background:#eff6ff; }
+  /* Make the delivery-email input act as a picker trigger */
+  #delivery-email-input { cursor:pointer; background:#fff; }
+  #delivery-email-input:focus { outline:none; }
+</style>
+<script>
+  (function () {
+    var input    = document.getElementById('delivery-email-input');
+    var overlay  = document.getElementById('email-picker-overlay');
+    var closeBtn = document.getElementById('email-picker-close');
+    var cancelBtn= document.getElementById('email-picker-cancel');
+    var tbody    = document.querySelector('#email-picker-table tbody');
+    if (!input || !overlay || !tbody) return;
+
+    var contacts = [
+      { source:'Online Correspondence', title:'Lorem Ipsum', first:'Marshall', surname:'John',      company:'Marshal Company', email:'marshal@123.com' },
+      { source:'KADOE',                 title:'Lorem Ipsum', first:'Robert',   surname:'Jackson',   company:'Robert Company',  email:'robert@123.com'  },
+      { source:'BO User',               title:'Lorem Ipsum', first:'Oscar',    surname:'Wilson',    company:'Oscar Company',   email:'oscar@123.com'   },
+      { source:'Scan',                  title:'Lorem Ipsum', first:'Company',  surname:'Secretary', company:'HSBC',            email:'hsbc@123.com'    },
+      { source:'Scan',                  title:'Lorem Ipsum', first:'Jim',      surname:'Hardy',     company:'',                email:'jim@123.com'     }
+    ];
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]; }); }
+
+    function render() {
+      tbody.innerHTML = '';
+      contacts.forEach(function (c) {
+        var tr = document.createElement('tr');
+        if (c.email === input.value) tr.classList.add('is-active');
+        tr.setAttribute('data-email', c.email);
+        tr.innerHTML =
+          '<td>' + esc(c.source) + '</td>' +
+          '<td>' + esc(c.title) + '</td>' +
+          '<td>' + esc(c.first) + '</td>' +
+          '<td>' + esc(c.surname) + '</td>' +
+          '<td' + (c.company ? '' : ' class="is-muted"') + '>' + esc(c.company || '-') + '</td>' +
+          '<td>' + esc(c.email) + '</td>';
+        tr.addEventListener('click', function () {
+          input.value = c.email;
+          tbody.querySelectorAll('tr').forEach(function (r) { r.classList.remove('is-active'); });
+          tr.classList.add('is-active');
+          close();
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    function open() {
+      if (overlay.classList.contains('open')) return;
+      render();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      try { input.blur(); } catch (e) {}
+    }
+
+    input.addEventListener('mousedown', function (e) { e.preventDefault(); open(); });
+    input.addEventListener('focus', open);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); open(); }
+    });
+    closeBtn.addEventListener('click', close);
+    cancelBtn.addEventListener('click', close);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
+  })();
+</script>
+<!-- Postal address picker modal (shared block) -->
+<div class="addr-picker-overlay" id="addr-picker-overlay" role="dialog" aria-modal="true" aria-labelledby="addr-picker-title">
+  <div class="addr-picker-modal">
+    <div class="addr-picker-header">
+      <h3 class="addr-picker-title" id="addr-picker-title">Select postal address</h3>
+      <button class="addr-picker-close" id="addr-picker-close" type="button" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="addr-picker-body">
+      <table class="addr-picker-table" id="addr-picker-table">
+        <thead>
+          <tr>
+            <th>Source <span class="ap-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Title <span class="ap-sort" aria-hidden="true">&#8801;</span></th>
+            <th>First Name <span class="ap-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Surname <span class="ap-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Company Name <span class="ap-sort" aria-hidden="true">&#8801;</span></th>
+            <th>Postal Address <span class="ap-sort" aria-hidden="true">&#8801;</span></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="addr-picker-footer">
+      <button class="addr-picker-cancel" id="addr-picker-cancel" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
+<style>
+  .addr-picker-overlay { display:none; position:fixed; inset:0; z-index:1300; background:rgba(0,0,0,0.45); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); align-items:center; justify-content:center; opacity:0; transition:opacity .2s; }
+  .addr-picker-overlay.open { display:flex; opacity:1; }
+  .addr-picker-modal { background:#fff; border-radius:10px; box-shadow:0 12px 48px rgba(0,0,0,0.22); width:980px; max-width:96vw; max-height:88vh; display:flex; flex-direction:column; overflow:hidden; transform:scale(.97); opacity:0; transition:transform .2s cubic-bezier(.4,0,.2,1), opacity .2s; }
+  .addr-picker-overlay.open .addr-picker-modal { transform:scale(1); opacity:1; }
+  .addr-picker-header { display:flex; align-items:center; justify-content:space-between; padding:16px 22px; border-bottom:1px solid #e5e7eb; }
+  .addr-picker-title { font-size:16px; font-weight:700; color:#111827; margin:0; }
+  .addr-picker-close { background:none; border:none; cursor:pointer; color:#6b7280; padding:4px; border-radius:5px; display:flex; align-items:center; transition:background .12s, color .12s; }
+  .addr-picker-close:hover { background:#f3f4f6; color:#111827; }
+  .addr-picker-body { padding:0; overflow:auto; flex:1; }
+  .addr-picker-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .addr-picker-table thead th { position:sticky; top:0; background:#fff; text-align:left; padding:12px 16px; font-size:12px; font-weight:700; color:#111827; border-bottom:1px solid #e5e7eb; white-space:nowrap; letter-spacing:0; text-transform:none; }
+  .addr-picker-table thead th .ap-sort { display:inline-block; margin-left:10px; color:#9ca3af; font-size:14px; line-height:1; vertical-align:middle; }
+  .addr-picker-table tbody tr { cursor:pointer; transition:background .12s; }
+  .addr-picker-table tbody tr:nth-child(even) td { background:#f5f7fa; }
+  .addr-picker-table tbody tr:hover td { background:#eff6ff; }
+  .addr-picker-table tbody tr.is-active td { background:#D6E7FB; color:#0b3e7c; font-weight:600; }
+  .addr-picker-table tbody td { padding:14px 16px; color:#374151; border-bottom:1px solid #eef0f3; vertical-align:middle; }
+  .addr-picker-table tbody td.is-muted { color:#9ca3af; }
+  .addr-picker-table tbody td.ap-addr { white-space:normal; line-height:1.45; min-width:280px; }
+  .addr-picker-footer { display:flex; align-items:center; justify-content:flex-end; gap:10px; padding:12px 18px; border-top:1px solid #e5e7eb; background:#fff; }
+  .addr-picker-cancel { min-width:96px; height:36px; padding:0 18px; border-radius:6px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; background:#fff; border:1.5px solid #3276CF; color:#3276CF; transition:background .12s; }
+  .addr-picker-cancel:hover { background:#eff6ff; }
+  /* Make the delivery-post input act as a picker trigger */
+  #delivery-post-input { cursor:pointer; background:#fff; }
+  #delivery-post-input:focus { outline:none; }
+</style>
+<script>
+  (function () {
+    var input    = document.getElementById('delivery-post-input');
+    var overlay  = document.getElementById('addr-picker-overlay');
+    var closeBtn = document.getElementById('addr-picker-close');
+    var cancelBtn= document.getElementById('addr-picker-cancel');
+    var tbody    = document.querySelector('#addr-picker-table tbody');
+    if (!input || !overlay || !tbody) return;
+
+    var contacts = [
+      { source:'Online Correspondence', title:'Lorem Ipsum', first:'Marshall', surname:'John',      company:'Marshal Company', address:'Marshall John, 42 Elm Street, London, EC1A 1BB' },
+      { source:'KADOE',                 title:'Lorem Ipsum', first:'Robert',   surname:'Jackson',   company:'Robert Company',  address:'Robert Jackson, 18 Oak Avenue, Manchester, M1 3HF' },
+      { source:'BO User',               title:'Lorem Ipsum', first:'Oscar',    surname:'Wilson',    company:'Oscar Company',   address:'Oscar Wilson, 7 Maple Close, Birmingham, B2 4QA' },
+      { source:'Scan',                  title:'Lorem Ipsum', first:'Company',  surname:'Secretary', company:'HSBC',            address:'HSBC, 8 Canada Square, London, E14 5HQ' },
+      { source:'Scan',                  title:'Lorem Ipsum', first:'Jim',      surname:'Hardy',     company:'',                address:'Jim Hardy, 23 Pine Road, Leeds, LS1 5DL' }
+    ];
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]; }); }
+
+    function render() {
+      tbody.innerHTML = '';
+      contacts.forEach(function (c) {
+        var tr = document.createElement('tr');
+        if (c.address === input.value) tr.classList.add('is-active');
+        tr.setAttribute('data-address', c.address);
+        tr.innerHTML =
+          '<td>' + esc(c.source) + '</td>' +
+          '<td>' + esc(c.title) + '</td>' +
+          '<td>' + esc(c.first) + '</td>' +
+          '<td>' + esc(c.surname) + '</td>' +
+          '<td' + (c.company ? '' : ' class="is-muted"') + '>' + esc(c.company || '-') + '</td>' +
+          '<td class="ap-addr">' + esc(c.address) + '</td>';
+        tr.addEventListener('click', function () {
+          input.value = c.address;
+          tbody.querySelectorAll('tr').forEach(function (r) { r.classList.remove('is-active'); });
+          tr.classList.add('is-active');
+          close();
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    function open() {
+      if (overlay.classList.contains('open')) return;
+      render();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      try { input.blur(); } catch (e) {}
+    }
+
+    input.addEventListener('mousedown', function (e) { e.preventDefault(); open(); });
+    input.addEventListener('focus', open);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); open(); }
+    });
+    closeBtn.addEventListener('click', close);
+    cancelBtn.addEventListener('click', close);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
+  })();
+</script>
+<!-- Floating rich-text toolbar (shared block) -->
+<div class="rte-toolbar" id="rte-toolbar" role="toolbar" aria-label="Text formatting" aria-hidden="true">
+  <button type="button" class="rte-btn" data-cmd="bold" title="Bold (Ctrl+B)" aria-label="Bold"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h7a4 4 0 0 1 0 8H6z"/><path d="M6 12h8a4 4 0 0 1 0 8H6z"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="italic" title="Italic (Ctrl+I)" aria-label="Italic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="underline" title="Underline (Ctrl+U)" aria-label="Underline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 3v8a6 6 0 0 0 12 0V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="strikeThrough" title="Strikethrough" aria-label="Strikethrough"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" y1="12" x2="20" y2="12"/></svg></button>
+  <span class="rte-sep" aria-hidden="true"></span>
+  <button type="button" class="rte-btn" data-cmd="insertUnorderedList" title="Bulleted list" aria-label="Bulleted list"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1.5" fill="currentColor" stroke="none"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="insertOrderedList" title="Numbered list" aria-label="Numbered list"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3a1 1 0 0 0-2-1"/></svg></button>
+  <span class="rte-sep" aria-hidden="true"></span>
+  <button type="button" class="rte-btn" data-cmd="justifyLeft" title="Align left" aria-label="Align left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="justifyCenter" title="Align center" aria-label="Align center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="justifyRight" title="Align right" aria-label="Align right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="9" y1="12" x2="21" y2="12"/><line x1="6" y1="18" x2="21" y2="18"/></svg></button>
+  <span class="rte-sep" aria-hidden="true"></span>
+  <button type="button" class="rte-btn" data-cmd="undo" title="Undo (Ctrl+Z)" aria-label="Undo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 7 3 13 9 13"/><path d="M3 13a9 9 0 1 0 3-7"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="redo" title="Redo (Ctrl+Y)" aria-label="Redo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 7 21 13 15 13"/><path d="M21 13a9 9 0 1 1-3-7"/></svg></button>
+  <button type="button" class="rte-btn" data-cmd="removeFormat" title="Clear formatting" aria-label="Clear formatting"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M5 20h6"/><line x1="13" y1="4" x2="8" y2="20"/><line x1="18" y1="14" x2="22" y2="18"/><line x1="22" y1="14" x2="18" y2="18"/></svg></button>
+</div>
+<style>
+  .rte-toolbar { display:none; position:fixed; z-index:1400; background:#1f2937; border-radius:6px; padding:4px 6px; box-shadow:0 8px 24px rgba(0,0,0,0.28); align-items:center; gap:2px; font-family:inherit; }
+  .rte-toolbar.is-visible { display:inline-flex; }
+  .rte-toolbar .rte-btn { background:transparent; border:none; color:#f9fafb; width:28px; height:28px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; padding:0; letter-spacing:0; text-transform:none; transition:background .12s, color .12s; }
+  .rte-toolbar .rte-btn:hover { background:#374151; }
+  .rte-toolbar .rte-btn.is-active { background:#3276CF; color:#fff; }
+  .rte-toolbar .rte-sep { width:1px; height:18px; background:#374151; margin:0 4px; flex-shrink:0; }
+  /* Subtle outline on editable element while toolbar is showing */
+  [contenteditable="true"]:focus { outline:none; box-shadow:0 0 0 2px rgba(50,118,207,0.25); border-radius:3px; }
+</style>
+<script>
+  (function () {
+    var toolbar = document.getElementById('rte-toolbar');
+    if (!toolbar) return;
+    var current = null;
+    var hideTimer = null;
+
+    function isEditable(el) {
+      return !!(el && el.nodeType === 1 && el.getAttribute && el.getAttribute('contenteditable') === 'true');
+    }
+
+    function position(el) {
+      var r = el.getBoundingClientRect();
+      toolbar.classList.add('is-visible');
+      var tw = toolbar.offsetWidth;
+      var th = toolbar.offsetHeight;
+      var top = r.top - th - 8;
+      if (top < 8) top = Math.min(r.bottom + 8, window.innerHeight - th - 8);
+      var left = r.left;
+      var maxLeft = window.innerWidth - tw - 8;
+      if (left > maxLeft) left = maxLeft;
+      if (left < 8) left = 8;
+      toolbar.style.top = top + 'px';
+      toolbar.style.left = left + 'px';
+      toolbar.setAttribute('aria-hidden', 'false');
+    }
+
+    function refresh() {
+      toolbar.querySelectorAll('button[data-cmd]').forEach(function (b) {
+        var cmd = b.getAttribute('data-cmd');
+        try { b.classList.toggle('is-active', document.queryCommandState(cmd)); }
+        catch (e) { b.classList.remove('is-active'); }
+      });
+    }
+
+    function show(el) {
+      current = el;
+      clearTimeout(hideTimer);
+      position(el);
+      refresh();
+    }
+
+    function hide() {
+      toolbar.classList.remove('is-visible');
+      toolbar.setAttribute('aria-hidden', 'true');
+      current = null;
+    }
+
+    document.addEventListener('focusin', function (e) {
+      if (isEditable(e.target)) show(e.target);
+    });
+
+    document.addEventListener('focusout', function (e) {
+      if (!isEditable(e.target)) return;
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        var ae = document.activeElement;
+        if (!isEditable(ae) && !toolbar.contains(ae)) hide();
+      }, 150);
+    });
+
+    document.addEventListener('selectionchange', function () {
+      if (!current) return;
+      var sel = window.getSelection && window.getSelection();
+      if (sel && sel.rangeCount && current.contains(sel.anchorNode)) refresh();
+    });
+
+    window.addEventListener('scroll', function () { if (current) position(current); }, true);
+    window.addEventListener('resize', function () { if (current) position(current); });
+
+    // Keep focus inside the editable when interacting with toolbar buttons
+    toolbar.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    toolbar.addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-cmd]');
+      if (!btn || !current) return;
+      var cmd = btn.getAttribute('data-cmd');
+      try { document.execCommand(cmd, false, null); } catch (err) {}
+      if (current && typeof current.focus === 'function') current.focus();
+      refresh();
+    });
+  })();
+</script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flow Map — ProServe Master EA Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .ia-canvas { background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; margin: 1.5rem 0; position: relative; }
+    .ia-canvas::before { content: 'INFORMATION ARCHITECTURE'; position: absolute; top: 12px; left: 16px; font-size: .6rem; letter-spacing: .1em; color: var(--text-muted); font-weight: 600; }
+    .ia-root { text-align: center; margin-bottom: 2rem; }
+    .ia-root-node { display: inline-block; background: linear-gradient(135deg, #1e40af, #3b82f6); color: #fff; padding: .75rem 2rem; border-radius: 8px; font-weight: 700; font-size: .95rem; box-shadow: 0 4px 12px rgba(59,130,246,.3); }
+    .ia-vline { width: 2px; height: 28px; background: #93c5fd; margin: 0 auto; }
+    .ia-hline { height: 2px; background: #93c5fd; margin: 0 2rem; position: relative; top: 0; }
+    .ia-level { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: .5rem 0; }
+    .ia-card { background: #fff; border: 2px solid #93c5fd; border-radius: 8px; padding: .6rem 1rem; min-width: 140px; text-align: center; position: relative; box-shadow: 0 2px 6px rgba(0,0,0,.04); }
+    .ia-card h4 { font-size: .75rem; font-weight: 700; color: #1e40af; margin-bottom: .3rem; }
+    .ia-card p { font-size: .65rem; color: var(--text-muted); line-height: 1.3; }
+    .ia-card--active { border-color: #3b82f6; background: #eff6ff; }
+    .ia-children { display: flex; flex-direction: column; gap: .3rem; margin-top: .5rem; padding-top: .5rem; border-top: 1px dashed #cbd5e1; }
+    .ia-child { font-size: .62rem; color: var(--text-secondary); padding: .15rem .4rem; background: #f1f5f9; border-radius: 3px; }
+    .ia-section { margin: 2rem 0; }
+    .ia-section-title { font-size: .85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; padding-left: .5rem; border-left: 3px solid var(--accent); }
+    .stepper-vis { display: flex; align-items: center; gap: 0; margin: 1.5rem 0; overflow-x: auto; padding: 1rem 0; }
+    .step-node { display: flex; flex-direction: column; align-items: center; min-width: 100px; }
+    .step-circle { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; }
+    .step-label { font-size: .6rem; text-align: center; margin-top: .35rem; color: var(--text-secondary); font-weight: 500; max-width: 80px; }
+    .step-line { flex: 1; height: 2px; background: #93c5fd; min-width: 20px; }
+    .nav-model { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+    .nav-item { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: .75rem; }
+    .nav-item h5 { font-size: .75rem; font-weight: 700; color: var(--accent); margin-bottom: .3rem; }
+    .nav-item p { font-size: .68rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">ProServe</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html" class="active">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../Advance/prototype/landing.html">Prototype</a>
+  </nav>
+
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>Information Architecture — Flow Map</h1>
+      <div class="doc-meta">
+        <span>📐 ProServe Master EA Platform</span>
+        <span>📅 20 April 2026</span>
+        <span>🔖 v1.0</span>
+      </div>
+    </header>
+
+    <!-- Main Sitemap Diagram -->
+    <section class="doc-section">
+      <h2>Application Sitemap</h2>
+      <div class="ia-canvas">
+        <!-- Root -->
+        <div class="ia-root">
+          <div class="ia-root-node">ProServe Master EA Platform</div>
+        </div>
+        <div class="ia-vline"></div>
+
+        <!-- Level 1 -->
+        <div class="ia-level">
+          <div class="ia-card">
+            <h4>Landing / Role Selection</h4>
+            <p>landing.html</p>
+            <div class="ia-children">
+              <span class="ia-child">10 role cards</span>
+              <span class="ia-child">Sets session role</span>
+              <span class="ia-child">→ Redirect to Records</span>
+            </div>
+          </div>
+          <div class="ia-card ia-card--active">
+            <h4>Records List</h4>
+            <p>advance_contact_service.html</p>
+            <div class="ia-children">
+              <span class="ia-child">Search bar</span>
+              <span class="ia-child">Filter & Sort</span>
+              <span class="ia-child">Records table</span>
+              <span class="ia-child">+ Add New Record</span>
+              <span class="ia-child">Audit Log panel</span>
+            </div>
+          </div>
+          <div class="ia-card">
+            <h4>Add Record</h4>
+            <p>add_contract_service.html</p>
+            <div class="ia-children">
+              <span class="ia-child">8-step stepper</span>
+              <span class="ia-child">RBAC-filtered steps</span>
+              <span class="ia-child">Save & Continue</span>
+            </div>
+          </div>
+          <div class="ia-card">
+            <h4>Edit Record</h4>
+            <p>edit_contract_service.html</p>
+            <div class="ia-children">
+              <span class="ia-child">Pre-populated data</span>
+              <span class="ia-child">Approval banner</span>
+              <span class="ia-child">Reject modal</span>
+            </div>
+          </div>
+          <div class="ia-card">
+            <h4>View Record</h4>
+            <p>view_contract_service.html</p>
+            <div class="ia-children">
+              <span class="ia-child">Profile hero card</span>
+              <span class="ia-child">Tab navigation</span>
+              <span class="ia-child">Record cards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8-Step Stepper Visual -->
+    <section class="doc-section">
+      <h2>Add/Edit Stepper Workflow</h2>
+      <p>8-step guided workflow for creating and editing EA records. Steps are dynamically filtered by RBAC.</p>
+      <div class="stepper-vis">
+        <div class="step-node"><div class="step-circle">1</div><div class="step-label">Personal Details</div></div>
+        <div class="step-line"></div>
+        <div class="step-node"><div class="step-circle">2</div><div class="step-label">Compliance</div></div>
+        <div class="step-line"></div>
+        <div class="step-node"><div class="step-circle">3</div><div class="step-label">Cert Processing</div></div>
+        <div class="step-line"></div>
+        <div class="step-node"><div class="step-circle">4</div><div class="step-label">Cert Status</div></div>
+        <div class="step-line"></div>
+        <div class="step-node"><div class="step-circle">5</div><div class="step-label">Bond</div></div>
+        <div class="step-line"></div>
+        <div class="step-node"><div class="step-circle">6</div><div class="step-label">Contract</div></div>
+        <div class="step-line"></div>
+        <div class="step-node"><div class="step-circle">7</div><div class="step-label">Asset Mgmt</div></div>
+        <div class="step-line"></div>
+        <div class="step-node"><div class="step-circle">8</div><div class="step-label">Enforcement</div></div>
+      </div>
+    </section>
+
+    <!-- Navigation Model -->
+    <section class="doc-section">
+      <h2>Navigation Model</h2>
+      <div class="ia-section">
+        <div class="ia-section-title">Left Navigation (Persistent Sidebar)</div>
+        <div class="nav-model">
+          <div class="nav-item"><h5>Dashboard</h5><p>Grid/Home icon · Future placeholder</p></div>
+          <div class="nav-item" style="border-color: var(--accent); background: var(--accent-light);"><h5>Records ✓</h5><p>Primary working area · Active state</p></div>
+          <div class="nav-item"><h5>Reports</h5><p>Chart/Bar icon · Future scope</p></div>
+          <div class="nav-item"><h5>Settings</h5><p>Gear icon · Admin roles only</p></div>
+        </div>
+      </div>
+      <div class="ia-section">
+        <div class="ia-section-title">Top Navigation Bar</div>
+        <div class="nav-model">
+          <div class="nav-item"><h5>Page Title / Breadcrumb</h5><p>Left position · Contextual</p></div>
+          <div class="nav-item"><h5>Search</h5><p>Centre-right · EA name, ID, reference</p></div>
+          <div class="nav-item"><h5>Notifications</h5><p>Right · Bell icon with badge (future)</p></div>
+          <div class="nav-item"><h5>User Avatar</h5><p>Far right · Profile, role, logout</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RBAC Matrix Visual -->
+    <section class="doc-section">
+      <h2>RBAC Access Matrix</h2>
+      <table class="doc-table">
+        <thead>
+          <tr><th>Entity</th><th>Admin</th><th>Member</th><th>Director</th><th>Sr. EM</th><th>EM</th><th>EA</th><th>IT</th><th>Finance</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Personal Details</td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--amber">Partial</span></td><td><span class="badge badge--amber">Partial</span></td><td><span class="badge badge--amber">Partial</span></td><td><span class="badge badge--amber">Limited</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td></tr>
+          <tr><td>Compliance</td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Certificate</td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--green">Edit</span></td><td><span class="badge badge--green">Edit</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td>—</td><td>—</td></tr>
+          <tr><td>Bond</td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td>—</td><td>—</td></tr>
+          <tr><td>Contract</td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--green">Full</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td>—</td><td>—</td><td>—</td><td><span class="badge badge--blue">View</span></td></tr>
+          <tr><td>Asset Mgmt</td><td><span class="badge badge--green">Full</span></td><td>—</td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--blue">View</span></td><td><span class="badge badge--green">Edit</span></td><td>—</td></tr>
+          <tr><td>Enforcement</td><td><span class="badge badge--green">Full</span></td><td>—</td><td><span class="badge badge--green">Edit</span></td><td><span class="badge badge--green">Edit</span></td><td><span class="badge badge--green">Edit</span></td><td><span class="badge badge--amber">Limited</span></td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Global Elements -->
+    <section class="doc-section">
+      <h2>Global Elements</h2>
+      <div class="nav-model">
+        <div class="nav-item"><h5>RBAC Banner</h5><p>Role name, access level, switch link</p></div>
+        <div class="nav-item"><h5>Toast / Success Popup</h5><p>Action confirmation messages</p></div>
+        <div class="nav-item"><h5>Audit Log Drawer</h5><p>Slide-out panel, full history</p></div>
+        <div class="nav-item"><h5>Reject Modal</h5><p>Section-by-section comments</p></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

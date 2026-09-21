@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Strategy — Acme Notice Processing System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">DocProcess</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html" class="active">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/index.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Strategy — ANPS Response Generation</h1>
+      <div class="doc-meta"><span>📋 DocProcess Stage 3 & 5</span><span>📅 10 June 2026</span><span>🔖 v1.0</span></div>
+    </header>
+    <section class="doc-section">
+      <h2>1. Vision</h2>
+      <blockquote style="border-left:4px solid var(--accent);padding:.75rem 1.25rem;background:var(--accent-light);border-radius:0 8px 8px 0;font-style:italic;font-size:1rem;">
+        Agents review and send, not assemble. AI handles letter composition; humans ensure quality and handle exceptions — with full traceability from challenge received to letter dispatched.
+      </blockquote>
+    </section>
+    <section class="doc-section">
+      <h2>2. UX Principles</h2>
+      <div class="principle-grid">
+        <div class="principle-card"><h4>AI Transparency</h4><p>Every AI decision visible. Confidence scores shown. Agent always knows why AI flagged a case.</p></div>
+        <div class="principle-card"><h4>Diff-First Review</h4><p>QA sees only what changed. Added/deleted passages highlighted. No need to read full letter.</p></div>
+        <div class="principle-card"><h4>Exception-Led Workflow</h4><p>Green cases auto-queue for send. Amber/Red surface at the top for agent attention.</p></div>
+        <div class="principle-card"><h4>Audit Everything</h4><p>Every action — AI validation, agent edit, QA decision, send event — timestamped and traceable.</p></div>
+        <div class="principle-card"><h4>Fast Knowledge Updates</h4><p>Business can update source content and publish within 24h without developer involvement.</p></div>
+        <div class="principle-card"><h4>WCAG 2.2 AA</h4><p>All interfaces accessible. High-contrast diff views. Screen reader support for letter review.</p></div>
+      </div>
+    </section>
+    <section class="doc-section">
+      <h2>3. Strategic Objectives</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th><th>KPI</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>SO1</td><td>Reduce letter creation time</td><td>Avg time per response letter</td><td>≤ 2 min (from 12+ min)</td></tr>
+          <tr><td>SO2</td><td>Increase auto-completion rate</td><td>% cases fully AI-generated</td><td>≥ 70% green (no agent edit)</td></tr>
+          <tr><td>SO3</td><td>Maintain quality</td><td>QA rejection rate on AI letters</td><td>≤ 5%</td></tr>
+          <tr><td>SO4</td><td>Reduce agent cognitive load</td><td>SUS score for letter review</td><td>≥ 80</td></tr>
+          <tr><td>SO5</td><td>Full auditability</td><td>% actions with audit entry</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="doc-section">
+      <h2>4. Expected Impact</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">83%</div><div class="kpi-label">Time Saved per Letter</div></div>
+        <div class="kpi-card"><div class="kpi-value">70%+</div><div class="kpi-label">Full Auto-Complete</div></div>
+        <div class="kpi-card"><div class="kpi-value">&lt;5%</div><div class="kpi-label">QA Rejection Rate</div></div>
+        <div class="kpi-card"><div class="kpi-value">24h</div><div class="kpi-label">Knowledge Update SLA</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

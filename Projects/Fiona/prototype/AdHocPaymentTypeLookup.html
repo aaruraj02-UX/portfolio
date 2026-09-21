@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Ad-hoc Payments · Payment Reason</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* ----------------------------------------------------------------
+       MET-DS-V2 — Token Block (Light)
+       Aligned with FinOps_Web_Design_Guidelines.md
+       ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-75:  #C2D7F2;
+      --color-primary-100: #A2C1EA;
+      --color-primary-200: #84ADE4;
+      --color-primary-300: #6599DE;
+      --color-primary-400: #4B87D6;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-800: #22497D;
+      --color-primary-900: #1C3A62;
+
+      --color-primary:        var(--color-primary-500);
+      --color-primary-hover:  var(--color-primary-600);
+      --color-bg:             var(--color-primary-25);
+      --color-card:           #FFFFFF;
+
+      --text-primary:   #212121;
+      --text-secondary: #757575;
+      --text-tertiary:  #9E9E9E;
+      --text-hyperlink: #3276CF;
+      --text-hyperlink-hover: #2C66B4;
+
+      --grey-50:  #FAFAFA; --grey-100: #F5F5F5; --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0; --grey-400: #BDBDBD; --grey-500: #9E9E9E;
+      --grey-600: #757575; --grey-700: #616161; --grey-800: #424242; --grey-900: #212121;
+
+      --color-success: #43A047; --color-success-dark: #388E3C; --color-success-bg: #E8F5E9;
+      --color-error:   #E53935; --color-error-dark:   #D32F2F; --color-error-bg:   #FEEBEE;
+      --color-warning: #EF6C00; --color-warning-dark: #F57C00; --color-warning-bg: #FFF3E0;
+      --color-info:    #1976D2; --color-info-bg:     #E3F2FD;
+
+      --topnav-icon:       #757575;
+      --topnav-icon-hover: #616161;
+
+      --radius-card:    16px;
+      --radius-button:  8px;
+      --radius-input:   8px;
+      --radius-pill:    100px;
+
+      --space-1: 2px;  --space-2: 4px;  --space-3: 8px;  --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-caption: 12px;
+      --font-weight-regular: 400; --font-weight-medium: 500;
+      --font-weight-semibold: 600; --font-weight-bold: 700;
+
+      --duration-micro: 150ms; --duration-standard: 250ms; --easing-enter: ease-out;
+
+      --shadow-card:  0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus: 0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); background: var(--color-bg); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .skip-link { position: absolute; top: -100px; left: var(--space-5); background: var(--color-primary); color: #FFFFFF; padding: var(--space-3) var(--space-5); border-radius: var(--radius-button); font-weight: var(--font-weight-medium); z-index: 1000; transition: top var(--duration-micro) var(--easing-enter); }
+    .skip-link:focus { top: var(--space-3); color: #FFFFFF; }
+
+    /* Shell */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .topnav { display: flex; align-items: center; padding: var(--space-3); gap: var(--space-3); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; min-width: 0; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .topnav-logo { height: 28px; width: auto; }
+    .topnav-tagline { display: none; font-size: var(--font-size-caption); color: var(--text-secondary); letter-spacing: 0.15px; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn { position: relative; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--topnav-icon); padding: var(--space-3); transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge { position: absolute; top: 0; right: 0; min-width: 20px; height: 20px; background: var(--color-warning); color: #FFFFFF; font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; padding: 0 6.5px; line-height: 1; }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+    @media (min-width: 1280px) { .topnav-tagline { display: block; } }
+
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar */
+    .sidebar { width: 56px; flex-shrink: 0; background: var(--color-card); border-right: 1px solid var(--divider-color); display: flex; flex-direction: column; padding: var(--space-5) 0; overflow-x: hidden; overflow-y: hidden; transition: width var(--duration-standard) var(--easing-enter); z-index: 10; }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius-button); color: var(--text-secondary); flex-shrink: 0; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading { font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5); white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3); color: var(--text-secondary); text-decoration: none; white-space: nowrap; min-height: 40px; margin: 0 var(--space-3); border-radius: 8px; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+
+    /* Content */
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-5); }
+
+    .breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .breadcrumb a { color: var(--text-hyperlink); font-weight: var(--font-weight-medium); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); font-size: 16px; line-height: 1; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+    .page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .page-subtitle { font-size: var(--font-size-body); color: var(--text-secondary); max-width: 78ch; }
+    .page-header-actions { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-5); border-radius: var(--radius-button); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); min-height: 40px; white-space: nowrap; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); border: 1.5px solid transparent; }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border-color: var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-danger { background: var(--color-error); color: #FFFFFF; }
+    .btn-danger:hover { background: var(--color-error-dark); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+    /* Status cards */
+    .status-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .status-card { background: var(--color-card); border-radius: var(--radius-card); padding: var(--space-5) var(--space-6); display: flex; align-items: center; gap: var(--space-5); }
+    .status-card-icon { width: 40px; height: 40px; border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .status-card-icon .material-symbols-outlined { font-size: 22px; }
+    .status-card-info { display: flex; flex-direction: column; }
+    .status-card-number { font-size: var(--font-size-h1); font-weight: var(--font-weight-bold); color: var(--text-primary); line-height: 1.2; }
+    .status-card-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+
+    /* Info banner */
+    .info-banner { display: flex; align-items: flex-start; gap: var(--space-4); padding: var(--space-4) var(--space-5); background: var(--color-primary-25); border: 1px solid var(--color-primary-50); border-radius: var(--radius-card); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .info-banner .material-symbols-outlined { font-size: 20px; color: var(--color-primary); flex-shrink: 0; margin-top: 1px; }
+    .info-banner strong { color: var(--text-primary); }
+
+    /* Toolbar + card */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding: var(--space-5); flex-wrap: wrap; border-bottom: 1px solid var(--grey-200); }
+    .toolbar-left, .toolbar-right { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .search-box { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); min-width: 260px; }
+    .search-box:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.15); }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .search-box input::placeholder { color: var(--grey-400); }
+    .filter-select { padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); min-height: 40px; }
+
+    .filter-chip { display: inline-flex; align-items: center; gap: var(--space-2); height: 36px; padding: 0 var(--space-4); border-radius: var(--radius-pill); background: var(--color-card); border: 1px solid var(--grey-300); color: var(--text-secondary); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); transition: border-color var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter), background var(--duration-micro) var(--easing-enter); cursor: pointer; }
+    .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip.is-active { background: var(--color-primary-25); border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip .chip-count { display: inline-flex; min-width: 18px; padding: 0 6px; align-items: center; justify-content: center; background: var(--grey-200); color: var(--text-secondary); border-radius: var(--radius-pill); font-size: 11px; font-weight: var(--font-weight-semibold); }
+    .filter-chip.is-active .chip-count { background: var(--color-primary); color: #FFFFFF; }
+
+    /* Table */
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); min-width: 1200px; }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th { padding: var(--space-4); text-align: left; font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; border-bottom: 1px solid var(--grey-300); position: relative; }
+    .data-table th + th::before { content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px; background: var(--grey-200); }
+    .data-table td { padding: var(--space-4); border-bottom: 1px solid var(--grey-200); color: var(--text-primary); vertical-align: middle; }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+    .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .data-table .col-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+    .data-table .col-name { font-weight: var(--font-weight-semibold); }
+    .data-table .col-desc { color: var(--text-secondary); font-size: var(--font-size-caption); max-width: 320px; white-space: normal; }
+
+    .row-action-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius-button); color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .row-action-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .row-action-btn.danger:hover { background: var(--color-error-bg); color: var(--color-error-dark); }
+    .row-action-btn .material-symbols-outlined { font-size: 18px; }
+    .row-actions { display: flex; gap: var(--space-1); justify-content: flex-end; }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); line-height: 1.5; white-space: nowrap; }
+    .badge .material-symbols-outlined { font-size: 14px; }
+    .badge--active   { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge--inactive { background: var(--grey-100); color: var(--grey-700); }
+    .badge--cat-supplier { background: #EDE7F6; color: #4527A0; }
+    .badge--cat-refund   { background: #E1F5FE; color: #01579B; }
+    .badge--cat-court    { background: #FFF3E0; color: #E65100; }
+    .badge--cat-goodwill { background: #E8F5E9; color: #2E7D32; }
+    .badge--cat-utility  { background: #FCE4EC; color: #AD1457; }
+    .badge--cat-other    { background: var(--grey-100); color: var(--grey-700); }
+    .badge--gbp { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .badge--eur { background: #E3F2FD; color: #1565C0; }
+    .badge--usd { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge--int { background: #FFF3E0; color: #E65100; }
+    .badge--approver { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+
+    /* Pagination / footer */
+    .table-footer { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); border-top: 1px solid var(--grey-200); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-button); color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; background: none; }
+
+    /* Empty state */
+    .empty-state { padding: var(--space-9) var(--space-7); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-3); color: var(--text-secondary); }
+    .empty-state .material-symbols-outlined { font-size: 48px; color: var(--grey-400); }
+    .empty-state-title { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+
+    /* Edit drawer */
+    .edit-overlay { display: none; position: fixed; inset: 0; background: rgba(12, 26, 45, 0.45); backdrop-filter: blur(2px); z-index: 100; }
+    .edit-overlay.is-open { display: block; }
+    .edit-panel { position: fixed; top: 0; right: -720px; bottom: 0; width: 720px; max-width: 100vw; background: var(--color-bg); box-shadow: var(--shadow-modal); z-index: 110; display: flex; flex-direction: column; transition: right var(--duration-standard) var(--easing-enter); }
+    .edit-panel.is-open { right: 0; }
+    .edit-panel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-5); padding: var(--space-5) var(--space-7); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .edit-panel-header-content { display: flex; flex-direction: column; gap: 2px; }
+    .edit-panel-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .edit-panel-subtitle { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .edit-panel-close { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .edit-panel-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .edit-panel-close .material-symbols-outlined { font-size: 24px; }
+
+    .edit-panel-body { flex: 1; overflow-y: auto; padding: var(--space-7); display: flex; flex-direction: column; gap: var(--space-5); }
+    .edit-section-title { font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: var(--space-2); border-bottom: 1px solid var(--grey-200); display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-2); }
+    .edit-section-title:first-child { margin-top: 0; }
+    .edit-section-title .material-symbols-outlined { font-size: 18px; color: var(--color-primary); }
+
+    .field { display: flex; flex-direction: column; gap: var(--space-2); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .field-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-primary); display: flex; align-items: center; gap: var(--space-2); }
+    .field-label .req { color: var(--color-error); }
+    .field-hint { font-size: 11px; color: var(--text-secondary); }
+    .edit-panel-body .field-hint { display: none; }
+    .input, .select, .textarea { width: 100%; min-height: 44px; padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); transition: border-color var(--duration-micro) var(--easing-enter), box-shadow var(--duration-micro) var(--easing-enter); }
+    .textarea { min-height: 80px; resize: vertical; }
+    .input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.18); }
+    .input::placeholder, .textarea::placeholder { color: var(--grey-400); }
+    .input.is-invalid, .select.is-invalid, .textarea.is-invalid { border-color: var(--color-error); }
+    .input.is-invalid:focus, .select.is-invalid:focus, .textarea.is-invalid:focus { box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.18); }
+    .field-error { font-size: 11px; color: var(--color-error); display: none; align-items: center; gap: 4px; }
+    .field-error.is-shown { display: inline-flex; }
+    .field-error .material-symbols-outlined { font-size: 14px; }
+
+    /* Toggle switch */
+    .toggle-switch { position: relative; display: inline-flex; align-items: center; cursor: pointer; gap: var(--space-3); }
+    .toggle-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .toggle-track { position: relative; width: 36px; height: 20px; border-radius: var(--radius-pill); background: var(--grey-400); transition: background var(--duration-micro) var(--easing-enter); flex-shrink: 0; }
+    .toggle-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #FFFFFF; transition: transform var(--duration-micro) var(--easing-enter); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-track { background: var(--color-success); }
+    .toggle-switch input:checked + .toggle-track::after { transform: translateX(16px); }
+    .toggle-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); user-select: none; }
+    .toggle-switch input:checked ~ .toggle-label { color: var(--color-success-dark); }
+
+    .edit-panel-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) var(--space-7); background: var(--color-card); border-top: 1px solid var(--divider-color); flex-shrink: 0; }
+    .edit-panel-footer-right { display: flex; gap: var(--space-3); }
+
+    /* Modal (reserved) */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(12, 26, 45, 0.55); z-index: 200; align-items: center; justify-content: center; padding: var(--space-5); }
+    .modal-overlay.is-open { display: flex; }
+    .modal { background: var(--color-card); border-radius: var(--radius-card); box-shadow: var(--shadow-modal); width: 100%; max-width: 480px; padding: var(--space-7); display: flex; flex-direction: column; gap: var(--space-5); }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .modal-body { font-size: var(--font-size-body); color: var(--text-primary); }
+    .modal-body p + p { margin-top: var(--space-3); color: var(--text-secondary); font-size: var(--font-size-caption); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: var(--space-3); }
+
+    /* Toast */
+    .toast { position: fixed; bottom: var(--space-7); left: 50%; transform: translateX(-50%) translateY(20px); background: var(--color-success-dark); color: #FFFFFF; padding: var(--space-4) var(--space-6); border-radius: var(--radius-button); box-shadow: var(--shadow-modal); display: flex; align-items: center; gap: var(--space-3); font-weight: var(--font-weight-medium); opacity: 0; pointer-events: none; z-index: 300; transition: opacity var(--duration-standard) var(--easing-enter), transform var(--duration-standard) var(--easing-enter); }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast.toast--error { background: var(--color-error-dark); }
+    .toast .material-symbols-outlined { font-size: 20px; }
+
+    @media (max-width: 768px) {
+      .content-area { padding: var(--space-5); }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .field-row { grid-template-columns: 1fr; }
+      .edit-panel { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- Top Nav -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Ad-hoc Payments · Payment Reason</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 2 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">2</span>
+        </button>
+        <button aria-label="User profile menu — Mark T. (Treasury)">
+          <img src="https://i.pravatar.cc/64?img=33" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+
+      <!-- Sidebar -->
+      <nav class="sidebar" id="sidebar" aria-label="Ad-hoc Payments navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Ad-hoc Payments</span>
+          <a href="AdHocPayments.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Requests</span>
+          </a>
+          <a href="AdHocApprovals.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">approval</span>
+            <span class="sidebar-link-text">Approvals</span>
+          </a>
+          <a href="AdHocExportedFiles.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">outbox</span>
+            <span class="sidebar-link-text">Exported Files</span>
+          </a>
+          <a href="AdHocPaymentTypeLookup.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_search</span>
+            <span class="sidebar-link-text">Payment Reason</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <main class="content-area" id="main-content" tabindex="-1">
+        <div class="content-inner">
+
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="LandingPage.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <a href="AdHocPayments.html">Ad-hoc Payments</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">Payment Reason</span>
+          </nav>
+
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title">Payment Reason</h1>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-text-primary" type="button" id="exportBtn" aria-label="Export payment reasons to CSV">
+                <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                Export
+              </button>
+              <button class="btn btn-primary" type="button" id="addTypeBtn">
+                <span class="material-symbols-outlined" aria-hidden="true">add</span>
+                Add payment reason
+              </button>
+            </div>
+          </div>
+
+          <!-- Toolbar + Table -->
+          <div class="card-container">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="search-box">
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                  <input type="search" id="searchInput" placeholder="Search by reason or legal entity…" aria-label="Search payment reasons" />
+                </div>
+                <select class="filter-select" id="statusFilter" aria-label="Filter by status">
+                  <option value="">All statuses</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+              <div class="toolbar-right">
+                <span class="filter-chip" id="resultCount" aria-live="polite">0 of 0</span>
+              </div>
+            </div>
+
+            <div class="table-scroll">
+              <table class="data-table" aria-label="Payment reasons">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width:22%;">Reason</th>
+                    <th scope="col" style="width:28%;">Default paying-from</th>
+                    <th scope="col" style="width:22%;">Ledger / Account type</th>
+                    <th scope="col" style="width:9%;">Currency</th>
+                    <th scope="col" style="width:9%;">Status</th>
+                    <th scope="col" style="width:110px; text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="typeRows"></tbody>
+              </table>
+              <div class="empty-state" id="emptyState" hidden>
+                <span class="material-symbols-outlined" aria-hidden="true">filter_alt_off</span>
+                <span class="empty-state-title">No payment reasons match your filters</span>
+                <span>Try clearing the search or changing the status filter.</span>
+              </div>
+            </div>
+
+            <div class="table-footer">
+              <span id="footerCount">Showing 0 of 0</span>
+              <div class="pagination">
+                <button class="pagination-btn" disabled aria-label="Previous page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                </button>
+                <span>Page 1 of 1</span>
+                <button class="pagination-btn" disabled aria-label="Next page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- --- Add / Edit Drawer --- -->
+  <div class="edit-overlay" id="editOverlay"></div>
+  <aside class="edit-panel" id="editPanel" role="dialog" aria-modal="true" aria-labelledby="editPanelTitle" aria-hidden="true">
+    <div class="edit-panel-header">
+      <div class="edit-panel-header-content">
+        <h2 class="edit-panel-title" id="editPanelTitle">Add payment reason</h2>
+        <span class="edit-panel-subtitle" id="editPanelSubtitle">Define a new reason shown to requesters with its paying-from defaults</span>
+      </div>
+      <button class="edit-panel-close" id="editPanelClose" aria-label="Close panel">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+
+    <div class="edit-panel-body">
+
+      <span class="edit-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">label</span>
+        Reason
+      </span>
+      <div class="field">
+        <label for="pt-name" class="field-label">Reason <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" class="input" id="pt-name" placeholder="Shown in the request dropdown" maxlength="60" />
+        <span class="field-hint">e.g. “Refund — overpayment”, “Court fee”, “Supplier — services”.</span>
+      </div>
+      <div class="field">
+        <label class="field-label">Status</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="pt-status" checked />
+          <span class="toggle-track"></span>
+          <span class="toggle-label" id="pt-statusLabel">Active</span>
+        </label>
+        <span class="field-hint">Inactive reasons are hidden from new requests.</span>
+      </div>
+
+      <span class="edit-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">account_balance</span>
+        Default paying-from
+      </span>
+      <div class="field-row">
+        <div class="field">
+          <label for="pt-bankName" class="field-label">Bank Account Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" class="input" id="pt-bankName" placeholder="e.g. Acme Treasury (GBP)" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="pt-bankNumber" class="field-label">Bank Account Number <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" class="input" id="pt-bankNumber" placeholder="e.g. 12345678" inputmode="numeric" maxlength="34" autocomplete="off" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="pt-sort" class="field-label">Sort code <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" class="input" id="pt-sort" placeholder="30-00-04" inputmode="numeric" maxlength="8" autocomplete="off" aria-describedby="pt-sort-hint pt-sort-error" />
+          <span class="field-hint" id="pt-sort-hint">UK sort code — 6 digits (e.g. 30-00-04).</span>
+          <span class="field-error" id="pt-sort-error" role="alert">
+            <span class="material-symbols-outlined" aria-hidden="true">error</span>
+            <span id="pt-sort-error-msg">Enter a valid 6-digit UK sort code.</span>
+          </span>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="pt-currency" class="field-label">Currency <span class="req" aria-hidden="true">*</span></label>
+          <select class="select" id="pt-currency">
+            <option value="">Select…</option>
+            <option value="GBP">GBP — Pound Sterling</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="USD">USD — US Dollar</option>
+            <option value="INT">International (set per request)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="pt-entity" class="field-label">Legal entity <span class="req" aria-hidden="true">*</span></label>
+          <select class="select" id="pt-entity">
+            <option value="">Select…</option>
+            <option>Acme Holdings Ltd</option>
+            <option>Acme (Holdings) Ltd — Subsidiary</option>
+            <option>Acme Recovery Ltd</option>
+            <option>Acme EU GmbH</option>
+          </select>
+        </div>
+      </div>
+
+      <span class="edit-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+        Debit ledger &amp; cost centre
+      </span>
+      <span class="field-hint" style="margin-top: calc(-1 * var(--space-3));">Auto-populated on the Ad-hoc Payment form when this reason is selected.</span>
+      <div class="field-row">
+        <div class="field">
+          <label for="pt-ledgerType" class="field-label">Ledger account type<span class="req" aria-hidden="true">*</span></label>
+          <select class="select" id="pt-ledgerType">
+            <option value="">Select…</option>
+            <option value="Customer">Customer</option>
+            <option value="Ledger">Ledger</option>
+            <option value="Supplier">Supplier</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="pt-ledgerNumber" class="field-label">Ledger account number<span class="req" aria-hidden="true">*</span></label>
+          <input type="text" class="input" id="pt-ledgerNumber" placeholder="e.g. 60914868" autocomplete="off" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="pt-costCentre" class="field-label">Cost centre</label>
+          <input type="text" class="input" id="pt-costCentre" placeholder="e.g. CC-1010 · Treasury" autocomplete="off" />
+        </div>
+        <div class="field" aria-hidden="true"></div>
+      </div>
+
+      <div class="field">
+          <label for="caseRef" class="field-label">Description</label>
+          <input type="text" class="input" id="caseRef" placeholder="Auto-filled from ledger · e.g. C000048MMGH" />
+        </div>
+
+    </div>
+
+    <div class="edit-panel-footer">
+      <div class="edit-panel-footer-right" style="margin-left:auto;">
+        <button class="btn btn-ghost" id="editPanelCancel" type="button">Cancel</button>
+        <button class="btn btn-primary" id="editPanelSave" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">save</span>
+          Save reason
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- --- Toast --- -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script>
+    /* -- Sidebar toggle -- */
+    (function() {
+      var sb = document.getElementById('sidebar');
+      var btn = document.getElementById('sidebarToggle');
+      btn.addEventListener('click', function() {
+        sb.classList.toggle('is-expanded');
+        var expanded = sb.classList.contains('is-expanded');
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        btn.setAttribute('aria-label', expanded ? 'Collapse sidebar' : 'Expand sidebar');
+      });
+    })();
+
+    /* -- Toast helper -- */
+    function showToast(msg, isError) {
+      var t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.toggle('toast--error', !!isError);
+      t.classList.add('is-visible');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(function() { t.classList.remove('is-visible'); }, 2400);
+    }
+
+    /* -- Seed data — managed by Treasury --
+       `code` is kept as an internal row id (auto-generated for new entries) but is no longer surfaced in the UI.
+       NOTE: keep `ledgerType`, `ledgerNumber`, `costCentre` in sync with the mapping used in
+       AdHocPayments.html (LEDGER_DEFAULTS by reason value) so auto-populate matches this lookup. */
+    var PAYMENT_TYPES = [
+      { code:'PT-001', name:'Refund — overpayment',      bank:'12345678 — Acme Treasury (GBP)',     sort:'30-00-04', currency:'GBP', entity:'Acme Holdings Ltd',  ledgerType:'Customer', ledgerNumber:'60914868', costCentre:'CC-1010 · Treasury',        status:'Active'   },
+      { code:'PT-002', name:'Goodwill payment',          bank:'12345678 — Acme Treasury (GBP)',     sort:'30-00-04', currency:'GBP', entity:'Acme Holdings Ltd',  ledgerType:'Customer', ledgerNumber:'60914001', costCentre:'CC-1020 · Customer Service', status:'Active'   },
+      { code:'PT-003', name:'Supplier — services',       bank:'22987654 — Acme Operating (GBP)',    sort:'30-00-05', currency:'GBP', entity:'Acme Holdings Ltd',  ledgerType:'Supplier', ledgerNumber:'70200455', costCentre:'CC-2020 · Operations',       status:'Active'   },
+      { code:'PT-004', name:'Vendor — software',         bank:'22987654 — Acme Operating (GBP)',    sort:'30-00-05', currency:'GBP', entity:'Acme Holdings Ltd',  ledgerType:'Supplier', ledgerNumber:'70200712', costCentre:'CC-2050 · IT',               status:'Active'   },
+      { code:'PT-005', name:'Court fee',                 bank:'22987654 — Acme Operating (GBP)',    sort:'30-00-05', currency:'GBP', entity:'Acme Recovery Ltd',  ledgerType:'Ledger',   ledgerNumber:'80510033', costCentre:'CC-3030 · Legal',            status:'Active'   },
+      { code:'PT-006', name:'Utilities — refund',        bank:'12345678 — Acme Treasury (GBP)',     sort:'30-00-04', currency:'GBP', entity:'Acme Holdings Ltd',  ledgerType:'Customer', ledgerNumber:'60914512', costCentre:'CC-1030 · Facilities',       status:'Active'   },
+      { code:'PT-007', name:'Supplier — Euro vendor',    bank:'33445566 — Acme EUR Holding (EUR)',  sort:'30-00-12', currency:'EUR', entity:'Acme EU GmbH',       ledgerType:'Supplier', ledgerNumber:'70200999', costCentre:'CC-2020 · Operations',       status:'Active'   },
+      { code:'PT-008', name:'Other (specify)',           bank:'12345678 — Acme Treasury (GBP)',     sort:'30-00-04', currency:'GBP', entity:'Acme Holdings Ltd',  ledgerType:'',         ledgerNumber:'',         costCentre:'',                            status:'Active'   },
+      { code:'PT-009', name:'Legacy — settlement (old)', bank:'12345678 — Acme Treasury (GBP)',     sort:'30-00-04', currency:'GBP', entity:'Acme Holdings Ltd',  ledgerType:'Ledger',   ledgerNumber:'80510999', costCentre:'CC-3030 · Legal',            status:'Inactive' }
+    ];
+
+    var state = { search:'', status:'', editingCode:null };
+
+    /* -- Render helpers -- */
+    function currencyBadge(cur) {
+      var cls = ({ GBP:'gbp', EUR:'eur', USD:'usd', INT:'int' })[cur] || 'gbp';
+      return '<span class="badge badge--' + cls + '">' + cur + '</span>';
+    }
+    function statusBadge(status) {
+      return status === 'Active'
+        ? '<span class="badge badge--active"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Active</span>'
+        : '<span class="badge badge--inactive"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>Inactive</span>';
+    }
+    function escapeHtml(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, function(c){ return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]; }); }
+
+    function parseBankDetails(t) {
+      if (!t) return { bankNumber: '', bankName: '' };
+      var bankNumber = t.bankNumber || '';
+      var bankName = t.bankName || '';
+      if ((!bankNumber || !bankName) && t.bank) {
+        var m = String(t.bank).match(/^\s*([^\s]+)\s+—\s+(.+)\s*$/);
+        if (m) {
+          bankNumber = bankNumber || m[1];
+          bankName = bankName || m[2];
+        } else {
+          bankName = bankName || String(t.bank);
+        }
+      }
+      return { bankNumber: bankNumber, bankName: bankName };
+    }
+
+    function getBankDisplay(t) {
+      var details = parseBankDetails(t);
+      if (details.bankNumber && details.bankName) return details.bankNumber + ' — ' + details.bankName;
+      return details.bankName || details.bankNumber || (t && t.bank) || '';
+    }
+
+    function applyFilters() {
+      var q = state.search.trim().toLowerCase();
+      return PAYMENT_TYPES.filter(function(t) {
+        if (state.status && t.status !== state.status) return false;
+        if (!q) return true;
+        return [t.name, t.entity, getBankDisplay(t), t.bankName, t.bankNumber, t.currency, t.ledgerType, t.ledgerNumber, t.costCentre]
+          .some(function(v){ return v && v.toLowerCase().indexOf(q) !== -1; });
+      });
+    }
+
+    function renderTable() {
+      var rows = applyFilters();
+      var tbody = document.getElementById('typeRows');
+      var empty = document.getElementById('emptyState');
+
+      if (!rows.length) {
+        tbody.innerHTML = '';
+        empty.hidden = false;
+      } else {
+        empty.hidden = true;
+        tbody.innerHTML = rows.map(function(t) {
+          var bank = escapeHtml(getBankDisplay(t));
+          var entity = escapeHtml(t.entity);
+          var type = escapeHtml(t.ledgerType || '');
+          var ln = escapeHtml(t.ledgerNumber || '');
+          var ledgerLine = ln || type
+            ? (ln ? ln : type)
+            : '<span style="color:var(--text-secondary);">—</span>';
+          var typeLine = ln && type
+            ? '<div style="font-size:var(--font-size-caption); color:var(--text-secondary);">' + type + '</div>'
+            : '';
+          return '' +
+            '<tr data-code="' + t.code + '">' +
+              '<td class="col-name">' + escapeHtml(t.name) + '</td>' +
+              '<td>' + bank + '<div style="font-size:var(--font-size-caption); color:var(--text-secondary);">' + entity + ' · sort ' + escapeHtml(t.sort) + '</div></td>' +
+              '<td>' + ledgerLine + typeLine + '</td>' +
+              '<td>' + currencyBadge(t.currency) + '</td>' +
+              '<td>' + statusBadge(t.status) + '</td>' +
+              '<td>' +
+                '<div class="row-actions">' +
+                  '<button class="row-action-btn" type="button" data-act="edit" aria-label="Edit ' + escapeHtml(t.name) + '"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>' +
+                '</div>' +
+              '</td>' +
+            '</tr>';
+        }).join('');
+      }
+
+      document.getElementById('resultCount').textContent = rows.length + ' of ' + PAYMENT_TYPES.length;
+      document.getElementById('footerCount').textContent = 'Showing ' + rows.length + ' of ' + PAYMENT_TYPES.length;
+    }
+
+    /* -- Filters wired -- */
+    document.getElementById('searchInput').addEventListener('input',   function(e){ state.search = e.target.value; renderTable(); });
+    document.getElementById('statusFilter').addEventListener('change', function(e){ state.status = e.target.value; renderTable(); });
+    document.getElementById('exportBtn').addEventListener('click',     function(){ showToast('Export started — CSV will download shortly.'); });
+
+    /* -- Drawer open / close -- */
+    var overlay   = document.getElementById('editOverlay');
+    var panel     = document.getElementById('editPanel');
+    var panelTitle    = document.getElementById('editPanelTitle');
+    var panelSubtitle = document.getElementById('editPanelSubtitle');
+
+    function openPanel(code) {
+      state.editingCode = code || null;
+      var t = code ? PAYMENT_TYPES.find(function(x){ return x.code === code; }) : null;
+      if (t) {
+        panelTitle.textContent = 'Edit payment reason';
+        panelSubtitle.textContent = t.name;
+      } else {
+        panelTitle.textContent = 'Add payment reason';
+        panelSubtitle.textContent = 'Define a new reason shown to requesters with its paying-from defaults';
+      }
+      setFormValues(t);
+      overlay.classList.add('is-open');
+      panel.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false');
+      setTimeout(function(){ document.getElementById('pt-name').focus(); }, 200);
+    }
+
+    function closePanel() {
+      overlay.classList.remove('is-open');
+      panel.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
+      state.editingCode = null;
+    }
+
+    function setFormValues(t) {
+      var bankDetails = parseBankDetails(t);
+      var f = {
+        'pt-name':         t ? t.name         : '',
+        'pt-bankName':     t ? bankDetails.bankName : '',
+        'pt-bankNumber':   t ? bankDetails.bankNumber : '',
+        'pt-sort':         t ? formatSortCode(t.sort) : '',
+        'pt-currency':     t ? t.currency     : '',
+        'pt-entity':       t ? t.entity       : '',
+        'pt-ledgerType':   t ? (t.ledgerType   || '') : '',
+        'pt-ledgerNumber': t ? (t.ledgerNumber || '') : '',
+        'pt-costCentre':   t ? (t.costCentre   || '') : ''
+      };
+      Object.keys(f).forEach(function(id){ document.getElementById(id).value = f[id]; });
+      document.getElementById('pt-status').checked = t ? (t.status === 'Active') : true;
+      sortInput.classList.remove('is-invalid');
+      sortInput.removeAttribute('aria-invalid');
+      sortError.classList.remove('is-shown');
+      syncToggleLabels();
+    }
+
+    function readForm() {
+      var bankName = document.getElementById('pt-bankName').value.trim();
+      var bankNumber = document.getElementById('pt-bankNumber').value.trim();
+      return {
+        name:         document.getElementById('pt-name').value.trim(),
+        bankName:     bankName,
+        bankNumber:   bankNumber,
+        bank:         bankNumber && bankName ? (bankNumber + ' — ' + bankName) : (bankName || bankNumber),
+        sort:         document.getElementById('pt-sort').value.trim(),
+        currency:     document.getElementById('pt-currency').value,
+        entity:       document.getElementById('pt-entity').value,
+        ledgerType:   document.getElementById('pt-ledgerType').value,
+        ledgerNumber: document.getElementById('pt-ledgerNumber').value.trim(),
+        costCentre:   document.getElementById('pt-costCentre').value.trim(),
+        status:       document.getElementById('pt-status').checked ? 'Active' : 'Inactive'
+      };
+    }
+
+    /* -- Toggle labels -- */
+    function syncToggleLabels() {
+      document.getElementById('pt-statusLabel').textContent = document.getElementById('pt-status').checked ? 'Active' : 'Inactive';
+    }
+    document.getElementById('pt-status').addEventListener('change', syncToggleLabels);
+
+    /* -- Sort code: UK format (6 digits, auto-hyphenate) -- */
+    var sortInput = document.getElementById('pt-sort');
+    var sortError = document.getElementById('pt-sort-error');
+    var sortErrorMsg = document.getElementById('pt-sort-error-msg');
+
+    function formatSortCode(raw) {
+      var digits = String(raw || '').replace(/\D/g, '').slice(0, 6);
+      return digits.replace(/(\d{2})(?=\d)/g, '$1-');
+    }
+    function sortCodeDigits(raw) {
+      return String(raw || '').replace(/\D/g, '');
+    }
+    function validateSortCode(showEmpty) {
+      var digits = sortCodeDigits(sortInput.value);
+      var valid = digits.length === 6;
+      if (!valid && (showEmpty || digits.length > 0)) {
+        sortInput.classList.add('is-invalid');
+        sortInput.setAttribute('aria-invalid', 'true');
+        sortErrorMsg.textContent = digits.length === 0
+          ? 'Sort code is required.'
+          : 'Sort code must be exactly 6 digits.';
+        sortError.classList.add('is-shown');
+        return false;
+      }
+      sortInput.classList.remove('is-invalid');
+      sortInput.removeAttribute('aria-invalid');
+      sortError.classList.remove('is-shown');
+      return true;
+    }
+    sortInput.addEventListener('input', function() {
+      var formatted = formatSortCode(sortInput.value);
+      if (formatted !== sortInput.value) sortInput.value = formatted;
+      if (sortInput.classList.contains('is-invalid')) validateSortCode(false);
+    });
+    sortInput.addEventListener('blur', function() { validateSortCode(false); });
+
+    /* -- Code generator for new rows (internal id, not shown) -- */
+    function nextCode() {
+      var max = PAYMENT_TYPES.reduce(function(m, t){
+        var n = parseInt(String(t.code).replace(/[^0-9]/g, ''), 10);
+        return isNaN(n) ? m : Math.max(m, n);
+      }, 0);
+      return 'PT-' + String(max + 1).padStart(3, '0');
+    }
+
+    /* -- Save -- */
+    document.getElementById('editPanelSave').addEventListener('click', function() {
+      var data = readForm();
+      var missing = ['name','bankName','bankNumber','sort','currency','entity']
+        .filter(function(k){ return !data[k]; });
+      if (missing.length) {
+        showToast('Please complete the required fields (' + missing.length + ' missing).', true);
+        return;
+      }
+      if (!validateSortCode(true)) {
+        sortInput.focus();
+        showToast('Enter a valid 6-digit UK sort code.', true);
+        return;
+      }
+      data.sort = formatSortCode(data.sort);
+      if (state.editingCode) {
+        var idx = PAYMENT_TYPES.findIndex(function(t){ return t.code === state.editingCode; });
+        if (idx !== -1) PAYMENT_TYPES[idx] = Object.assign({}, PAYMENT_TYPES[idx], data);
+        showToast('Updated ' + data.name);
+      } else {
+        if (PAYMENT_TYPES.some(function(t){ return t.name.toLowerCase() === data.name.toLowerCase(); })) {
+          showToast('A reason called "' + data.name + '" already exists.', true);
+          return;
+        }
+        data.code = nextCode();
+        PAYMENT_TYPES.push(data);
+        showToast('Added ' + data.name);
+      }
+      closePanel();
+      renderTable();
+    });
+
+    document.getElementById('editPanelCancel').addEventListener('click', closePanel);
+    document.getElementById('editPanelClose').addEventListener('click', closePanel);
+    overlay.addEventListener('click', closePanel);
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { closePanel(); } });
+
+    /* -- Add button -- */
+    document.getElementById('addTypeBtn').addEventListener('click', function(){ openPanel(null); });
+    /* -- Row delegate -- */
+    document.getElementById('typeRows').addEventListener('click', function(e) {
+      var btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      var row = btn.closest('tr');
+      var code = row && row.dataset.code;
+      if (!code) return;
+      if (btn.dataset.act === 'edit') openPanel(code);
+    });
+
+    /* -- Initial render -- */
+    renderTable();
+  </script>
+
+  <!-- ----- Column Header Menu (3-dot) ----- -->
+  <style>
+    .data-table th { position: relative; }
+    .th-menu-btn {
+      position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 4px; padding: 0;
+      border: none; background: transparent; color: var(--text-secondary, #616161);
+      cursor: pointer; opacity: 0; transition: opacity 120ms ease, background 120ms ease;
+    }
+    .th-menu-btn .material-symbols-outlined { font-size: 18px; }
+    .data-table th:hover .th-menu-btn,
+    .th-menu-btn.is-open,
+    .th-menu-btn:focus-visible { opacity: 1; }
+    .th-menu-btn:hover { background: var(--grey-100, #f0f0f0); }
+
+    .col-menu {
+      position: absolute; z-index: 1000; min-width: 210px;
+      background: #FFFFFF; border: 1px solid var(--grey-200, #E0E0E0);
+      border-radius: 8px; box-shadow: 0 6px 20px rgba(12, 26, 45, 0.14);
+      padding: 6px 0; display: none; font-size: 13px;
+    }
+    .col-menu.is-open { display: block; }
+    .col-menu button {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 8px 16px; background: transparent; border: none;
+      text-align: left; cursor: pointer; color: var(--text-primary, #212121);
+      font-size: 13px; text-transform: none; letter-spacing: 0;
+    }
+    .col-menu button:hover,
+    .col-menu button:focus-visible { background: var(--color-primary-25, #F0F5FC); outline: none; }
+    .col-menu button.is-selected { background: var(--color-primary-25, #F0F5FC); font-weight: 600; }
+    .col-menu .material-symbols-outlined { font-size: 18px; color: var(--text-secondary, #616161); }
+    .col-menu hr { border: none; border-top: 1px solid var(--grey-200, #E0E0E0); margin: 4px 0; }
+  </style>
+  <script>
+    (function () {
+      function initColumnMenus(root) {
+        var scope = root || document;
+        var tables = scope.querySelectorAll('table.data-table');
+        tables.forEach(function (table) {
+          table.querySelectorAll('thead th').forEach(function (th) {
+            if (th.classList.contains('col-check')) return;
+            var label = (th.textContent || '').trim().toLowerCase();
+            if (!label || label === 'actions') return;
+            if (th.querySelector('.th-menu-btn')) return;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'th-menu-btn';
+            btn.setAttribute('aria-label', 'Column options');
+            btn.setAttribute('aria-haspopup', 'menu');
+            btn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">more_vert</span>';
+            th.appendChild(btn);
+          });
+        });
+      }
+
+      function ensureMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) return menu;
+        menu = document.createElement('div');
+        menu.id = 'columnMenuPopup';
+        menu.className = 'col-menu';
+        menu.setAttribute('role', 'menu');
+        menu.innerHTML = [
+          '<button type="button" data-act="sort-asc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>Sort by ASC</button>',
+          '<button type="button" data-act="sort-desc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span>Sort by DESC</button>',
+          '<hr>',
+          '<button type="button" data-act="pin-left" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to left</button>',
+          '<button type="button" data-act="pin-right" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to right</button>',
+          '<hr>',
+          '<button type="button" data-act="filter" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">filter_alt</span>Filter</button>',
+          '<button type="button" data-act="hide" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>Hide Column</button>',
+          '<button type="button" data-act="manage" role="menuitem" class="is-selected"><span class="material-symbols-outlined" aria-hidden="true">view_column</span>Manage Column</button>'
+        ].join('');
+        document.body.appendChild(menu);
+        return menu;
+      }
+
+      var currentBtn = null;
+      var currentTh = null;
+
+      function openMenuFor(btn) {
+        var menu = ensureMenu();
+        closeMenu();
+        currentBtn = btn;
+        currentTh = btn.closest('th');
+        btn.classList.add('is-open');
+        var rect = btn.getBoundingClientRect();
+        menu.style.top = (window.scrollY + rect.bottom + 4) + 'px';
+        menu.style.left = (window.scrollX + rect.left) + 'px';
+        menu.classList.add('is-open');
+      }
+
+      function closeMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) menu.classList.remove('is-open');
+        if (currentBtn) currentBtn.classList.remove('is-open');
+        currentBtn = null;
+        currentTh = null;
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('.th-menu-btn');
+        if (btn) {
+          e.stopPropagation();
+          if (btn === currentBtn) { closeMenu(); return; }
+          openMenuFor(btn);
+          return;
+        }
+        var item = e.target.closest && e.target.closest('#columnMenuPopup button');
+        if (item) {
+          e.stopPropagation();
+          handleMenuAction(item.getAttribute('data-act'));
+          closeMenu();
+          return;
+        }
+        if (e.target.closest && e.target.closest('#columnMenuPopup')) return;
+        closeMenu();
+      });
+
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+      window.addEventListener('scroll', closeMenu, true);
+      window.addEventListener('resize', closeMenu);
+
+      function handleMenuAction(act) {
+        if (!currentTh || act !== 'hide') return;
+        var table = currentTh.closest('table');
+        var headerRow = currentTh.parentElement;
+        var colIndex = Array.prototype.indexOf.call(headerRow.children, currentTh);
+        currentTh.style.display = 'none';
+        table.querySelectorAll('tbody tr').forEach(function (tr) {
+          var cell = tr.children[colIndex];
+          if (cell) cell.style.display = 'none';
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { initColumnMenus(); });
+      } else {
+        initColumnMenus();
+      }
+      window.reinitColumnMenus = initColumnMenus;
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#3276CF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0C1A2D" media="(prefers-color-scheme: dark)" />
+  <title>FinOps — Home · v2</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <style>
+    /* ----------------------------------------------------------------
+       MET-DS-V2 — Token Block · Light (default)
+       ---------------------------------------------------------------- */
+    :root {
+      /* Brand & Primary Scale */
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-75:  #C2D7F2;
+      --color-primary-100: #A2C1EA;
+      --color-primary-200: #84ADE4;
+      --color-primary-300: #6599DE;
+      --color-primary-400: #4B87D6;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-800: #22497D;
+      --color-primary-900: #1C3A62;
+      --color-primary-950: #152B48;
+      --color-primary-975: #0C1A2D;
+      --color-primary-999: #081220;
+
+      /* Semantic */
+      --color-primary:        var(--color-primary-500);
+      --color-primary-hover:  var(--color-primary-600);
+      --color-bg:             var(--color-primary-25);
+      --color-bg-elev:        #FFFFFF;
+      --color-card:           #FFFFFF;
+      --color-card-hover:     #F8FAFD;
+      --color-disabled:       #BDBDBD;
+      --color-overlay:        rgba(12, 26, 45, 0.55);
+
+      /* Text */
+      --text-primary:         #212121;
+      --text-secondary:       #616161;
+      --text-tertiary:        #757575;
+      --text-hyperlink:       #3276CF;
+      --text-hyperlink-hover: #2C66B4;
+      --text-disabled:        #BDBDBD;
+      --text-on-primary:      #FFFFFF;
+
+      /* Grey */
+      --grey-50:  #FAFAFA; --grey-100: #F5F5F5; --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0; --grey-400: #BDBDBD; --grey-500: #9E9E9E;
+      --grey-600: #757575; --grey-700: #616161; --grey-800: #424242; --grey-900: #212121;
+
+      /* State */
+      --color-success: #43A047; --color-success-dark: #388E3C; --color-success-bg: #E8F5E9;
+      --color-error:   #E53935; --color-error-dark:   #D32F2F; --color-error-bg:   #FEEBEE;
+      --color-warning: #EF6C00; --color-warning-dark: #F57C00; --color-warning-bg: #FFF3E0;
+      --color-info:    #1976D2; --color-info-bg:     #E3F2FD;
+
+      /* Borders & Radius */
+      --border-default: 1px solid #E0E0E0;
+      --border-subtle:  1px solid #EEEEEE;
+      --border-focus:   2px solid var(--color-primary);
+      --divider-color:  rgba(22, 43, 72, 0.10);
+      --radius-card:    16px;
+      --radius-button:  8px;
+      --radius-input:   8px;
+      --radius-pill:    100px;
+
+      /* Spacing (8pt) */
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      /* Typography */
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-display:  28px;
+      --font-size-h1:       24px;
+      --font-size-h2:       20px;
+      --font-size-h3:       16px;
+      --font-size-body:     14px;
+      --font-size-caption:  12px;
+      --font-size-overline: 11px;
+      --font-weight-regular: 400;
+      --font-weight-medium:  500;
+      --font-weight-semibold: 600;
+      --font-weight-bold:    700;
+
+      /* Motion */
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --easing-exit:  cubic-bezier(0.4, 0, 1, 1);
+
+      /* Shadows */
+      --shadow-card:   0 1px 3px rgba(50, 118, 207, 0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-hover:  0 6px 16px rgba(50, 118, 207, 0.12), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-modal:  0 16px 48px rgba(8, 18, 32, 0.24);
+      --shadow-popover:0 8px 24px rgba(8, 18, 32, 0.14);
+
+      /* Hero gradient */
+      --hero-gradient: linear-gradient(135deg, #3276CF 0%, #22497D 100%);
+    }
+
+    /* ----------------------------------------------------------------
+       Dark Theme Overrides
+       ---------------------------------------------------------------- */
+    :root[data-theme="dark"] {
+      --color-bg:             #0C1A2D;
+      --color-bg-elev:        #152B48;
+      --color-card:           #152B48;
+      --color-card-hover:     #1C3A62;
+      --color-overlay:        rgba(0, 0, 0, 0.65);
+
+      --text-primary:         #F5F7FA;
+      --text-secondary:       #B8C2D1;
+      --text-tertiary:        #8A95A8;
+      --text-hyperlink:       #6599DE;
+      --text-hyperlink-hover: #84ADE4;
+      --text-disabled:        #5A6478;
+      --text-on-primary:      #FFFFFF;
+
+      --color-primary:        #6599DE;
+      --color-primary-hover:  #84ADE4;
+      --color-primary-25:     #1C3A62;
+      --color-primary-50:     #22497D;
+
+      --grey-50:  #1C2738; --grey-100: #1C2738; --grey-200: #243149;
+      --grey-300: #2F3D58; --grey-400: #4A5872; --grey-500: #6A7894;
+      --grey-600: #8A95A8; --grey-700: #B8C2D1; --grey-800: #DCE2EC; --grey-900: #F5F7FA;
+
+      --border-default: 1px solid #2F3D58;
+      --border-subtle:  1px solid #243149;
+      --divider-color:  rgba(255, 255, 255, 0.10);
+
+      --color-success-bg: rgba(67, 160, 71, 0.18);
+      --color-error-bg:   rgba(229, 57, 53, 0.18);
+      --color-warning-bg: rgba(239, 108, 0, 0.20);
+      --color-info-bg:    rgba(25, 118, 210, 0.20);
+
+      --shadow-card:   0 1px 3px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.30);
+      --shadow-hover:  0 6px 18px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.35);
+      --shadow-modal:  0 16px 48px rgba(0, 0, 0, 0.65);
+      --shadow-popover:0 8px 24px rgba(0, 0, 0, 0.55);
+
+      --hero-gradient: linear-gradient(135deg, #22497D 0%, #0C1A2D 100%);
+    }
+
+    /* Auto dark mode when user hasn't picked a theme */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) { color-scheme: dark; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ----------------------------------------------------------------
+       Reset & Base
+       ---------------------------------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background var(--duration-standard) var(--easing-enter),
+                  color var(--duration-standard) var(--easing-enter);
+    }
+
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul, ol { list-style: none; }
+    img, svg { display: block; max-width: 100%; }
+
+    /* Accessibility */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: absolute;
+      top: -100px; left: var(--space-5);
+      background: var(--color-primary);
+      color: var(--text-on-primary);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button);
+      font-weight: var(--font-weight-medium);
+      z-index: 1000;
+      transition: top var(--duration-micro) var(--easing-enter);
+    }
+    .skip-link:focus {
+      top: var(--space-3);
+      color: var(--text-on-primary);
+    }
+
+    /* ----------------------------------------------------------------
+       App Shell
+       ---------------------------------------------------------------- */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ----------------------------------------------------------------
+       Top Navigation
+       ---------------------------------------------------------------- */
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-bg-elev);
+      border-bottom: 1px solid var(--divider-color);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(160%) blur(8px);
+    }
+
+    .topnav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+    }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .topnav-logo { height: 28px; width: auto; }
+    .topnav-tagline {
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      letter-spacing: 0.15px;
+      white-space: nowrap;
+    }
+
+    /* Global search */
+    .topnav-search {
+      flex: 1;
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .topnav-search-input {
+      width: 100%;
+      height: 40px;
+      padding: 0 var(--space-7) 0 var(--space-9);
+      background: var(--color-bg);
+      border: 1px solid var(--divider-color);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter),
+                  box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-search-input::placeholder { color: var(--text-tertiary); }
+    .topnav-search-input:hover { background: var(--color-bg-elev); border-color: var(--grey-400); }
+    .topnav-search-input:focus {
+      outline: none;
+      background: var(--color-bg-elev);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.18);
+    }
+    .topnav-search-icon {
+      position: absolute;
+      left: var(--space-4);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      pointer-events: none;
+      font-size: 20px !important;
+    }
+    .topnav-search-kbd {
+      position: absolute;
+      right: var(--space-3);
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-tertiary);
+      background: var(--color-bg);
+      border: 1px solid var(--divider-color);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .topnav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+    }
+
+    .topnav-icon-btn {
+      position: relative;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .topnav-icon-btn[aria-expanded="true"] { background: var(--color-primary-25); color: var(--color-primary); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 22px; }
+
+    .notification-badge {
+      position: absolute;
+      top: 4px; right: 4px;
+      min-width: 18px; height: 18px;
+      background: var(--color-error);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      border-radius: var(--radius-pill);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 5px;
+      line-height: 1;
+      border: 2px solid var(--color-bg-elev);
+    }
+
+    /* Role switcher */
+    .role-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      height: 40px;
+      padding: 0 var(--space-4);
+      border-radius: var(--radius-pill);
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .role-switcher:hover { background: var(--color-primary-50); }
+    .role-switcher .material-symbols-outlined { font-size: 18px; }
+
+    .topnav-avatar-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      padding: 4px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-avatar-btn:hover { background: var(--color-primary-25); }
+    .topnav-avatar {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-pill);
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ----------------------------------------------------------------
+       Popovers (notifications, role menu, avatar menu)
+       ---------------------------------------------------------------- */
+    .popover {
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      right: 0;
+      min-width: 320px;
+      max-width: 360px;
+      background: var(--color-bg-elev);
+      border: 1px solid var(--divider-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-popover);
+      padding: var(--space-3);
+      z-index: 60;
+      display: none;
+    }
+    .popover[data-open="true"] { display: block; }
+    .popover-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-3) var(--space-4);
+    }
+    .popover-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .popover-action {
+      font-size: var(--font-size-caption);
+      color: var(--text-hyperlink);
+      font-weight: var(--font-weight-medium);
+    }
+    .popover-list { display: flex; flex-direction: column; gap: var(--space-1); }
+    .popover-item {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border-radius: var(--radius-button);
+      align-items: flex-start;
+      cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+      text-align: left;
+      width: 100%;
+    }
+    .popover-item:hover { background: var(--color-card-hover); }
+    .popover-item-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .popover-item-dot.warn { background: var(--color-warning); }
+    .popover-item-dot.error { background: var(--color-error); }
+    .popover-item-dot.success { background: var(--color-success); }
+    .popover-item-body { min-width: 0; flex: 1; }
+    .popover-item-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+    .popover-item-meta {
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    .role-menu { min-width: 240px; }
+    .role-menu-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border-radius: var(--radius-button);
+      width: 100%;
+      text-align: left;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .role-menu-item:hover { background: var(--color-card-hover); }
+    .role-menu-item[aria-checked="true"] {
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+    }
+    .role-menu-item .material-symbols-outlined { font-size: 18px; }
+
+    /* ----------------------------------------------------------------
+       Main Content Layout
+       ---------------------------------------------------------------- */
+    .content-area {
+      flex: 1;
+      padding: var(--space-7) var(--space-5) var(--space-9);
+    }
+    .content-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    /* --- Hero --- */
+    .hero {
+      position: relative;
+      border-radius: var(--radius-card);
+      padding: var(--space-7);
+      background: var(--hero-gradient);
+      color: var(--text-on-primary);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 90% -10%, rgba(255,255,255,0.18), transparent 50%),
+        radial-gradient(circle at 0% 110%, rgba(255,255,255,0.10), transparent 45%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .hero-eyebrow {
+      font-size: var(--font-size-overline);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .hero-title {
+      font-size: var(--font-size-display);
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.25;
+    }
+    .hero-title .hero-date {
+      font-weight: var(--font-weight-regular);
+      opacity: 0.85;
+      font-size: var(--font-size-h2);
+      display: block;
+      margin-top: var(--space-1);
+    }
+    .hero-subtitle {
+      font-size: var(--font-size-h3);
+      opacity: 0.92;
+      max-width: 560px;
+    }
+    .hero-quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .quick-action {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      height: 36px;
+      padding: 0 var(--space-5);
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.15);
+      color: var(--text-on-primary);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-body);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.20);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  transform var(--duration-micro) var(--easing-enter);
+    }
+    .quick-action:hover { background: rgba(255,255,255,0.25); color: var(--text-on-primary); transform: translateY(-1px); }
+    .quick-action .material-symbols-outlined { font-size: 18px; }
+
+    /* --- KPI Strip --- */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+    .kpi-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      border: 1px solid var(--divider-color);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      transition: box-shadow var(--duration-micro) var(--easing-enter),
+                  transform var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .kpi-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .kpi-icon {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .kpi-icon.warn    { background: var(--color-warning-bg);  color: var(--color-warning); }
+    .kpi-icon.error   { background: var(--color-error-bg);    color: var(--color-error); }
+    .kpi-icon.success { background: var(--color-success-bg);  color: var(--color-success); }
+    .kpi-icon .material-symbols-outlined { font-size: 18px; }
+    .kpi-value {
+      font-size: var(--font-size-display);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: 1;
+      letter-spacing: -0.4px;
+    }
+    .kpi-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+    }
+    .kpi-delta.up   { color: var(--color-success); }
+    .kpi-delta.down { color: var(--color-error); }
+    .kpi-delta.flat { color: var(--text-tertiary); }
+    .kpi-delta .material-symbols-outlined { font-size: 14px; }
+    .kpi-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+    }
+
+    /* --- Two-column main grid (modules + side panel) --- */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    /* Module categories column */
+    .modules-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      min-width: 0;
+    }
+
+    /* Side panel (activity + tips) */
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    /* --- Module category --- */
+    .module-category { display: flex; flex-direction: column; gap: var(--space-5); }
+    .module-category-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .module-category-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .module-category-count {
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      background: var(--color-bg-elev);
+      border: 1px solid var(--divider-color);
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .module-card {
+      background: var(--color-card);
+      border: 1px solid var(--divider-color);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      text-decoration: none;
+      color: inherit;
+      min-height: 80px;
+      position: relative;
+      transition: box-shadow var(--duration-micro) var(--easing-enter),
+                  transform var(--duration-micro) var(--easing-enter),
+                  border-color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+    }
+    .module-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+      border-color: var(--color-primary-50);
+      background: var(--color-card);
+    }
+    .module-card:hover .module-card-arrow { opacity: 1; transform: translateX(0); }
+    .module-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+    .module-card:active { transform: translateY(0); }
+    .module-card[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+
+    .module-card-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary-25);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .module-card:hover .module-card-icon { background: var(--color-primary-50); }
+    .module-card-icon .material-symbols-outlined {
+      font-size: 22px;
+      color: var(--color-primary);
+    }
+
+    .module-card-content { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; flex: 1; }
+    .module-card-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+    .module-card-desc {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .module-card-arrow {
+      color: var(--color-primary);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity var(--duration-micro) var(--easing-enter),
+                  transform var(--duration-micro) var(--easing-enter);
+      flex-shrink: 0;
+    }
+    .module-card-arrow .material-symbols-outlined { font-size: 20px; }
+
+    .module-card-pill {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: var(--radius-pill);
+      background: var(--color-warning-bg);
+      color: var(--color-warning-dark);
+    }
+    .module-card-pill.new { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .module-card-pill.error { background: var(--color-error-bg); color: var(--color-error-dark); }
+
+    /* --- Side Panel Cards --- */
+    .panel-card {
+      background: var(--color-card);
+      border: 1px solid var(--divider-color);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+    }
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-5);
+    }
+    .panel-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .panel-link {
+      font-size: var(--font-size-caption);
+      color: var(--text-hyperlink);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .activity-list { display: flex; flex-direction: column; gap: var(--space-4); }
+    .activity-item { display: flex; gap: var(--space-4); align-items: flex-start; }
+    .activity-icon {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .activity-icon.success { background: var(--color-success-bg); color: var(--color-success); }
+    .activity-icon.warn { background: var(--color-warning-bg); color: var(--color-warning); }
+    .activity-icon.error { background: var(--color-error-bg); color: var(--color-error); }
+    .activity-icon .material-symbols-outlined { font-size: 18px; }
+    .activity-body { min-width: 0; flex: 1; }
+    .activity-text {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      line-height: 1.45;
+    }
+    .activity-text strong { font-weight: var(--font-weight-semibold); }
+    .activity-meta {
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    .tips-card {
+      background: linear-gradient(135deg, var(--color-primary-25) 0%, var(--color-bg) 100%);
+      border-color: var(--color-primary-50);
+    }
+    :root[data-theme="dark"] .tips-card {
+      background: linear-gradient(135deg, var(--color-primary-25) 0%, var(--color-bg-elev) 100%);
+    }
+    .tips-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary);
+      color: #FFFFFF;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-4);
+    }
+    .tips-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .tips-body {
+      font-size: var(--font-size-body);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .tips-kbd {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      background: var(--color-bg-elev);
+      border: 1px solid var(--divider-color);
+      border-radius: 4px;
+    }
+
+    /* ----------------------------------------------------------------
+       Command Palette (Cmd/Ctrl-K)
+       ---------------------------------------------------------------- */
+    .cmdk-backdrop {
+      position: fixed;
+      inset: 0;
+      background: var(--color-overlay);
+      z-index: 200;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 12vh var(--space-5) var(--space-5);
+      backdrop-filter: blur(4px);
+    }
+    .cmdk-backdrop[data-open="true"] { display: flex; }
+    .cmdk {
+      width: 100%;
+      max-width: 640px;
+      background: var(--color-bg-elev);
+      border: 1px solid var(--divider-color);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 70vh;
+    }
+    .cmdk-search {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      border-bottom: 1px solid var(--divider-color);
+    }
+    .cmdk-search .material-symbols-outlined { color: var(--text-tertiary); }
+    .cmdk-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: var(--font-size-h3);
+      color: var(--text-primary);
+      font-family: inherit;
+      outline: none;
+    }
+    .cmdk-input::placeholder { color: var(--text-tertiary); }
+    .cmdk-esc {
+      padding: 2px var(--space-3);
+      font-size: 11px;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-tertiary);
+      background: var(--color-bg);
+      border: 1px solid var(--divider-color);
+      border-radius: 4px;
+    }
+    .cmdk-list {
+      padding: var(--space-3);
+      overflow-y: auto;
+      flex: 1;
+    }
+    .cmdk-group-title {
+      font-size: var(--font-size-overline);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: var(--space-4) var(--space-3) var(--space-2);
+    }
+    .cmdk-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-button);
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      color: var(--text-primary);
+    }
+    .cmdk-item:hover,
+    .cmdk-item.is-active {
+      background: var(--color-primary-25);
+      color: var(--text-primary);
+    }
+    .cmdk-item-icon {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cmdk-item.is-active .cmdk-item-icon { background: var(--color-primary-50); }
+    .cmdk-item-icon .material-symbols-outlined { font-size: 18px; }
+    .cmdk-item-body { min-width: 0; flex: 1; }
+    .cmdk-item-title { font-size: var(--font-size-body); font-weight: var(--font-weight-medium); }
+    .cmdk-item-desc { font-size: var(--font-size-caption); color: var(--text-tertiary); margin-top: 2px; }
+    .cmdk-item-category {
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      background: var(--color-bg);
+      border: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+    .cmdk-empty {
+      padding: var(--space-9) var(--space-5);
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: var(--font-size-body);
+    }
+    .cmdk-footer {
+      display: flex;
+      gap: var(--space-5);
+      padding: var(--space-3) var(--space-5);
+      border-top: 1px solid var(--divider-color);
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      flex-wrap: wrap;
+    }
+    .cmdk-footer-hint { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .cmdk-footer-kbd {
+      display: inline-flex;
+      padding: 1px 5px;
+      font-size: 10px;
+      font-weight: var(--font-weight-medium);
+      background: var(--color-bg);
+      border: 1px solid var(--divider-color);
+      border-radius: 3px;
+      color: var(--text-secondary);
+    }
+
+    /* ----------------------------------------------------------------
+       Responsive — Mobile First
+       ---------------------------------------------------------------- */
+    .topnav-search { display: none; }
+    .topnav-tagline { display: none; }
+    .role-switcher-label { display: none; }
+
+    @media (min-width: 640px) {
+      .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+      .module-grid { grid-template-columns: repeat(2, 1fr); }
+      .role-switcher-label { display: inline; }
+    }
+
+    @media (min-width: 900px) {
+      .topnav-search { display: block; }
+      .content-area { padding: var(--space-8) var(--space-7) var(--space-10); }
+    }
+
+    @media (min-width: 1024px) {
+      .kpi-strip { grid-template-columns: repeat(4, 1fr); }
+      .module-grid { grid-template-columns: repeat(2, 1fr); }
+      .main-grid {
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: var(--space-8);
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .topnav-tagline { display: inline; }
+      .module-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ----------------------------------------------------------------
+         Top Navigation
+         ---------------------------------------------------------------- -->
+    <header class="topnav" role="banner">
+      <div class="topnav-brand">
+        <a href="LandingPage_v2.html" aria-label="FinOps — Home">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps" class="topnav-logo" />
+        </a>
+        <span class="topnav-tagline" aria-hidden="true">Enterprise Finance Automation Platform</span>
+      </div>
+
+      <div class="topnav-search" role="search">
+        <span class="material-symbols-outlined topnav-search-icon" aria-hidden="true">search</span>
+        <input
+          type="search"
+          class="topnav-search-input"
+          id="global-search"
+          placeholder="Search modules, actions, recent…"
+          aria-label="Global search"
+          autocomplete="off"
+        />
+        <span class="topnav-search-kbd" aria-hidden="true"><span id="search-kbd-key">Ctrl</span> K</span>
+      </div>
+
+      <div class="topnav-actions">
+        <div style="position:relative">
+          <button
+            class="role-switcher"
+            id="role-btn"
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="role-menu"
+          >
+            <span class="material-symbols-outlined" aria-hidden="true">badge</span>
+            <span class="role-switcher-label" id="role-label">Admin</span>
+            <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+          </button>
+          <div class="popover role-menu" id="role-menu" role="menu" aria-labelledby="role-btn">
+            <div class="popover-header">
+              <span class="popover-title">Switch role</span>
+            </div>
+            <button class="role-menu-item" role="menuitemradio" aria-checked="true" data-role="Admin">
+              <span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span>
+              Admin
+            </button>
+            <button class="role-menu-item" role="menuitemradio" aria-checked="false" data-role="Operator">
+              <span class="material-symbols-outlined" aria-hidden="true">support_agent</span>
+              Operator
+            </button>
+            <button class="role-menu-item" role="menuitemradio" aria-checked="false" data-role="Approver">
+              <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+              Approver
+            </button>
+            <button class="role-menu-item" role="menuitemradio" aria-checked="false" data-role="Auditor">
+              <span class="material-symbols-outlined" aria-hidden="true">policy</span>
+              Auditor (read-only)
+            </button>
+          </div>
+        </div>
+
+        <button
+          class="topnav-icon-btn"
+          id="theme-toggle"
+          type="button"
+          aria-label="Switch to dark theme"
+          aria-pressed="false"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true" id="theme-icon">dark_mode</span>
+        </button>
+
+        <div style="position:relative">
+          <button
+            class="topnav-icon-btn"
+            id="notif-btn"
+            type="button"
+            aria-label="Notifications — 3 unread"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="notif-popover"
+          >
+            <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+            <span class="notification-badge" aria-hidden="true">3</span>
+          </button>
+          <div class="popover" id="notif-popover" role="dialog" aria-label="Notifications">
+            <div class="popover-header">
+              <span class="popover-title">Notifications</span>
+              <a href="#" class="popover-action">Mark all read</a>
+            </div>
+            <div class="popover-list">
+              <button class="popover-item" type="button">
+                <span class="popover-item-dot error" aria-hidden="true"></span>
+                <span class="popover-item-body">
+                  <span class="popover-item-title">Integration exception requires action</span>
+                  <span class="popover-item-meta">IFM · 2 min ago</span>
+                </span>
+              </button>
+              <button class="popover-item" type="button">
+                <span class="popover-item-dot warn" aria-hidden="true"></span>
+                <span class="popover-item-body">
+                  <span class="popover-item-title">5 ad-hoc payments awaiting approval</span>
+                  <span class="popover-item-meta">Treasury · 18 min ago</span>
+                </span>
+              </button>
+              <button class="popover-item" type="button">
+                <span class="popover-item-dot success" aria-hidden="true"></span>
+                <span class="popover-item-body">
+                  <span class="popover-item-title">Bank statement run completed successfully</span>
+                  <span class="popover-item-meta">Treasury · 1 hr ago</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="topnav-avatar-btn" type="button" aria-label="User profile menu — John Doe">
+          <img src="https://i.pravatar.cc/64?img=12" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <!-- ----------------------------------------------------------------
+         Main Content
+         ---------------------------------------------------------------- -->
+    <main class="content-area" id="main-content" tabindex="-1">
+      <div class="content-inner">
+
+        <!-- --- Hero --- -->
+        <section class="hero" aria-label="Welcome">
+          <div class="hero-content">
+            <span class="hero-eyebrow">Welcome back</span>
+            <h1 class="hero-title" id="greeting-heading">
+              Good Morning, John Doe
+              <span class="hero-date" id="greeting-date">Today is Tuesday, 13/01/26.</span>
+            </h1>
+            <p class="hero-subtitle">Here’s what needs your attention across Treasury, Client Funds and Payroll.</p>
+            <div class="hero-quick-actions" role="group" aria-label="Quick actions">
+              <a href="AdHocPayments.html" class="quick-action">
+                <span class="material-symbols-outlined" aria-hidden="true">add</span>
+                New ad-hoc payment
+              </a>
+              <a href="#" class="quick-action">
+                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+                Upload bank statement
+              </a>
+              <a href="IFM.html" class="quick-action">
+                <span class="material-symbols-outlined" aria-hidden="true">sync_problem</span>
+                Resolve exceptions
+              </a>
+              <a href="Dashboard.html" class="quick-action">
+                <span class="material-symbols-outlined" aria-hidden="true">dashboard</span>
+                Open dashboard
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- --- KPI Strip --- -->
+        <section class="kpi-strip" aria-label="Today’s summary">
+          <article class="kpi-card" aria-labelledby="kpi-1-label">
+            <div class="kpi-header">
+              <span class="kpi-label" id="kpi-1-label">Pending approvals</span>
+              <span class="kpi-icon warn" aria-hidden="true"><span class="material-symbols-outlined">pending_actions</span></span>
+            </div>
+            <span class="kpi-value">12</span>
+            <div class="kpi-foot">
+              <span class="kpi-delta up" aria-label="Up 3 vs yesterday">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>+3
+              </span>
+              <span>vs yesterday</span>
+            </div>
+          </article>
+
+          <article class="kpi-card" aria-labelledby="kpi-2-label">
+            <div class="kpi-header">
+              <span class="kpi-label" id="kpi-2-label">Open exceptions</span>
+              <span class="kpi-icon error" aria-hidden="true"><span class="material-symbols-outlined">report</span></span>
+            </div>
+            <span class="kpi-value">4</span>
+            <div class="kpi-foot">
+              <span class="kpi-delta down" aria-label="Down 2 vs yesterday">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span>-2
+              </span>
+              <span>vs yesterday</span>
+            </div>
+          </article>
+
+          <article class="kpi-card" aria-labelledby="kpi-3-label">
+            <div class="kpi-header">
+              <span class="kpi-label" id="kpi-3-label">Today’s volume</span>
+              <span class="kpi-icon" aria-hidden="true"><span class="material-symbols-outlined">payments</span></span>
+            </div>
+            <span class="kpi-value">£284k</span>
+            <div class="kpi-foot">
+              <span class="kpi-delta up" aria-label="Up 8 percent">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>+8%
+              </span>
+              <span>vs 7-day avg</span>
+            </div>
+          </article>
+
+          <article class="kpi-card" aria-labelledby="kpi-4-label">
+            <div class="kpi-header">
+              <span class="kpi-label" id="kpi-4-label">SLA health</span>
+              <span class="kpi-icon success" aria-hidden="true"><span class="material-symbols-outlined">monitor_heart</span></span>
+            </div>
+            <span class="kpi-value">99.2%</span>
+            <div class="kpi-foot">
+              <span class="kpi-delta flat" aria-label="No change">
+                <span class="material-symbols-outlined" aria-hidden="true">remove</span>0.0
+              </span>
+              <span>30-day uptime</span>
+            </div>
+          </article>
+        </section>
+
+        <!-- --- Two-column: modules + side panel --- -->
+        <div class="main-grid">
+
+          <!-- --- Module categories --- -->
+          <div class="modules-col">
+
+            <!-- Treasury -->
+            <section class="module-category" aria-labelledby="cat-treasury">
+              <header class="module-category-header">
+                <h2 class="module-category-title" id="cat-treasury">Treasury</h2>
+                <span class="module-category-count" aria-hidden="true">4 modules</span>
+              </header>
+              <div class="module-grid" role="list">
+
+                <a href="AdHocPayments.html" class="module-card" role="listitem" data-module="Ad-hoc Payments" data-category="Treasury"
+                   aria-label="Ad-hoc Payments — Create and manage ad-hoc payment requests. 5 awaiting approval.">
+                  <span class="module-card-pill" aria-hidden="true">5 pending</span>
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Ad-hoc Payments</span>
+                    <span class="module-card-desc">Create and manage ad-hoc payment requests</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+
+                <a href="#" class="module-card" role="listitem" data-module="Bank Statement Transactions" data-category="Treasury"
+                   aria-label="Bank Statement Transactions — Upload and view bank statements">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">account_balance</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Bank Statement Transactions</span>
+                    <span class="module-card-desc">Upload and view bank statements</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+
+                <a href="#" class="module-card" role="listitem" data-module="Vehicle Release Payments" data-category="Treasury"
+                   aria-label="Vehicle Release Payments — Create and manage vehicle release payments">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">local_shipping</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Vehicle Release Payments</span>
+                    <span class="module-card-desc">Create and manage vehicle release payments</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+
+                <a href="OAP_CurrentTransactions.html" class="module-card" role="listitem" data-module="Office Account Postings" data-category="Treasury"
+                   aria-label="Office Account Postings — Manage office account posting entries">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">post_add</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Office Account Postings</span>
+                    <span class="module-card-desc">Manage office account posting entries</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+
+              </div>
+            </section>
+
+            <!-- Finance System -->
+            <section class="module-category" aria-labelledby="cat-finance">
+              <header class="module-category-header">
+                <h2 class="module-category-title" id="cat-finance">Finance System</h2>
+                <span class="module-category-count" aria-hidden="true">1 module</span>
+              </header>
+              <div class="module-grid" role="list">
+                <a href="IFM.html" class="module-card" role="listitem" data-module="Integration Exception Management" data-category="Finance System"
+                   aria-label="Integration Exception Management — Monitor and resolve integration exceptions. 4 open.">
+                  <span class="module-card-pill error" aria-hidden="true">4 open</span>
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">sync_problem</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Integration Exception Management</span>
+                    <span class="module-card-desc">Monitor and resolve integration exceptions</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+              </div>
+            </section>
+
+            <!-- Client Funds -->
+            <section class="module-category" aria-labelledby="cat-client">
+              <header class="module-category-header">
+                <h2 class="module-category-title" id="cat-client">Client Funds</h2>
+                <span class="module-category-count" aria-hidden="true">2 modules</span>
+              </header>
+              <div class="module-grid" role="list">
+                <a href="#" class="module-card" role="listitem" data-module="All Pay" data-category="Client Funds"
+                   aria-label="All Pay — View and manage allpay files">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">receipt</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">All Pay</span>
+                    <span class="module-card-desc">View and manage allpay files</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+                <a href="#" class="module-card" role="listitem" data-module="KEYIVR Payments" data-category="Client Funds"
+                   aria-label="KEYIVR Payments — View automated KeyIVR payments">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">payments</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">KEYIVR Payments</span>
+                    <span class="module-card-desc">View automated KeyIVR payments</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+              </div>
+            </section>
+
+            <!-- Payroll -->
+            <section class="module-category" aria-labelledby="cat-payroll">
+              <header class="module-category-header">
+                <h2 class="module-category-title" id="cat-payroll">Payroll</h2>
+                <span class="module-category-count" aria-hidden="true">2 modules</span>
+              </header>
+              <div class="module-grid" role="list">
+                <a href="#" class="module-card" role="listitem" data-module="Variable Pay" data-category="Payroll"
+                   aria-label="Variable Pay — Create and manage variable pay requests">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">savings</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Variable Pay</span>
+                    <span class="module-card-desc">Create &amp; manage variable pay requests</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+                <a href="#" class="module-card" role="listitem" data-module="Pension Analysis" data-category="Payroll"
+                   aria-label="Pension Analysis — View and analyse pension records">
+                  <span class="module-card-pill new" aria-hidden="true">New</span>
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">analytics</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Pension Analysis</span>
+                    <span class="module-card-desc">View &amp; analyse pension records</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+              </div>
+            </section>
+
+            <!-- Settings -->
+            <section class="module-category" aria-labelledby="cat-settings">
+              <header class="module-category-header">
+                <h2 class="module-category-title" id="cat-settings">Settings</h2>
+                <span class="module-category-count" aria-hidden="true">3 modules</span>
+              </header>
+              <div class="module-grid" role="list">
+                <a href="#" class="module-card" role="listitem" data-module="Configuration" data-category="Settings"
+                   aria-label="Configuration — Manage system configuration settings">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">settings</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Configuration</span>
+                    <span class="module-card-desc">Manage system configuration settings</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+                <a href="#" class="module-card" role="listitem" data-module="Users" data-category="Settings"
+                   aria-label="Users — Manage user profiles and access">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">group</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Users</span>
+                    <span class="module-card-desc">Manage user profiles and access</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+                <a href="Dashboard.html" class="module-card" role="listitem" data-module="Dashboard" data-category="Settings"
+                   aria-label="Dashboard — View admin dashboard and KPI metrics">
+                  <div class="module-card-icon"><span class="material-symbols-outlined" aria-hidden="true">dashboard</span></div>
+                  <div class="module-card-content">
+                    <span class="module-card-title">Dashboard</span>
+                    <span class="module-card-desc">View admin dashboard and KPI metrics</span>
+                  </div>
+                  <span class="module-card-arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></span>
+                </a>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- --- Side panel --- -->
+          <aside class="side-panel" aria-label="Activity and tips">
+
+            <section class="panel-card" aria-labelledby="activity-title">
+              <header class="panel-header">
+                <h2 class="panel-title" id="activity-title">Recent activity</h2>
+                <a href="#" class="panel-link">View all</a>
+              </header>
+              <ol class="activity-list">
+                <li class="activity-item">
+                  <span class="activity-icon success" aria-hidden="true"><span class="material-symbols-outlined">check_circle</span></span>
+                  <div class="activity-body">
+                    <p class="activity-text"><strong>Sarah K.</strong> approved 8 ad-hoc payments</p>
+                    <p class="activity-meta">5 min ago · Treasury</p>
+                  </div>
+                </li>
+                <li class="activity-item">
+                  <span class="activity-icon warn" aria-hidden="true"><span class="material-symbols-outlined">warning</span></span>
+                  <div class="activity-body">
+                    <p class="activity-text"><strong>IFM</strong> flagged 2 new mapping exceptions</p>
+                    <p class="activity-meta">22 min ago · Finance System</p>
+                  </div>
+                </li>
+                <li class="activity-item">
+                  <span class="activity-icon" aria-hidden="true"><span class="material-symbols-outlined">upload_file</span></span>
+                  <div class="activity-body">
+                    <p class="activity-text"><strong>You</strong> uploaded bank_statement_2026-06-23.csv</p>
+                    <p class="activity-meta">1 hr ago · Treasury</p>
+                  </div>
+                </li>
+                <li class="activity-item">
+                  <span class="activity-icon error" aria-hidden="true"><span class="material-symbols-outlined">block</span></span>
+                  <div class="activity-body">
+                    <p class="activity-text"><strong>KeyIVR</strong> payment #4421 rejected — invalid sort code</p>
+                    <p class="activity-meta">3 hrs ago · Client Funds</p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="panel-card tips-card" aria-labelledby="tips-title">
+              <span class="tips-icon" aria-hidden="true"><span class="material-symbols-outlined">bolt</span></span>
+              <h2 class="tips-title" id="tips-title">Find anything fast</h2>
+              <p class="tips-body">
+                Press <span class="tips-kbd"><span id="tip-kbd-key">Ctrl</span> K</span> to open the command palette and jump to any module, action or report.
+              </p>
+            </section>
+
+          </aside>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ----------------------------------------------------------------
+       Command Palette
+       ---------------------------------------------------------------- -->
+  <div
+    class="cmdk-backdrop"
+    id="cmdk-backdrop"
+    role="presentation"
+    data-open="false"
+  >
+    <div
+      class="cmdk"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cmdk-label"
+      id="cmdk"
+    >
+      <div class="cmdk-search">
+        <span class="material-symbols-outlined" aria-hidden="true">search</span>
+        <input
+          type="text"
+          class="cmdk-input"
+          id="cmdk-input"
+          placeholder="Type to search modules and actions…"
+          autocomplete="off"
+          aria-label="Search modules and actions"
+          aria-controls="cmdk-list"
+          aria-activedescendant=""
+        />
+        <span class="cmdk-esc" aria-hidden="true">Esc</span>
+      </div>
+      <span class="visually-hidden" id="cmdk-label">Command palette</span>
+      <div class="cmdk-list" id="cmdk-list" role="listbox" aria-label="Results"></div>
+      <div class="cmdk-footer">
+        <span class="cmdk-footer-hint"><span class="cmdk-footer-kbd">?</span><span class="cmdk-footer-kbd">?</span> Navigate</span>
+        <span class="cmdk-footer-hint"><span class="cmdk-footer-kbd">?</span> Open</span>
+        <span class="cmdk-footer-hint"><span class="cmdk-footer-kbd">Esc</span> Close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live region for theme + role announcements -->
+  <div class="visually-hidden" role="status" aria-live="polite" id="live-region"></div>
+
+  <script>
+    /* -- Greeting (time-of-day + date) --------------------------- */
+    (function () {
+      const h = new Date().getHours();
+      let period = 'Good Morning';
+      if (h >= 12 && h < 17) period = 'Good Afternoon';
+      else if (h >= 17) period = 'Good Evening';
+
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const now = new Date();
+      const dayName = days[now.getDay()];
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const yy = String(now.getFullYear()).slice(-2);
+
+      const heading = document.getElementById('greeting-heading');
+      const dateEl = document.getElementById('greeting-date');
+      if (heading) {
+        heading.firstChild.textContent = period + ', John Doe ';
+      }
+      if (dateEl) {
+        dateEl.textContent = 'Today is ' + dayName + ', ' + dd + '/' + mm + '/' + yy + '.';
+      }
+    })();
+
+    /* -- Platform-aware keyboard hint (? vs Ctrl) --------------- */
+    (function () {
+      const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
+      const key = isMac ? '?' : 'Ctrl';
+      ['search-kbd-key', 'tip-kbd-key'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = key;
+      });
+    })();
+
+    /* -- Theme toggle (light / dark) ----------------------------- */
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const icon = document.getElementById('theme-icon');
+      const live = document.getElementById('live-region');
+
+      const stored = localStorage.getItem('fiona-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initial = stored || (prefersDark ? 'dark' : 'light');
+      apply(initial, false);
+
+      btn.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        apply(next, true);
+      });
+
+      function apply(theme, announce) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('fiona-theme', theme);
+        const isDark = theme === 'dark';
+        btn.setAttribute('aria-pressed', String(isDark));
+        btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+        if (announce && live) live.textContent = isDark ? 'Dark theme enabled' : 'Light theme enabled';
+      }
+    })();
+
+    /* -- Popover helper (notifications, role menu) --------------- */
+    (function () {
+      const triggers = [
+        { btn: 'notif-btn',  pop: 'notif-popover' },
+        { btn: 'role-btn',   pop: 'role-menu' }
+      ];
+
+      function closeAll(except) {
+        triggers.forEach(({ btn, pop }) => {
+          if (pop === except) return;
+          const b = document.getElementById(btn);
+          const p = document.getElementById(pop);
+          if (p && p.dataset.open === 'true') {
+            p.dataset.open = 'false';
+            b.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      triggers.forEach(({ btn, pop }) => {
+        const b = document.getElementById(btn);
+        const p = document.getElementById(pop);
+        if (!b || !p) return;
+        b.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = p.dataset.open === 'true';
+          closeAll(pop);
+          p.dataset.open = String(!isOpen);
+          b.setAttribute('aria-expanded', String(!isOpen));
+        });
+        p.addEventListener('click', (e) => e.stopPropagation());
+      });
+
+      document.addEventListener('click', () => closeAll(null));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAll(null);
+      });
+
+      /* Role selection */
+      document.querySelectorAll('.role-menu-item').forEach(item => {
+        item.addEventListener('click', () => {
+          document.querySelectorAll('.role-menu-item').forEach(i => i.setAttribute('aria-checked', 'false'));
+          item.setAttribute('aria-checked', 'true');
+          const role = item.dataset.role;
+          const label = document.getElementById('role-label');
+          if (label) label.textContent = role;
+          const live = document.getElementById('live-region');
+          if (live) live.textContent = 'Role switched to ' + role;
+          closeAll(null);
+        });
+      });
+    })();
+
+    /* -- Command palette (Cmd/Ctrl-K) ---------------------------- */
+    (function () {
+      const backdrop = document.getElementById('cmdk-backdrop');
+      const dialog   = document.getElementById('cmdk');
+      const input    = document.getElementById('cmdk-input');
+      const list     = document.getElementById('cmdk-list');
+      const searchInput = document.getElementById('global-search');
+
+      /* Build catalogue from module cards on the page */
+      const modules = Array.from(document.querySelectorAll('.module-card[data-module]')).map(a => ({
+        type: 'Module',
+        title: a.dataset.module,
+        desc:  a.querySelector('.module-card-desc')?.textContent.trim() || '',
+        category: a.dataset.category || '',
+        icon: a.querySelector('.module-card-icon .material-symbols-outlined')?.textContent || 'apps',
+        href: a.getAttribute('href')
+      }));
+
+      const actions = [
+        { type:'Action', title:'New ad-hoc payment',   desc:'Create a payment request', category:'Treasury',    icon:'add',         href:'#' },
+        { type:'Action', title:'Upload bank statement',desc:'Import a statement file',  category:'Treasury',    icon:'upload_file', href:'#' },
+        { type:'Action', title:'Resolve exceptions',   desc:'Open IFM queue',           category:'Finance System',icon:'sync_problem',href:'IFM.html' },
+        { type:'Action', title:'Open admin dashboard', desc:'KPI overview',             category:'Settings',    icon:'dashboard',   href:'Dashboard.html' },
+        { type:'Action', title:'Toggle dark theme',    desc:'Switch light / dark',      category:'Preferences', icon:'dark_mode',   href:'#theme' }
+      ];
+
+      const items = modules.concat(actions);
+      let activeIndex = 0;
+
+      function open() {
+        backdrop.dataset.open = 'true';
+        input.value = '';
+        render('');
+        setTimeout(() => input.focus(), 0);
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        backdrop.dataset.open = 'false';
+        document.body.style.overflow = '';
+      }
+
+      function render(q) {
+        const query = q.trim().toLowerCase();
+        const filtered = !query ? items : items.filter(i =>
+          i.title.toLowerCase().includes(query) ||
+          i.desc.toLowerCase().includes(query) ||
+          i.category.toLowerCase().includes(query)
+        );
+
+        if (filtered.length === 0) {
+          list.innerHTML = '<div class="cmdk-empty">No matches for “' + escapeHtml(q) + '”</div>';
+          return;
+        }
+
+        /* Group by type */
+        const grouped = filtered.reduce((acc, it) => {
+          (acc[it.type] = acc[it.type] || []).push(it);
+          return acc;
+        }, {});
+
+        let html = '';
+        let idx = 0;
+        ['Module', 'Action'].forEach(group => {
+          if (!grouped[group]) return;
+          html += '<div class="cmdk-group-title" role="presentation">' + group + 's</div>';
+          grouped[group].forEach(it => {
+            const itemId = 'cmdk-item-' + idx;
+            html += '<button type="button" class="cmdk-item' + (idx === 0 ? ' is-active' : '') + '"' +
+                    ' id="' + itemId + '" role="option" aria-selected="' + (idx === 0) + '"' +
+                    ' data-href="' + escapeAttr(it.href) + '" data-idx="' + idx + '">' +
+                    '<span class="cmdk-item-icon" aria-hidden="true"><span class="material-symbols-outlined">' + escapeHtml(it.icon) + '</span></span>' +
+                    '<span class="cmdk-item-body">' +
+                      '<span class="cmdk-item-title">' + escapeHtml(it.title) + '</span>' +
+                      (it.desc ? '<span class="cmdk-item-desc">' + escapeHtml(it.desc) + '</span>' : '') +
+                    '</span>' +
+                    (it.category ? '<span class="cmdk-item-category">' + escapeHtml(it.category) + '</span>' : '') +
+                  '</button>';
+            idx++;
+          });
+        });
+
+        list.innerHTML = html;
+        activeIndex = 0;
+        updateActiveDescendant();
+
+        list.querySelectorAll('.cmdk-item').forEach(el => {
+          el.addEventListener('click', () => activate(el));
+          el.addEventListener('mouseenter', () => {
+            activeIndex = Number(el.dataset.idx);
+            setActive();
+          });
+        });
+      }
+
+      function setActive() {
+        const items = list.querySelectorAll('.cmdk-item');
+        items.forEach((el, i) => {
+          const on = i === activeIndex;
+          el.classList.toggle('is-active', on);
+          el.setAttribute('aria-selected', String(on));
+          if (on) el.scrollIntoView({ block: 'nearest' });
+        });
+        updateActiveDescendant();
+      }
+      function updateActiveDescendant() {
+        const active = list.querySelector('.cmdk-item.is-active');
+        input.setAttribute('aria-activedescendant', active ? active.id : '');
+      }
+      function activate(el) {
+        const href = el.getAttribute('data-href');
+        if (href === '#theme') {
+          document.getElementById('theme-toggle').click();
+          close();
+          return;
+        }
+        if (!href || href === '#') {
+          close();
+          return;
+        }
+        window.location.href = href;
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+      }
+      function escapeAttr(s) { return escapeHtml(s); }
+
+      /* Global hotkey */
+      document.addEventListener('keydown', (e) => {
+        const isMod = e.metaKey || e.ctrlKey;
+        if (isMod && (e.key === 'k' || e.key === 'K')) {
+          e.preventDefault();
+          backdrop.dataset.open === 'true' ? close() : open();
+        } else if (e.key === 'Escape' && backdrop.dataset.open === 'true') {
+          e.preventDefault();
+          close();
+        } else if (backdrop.dataset.open === 'true') {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const total = list.querySelectorAll('.cmdk-item').length;
+            if (total) { activeIndex = (activeIndex + 1) % total; setActive(); }
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const total = list.querySelectorAll('.cmdk-item').length;
+            if (total) { activeIndex = (activeIndex - 1 + total) % total; setActive(); }
+          } else if (e.key === 'Enter') {
+            const active = list.querySelector('.cmdk-item.is-active');
+            if (active) { e.preventDefault(); activate(active); }
+          }
+        }
+      });
+
+      /* Click backdrop to close */
+      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) close(); });
+
+      /* Input filtering */
+      input.addEventListener('input', (e) => render(e.target.value));
+
+      /* Top-nav search opens palette */
+      if (searchInput) {
+        searchInput.addEventListener('focus', (e) => { e.preventDefault(); searchInput.blur(); open(); });
+        searchInput.addEventListener('keydown', (e) => {
+          if (e.key.length === 1 || e.key === 'Backspace') {
+            e.preventDefault();
+            open();
+            if (e.key.length === 1) {
+              input.value = e.key;
+              render(e.key);
+            }
+          }
+        });
+      }
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

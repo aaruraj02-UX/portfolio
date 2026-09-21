@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management — Acme Recovery</title>
+
+  <!-- Material Symbols Outlined (MUI outlined icon set) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..24,300..500,0,0"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ============================================================
+       Page-scoped styles for User Management
+       All colours via CSS tokens defined in styles.css (MET-DS-V2)
+       ============================================================ -->
+  <style>
+    /* --- Page card wrapper --- */
+    .um-card {
+      /* background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card); */
+      overflow: hidden;
+    }
+
+    /* --- Card header (title + Add New User) --- */
+    .um-card__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-6);
+      background: var(--grey-100);
+      border-bottom: var(--border-divider);
+    }
+    .um-card__title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    /* --- Table --- */
+    .um-table-wrap { width: 100%; overflow-x: auto; }
+    .um-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+    }
+    .um-table thead.um-thead--label th {
+      background: var(--grey-300);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      text-align: left;
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      white-space: nowrap;
+    }
+    .um-table thead.um-thead--filter th {
+      background: var(--color-primary-950);
+      padding: var(--space-3) var(--space-5);
+    }
+    .um-filter {
+      position: relative;
+      display: block;
+    }
+    .um-filter input {
+      width: 100%;
+      height: 32px;
+      padding: 0 var(--space-4) 0 32px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: var(--font-family);
+      font-size: var(--font-size-caption);
+      color: var(--text-primary);
+    }
+    .um-filter input:focus {
+      outline: var(--border-focus);
+      outline-offset: 0;
+      border-color: var(--color-primary);
+    }
+    .um-filter .mi {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+
+    .um-table tbody td {
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      vertical-align: middle;
+      color: var(--text-primary);
+    }
+    .um-table tbody tr:hover { background: var(--color-primary-25); }
+    .um-table tbody tr:last-child td { border-bottom: 0; }
+
+    /* --- Status pill (Active) --- */
+    .um-status {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-success);
+    }
+    .um-status--inactive { color: var(--color-error); }
+
+    /* --- Row actions --- */
+    .um-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .um-action-btn {
+      background: transparent;
+      border: 0;
+      padding: 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--color-primary-500);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .um-action-btn:hover { background: var(--color-primary-25); color: var(--color-primary-700); }
+    .um-action-btn:focus-visible { outline: var(--border-focus); outline-offset: 2px; }
+    .um-action-btn .mi { font-size: 20px; }
+    .um-action-btn--edit { color: var(--text-primary); }
+
+    /* --- Footer pagination --- */
+    .um-card__foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-6);
+      background: var(--color-card);
+      border-top: var(--border-divider);
+      flex-wrap: wrap;
+    }
+    .um-pager {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-body);
+    }
+    .um-pager__btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 var(--space-4);
+      border: 1px solid var(--grey-300);
+      background: var(--color-card);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+    }
+    .um-pager__btn:hover { background: var(--grey-100); }
+    .um-pager__btn[aria-current="page"] {
+      background: var(--color-primary-950);
+      color: #FFFFFF;
+      border-color: var(--color-primary-950);
+    }
+    .um-pager__btn--link {
+      border: 0;
+      background: transparent;
+      color: var(--text-primary);
+    }
+    .um-pager__btn--link:hover { background: transparent; color: var(--color-primary); text-decoration: underline; }
+    .um-entries {
+      color: var(--text-secondary);
+      font-size: var(--font-size-body);
+    }
+
+    /* --- Live Chat floating widget (teal pill) --- */
+    .um-livechat {
+      --lc-teal: #3CB3C5;
+      --lc-teal-dark: #2A8B9A;
+      --lc-track: #0E2A3A;
+      position: fixed;
+      right: var(--space-7);
+      bottom: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: 6px 12px 6px 6px;
+      background: var(--lc-teal);
+      color: #FFFFFF;
+      border-radius: 5px 5px 0 0;
+      box-shadow: var(--shadow-popover);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-body);
+      z-index: 50;
+    }
+    .um-livechat__logo {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      flex: 0 0 auto;
+      overflow: hidden;
+    }
+    .um-livechat__logo img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .um-livechat__label {
+      color: #FFFFFF;
+      white-space: nowrap;
+    }
+    /* Toggle switch with red knob on dark track */
+    .um-livechat__toggle {
+      position: relative;
+      width: 44px; height: 22px;
+      display: inline-block;
+      flex: 0 0 auto;
+    }
+    .um-livechat__toggle input {
+      position: absolute; opacity: 0; width: 0; height: 0;
+    }
+    .um-livechat__track {
+      position: absolute; inset: 0;
+      background: var(--lc-track);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .um-livechat__track::before {
+      content: "";
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--color-error);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+      transition: transform var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+    }
+    .um-livechat__toggle input:checked + .um-livechat__track::before {
+      transform: translateX(22px);
+      background: var(--color-error);
+    }
+    .um-livechat__toggle input:focus-visible + .um-livechat__track {
+      outline: var(--border-focus); outline-offset: 2px;
+    }
+    .um-livechat__sync {
+      background: transparent; border: 0; color: #FFFFFF; cursor: pointer;
+      width: 28px; height: 28px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+    }
+    .um-livechat__sync:hover { background: var(--lc-teal-dark); }
+    .um-livechat__sync:focus-visible { outline: var(--border-focus); outline-offset: 2px; }
+    .um-livechat__sync .mi { font-size: 20px; color: #FFFFFF; }
+
+    /* --- Add New User button (smaller variant in card head) --- */
+    .um-card__head .btn--primary {
+      padding: 6px 14px;
+      font-size: var(--font-size-body);
+    }
+
+    /* ============================================================
+       Right-side Drawer — Add / Edit / View User
+       ============================================================ */
+    .um-scrim {
+      position: fixed; inset: 0;
+      background: rgba(33, 33, 33, 0.32);
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--duration-standard) var(--easing-enter);
+      z-index: 90;
+    }
+    .um-scrim[data-open="true"] { opacity: 1; pointer-events: auto; }
+
+    .um-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 480px; max-width: 100vw;
+      background: var(--color-card);
+      box-shadow: -4px 0 16px rgba(0, 0, 0, 0.10);
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+      z-index: 100;
+      display: flex; flex-direction: column;
+    }
+    .um-drawer[data-open="true"] { transform: translateX(0); }
+    .um-drawer__head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-6) var(--space-7);
+      border-bottom: var(--border-divider);
+    }
+    .um-drawer__title {
+      margin: 0;
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .um-drawer__close {
+      background: transparent; border: 0; padding: 4px;
+      cursor: pointer; color: var(--text-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 4px;
+    }
+    .um-drawer__close:hover { background: var(--grey-100); }
+    .um-drawer__close:focus-visible { outline: var(--border-focus); outline-offset: 2px; }
+    .um-drawer__close .mi { font-size: 22px; }
+
+    .um-drawer__body {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: var(--space-6) var(--space-7);
+    }
+    .um-drawer__foot {
+      display: flex; justify-content: flex-end; gap: var(--space-4);
+      padding: var(--space-5) var(--space-7);
+      border-top: var(--border-divider);
+      background: var(--color-card);
+    }
+    .um-drawer__foot .btn { padding: 8px 18px; font-size: var(--font-size-body); }
+
+    /* --- Tabs (View mode) --- */
+    .um-tabs {
+      display: flex; gap: var(--space-7);
+      border-bottom: var(--border-divider);
+      margin-bottom: var(--space-6);
+    }
+    .um-tab {
+      background: transparent; border: 0; padding: var(--space-3) 0;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .um-tab[aria-selected="true"] {
+      color: var(--text-primary);
+      border-bottom-color: var(--text-primary);
+    }
+    .um-tab:focus-visible { outline: var(--border-focus); outline-offset: 2px; }
+
+    /* --- Form fields --- */
+    .um-field { margin-bottom: var(--space-6); }
+    .um-field__label {
+      display: block;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+    }
+    .um-field__label .req { color: var(--color-error); margin-left: 2px; }
+    .um-input,
+    .um-select {
+      width: 100%;
+      height: 40px;
+      padding: 0 var(--space-4);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+    }
+    .um-select {
+      appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                        linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+      background-position: calc(100% - 18px) 18px, calc(100% - 13px) 18px;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      padding-right: 32px;
+    }
+    .um-input:focus,
+    .um-select:focus {
+      outline: var(--border-focus); outline-offset: 0;
+      border-color: var(--color-primary);
+    }
+    .um-input[readonly] { background: var(--grey-50); }
+
+    /* Email + verified tick row */
+    .um-field--inline {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-4);
+      align-items: end;
+    }
+    .um-verified {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--color-success);
+      color: #FFFFFF;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 4px;
+    }
+    .um-verified .mi { font-size: 20px; color: #FFFFFF; }
+
+    /* Status toggle row */
+    .um-status-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-5);
+    }
+    .um-status-row .um-status-label {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+    }
+    .um-status-row .um-toggle-wrap {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+    }
+    .um-toggle-text {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+    /* Toggle switch */
+    .um-switch {
+      position: relative;
+      width: 36px; height: 20px;
+      display: inline-block;
+    }
+    .um-switch input {
+      opacity: 0; width: 0; height: 0;
+      position: absolute;
+    }
+    .um-switch__slider {
+      position: absolute; inset: 0;
+      background: var(--grey-400);
+      border-radius: 100px;
+      transition: background var(--duration-micro) var(--easing-enter);
+      cursor: pointer;
+    }
+    .um-switch__slider::before {
+      content: ""; position: absolute;
+      width: 16px; height: 16px;
+      left: 2px; top: 2px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      transition: transform var(--duration-micro) var(--easing-enter);
+    }
+    .um-switch input:checked + .um-switch__slider { background: var(--color-primary-500); }
+    .um-switch input:checked + .um-switch__slider::before { transform: translateX(16px); }
+    .um-switch input:focus-visible + .um-switch__slider { outline: var(--border-focus); outline-offset: 2px; }
+
+    /* --- View mode: read-only key/value rows --- */
+    .um-kv {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: var(--space-5) var(--space-7);
+      align-items: center;
+    }
+    .um-kv dt {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      padding: var(--space-4) 0;
+    }
+    .um-kv dt .req { color: var(--color-error); margin-left: 2px; }
+    .um-kv dd {
+      margin: 0;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      padding: var(--space-4) 0;
+      border-bottom: var(--border-divider);
+    }
+    .um-kv dt { border-bottom: var(--border-divider); }
+    .um-kv dt:last-of-type, .um-kv dd:last-of-type { border-bottom: 0; }
+
+    /* Hide helpers driven by JS */
+    [hidden] { display: none !important; }
+
+    @media (max-width: 560px) {
+      .um-drawer { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ APP SHELL ============ -->
+  <div class="app">
+
+    <!-- ============ TOP HEADER ============ -->
+    <header class="topbar" role="banner">
+      <div class="topbar__left">
+        <button class="icon-btn" aria-label="Toggle navigation menu" aria-expanded="true" aria-controls="sidebar">
+          <span class="mi" aria-hidden="true">menu</span>
+        </button>
+        <a class="brand" href="#" aria-label="Acme Recovery — Home">
+          <img class="brand__logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 32'%3E%3Crect width='132' height='32' rx='4' fill='%231e3a5f'/%3E%3Cpath d='M8 24V8l8 8-8 8z' fill='%2360a5fa'/%3E%3Ctext x='22' y='21' font-family='system-ui,sans-serif' font-size='12' font-weight='600' fill='white'%3EAcme Recovery%3C/text%3E%3C/svg%3E" alt="Acme Recovery" width="132" height="32" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 32'%3E%3Crect width='132' height='32' rx='4' fill='%231e3a5f'/%3E%3Cpath d='M8 24V8l8 8-8 8z' fill='%2360a5fa'/%3E%3Ctext x='22' y='21' font-family='system-ui,sans-serif' font-size='12' font-weight='600' fill='white'%3EAcme Recovery%3C/text%3E%3C/svg%3E';" />
+        </a>
+      </div>
+
+      <div class="topbar__right">
+        <button type="button" class="btn btn--pill btn--outline">Generate click to pay</button>
+        <span class="topbar__divider" aria-hidden="true"></span>
+        <button class="icon-btn" aria-label="Notifications">
+          <span class="mi" aria-hidden="true">notifications</span>
+        </button>
+        <button class="avatar" aria-label="User menu — Acme Person">MP</button>
+      </div>
+    </header>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside id="sidebar" class="sidebar" aria-label="Primary">
+      <nav>
+        <ul class="nav">
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">phone_callback</span> Callback Request</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">call</span> Call Log</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">request_quote</span> Income Expenditure</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">fact_check</span> Income Expenditure Review</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">payments</span> Payment Plan</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">receipt_long</span> Payment Plan Review</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">settings</span> Settings</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">task_alt</span> Approved Payment Plan</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">dashboard</span> LandingPage Dashboard</a></li>
+          <li><a href="LandingPage.html"><span class="mi nav__icon" aria-hidden="true">explore</span> Landing Page</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">download</span> Call Status Report</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">person</span> Customer Profile</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">upload</span> File Upload</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">report</span> QuickBlox Exception</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">swap_horiz</span> Logs</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">history</span> Chat History</a></li>
+          <li><a href="#" class="nav__item--active" aria-current="page"><span class="mi nav__icon" aria-hidden="true">group</span> User Management</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main id="main" class="main" role="main">
+      <section class="um-card" aria-labelledby="umTitle">
+
+        <!-- --- Card header --- -->
+        <header class="um-card__head">
+          <h1 id="umTitle" class="um-card__title">User Management</h1>
+          <button type="button" class="btn btn--primary" data-um-open="add">Add New User</button>
+        </header>
+
+        <!-- --- Table --- -->
+        <div class="um-table-wrap">
+          <table class="um-table" aria-describedby="umTitle">
+            <thead class="um-thead--label">
+              <tr>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Role</th>
+                <th scope="col">Team</th>
+                <th scope="col">Status</th>
+                <th scope="col" style="text-align:right;">Action</th>
+              </tr>
+            </thead>
+            <thead class="um-thead--filter">
+              <tr>
+                <th scope="col">
+                  <label class="um-filter">
+                    <span class="mi" aria-hidden="true">filter_list</span>
+                    <input type="search" aria-label="Filter by full name" />
+                  </label>
+                </th>
+                <th scope="col">
+                  <label class="um-filter">
+                    <span class="mi" aria-hidden="true">filter_list</span>
+                    <input type="search" aria-label="Filter by email address" />
+                  </label>
+                </th>
+                <th scope="col">
+                  <label class="um-filter">
+                    <span class="mi" aria-hidden="true">filter_list</span>
+                    <input type="search" aria-label="Filter by role" />
+                  </label>
+                </th>
+                <th scope="col">
+                  <label class="um-filter">
+                    <span class="mi" aria-hidden="true">filter_list</span>
+                    <input type="search" aria-label="Filter by team" />
+                  </label>
+                </th>
+                <th scope="col">
+                  <label class="um-filter">
+                    <span class="mi" aria-hidden="true">filter_list</span>
+                    <input type="search" aria-label="Filter by status" />
+                  </label>
+                </th>
+                <th scope="col" aria-hidden="true"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Admin</td>
+                <td>dilipkumar@logicvalley.in</td>
+                <td>System Admin</td>
+                <td>Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Admin"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Admin"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Heaven Brian</td>
+                <td>brian.heaven@acmeholdings.co.uk</td>
+                <td>HeavenBrian</td>
+                <td>Contact Centre, Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Heaven Brian"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Heaven Brian"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Praveen M</td>
+                <td>praveen.m@logicvalley.in</td>
+                <td>System Admin</td>
+                <td>Contact Centre, Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Praveen M"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Praveen M"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Umamaheswari B</td>
+                <td>umamaheswari.b@logicvalley.in</td>
+                <td>System Admin</td>
+                <td>Contact Centre, Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Umamaheswari B"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Umamaheswari B"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Admin</td>
+                <td>appuserAdmin1@logicvalley.in</td>
+                <td>Admin</td>
+                <td>Contact Centre, Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Admin"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Admin"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Contact Centre Agent</td>
+                <td>appuserAgent1@logicvalley.in</td>
+                <td>Admin</td>
+                <td>Contact Centre</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Contact Centre Agent"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Contact Centre Agent"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Welfare Agent</td>
+                <td>appuserAgent2@logicvalley.in</td>
+                <td>Officers</td>
+                <td>Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Welfare Agent"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Welfare Agent"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Agent Head</td>
+                <td>appuserAdmin2@logicvalley.in</td>
+                <td>Officers</td>
+                <td>Contact Centre, Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Agent Head"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Agent Head"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Manoj Prabhakar</td>
+                <td>manoj.prabhakar@logicvalley.in</td>
+                <td>System Admin</td>
+                <td>Contact Centre, Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Manoj Prabhakar"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Manoj Prabhakar"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Daly Whyte</td>
+                <td>daly.whyte@acmeholdings.co.uk</td>
+                <td>Admin</td>
+                <td>Contact Centre, Welfare</td>
+                <td><span class="um-status">Active</span></td>
+                <td>
+                  <div class="um-actions" style="justify-content:flex-end;">
+                    <button class="um-action-btn" aria-label="View user Daly Whyte"><span class="mi" aria-hidden="true">visibility</span></button>
+                    <button class="um-action-btn um-action-btn--edit" aria-label="Edit user Daly Whyte"><span class="mi" aria-hidden="true">edit</span></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- --- Footer / Pagination --- -->
+        <footer class="um-card__foot">
+          <nav class="um-pager" aria-label="Table pagination">
+            <button class="um-pager__btn um-pager__btn--link" type="button">Previous</button>
+            <button class="um-pager__btn" type="button" aria-current="page">1</button>
+            <button class="um-pager__btn" type="button">2</button>
+            <button class="um-pager__btn" type="button">3</button>
+            <button class="um-pager__btn um-pager__btn--link" type="button">Next</button>
+          </nav>
+          <p class="um-entries" aria-live="polite">Showing 1 to 10 of 24 entries</p>
+        </footer>
+
+      </section>
+    </main>
+
+    <!-- ============ LIVE CHAT WIDGET ============ -->
+    <div class="um-livechat" role="group" aria-label="Live chat">
+      <span class="um-livechat__logo" aria-hidden="true">
+        <img src="image/Live-Chat-logo.svg" alt="" width="36" height="36" />
+      </span>
+      <span class="um-livechat__label">Live Chat</span>
+      <label class="um-livechat__toggle">
+        <input type="checkbox" aria-label="Live chat availability" checked />
+        <span class="um-livechat__track" aria-hidden="true"></span>
+      </label>
+      <button class="um-livechat__sync" type="button" aria-label="Refresh live chat">
+        <span class="mi" aria-hidden="true">sync</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       Drawer — Add / Edit (Update) / View User
+       Single drawer reused; mode driven by data-mode on .um-drawer
+       ============================================================ -->
+  <div class="um-scrim" data-um-scrim hidden></div>
+
+  <aside class="um-drawer" data-um-drawer role="dialog" aria-modal="true"
+         aria-labelledby="umDrawerTitle" aria-hidden="true" hidden>
+
+    <header class="um-drawer__head">
+      <h2 id="umDrawerTitle" class="um-drawer__title" data-um-title>Add New User</h2>
+      <button class="um-drawer__close" type="button" aria-label="Close" data-um-close>
+        <span class="mi" aria-hidden="true">close</span>
+      </button>
+    </header>
+
+    <div class="um-drawer__body">
+
+      <!-- --- View-mode tabs (visible only in view) --- -->
+      <div class="um-tabs" data-um-tabs role="tablist" hidden>
+        <button type="button" class="um-tab" role="tab" id="umTabDetails"
+                aria-selected="true" aria-controls="umPanelDetails" data-um-tab="details">Details</button>
+        <button type="button" class="um-tab" role="tab" id="umTabAudit"
+                aria-selected="false" aria-controls="umPanelAudit" data-um-tab="audit">Audit Log</button>
+      </div>
+
+      <!-- --- Form (Add / Edit) --- -->
+      <form class="um-form" data-um-form novalidate>
+        <div class="um-field um-field--inline">
+          <div>
+            <label class="um-field__label" for="umEmail">Email address</label>
+            <input class="um-input" id="umEmail" name="email" type="email"
+                   autocomplete="email" data-um-field="email" />
+          </div>
+          <div class="um-verified" data-um-verified aria-label="Email verified" title="Verified" hidden>
+            <span class="mi" aria-hidden="true">check</span>
+          </div>
+        </div>
+
+        <div class="um-field">
+          <label class="um-field__label" for="umName">Full Name <span class="req" aria-hidden="true">*</span></label>
+          <input class="um-input" id="umName" name="fullName" type="text"
+                 autocomplete="name" required data-um-field="name" />
+        </div>
+
+        <div class="um-field">
+          <label class="um-field__label" for="umRole">Select Role <span class="req" aria-hidden="true">*</span></label>
+          <select class="um-select" id="umRole" name="role" required data-um-field="role">
+            <option value="" disabled selected>Select a role</option>
+            <option>System Admin</option>
+            <option>Admin</option>
+            <option>Officers</option>
+            <option>HeavenBrian</option>
+          </select>
+        </div>
+
+        <div class="um-field">
+          <label class="um-field__label" for="umTeam">Select Team <span class="req" aria-hidden="true">*</span></label>
+          <select class="um-select" id="umTeam" name="team" required data-um-field="team">
+            <option value="" disabled selected>Select a team</option>
+            <option>Welfare</option>
+            <option>Contact Centre</option>
+            <option>Contact Centre, Welfare</option>
+          </select>
+        </div>
+
+        <div class="um-field um-status-row">
+          <span class="um-status-label" id="umStatusLabel">Status</span>
+          <span class="um-toggle-wrap">
+            <span class="um-toggle-text" data-um-toggle-text>Active</span>
+            <label class="um-switch">
+              <input type="checkbox" data-um-field="status" aria-labelledby="umStatusLabel" checked />
+              <span class="um-switch__slider" aria-hidden="true"></span>
+            </label>
+          </span>
+        </div>
+      </form>
+
+      <!-- --- Read-only details panel (View mode) --- -->
+      <section id="umPanelDetails" role="tabpanel" aria-labelledby="umTabDetails"
+               data-um-panel="details" hidden>
+        <dl class="um-kv">
+          <dt>Email address</dt>
+          <dd data-um-view="email">—</dd>
+
+          <dt>Full Name <span class="req" aria-hidden="true">*</span></dt>
+          <dd data-um-view="name">—</dd>
+
+          <dt>Role <span class="req" aria-hidden="true">*</span></dt>
+          <dd data-um-view="role">—</dd>
+
+          <dt>Team</dt>
+          <dd data-um-view="team">—</dd>
+
+          <dt>Status</dt>
+          <dd data-um-view="status">—</dd>
+        </dl>
+      </section>
+
+      <section id="umPanelAudit" role="tabpanel" aria-labelledby="umTabAudit"
+               data-um-panel="audit" hidden>
+        <p style="color: var(--text-secondary); font-size: var(--font-size-body);">
+          No audit entries available for this user yet.
+        </p>
+      </section>
+    </div>
+
+    <footer class="um-drawer__foot" data-um-foot>
+      <button type="button" class="btn btn--outline" data-um-close>Cancel</button>
+      <button type="button" class="btn btn--primary" data-um-submit>
+        <span data-um-submit-label>Save</span>
+      </button>
+    </footer>
+  </aside>
+
+  <script>
+    (function () {
+      const drawer  = document.querySelector('[data-um-drawer]');
+      const scrim   = document.querySelector('[data-um-scrim]');
+      const titleEl = drawer.querySelector('[data-um-title]');
+      const form    = drawer.querySelector('[data-um-form]');
+      const tabsEl  = drawer.querySelector('[data-um-tabs]');
+      const foot    = drawer.querySelector('[data-um-foot]');
+      const submit  = drawer.querySelector('[data-um-submit]');
+      const submitL = drawer.querySelector('[data-um-submit-label]');
+      const verified= drawer.querySelector('[data-um-verified]');
+      const toggleI = drawer.querySelector('[data-um-field="status"]');
+      const toggleT = drawer.querySelector('[data-um-toggle-text]');
+      const panels  = drawer.querySelectorAll('[data-um-panel]');
+      const tabs    = drawer.querySelectorAll('[data-um-tab]');
+
+      let lastTrigger = null;
+
+      // Toggle label sync
+      toggleI.addEventListener('change', () => {
+        toggleT.textContent = toggleI.checked ? 'Active' : 'Inactive';
+      });
+
+      // Tab switching (view mode)
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.setAttribute('aria-selected', t === tab ? 'true' : 'false'));
+          const key = tab.getAttribute('data-um-tab');
+          panels.forEach(p => {
+            p.hidden = p.getAttribute('data-um-panel') !== key;
+          });
+        });
+      });
+
+      function readRow(tr) {
+        const c = tr.querySelectorAll('td');
+        return {
+          name:   c[0].textContent.trim(),
+          email:  c[1].textContent.trim(),
+          role:   c[2].textContent.trim(),
+          team:   c[3].textContent.trim(),
+          status: c[4].textContent.trim() || 'Active'
+        };
+      }
+
+      function setFormData(d) {
+        form.querySelector('[data-um-field="email"]').value = d.email || '';
+        form.querySelector('[data-um-field="name"]').value  = d.name  || '';
+        const roleSel = form.querySelector('[data-um-field="role"]');
+        const teamSel = form.querySelector('[data-um-field="team"]');
+        if (d.role && !Array.from(roleSel.options).some(o => o.value === d.role || o.text === d.role)) {
+          const opt = new Option(d.role, d.role, true, true); roleSel.add(opt);
+        }
+        roleSel.value = d.role || '';
+        if (d.team && !Array.from(teamSel.options).some(o => o.value === d.team || o.text === d.team)) {
+          const opt = new Option(d.team, d.team, true, true); teamSel.add(opt);
+        }
+        teamSel.value = d.team || '';
+        const active = /active/i.test(d.status || '');
+        toggleI.checked = active;
+        toggleT.textContent = active ? 'Active' : 'Inactive';
+      }
+
+      function setViewData(d) {
+        drawer.querySelector('[data-um-view="email"]').textContent  = d.email  || '—';
+        drawer.querySelector('[data-um-view="name"]').textContent   = d.name   || '—';
+        drawer.querySelector('[data-um-view="role"]').textContent   = d.role   || '—';
+        drawer.querySelector('[data-um-view="team"]').textContent   = d.team   || '—';
+        drawer.querySelector('[data-um-view="status"]').textContent = d.status || '—';
+      }
+
+      function applyMode(mode, data) {
+        drawer.setAttribute('data-mode', mode);
+        const isView = mode === 'view';
+        const isAdd  = mode === 'add';
+
+        // Title + submit label
+        if (isAdd) {
+          titleEl.textContent = 'Add New User';
+          submitL.textContent = 'Save';
+        } else if (mode === 'edit') {
+          titleEl.textContent = 'Update User';
+          submitL.textContent = 'Update';
+        } else {
+          titleEl.textContent = (data && data.name) ? data.name : 'User Details';
+        }
+
+        // Show/hide regions
+        tabsEl.hidden = !isView;
+        form.hidden   = isView;
+        foot.hidden   = isView;
+        panels.forEach(p => {
+          p.hidden = !isView || p.getAttribute('data-um-panel') !== 'details';
+        });
+        // Reset tab selection to Details in view
+        if (isView) {
+          tabs.forEach(t => t.setAttribute('aria-selected',
+            t.getAttribute('data-um-tab') === 'details' ? 'true' : 'false'));
+        }
+
+        // Email field state + verified tick
+        const emailIn = form.querySelector('[data-um-field="email"]');
+        if (mode === 'edit') {
+          emailIn.setAttribute('readonly', '');
+          verified.hidden = false;
+        } else {
+          emailIn.removeAttribute('readonly');
+          verified.hidden = true;
+        }
+
+        // Populate
+        if (isAdd) {
+          form.reset();
+          toggleI.checked = true;
+          toggleT.textContent = 'Active';
+        } else if (data) {
+          setFormData(data);
+          setViewData(data);
+        }
+      }
+
+      function openDrawer(mode, data, trigger) {
+        lastTrigger = trigger || document.activeElement;
+        applyMode(mode, data);
+        drawer.hidden = false;
+        scrim.hidden  = false;
+        // next frame for transition
+        requestAnimationFrame(() => {
+          drawer.setAttribute('data-open', 'true');
+          drawer.setAttribute('aria-hidden', 'false');
+          scrim.setAttribute('data-open', 'true');
+        });
+        // Focus first interactive
+        setTimeout(() => {
+          const focusable = drawer.querySelector(
+            'input:not([readonly]):not([type="hidden"]), select, button:not([data-um-close])'
+          ) || drawer.querySelector('[data-um-close]');
+          if (focusable) focusable.focus();
+        }, 60);
+      }
+
+      function closeDrawer() {
+        drawer.setAttribute('data-open', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+        scrim.setAttribute('data-open', 'false');
+        setTimeout(() => {
+          drawer.hidden = true;
+          scrim.hidden  = true;
+        }, 250);
+        if (lastTrigger && typeof lastTrigger.focus === 'function') {
+          lastTrigger.focus();
+        }
+      }
+
+      // Open: Add
+      document.querySelectorAll('[data-um-open="add"]').forEach(btn => {
+        btn.addEventListener('click', () => openDrawer('add', null, btn));
+      });
+
+      // Open: row View / Edit (delegated)
+      document.querySelector('.um-table tbody').addEventListener('click', (e) => {
+        const btn = e.target.closest('.um-action-btn');
+        if (!btn) return;
+        const tr   = btn.closest('tr');
+        const data = readRow(tr);
+        const isEdit = btn.classList.contains('um-action-btn--edit');
+        openDrawer(isEdit ? 'edit' : 'view', data, btn);
+      });
+
+      // Close handlers
+      drawer.querySelectorAll('[data-um-close]').forEach(b =>
+        b.addEventListener('click', closeDrawer)
+      );
+      scrim.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') closeDrawer();
+      });
+
+      // Demo submit: just close (no backend in prototype)
+      submit.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        closeDrawer();
+      });
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

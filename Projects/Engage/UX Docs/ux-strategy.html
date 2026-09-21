@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Strategy — FieldSync Task Module</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FieldSync</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html" class="active">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/index.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Strategy — FieldSync Task & SLA Workflow</h1>
+      <div class="doc-meta"><span>📋 FieldSync Field App</span><span>🏢 LogicValley / Acme</span><span>📅 March 2026</span><span>🔖 v1.0</span></div>
+    </header>
+
+    <section class="doc-section">
+      <h2>1. Vision</h2>
+      <blockquote style="border-left:4px solid var(--accent);padding:.75rem 1.25rem;background:var(--accent-light);border-radius:0 8px 8px 0;font-style:italic;font-size:1.05rem;">
+        "Every field agent knows exactly what to do next, every manager knows exactly where SLA risk is, and every action taken is traceable — without friction getting in the way."
+      </blockquote>
+      <table class="doc-table" style="margin-top:1rem">
+        <thead><tr><th>Dimension</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Clarity</strong></td><td>Agents always know their next priority task. Status, SLA, and required actions are instantly readable.</td></tr>
+          <tr><td><strong>Control</strong></td><td>Managers have real-time, actionable SLA visibility with zero reliance on manual refresh.</td></tr>
+          <tr><td><strong>Confidence</strong></td><td>Every lifecycle action is guided, confirmed, and auditable.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="doc-section">
+      <h2>2. UX Principles</h2>
+      <div class="principle-grid">
+        <div class="principle-card"><h4>P1 · Clarity Over Completeness</h4><p>Show users only what they need to act. Surface highest-urgency first. Time-to-identify &lt; 8 seconds.</p></div>
+        <div class="principle-card"><h4>P2 · Reliability Without Noise</h4><p>Data always current. Alerts are meaningful. Auto-refresh every 60s. SLA alert false-positive = 0%.</p></div>
+        <div class="principle-card"><h4>P3 · Guided Actions</h4><p>Every action described, previewed, and confirmed. Users never surprised by consequences.</p></div>
+        <div class="principle-card"><h4>P4 · Role-Based Simplicity</h4><p>Each role sees only relevant controls. Admin power doesn't pollute Agent simplicity.</p></div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>3. Strategic Objectives & KPIs</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th><th>KPI</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>SO1</td><td>Reduce time to identify priority task</td><td>Time-to-identify-highest-priority</td><td>&lt; 8 seconds</td></tr>
+          <tr><td>SO2</td><td>Reduce SLA breaches</td><td>Tasks breaching SLA after module launch</td><td>&lt; 5% (from ~25%)</td></tr>
+          <tr><td>SO3</td><td>Eliminate action ambiguity</td><td>Comment submission failure rate</td><td>&lt; 5% in first 30 days</td></tr>
+          <tr><td>SO4</td><td>Cross-role simplicity</td><td>Navigation errors in usability testing</td><td>&lt; 2%</td></tr>
+          <tr><td>SO5</td><td>WCAG 2.2 AA compliance</td><td>Critical accessibility violations</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="doc-section">
+      <h2>4. Expected Impact</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">80%</div><div class="kpi-label">SLA Breach Reduction</div></div>
+        <div class="kpi-card"><div class="kpi-value">&lt;8s</div><div class="kpi-label">Task Identification</div></div>
+        <div class="kpi-card"><div class="kpi-value">100%</div><div class="kpi-label">Audit Trail Coverage</div></div>
+        <div class="kpi-card"><div class="kpi-value">0</div><div class="kpi-label">WCAG AA Violations</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

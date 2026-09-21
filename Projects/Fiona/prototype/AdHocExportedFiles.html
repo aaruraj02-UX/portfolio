@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Ad-hoc Payments · Exported Files</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* ----------------------------------------------------------------
+       MET-DS-V2 — Token Block (Light)
+       ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-75:  #C2D7F2;
+      --color-primary-100: #A2C1EA;
+      --color-primary-200: #84ADE4;
+      --color-primary-300: #6599DE;
+      --color-primary-400: #4B87D6;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-800: #22497D;
+      --color-primary-900: #1C3A62;
+
+      --color-primary:        var(--color-primary-500);
+      --color-primary-hover:  var(--color-primary-600);
+      --color-bg:             var(--color-primary-25);
+      --color-card:           #FFFFFF;
+
+      --text-primary:   #212121;
+      --text-secondary: #757575;
+      --text-tertiary:  #9E9E9E;
+      --text-hyperlink: #3276CF;
+      --text-hyperlink-hover: #2C66B4;
+
+      --grey-50:  #FAFAFA; --grey-100: #F5F5F5; --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0; --grey-400: #BDBDBD; --grey-500: #9E9E9E;
+      --grey-600: #757575; --grey-700: #616161; --grey-800: #424242; --grey-900: #212121;
+
+      --color-success: #43A047; --color-success-dark: #388E3C; --color-success-bg: #E8F5E9;
+      --color-error:   #E53935; --color-error-dark:   #D32F2F; --color-error-bg:   #FEEBEE;
+      --color-warning: #EF6C00; --color-warning-dark: #F57C00; --color-warning-bg: #FFF3E0;
+      --color-info:    #1976D2; --color-info-bg:     #E3F2FD;
+      --color-teal:    #00A99D; --color-teal-bg:     #E0F5F3;
+
+      --topnav-icon:       #757575;
+      --topnav-icon-hover: #616161;
+
+      --radius-card:    16px;
+      --radius-button:  8px;
+      --radius-input:   8px;
+      --radius-pill:    100px;
+
+      --space-1: 2px;  --space-2: 4px;  --space-3: 8px;  --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-caption: 12px;
+      --font-weight-regular: 400; --font-weight-medium: 500;
+      --font-weight-semibold: 600; --font-weight-bold: 700;
+
+      --duration-micro: 150ms; --duration-standard: 250ms; --easing-enter: ease-out;
+
+      --shadow-card:  0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.18);
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); background: var(--color-bg); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .skip-link { position: absolute; top: -100px; left: var(--space-5); background: var(--color-primary); color: #FFFFFF; padding: var(--space-3) var(--space-5); border-radius: var(--radius-button); font-weight: var(--font-weight-medium); z-index: 1000; transition: top var(--duration-micro) var(--easing-enter); }
+    .skip-link:focus { top: var(--space-3); color: #FFFFFF; }
+
+    /* Shell */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .topnav { display: flex; align-items: center; padding: var(--space-3); gap: var(--space-3); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; min-width: 0; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .topnav-logo { height: 28px; width: auto; }
+    .topnav-tagline { display: none; font-size: var(--font-size-caption); color: var(--text-secondary); letter-spacing: 0.15px; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn { position: relative; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--topnav-icon); padding: var(--space-3); transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge { position: absolute; top: 0; right: 0; min-width: 20px; height: 20px; background: var(--color-warning); color: #FFFFFF; font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; padding: 0 6.5px; line-height: 1; }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+    @media (min-width: 1280px) { .topnav-tagline { display: block; } }
+
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    .sidebar { width: 56px; flex-shrink: 0; background: var(--color-card); border-right: 1px solid var(--divider-color); display: flex; flex-direction: column; padding: var(--space-5) 0; overflow-x: hidden; overflow-y: hidden; transition: width var(--duration-standard) var(--easing-enter); z-index: 10; }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius-button); color: var(--text-secondary); flex-shrink: 0; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading { font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5); white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3); color: var(--text-secondary); text-decoration: none; white-space: nowrap; min-height: 40px; margin: 0 var(--space-3); border-radius: 8px; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-5); }
+
+    .breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .breadcrumb a { color: var(--text-hyperlink); font-weight: var(--font-weight-medium); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); font-size: 16px; line-height: 1; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+    .page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .page-subtitle { font-size: var(--font-size-body); color: var(--text-secondary); }
+    .page-header-actions { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+
+    .btn { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-5); border-radius: var(--radius-button); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); min-height: 40px; white-space: nowrap; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); border: 1.5px solid transparent; }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border-color: var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); padding: var(--space-2) var(--space-3); min-height: 32px; gap: var(--space-2); }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+    .btn-text-primary .material-symbols-outlined { font-size: 18px; }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+    /* ----- Container ----- */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card); }
+
+    /* ----- Status Tabs ----- */
+    .status-tabs { display: flex; align-items: center; gap: 0; padding: var(--space-3) var(--space-5) 0; border-bottom: 1px solid var(--grey-200); }
+    .status-tab { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-5); font-size: var(--font-size-body); font-weight: var(--font-weight-medium); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); position: relative; }
+    .status-tab:hover { color: var(--color-primary); }
+    .status-tab.is-active { color: var(--text-primary); border-bottom-color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+    .status-tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 var(--space-3); border-radius: var(--radius-pill); font-size: 11px; font-weight: var(--font-weight-bold); letter-spacing: 0; color: #FFFFFF; line-height: 1; }
+    .status-tab-count.tone-pending   { background: var(--color-teal); }
+    .status-tab-count.tone-completed { background: var(--color-success); }
+    .status-tab-count.tone-failed    { background: var(--color-error); }
+
+    /* ----- Toolbar (search + right actions) ----- */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding: var(--space-5); flex-wrap: wrap; }
+    .toolbar-left, .toolbar-right { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .search-box { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-input); background: var(--color-card); min-width: 320px; }
+    .search-box:focus-within { box-shadow: 0 0 0 2px var(--color-primary-50); }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .search-box input::placeholder { color: var(--grey-400); }
+
+    /* Bulk selection controls (hidden until a row is checked) */
+    .bulk-actions { display: none; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .toolbar.is-bulk .default-actions { display: none; }
+    .toolbar.is-bulk .bulk-actions { display: inline-flex; }
+    .selected-count { font-size: var(--font-size-body); color: var(--text-secondary); }
+    .selected-count strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+    .btn-outline-primary { background: #FFFFFF; color: var(--color-primary); border: 1.5px solid var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); padding: var(--space-2) var(--space-4); min-height: 36px; border-radius: var(--radius-button); display: inline-flex; align-items: center; gap: var(--space-2); transition: background var(--duration-micro) var(--easing-enter); }
+    .btn-outline-primary:hover { background: var(--color-primary-25); }
+    .btn-outline-danger { background: #FFFFFF; color: var(--color-error); border: 1.5px solid var(--color-error); text-transform: uppercase; letter-spacing: 0.5px; font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); padding: var(--space-2) var(--space-4); min-height: 36px; border-radius: var(--radius-button); display: inline-flex; align-items: center; gap: var(--space-2); transition: background var(--duration-micro) var(--easing-enter); }
+    .btn-outline-danger:hover { background: var(--color-error-bg); }
+    /* [hidden] must win over inline-flex above */
+    .btn-outline-primary[hidden],
+    .btn-outline-danger[hidden] { display: none; }
+
+    /* ----- Modal (confirm dialogs) ----- */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(12, 26, 45, 0.55); z-index: 200; display: none; align-items: center; justify-content: center; padding: var(--space-5); }
+    .modal-backdrop[data-open="true"] { display: flex; }
+    .modal { background: var(--color-card); border-radius: var(--radius-card); box-shadow: var(--shadow-modal); width: 100%; max-width: 520px; display: flex; flex-direction: column; max-height: 90vh; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) var(--space-6) var(--space-3); }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .modal-close { width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .modal-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .modal-close .material-symbols-outlined { font-size: 20px; }
+    .modal-body { padding: 0 var(--space-6) var(--space-5); display: flex; flex-direction: column; gap: var(--space-4); overflow-y: auto; }
+    .modal-body .prompt { font-size: var(--font-size-body); color: var(--text-primary); }
+    .field-label { font-size: var(--font-size-body); font-weight: var(--font-weight-medium); color: var(--color-primary); }
+    .field-label .required { color: var(--color-error); margin-left: 2px; }
+    .textarea { width: 100%; min-height: 96px; padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); resize: vertical; }
+    .textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.18); }
+    .modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); padding: var(--space-4) var(--space-6) var(--space-5); }
+
+    /* ----- Table ----- */
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); min-width: 1400px; }
+    .data-table thead { background: var(--color-card); }
+    .data-table th { padding: var(--space-4); text-align: left; font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: var(--font-size-caption); white-space: nowrap; border-bottom: 1px solid var(--grey-200); position: relative; }
+    .data-table th + th::before { content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px; background: var(--grey-200); }
+    .data-table td { padding: var(--space-4); border-bottom: 1px solid var(--grey-100); color: var(--text-primary); vertical-align: middle; white-space: nowrap; }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+    .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .data-table .col-check { width: 44px; padding-right: 0; }
+    /* Hide the selection and Actions columns in Completed/Failed tabs; hide D365 Filename in Pending */
+    .data-table.hide-actions thead th:last-child,
+    .data-table.hide-actions tbody td:last-child { display: none; }
+    .data-table.hide-checks thead th.col-check,
+    .data-table.hide-checks tbody td.col-check { display: none; }
+    .data-table.hide-d365 thead th:nth-child(8),
+    .data-table.hide-d365 tbody td:nth-child(8) { display: none; }
+    .data-table input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--color-primary); cursor: pointer; }
+
+    .req-id-link { color: var(--text-hyperlink); font-weight: var(--font-weight-medium); }
+    .req-id-link:hover { text-decoration: underline; }
+
+    /* Requestor avatar cell */
+    .requestor-cell { display: inline-flex; align-items: center; gap: var(--space-3); }
+    .requestor-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--grey-100); color: var(--text-secondary); display: inline-flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    .requestor-avatar .material-symbols-outlined { font-size: 20px; }
+    .requestor-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Action pills */
+    .action-pill { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-2) var(--space-4); border-radius: 8px; font-size: 11px; font-weight: var(--font-weight-semibold); letter-spacing: 0.5px; text-transform: uppercase; border: 1px solid transparent; background: #FFFFFF; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); white-space: nowrap; min-width: 96px; }
+    .action-pill.pill-completed { color: var(--color-primary); border-color: var(--color-primary-100); }
+    .action-pill.pill-completed:hover { background: var(--color-primary-25); border-color: var(--color-primary); }
+    .action-pill.pill-failed { color: var(--color-error); border-color: #F5B7B1; }
+    .action-pill.pill-failed:hover { background: var(--color-error-bg); border-color: var(--color-error); }
+    .row-actions-cell { display: inline-flex; gap: var(--space-2); align-items: center; }
+
+    /* Region chip */
+    .region-chip { display: inline-flex; align-items: center; gap: var(--space-2); padding: 2px var(--space-3); border-radius: var(--radius-pill); background: var(--color-primary-25); color: var(--color-primary-700); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); }
+    .region-chip .material-symbols-outlined { font-size: 14px; }
+
+    /* Hide 2nd Approval Status column (11th column) */
+    .data-table thead th:nth-child(11),
+    .data-table tbody td:nth-child(11) { display: none; }
+
+    /* 2nd approval status badge */
+    .status-badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); line-height: 1.5; white-space: nowrap; }
+    .status-badge .material-symbols-outlined { font-size: 14px; }
+    .status-badge.tone-pending  { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .status-badge.tone-approved { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .status-badge.tone-review   { background: var(--color-info-bg);    color: var(--color-primary-700); }
+    .status-badge.tone-rejected { background: var(--color-error-bg);   color: var(--color-error-dark); }
+
+    /* Hide row action pills when row is already resolved (completed/failed) */
+    tr[data-status="completed"] .row-actions-cell,
+    tr[data-status="failed"]    .row-actions-cell { display: none; }
+
+    /* ----- Request Drawer (right pane) ----- */
+    .drawer-backdrop { position: fixed; inset: 0; background: rgba(12, 26, 45, 0.35); z-index: 90; display: none; }
+    .drawer-backdrop[data-open="true"] { display: block; }
+    .request-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(600px, 100vw); background: var(--color-bg); box-shadow: var(--shadow-modal); z-index: 95; transform: translateX(100%); transition: transform var(--duration-standard) var(--easing-enter); display: flex; flex-direction: column; }
+    .request-drawer[data-open="true"] { transform: translateX(0); }
+
+    .drawer-header { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-5) var(--space-6) var(--space-4); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .drawer-header-row { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+    .drawer-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .drawer-close { width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--text-secondary); margin-left: auto; transition: background var(--duration-micro) var(--easing-enter); }
+    .drawer-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .drawer-close .material-symbols-outlined { font-size: 20px; }
+    .drawer-urgent { display: none; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); font-weight: var(--font-weight-medium); }
+    .drawer-urgent .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-error); display: inline-block; }
+    .drawer-meta { font-size: var(--font-size-caption); color: var(--text-secondary); display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+    .drawer-meta strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); margin-left: 4px; }
+    .drawer-meta .sep { color: var(--grey-400); }
+
+    .drawer-tabs { display: flex; gap: 0; padding: 0 var(--space-6); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .drawer-tab { padding: var(--space-4) var(--space-2); font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid transparent; margin-bottom: -1px; margin-right: var(--space-6); transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); }
+    .drawer-tab:hover { color: var(--color-primary); }
+    .drawer-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+
+    .drawer-body { flex: 1; overflow-y: auto; padding: var(--space-5) var(--space-6); background: var(--color-bg); }
+    .drawer-panel { display: none; flex-direction: column; gap: var(--space-5); }
+    .drawer-panel.is-active { display: flex; }
+
+    /* Card-styled sections inside drawer (matches Request page view drawer) */
+    .drawer-section-card { background: var(--color-card); border-radius: var(--radius-card); padding: var(--space-5); border: 1px solid var(--divider-color); }
+    .drawer-section-title { font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2); }
+    .drawer-section-title .material-symbols-outlined { font-size: 16px; color: var(--color-primary); }
+
+    .drawer-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr 1fr; }
+    .drawer-cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .drawer-cell.full { grid-column: 1 / -1; }
+    .drawer-cell-label { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .drawer-cell-value { font-size: var(--font-size-body); color: var(--text-primary); font-weight: var(--font-weight-medium); word-break: break-word; }
+    .drawer-cell-value.num { font-variant-numeric: tabular-nums; }
+    .drawer-cell-value.big { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); }
+
+    /* Audit timeline */
+    .audit-timeline { display: flex; flex-direction: column; }
+    .audit-item { display: flex; gap: var(--space-4); padding-bottom: var(--space-5); position: relative; }
+    .audit-item:last-child { padding-bottom: 0; }
+    .audit-item::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--grey-200); }
+    .audit-item:last-child::before { display: none; }
+    .audit-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary-25); color: var(--color-primary); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; border: 2px solid var(--color-card); }
+    .audit-dot.tone-success { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .audit-dot.tone-warn    { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .audit-dot.tone-error   { background: var(--color-error-bg);   color: var(--color-error-dark); }
+    .audit-dot .material-symbols-outlined { font-size: 18px; }
+    .audit-body { flex: 1; padding-top: 4px; min-width: 0; }
+    .audit-text { font-size: var(--font-size-body); color: var(--text-primary); line-height: 1.45; }
+    .audit-text strong { font-weight: var(--font-weight-semibold); }
+    .audit-meta { font-size: var(--font-size-caption); color: var(--text-tertiary); margin-top: 2px; }
+
+    /* Reason section (bottom of drawer) */
+    .drawer-reason { background: var(--color-card); border-top: 1px solid var(--divider-color); padding: var(--space-5) var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); flex-shrink: 0; }
+    .drawer-reason .reason-heading { font-size: var(--font-size-h3); font-weight: var(--font-weight-bold); color: var(--text-primary); }
+    .drawer-reason .textarea { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.12); }
+
+    /* Drawer footer (default action buttons) */
+    .drawer-footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: var(--color-card); border-top: 1px solid var(--divider-color); flex-shrink: 0; flex-wrap: wrap; }
+
+    /* [hidden] must win over the display: flex rules above */
+    .drawer-reason[hidden],
+    .drawer-footer[hidden] { display: none; }
+
+    /* ----- Table Footer / Pagination ----- */
+    .table-footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-6); padding: var(--space-4) var(--space-5); border-top: 1px solid var(--grey-200); font-size: var(--font-size-caption); color: var(--text-secondary); flex-wrap: wrap; }
+    .rows-per-page { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .rows-per-page select { border: none; background: none; font-family: var(--font-family); font-size: var(--font-size-caption); color: var(--text-primary); cursor: pointer; padding: var(--space-1) var(--space-2); border-radius: var(--radius-button); }
+    .rows-per-page select:focus { outline: 2px solid var(--color-primary); }
+    .pagination { display: inline-flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-button); color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .pagination-btn:hover { background: var(--grey-100); color: var(--text-primary); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; background: none; }
+    .pagination-btn .material-symbols-outlined { font-size: 20px; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: var(--space-7); left: 50%; transform: translateX(-50%) translateY(20px); background: var(--color-success-dark); color: #FFFFFF; padding: var(--space-4) var(--space-6); border-radius: var(--radius-button); box-shadow: var(--shadow-modal); display: flex; align-items: center; gap: var(--space-3); font-weight: var(--font-weight-medium); opacity: 0; pointer-events: none; z-index: 300; transition: opacity var(--duration-standard) var(--easing-enter), transform var(--duration-standard) var(--easing-enter); }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast.tone-error { background: var(--color-error-dark); }
+    .toast .material-symbols-outlined { font-size: 20px; }
+
+    @media (max-width: 900px) {
+      .content-area { padding: var(--space-5); }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .status-tabs { overflow-x: auto; }
+      .status-tab { padding: var(--space-3) var(--space-4); }
+      .search-box { min-width: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- Top Nav -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Ad-hoc Payments · Exported Files</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 2 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">2</span>
+        </button>
+        <button aria-label="User profile menu — Mark T. (Treasury)">
+          <img src="https://i.pravatar.cc/64?img=33" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+
+      <!-- Sidebar -->
+      <nav class="sidebar" id="sidebar" aria-label="Ad-hoc Payments navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Ad-hoc Payments</span>
+          <a href="AdHocPayments.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Requests</span>
+          </a>
+          <a href="AdHocApprovals.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">approval</span>
+            <span class="sidebar-link-text">Approvals</span>
+          </a>
+          <a href="AdHocExportedFiles.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">outbox</span>
+            <span class="sidebar-link-text">Exported Files</span>
+          </a>
+          <a href="AdHocPaymentTypeLookup.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_search</span>
+            <span class="sidebar-link-text">Payment Reason</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <main class="content-area" id="main-content" tabindex="-1">
+        <div class="content-inner">
+
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="LandingPage.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <a href="AdHocPayments.html">Ad-hoc Payments</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">Exported Files</span>
+          </nav>
+
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title">Exported Files</h1>
+            </div>
+          </div>
+
+          <!-- Container -->
+          <div class="card-container">
+
+            <!-- Status Tabs -->
+            <div class="status-tabs" role="tablist" aria-label="Exported file status">
+              <button class="status-tab is-active" type="button" role="tab" aria-selected="true" data-tab="pending">
+                Pending
+                <span class="status-tab-count tone-pending" aria-label="15 pending">15</span>
+              </button>
+              <button class="status-tab" type="button" role="tab" aria-selected="false" data-tab="completed">
+                Completed
+                <span class="status-tab-count tone-completed" aria-label="25 completed">25</span>
+              </button>
+              <button class="status-tab" type="button" role="tab" aria-selected="false" data-tab="failed">
+                Failed
+                <span class="status-tab-count tone-failed" aria-label="3 failed">3</span>
+              </button>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar" id="toolbar">
+              <div class="toolbar-left">
+                <div class="search-box" role="search">
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                  <input type="search" id="tableSearch" placeholder="Search" aria-label="Search exported files" />
+                </div>
+              </div>
+              <div class="toolbar-right">
+                <div class="default-actions" style="display:inline-flex; align-items:center; gap:var(--space-4); flex-wrap:wrap;">
+                  <button class="btn btn-text-primary" type="button" aria-label="Configure columns">
+                    <span class="material-symbols-outlined" aria-hidden="true">view_column</span>
+                    Column
+                  </button>
+                  <button class="btn btn-text-primary" type="button" aria-label="Export to CSV">
+                    <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                    Export
+                  </button>
+                </div>
+                <div class="bulk-actions" role="group" aria-label="Bulk actions">
+                  <span class="selected-count" aria-live="polite">Selected rows: <strong id="selectedCount">0</strong></span>
+                  <button class="btn-outline-primary" type="button" id="bulkCompleteBtn">
+                    Mark all as Completed
+                  </button>
+                  <button class="btn-outline-danger" type="button" id="bulkFailBtn">
+                    Mark all as Failed
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-scroll">
+              <table class="data-table" aria-label="Exported payment files">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-check"><input type="checkbox" id="selectAll" aria-label="Select all rows" /></th>
+                    <th scope="col">Req. ID</th>
+                    <th scope="col">Requestor Name</th>
+                    <th scope="col">Requested Date</th>
+                    <th scope="col">Beneficiary</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">Lloyds Filename</th>
+                    <th scope="col">D365 Filename</th>
+                    <th scope="col" class="num">Total</th>
+                    <th scope="col">Export Date &amp; Time</th>
+                    <th scope="col">2nd Approval Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="fileRows">
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><span class="requestor-avatar"><span class="material-symbols-outlined" aria-hidden="true">person</span></span>John Doe</span></td>
+                    <td>03/10/2024</td>
+                    <td>John William</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>UK</span></td>
+                    <td>ADHOCLLUK0001</td>
+                    <td>ADHOCJV0001</td>
+                    <td class="num">£ 1200</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-pending"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>Pending</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>03/10/2024</td>
+                    <td>Richard Johnson</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>UK</span></td>
+                    <td>ADHOCLLUK0002</td>
+                    <td>ADHOCJV0002</td>
+                    <td class="num">£ 425</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-review"><span class="material-symbols-outlined" aria-hidden="true">rate_review</span>In review</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>03/10/2024</td>
+                    <td>Kate Rudolph</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>International</span></td>
+                    <td>ADHOCLLIN00001</td>
+                    <td>ADHOCJV0003</td>
+                    <td class="num">£ 7521</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-approved"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Approved</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>03/10/2024</td>
+                    <td>John William</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>UK</span></td>
+                    <td>ADHOCLLUK0003</td>
+                    <td>ADHOCJV0004</td>
+                    <td class="num">£ 4240</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-pending"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>Pending</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>03/10/2024</td>
+                    <td>Richard Johnson</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>International</span></td>
+                    <td>ADHOCLLIN00002</td>
+                    <td>ADHOCJV0005</td>
+                    <td class="num">£ 7540</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-review"><span class="material-symbols-outlined" aria-hidden="true">rate_review</span>In review</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>03/10/2024</td>
+                    <td>Kate Rudolph</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>UK</span></td>
+                    <td>ADHOCLLUK0004</td>
+                    <td>ADHOCJV0006</td>
+                    <td class="num">£ 240</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-approved"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Approved</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>03/10/2024</td>
+                    <td>Richard Johnson</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>UK</span></td>
+                    <td>ADHOCLLUK0005</td>
+                    <td>ADHOCJV0007</td>
+                    <td class="num">£ 1752</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-pending"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>Pending</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123456" /></td>
+                    <td><a href="#" class="req-id-link">123456</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>03/10/2024</td>
+                    <td>Kate Rudolph</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>International</span></td>
+                    <td>ADHOCLLIN00003</td>
+                    <td>ADHOCJV0008</td>
+                    <td class="num">£ 1040</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-review"><span class="material-symbols-outlined" aria-hidden="true">rate_review</span>In review</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="col-check"><input type="checkbox" aria-label="Select row 123457" /></td>
+                    <td><a href="#" class="req-id-link">123457</a></td>
+                    <td><span class="requestor-cell"><img class="requestor-avatar" src="https://i.pravatar.cc/40?img=52" alt="" />Harry Davies</span></td>
+                    <td>27/09/2024</td>
+                    <td>John William</td>
+                    <td><span class="region-chip"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>UK</span></td>
+                    <td>ADHOCLLUK0006</td>
+                    <td>ADHOCJV0009</td>
+                    <td class="num">£ 1040</td>
+                    <td>03/10/2024 10:20</td>
+                    <td><span class="status-badge tone-pending"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>Pending</span></td>
+                    <td>
+                      <div class="row-actions-cell" style="justify-content:flex-end;">
+                        <button class="action-pill pill-completed" type="button" data-act="complete">Completed</button>
+                        <button class="action-pill pill-failed" type="button" data-act="fail">Failed</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table Footer -->
+            <div class="table-footer">
+              <div class="rows-per-page">
+                <label for="rowsPerPage">Rows per page:</label>
+                <select id="rowsPerPage" aria-label="Rows per page">
+                  <option value="10" selected>10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+              <span aria-live="polite">1-5 of 13</span>
+              <nav class="pagination" aria-label="Pagination">
+                <button class="pagination-btn" type="button" aria-label="Previous page" disabled><span class="material-symbols-outlined">chevron_left</span></button>
+                <button class="pagination-btn" type="button" aria-label="Next page"><span class="material-symbols-outlined">chevron_right</span></button>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <!-- Confirm: Mark as Completed -->
+  <div class="modal-backdrop" id="completeModal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="completeTitle">
+    <div class="modal">
+      <header class="modal-header">
+        <h2 class="modal-title" id="completeTitle">Confirm 2nd Approval Status</h2>
+        <button class="modal-close" type="button" data-close="completeModal" aria-label="Close dialog">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </header>
+      <div class="modal-body">
+        <p class="prompt" id="completePrompt">Are you sure you want to mark this request as completed?</p>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-close="completeModal">Cancel</button>
+        <button class="btn btn-primary" type="button" id="confirmCompleteBtn">Mark as Completed</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Confirm: Mark as Failed (with reason) -->
+  <div class="modal-backdrop" id="failModal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="failTitle">
+    <div class="modal">
+      <header class="modal-header">
+        <h2 class="modal-title" id="failTitle">Confirm 2nd Approval Status</h2>
+        <button class="modal-close" type="button" data-close="failModal" aria-label="Close dialog">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </header>
+      <div class="modal-body">
+        <p class="prompt" id="failPrompt">Are you sure you want to mark these requests as failed?</p>
+        <label class="field-label" for="failReason">Please provide a reason for marking as failed<span class="required" aria-hidden="true">*</span></label>
+        <textarea class="textarea" id="failReason" rows="4" placeholder="e.g. some details are mismatched." required aria-required="true"></textarea>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-close="failModal">Cancel</button>
+        <button class="btn-outline-danger" type="button" id="confirmFailBtn">Mark all as Failed</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ----- Request Details Drawer (right pane) ----- -->
+  <div class="drawer-backdrop" id="drawerBackdrop" data-open="false"></div>
+  <aside class="request-drawer" id="requestDrawer" data-open="false" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <header class="drawer-header">
+      <div class="drawer-header-row">
+        <h2 class="drawer-title" id="drawerTitle">Request ID: <span id="drReqId">—</span></h2>
+        <span id="drStatusChip"></span>
+        <span class="drawer-urgent" id="drUrgent" hidden><span class="dot" aria-hidden="true"></span>Urgent</span>
+        <button class="drawer-close" type="button" id="drawerClose" aria-label="Close details">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <p class="drawer-meta">
+        <span>Requestor <strong id="drRequestor">—</strong></span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>Requested Date <strong id="drDate">—</strong></span>
+      </p>
+    </header>
+
+    <nav class="drawer-tabs" role="tablist" aria-label="Request sections">
+      <button class="drawer-tab is-active" type="button" role="tab" aria-selected="true" data-drtab="details" id="drTabDetails">Request Details</button>
+      <button class="drawer-tab" type="button" role="tab" aria-selected="false" data-drtab="audit" id="drTabAudit">Audit Log</button>
+    </nav>
+
+    <div class="drawer-body">
+      <section class="drawer-panel is-active" data-panel="details" role="tabpanel" aria-labelledby="drTabDetails">
+        <div class="drawer-section-card">
+          <h3 class="drawer-section-title"><span class="material-symbols-outlined" aria-hidden="true">folder</span> Case Details</h3>
+          <div class="drawer-grid">
+            <div class="drawer-cell"><span class="drawer-cell-label">Case Number</span><span class="drawer-cell-value" id="drCase">—</span></div>
+            <div class="drawer-cell"><span class="drawer-cell-label">VRM</span><span class="drawer-cell-value" id="drVrm">—</span></div>
+          </div>
+        </div>
+        <div class="drawer-section-card">
+          <h3 class="drawer-section-title"><span class="material-symbols-outlined" aria-hidden="true">payments</span> Payment Details</h3>
+          <div class="drawer-grid">
+            <div class="drawer-cell"><span class="drawer-cell-label">Net Value</span><span class="drawer-cell-value num" id="drNet">—</span></div>
+            <div class="drawer-cell"><span class="drawer-cell-label">VAT Applicable?</span><span class="drawer-cell-value" id="drVatYn">—</span></div>
+            <div class="drawer-cell"><span class="drawer-cell-label">VAT Amount</span><span class="drawer-cell-value num" id="drVat">—</span></div>
+            <div class="drawer-cell"><span class="drawer-cell-label">Total amount to be paid</span><span class="drawer-cell-value num big" id="drTotal">—</span></div>
+          </div>
+        </div>
+        <div class="drawer-section-card">
+          <h3 class="drawer-section-title"><span class="material-symbols-outlined" aria-hidden="true">person</span> Beneficiary and Financial Information</h3>
+          <div class="drawer-grid">
+            <div class="drawer-cell full"><span class="drawer-cell-label">Beneficiary Name</span><span class="drawer-cell-value" id="drBene">—</span></div>
+            <div class="drawer-cell"><span class="drawer-cell-label">Sort Code</span><span class="drawer-cell-value" id="drSort">—</span></div>
+            <div class="drawer-cell"><span class="drawer-cell-label">Account Number</span><span class="drawer-cell-value num" id="drAcct">—</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="drawer-panel" data-panel="audit" role="tabpanel" aria-labelledby="drTabAudit">
+        <div class="drawer-section-card">
+          <h3 class="drawer-section-title"><span class="material-symbols-outlined" aria-hidden="true">history</span> Activity</h3>
+          <ol class="audit-timeline" id="drAudit"></ol>
+        </div>
+      </section>
+    </div>
+
+    <!-- Reason section (hidden by default) -->
+    <div class="drawer-reason" id="drReasonPanel" hidden>
+      <h3 class="reason-heading">Reason for marking as Failed</h3>
+      <label class="field-label" for="drReasonText">Please provide a reason for marking this entry as failed<span class="required" aria-hidden="true">*</span></label>
+      <textarea class="textarea" id="drReasonText" rows="4" placeholder="Enter reason…" required aria-required="true"></textarea>
+      <div class="drawer-footer" style="padding:var(--space-3) 0 0; border-top:0; background:transparent;">
+        <button class="btn btn-text-primary" type="button" id="drReasonCancel">Cancel</button>
+        <button class="btn-outline-danger" type="button" id="drReasonSubmit">Mark as Failed</button>
+      </div>
+    </div>
+
+    <!-- Default footer (Completed / Failed) -->
+    <div class="drawer-footer" id="drDefaultFooter" hidden style="display:none;">
+      <button class="btn-outline-primary" type="button" id="drCompleteBtn">Mark as Completed</button>
+      <button class="btn-outline-danger" type="button" id="drFailBtn">Mark as Failed</button>
+    </div>
+  </aside>
+
+  <script>
+    // Sidebar expand on hover
+    (function () {
+      const sidebar  = document.getElementById('sidebar');
+      const toggle   = document.getElementById('sidebarToggle');
+      const expand   = () => { sidebar.classList.add('is-expanded'); toggle.setAttribute('aria-expanded', 'true'); };
+      const collapse = () => { sidebar.classList.remove('is-expanded'); toggle.setAttribute('aria-expanded', 'false'); };
+      sidebar.addEventListener('mouseenter', expand);
+      sidebar.addEventListener('mouseleave', collapse);
+      sidebar.addEventListener('focusin', expand);
+      sidebar.addEventListener('focusout', (e) => { if (!sidebar.contains(e.relatedTarget)) collapse(); });
+      toggle.addEventListener('click', () => sidebar.classList.toggle('is-expanded'));
+    })();
+
+    // Status tabs — filter rows by data-status
+    const TABS = ['pending', 'completed', 'failed'];
+    // Initial counts (business demo values from design)
+    const tabCounts = { pending: 15, completed: 25, failed: 3 };
+    let activeTab = 'pending';
+
+    function updateTabCounts() {
+      document.querySelectorAll('.status-tab').forEach(t => {
+        const key = t.dataset.tab;
+        const el  = t.querySelector('.status-tab-count');
+        if (el) el.textContent = String(tabCounts[key] ?? 0);
+      });
+    }
+
+    function applyTabFilter() {
+      document.querySelectorAll('#fileRows tr').forEach(tr => {
+        const status = tr.dataset.status || 'pending';
+        tr.style.display = (status === activeTab) ? '' : 'none';
+      });
+      const table = document.querySelector('.data-table');
+      // Hide the selection and Actions columns in Completed / Failed tabs, and D365 in Pending
+      table?.classList.toggle('hide-actions', activeTab !== 'pending');
+      table?.classList.toggle('hide-checks', activeTab !== 'pending');
+      table?.classList.toggle('hide-d365', activeTab === 'pending');
+      // Reapply any active search on top of tab filter
+      const q = (document.getElementById('tableSearch')?.value || '').trim().toLowerCase();
+      if (q) {
+        document.querySelectorAll('#fileRows tr').forEach(tr => {
+          if (tr.style.display === 'none') return;
+          if (!tr.textContent.toLowerCase().includes(q)) tr.style.display = 'none';
+        });
+      }
+    }
+
+    (function () {
+      const tabs = document.querySelectorAll('.status-tab');
+      tabs.forEach(t => t.addEventListener('click', () => {
+        tabs.forEach(x => { x.classList.remove('is-active'); x.setAttribute('aria-selected', 'false'); });
+        t.classList.add('is-active');
+        t.setAttribute('aria-selected', 'true');
+        activeTab = t.dataset.tab;
+        applyTabFilter();
+        clearSelection();
+      }));
+    })();
+
+    // Initialise per-row state (data-status="pending" on load)
+    document.querySelectorAll('#fileRows tr').forEach(tr => {
+      if (!tr.dataset.status) tr.dataset.status = 'pending';
+    });
+    applyTabFilter();
+    updateTabCounts();
+
+    // Select-all + row selection ? toggles bulk-actions toolbar
+    (function () {
+      const toolbar   = document.getElementById('toolbar');
+      const selectAll = document.getElementById('selectAll');
+      const countEl   = document.getElementById('selectedCount');
+      const visibleChecks = () => Array.from(document.querySelectorAll('#fileRows tr'))
+        .filter(tr => tr.style.display !== 'none')
+        .map(tr => tr.querySelector('input[type="checkbox"]'))
+        .filter(Boolean);
+
+      function refresh() {
+        const rows = visibleChecks();
+        const checked = rows.filter(cb => cb.checked).length;
+        countEl.textContent = String(checked);
+        toolbar.classList.toggle('is-bulk', checked > 0);
+        if (selectAll) {
+          selectAll.checked = rows.length > 0 && checked === rows.length;
+          selectAll.indeterminate = checked > 0 && checked < rows.length;
+        }
+      }
+
+      if (selectAll) {
+        selectAll.addEventListener('change', () => {
+          visibleChecks().forEach(cb => { cb.checked = selectAll.checked; });
+          refresh();
+        });
+      }
+      document.getElementById('fileRows').addEventListener('change', (e) => {
+        if (e.target.matches('input[type="checkbox"]')) refresh();
+      });
+      // Expose for tab-switch to call
+      window.__refreshSelection = refresh;
+      refresh();
+    })();
+
+    // Toast helper
+    function showToast(msg, tone) {
+      const el = document.getElementById('toast');
+      const label = document.getElementById('toastMsg');
+      const icon = el.querySelector('.material-symbols-outlined');
+      label.textContent = msg;
+      el.classList.toggle('tone-error', tone === 'error');
+      icon.textContent = tone === 'error' ? 'error' : 'check_circle';
+      el.classList.add('is-visible');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => el.classList.remove('is-visible'), 2400);
+    }
+
+    // --- Row-level actions ---
+    // Completed pill  ? direct move to Completed tab
+    // Failed pill     ? open drawer in "fail" mode (reason section visible)
+    // Req.ID link     ? open drawer in "view" mode (default footer)
+    document.getElementById('fileRows').addEventListener('click', (e) => {
+      const pill = e.target.closest('.action-pill');
+      if (pill) {
+        const row = pill.closest('tr');
+        if (pill.dataset.act === 'complete') {
+          markRowStatus(row, 'completed');
+          showToast('Request marked as completed.');
+        } else if (pill.dataset.act === 'fail') {
+          openDrawer(row, { mode: 'fail' });
+        }
+        return;
+      }
+      const link = e.target.closest('.req-id-link');
+      if (link) {
+        e.preventDefault();
+        const row = link.closest('tr');
+        openDrawer(row, { mode: 'view' });
+      }
+    });
+
+    // Move a row to a new status: update attr, adjust tab counts, re-filter
+    function markRowStatus(row, newStatus) {
+      if (!row) return;
+      const oldStatus = row.dataset.status || 'pending';
+      if (oldStatus === newStatus) return;
+      row.dataset.status = newStatus;
+      if (tabCounts[oldStatus] > 0) tabCounts[oldStatus] -= 1;
+      tabCounts[newStatus] = (tabCounts[newStatus] || 0) + 1;
+      updateTabCounts();
+      // Reset any selection on the row when moved
+      const cb = row.querySelector('input[type="checkbox"]');
+      if (cb) cb.checked = false;
+      applyTabFilter();
+      if (window.__refreshSelection) window.__refreshSelection();
+    }
+
+    // --- Modal open/close plumbing (bulk actions still use modals) ---
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.setAttribute('data-open', 'true');
+      const focusable = el.querySelector('textarea, button.btn-primary, .btn-outline-danger');
+      focusable?.focus();
+      document.addEventListener('keydown', escClose);
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.setAttribute('data-open', 'false');
+      document.removeEventListener('keydown', escClose);
+    }
+    function escClose(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop[data-open="true"]').forEach(m => m.setAttribute('data-open', 'false'));
+        if (document.getElementById('requestDrawer').getAttribute('data-open') === 'true') closeDrawer();
+      }
+    }
+    document.querySelectorAll('[data-close]').forEach(el => {
+      el.addEventListener('click', () => closeModal(el.dataset.close));
+    });
+    document.querySelectorAll('.modal-backdrop').forEach(bd => {
+      bd.addEventListener('click', (e) => { if (e.target === bd) closeModal(bd.id); });
+    });
+
+    // --- Bulk Complete modal ---
+    function openCompleteModal(ctx) {
+      const prompt = document.getElementById('completePrompt');
+      const n = ctx.count;
+      prompt.textContent = `Are you sure you want to mark ${n} request${n === 1 ? '' : 's'} as completed?`;
+      openModal('completeModal');
+    }
+    document.getElementById('confirmCompleteBtn').addEventListener('click', () => {
+      closeModal('completeModal');
+      applyBulkAction('completed');
+      showToast('Request marked as completed.');
+    });
+
+    // --- Bulk Fail modal ---
+    function openFailModal(ctx) {
+      const prompt = document.getElementById('failPrompt');
+      const n = ctx.count;
+      prompt.textContent = `Are you sure you want to mark ${n} request${n === 1 ? '' : 's'} as failed?`;
+      document.getElementById('failReason').value = '';
+      openModal('failModal');
+    }
+    document.getElementById('confirmFailBtn').addEventListener('click', () => {
+      const reason = document.getElementById('failReason').value.trim();
+      if (!reason) {
+        document.getElementById('failReason').focus();
+        showToast('Please provide a reason.', 'error');
+        return;
+      }
+      closeModal('failModal');
+      applyBulkAction('failed');
+      showToast('Request marked as failed.', 'error');
+    });
+
+    function applyBulkAction(newStatus) {
+      const checked = Array.from(document.querySelectorAll('#fileRows tr'))
+        .filter(tr => tr.querySelector('input[type="checkbox"]')?.checked);
+      checked.forEach(tr => markRowStatus(tr, newStatus));
+      clearSelection();
+    }
+
+    document.getElementById('bulkCompleteBtn').addEventListener('click', () => {
+      const n = document.querySelectorAll('#fileRows input[type="checkbox"]:checked').length;
+      if (n) openCompleteModal({ count: n });
+    });
+    document.getElementById('bulkFailBtn').addEventListener('click', () => {
+      const n = document.querySelectorAll('#fileRows input[type="checkbox"]:checked').length;
+      if (n) openFailModal({ count: n });
+    });
+
+    function clearSelection() {
+      document.querySelectorAll('#fileRows input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+      const sa = document.getElementById('selectAll');
+      if (sa) { sa.checked = false; sa.indeterminate = false; }
+      document.getElementById('selectedCount').textContent = '0';
+      document.getElementById('toolbar').classList.remove('is-bulk');
+    }
+
+    // ----- Request Details Drawer -----
+    let currentDrawerRow = null;
+
+    function openDrawer(row, opts) {
+      currentDrawerRow = row;
+      populateDrawer(row);
+      const drawer = document.getElementById('requestDrawer');
+      const bd = document.getElementById('drawerBackdrop');
+      drawer.setAttribute('data-open', 'true');
+      bd.setAttribute('data-open', 'true');
+      // Switch to Details panel by default
+      setDrawerTab('details');
+      // Hide the action for the status the row is already in
+      const status = row?.dataset.status || 'pending';
+      document.getElementById('drCompleteBtn').hidden = (status === 'completed');
+      document.getElementById('drFailBtn').hidden     = (status === 'failed');
+      if (opts?.mode === 'fail') {
+        showReasonPanel();
+      } else {
+        hideReasonPanel();
+      }
+      document.addEventListener('keydown', escClose);
+      drawer.querySelector('.drawer-close')?.focus();
+    }
+    function closeDrawer() {
+      document.getElementById('requestDrawer').setAttribute('data-open', 'false');
+      document.getElementById('drawerBackdrop').setAttribute('data-open', 'false');
+      hideReasonPanel();
+      currentDrawerRow = null;
+    }
+    document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+    document.getElementById('drawerBackdrop').addEventListener('click', closeDrawer);
+
+    // Drawer tab switching
+    function setDrawerTab(name) {
+      document.querySelectorAll('.drawer-tab').forEach(t => {
+        const active = t.dataset.drtab === name;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', String(active));
+      });
+      document.querySelectorAll('.drawer-panel').forEach(p => {
+        p.classList.toggle('is-active', p.dataset.panel === name);
+      });
+    }
+    document.querySelectorAll('.drawer-tab').forEach(t => {
+      t.addEventListener('click', () => setDrawerTab(t.dataset.drtab));
+    });
+
+    // Fill drawer content from the row
+    function populateDrawer(row) {
+      if (!row) return;
+      const reqId    = row.querySelector('.req-id-link')?.textContent?.trim() || '—';
+      const requestor = row.querySelector('.requestor-cell')?.textContent?.trim() || '—';
+      const cells    = row.querySelectorAll('td');
+      // Columns: 0 check, 1 ReqID, 2 Requestor, 3 Requested Date, 4 Beneficiary,
+      //          5 Region, 6 Lloyds, 7 D365, 8 Total, 9 Export Date, 10 Approval status, 11 Actions
+      const dateTxt  = cells[3]?.textContent?.trim() || '—';
+      const bene     = cells[4]?.textContent?.trim() || '—';
+      const region   = cells[5]?.textContent?.trim() || '—';
+      const lloyds   = cells[6]?.textContent?.trim() || '';
+      const totalTxt = cells[8]?.textContent?.trim() || '£ 0';
+      const statusBadge = cells[10]?.querySelector('.status-badge')?.outerHTML || '';
+
+      // Derive Case Number from Lloyds filename tail (VRPLL00001 ? CW00004041)
+      const idx = parseInt((lloyds.match(/(\d+)$/) || [,'0'])[1], 10);
+      const caseNo = idx ? 'CW0000' + String(4040 + idx) : '—';
+      const urgent = idx % 3 === 1; // sample: every 3rd row urgent
+
+      // Derive amounts (assume 20% VAT included in Total)
+      const totalNum = parseFloat(totalTxt.replace(/[^0-9.]/g, '')) || 0;
+      const net = totalNum / 1.2;
+      const vat = totalNum - net;
+      const fmt = (n) => '£' + n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      document.getElementById('drReqId').textContent   = reqId;
+      document.getElementById('drRequestor').textContent = requestor;
+      document.getElementById('drDate').textContent    = dateTxt;
+      document.getElementById('drStatusChip').innerHTML = statusBadge;
+      document.getElementById('drUrgent').hidden       = !urgent;
+      document.getElementById('drCase').textContent    = caseNo;
+      document.getElementById('drVrm').textContent     = 'CR15CNS';
+      document.getElementById('drNet').textContent     = fmt(net);
+      document.getElementById('drVatYn').textContent   = 'Yes';
+      document.getElementById('drVat').textContent     = fmt(vat);
+      document.getElementById('drTotal').textContent   = fmt(totalNum);
+      document.getElementById('drBene').textContent    = bene;
+      document.getElementById('drSort').textContent    = '12-34-56';
+      document.getElementById('drAcct').textContent    = '123456789012';
+
+      // Audit log (sample sequence for the demo)
+      const audit = [
+        { icon: 'add_circle',   tone: '',           text: `<strong>Request created</strong> by ${requestor}`, meta: `${dateTxt} 09:14` },
+        { icon: 'approval',     tone: 'tone-success', text: `<strong>1st Approval</strong> granted by Anna L.`,           meta: `${dateTxt} 10:02` },
+        { icon: 'verified',     tone: 'tone-success', text: `<strong>2nd Approval</strong> granted by Mark T.`,           meta: `${dateTxt} 10:15` },
+        { icon: 'outbox',       tone: '',           text: `Exported to Lloyds file <strong>${lloyds || '—'}</strong>`,   meta: `${dateTxt} 10:20` },
+        { icon: 'hourglass_top', tone: 'tone-warn', text: `Awaiting settlement confirmation`,                             meta: 'Pending' }
+      ];
+      const listEl = document.getElementById('drAudit');
+      listEl.innerHTML = audit.map(a => `
+        <li class="audit-item">
+          <span class="audit-dot ${a.tone}"><span class="material-symbols-outlined" aria-hidden="true">${a.icon}</span></span>
+          <div class="audit-body">
+            <div class="audit-text">${a.text}</div>
+            <div class="audit-meta">${a.meta}</div>
+          </div>
+        </li>`).join('');
+    }
+
+    // Reason panel toggle within drawer
+    function showReasonPanel() {
+      document.getElementById('drReasonPanel').hidden = false;
+      document.getElementById('drDefaultFooter').hidden = true;
+      const ta = document.getElementById('drReasonText');
+      ta.value = '';
+      setTimeout(() => ta.focus(), 50);
+    }
+    function hideReasonPanel() {
+      document.getElementById('drReasonPanel').hidden = true;
+      document.getElementById('drDefaultFooter').hidden = false;
+    }
+
+    document.getElementById('drCompleteBtn').addEventListener('click', () => {
+      if (!currentDrawerRow) return;
+      markRowStatus(currentDrawerRow, 'completed');
+      closeDrawer();
+      showToast('Request marked as completed.');
+    });
+    document.getElementById('drFailBtn').addEventListener('click', showReasonPanel);
+    document.getElementById('drReasonCancel').addEventListener('click', hideReasonPanel);
+    document.getElementById('drReasonSubmit').addEventListener('click', () => {
+      const reason = document.getElementById('drReasonText').value.trim();
+      if (!reason) {
+        document.getElementById('drReasonText').focus();
+        showToast('Please provide a reason.', 'error');
+        return;
+      }
+      if (!currentDrawerRow) return;
+      markRowStatus(currentDrawerRow, 'failed');
+      closeDrawer();
+      showToast('Request marked as failed.', 'error');
+    });
+
+    // Simple client-side search across all cells (respects active tab)
+    (function () {
+      const input = document.getElementById('tableSearch');
+      input?.addEventListener('input', applyTabFilter);
+    })();
+  </script>
+
+  <!-- ----- Column Header Menu (3-dot) ----- -->
+  <style>
+    .data-table th { position: relative; }
+    .th-menu-btn {
+      position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 4px; padding: 0;
+      border: none; background: transparent; color: var(--text-secondary, #616161);
+      cursor: pointer; opacity: 0; transition: opacity 120ms ease, background 120ms ease;
+    }
+    .th-menu-btn .material-symbols-outlined { font-size: 18px; }
+    .data-table th:hover .th-menu-btn,
+    .th-menu-btn.is-open,
+    .th-menu-btn:focus-visible { opacity: 1; }
+    .th-menu-btn:hover { background: var(--grey-100, #f0f0f0); }
+
+    .col-menu {
+      position: absolute; z-index: 1000; min-width: 210px;
+      background: #FFFFFF; border: 1px solid var(--grey-200, #E0E0E0);
+      border-radius: 8px; box-shadow: 0 6px 20px rgba(12, 26, 45, 0.14);
+      padding: 6px 0; display: none; font-size: 13px;
+    }
+    .col-menu.is-open { display: block; }
+    .col-menu button {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 8px 16px; background: transparent; border: none;
+      text-align: left; cursor: pointer; color: var(--text-primary, #212121);
+      font-size: 13px; text-transform: none; letter-spacing: 0;
+    }
+    .col-menu button:hover,
+    .col-menu button:focus-visible { background: var(--color-primary-25, #F0F5FC); outline: none; }
+    .col-menu button.is-selected { background: var(--color-primary-25, #F0F5FC); font-weight: 600; }
+    .col-menu .material-symbols-outlined { font-size: 18px; color: var(--text-secondary, #616161); }
+    .col-menu hr { border: none; border-top: 1px solid var(--grey-200, #E0E0E0); margin: 4px 0; }
+  </style>
+  <script>
+    (function () {
+      function initColumnMenus(root) {
+        var scope = root || document;
+        var tables = scope.querySelectorAll('table.data-table');
+        tables.forEach(function (table) {
+          table.querySelectorAll('thead th').forEach(function (th) {
+            if (th.classList.contains('col-check')) return;
+            var label = (th.textContent || '').trim().toLowerCase();
+            if (!label || label === 'actions') return;
+            if (th.querySelector('.th-menu-btn')) return;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'th-menu-btn';
+            btn.setAttribute('aria-label', 'Column options');
+            btn.setAttribute('aria-haspopup', 'menu');
+            btn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">more_vert</span>';
+            th.appendChild(btn);
+          });
+        });
+      }
+
+      function ensureMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) return menu;
+        menu = document.createElement('div');
+        menu.id = 'columnMenuPopup';
+        menu.className = 'col-menu';
+        menu.setAttribute('role', 'menu');
+        menu.innerHTML = [
+          '<button type="button" data-act="sort-asc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>Sort by ASC</button>',
+          '<button type="button" data-act="sort-desc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span>Sort by DESC</button>',
+          '<hr>',
+          '<button type="button" data-act="pin-left" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to left</button>',
+          '<button type="button" data-act="pin-right" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to right</button>',
+          '<hr>',
+          '<button type="button" data-act="filter" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">filter_alt</span>Filter</button>',
+          '<button type="button" data-act="hide" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>Hide Column</button>',
+          '<button type="button" data-act="manage" role="menuitem" class="is-selected"><span class="material-symbols-outlined" aria-hidden="true">view_column</span>Manage Column</button>'
+        ].join('');
+        document.body.appendChild(menu);
+        return menu;
+      }
+
+      var currentBtn = null;
+      var currentTh = null;
+
+      function openMenuFor(btn) {
+        var menu = ensureMenu();
+        closeMenu();
+        currentBtn = btn;
+        currentTh = btn.closest('th');
+        btn.classList.add('is-open');
+        var rect = btn.getBoundingClientRect();
+        menu.style.top = (window.scrollY + rect.bottom + 4) + 'px';
+        menu.style.left = (window.scrollX + rect.left) + 'px';
+        menu.classList.add('is-open');
+      }
+
+      function closeMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) menu.classList.remove('is-open');
+        if (currentBtn) currentBtn.classList.remove('is-open');
+        currentBtn = null;
+        currentTh = null;
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('.th-menu-btn');
+        if (btn) {
+          e.stopPropagation();
+          if (btn === currentBtn) { closeMenu(); return; }
+          openMenuFor(btn);
+          return;
+        }
+        var item = e.target.closest && e.target.closest('#columnMenuPopup button');
+        if (item) {
+          e.stopPropagation();
+          handleMenuAction(item.getAttribute('data-act'));
+          closeMenu();
+          return;
+        }
+        if (e.target.closest && e.target.closest('#columnMenuPopup')) return;
+        closeMenu();
+      });
+
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+      window.addEventListener('scroll', closeMenu, true);
+      window.addEventListener('resize', closeMenu);
+
+      function handleMenuAction(act) {
+        if (!currentTh || act !== 'hide') return;
+        var table = currentTh.closest('table');
+        var headerRow = currentTh.parentElement;
+        var colIndex = Array.prototype.indexOf.call(headerRow.children, currentTh);
+        currentTh.style.display = 'none';
+        table.querySelectorAll('tbody tr').forEach(function (tr) {
+          var cell = tr.children[colIndex];
+          if (cell) cell.style.display = 'none';
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { initColumnMenus(); });
+      } else {
+        initColumnMenus();
+      }
+      window.reinitColumnMenus = initColumnMenus;
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

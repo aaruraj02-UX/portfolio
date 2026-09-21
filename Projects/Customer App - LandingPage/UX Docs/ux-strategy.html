@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Strategy — Acme Customer App Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">Customer App</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html" class="active">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/Landing-Page.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Strategy — Acme Customer App</h1>
+      <div class="doc-meta"><span>📋 Landing Page & Settings Module</span><span>📅 21 May 2026</span><span>🔖 BRD v1.0</span></div>
+    </header>
+
+    <section class="doc-section">
+      <h2>1. Vision</h2>
+      <blockquote style="border-left:4px solid var(--accent);padding:.75rem 1.25rem;background:var(--accent-light);border-radius:0 8px 8px 0;font-style:italic;font-size:1.05rem;">
+        "A trusted self-service journey that helps every customer understand where they stand and act with confidence — powered by content that business teams can change in hours, not weeks, under unbreakable governance."
+      </blockquote>
+    </section>
+
+    <section class="doc-section">
+      <h2>2. Design Principles</h2>
+      <div class="principle-grid">
+        <div class="principle-card"><h4>P1 · Clarity over Cleverness</h4><p>Plain-English copy, single primary action, large readable type, simplified enforcement timeline</p></div>
+        <div class="principle-card"><h4>P2 · WYSIWYE</h4><p>The editor renders the customer view; structural elements cannot be moved or removed</p></div>
+        <div class="principle-card"><h4>P3 · Guided Action</h4><p>Every screen, success or error, provides a clear next step — never dead ends</p></div>
+        <div class="principle-card"><h4>P4 · Visible Governance</h4><p>Status pill + role-aware buttons + audit drawer make state obvious at a glance</p></div>
+        <div class="principle-card"><h4>P5 · Accessible by Default</h4><p>WCAG 2.2 AA on first build, not retrofit; tokens enforce contrast</p></div>
+        <div class="principle-card"><h4>P6 · Progressive Disclosure</h4><p>Secondary actions behind icon-only controls with tooltips, primary path stays clean</p></div>
+        <div class="principle-card"><h4>P7 · Data Integrity</h4><p>Variables resolve at runtime only; authors can never overwrite system data</p></div>
+        <div class="principle-card"><h4>P8 · Offline-tolerant</h4><p>Local Save before Submit; navigation never loses an unsaved draft</p></div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>3. KPIs</h2>
+      <h3>3.1 Customer-facing</h3>
+      <table class="doc-table">
+        <thead><tr><th>Objective</th><th>KPI</th><th>Target (12 mo)</th></tr></thead>
+        <tbody>
+          <tr><td>Increase digital payment conversion</td><td>% sessions that complete payment</td><td><strong>≥ 48%</strong> (from 32%)</td></tr>
+          <tr><td>Reduce time to first action</td><td>Median seconds Home → Pay Now</td><td><strong>≤ 40 s</strong> (from 75 s)</td></tr>
+          <tr><td>Reduce confusion contacts</td><td>Inbound calls per 1000 sessions</td><td><strong>≤ 10</strong> (from 22)</td></tr>
+          <tr><td>Increase self-service trust</td><td>Post-payment CSAT (1–5)</td><td><strong>≥ 4.2</strong></td></tr>
+          <tr><td>Maintain accessibility</td><td>WCAG 2.2 AA issues at release</td><td><strong>0 AA blockers</strong></td></tr>
+        </tbody>
+      </table>
+      <h3>3.2 Internal Editor</h3>
+      <table class="doc-table">
+        <thead><tr><th>Objective</th><th>KPI</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>Cut content change lead time</td><td>Median hours submit → publish</td><td>≤ 8 working hours</td></tr>
+          <tr><td>100% governed releases</td><td>% with full stamps</td><td>100%</td></tr>
+          <tr><td>Reduce rework</td><td>% submissions rejected</td><td>≤ 20%</td></tr>
+          <tr><td>Audit traceability</td><td>% actions with full payload</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="doc-section">
+      <h2>4. Strategic Pillars</h2>
+      <h3>Pillar 1 — Trusted Customer Journey</h3>
+      <p>Secure entry → personalised timeline → single primary action → no dead ends. Covers Sign-In, Home/Timeline, Make a Payment, Enforcement Info, Support, Alerts.</p>
+      <h3>Pillar 2 — Governed Content Authoring</h3>
+      <p>The Landing Page Settings module: structured tabbed editor mirroring the live page; inline click-to-edit panels; mandatory Save → Submit; Approve/Publish/Reject/Refuse modals.</p>
+      <h3>Pillar 3 — Visible Governance & Audit</h3>
+      <p>Status pill (Draft / In Review / In Publish / Published); always-accessible audit drawer; immutable timeline of actions.</p>
+      <h3>Pillar 4 — Design System Discipline</h3>
+      <p>MET-DS-V2 tokens & components enforced; consistent interactions; WCAG 2.2 AA baked in from day one.</p>
+    </section>
+
+    <section class="doc-section">
+      <h2>5. Expected Impact</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">50%</div><div class="kpi-label">More Payments Self-served</div></div>
+        <div class="kpi-card"><div class="kpi-value">47%</div><div class="kpi-label">Faster Time-to-Action</div></div>
+        <div class="kpi-card"><div class="kpi-value">55%</div><div class="kpi-label">Fewer Confusion Calls</div></div>
+        <div class="kpi-card"><div class="kpi-value">100%</div><div class="kpi-label">Governed Releases</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

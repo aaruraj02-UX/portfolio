@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Office Account Postings · Current Open Transactions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* --- MET-DS-V2 Token Block (Light Theme) ------------------ */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #EF6C00;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --leftnav-icon:          #212121;
+      --leftnav-icon-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-text-active:    #3276CF;
+      --topnav-icon:           #757575;
+      --topnav-icon-active:    #3276CF;
+      --topnav-icon-hover:     #616161;
+
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           16px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:    700;
+      --font-weight-semibold: 600;
+      --font-weight-medium:  500;
+      --font-weight-regular: 400;
+
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter:      ease-out;
+      --easing-exit:       ease-in;
+
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* --- Reset ------------------------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: var(--font-family); cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    /* --- App Shell -------------------------------------------- */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* --- Top Navigation --------------------------------------- */
+    .topnav {
+      display: flex; align-items: center;
+      padding: var(--space-3) var(--space-3); gap: var(--space-3);
+      background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0;
+    }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; }
+    .topnav-logo { height: 28px; width: fit-content; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: 16px; font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-tagline { display: none; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn {
+      position: relative; width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--topnav-icon); padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge {
+      position: absolute; top: 0; right: 0; min-width: 20px; height: 20px;
+      background: var(--color-warning); color: #FFFFFF;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 6.5px; line-height: 1;
+    }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+
+    /* --- Main Layout ------------------------------------------ */
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* --- Sidebar ----------------------------------------------- */
+    .sidebar {
+      width: 56px; flex-shrink: 0; background: var(--color-card);
+      border-right: 1px solid var(--divider-color);
+      display: flex; flex-direction: column; padding: var(--space-5) 0;
+      overflow-x: hidden; overflow-y: hidden;
+      transition: width var(--duration-standard) var(--easing-enter); z-index: 10;
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: var(--radius-button);
+      color: var(--text-secondary); flex-shrink: 0;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading {
+      font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5);
+      white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-3); color: var(--text-secondary); text-decoration: none;
+      white-space: nowrap; min-height: 40px; margin: 0 var(--space-3);
+      border-radius: 8px;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+
+    /* --- Content Area ----------------------------------------- */
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+
+    /* --- Breadcrumb ------------------------------------------- */
+    .breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .breadcrumb a { color: var(--text-hyperlink); text-decoration: none; font-weight: var(--font-weight-medium); }
+    .breadcrumb a:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); font-size: 16px; line-height: 1; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+    /* --- Page Header ------------------------------------------ */
+    .page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .page-header-actions { display: none; }
+
+    /* --- Buttons ----------------------------------------------- */
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5); border-radius: var(--radius-button);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      min-height: 40px; white-space: nowrap;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+
+    /* --- Status Summary Cards ---------------------------------- */
+    .status-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-4); }
+    .status-card { background: var(--color-card); border-radius: var(--radius-card); padding: var(--space-5) var(--space-6); display: flex; align-items: center; gap: var(--space-5); }
+    .status-card-icon { width: 40px; height: 40px; border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .status-card-icon .material-symbols-outlined { font-size: 22px; }
+    .status-card-info { display: flex; flex-direction: column; }
+    .status-card-number { font-size: var(--font-size-h1); font-weight: var(--font-weight-bold); color: var(--text-primary); line-height: 1.2; }
+    .status-card-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+
+    /* --- Toolbar / Filters ------------------------------------ */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; }
+    .toolbar-left { display: flex; align-items: flex-end; gap: var(--space-4); flex-wrap: wrap; }
+    .toolbar-right { display: flex; align-items: center; gap: var(--space-4); }
+    .filter-group { display: flex; flex-direction: column; gap: var(--space-1); }
+    .filter-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+    .filter-select {
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card);
+      color: var(--text-primary); min-height: 36px; min-width: 140px;
+    }
+    .filter-select:focus-visible { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(50,118,207,0.15); }
+    .search-box {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card); min-width: 200px;
+    }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .search-box input::placeholder { color: var(--grey-400); }
+
+    /* --- Data Table ------------------------------------------- */
+    .table-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; }
+    .table-scroll { overflow-x: hidden; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); table-layout: fixed; }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th {
+      padding: var(--space-4) var(--space-4); text-align: left;
+      font-weight: var(--font-weight-semibold); color: var(--text-primary);
+      font-size: var(--font-size-caption); text-transform: uppercase;
+      letter-spacing: 0.5px; white-space: nowrap;
+      border-bottom: 1px solid var(--grey-300); user-select: none; cursor: pointer;
+      overflow: hidden; text-overflow: ellipsis;
+      position: relative;
+    }
+    .data-table th::after {
+      content: ''; position: absolute; right: 0; top: 25%; height: 50%;
+      width: 2px; background: var(--grey-300);
+    }
+    .data-table th:first-child { cursor: default; }
+    .data-table th:last-child { cursor: default; }
+    .data-table th:last-child::after { display: none; }
+    .data-table th:hover { color: var(--color-primary); }
+    .data-table th .sort-icon { font-size: 16px; vertical-align: middle; margin-left: 2px; opacity: 0.4; display: none; }
+    .data-table th.sorted .sort-icon { opacity: 1; color: var(--color-primary); }
+    .data-table td {
+      padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--grey-200);
+      color: var(--text-primary); vertical-align: middle;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .data-table td:last-child { overflow: visible; text-overflow: clip; }
+    .data-table tbody tr.data-row { transition: background var(--duration-micro) var(--easing-enter); cursor: pointer; }
+    .data-table tbody tr.data-row:hover { background: var(--color-primary-25); }
+
+    /* Row expand toggle */
+    .row-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: var(--radius-button);
+      color: var(--text-secondary); vertical-align: middle;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .row-toggle .material-symbols-outlined { font-size: 20px; }
+    .row-toggle:hover { background: var(--grey-200); }
+    .data-row.is-expanded .row-toggle .material-symbols-outlined { color: var(--color-primary); }
+
+    /* Expanded detail row */
+    .detail-row { display: none; }
+    .detail-row.is-visible { display: table-row; }
+    .detail-row > td {
+      padding:  var(--space-5);
+      background: var(--grey-50); border-bottom: 1px solid var(--grey-200);
+    }
+    .detail-fields {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-5);
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-card);
+      border-radius: var(--radius-input);
+      border: 1px solid var(--grey-200);
+    }
+    .detail-field { display: flex; flex-direction: column; gap: var(--space-1); }
+    .detail-field-label {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .detail-field-value { font-size: var(--font-size-body); color: var(--text-primary); }
+
+    /* Row edit button */
+    .row-edit-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: var(--radius-button);
+      color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .row-edit-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .row-edit-btn .material-symbols-outlined { font-size: 18px; }
+
+    /* Badge / pill */
+    .badge {
+      display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium); line-height: 1.5;
+    }
+    .badge--team-ap  { background: #E3F2FD; color: #1565C0; }
+    .badge--team-ar  { background: #FFF3E0; color: #E65100; }
+    .badge--team-cb  { background: #E8F5E9; color: #2E7D32; }
+    .badge--coded    { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge--pending  { background: var(--color-warning-bg); color: var(--color-warning); }
+    .badge--exported { background: var(--color-primary-50); color: var(--color-primary-700); }
+
+    /* --- Table Footer / Pagination ---------------------------- */
+    .table-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) var(--space-5); border-top: 1px solid var(--grey-200);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-button); color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; }
+    .pagination-btn .material-symbols-outlined { font-size: 20px; }
+
+    /* --- Right-Side Edit Panel -------------------------------- */
+    .edit-panel-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 100;
+    }
+    .edit-panel-overlay.is-open { display: block; }
+    .edit-panel {
+      position: fixed; top: 0; right: -480px; bottom: 0;
+      width: 480px; max-width: 90vw; background: var(--color-card);
+      box-shadow: var(--shadow-modal); z-index: 101;
+      display: flex; flex-direction: column;
+      transition: right var(--duration-standard) var(--easing-enter);
+    }
+    .edit-panel.is-open { right: 0; }
+    .edit-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-6) var(--space-7); border-bottom: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .edit-panel-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .edit-panel-close {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: var(--radius-button); color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .edit-panel-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .edit-panel-close .material-symbols-outlined { font-size: 22px; }
+    .edit-panel-body {
+      flex: 1; overflow-y: auto; padding: var(--space-7);
+      display: flex; flex-direction: column; gap: var(--space-5);
+    }
+    .edit-panel-section-title {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;
+      padding-bottom: var(--space-2); border-bottom: 1px solid var(--grey-200);
+    }
+    .edit-field { display: flex; flex-direction: column; gap: var(--space-1); }
+    .edit-field-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+    .edit-field-value { font-size: var(--font-size-body); color: var(--text-primary); padding: var(--space-3) 0; }
+    .edit-field-input {
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card);
+      color: var(--text-primary); min-height: 40px;
+    }
+    .edit-field-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(50,118,207,0.15); }
+    .edit-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .edit-panel-footer {
+      display: flex; align-items: center; justify-content: flex-end; gap: var(--space-4);
+      padding: var(--space-5) var(--space-7); border-top: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+
+    /* --- Import Dialog ---------------------------------------- */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4); z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.is-open { display: flex; }
+    .modal {
+      background: var(--color-card); border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal); width: 480px; max-width: 90vw;
+      padding: var(--space-7); display: flex; flex-direction: column; gap: var(--space-5);
+    }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .modal-body { font-size: var(--font-size-body); color: var(--text-secondary); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: var(--space-4); }
+
+    /* --- Responsive ------------------------------------------- */
+    @media (max-width: 767px) {
+      .sidebar { display: none; }
+      .status-row { grid-template-columns: 1fr 1fr; }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .edit-panel { width: 100%; max-width: 100%; }
+      .edit-field-row { grid-template-columns: 1fr; }
+      .detail-fields { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed; top: var(--space-7); left: 50%; transform: translateX(-50%) translateY(-20px);
+      background: var(--color-success); color: #fff; padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-button); font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; gap: var(--space-3);
+      box-shadow: 0 4px 12px rgba(0,0,0,.18); opacity: 0; pointer-events: none;
+      transition: opacity var(--duration-micro) var(--easing-enter), transform var(--duration-micro) var(--easing-enter);
+      z-index: 200;
+    }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast .material-symbols-outlined { font-size: 20px; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- --- Top Navigation --- -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" aria-label="Toggle sidebar" id="sidebarToggle">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Office Account Postings</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 1 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">1</span>
+        </button>
+        <button aria-label="User profile menu">
+          <img src="https://i.pravatar.cc/64?img=12" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <!-- --- Main Layout --- -->
+    <div class="main-layout">
+      <!-- --- Sidebar --- -->
+      <nav class="sidebar" id="sidebar" aria-label="Office Account Postings navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Office Account Postings</span>
+          <a href="OAP_CurrentTransactions.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Current Open Transactions</span>
+          </a>
+          <a href="OAP_ArchivedTransactions.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
+            <span class="sidebar-link-text">Archived Transactions</span>
+          </a>
+          <a href="OAP_LookupTable.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_search</span>
+            <span class="sidebar-link-text">Lookup Table</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- --- Content --- -->
+      <main class="content-area" id="main-content">
+        <div class="content-inner">
+
+          <!-- Breadcrumb -->
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="LandingPage.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <a href="OAP_CurrentTransactions.html">Office Account Postings</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">Current Open Transactions</span>
+          </nav>
+
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title">Current Open Transactions</h1>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-secondary" id="importBtn" aria-label="Import transactions file">
+                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+                Import File
+              </button>
+              <button class="btn btn-primary" id="generateBtn" aria-label="Generate journals for coded transactions">
+                <span class="material-symbols-outlined" aria-hidden="true">description</span>
+                Generate Journals
+              </button>
+            </div>
+          </div>
+
+          <!-- Status Summary -->
+          <div class="status-row" role="list" aria-label="Transaction status summary">
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-primary-50);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);" aria-hidden="true">list_alt</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number" id="totalCount">248</span>
+                <span class="status-card-label">Total</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-success-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-success);" aria-hidden="true">check_circle</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number" id="codedCount">142</span>
+                <span class="status-card-label">Auto-Coded</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-warning-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-warning);" aria-hidden="true">edit_note</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number" id="pendingCount">78</span>
+                <span class="status-card-label">Pending Coding</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: #E3F2FD;">
+                <span class="material-symbols-outlined" style="color: #1565C0;" aria-hidden="true">send</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number" id="exportedCount">28</span>
+                <span class="status-card-label">Journalled</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters / Toolbar -->
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <div class="search-box">
+                <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                <input type="search" placeholder="Search transactions…" aria-label="Search transactions" />
+              </div>
+            </div>
+            <div class="toolbar-right">
+              <button class="btn btn-text-primary" aria-label="Choose visible columns">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-variation-settings: 'FILL' 1">view_column</span>
+                Column
+              </button>
+              <button class="btn btn-text-primary" aria-label="Export table to CSV">
+                <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                Export
+              </button>
+            </div>
+          </div>
+
+          <!-- --- Data Table --- -->
+          <div class="table-container">
+            <div class="table-scroll">
+              <table class="data-table" aria-label="Current open transactions">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width:36px;"></th>
+                    <th scope="col" style="width:11%;">Filename <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:6%;" class="sorted">Team <span class="sort-icon material-symbols-outlined" aria-hidden="true">expand_less</span></th>
+                    <th scope="col" style="width:9%;">Date <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col">Description <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:10%;">Entry Ref <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:7%;">Trans Code <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:9%; text-align:right;">Debit <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:9%; text-align:right;">Credit <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:8%;">Status</th>
+                    <th scope="col" style="width:60px;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Row 1 — AP, Coded -->
+                  <tr class="data-row is-expanded" data-row="r1" aria-expanded="true">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_less</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-ap">AP</span></td>
+                    <td>09/04/2026</td>
+                    <td>PITNEY BOWES LIMIT80000234804III5663</td>
+                    <td>—</td>
+                    <td>466</td>
+                    <td style="text-align:right;">£210.50</td>
+                    <td style="text-align:right;">—</td>
+                    <td><span class="badge badge--coded">Coded</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r1">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row is-visible" data-detail="r1">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MMGH</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">57128568</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">V007602MMGH</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">Pitney Bowes postage</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2 — AP, Pending -->
+                  <tr class="data-row" data-row="r2" aria-expanded="false">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-ap">AP</span></td>
+                    <td>09/04/2026</td>
+                    <td>MILEWAY B.V.NSNL500166AGEC17</td>
+                    <td>—</td>
+                    <td>466</td>
+                    <td style="text-align:right;">£7,658.18</td>
+                    <td style="text-align:right;">—</td>
+                    <td><span class="badge badge--pending">Pending</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r2">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row" data-detail="r2">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MNSL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">NSL Ltd</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3 — AR, Coded -->
+                  <tr class="data-row" data-row="r3" aria-expanded="false">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-ar">AR</span></td>
+                    <td>08/04/2026</td>
+                    <td>UNIVERSITY OF WARW1 2101129872 K</td>
+                    <td>—</td>
+                    <td>174</td>
+                    <td style="text-align:right;">—</td>
+                    <td style="text-align:right;">£693.38</td>
+                    <td><span class="badge badge--coded">Coded</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r3">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row" data-detail="r3">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MESL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">ESL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">C000048MMGH</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">University of Warwick</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 4 — AR, Pending -->
+                  <tr class="data-row" data-row="r4" aria-expanded="false">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-ar">AR</span></td>
+                    <td>08/04/2026</td>
+                    <td>EDF ENERGY CUSTOME5100 2000005700 K</td>
+                    <td>—</td>
+                    <td>174</td>
+                    <td style="text-align:right;">—</td>
+                    <td style="text-align:right;">£115,435.15</td>
+                    <td><span class="badge badge--pending">Pending</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r4">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row" data-detail="r4">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MESL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">ESL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 5 — C&B, Coded -->
+                  <tr class="data-row" data-row="r5" aria-expanded="false">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-cb">C&amp;B</span></td>
+                    <td>09/04/2026</td>
+                    <td>INT (GROSS) T/FERFROM 801214510268</td>
+                    <td>—</td>
+                    <td>244</td>
+                    <td style="text-align:right;">—</td>
+                    <td style="text-align:right;">£64.90</td>
+                    <td><span class="badge badge--coded">Coded</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r5">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row" data-detail="r5">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MMGH</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">57128568</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">40715</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">PLG068</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">Interest received</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 6 — C&B, Coded -->
+                  <tr class="data-row" data-row="r6" aria-expanded="false">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-cb">C&amp;B</span></td>
+                    <td>09/04/2026</td>
+                    <td>SECURITY INDUSTRYDD</td>
+                    <td>—</td>
+                    <td>466</td>
+                    <td style="text-align:right;">£41.30</td>
+                    <td style="text-align:right;">—</td>
+                    <td><span class="badge badge--coded">Coded</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r6">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row" data-detail="r6">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MNSL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">NSL Ltd</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">40715</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">PLG068</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">Security industry levy</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 7 — AP, Journalled -->
+                  <tr class="data-row" data-row="r7" aria-expanded="false">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-ap">AP</span></td>
+                    <td>01/04/2026</td>
+                    <td>SECURITY PLUS LIMD-NSLS110</td>
+                    <td>—</td>
+                    <td>466</td>
+                    <td style="text-align:right;">£369.24</td>
+                    <td style="text-align:right;">—</td>
+                    <td><span class="badge badge--exported">Journalled</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r7">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row" data-detail="r7">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MNSL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">NSL Ltd</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">V004821MNSL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">Security Plus payment</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 8 — AR, Journalled -->
+                  <tr class="data-row" data-row="r8" aria-expanded="false">
+                    <td>
+                      <span class="row-toggle" aria-hidden="true">
+                        <span class="material-symbols-outlined">expand_more</span>
+                      </span>
+                    </td>
+                    <td>BST_20260413</td>
+                    <td><span class="badge badge--team-ar">AR</span></td>
+                    <td>08/04/2026</td>
+                    <td>NICHOLLS EDWARDR. NICHOLLS078259745290804001</td>
+                    <td>078259745290804001</td>
+                    <td>229</td>
+                    <td style="text-align:right;">—</td>
+                    <td style="text-align:right;">£308.19</td>
+                    <td><span class="badge badge--exported">Journalled</span></td>
+                    <td>
+                      <button class="row-edit-btn" aria-label="Edit transaction" data-edit="r8">
+                        <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="detail-row" data-detail="r8">
+                    <td colspan="11">
+                      <div class="detail-fields">
+                        <div class="detail-field">
+                          <span class="detail-field-label">Legal Entity</span>
+                          <span class="detail-field-value">MVTL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Bank Account</span>
+                          <span class="detail-field-value">60914868</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Nominal Code</span>
+                          <span class="detail-field-value">C000112MVTL</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Cost Centre</span>
+                          <span class="detail-field-value">—</span>
+                        </div>
+                        <div class="detail-field">
+                          <span class="detail-field-label">Journal Description</span>
+                          <span class="detail-field-value">Nicholls payment</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <!-- Table footer / pagination -->
+            <div class="table-footer">
+              <span>Showing 1–8 of 248 transactions</span>
+              <div class="pagination">
+                <button class="pagination-btn" disabled aria-label="Previous page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                </button>
+                <span>Page 1 of 31</span>
+                <button class="pagination-btn" aria-label="Next page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- --- Right-Side Edit Panel --- -->
+  <div class="edit-panel-overlay" id="editOverlay"></div>
+  <aside class="edit-panel" id="editPanel" role="dialog" aria-modal="true" aria-labelledby="editPanelTitle">
+    <div class="edit-panel-header">
+      <h2 class="edit-panel-title" id="editPanelTitle">Edit Transaction</h2>
+      <button class="edit-panel-close" id="editPanelClose" aria-label="Close edit panel">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div class="edit-panel-body">
+      <!-- Read-only fields -->
+      <span class="edit-panel-section-title">Transaction Details</span>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <span class="edit-field-label">Booking Date</span>
+          <span class="edit-field-value" id="ep-bookingDate">09/04/2026</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Team</span>
+          <span class="edit-field-value" id="ep-team"><span class="badge badge--team-ap">AP</span></span>
+        </div>
+      </div>
+      <div class="edit-field">
+        <span class="edit-field-label">Description</span>
+        <span class="edit-field-value" id="ep-description">PITNEY BOWES LIMIT80000234804III5663</span>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <span class="edit-field-label">Entry Reference</span>
+          <span class="edit-field-value" id="ep-entryRef">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Trans Code</span>
+          <span class="edit-field-value" id="ep-transCode">466</span>
+        </div>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <span class="edit-field-label">Debit</span>
+          <span class="edit-field-value" id="ep-debit">£210.50</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Credit</span>
+          <span class="edit-field-value" id="ep-credit">—</span>
+        </div>
+      </div>
+      <div class="edit-field">
+        <span class="edit-field-label">Status</span>
+        <span class="edit-field-value" id="ep-status"><span class="badge badge--coded">Coded</span></span>
+      </div>
+
+      <!-- Editable fields -->
+      <span class="edit-panel-section-title">Coding &amp; Posting</span>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ep-legalEntity">Legal Entity</label>
+          <input class="edit-field-input" type="text" id="ep-legalEntity" value="MMGH" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ep-bankAcct">Bank Account</label>
+          <input class="edit-field-input" type="text" id="ep-bankAcct" value="57128568" />
+        </div>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ep-nominalCode">Nominal Code</label>
+          <input class="edit-field-input" type="text" id="ep-nominalCode" value="V007602MMGH" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ep-costCentre">Cost Centre</label>
+          <input class="edit-field-input" type="text" id="ep-costCentre" value="" placeholder="—" />
+        </div>
+      </div>
+      <div class="edit-field">
+        <label class="edit-field-label" for="ep-journalDesc">Journal Description</label>
+        <input class="edit-field-input" type="text" id="ep-journalDesc" value="Pitney Bowes postage" />
+      </div>
+    </div>
+    <div class="edit-panel-footer">
+      <button class="btn btn-ghost" id="editPanelCancel">Cancel</button>
+      <button class="btn btn-primary" id="editPanelUpdate">
+        <span class="material-symbols-outlined" aria-hidden="true">check</span>
+        Update
+      </button>
+    </div>
+  </aside>
+
+  <!-- --- Import File Dialog --- -->
+  <div class="modal-overlay" id="importModal" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
+    <div class="modal">
+      <h2 class="modal-title" id="importModalTitle">Import Transactions File</h2>
+      <div class="modal-body">
+        <p>Upload the bank statement transactions file (.xlsx). Only records where Source Type = "Bank Statement" will be imported.</p>
+        <div style="margin-top: var(--space-5);">
+          <label class="filter-label" for="importFile" style="margin-bottom: var(--space-2); display: block;">Select file</label>
+          <input type="file" id="importFile" accept=".xlsx,.xls,.csv" style="font-family: var(--font-family); font-size: var(--font-size-body);" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="importCancel">Cancel</button>
+        <button class="btn btn-primary" id="importConfirm">
+          <span class="material-symbols-outlined" aria-hidden="true">upload</span>
+          Import
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* -- Sidebar toggle -- */
+    (function() {
+      var sb = document.getElementById('sidebar');
+      var btn = document.getElementById('sidebarToggle');
+      btn.addEventListener('click', function() {
+        sb.classList.toggle('is-expanded');
+        var expanded = sb.classList.contains('is-expanded');
+        btn.setAttribute('aria-label', expanded ? 'Collapse sidebar' : 'Expand sidebar');
+      });
+    })();
+
+    /* -- Row expand / collapse -- */
+    (function() {
+      document.querySelectorAll('.data-row').forEach(function(row) {
+        // Click anywhere on the row (except edit button) toggles expand
+        row.addEventListener('click', function(e) {
+          if (e.target.closest('.row-edit-btn')) return;
+          var rowId = row.getAttribute('data-row');
+          var isExpanded = row.classList.contains('is-expanded');
+          var detailRow = document.querySelector('.detail-row[data-detail="' + rowId + '"]');
+          var toggleIcon = row.querySelector('.row-toggle .material-symbols-outlined');
+
+          if (isExpanded) {
+            row.classList.remove('is-expanded');
+            row.setAttribute('aria-expanded', 'false');
+            detailRow.classList.remove('is-visible');
+            toggleIcon.textContent = 'expand_more';
+          } else {
+            row.classList.add('is-expanded');
+            row.setAttribute('aria-expanded', 'true');
+            detailRow.classList.add('is-visible');
+            toggleIcon.textContent = 'expand_less';
+          }
+        });
+      });
+    })();
+
+    /* -- Edit panel -- */
+    (function() {
+      var overlay = document.getElementById('editOverlay');
+      var panel = document.getElementById('editPanel');
+
+      var rowData = {
+        r1: { date:'09/04/2026', team:'AP', teamClass:'badge--team-ap', desc:'PITNEY BOWES LIMIT80000234804III5663', ref:'\u2014', code:'466', debit:'\u00A3210.50', credit:'\u2014', status:'Coded', statusClass:'badge--coded', le:'MMGH', bank:'57128568', nominal:'V007602MMGH', cc:'', journal:'Pitney Bowes postage' },
+        r2: { date:'09/04/2026', team:'AP', teamClass:'badge--team-ap', desc:'MILEWAY B.V.NSNL500166AGEC17', ref:'\u2014', code:'466', debit:'\u00A37,658.18', credit:'\u2014', status:'Pending', statusClass:'badge--pending', le:'MNSL', bank:'NSL Ltd', nominal:'', cc:'', journal:'' },
+        r3: { date:'08/04/2026', team:'AR', teamClass:'badge--team-ar', desc:'UNIVERSITY OF WARW1 2101129872 K', ref:'\u2014', code:'174', debit:'\u2014', credit:'\u00A3693.38', status:'Coded', statusClass:'badge--coded', le:'MESL', bank:'ESL', nominal:'C000048MMGH', cc:'', journal:'University of Warwick' },
+        r4: { date:'08/04/2026', team:'AR', teamClass:'badge--team-ar', desc:'EDF ENERGY CUSTOME5100 2000005700 K', ref:'\u2014', code:'174', debit:'\u2014', credit:'\u00A3115,435.15', status:'Pending', statusClass:'badge--pending', le:'MESL', bank:'ESL', nominal:'', cc:'', journal:'' },
+        r5: { date:'09/04/2026', team:'C&B', teamClass:'badge--team-cb', desc:'INT (GROSS) T/FERFROM 801214510268', ref:'\u2014', code:'244', debit:'\u2014', credit:'\u00A364.90', status:'Coded', statusClass:'badge--coded', le:'MMGH', bank:'57128568', nominal:'40715', cc:'PLG068', journal:'Interest received' },
+        r6: { date:'09/04/2026', team:'C&B', teamClass:'badge--team-cb', desc:'SECURITY INDUSTRYDD', ref:'\u2014', code:'466', debit:'\u00A341.30', credit:'\u2014', status:'Coded', statusClass:'badge--coded', le:'MNSL', bank:'NSL Ltd', nominal:'40715', cc:'PLG068', journal:'Security industry levy' },
+        r7: { date:'01/04/2026', team:'AP', teamClass:'badge--team-ap', desc:'SECURITY PLUS LIMD-NSLS110', ref:'\u2014', code:'466', debit:'\u00A3369.24', credit:'\u2014', status:'Journalled', statusClass:'badge--exported', le:'MNSL', bank:'NSL Ltd', nominal:'V004821MNSL', cc:'', journal:'Security Plus payment' },
+        r8: { date:'08/04/2026', team:'AR', teamClass:'badge--team-ar', desc:'NICHOLLS EDWARDR. NICHOLLS078259745290804001', ref:'078259745290804001', code:'229', debit:'\u2014', credit:'\u00A3308.19', status:'Journalled', statusClass:'badge--exported', le:'MVTL', bank:'60914868', nominal:'C000112MVTL', cc:'', journal:'Nicholls payment' }
+      };
+
+      function openPanel(rowId) {
+        var d = rowData[rowId];
+        if (!d) return;
+        document.getElementById('ep-bookingDate').textContent = d.date;
+        document.getElementById('ep-team').innerHTML = '<span class="badge ' + d.teamClass + '">' + d.team + '</span>';
+        document.getElementById('ep-description').textContent = d.desc;
+        document.getElementById('ep-entryRef').textContent = d.ref;
+        document.getElementById('ep-transCode').textContent = d.code;
+        document.getElementById('ep-debit').textContent = d.debit;
+        document.getElementById('ep-credit').textContent = d.credit;
+        document.getElementById('ep-status').innerHTML = '<span class="badge ' + d.statusClass + '">' + d.status + '</span>';
+        document.getElementById('ep-legalEntity').value = d.le;
+        document.getElementById('ep-bankAcct').value = d.bank;
+        document.getElementById('ep-nominalCode').value = d.nominal;
+        document.getElementById('ep-costCentre').value = d.cc;
+        document.getElementById('ep-journalDesc').value = d.journal;
+        overlay.classList.add('is-open');
+        panel.classList.add('is-open');
+        document.getElementById('ep-nominalCode').focus();
+      }
+
+      function closePanel() {
+        overlay.classList.remove('is-open');
+        panel.classList.remove('is-open');
+      }
+
+      document.querySelectorAll('.row-edit-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openPanel(btn.getAttribute('data-edit'));
+        });
+      });
+
+      document.getElementById('editPanelClose').addEventListener('click', closePanel);
+      document.getElementById('editPanelCancel').addEventListener('click', closePanel);
+      document.getElementById('editPanelUpdate').addEventListener('click', function() { closePanel(); window.__showToast('Record Updated Successfully'); });
+      overlay.addEventListener('click', closePanel);
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && panel.classList.contains('is-open')) closePanel();
+      });
+    })();
+
+    /* -- Import modal -- */
+    (function() {
+      var overlay = document.getElementById('importModal');
+      document.getElementById('importBtn').addEventListener('click', function() {
+        overlay.classList.add('is-open');
+      });
+      document.getElementById('importCancel').addEventListener('click', function() {
+        overlay.classList.remove('is-open');
+      });
+      document.getElementById('importConfirm').addEventListener('click', function() {
+        overlay.classList.remove('is-open');
+      });
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) overlay.classList.remove('is-open');
+      });
+      overlay.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') overlay.classList.remove('is-open');
+      });
+    })();
+  </script>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Updated successfully</span>
+  </div>
+
+  <script>
+    (function() {
+      var toast = document.getElementById('toast');
+      var toastMsg = document.getElementById('toastMsg');
+      var timer;
+      function showToast(msg) {
+        toastMsg.textContent = msg;
+        toast.classList.add('is-visible');
+        clearTimeout(timer);
+        timer = setTimeout(function() { toast.classList.remove('is-visible'); }, 3000);
+      }
+      window.__showToast = showToast;
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

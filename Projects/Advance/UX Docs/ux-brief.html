@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Brief — ProServe Master EA Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">ProServe</span>
+    <a href="ux-brief.html" class="active">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../Advance/prototype/landing.html">Prototype</a>
+  </nav>
+
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Brief — ProServe Master EA Platform</h1>
+      <div class="doc-meta">
+        <span>📋 Project: ProServe — Enforcement Agent Master Data Platform</span>
+        <span>🏢 Client: Acme Holdings</span>
+        <span>📅 20 April 2026</span>
+        <span>🔖 v1.0 — Draft</span>
+      </div>
+    </header>
+
+    <!-- Background -->
+    <section class="doc-section">
+      <h2>1. Background</h2>
+      <p>Acme Holdings manages a large workforce of Enforcement Agents (EAs) across the United Kingdom. EA information is currently fragmented across multiple disconnected legacy systems — <strong>Optimise</strong>, <strong>Atlas</strong>, <strong>ProServe</strong>, and the <strong>MHL Portal (Asset Register)</strong>. This fragmentation creates:</p>
+      <ul>
+        <li>Duplicate and inconsistent EA records across systems</li>
+        <li>Manual reconciliation overhead for Contract Service teams</li>
+        <li>Data-governance blind spots (no single audit trail)</li>
+        <li>Delay-prone onboarding and profile-update processes</li>
+        <li>Limited visibility into compliance, certification, and bond statuses</li>
+      </ul>
+      <p>The <strong>ProServe Master EA Platform</strong> is being developed to consolidate all EA data into a <strong>Single Source of Truth (SSOT)</strong>, enforce data-governance controls, and automatically sync changes to downstream systems in near real-time.</p>
+    </section>
+
+    <!-- Business Objectives -->
+    <section class="doc-section">
+      <h2>2. Business Objectives</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th><th>Measure</th></tr></thead>
+        <tbody>
+          <tr><td>O-1</td><td><strong>Establish SSOT</strong> — 100% of downstream systems consume EA data exclusively from the Master Record</td><td>0 conflicting / duplicate records</td></tr>
+          <tr><td>O-2</td><td><strong>Real-time integration & sync transparency</strong> — uni-directional sync with health dashboard visible per EA record</td><td>Sync within defined SLAs</td></tr>
+          <tr><td>O-3</td><td><strong>Robust data governance</strong> — RBAC, dual-approval (Keyer / Verifier) workflow, full audit trail</td><td>100% of sensitive changes follow four-eyes principle</td></tr>
+          <tr><td>O-4</td><td><strong>Complete 360° EA profile</strong> — every active EA has a validated, up-to-date profile</td><td>100% field completeness for active EAs</td></tr>
+          <tr><td>O-5</td><td><strong>Aligned processes & reporting</strong> — all reports and dashboards migrate to Master EA data feed</td><td>100% reporting adoption; legacy entry points retired</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Target Users -->
+    <section class="doc-section">
+      <h2>3. Target Users</h2>
+      <h3>3.1 Primary Users</h3>
+      <table class="doc-table">
+        <thead><tr><th>Role</th><th>App</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Contract Service Team Lead — Admin</strong></td><td>Web</td><td>Full edit access across all entities. Creator & Approver rights. Manages team workflows, approves changes.</td></tr>
+          <tr><td><strong>Contract Service Team Member</strong></td><td>Web</td><td>Edit access to Personal, Compliance, Certification, Contract & Bond. Creator only — submits changes for approval.</td></tr>
+          <tr><td><strong>Enforcement Directors</strong></td><td>Web</td><td>Edit Personal (partial), Cert Processing, Enforcement. View Bond & Asset. Approver rights. Strategic oversight.</td></tr>
+          <tr><td><strong>Senior Enforcement Managers</strong></td><td>Web / Mobile</td><td>Edit Personal (partial), Cert Processing, Enforcement. View Bond & Asset. Manage assigned EMs & EAs.</td></tr>
+          <tr><td><strong>Enforcement Manager</strong></td><td>Web / Mobile</td><td>Edit Personal (partial) & Enforcement. View Cert, Bond & Asset. Manage assigned EAs.</td></tr>
+          <tr><td><strong>EA (Enforcement Agent)</strong></td><td>Web / Mobile</td><td>Edit limited Personal fields (phone, email, address) & limited Enforcement. View Cert, Bond & Asset. Own profile only.</td></tr>
+        </tbody>
+      </table>
+      <h3>3.2 Secondary / Support Users</h3>
+      <table class="doc-table">
+        <thead><tr><th>Role</th><th>App</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>IT / Service Desk</strong></td><td>Web</td><td>View Personal. Edit Asset Management. Access Audit Log & Reports. Approver for IT items.</td></tr>
+          <tr><td><strong>Finance</strong></td><td>Web</td><td>View-only Personal & Contract. No edit or approval.</td></tr>
+          <tr><td><strong>Facilities</strong></td><td>Web</td><td>View-only Personal details. No other entity access.</td></tr>
+          <tr><td><strong>Audit</strong></td><td>Web</td><td>View-only Personal, Compliance, Certification & Bond. Read-only inspection.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- User Needs -->
+    <section class="doc-section">
+      <h2>4. User Needs</h2>
+      <h3>4.1 Contract Service Team (Admin & Member)</h3>
+      <ul>
+        <li>Quickly onboard new EAs — create full profile in a guided, step-by-step workflow</li>
+        <li>Edit any entity efficiently with clear validation feedback</li>
+        <li>Submit changes for approval and track approval status in real time</li>
+        <li>Access audit trail for every change made to a record</li>
+        <li>Generate reports (daily / weekly / monthly)</li>
+      </ul>
+      <h3>4.2 Enforcement Chain (Directors → Senior EMs → EMs)</h3>
+      <ul>
+        <li>View a complete 360° profile for any EA in their jurisdiction</li>
+        <li>Edit permitted fields (personal contact info, enforcement configuration, postcodes)</li>
+        <li>Approve or reject changes submitted by lower roles with section-by-section rejection comments</li>
+        <li>View sync status to downstream systems (Atlas, Optimise, Asset Register)</li>
+      </ul>
+      <h3>4.3 Enforcement Agents</h3>
+      <ul>
+        <li>View own complete profile</li>
+        <li>Update personal contact information (phone, email, address)</li>
+        <li>Simple, mobile-friendly interface for self-service updates</li>
+      </ul>
+    </section>
+
+    <!-- Scope -->
+    <section class="doc-section">
+      <h2>5. Scope</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">8</div><div class="kpi-label">Data Entities</div></div>
+        <div class="kpi-card"><div class="kpi-value">10</div><div class="kpi-label">User Roles</div></div>
+        <div class="kpi-card"><div class="kpi-value">100+</div><div class="kpi-label">Fields</div></div>
+        <div class="kpi-card"><div class="kpi-value">4</div><div class="kpi-label">Downstream Systems</div></div>
+      </div>
+      <h3>8 Data Entities</h3>
+      <table class="doc-table">
+        <thead><tr><th>Entity</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Personal Details</td><td>Identity, name, contact, address, employment, attachments</td></tr>
+          <tr><td>Compliance</td><td>Qualifications, authorisation, awarding body</td></tr>
+          <tr><td>Certificate Processing</td><td>DBS, court hearings, outcomes</td></tr>
+          <tr><td>Certificate Status</td><td>Active certifications, expiry, uploads</td></tr>
+          <tr><td>Bond</td><td>Contractor bonds, types, hold status</td></tr>
+          <tr><td>Contract</td><td>Banking, VAT, insurance, addresses</td></tr>
+          <tr><td>Asset Management</td><td>BWV cameras, ANPR, laptops, equipment</td></tr>
+          <tr><td>Enforcement</td><td>Officer configuration, postcodes, income, devices</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Constraints -->
+    <section class="doc-section">
+      <h2>6. Constraints & Assumptions</h2>
+      <h3>Constraints</h3>
+      <ul>
+        <li>Dual-approval (Keyer/Verifier) enforced at the UI level — no self-approval</li>
+        <li>WCAG 2.2 AA compliance mandatory</li>
+        <li>MET-DS-V2 design system components and tokens required</li>
+        <li>Integration with Talos, Atlas, Optimise, and MHL Asset Register</li>
+      </ul>
+      <h3>Assumptions</h3>
+      <ul>
+        <li>Talos provides identity data for new EA onboarding</li>
+        <li>All users have authenticated corporate credentials</li>
+        <li>Sync is uni-directional (Master → downstream)</li>
+        <li>Reports module is future scope (placeholder in navigation)</li>
+      </ul>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

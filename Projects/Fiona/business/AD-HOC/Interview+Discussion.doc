@@ -1,0 +1,856 @@
+Date: Wed, 8 Jul 2026 07:25:00 +0000 (UTC)
+Message-ID: <2104686317.25.1783495500039@75a411124e65>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_24_101515156.1783495500039"
+
+------=_Part_24_101515156.1783495500039
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Interview Discussion</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Interview Discussion</h1>
+    <div class=3D"Section1">
+        <h2 local-id=3D"e25289242767" id=3D"InterviewDiscussion-Beneficiary=
+Creation&amp;PaymentWorkflow=E2=80=93UXReviewMeetingSummary">Beneficiary Cr=
+eation &amp; Payment Workflow =E2=80=93 UX Review Meeting Summary</h2>
+<p local-id=3D"7191d4a8fbe0"><strong>Meeting Participants</strong></p>
+<ul local-id=3D"d21f7370-86c4-4780-8836-a2361b81e650">
+<li local-id=3D"8eacd542-7c42-4b54-90ff-0c7e33b0992a">
+<p local-id=3D"6a50bea2fcbf">Seema Mathiyarasu</p></li>
+<li local-id=3D"ab9633b8-024e-406f-b3a1-e5ccdb0d6984">
+<p local-id=3D"40e4ca5dbfed">Paul Bliss</p></li>
+<li local-id=3D"45e660cd-812b-48d7-962a-eb5a4da089cd">
+<p local-id=3D"96065a036aab">Joanne Bliss</p></li>
+<li local-id=3D"61ca9cc8-8f88-4bbc-b74f-434997cdb7ec">
+<p local-id=3D"bb71ec07ac97">Arumugam V</p></li>
+</ul>
+<p local-id=3D"7df47ec441a1"><strong>Purpose</strong> Review the proposed U=
+X design for Beneficiary Creation, Draft Management, Payment Details Entry,=
+ Currency Configuration, and VAT handling within the payment workflow.</p>
+<hr local-id=3D"a89b02de-ae6c-4719-80c0-7cd2a4e42b05">
+<h1 local-id=3D"6634fe670d3d" id=3D"InterviewDiscussion-1.ExecutiveSummary"=
+>1. Executive Summary</h1>
+<p local-id=3D"e67cbcee69ff">The discussion focused on validating the UX fl=
+ow for beneficiary creation and payment setup. Key decisions were made rega=
+rding:</p>
+<ul local-id=3D"e1c24dbf-83f6-476b-8126-57c08ba29d98">
+<li local-id=3D"8f6934e2-fe9b-430f-b207-dc71785462be">
+<p local-id=3D"2b4fd260d9a8">Introducing a <strong>Draft</strong> status fo=
+r incomplete beneficiary forms.</p></li>
+<li local-id=3D"688f0eff-57e2-4d0d-a119-c775fc827e10">
+<p local-id=3D"c5c53f32973a">Supporting <strong>Resume Draft</strong> funct=
+ionality.</p></li>
+<li local-id=3D"10d08c26-498a-4164-a024-85f3d604d448">
+<p local-id=3D"40e6249239ac">Maintaining consistency with existing Ad Hoc p=
+ayment forms.</p></li>
+<li local-id=3D"d5465259-c043-4601-9979-7c075f9a1772">
+<p local-id=3D"3355fbf4f8ee">Reusing existing payment fields and validation=
+ rules.</p></li>
+<li local-id=3D"e18d59f4-f1a7-496d-971b-b9ba29417c41">
+<p local-id=3D"8816dedfde9a">Loading currencies from an administration/conf=
+iguration module.</p></li>
+<li local-id=3D"65ebb9cf-bafb-4ffc-aee6-ff1ce4402b8b">
+<p local-id=3D"6adf98ccb7ce">Applying existing VAT journal logic from Vehic=
+le Release Payments to the new module.</p></li>
+<li local-id=3D"ac383d1b-1a0e-4be3-8f3e-02dc29ea1c30">
+<p local-id=3D"17c3ffd3ade8">Updating the prototype based on stakeholder fe=
+edback.</p></li>
+</ul>
+<hr local-id=3D"663ee1ec-b48d-4cf8-a906-08b0cf6182a5">
+<h1 local-id=3D"9108236e099a" id=3D"InterviewDiscussion-2.UXInterviewQuesti=
+ons&amp;DiscussionOutcomes">2. UX Interview Questions &amp; Discussion Outc=
+omes</h1>
+<h2 local-id=3D"2993989ddd2a" id=3D"InterviewDiscussion-SectionA=E2=80=93Be=
+neficiaryCreationFlow">Section A =E2=80=93 Beneficiary Creation Flow</h2>
+<h3 local-id=3D"e9b283f01bac" id=3D"InterviewDiscussion-Q1.Howshouldthecurr=
+entstepbeindicatedintheworkflow?">Q1. How should the current step be indica=
+ted in the workflow?</h3>
+<p local-id=3D"1b36289416bd"><strong>Discussion</strong></p>
+<p local-id=3D"b3de6692246a">The current step should only be visually highl=
+ighted.</p>
+<p local-id=3D"442eab6aea49"><strong>Answer</strong></p>
+<ul local-id=3D"86da0c17-5e5f-4337-be41-fe780b1ec493">
+<li local-id=3D"0708b29a-cb65-476d-a079-0ee75e42bcb5">
+<p local-id=3D"f22fb5211c5f">Current stage is highlighted.</p></li>
+<li local-id=3D"d3559757-a6a1-4139-972d-2892c0d07988">
+<p local-id=3D"997b90b60dd3">Steps are not selectable/clickable.</p></li>
+<li local-id=3D"9669c25e-5837-459b-a73f-895270a20535">
+<p local-id=3D"bf2d287bbb29">Users cannot jump between stages.</p></li>
+</ul>
+<p local-id=3D"3c1aacd59943"><strong>UX Decision</strong></p>
+<p local-id=3D"6bfbe681ac4d">=E2=9C=85 Use a non-clickable step indicator s=
+howing current progress only.</p>
+<hr local-id=3D"c71062c0-c653-4c2b-b502-a54e2457a15a">
+<h3 local-id=3D"b0745ae2f141" id=3D"InterviewDiscussion-Q2.Whathappensafter=
+enteringabeneficiaryname?">Q2. What happens after entering a beneficiary na=
+me?</h3>
+<p local-id=3D"96fae96f83da"><strong>Discussion</strong></p>
+<p local-id=3D"e9a58e6c653d">The beneficiary name is the first mandatory in=
+put.</p>
+<p local-id=3D"728c87d1188f"><strong>Answer</strong></p>
+<ul local-id=3D"61c9a2af-cff0-48ab-82e8-a6d5edd50d94">
+<li local-id=3D"20595dc7-4560-4fb3-8255-d196632f39bd">
+<p local-id=3D"02f471f7f38a">User enters Beneficiary Name.</p></li>
+<li local-id=3D"20db64dc-209a-43a2-8586-9277f891a0a8">
+<p local-id=3D"514a6d3132be">"Next" button remains disabled until a valid n=
+ame is entered.</p></li>
+</ul>
+<p local-id=3D"2cced248ffa5"><strong>UX Decision</strong></p>
+<p local-id=3D"daeca9c03acd">=E2=9C=85 Enable Next button only after Benefi=
+ciary Name validation succeeds.</p>
+<hr local-id=3D"e959d6c9-ad92-4a3d-830a-9e788d684c6a">
+<h2 local-id=3D"ffaa9f022c69" id=3D"InterviewDiscussion-SectionB=E2=80=93Dr=
+aftFunctionality">Section B =E2=80=93 Draft Functionality</h2>
+<h3 local-id=3D"19acf7d0c9d2" id=3D"InterviewDiscussion-Q3.WhyintroduceaDra=
+ftstatus?">Q3. Why introduce a Draft status?</h3>
+<p local-id=3D"6f7761a9ffb4"><strong>Discussion</strong></p>
+<p local-id=3D"ea61b6ac2ce6">Previously users could only:</p>
+<ul local-id=3D"38e9c3ae-0f61-437c-af20-31e8133c98e9">
+<li local-id=3D"ad55ec5f-cc84-43c9-af9c-13f6a91a1923">
+<p local-id=3D"14f065702eae">Save completed records</p></li>
+<li local-id=3D"42f8883a-93b3-42de-af13-5cbdf317f10b">
+<p local-id=3D"f838caa36b28">Discard changes</p></li>
+</ul>
+<p local-id=3D"47763c046ed5">No option existed to pause work.</p>
+<p local-id=3D"305e1ed0fad9"><strong>Answer</strong></p>
+<p local-id=3D"5a61e7e48133">New Draft status allows users to:</p>
+<ul local-id=3D"40a0aa37-34e5-4938-bab2-9768f56f5adf">
+<li local-id=3D"0aba2413-9494-4ba2-be6b-d5839a0240b3">
+<p local-id=3D"7255e7f83a30">Save incomplete forms</p></li>
+<li local-id=3D"c5f670d5-da48-4cbc-a6e2-f1c3ca61499e">
+<p local-id=3D"6c7312ef13e7">Exit process</p></li>
+<li local-id=3D"7015de07-a70f-4b27-86a2-23699939fc9b">
+<p local-id=3D"241ee7391548">Return later</p></li>
+<li local-id=3D"a220a0ee-00ab-44a1-b73a-aaedb32f2f23">
+<p local-id=3D"db39376222f3">Continue from where they stopped</p></li>
+</ul>
+<p local-id=3D"a9457b61e44d"><strong>UX Decision</strong></p>
+<p local-id=3D"43ee4de803fa">=E2=9C=85 Add "Save as Draft" action.</p>
+<hr local-id=3D"6a194945-03fc-472c-8f77-a173846a3943">
+<h3 local-id=3D"10831b89017b" id=3D"InterviewDiscussion-Q4.Howshouldusersco=
+ntinueeditingDraftrecords?">Q4. How should users continue editing Draft rec=
+ords?</h3>
+<p local-id=3D"192e4daa563b"><strong>Discussion</strong></p>
+<p local-id=3D"51116f94c7ca">Users need a seamless continuation experience.=
+</p>
+<p local-id=3D"ef54e28731ab"><strong>Answer</strong></p>
+<ul local-id=3D"08f92f76-0a87-4c04-9753-5d10263e4012">
+<li local-id=3D"58c2079c-1738-4503-8a86-e7a24eb30afc">
+<p local-id=3D"a143481ae5b2">Draft records appear with Draft status.</p></l=
+i>
+<li local-id=3D"42a75ff4-6598-485c-b720-4a6aee0237e2">
+<p local-id=3D"94d382780c2b">Selecting a Draft provides a Resume option.</p=
+></li>
+<li local-id=3D"cde7208f-4e21-46fc-874e-990c970a4105">
+<p local-id=3D"bf35778cb8be">User returns to the exact stage previously com=
+pleted.</p></li>
+</ul>
+<p local-id=3D"0948e6c337c8"><strong>UX Decision</strong></p>
+<p local-id=3D"5fa9bf685355">=E2=9C=85 Resume Draft functionality required.=
+</p>
+<hr local-id=3D"1f61b870-b52c-47f8-9bb5-fd984260e8cb">
+<h2 local-id=3D"81f20a8ac3bd" id=3D"InterviewDiscussion-SectionC=E2=80=93Pa=
+ymentTypeSelection">Section C =E2=80=93 Payment Type Selection</h2>
+<h3 local-id=3D"f6284140a98f" id=3D"InterviewDiscussion-Q5.Whatpaymentoptio=
+nsareavailable?">Q5. What payment options are available?</h3>
+<p local-id=3D"61827a963162"><strong>Discussion</strong></p>
+<p local-id=3D"8c82f65c32de">User must choose a payment type before enterin=
+g banking details.</p>
+<p local-id=3D"ec5d2abb45ba"><strong>Answer</strong></p>
+<p local-id=3D"331330a29b16">Supported options:</p>
+<ol start=3D"1" local-id=3D"48c82762-d767-44e6-8824-897dddd06d7e">
+<li local-id=3D"6b2dd945-d3ef-44e4-a4fe-f821e521940a">
+<p local-id=3D"d5a26c70bf2b">International Payment</p></li>
+<li local-id=3D"86ab768e-9e89-448d-8d16-58bed9a6d3f9">
+<p local-id=3D"8008d18e9059">UK Payment</p></li>
+</ol>
+<p local-id=3D"a3177cbbd4d4"><strong>UX Decision</strong></p>
+<p local-id=3D"0e7817afacd5">=E2=9C=85 Payment type selection is mandatory.=
+</p>
+<hr local-id=3D"39f1d47e-b0b3-4f0f-b903-a9b00dc14f35">
+<h3 local-id=3D"f2e4d0377f74" id=3D"InterviewDiscussion-Q6.Whatfieldsarereq=
+uiredforInternationalPayments?">Q6. What fields are required for Internatio=
+nal Payments?</h3>
+<p local-id=3D"da53f4ee1fc0"><strong>Discussion</strong></p>
+<p local-id=3D"b54ee7689d19">Existing Ad Hoc payment flow fields will be re=
+used.</p>
+<p local-id=3D"0adf89bb183d"><strong>Answer</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"d=
+a5c9390-8014-49af-a3f2-3253a594ee85" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"4d39909c-59c9-4169-880d-fcf9b0169c69">
+<th data-local-id=3D"0bd11c93-cde3-43ab-b163-217ec8ab94c3" class=3D"conflue=
+nceTh">
+<p local-id=3D"3fb58b31ee78">Field</p></th>
+<th data-local-id=3D"1b7a5361-44d9-49a4-b04a-ab4dfcda57c8" class=3D"conflue=
+nceTh">
+<p local-id=3D"55bf0028680b">Required</p></th>
+</tr>
+<tr data-local-id=3D"fa55c092-685b-4e66-8be6-3165a50df767">
+<td data-local-id=3D"b78ad28a-817e-4bbb-bc4e-a62ad3907d80" class=3D"conflue=
+nceTd">
+<p local-id=3D"36c70bed4193">Sort Code</p></td>
+<td data-local-id=3D"8cc9d4a1-5299-4aea-a258-3890a8cc31d9" class=3D"conflue=
+nceTd">
+<p local-id=3D"4fd1cbb3a909">Yes</p></td>
+</tr>
+<tr data-local-id=3D"f13e8831-034a-4f87-a0dc-a7f658cc3c72">
+<td data-local-id=3D"e15af326-caa1-4e4b-ba5f-df6ca89a68ce" class=3D"conflue=
+nceTd">
+<p local-id=3D"f1ab17b22706">Account Number</p></td>
+<td data-local-id=3D"b969b798-ed67-4fa3-a164-5ca538693b57" class=3D"conflue=
+nceTd">
+<p local-id=3D"c28f5c964934">Yes</p></td>
+</tr>
+<tr data-local-id=3D"67abe35a-3266-4df5-90d2-18478a81a371">
+<td data-local-id=3D"661d2b6f-8f74-4cb3-9008-c6787642432d" class=3D"conflue=
+nceTd">
+<p local-id=3D"2454b2689b20">Currency</p></td>
+<td data-local-id=3D"3a7d9a32-ea64-4031-bfc8-43a0f4de538e" class=3D"conflue=
+nceTd">
+<p local-id=3D"0b42e3fd48e6">Yes</p></td>
+</tr>
+<tr data-local-id=3D"a06f1b7f-515c-42df-b10c-e70626a6836b">
+<td data-local-id=3D"0e7bd1df-12ff-47b7-87b1-4057ece43e09" class=3D"conflue=
+nceTd">
+<p local-id=3D"6931f24eef6e">IBAN</p></td>
+<td data-local-id=3D"f134dca3-07ef-492c-8498-345f60df85c9" class=3D"conflue=
+nceTd">
+<p local-id=3D"95a088bcb5e8">Optional</p></td>
+</tr>
+<tr data-local-id=3D"e26a9248-34c1-428d-80f6-96a2c0fde72f">
+<td data-local-id=3D"0360199d-6e0b-4ad2-83ac-9cbba7f222ea" class=3D"conflue=
+nceTd">
+<p local-id=3D"3b645010adb1">BIC</p></td>
+<td data-local-id=3D"e276d484-946f-4e7f-a991-d0ad902b9fc5" class=3D"conflue=
+nceTd">
+<p local-id=3D"4e3e2ffc3f7b">Optional</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"04017ab9f126"><strong>UX Decision</strong></p>
+<p local-id=3D"42cc2bdf1651">=E2=9C=85 Follow existing Ad Hoc payment struc=
+ture.</p>
+<hr local-id=3D"80f69f6d-1c2c-47ad-8f5d-88c1f6ff4ca5">
+<h3 local-id=3D"fa55f63c1fb7" id=3D"InterviewDiscussion-Q7.Whatfieldsarereq=
+uiredforUKPayments?">Q7. What fields are required for UK Payments?</h3>
+<p local-id=3D"f7d5e8f0eb39"><strong>Answer</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" data-local-id=3D"1=
+8fac3b0-16a3-4d01-81f3-86e18cdc2e87" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"1d14deaf-e6ef-43f2-b7df-f587a79f001e">
+<th data-local-id=3D"b7b12456-e672-4cb7-a4dd-ae6db6d0ed08" class=3D"conflue=
+nceTh">
+<p local-id=3D"ad6389d2bebf">Field</p></th>
+<th data-local-id=3D"b4ae9203-245f-4aea-8e45-be785af66012" class=3D"conflue=
+nceTh">
+<p local-id=3D"f95f949b1354">Required</p></th>
+</tr>
+<tr data-local-id=3D"45e94464-ccc5-4b89-b5b5-043b19ef7415">
+<td data-local-id=3D"b0a45165-4063-4b25-96e8-e56447544b76" class=3D"conflue=
+nceTd">
+<p local-id=3D"75a7f9bf4838">Sort Code</p></td>
+<td data-local-id=3D"e874fa75-218c-40f3-b108-c27848357ccb" class=3D"conflue=
+nceTd">
+<p local-id=3D"89928121dbea">Yes</p></td>
+</tr>
+<tr data-local-id=3D"6b4c0ca5-7245-4596-8e1e-437af0c0aa12">
+<td data-local-id=3D"fee57483-7888-4c13-9264-acf04fd6ee46" class=3D"conflue=
+nceTd">
+<p local-id=3D"1059b521e4d0">Account Number</p></td>
+<td data-local-id=3D"f7796627-16de-4ccf-9322-2167a2082951" class=3D"conflue=
+nceTd">
+<p local-id=3D"524f48bed445">Yes</p></td>
+</tr>
+<tr data-local-id=3D"8e605ada-0513-4379-82a2-adef9e56d27d">
+<td data-local-id=3D"59ad77cf-3cb7-41de-9209-d63a1877f4fe" class=3D"conflue=
+nceTd">
+<p local-id=3D"29324d290c13">Currency</p></td>
+<td data-local-id=3D"ad7c0ffb-89ef-46a9-b3a2-8dd9518b25e0" class=3D"conflue=
+nceTd">
+<p local-id=3D"a9679908fd19">Yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"f8b85a503a45"><strong>UX Decision</strong></p>
+<p local-id=3D"b9291f30b421">=E2=9C=85 Reuse existing UK payment fields.</p=
+>
+<hr local-id=3D"ce97aa62-0218-4ba7-9ab8-c2723835c21b">
+<h2 local-id=3D"095290b19ac7" id=3D"InterviewDiscussion-SectionD=E2=80=93Cu=
+rrencyConfiguration">Section D =E2=80=93 Currency Configuration</h2>
+<h3 local-id=3D"2c195422a932" id=3D"InterviewDiscussion-Q8.Whereshouldcurre=
+ncyvaluescomefrom?">Q8. Where should currency values come from?</h3>
+<p local-id=3D"46c2aae6e7d2"><strong>Discussion</strong></p>
+<p local-id=3D"e1d6d9bf71f0">Currency values should not be hardcoded.</p>
+<p local-id=3D"07a64372bc2c"><strong>Answer</strong></p>
+<p local-id=3D"b8d6b7df83ee">Currencies are maintained through a dedicated =
+Configuration module.</p>
+<p local-id=3D"a3f483f44677"><strong>UX Decision</strong></p>
+<p local-id=3D"b21540c9f945">=E2=9C=85 Currency dropdown populated dynamica=
+lly from Configuration settings.</p>
+<hr local-id=3D"fa3daefb-d305-4454-b192-932209dbe5d1">
+<h3 local-id=3D"bbb9607de7c7" id=3D"InterviewDiscussion-Q9.Whatisthebenefit=
+ofconfiguration-drivencurrencies?">Q9. What is the benefit of configuration=
+-driven currencies?</h3>
+<p local-id=3D"dca6232ba40c"><strong>Answer</strong></p>
+<ul local-id=3D"a0506eb3-d820-4e99-8fa2-aaa05fa41a03">
+<li local-id=3D"7a577f56-43c0-429a-a778-a010054a30b9">
+<p local-id=3D"3ca9d9cc1bd2">Centralized management</p></li>
+<li local-id=3D"23cc1998-c346-44d3-9d6b-5b5ee408de75">
+<p local-id=3D"1e451171cf6e">Easy administration</p></li>
+<li local-id=3D"446644a8-3003-4de5-916a-2cdf83826cfe">
+<p local-id=3D"32272b47a340">Future scalability</p></li>
+<li local-id=3D"ec5c7218-d27d-4fc5-ae03-62857ebcf0da">
+<p local-id=3D"e241bb7bf67a">No development dependency for currency updates=
+</p></li>
+</ul>
+<p local-id=3D"cb6c50032f90"><strong>UX Recommendation</strong></p>
+<p local-id=3D"d348c2ba5b4c">=E2=9C=85 Add empty-state handling when no cur=
+rencies are configured.</p>
+<hr local-id=3D"9c9fc6d8-5ed5-4cb7-8797-f762174e3d4a">
+<h2 local-id=3D"63e5cd9815d4" id=3D"InterviewDiscussion-SectionE=E2=80=93VA=
+THandling">Section E =E2=80=93 VAT Handling</h2>
+<h3 local-id=3D"718427a28134" id=3D"InterviewDiscussion-Q10.HowshouldVATbeh=
+andledinthenewworkflow?">Q10. How should VAT be handled in the new workflow=
+?</h3>
+<p local-id=3D"08955ed030cd"><strong>Discussion</strong></p>
+<p local-id=3D"11c6bcec9f74">Paul clarified that VAT processing already exi=
+sts in the Vehicle Release Payment module.</p>
+<p local-id=3D"e1290ef69582"><strong>Answer</strong></p>
+<p local-id=3D"c5f584b7f533">The same business logic must be reused.</p>
+<p local-id=3D"6425a179df8f"><strong>UX Decision</strong></p>
+<p local-id=3D"1546899009a8">=E2=9C=85 Apply existing Vehicle Release Payme=
+nt VAT logic.</p>
+<hr local-id=3D"269e4ec4-7a14-4d50-a35b-8cdc23f9508f">
+<h3 local-id=3D"2433947d52fb" id=3D"InterviewDiscussion-Q11.Whathappenswhen=
+VATisincluded?">Q11. What happens when VAT is included?</h3>
+<p local-id=3D"81c56490afee"><strong>Discussion</strong></p>
+<p local-id=3D"0b118a429b3a">Journal creation changes when VAT is present.<=
+/p>
+<p local-id=3D"2c26b2885623"><strong>Answer</strong></p>
+<p local-id=3D"e6a5b4859b9b">Without VAT:</p>
+<ul local-id=3D"31385cf1-ecc3-4885-b9ad-988a3d12b4c2">
+<li local-id=3D"931af43d-8871-4a05-ad4d-ec7c5ed8110b">
+<p local-id=3D"07a81f030a90">Standard journal entry</p></li>
+</ul>
+<p local-id=3D"d5edd600b470">With VAT:</p>
+<ul local-id=3D"bb840030-e3b2-4ea0-8586-83a94c968afe">
+<li local-id=3D"0af1a763-fbed-463c-9330-77ba636e496f">
+<p local-id=3D"972b247cbf60">Three-line journal format generated</p></li>
+<li local-id=3D"9a644d11-7822-4d19-9a06-0aac7352e6f6">
+<p local-id=3D"4412e82c04e3">Follows Vehicle Release Payment implementation=
+</p></li>
+</ul>
+<p local-id=3D"92c9b2823622"><strong>Stakeholder Direction</strong></p>
+<blockquote local-id=3D"b79ca6f9-8009-48c1-9f89-1d7366c43385">
+<p local-id=3D"0d373a40f61e">"Copy exactly the same logic from Vehicle Rele=
+ase Payments."</p>
+</blockquote>
+<p local-id=3D"a6bcd759bf6f">=E2=80=94 Paul Bliss</p>
+<hr local-id=3D"fe4be6a9-f953-41bf-8bab-b44934553b35">
+<h3 local-id=3D"b20669a4e424" id=3D"InterviewDiscussion-Q12.IsanynewVATinte=
+ractionrequiredfromusers?">Q12. Is any new VAT interaction required from us=
+ers?</h3>
+<p local-id=3D"0d87c6d9de2c"><strong>Answer</strong></p>
+<p local-id=3D"47fe38a5714e">No new behavior was requested.</p>
+<p local-id=3D"600edf1bb08c">The expectation is:</p>
+<ul local-id=3D"4534047c-7445-42cb-9da9-7764da09211c">
+<li local-id=3D"a3d7d713-6d8c-4d95-a73f-0870827c4d77">
+<p local-id=3D"7c0ec9b3ae50">Existing VAT experience remains consistent.</p=
+></li>
+<li local-id=3D"f00d871b-7d74-4a28-81a6-3fafa76bbfa0">
+<p local-id=3D"e7c62d406c15">Business logic works identically to Vehicle Re=
+lease Payments.</p></li>
+</ul>
+<p local-id=3D"303856c010c4"><strong>UX Decision</strong></p>
+<p local-id=3D"5af42e7a3d83">=E2=9C=85 Maintain consistency across modules.=
+<br><br>
+3. UX Changes Required</p>
+<h2 local-id=3D"52e0202d213a" id=3D"InterviewDiscussion-HighPriorityChanges=
+">High Priority Changes</h2>
+<h3 local-id=3D"5078e6df807b" id=3D"InterviewDiscussion-1.ProgressIndicator=
+Update">1. Progress Indicator Update</h3>
+<p local-id=3D"863cf891fc76"><strong>Current</strong></p>
+<ul local-id=3D"efeb6640-b4c3-4fd7-a065-92e53f9d188d">
+<li local-id=3D"c6986873-2175-4121-8e07-e4e6f78a7bed">
+<p local-id=3D"f383deb9cfc0">Potentially appears selectable.</p></li>
+</ul>
+<p local-id=3D"04c7a6be6f97"><strong>Required</strong></p>
+<ul local-id=3D"f9764199-95a1-4136-a6a9-29982de5b521">
+<li local-id=3D"172de0a4-aa23-4d4d-982d-2864c23aecfd">
+<p local-id=3D"d9496f51a811">Highlight current step only.</p></li>
+<li local-id=3D"633b860b-27e0-41e8-ab9c-8385a03d5aaa">
+<p local-id=3D"583b0a6be0d9">Remove step navigation capability.</p></li>
+</ul>
+<hr local-id=3D"0ff86b9a-76de-49b2-9b4c-49aec62a2222">
+<h3 local-id=3D"082cf3eecbb4" id=3D"InterviewDiscussion-2.SaveasDraftButton=
+">2. Save as Draft Button</h3>
+<p local-id=3D"4ea9a86f84c9"><strong>Current</strong></p>
+<ul local-id=3D"535ecd39-55f6-456e-9f82-1d6358d6fc91">
+<li local-id=3D"cbe1517d-c751-4ca9-8f1c-0bf2788240f2">
+<p local-id=3D"ad005143c872">Save and Discard options only.</p></li>
+</ul>
+<p local-id=3D"1133de778e63"><strong>Required</strong></p>
+<p local-id=3D"11f744886365">Add:</p>
+<p local-id=3D"ebd91cebfaf2">Plain Text</p>
+<p local-id=3D"9a107b3bd91a">Save as Draft</p>
+<p local-id=3D"d523650aa022">Show more lines</p>
+<hr local-id=3D"4bf6d8ce-820f-4e92-8452-9cf218d42a2d">
+<h3 local-id=3D"7c40cc8a95d6" id=3D"InterviewDiscussion-3.DraftStatus">3. D=
+raft Status</h3>
+<p local-id=3D"802d38143034"><strong>Required</strong></p>
+<p local-id=3D"1e22e7d4e9e0">Introduce:</p>
+<p local-id=3D"3302dfb58993">Plain Text</p>
+<p local-id=3D"c09cab11dd7f">Draft</p>
+<p local-id=3D"c898a9ab596e">Show more lines</p>
+<p local-id=3D"132488d594f2">status within beneficiary/payment records.</p>
+<hr local-id=3D"f38b3992-341a-424e-9c6c-51274438d912">
+<h3 local-id=3D"3d5540869b3c" id=3D"InterviewDiscussion-4.ResumeDraftExperi=
+ence">4. Resume Draft Experience</h3>
+<p local-id=3D"48189e3484ad"><strong>Required</strong></p>
+<p local-id=3D"90e518d10c84">Users should:</p>
+<ul local-id=3D"f8325297-6872-4f1d-9bc9-a4252c10d3a3">
+<li local-id=3D"f5c8ce5f-b22d-4ba3-9b81-2cd581b7c563">
+<p local-id=3D"6e980d36b741">Open Draft item</p></li>
+<li local-id=3D"87a4a16a-837d-40cb-a147-54b490edf551">
+<p local-id=3D"358e5a5de8a3">Resume process</p></li>
+<li local-id=3D"9d035917-e063-413a-a131-c7d4fe56b0e3">
+<p local-id=3D"ebdda539411e">Continue from last completed stage</p></li>
+</ul>
+<hr local-id=3D"048a7796-631d-4a8f-af63-0472b1ae7c13">
+<h3 local-id=3D"f49839b76f9c" id=3D"InterviewDiscussion-5.NextButtonValidat=
+ion">5. Next Button Validation</h3>
+<p local-id=3D"4a8ea5c7e677"><strong>Required</strong></p>
+<p local-id=3D"98f9a009d4e3">Disable until:</p>
+<p local-id=3D"c1d28a23e425">Plain Text</p>
+<p local-id=3D"caf28fbd1692">Beneficiary Name</p>
+<p local-id=3D"0d4f935fd680">Show more lines</p>
+<p local-id=3D"f07c5b2d19cc">contains valid value.</p>
+<hr local-id=3D"27d642f8-24b6-4a3b-af56-24c210c5cf12">
+<h3 local-id=3D"f97dbe024fc6" id=3D"InterviewDiscussion-6.InternationalPaym=
+entForm">6. International Payment Form</h3>
+<p local-id=3D"f9d5dd96e9ff">Display:</p>
+<p local-id=3D"da95763ddf09">Plain Text</p>
+<p local-id=3D"7bafd5f914a2">Sort Code*</p>
+<p local-id=3D"453fbfe17596">Account Number*</p>
+<p local-id=3D"cb642ec5ef47">Currency*</p>
+<p local-id=3D"e44a298a8fae">IBAN (Optional)</p>
+<p local-id=3D"d59e26539e0c">BIC (Optional)</p>
+<p local-id=3D"94eaf5404408">Show more lines</p>
+<hr local-id=3D"2bc5cd52-ff74-4acb-a83e-0ba125725c7f">
+<h3 local-id=3D"ceeae55482db" id=3D"InterviewDiscussion-7.UKPaymentForm">7.=
+ UK Payment Form</h3>
+<p local-id=3D"63d0f4ec9acf">Display:</p>
+<p local-id=3D"4c4083656ed0">Plain Text</p>
+<p local-id=3D"16949ecc837f">Sort Code*</p>
+<p local-id=3D"3932a00b3d25">Account Number*</p>
+<p local-id=3D"49834c0e88ae">Currency*</p>
+<p local-id=3D"75563c7c757f">Show more lines</p>
+<hr local-id=3D"b0101b59-d67e-4c31-afd0-00089aebf57e">
+<h3 local-id=3D"e43aacc3eedd" id=3D"InterviewDiscussion-8.DynamicCurrencyLo=
+ading">8. Dynamic Currency Loading</h3>
+<p local-id=3D"46094cf7abbe"><strong>Required</strong></p>
+<p local-id=3D"137fbf70787a">Currency options loaded from:</p>
+<p local-id=3D"879cb1256301">Plain Text</p>
+<p local-id=3D"5c230c5a5f42">Configuration Module</p>
+<p local-id=3D"ed75a9d46000">Show more lines</p>
+<p local-id=3D"d02a9d7a104e">No hardcoded values.</p>
+<hr local-id=3D"dd5bfed8-748c-48f3-86a3-e9a803ae2ed4">
+<h3 local-id=3D"402f14589959" id=3D"InterviewDiscussion-9.VATWorkflowAlignm=
+ent">9. VAT Workflow Alignment</h3>
+<p local-id=3D"4b52cd01ba32"><strong>Required</strong></p>
+<p local-id=3D"cada809b6e05">Replicate Vehicle Release Payment logic:</p>
+<ul local-id=3D"8a0fa535-b3ae-4e21-878c-c99811bf166d">
+<li local-id=3D"43adc6fc-7b7c-412b-8962-4fe35a134780">
+<p local-id=3D"5befcea2322c">Same VAT calculations</p></li>
+<li local-id=3D"7c562ff6-7b99-42de-9081-0b06dd0044c8">
+<p local-id=3D"ab5b1aa18066">Same journal generation approach</p></li>
+<li local-id=3D"f01f0058-827f-4fc8-91c2-0e8c12c0c44f">
+<p local-id=3D"08bcb59b4856">Same accounting behavior</p></li>
+</ul>
+<hr local-id=3D"e04aab4f-b557-4dc2-a980-e449c2e7dd4d">
+<h1 local-id=3D"8ac4d9e5bde1" id=3D"InterviewDiscussion-4.UXRisks&amp;Consi=
+derations">4. UX Risks &amp; Considerations</h1>
+<h2 local-id=3D"1843c7e93e98" id=3D"InterviewDiscussion-DraftManagement">Dr=
+aft Management</h2>
+<p local-id=3D"0f3c0e7ab2f3">Consider displaying:</p>
+<ul local-id=3D"f6f23a11-e55b-411a-bd68-cda9324ca9fe">
+<li local-id=3D"0e571c3e-e2fc-491a-8f7d-65d1af3b7dd3">
+<p local-id=3D"c7fc0dcc48b7">Draft Created Date</p></li>
+<li local-id=3D"42332213-5510-4349-b776-2adf2e3be5df">
+<p local-id=3D"a1060a9af8cf">Last Modified Date</p></li>
+<li local-id=3D"60323616-8414-4f08-929b-22a09ddb1408">
+<p local-id=3D"0c1050396dc5">Created By</p></li>
+<li local-id=3D"e0474eab-7f08-446c-8ccc-2ef794916a76">
+<p local-id=3D"05f5fc1aa943">Resume Action</p></li>
+</ul>
+<p local-id=3D"1c7f1f473435">This improves discoverability.</p>
+<hr local-id=3D"6826ce33-6e6d-4368-8a06-7aa69ecc4279">
+<h2 local-id=3D"d6dd01827248" id=3D"InterviewDiscussion-Validation">Validat=
+ion</h2>
+<p local-id=3D"da6605de68d5">Ensure:</p>
+<ul local-id=3D"d66e5f9b-e625-49fa-8535-a8345f5fff2a">
+<li local-id=3D"ab3b86f1-6e20-423c-a6b5-7bb02bfd400b">
+<p local-id=3D"0530646a98c5">Mandatory fields clearly marked.</p></li>
+<li local-id=3D"23f4cac4-6471-4a72-b40a-8de9ee6b371f">
+<p local-id=3D"b94fe47f6a2a">Disabled Next button explains why.</p></li>
+<li local-id=3D"54e2d7b9-88ca-4aa2-ab89-0fb3634a9cfd">
+<p local-id=3D"b7d6c941a866">Validation messages are contextual.</p></li>
+</ul>
+<hr local-id=3D"0d5bc35b-d36c-4e90-9cef-0d263949779c">
+<h2 local-id=3D"df3eea8e672d" id=3D"InterviewDiscussion-PaymentTypeSwitchin=
+g">Payment Type Switching</h2>
+<p local-id=3D"4f988abd18d1">If user changes:</p>
+<p local-id=3D"b0d868085bf1">Plain Text</p>
+<p local-id=3D"54cb59c8ebc1">International =E2=86=92 UK</p>
+<p local-id=3D"edbf1e525ec0">Show more lines</p>
+<p local-id=3D"6246df7a40c1">or</p>
+<p local-id=3D"ca7e2d74ef66">Plain Text</p>
+<p local-id=3D"a5bbe8b1f01a">UK =E2=86=92 International</p>
+<p local-id=3D"8fe65a34936c">Show more lines</p>
+<p local-id=3D"24dbddc286e7">ensure:</p>
+<ul local-id=3D"6e955b1f-73ca-4092-9479-f0f1cc417d48">
+<li local-id=3D"b43d66b1-41b3-4f4c-a7d5-8c393d1de793">
+<p local-id=3D"20e0f60aee93">Hidden fields are cleared or preserved appropr=
+iately.</p></li>
+<li local-id=3D"1dda6c54-8db9-4b70-9497-2b4e7f1d95f3">
+<p local-id=3D"54db94f4066b">User receives clear feedback.</p></li>
+</ul>
+<hr local-id=3D"3168c021-c8b7-439a-848d-d6629a7e3ea2">
+<h2 local-id=3D"93db8f4e3ccb" id=3D"InterviewDiscussion-VATTransparency">VA=
+T Transparency</h2>
+<p local-id=3D"30f5cc3dd2df">Where VAT impacts journal generation:</p>
+<ul local-id=3D"6eaa118f-ec2c-46cb-9655-664ed284c217">
+<li local-id=3D"633ae59e-5455-48c1-9042-5900ce9b75d2">
+<p local-id=3D"9856013ce844">Tooltip or help text may help users understand=
+ resulting accounting entries.</p></li>
+</ul>
+<hr local-id=3D"737d996f-2ac3-486d-a7af-bb128194215b">
+<h1 local-id=3D"5d1d833961cc" id=3D"InterviewDiscussion-5.AgreedActionItems=
+">5. Agreed Action Items</h1>
+<div class=3D"table-wrap">
+<table data-layout=3D"default" data-local-id=3D"e5572964-dd11-421d-857f-0c3=
+aa11ffb68" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"c9221247-39a3-45a9-89d0-ab617e56ec3f">
+<th data-local-id=3D"f2f4bb28-ce6e-46fa-a7b8-ef243f5f71b3" class=3D"conflue=
+nceTh">
+<p local-id=3D"91bfc46daef4">Action</p></th>
+<th data-local-id=3D"956f80b6-6bb5-4156-9733-9ea7e13a3f6e" class=3D"conflue=
+nceTh">
+<p local-id=3D"378b4b19f31d">Owner</p></th>
+</tr>
+<tr data-local-id=3D"f1c60c7f-c32d-4c43-a4de-3035cc51a772">
+<td data-local-id=3D"4785108a-f673-41f6-baae-0e67d40ae523" class=3D"conflue=
+nceTd">
+<p local-id=3D"8e01b1d5fe42">Update prototype with discussed changes</p></t=
+d>
+<td data-local-id=3D"06343691-4142-444d-94b5-a10a14b70862" class=3D"conflue=
+nceTd">
+<p local-id=3D"6ca7b980d9f1">Arumugam V</p></td>
+</tr>
+<tr data-local-id=3D"3851680d-475e-4a7a-a294-5743ae3c59af">
+<td data-local-id=3D"9be55af6-cf76-4554-8047-a3e48eebd5d2" class=3D"conflue=
+nceTd">
+<p local-id=3D"9dd8f45edb91">Add Draft workflow</p></td>
+<td data-local-id=3D"50189887-9400-4647-b8f8-fa29dc34f233" class=3D"conflue=
+nceTd">
+<p local-id=3D"d2b471f1bf8e">UX Team</p></td>
+</tr>
+<tr data-local-id=3D"4ebc5836-1abb-45d5-90dd-0961fbc0090c">
+<td data-local-id=3D"a95b889a-349b-4b43-b1e4-abf6e2515c2f" class=3D"conflue=
+nceTd">
+<p local-id=3D"5fc87acfd0c0">Implement Resume Draft journey</p></td>
+<td data-local-id=3D"716508ff-02ad-43e9-b535-fef201553bb0" class=3D"conflue=
+nceTd">
+<p local-id=3D"358abb53c71a">UX Team</p></td>
+</tr>
+<tr data-local-id=3D"dc863718-2b78-4d41-bd7e-8d939321cb0e">
+<td data-local-id=3D"7d56c648-52a1-494e-9219-74929660e515" class=3D"conflue=
+nceTd">
+<p local-id=3D"ca8bb1a8b623">Update payment form layouts</p></td>
+<td data-local-id=3D"678f690a-1747-4675-a5be-589647e43df6" class=3D"conflue=
+nceTd">
+<p local-id=3D"bf163db5b87b">UX Team</p></td>
+</tr>
+<tr data-local-id=3D"0bd1794b-3e48-4214-9074-839f4c36350b">
+<td data-local-id=3D"849e6c7f-dac7-4d4a-9dfe-8845dd4fd128" class=3D"conflue=
+nceTd">
+<p local-id=3D"0c93b25a8a22">Connect currency dropdown to configuration sou=
+rce</p></td>
+<td data-local-id=3D"b3e63b7d-50d8-435b-95ca-0a4c8abe5166" class=3D"conflue=
+nceTd">
+<p local-id=3D"edaa953efd82">Development Team</p></td>
+</tr>
+<tr data-local-id=3D"e19972c7-0eb5-4b69-9e82-115f86e8b16c">
+<td data-local-id=3D"7d23800c-1504-49b5-9522-4a9db46f3ca1" class=3D"conflue=
+nceTd">
+<p local-id=3D"243e038592f4">Reuse Vehicle Release VAT logic</p></td>
+<td data-local-id=3D"4afe468d-cbdc-4a8d-bcd6-be3a924d8c39" class=3D"conflue=
+nceTd">
+<p local-id=3D"f3f80989163b">Development Team</p></td>
+</tr>
+<tr data-local-id=3D"3562e929-0a3a-40ad-a6ae-e58e8db9e19b">
+<td data-local-id=3D"4c48894f-6aa5-4d64-9899-32b085da002f" class=3D"conflue=
+nceTd">
+<p local-id=3D"184d45a2700d">Share updated prototype for review</p></td>
+<td data-local-id=3D"aeaf245a-5e9d-4a04-b758-f4567b2e52b7" class=3D"conflue=
+nceTd">
+<p local-id=3D"6d2aa8a92d1a">Seema Mathiyarasu</p></td>
+</tr>
+<tr data-local-id=3D"e5fac1d1-c328-4e11-b2da-447c58732485">
+<td data-local-id=3D"9df56dce-0305-43ce-8113-27ba509abe73" class=3D"conflue=
+nceTd">
+<p local-id=3D"5747b1a5f19f">Review updated design</p></td>
+<td data-local-id=3D"b91ee463-40db-4735-bc90-d213fc3942f1" class=3D"conflue=
+nceTd">
+<p local-id=3D"5f6b16b0e76a">Paul Bliss &amp; Joanne Bliss</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr local-id=3D"2049bacc-d60d-4c0e-8b0e-b9a4db055459">
+<h1 local-id=3D"652414425288" id=3D"InterviewDiscussion-FinalStakeholderFee=
+dback">Final Stakeholder Feedback</h1>
+<h3 local-id=3D"52affb6c0f93" id=3D"InterviewDiscussion-PaulBliss">Paul Bli=
+ss</h3>
+<blockquote local-id=3D"dca52bd2-efaa-4e29-b4dd-dd2b6f164164">
+<p local-id=3D"83ffdb863f87">"That looks great, Seema. Really like it so fa=
+r."</p>
+</blockquote>
+<h3 local-id=3D"f23fd8f0f7e3" id=3D"InterviewDiscussion-SeemaMathiyarasu">S=
+eema Mathiyarasu</h3>
+<blockquote local-id=3D"7ff5aeea-2c14-48c8-8c18-b6d46bc34dcb">
+<p local-id=3D"ba10f896ed1c">"Arumugam made this design and incorporated al=
+l the discussed requirements clearly."</p>
+</blockquote>
+<p local-id=3D"624b0b7a7d5b"><strong>Outcome:</strong> Prototype approved d=
+irectionally, with agreed updates before the next review cycle.</p>
+    </div>
+</body>
+</html>
+------=_Part_24_101515156.1783495500039--

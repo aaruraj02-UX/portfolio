@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Brief — FinOps Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FinOps</span>
+    <a href="ux-brief.html" class="active">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/Dashboard.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Brief — FinOps Admin Dashboard KPI Metrics</h1>
+      <div class="doc-meta"><span>📋 FinOps Admin Dashboard</span><span>🏢 Acme Holdings</span><span>📅 10 April 2026</span><span>🔖 v1.0</span></div>
+    </header>
+    <section class="doc-section">
+      <h2>Background</h2>
+      <p>FinOps is an internal automation platform supporting multiple business processes across Treasury, Payroll, and Finance teams at Acme Holdings. Modules include Ad Hoc Payments, Bank Statements, Variable Pay, Pension Analysis, Vehicle Release Payments, and bot-driven processes. As the platform expands, administrators lack a unified monitoring view; current oversight relies on manual effort and fragmented data sources.</p>
+      <p>The <strong>Admin Dashboard</strong> introduces a consolidated KPI-driven monitoring surface for system usage, workflow performance, and automation activity.</p>
+    </section>
+    <section class="doc-section">
+      <h2>Objectives</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th><th>Success Metric</th></tr></thead>
+        <tbody>
+          <tr><td>O1</td><td>Centralised operational monitoring</td><td>Single dashboard replaces ≥ 3 disparate views</td></tr>
+          <tr><td>O2</td><td>Approval delay visibility</td><td>Time-to-identify bottlenecks: hours → seconds</td></tr>
+          <tr><td>O3</td><td>Automation health tracking</td><td>Bot failure/success visible in 1 click</td></tr>
+          <tr><td>O4</td><td>Trend-based decision making</td><td>Period-over-period comparisons available</td></tr>
+          <tr><td>O5</td><td>Exception-based alerting</td><td>Longest pending approvals surfaced proactively</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="doc-section">
+      <h2>Target Users</h2>
+      <table class="doc-table">
+        <thead><tr><th>User</th><th>Description</th><th>Access Level</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Admin User</strong></td><td>Primary dashboard consumer; monitors ops, identifies delays</td><td>View-only analytics + grid actions</td></tr>
+          <tr><td><strong>Operations Manager</strong></td><td>Oversees cross-module KPIs; high-level trends</td><td>View-only analytics</td></tr>
+          <tr><td><strong>Developer</strong></td><td>Builds dashboard features; consumes specs</td><td>Full (development)</td></tr>
+          <tr><td><strong>Automation Team</strong></td><td>Monitors AllPay / KEYIVR bot health</td><td>View-only automation section</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="doc-section">
+      <h2>User Needs</h2>
+      <ul>
+        <li>At-a-glance system health (active users, peak usage, highest-activity module)</li>
+        <li>Drill-down from summary KPIs to individual request records</li>
+        <li>Filterable views by date range and module</li>
+        <li>Immediate visibility of SLA-breached approvals (&gt; 5 days pending)</li>
+        <li>Bot success/failure rates + last execution timestamp</li>
+        <li>Trend indicators showing period-over-period direction</li>
+        <li>Export capability for offline analysis</li>
+      </ul>
+    </section>
+    <section class="doc-section">
+      <h2>Key Metrics</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">3+</div><div class="kpi-label">Views Consolidated</div></div>
+        <div class="kpi-card"><div class="kpi-value">&lt;15s</div><div class="kpi-label">Time to Find Bottleneck</div></div>
+        <div class="kpi-card"><div class="kpi-value">1 click</div><div class="kpi-label">Bot Health Access</div></div>
+        <div class="kpi-card"><div class="kpi-value">AA</div><div class="kpi-label">WCAG Compliance</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

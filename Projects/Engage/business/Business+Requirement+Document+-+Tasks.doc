@@ -1,0 +1,2065 @@
+Date: Tue, 10 Mar 2026 04:22:26 +0000 (UTC)
+Message-ID: <575170698.269.1773116546476@2108a06b7263>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_268_1537391788.1773116546475"
+
+------=_Part_268_1537391788.1773116546475
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Business Requirement Document - Tasks</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Business Requirement Document - Tasks</h1>
+    <div class=3D"Section1">
+        <h1 style=3D"text-align: center;" id=3D"BusinessRequirementDocument=
+-Tasks-BusinessRequirementDocument">
+<style>[data-colorid=3Dgqhxka88ki]{color:#0a1d30} html[data-color-mode=3Dda=
+rk] [data-colorid=3Dgqhxka88ki]{color:#cfe2f5}</style><span data-colorid=3D=
+"gqhxka88ki">Business Requirement Document </span></h1>
+<h1 style=3D"text-align: center;" id=3D"BusinessRequirementDocument-Tasks-T=
+asksModule">Tasks Module</h1>
+<h1 style=3D"text-align: center;" id=3D"BusinessRequirementDocument-Tasks-E=
+ngageFieldApp">Engage Field App</h1>
+<p></p>
+<p></p>
+<p></p>
+<p style=3D"text-align: center;"></p><span class=3D"confluence-embedded-fil=
+e-wrapper image-center-wrapper confluence-embedded-manual-size"><img class=
+=3D"confluence-embedded-image image-center" alt=3D"LogicValley Technologies=
+" width=3D"238" loading=3D"lazy" src=3D"d10a01bdc565aac8e219c4be2c99c507684=
+0a60699857f4470b0384cfcf286bd" data-image-src=3D"https://marston.atlassian.=
+net/wiki/download/attachments/1758986271/att_0_for_1758986271.png?version=
+=3D1&amp;modificationDate=3D1773072041864&amp;cacheVersion=3D1&amp;api=3Dv2=
+" data-height=3D"74" data-width=3D"240" data-unresolved-comment-count=3D"0"=
+ data-linked-resource-id=3D"1758986280" data-linked-resource-version=3D"1" =
+data-linked-resource-type=3D"attachment" data-linked-resource-default-alias=
+=3D"att_0_for_1758986271.png" data-base-url=3D"https://marston.atlassian.ne=
+t/wiki" data-linked-resource-content-type=3D"image/png" data-linked-resourc=
+e-container-id=3D"1758986271" data-linked-resource-container-version=3D"1" =
+data-media-id=3D"6bcfd172-c6f2-42ab-85db-ae8ed616706d" data-media-type=3D"f=
+ile" height=3D"73"></span>
+<p></p>
+<p>&nbsp;</p>
+<p></p>
+<p></p>
+<p></p>
+<p><strong>LogicValley Technologies Pvt Ltd,</strong></p>
+<p>Betaspace, No.2224/3, 2nd Floor, Trichy Road, Reliance Garden, Singanall=
+ur, Coimbatore, Tamil Nadu 641005.</p>
+<p>Phone: (+91) 422 497 4006&nbsp;&nbsp;||&nbsp;e-mail: <a class=3D"externa=
+l-link" href=3D"mailto:info@logicvalley.in" rel=3D"nofollow">info@logicvall=
+ey.in</a>&nbsp;||&nbsp;website: <a class=3D"external-link" href=3D"http://w=
+ww.logicvalley.in" rel=3D"nofollow">http://www.logicvalley.in</a></p>
+<p></p>
+<p><strong>Document Details</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<colgroup>
+<col style=3D"width: 57.0px;">
+<col style=3D"width: 157.0px;">
+<col style=3D"width: 52.0px;">
+<col style=3D"width: 66.0px;">
+</colgroup>
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Project Name</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Engage Field App</p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Project No.</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Version</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>1.0</p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Author</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Manoj Prabhakar KS</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<p><strong>Document History</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<colgroup>
+<col style=3D"width: 33.0px;">
+<col style=3D"width: 90.0px;">
+<col style=3D"width: 78.0px;">
+<col style=3D"width: 66.0px;">
+<col style=3D"width: 66.0px;">
+</colgroup>
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Version No.</strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Change Summary</strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Prepared/ Modified By &amp; Date</=
+strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Reviewed By </strong><br><strong>&=
+amp; Date</strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Approved By </strong><br><strong>&=
+amp; Date</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>1.0</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Initial Draft</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Manoj /09-Mar-26</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p local-id=3D"796c84c0e9b6"></p>
+<h1 local-id=3D"0070d2a26e97" id=3D"BusinessRequirementDocument-Tasks-Conte=
+nts">Contents</h1>
+<style type=3D"text/css">/*<![CDATA[*/
+div.rbtoc1773116546275 {padding: 0px;}
+div.rbtoc1773116546275 ul {list-style: disc;margin-left: 0px;}
+div.rbtoc1773116546275 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style>
+<div class=3D"toc-macro rbtoc1773116546275">
+<ul class=3D"toc-indentation">
+<li><a href=3D"#BusinessRequirementDocument-Tasks-BusinessRequirementDocume=
+nt">Business Requirement Document</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-TasksModule">Tasks Module=
+</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-EngageFieldApp">Engage Fi=
+eld App</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-Contents">Contents</a></l=
+i>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984047ExecutiveSum=
+mary">Executive Summary</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984048BusinessObje=
+ctives">Business Objectives</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984049Background">=
+Background</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984050Scope">Scope=
+</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984051InScope">In =
+Scope</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984052TaskStatusMa=
+nagement">Task Status Management</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984053TaskStatusLi=
+fecycle">Task Status Lifecycle</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984054MandatoryCom=
+mentRequirement">Mandatory Comment Requirement</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984055CommentRemin=
+der">Comment Reminder</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984056TaskReassign=
+ment">Task Reassignment</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984057TaskEscalati=
+on">Task Escalation</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984058TaskRepriori=
+tisation">Task Reprioritisation</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984059TaskCompleti=
+on">Task Completion</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984060TaskCancella=
+tion">Task Cancellation</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984061TaskEditingR=
+estrictions">Task Editing Restrictions</a></li>
+</ul></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984062Stakeholders=
+">Stakeholders</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984063BusinessRequ=
+irements">Business Requirements</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984064RequirementI=
+DStructure">Requirement ID Structure</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984065TaskStatus&a=
+mp;ActionManagement">Task Status &amp; Action Management</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984066MandatoryCom=
+ments">Mandatory Comments</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984067CommentValid=
+ationRules">Comment Validation Rules</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984068Escalation">=
+Escalation</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984069Reassignment=
+">Reassignment</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984070Reprioritisa=
+tion">Reprioritisation</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984071TaskCompleti=
+onandCancellation">Task Completion and Cancellation</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984072Confirmation=
+Popup">Confirmation Popup</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984073TaskEditingR=
+estrictions">Task Editing Restrictions</a></li>
+</ul></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984074SLAConfigura=
+tion">SLA Configuration</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984075SLAPriorityL=
+evels">SLA Priority Levels</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984076SLABehaviour=
+">SLA Behaviour</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984077SLAAddressed=
+Condition">SLA Addressed Condition</a></li>
+</ul></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984078SLAAlertsand=
+Popups">SLA Alerts and Popups</a>
+<ul class=3D"toc-indentation">
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984079ApproachingS=
+LAAlert">Approaching SLA Alert</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984080SLAExpiryBeh=
+aviour">SLA Expiry Behaviour</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984081CriticalTask=
+Popup">Critical Task Popup</a></li>
+</ul></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984082TaskVisibili=
+ty">Task Visibility</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984083TaskIDGenera=
+tion">Task ID Generation</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984084DashboardMet=
+rics">Dashboard Metrics</a></li>
+<li><a href=3D"#BusinessRequirementDocument-Tasks-_Toc223984085TaskHistorya=
+ndAuditTrail">Task History and Audit Trail</a></li>
+</ul>
+</div>
+<p><br></p>
+<h1 local-id=3D"a1707c7e2a3d" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984047ExecutiveSummary"><span class=3D"confluence-anchor-link" id=3D"Busi=
+nessRequirementDocument-Tasks-_Toc223984047"><span class=3D"confluence-anch=
+or-link" id=3D"_Toc223984047"></span></span>Executive Summary</h1>
+<p>The Task Management and SLA Workflow module provides structured task han=
+dling within the system to ensure operational visibility, accountability, a=
+nd timely resolution of tasks.</p>
+<p local-id=3D"0b2a72d17c65">The module enables users to perform task-relat=
+ed actions through a controlled workflow supported by mandatory comments, s=
+tatus tracking, SLA monitoring, escalation mechanisms, reassignment capabil=
+ities, and prioritization management. Each task follows a defined lifecycle=
+ starting from task creation and assignment, progressing through status cha=
+nges, and concluding when the task is completed or cancelled.</p>
+<p local-id=3D"d551e856651a">To maintain transparency and accountability, e=
+very action taken on a task requires a mandatory comment and is recorded wi=
+thin the task history log. The system enforces comment validation rules, pr=
+events actions without proper documentation, and maintains a complete audit=
+ trail of all changes.</p>
+<p local-id=3D"829b42ad151e">The module also incorporates Service Level Agr=
+eement (SLA) monitoring based on task priority levels. SLA timers begin whe=
+n the task is created and are calculated within defined business hours. The=
+ system monitors SLA progress, generates notifications when tasks approach =
+their SLA threshold, and marks tasks as overdue when the SLA expires. Notif=
+ications and visual indicators ensure that administrators, managers, and as=
+signed users are aware of tasks that require attention.</p>
+<p local-id=3D"6d2eeed419bc">Critical tasks receive immediate notification =
+upon creation due to their high priority and shorter SLA duration. The syst=
+em also supports escalation and reassignment workflows to ensure that tasks=
+ can be redirected when required.</p>
+<p local-id=3D"1fbb0949999e">Additionally, administrative configuration opt=
+ions allow SLA durations to be defined and managed through the business con=
+figuration settings. All SLA configuration changes are recorded for audit p=
+urposes.</p>
+<p local-id=3D"19e892fa70da">This functionality ensures improved operationa=
+l control, visibility across teams, and adherence to defined service timeli=
+nes.</p>
+<h1 local-id=3D"c035144c0efe" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984048BusinessObjectives"><span class=3D"confluence-anchor-link" id=3D"Bu=
+sinessRequirementDocument-Tasks-_Toc223984048"><span class=3D"confluence-an=
+chor-link" id=3D"_Toc223984048"></span></span>Business Objectives</h1>
+<p>The objectives of implementing the Task Management and SLA Workflow modu=
+le are:</p>
+<ul>
+<li>
+<p>Ensure that every task action performed within the system is documented =
+through mandatory comments for operational visibility and accountability.</=
+p></li>
+<li>
+<p>Provide a structured workflow that enables users to update task status t=
+hrough predefined actions including reassignment, escalation, reprioritisat=
+ion, and completion.</p></li>
+<li>
+<p>Enable administrators and managers to track task progress through clearl=
+y defined statuses and historical activity logs.</p></li>
+<li>
+<p>Introduce SLA monitoring to ensure tasks are addressed within defined ti=
+meframes based on priority levels.</p></li>
+<li>
+<p>Notify relevant users when tasks approach SLA thresholds to prevent over=
+due tasks.</p></li>
+<li>
+<p>Highlight overdue tasks visually within the system to improve response t=
+ime and operational awareness.</p></li>
+<li>
+<p>Enable escalation and reassignment capabilities to ensure tasks can be r=
+edirected to the appropriate users when necessary.</p></li>
+<li>
+<p>Maintain a complete audit trail of all task actions including user activ=
+ity, timestamps, and comments.</p></li>
+<li>
+<p>Allow SLA configurations to be managed by administrators through configu=
+rable business settings.</p></li>
+<li>
+<p>Ensure critical tasks receive immediate attention through system-generat=
+ed notifications.</p></li>
+</ul>
+<h1 local-id=3D"6e22cad64531" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984049Background"><span class=3D"confluence-anchor-link" id=3D"BusinessRe=
+quirementDocument-Tasks-_Toc223984049"><span class=3D"confluence-anchor-lin=
+k" id=3D"_Toc223984049"></span></span>Background</h1>
+<p>During operational workflows, tasks are created and assigned to users wi=
+thin the organization. These tasks require a structured approach for monito=
+ring progress, ensuring timely resolution, and maintaining visibility acros=
+s administrative and managerial roles.</p>
+<p>The absence of consistent documentation and standardized task handling p=
+rocesses can lead to delays, lack of accountability, and reduced operationa=
+l transparency. To address these challenges, the Task Management and SLA Wo=
+rkflow module introduces structured processes that govern how tasks are han=
+dled within the system.</p>
+<p>The system ensures that every action taken on a task is recorded with a =
+mandatory comment. This requirement ensures that stakeholders have visibili=
+ty into the actions performed and the reasoning behind them. A comment remi=
+nder banner is displayed within the interface to reinforce this requirement=
+.</p>
+<p>The module introduces predefined task statuses that guide the lifecycle =
+of a task. Users interact with tasks through a status action dropdown that =
+allows them to update the task status while recording supporting comments.<=
+/p>
+<p>In addition to status tracking, the module introduces SLA monitoring bas=
+ed on task priority. Each task is assigned a priority level that determines=
+ the allowed timeframe for completion. The SLA timer begins when the task i=
+s created and continues running regardless of status changes such as reassi=
+gnment or escalation.</p>
+<p>To ensure that tasks receive attention before becoming overdue, the syst=
+em monitors SLA thresholds and notifies relevant users when a task approach=
+es its deadline. If the SLA expires without completion, the system marks th=
+e task as overdue and visually highlights it within the user interface.</p>
+<p>Critical priority tasks require faster response times and therefore trig=
+ger immediate notifications upon creation.</p>
+<p>The system also supports escalation and reassignment workflows, enabling=
+ tasks to be transferred to other users when required. All such actions are=
+ recorded in the task history log, ensuring complete traceability.</p>
+<p>Through these mechanisms, the Task Management and SLA Workflow module en=
+sures consistent task handling, improved visibility, and adherence to opera=
+tional timelines.</p>
+<h1 local-id=3D"18e8ac4ae912" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984050Scope"><span class=3D"confluence-anchor-link" id=3D"BusinessRequire=
+mentDocument-Tasks-_Toc223984050"><span class=3D"confluence-anchor-link" id=
+=3D"_Toc223984050"></span></span>Scope</h1>
+<h2 local-id=3D"bad2b54f1a13" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984051InScope"><span class=3D"confluence-anchor-link" id=3D"BusinessRequi=
+rementDocument-Tasks-_Toc223984051"><span class=3D"confluence-anchor-link" =
+id=3D"_Toc223984051"></span></span>In Scope</h2>
+<p>The following functionalities are included within the Task Management an=
+d SLA Workflow module:</p>
+<h2 local-id=3D"73368e869be3" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984052TaskStatusManagement"><span class=3D"confluence-anchor-link" id=3D"=
+BusinessRequirementDocument-Tasks-_Toc223984052"><span class=3D"confluence-=
+anchor-link" id=3D"_Toc223984052"></span></span>Task Status Management</h2>
+<p>The system shall provide a dropdown menu that allows users to perform ta=
+sk status actions. The available options include:</p>
+<ul>
+<li>
+<p>Action Completed</p></li>
+<li>
+<p>In Progress</p></li>
+<li>
+<p>Reassigned</p></li>
+<li>
+<p>Reprioritised</p></li>
+<li>
+<p>Cancelled (Action no longer required)</p></li>
+<li>
+<p>Escalation</p></li>
+</ul>
+<p>The selected option will update the stored status of the task.</p>
+<h2 local-id=3D"25af08d296c1" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984053TaskStatusLifecycle"><span class=3D"confluence-anchor-link" id=3D"B=
+usinessRequirementDocument-Tasks-_Toc223984053"><span class=3D"confluence-a=
+nchor-link" id=3D"_Toc223984053"></span></span>Task Status Lifecycle</h2>
+<p>The system shall support the following task statuses:</p>
+<ul>
+<li>
+<p>Assigned</p></li>
+<li>
+<p>In Progress</p></li>
+<li>
+<p>Reassigned</p></li>
+<li>
+<p>Reprioritised</p></li>
+<li>
+<p>Escalated</p></li>
+<li>
+<p>Cancelled</p></li>
+<li>
+<p>Completed</p></li>
+<li>
+<p>Overdue</p></li>
+</ul>
+<p>When a task is created, its default status shall be <strong>Assigned</st=
+rong>.</p>
+<h2 local-id=3D"a5cdfb695802" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984054MandatoryCommentRequirement"><span class=3D"confluence-anchor-link"=
+ id=3D"BusinessRequirementDocument-Tasks-_Toc223984054"><span class=3D"conf=
+luence-anchor-link" id=3D"_Toc223984054"></span></span>Mandatory Comment Re=
+quirement</h2>
+<p>Before performing any task action, users must enter a comment explaining=
+ the action taken.</p>
+<p>The system shall not allow any action to be performed without entering a=
+ valid comment.</p>
+<p>The action button shall remain disabled until a valid comment is entered=
+.</p>
+<h2 local-id=3D"19e9d24dab1a" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984055CommentReminder"><span class=3D"confluence-anchor-link" id=3D"Busin=
+essRequirementDocument-Tasks-_Toc223984055"><span class=3D"confluence-ancho=
+r-link" id=3D"_Toc223984055"></span></span>Comment Reminder</h2>
+<p>The system shall display a reminder banner above the comment box.</p>
+<p>The banner will remind users that comments are required for every action=
+ taken for visibility.</p>
+<h2 local-id=3D"89152a02828e" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984056TaskReassignment"><span class=3D"confluence-anchor-link" id=3D"Busi=
+nessRequirementDocument-Tasks-_Toc223984056"><span class=3D"confluence-anch=
+or-link" id=3D"_Toc223984056"></span></span>Task Reassignment</h2>
+<p>When the <strong>Reassigned</strong> action is selected:</p>
+<ul>
+<li>
+<p>The user shall be able to choose another user.</p></li>
+<li>
+<p>The selected user must belong to the same Business Area as the task.</p>=
+</li>
+<li>
+<p>The Business Area shall be derived from the user profile.</p></li>
+</ul>
+<p>Ownership of the task shall transfer to the newly selected user.</p>
+<p>The SLA timer shall continue running and shall not reset.</p>
+<p>The previous owner shall only be able to view the task within the task h=
+istory and not within their active task list.</p>
+<h2 local-id=3D"4ca7665aabea" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984057TaskEscalation"><span class=3D"confluence-anchor-link" id=3D"Busine=
+ssRequirementDocument-Tasks-_Toc223984057"><span class=3D"confluence-anchor=
+-link" id=3D"_Toc223984057"></span></span>Task Escalation</h2>
+<p>When the <strong>Escalation</strong> action is selected:</p>
+<ul>
+<li>
+<p>The user shall be able to choose any user.</p></li>
+<li>
+<p>Ownership of the task shall transfer to the selected user.</p></li>
+</ul>
+<p>The SLA timer shall continue running and shall not reset.</p>
+<p>The escalation action shall be recorded within the task history log.</p>
+<p local-id=3D"e859500e8a82"></p>
+<h2 local-id=3D"3333e74b011e" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984058TaskReprioritisation"><span class=3D"confluence-anchor-link" id=3D"=
+BusinessRequirementDocument-Tasks-_Toc223984058"><span class=3D"confluence-=
+anchor-link" id=3D"_Toc223984058"></span></span>Task Reprioritisation</h2>
+<p>When the <strong>Reprioritise</strong> action is selected:</p>
+<ul>
+<li>
+<p>The user shall be able to change the task priority.</p></li>
+<li>
+<p>The priority can be changed to any available level.</p></li>
+</ul>
+<p>When the priority changes:</p>
+<ul local-id=3D"2fcd83a1a8c9">
+<li>
+<p>The SLA shall be recalculated.</p></li>
+<li local-id=3D"15c53a4cb4ac">
+<p local-id=3D"3283d35c13e7">The SLA timer shall reset based on the new pri=
+ority.</p></li>
+</ul>
+<h2 local-id=3D"d2c74b77015a" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984059TaskCompletion"><span class=3D"confluence-anchor-link" id=3D"Busine=
+ssRequirementDocument-Tasks-_Toc223984059"><span class=3D"confluence-anchor=
+-link" id=3D"_Toc223984059"></span></span>Task Completion</h2>
+<p>When <strong>Action Completed</strong> is selected:</p>
+<ul local-id=3D"c31143928464">
+<li local-id=3D"2f909b64895e">
+<p local-id=3D"bddb6cb442ec">The task shall move to the Completed tab.</p><=
+/li>
+</ul>
+<h2 local-id=3D"f14daeb5c1a7" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984060TaskCancellation"><span class=3D"confluence-anchor-link" id=3D"Busi=
+nessRequirementDocument-Tasks-_Toc223984060"><span class=3D"confluence-anch=
+or-link" id=3D"_Toc223984060"></span></span>Task Cancellation</h2>
+<p>When <strong>Cancelled (Action no longer required)</strong> is selected:=
+</p>
+<ul local-id=3D"2a41d3ac8c23">
+<li>
+<p>The task shall move to the Completed tab.</p></li>
+<li local-id=3D"6269741cab64">
+<p local-id=3D"5eecf74995cf">The task status shall remain <strong>Cancelled=
+</strong>.</p></li>
+</ul>
+<h2 local-id=3D"6c5a33285f12" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984061TaskEditingRestrictions"><span class=3D"confluence-anchor-link" id=
+=3D"BusinessRequirementDocument-Tasks-_Toc223984061"><span class=3D"conflue=
+nce-anchor-link" id=3D"_Toc223984061"></span></span>Task Editing Restrictio=
+ns</h2>
+<p>After a task is created:</p>
+<ul>
+<li>
+<p>No task data fields shall be editable.</p></li>
+</ul>
+<p>Any changes to a task must occur through status actions such as:</p>
+<ul>
+<li>
+<p>Reassignment</p></li>
+<li>
+<p>Escalation</p></li>
+<li>
+<p>Reprioritisation</p></li>
+<li>
+<p>Status updates</p></li>
+</ul>
+<p local-id=3D"adf5d7525d9c">Each action must include a new comment and mus=
+t be stored within the task history.</p>
+<h1 local-id=3D"e4940776465f" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984062Stakeholders"><span class=3D"confluence-anchor-link" id=3D"Business=
+RequirementDocument-Tasks-_Toc223984062"><span class=3D"confluence-anchor-l=
+ink" id=3D"_Toc223984062"></span></span>Stakeholders</h1>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Name</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Role</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Responsibility</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Admin</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>System Administrator</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Manages system configuration, SLA settings, and oversees all tasks acros=
+s business areas</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Manager</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Business Area Manager</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Monitors tasks within their business area and ensures SLA compliance</p>=
+</td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Assigned User</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Task Owner</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Responsible for performing actions on assigned tasks and completing them=
+ within SLA</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h1 local-id=3D"8511a912cee1" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984063BusinessRequirements"><span class=3D"confluence-anchor-link" id=3D"=
+BusinessRequirementDocument-Tasks-_Toc223984063"><span class=3D"confluence-=
+anchor-link" id=3D"_Toc223984063"></span></span>Business Requirements</h1>
+<h2 local-id=3D"dde20a3dfbe4" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984064RequirementIDStructure"><span class=3D"confluence-anchor-link" id=
+=3D"BusinessRequirementDocument-Tasks-_Toc223984064"><span class=3D"conflue=
+nce-anchor-link" id=3D"_Toc223984064"></span></span>Requirement ID Structur=
+e</h2>
+<p>All requirements for the Task Management and SLA Workflow module are lis=
+ted below.</p>
+<p></p>
+<h2 local-id=3D"ac61f98b1e09" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984065TaskStatus&amp;ActionManagement"><span class=3D"confluence-anchor-l=
+ink" id=3D"BusinessRequirementDocument-Tasks-_Toc223984065"><span class=3D"=
+confluence-anchor-link" id=3D"_Toc223984065"></span></span>Task Status &amp=
+; Action Management</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-001</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The system shall provide a dropdown menu allowing users to perform task =
+status actions.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-002</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The dropdown shall contain the following options: Action Completed, In P=
+rogress, Reassigned, Reprioritise, Cancelled (Action no longer required), E=
+scalation.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-003</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The selected dropdown option shall update the task status accordingly.</=
+p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-004</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When a task is created, the default task status shall be <strong>Assigne=
+d</strong>.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-005</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The system shall store the following statuses for tasks: Assigned, In Pr=
+ogress, Reassigned, Reprioritised, Escalated, Cancelled, Completed, Overdue=
+.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"3f00108a8a9a" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984066MandatoryComments"><span class=3D"confluence-anchor-link" id=3D"Bus=
+inessRequirementDocument-Tasks-_Toc223984066"><span class=3D"confluence-anc=
+hor-link" id=3D"_Toc223984066"></span></span>Mandatory Comments</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-006</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The system shall require a comment before any task action is performed.<=
+/p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-007</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The action button shall remain disabled until a valid comment is entered=
+.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-008</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The system shall display a comment input box before performing any actio=
+n.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-009</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The comment shall explain the details of the action taken.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-010</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The system shall display a reminder banner above the comment box instruc=
+ting users to issue a comment for every action taken for visibility.</p></t=
+d>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"1beb2a2ca235" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984067CommentValidationRules"><span class=3D"confluence-anchor-link" id=
+=3D"BusinessRequirementDocument-Tasks-_Toc223984067"><span class=3D"conflue=
+nce-anchor-link" id=3D"_Toc223984067"></span></span>Comment Validation Rule=
+s</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-011</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Comments must contain a minimum of <strong>10 characters</strong>.</p></=
+td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-012</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Comments must not exceed <strong>100 characters</strong>.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-013</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Numbers shall be allowed within comments.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-014</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Line breaks shall be allowed within comments.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-015</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The following symbols shall be allowed in comments: , . - " /.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-016</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>All other symbols shall be considered invalid input.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-017</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>If invalid characters are entered, the system shall display a validation=
+ error.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"242cd35fec03" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984068Escalation"><span class=3D"confluence-anchor-link" id=3D"BusinessRe=
+quirementDocument-Tasks-_Toc223984068"><span class=3D"confluence-anchor-lin=
+k" id=3D"_Toc223984068"></span></span>Escalation</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-018</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When the <strong>Escalation</strong> action is selected, the system shal=
+l allow the user to choose another user.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-019</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Escalation shall allow selection of <strong>any user</strong> within the=
+ system inside the same business area.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-020</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Ownership of the task shall transfer to the selected user when escalatio=
+n is performed.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-021</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Escalation shall not reset the SLA timer.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-022</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Escalation actions shall be recorded within the task history log.</p></t=
+d>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"92967ee930d8" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984069Reassignment"><span class=3D"confluence-anchor-link" id=3D"Business=
+RequirementDocument-Tasks-_Toc223984069"><span class=3D"confluence-anchor-l=
+ink" id=3D"_Toc223984069"></span></span>Reassignment</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-023</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When the <strong>Reassigned</strong> action is selected, the system shal=
+l allow the user to choose another user.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-024</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Reassignment shall be restricted to users belonging to the same Business=
+ Area as the task.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-025</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Business Area shall be derived from the user profile.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-026</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Ownership of the task shall transfer to the selected user when reassignm=
+ent is performed.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-027</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Reassignment shall not reset the SLA timer.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-028</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The previous owner shall only be able to view the task within task histo=
+ry and not within the active task list.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"af511d50a1f4" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984070Reprioritisation"><span class=3D"confluence-anchor-link" id=3D"Busi=
+nessRequirementDocument-Tasks-_Toc223984070"><span class=3D"confluence-anch=
+or-link" id=3D"_Toc223984070"></span></span>Reprioritisation</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-029</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When the <strong>Reprioritise</strong> action is selected, the system sh=
+all allow the user to change the task priority.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-030</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Priority can be changed to any available priority level.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-031</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When the priority is changed, the system shall recalculate the SLA.</p><=
+/td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-032</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When the priority is changed, the SLA timer shall reset based on the new=
+ priority.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"956f15f092c6" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984071TaskCompletionandCancellation"><span class=3D"confluence-anchor-lin=
+k" id=3D"BusinessRequirementDocument-Tasks-_Toc223984071"><span class=3D"co=
+nfluence-anchor-link" id=3D"_Toc223984071"></span></span>Task Completion an=
+d Cancellation</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-033</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When <strong>Action Completed</strong> is selected, the task shall move =
+to the Completed tab.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-034</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When <strong>Cancelled (Action no longer required)</strong> is selected,=
+ the task shall move to the Completed tab.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-035</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>When cancelled, the task status shall remain <strong>Cancelled</strong>.=
+</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"479d39f2bb97" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984072ConfirmationPopup"><span class=3D"confluence-anchor-link" id=3D"Bus=
+inessRequirementDocument-Tasks-_Toc223984072"><span class=3D"confluence-anc=
+hor-link" id=3D"_Toc223984072"></span></span>Confirmation Popup</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-036</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The system shall display a confirmation popup before executing any task =
+action.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-037</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>The confirmation popup message shall be dynamic based on the selected ac=
+tion.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h2 local-id=3D"8df3db15bddb" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984073TaskEditingRestrictions"><span class=3D"confluence-anchor-link" id=
+=3D"BusinessRequirementDocument-Tasks-_Toc223984073"><span class=3D"conflue=
+nce-anchor-link" id=3D"_Toc223984073"></span></span>Task Editing Restrictio=
+ns</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Requirement ID</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Description</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Owner</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-038</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>After task creation, task data fields shall not be editable.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-039</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Any updates to a task must occur through task status actions only.</p></=
+td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>BR-TASK-040</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Each action performed shall create a new entry in the task history with =
+its corresponding comment.</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Product / Engineering</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h1 local-id=3D"89c90fbe5bfd" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984074SLAConfiguration"><span class=3D"confluence-anchor-link" id=3D"Busi=
+nessRequirementDocument-Tasks-_Toc223984074"><span class=3D"confluence-anch=
+or-link" id=3D"_Toc223984074"></span></span>SLA Configuration</h1>
+<p>The system shall support SLA monitoring based on task priority.</p>
+<p>SLA configuration shall be managed by administrators through <strong>Bus=
+iness Configuration Settings</strong> in the frontend.</p>
+<p>All changes made to SLA configuration shall be recorded within an <stron=
+g>audit trail</strong>.</p>
+<p>SLA shall be calculated based on <strong>business hours only</strong>.</=
+p>
+<p>Business hours shall be defined as:</p>
+<p><strong>08:00 AM =E2=80=93 04:00 PM</strong></p>
+<p>The SLA timer shall begin when the task is created.</p>
+<p></p>
+<h2 local-id=3D"2633393a4790" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984075SLAPriorityLevels"><span class=3D"confluence-anchor-link" id=3D"Bus=
+inessRequirementDocument-Tasks-_Toc223984075"><span class=3D"confluence-anc=
+hor-link" id=3D"_Toc223984075"></span></span>SLA Priority Levels</h2>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Priority</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>SLA Duration</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Critical</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>30 minutes</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>High</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>60 minutes</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Medium</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>4 hours</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Low</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>8 hours</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The above are customizable through the frontend of the webapp.</p>
+<h2 local-id=3D"bd86895cd3c6" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984076SLABehaviour"><span class=3D"confluence-anchor-link" id=3D"Business=
+RequirementDocument-Tasks-_Toc223984076"><span class=3D"confluence-anchor-l=
+ink" id=3D"_Toc223984076"></span></span>SLA Behaviour</h2>
+<ul>
+<li>
+<p>SLA begins when the task is created.</p></li>
+<li>
+<p>SLA continues running when a task is <strong>In Progress</strong>.</p></=
+li>
+<li>
+<p>SLA continues running when a task is <strong>Reassigned</strong>.</p></l=
+i>
+<li>
+<p>SLA continues running when a task is <strong>Escalated</strong>.</p></li=
+>
+<li>
+<p>SLA is recalculated and reset when a task is <strong>Reprioritised</stro=
+ng>.</p></li>
+</ul>
+<p></p>
+<h2 local-id=3D"16557d741a00" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984077SLAAddressedCondition"><span class=3D"confluence-anchor-link" id=3D=
+"BusinessRequirementDocument-Tasks-_Toc223984077"><span class=3D"confluence=
+-anchor-link" id=3D"_Toc223984077"></span></span>SLA Addressed Condition</h=
+2>
+<p>A task shall be considered <strong>addressed</strong> when the status is=
+ changed to <strong>In Progress</strong>.</p>
+<p></p>
+<h1 local-id=3D"1af29bace277" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984078SLAAlertsandPopups"><span class=3D"confluence-anchor-link" id=3D"Bu=
+sinessRequirementDocument-Tasks-_Toc223984078"><span class=3D"confluence-an=
+chor-link" id=3D"_Toc223984078"></span></span>SLA Alerts and Popups</h1>
+<h2 local-id=3D"6aee8d11c004" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984079ApproachingSLAAlert"><span class=3D"confluence-anchor-link" id=3D"B=
+usinessRequirementDocument-Tasks-_Toc223984079"><span class=3D"confluence-a=
+nchor-link" id=3D"_Toc223984079"></span></span>Approaching SLA Alert</h2>
+<p>The system shall monitor tasks approaching their SLA limit.</p>
+<p>The threshold for approaching SLA shall be defined as:</p>
+<p><strong>25% of remaining SLA time.</strong></p>
+<p>When this threshold is reached:</p>
+<ul>
+<li>
+<p>A popup notification shall be displayed.</p></li>
+<li>
+<p>The popup shall appear <strong>only once</strong>.</p></li>
+</ul>
+<p>The popup shall be visible to:</p>
+<ul>
+<li>
+<p>Assigned user</p></li>
+<li>
+<p>Manager of the business area</p></li>
+<li>
+<p>Admin</p></li>
+</ul>
+<p></p>
+<h2 local-id=3D"da1f4bb9b525" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984080SLAExpiryBehaviour"><span class=3D"confluence-anchor-link" id=3D"Bu=
+sinessRequirementDocument-Tasks-_Toc223984080"><span class=3D"confluence-an=
+chor-link" id=3D"_Toc223984080"></span></span>SLA Expiry Behaviour</h2>
+<p>When the SLA expires:</p>
+<ul>
+<li>
+<p>The task shall be marked as <strong>Overdue</strong>.</p></li>
+<li>
+<p>The task shall be visually highlighted in <strong>red</strong> within th=
+e user interface.</p></li>
+<li>
+<p>A popup notification shall be displayed.</p></li>
+</ul>
+<p>The popup shall be visible to:</p>
+<ul>
+<li>
+<p>Assigned user</p></li>
+<li>
+<p>Manager of the business area</p></li>
+<li>
+<p>Admin</p></li>
+</ul>
+<p></p>
+<h2 local-id=3D"4f26bbee7cba" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984081CriticalTaskPopup"><span class=3D"confluence-anchor-link" id=3D"Bus=
+inessRequirementDocument-Tasks-_Toc223984081"><span class=3D"confluence-anc=
+hor-link" id=3D"_Toc223984081"></span></span>Critical Task Popup</h2>
+<p>Critical priority tasks require immediate attention.</p>
+<p>When a task with <strong>Critical priority</strong> is created:</p>
+<ul>
+<li>
+<p>A popup notification shall be displayed <strong>immediately</strong>.</p=
+></li>
+</ul>
+<p>The popup shall be visible to:</p>
+<ul>
+<li>
+<p>Assigned user</p></li>
+<li>
+<p>Manager of the business area</p></li>
+<li>
+<p>Admin</p></li>
+</ul>
+<p></p>
+<h1 local-id=3D"df99c5f1b90b" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984082TaskVisibility"><span class=3D"confluence-anchor-link" id=3D"Busine=
+ssRequirementDocument-Tasks-_Toc223984082"><span class=3D"confluence-anchor=
+-link" id=3D"_Toc223984082"></span></span>Task Visibility</h1>
+<p>Task visibility shall be controlled based on user roles.</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Role</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Task Visibility</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Admin</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Can view all tasks across the business area</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Manager</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Can view tasks within their business area</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Other Users</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Can view only tasks assigned to them</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Business Area information shall be retrieved from the <strong>User Profi=
+le</strong>.</p>
+<p></p>
+<h1 local-id=3D"786884cb78f9" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984083TaskIDGeneration"><span class=3D"confluence-anchor-link" id=3D"Busi=
+nessRequirementDocument-Tasks-_Toc223984083"><span class=3D"confluence-anch=
+or-link" id=3D"_Toc223984083"></span></span>Task ID Generation</h1>
+<p>The system shall generate a unique task ID for every task created.</p>
+<p>The task ID shall follow a sequential system-generated format:</p>
+<p><strong>TASK-00001</strong></p>
+<p>Each newly created task shall increment the sequence automatically.</p>
+<p></p>
+<h1 local-id=3D"a536d4795346" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984084DashboardMetrics"><span class=3D"confluence-anchor-link" id=3D"Busi=
+nessRequirementDocument-Tasks-_Toc223984084"><span class=3D"confluence-anch=
+or-link" id=3D"_Toc223984084"></span></span>Dashboard Metrics</h1>
+<p>The system shall display task metrics within dashboards.</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Metric</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Definition</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Inside SLA</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Tasks that still have remaining SLA time</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Approaching SLA</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Tasks that have reached the 25% SLA threshold</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Overdue</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Tasks where the SLA has expired</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<h1 local-id=3D"6d5e268b2401" id=3D"BusinessRequirementDocument-Tasks-_Toc2=
+23984085TaskHistoryandAuditTrail"><span class=3D"confluence-anchor-link" id=
+=3D"BusinessRequirementDocument-Tasks-_Toc223984085"><span class=3D"conflue=
+nce-anchor-link" id=3D"_Toc223984085"></span></span>Task History and Audit =
+Trail</h1>
+<p>The system shall maintain a complete audit trail of task activity.</p>
+<p>Each task history entry shall capture the following information:</p>
+<ul>
+<li>
+<p>Timestamp of the action</p></li>
+<li>
+<p>User who performed the action</p></li>
+<li>
+<p>Action performed</p></li>
+<li>
+<p>Comment entered by the user</p></li>
+</ul>
+<p>Example history structure content:</p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Timestamp</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>User</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Action</strong></p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p><strong>Comment</strong></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>10:30</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>User A</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Reassigned</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Please review this task</p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>10:45</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>User B</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>In Progress</p></td>
+<td data-highlight-colour=3D"#auto" class=3D"confluenceTd">
+<p>Working on the task</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Task history shall preserve all previous comments and actions.</p>
+<p>Previous owners of reassigned or escalated tasks shall retain access to =
+the task <strong>only through task history</strong>.</p>
+<p></p>
+    </div>
+</body>
+</html>
+------=_Part_268_1537391788.1773116546475
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/d10a01bdc565aac8e219c4be2c99c5076840a60699857f4470b0384cfcf286bd
+
+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
+i09s1QAAAABJRU5ErkJggg==
+------=_Part_268_1537391788.1773116546475--

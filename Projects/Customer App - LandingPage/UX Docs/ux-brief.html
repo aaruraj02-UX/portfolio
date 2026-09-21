@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Brief — Acme Customer App Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">Customer App</span>
+    <a href="ux-brief.html" class="active">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/Landing-Page.html">Prototype</a>
+  </nav>
+
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Brief — Acme Customer App Landing Page</h1>
+      <div class="doc-meta">
+        <span>📋 Acme Customer App — Landing Page & Settings Module</span>
+        <span>🏢 Acme Holdings</span>
+        <span>📅 21 May 2026</span>
+        <span>🔖 BRD v1.0</span>
+      </div>
+    </header>
+
+    <section class="doc-section">
+      <h2>1. Background</h2>
+      <p>Acme Holdings provides enforcement and recovery services to local authorities and central government. Customers (citizens) currently engage through inconsistent digital touchpoints and high-friction agent-assisted channels, which limits self-service adoption, slows payment conversion, and increases dispute volumes.</p>
+      <p>The BRD defines a combined capability shipping in two parts:</p>
+      <ul>
+        <li><strong>Customer-Facing Landing Pages</strong> — a structured, post-authentication, personalised journey that lets citizens view their case, understand their enforcement stage, and complete the primary action (most often a payment).</li>
+        <li><strong>Customer App — Landing Page Settings module</strong> — an internal, governed CMS surface that lets authorised business users edit those Landing Pages under a three-step <strong>Author → Reviewer → Publisher</strong> workflow with a full audit trail.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section">
+      <h2>2. Objectives</h2>
+      <h3>2.1 Business Objectives</h3>
+      <table class="doc-table">
+        <thead><tr><th>ID</th><th>Objective</th><th>Success Indicator</th></tr></thead>
+        <tbody>
+          <tr><td>O-CUS-1</td><td>Drive self-service adoption on customer Landing Pages</td><td>↑ digital sessions completing a payment vs. agent-assisted</td></tr>
+          <tr><td>O-CUS-2</td><td>Increase payment conversion via clear primary CTA & timeline</td><td>↑ "Pay Now" CTR; ↓ time-to-first-payment</td></tr>
+          <tr><td>O-CUS-3</td><td>Reduce confusion and disputes</td><td>↓ inbound support contacts referencing "what does this stage mean"</td></tr>
+          <tr><td>O-OPS-1</td><td>Eliminate dev dependency for content updates</td><td>↓ change-request lead time from days to hours</td></tr>
+          <tr><td>O-GOV-1</td><td>Enforce three-step governance & segregation of duties</td><td>100% of published changes carry Author/Reviewer/Publisher stamps</td></tr>
+          <tr><td>O-GOV-2</td><td>Provide complete, immutable audit trail</td><td>All actions timestamped & traceable</td></tr>
+          <tr><td>O-COMP-1</td><td>Maintain WCAG 2.2 AA compliance</td><td>Zero AA violations in audit</td></tr>
+        </tbody>
+      </table>
+      <h3>2.2 UX Objectives</h3>
+      <div class="principle-grid">
+        <div class="principle-card"><h4>Predictability</h4><p>Internal users follow the same Edit → Save → Approve → Publish rhythm on every tab.</p></div>
+        <div class="principle-card"><h4>WYSIWYE</h4><p>The editor visually mirrors the live Landing Page so authors predict the customer view.</p></div>
+        <div class="principle-card"><h4>Progressive Disclosure</h4><p>Secondary actions ride behind clearly labelled controls keeping the primary path clean.</p></div>
+        <div class="principle-card"><h4>Accessible by Default</h4><p>All content tokens, variables, alerts, and modals meet WCAG 2.2 AA.</p></div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>3. Target Users</h2>
+      <h3>External (Customer-Facing)</h3>
+      <table class="doc-table">
+        <thead><tr><th>User</th><th>Description</th><th>Primary Goal</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Citizen / Debtor</strong></td><td>Receives SMS link, authenticates via ID&V, views case</td><td>Resolve the case (usually by paying) quickly and without confusion</td></tr>
+        </tbody>
+      </table>
+      <h3>Internal (Customer App)</h3>
+      <table class="doc-table">
+        <thead><tr><th>User</th><th>Description</th><th>Primary Goal</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Author</strong></td><td>Comms / content / business analyst editing Landing Page copy</td><td>Submit accurate, on-brand content for review</td></tr>
+          <tr><td><strong>Reviewer</strong></td><td>Compliance / business sign-off on submitted changes</td><td>Validate accuracy & compliance; approve or reject</td></tr>
+          <tr><td><strong>Publisher</strong></td><td>Senior business owner releasing approved content</td><td>Final readiness check & publish</td></tr>
+          <tr><td><strong>Compliance Lead</strong></td><td>Oversight role auditing the process</td><td>Inspect audit logs, confirm segregation of duties</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: .75rem; padding: .5rem .75rem; background: #fef3c7; border-radius: 6px; font-size: .82rem;"><strong>Constraint:</strong> A single user cannot perform two roles for the same change request. The UI must surface a clear "not eligible to act" state.</p>
+    </section>
+
+    <section class="doc-section">
+      <h2>4. Scope</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">4</div><div class="kpi-label">Template Tabs</div></div>
+        <div class="kpi-card"><div class="kpi-value">3</div><div class="kpi-label">Governance Roles</div></div>
+        <div class="kpi-card"><div class="kpi-value">5</div><div class="kpi-label">Enforcement Stages</div></div>
+        <div class="kpi-card"><div class="kpi-value">AA</div><div class="kpi-label">WCAG Compliance</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

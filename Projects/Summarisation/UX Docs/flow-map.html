@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flow Map — ANPS Response Generation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .ia-canvas{background:#f8fafc;border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;position:relative;overflow-x:auto}
+    .ia-canvas::before{content:'INFORMATION ARCHITECTURE';position:absolute;top:12px;left:16px;font-size:.6rem;letter-spacing:.1em;color:var(--text-muted);font-weight:600}
+    .ia-root{text-align:center;margin-bottom:1.5rem}
+    .ia-root-node{display:inline-block;background:linear-gradient(135deg,#374151,#6b7280);color:#fff;padding:.75rem 2rem;border-radius:8px;font-weight:700;font-size:.9rem;box-shadow:0 4px 12px rgba(55,65,81,.3)}
+    .ia-vline{width:2px;height:24px;background:#9ca3af;margin:0 auto}
+    .ia-level{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin:.5rem 0}
+    .ia-card{background:#fff;border:2px solid #d1d5db;border-radius:8px;padding:.6rem 1rem;min-width:130px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+    .ia-card h4{font-size:.72rem;font-weight:700;color:#374151;margin-bottom:.25rem}
+    .ia-card--active{border-color:#3b82f6;background:#eff6ff}
+    .ia-card--green{border-color:#10b981;background:#ecfdf5}
+    .ia-card--amber{border-color:#f59e0b;background:#fffbeb}
+    .ia-children{display:flex;flex-direction:column;gap:.2rem;margin-top:.4rem;padding-top:.4rem;border-top:1px dashed #cbd5e1}
+    .ia-child{font-size:.58rem;color:var(--text-secondary);padding:.1rem .3rem;background:#f1f5f9;border-radius:3px}
+    .pipeline{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;padding:1.5rem 0}
+    .pipe-node{border-radius:8px;padding:.6rem 1rem;font-size:.72rem;font-weight:600;text-align:center;min-width:100px}
+    .pipe-arrow{width:35px;height:2px;background:#6b7280;position:relative}
+    .pipe-arrow::after{content:'▸';position:absolute;right:-4px;top:-8px;color:#6b7280;font-size:.8rem}
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">DocProcess</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html" class="active">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/index.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>Information Architecture — Flow Map</h1>
+      <div class="doc-meta"><span>📐 ANPS Stage 3 & 5 Response Generation</span><span>📅 10 June 2026</span></div>
+    </header>
+
+    <section class="doc-section">
+      <h2>Response Generation Pipeline</h2>
+      <div class="pipeline">
+        <div class="pipe-node" style="background:#e0e7ff;border:2px solid #6366f1">Challenge<br>Received</div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node" style="background:#dbeafe;border:2px solid #3b82f6">Stage 2/4<br>Validation</div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node" style="background:#fef3c7;border:2px solid #f59e0b">Stage 3/5<br>Letter Gen</div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node" style="background:#dcfce7;border:2px solid #10b981">Agent<br>Review</div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node" style="background:#ede9fe;border:2px solid #8b5cf6">QA<br>Sample</div>
+        <div class="pipe-arrow"></div>
+        <div class="pipe-node" style="background:#dcfce7;border:2px solid #166534">Letter<br>Sent ✓</div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Application Sitemap</h2>
+      <div class="ia-canvas">
+        <div class="ia-root"><div class="ia-root-node">ANPS — DocProcessor</div></div>
+        <div class="ia-vline"></div>
+        <div class="ia-level">
+          <div class="ia-card">
+            <h4>Dashboard</h4>
+            <div class="ia-children"><span class="ia-child">Stage 3 metrics</span><span class="ia-child">Stage 5 metrics</span><span class="ia-child">Combined view</span><span class="ia-child">Queue depth</span></div>
+          </div>
+          <div class="ia-card ia-card--active">
+            <h4>Agent Workflow</h4>
+            <div class="ia-children"><span class="ia-child">PCN case list</span><span class="ia-child">Letter Gen column</span><span class="ia-child">Green / Amber / Red</span><span class="ia-child">Review & Send</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Letter Review</h4>
+            <div class="ia-children"><span class="ia-child">AI-generated letter</span><span class="ia-child">Diff highlighting</span><span class="ia-child">Edit / Accept / Flag</span><span class="ia-child">Evidence sidebar</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>QA Queue</h4>
+            <div class="ia-children"><span class="ia-child">Sampled letters</span><span class="ia-child">Diff view</span><span class="ia-child">Approve / Reject</span><span class="ia-child">Notes field</span></div>
+          </div>
+          <div class="ia-card">
+            <h4>Reports</h4>
+            <div class="ia-children"><span class="ia-child">Throughput</span><span class="ia-child">Auto-complete rate</span><span class="ia-child">QA outcomes</span><span class="ia-child">Agent performance</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Letter Generation Outcomes</h2>
+      <div class="ia-level" style="gap:2rem">
+        <div class="ia-card ia-card--green" style="min-width:200px">
+          <h4>🟢 Automated Complete</h4>
+          <div class="ia-children">
+            <span class="ia-child">AI fully generated letter</span>
+            <span class="ia-child">Agent reviews & sends</span>
+            <span class="ia-child">No editing required</span>
+            <span class="ia-child">Target: ≥ 70% of cases</span>
+          </div>
+        </div>
+        <div class="ia-card ia-card--amber" style="min-width:200px">
+          <h4>🟡 Action Required</h4>
+          <div class="ia-children">
+            <span class="ia-child">AI partially completed</span>
+            <span class="ia-child">Agent must edit/complete</span>
+            <span class="ia-child">Flagged sections highlighted</span>
+            <span class="ia-child">Routed to QA on submit</span>
+          </div>
+        </div>
+        <div class="ia-card" style="min-width:200px;border-color:#ef4444;background:#fef2f2">
+          <h4>🔴 Manual Required</h4>
+          <div class="ia-children">
+            <span class="ia-child">AI could not generate</span>
+            <span class="ia-child">Full manual composition</span>
+            <span class="ia-child">Exception case</span>
+            <span class="ia-child">Always routed to QA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

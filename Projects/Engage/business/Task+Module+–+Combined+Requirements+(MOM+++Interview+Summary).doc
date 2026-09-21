@@ -1,0 +1,389 @@
+Date: Mon, 9 Mar 2026 07:23:36 +0000 (UTC)
+Message-ID: <423206682.1.1773041016854@7768d72a7748>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_0_145393526.1773041016838"
+
+------=_Part_0_145393526.1773041016838
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Task Module =E2=80=93 Combined Requirements (MOM + Interview Sum=
+mary)</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Task Module =E2=80=93 Combined Requirements (MOM + Interview Summar=
+y)</h1>
+    <div class=3D"Section1">
+        <p local-id=3D"61aafa276e1f"><strong>Prepared for: </strong>Engage =
+/ Field &amp; Web Teams</p>
+<p local-id=3D"ec13b4fc6175"><strong>Prepared by: </strong>Arumugam V =E2=
+=80=93 Principal UX Engineer I</p>
+<p local-id=3D"78f117f987ae"><strong>Last updated: </strong>25 Feb 2026</p>
+<h1 local-id=3D"c3e974f384f3" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-1.Overview">1. Overview</h1>
+<p local-id=3D"8f0cf08d037d">This document consolidates all Task Module req=
+uirements derived from the uploaded Minutes of Meeting (MOM) and the Interv=
+iew Summary. It focuses on end-to-end task lifecycle, roles and permissions=
+, dashboard behaviors, SLA/escalation logic, interaction patterns, and audi=
+t/compliance needs.</p>
+<h1 local-id=3D"9ed6dc9904b0" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-2.Objectives&amp;Scope">2. Objectives &amp; Scope</h=
+1>
+<p local-id=3D"b24a225fc36e"><strong>Objectives</strong></p>
+<p local-id=3D"7b88497d9192">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Provide a clear, efficient workflow for creating, viewing, acting =
+on, and closing operational tasks.</p>
+<p local-id=3D"883f15d88a9f">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Ensure tasks influence utilisation and SLA tracking where appropri=
+ate.</p>
+<p local-id=3D"556514408b35">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Support managerial oversight, auditability, and process improvemen=
+t via structured reasons and analytics.</p>
+<p local-id=3D"9329d16355e2"><strong>In Scope</strong></p>
+<p local-id=3D"cc42af2bebd2">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Web task dashboard and detail views</p>
+<p local-id=3D"9545200a8650">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Task lifecycle &amp; statuses, actions, and audit trail</p>
+<p local-id=3D"867dc7b55350">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;SLA definitions, escalation rules, and metrics</p>
+<p local-id=3D"d764de49bb24">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Search/filtering, manager/admin views, and reporting</p>
+<h1 local-id=3D"f44147b291d2" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-3.UserRoles">3. User Roles</h1>
+<p local-id=3D"c656c4acb91b"><strong>Primary roles:</strong></p>
+<p local-id=3D"cc4b7fe8aa8f">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Agent/Assignee =E2=80=93 works tasks, updates status, adds comment=
+s/evidence.</p>
+<p local-id=3D"05364c046073">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Manager =E2=80=93 monitors SLA, reallocates work, views area-wide =
+tasks.</p>
+<p local-id=3D"c2fd3d03a1bc">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Admin =E2=80=93 global visibility across business areas with confi=
+guration access (SLA values, rules).</p>
+<h1 local-id=3D"cd473bc8a018" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-4.TaskLifecycle&amp;Statuses">4. Task Lifecycle &amp=
+; Statuses</h1>
+<p local-id=3D"1aa5930a6d4d">Statuses supported: New, In Progress, Reassign=
+ed, Reprioritized, Escalated, Cancelled, Completed. Active screens show onl=
+y open tasks; completed and outcome states are moved to the Completed secti=
+on for audit. When a user opens a task, status cannot remain New=E2=80=94an=
+ explicit status update is required before exiting.</p>
+<h1 local-id=3D"ad93b7544680" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-5.CoreActions&amp;Rules">5. Core Actions &amp; Rules=
+</h1>
+<p local-id=3D"824bee10d24e"><strong>Complete</strong>: Marks task done and=
+ removes it from active list; appears under Completed for audit.</p>
+<p local-id=3D"9c6a8c0f2429"><strong>Reject</strong>: Requires a structured=
+ reason via guided questions; used when task is invalid or not actionable. =
+Adds to analytics on rejection causes.</p>
+<p local-id=3D"418d7dbe20cd"><strong>Reassign</strong>: Delegation via reas=
+signment with mandatory comment; ownership remains traceable through audit =
+trail. Separate =E2=80=9CCreate Action=E2=80=9D is not needed as reassignme=
+nt covers delegation.</p>
+<p local-id=3D"e43acc309749"><strong>Mark In Progress</strong>: Used when i=
+mmediate resolution is not possible; SLA timer continues. Mandatory comment=
+ required; overdue in-progress tasks should be visibly highlighted.</p>
+<h1 local-id=3D"3ca93c179e66" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-6.Escalation&amp;SLABehaviour">6. Escalation &amp; S=
+LA Behaviour</h1>
+<p local-id=3D"2b675b9d938e">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Hierarchical escalation when tasks remain unresolved beyond config=
+ured duration; uses organisational reporting lines.</p>
+<p local-id=3D"299ccc5051f1">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;SLA categories: Within SLA, Approaching SLA (near threshold), Past=
+ SLA (breached). Thresholds are configurable by priority (e.g., last 30 min=
+ of a 4-hour SLA =3D Approaching).</p>
+<p local-id=3D"a5748c897afc">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Changes to SLA values require confirmation and are fully audited (=
+who/what/when/why).</p>
+<h1 local-id=3D"eee1653e36ba" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-7.Dashboard,Metrics&amp;Views">7. Dashboard, Metrics=
+ &amp; Views</h1>
+<p local-id=3D"69e1107e7cea">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Dashboard metrics: Total tasks, Inside SLA, Approaching SLA, Past =
+SLA; similar to Jobs at Risk behaviour.</p>
+<p local-id=3D"9ee0e053b002">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Manager view: see all outstanding tasks, SLA proximity, workload a=
+cross business area(s).</p>
+<p local-id=3D"517c991f794f">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Admin view: holistic visibility across all business areas with fil=
+ters (e.g., Metering, Motor, Field).</p>
+<h1 local-id=3D"ac789c82fa23" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-8.InteractionDesign&amp;Layout">8. Interaction Desig=
+n &amp; Layout</h1>
+<p local-id=3D"36201d7fa2b1">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Default to list/linear layout with initial collapsed task cards; e=
+xpand to reveal full actions. Grid views can confuse reading order for oper=
+ational usage.</p>
+<p local-id=3D"e0074173d5cc">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Provide clear Complete / Reject CTA grouping. Add optional Snooze/=
+Dismiss with reason if required by operations (non-blocking).</p>
+<h1 local-id=3D"1d31a275cd9a" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-9.Search&amp;Filtering">9. Search &amp; Filtering</h=
+1>
+<p local-id=3D"4d492ed95b9a">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Search by Agent name, Task name, Task type, Status, Assigned perso=
+nnel, Overdue flag.</p>
+<p local-id=3D"d775a7554f03">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Provide quick filters consistent with existing web application beh=
+aviour for parity.</p>
+<h1 local-id=3D"f16cad4d4aca" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-10.TaskCreation(WebUsers)">10. Task Creation (Web Us=
+ers)</h1>
+<p local-id=3D"ddc8c3f9a6be">Managers/Web users can manually create tasks w=
+ith comments and assignment. These ad-hoc tasks may not include deep system=
+ links and primarily act as operational instructions.</p>
+<h1 local-id=3D"15b743577e36" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-11.Ownership,AuditTrail&amp;Compliance">11. Ownershi=
+p, Audit Trail &amp; Compliance</h1>
+<p local-id=3D"21892efb7754">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Every state change/comment/reassignment is recorded with user, tim=
+estamp, and reason where applicable.</p>
+<p local-id=3D"5480640e0e24">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Maintain visibility of lifecycle history to ensure accountability =
+even when tasks are reassigned.</p>
+<h1 local-id=3D"5144b3021b33" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-12.FieldAppIntegration(LightweightOption)">12. Field=
+ App Integration (Lightweight Option)</h1>
+<p local-id=3D"f5cc42596d87">Feasibility to notify field users and allow si=
+mple completion acknowledgement without a full mobile task module to be exp=
+lored; timeline impact to be validated.</p>
+<h1 local-id=3D"cef35c9ac8de" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-13.CompletedSectionMetrics&amp;Analytics">13. Comple=
+ted Section Metrics &amp; Analytics</h1>
+<p local-id=3D"92236e33862c">Completed view retains outcomes (Completed, Re=
+assigned, Reprioritized, Escalated, Cancelled) for future trend analysis an=
+d delegation effectiveness reporting. In-Progress contributes to dashboard =
+metrics but remains active until resolved.</p>
+<h1 local-id=3D"2b4832991f02" id=3D"TaskModule=E2=80=93CombinedRequirements=
+(MOM+InterviewSummary)-14.Non-Functional&amp;UIConsiderations">14. Non-Func=
+tional &amp; UI Considerations</h1>
+<p local-id=3D"d1a7113c4f70">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Apply Engage theme with darker neutrals to improve scannability wi=
+thout overpowering UI.</p>
+<p local-id=3D"28f72c1e25d7">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; &nbsp;Accessibility: clear status colours with sufficient contrast; keyb=
+oard navigation for search and filtering.</p>
+<p local-id=3D"4ce00b0e2237"></p>
+    </div>
+</body>
+</html>
+------=_Part_0_145393526.1773041016838--

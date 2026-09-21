@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Tasks Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    /* --- MET-DS-V2 Token Block (Light Theme) ------------------ */
+    :root {
+      /* Brand & Primary Scale */
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+
+      /* Semantic Colour Aliases */
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+
+      /* Text */
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      /* Grey Scale */
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      /* State — Success */
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+
+      /* State — Error */
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+
+      /* State — Warning */
+      --color-warning:         #EF6C00;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+
+      /* Navigation */
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --leftnav-icon:          #212121;
+      --leftnav-icon-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-text-active:    #3276CF;
+      --topnav-icon:           #757575;
+      --topnav-icon-active:    #3276CF;
+      --topnav-icon-hover:     #616161;
+
+      /* Borders & Radius */
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           16px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      /* Spacing */
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+
+      /* Typography */
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:    700;
+      --font-weight-semibold: 600;
+      --font-weight-medium:  500;
+      --font-weight-regular: 400;
+
+      /* Motion */
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter:      ease-out;
+      --easing-exit:       ease-in;
+
+      /* Shadows */
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+
+      /* Figma Divider */
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* --- Reset ------------------------------------------------ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--text-hyperlink);
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--text-hyperlink-hover);
+    }
+
+    button {
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* --- Focus Styles (Accessibility) ------------------------- */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* --- App Shell -------------------------------------------- */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* --- Top Navigation --------------------------------------- */
+    .topnav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-3);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+
+    .topnav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding-left: var(--space-7);
+    }
+
+    .topnav-brand-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .topnav-logo {
+      height: 33px;
+      width: fit-content;
+    }
+
+    .topnav-tagline {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      letter-spacing: 0.15px;
+      line-height: 1.5;
+    }
+
+    .topnav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      padding-right: var(--space-5);
+    }
+
+    .topnav-icon-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--topnav-icon);
+      padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover {
+      background: var(--color-primary-25);
+      color: var(--topnav-icon-hover);
+    }
+    .topnav-icon-btn .material-symbols-outlined {
+      font-size: 24px;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 20px;
+      height: 20px;
+      background: var(--color-warning);
+      color: #FFFFFF;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6.5px;
+      line-height: 1;
+      letter-spacing: 0.14px;
+    }
+
+    .topnav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    /* --- Main Layout ------------------------------------------ */
+    .main-layout {
+      display: flex;
+      flex: 1;
+      gap: var(--space-5);
+      padding: var(--space-7);
+      overflow: hidden;
+    }
+
+    /* --- Left Sidebar ----------------------------------------- */
+    .sidebar {
+      width: 320px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      padding-top: var(--space-8);
+      overflow-y: auto;
+    }
+
+    /* Category Section */
+    .category-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: var(--space-2) 0;
+      user-select: none;
+    }
+
+    .category-label {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      letter-spacing: 0.15px;
+      line-height: 1.5;
+    }
+
+    .category-chevron {
+      color: var(--text-secondary);
+      font-size: 24px;
+      transition: transform var(--duration-standard) var(--easing-enter);
+    }
+
+    .category-header[aria-expanded="false"] .category-chevron {
+      transform: rotate(180deg);
+    }
+
+    .category-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      margin-top: var(--space-3);
+      overflow: hidden;
+      transition: max-height var(--duration-standard) var(--easing-enter),
+                  margin var(--duration-standard) var(--easing-enter);
+    }
+
+    .category-cards[aria-hidden="true"] {
+      max-height: 0;
+      margin-top: 0;
+    }
+
+    /* Module Card */
+    .module-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-5);
+      height: 92px;
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      cursor: pointer;
+      overflow: hidden;
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+      text-decoration: none;
+      color: inherit;
+    }
+    .module-card:hover {
+      box-shadow: var(--shadow-card);
+    }
+    .module-card:focus-visible {
+      box-shadow: var(--shadow-focus);
+      outline: none;
+    }
+
+    .module-icon-circle {
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .module-icon-circle .material-symbols-outlined {
+      font-size: 28px;
+      color: var(--color-primary);
+    }
+
+    .module-card-text {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      min-width: 0;
+    }
+
+    .module-card-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-primary);
+      letter-spacing: 0.14px;
+      line-height: 20px;
+    }
+
+    .module-card-desc {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      letter-spacing: 0.17px;
+      line-height: 1.43;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* --- Vertical Divider ------------------------------------- */
+    .vertical-divider {
+      width: 1px;
+      background: var(--divider-color);
+      flex-shrink: 0;
+      align-self: stretch;
+    }
+
+    /* --- Content Area ----------------------------------------- */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-7);
+      min-width: 0;
+      overflow-y: auto;
+      padding-bottom: var(--space-8);
+    }
+
+    /* Greeting */
+    .greeting-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .greeting-title {
+      font-size: 24px;
+      line-height: 1.334;
+      color: var(--text-primary);
+    }
+    .greeting-title strong {
+      font-weight: var(--font-weight-semibold);
+    }
+    .greeting-title span {
+      font-weight: var(--font-weight-regular);
+    }
+
+    .greeting-subtitle {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      letter-spacing: 0.14px;
+      line-height: 20px;
+    }
+
+    /* --- Status Cards Row ------------------------------------- */
+    .status-cards-row {
+      display: flex;
+      gap: var(--space-4);
+      width: 100%;
+    }
+
+    .status-card {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      padding: var(--space-6) var(--space-7);
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+      min-width: 0;
+    }
+    .status-card:hover {
+      box-shadow: var(--shadow-card);
+    }
+    .status-card:focus-visible {
+      box-shadow: var(--shadow-focus);
+      outline: none;
+    }
+
+    .status-icon {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+    }
+    .status-icon .material-symbols-outlined {
+      font-size: 35px;
+    }
+    .status-icon--pending .material-symbols-outlined {
+      color: var(--text-secondary);
+    }
+    .status-icon--approved .material-symbols-outlined {
+      color: var(--color-success);
+    }
+    .status-icon--rejected .material-symbols-outlined {
+      color: var(--color-error);
+    }
+    .status-icon--cancelled .material-symbols-outlined {
+      color: var(--text-secondary);
+    }
+    .status-icon--completed .material-symbols-outlined {
+      color: var(--color-primary);
+    }
+    .status-icon--failed .material-symbols-outlined {
+      color: var(--color-error);
+    }
+
+    .status-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .status-count {
+      font-size: 24px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1.334;
+    }
+
+    .status-label {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      letter-spacing: 0.15px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    /* --- KPI Dashboard ---------------------------------------- */
+    .kpi-dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-7);
+    }
+
+    .kpi-dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-5);
+    }
+
+    .kpi-dashboard-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+
+    .kpi-filters {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-end;
+    }
+
+    .kpi-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .kpi-filter-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+
+    .kpi-filter-select {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      padding: var(--space-3) var(--space-5);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      color: var(--text-primary);
+      min-height: 40px;
+      cursor: pointer;
+    }
+    .kpi-filter-select:focus-visible {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(50,118,207,0.15);
+    }
+
+    /* KPI Section */
+    .kpi-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-section-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-5);
+    }
+
+    .kpi-grid--2col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* KPI Card — enhanced */
+    .kpi-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      border-left: 4px solid var(--grey-300);
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .kpi-card:hover { box-shadow: var(--shadow-card); }
+    .kpi-card--success { border-left-color: var(--color-success); }
+    .kpi-card--warning { border-left-color: var(--color-warning); }
+    .kpi-card--critical { border-left-color: var(--color-error); }
+
+    /* Pulse dot for SLA-critical cards */
+    .kpi-card--critical::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-error);
+      animation: kpi-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes kpi-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    .kpi-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    .kpi-card-name {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Status Badge */
+    .kpi-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 11px;
+      font-weight: var(--font-weight-medium);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .kpi-status-badge .material-symbols-outlined { font-size: 14px; }
+    .kpi-status-badge--success { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .kpi-status-badge--warning { background: var(--color-warning-bg); color: var(--color-warning); }
+    .kpi-status-badge--critical { background: var(--color-error-bg); color: var(--color-error-deeper); }
+
+    /* Card Body */
+    .kpi-card-body {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-4);
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .kpi-value--text {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Trend Indicator */
+    .kpi-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+    }
+    .kpi-trend .material-symbols-outlined { font-size: 16px; }
+    .kpi-trend--positive { color: var(--color-success-darker); }
+    .kpi-trend--negative { color: var(--color-error); }
+    .kpi-trend--neutral { color: var(--text-secondary); }
+
+    /* Sparkline Canvas inside KPI card */
+    .kpi-sparkline-wrap {
+      height: 36px;
+      margin-top: var(--space-1);
+    }
+    .kpi-sparkline-wrap canvas {
+      width: 100% !important;
+      height: 36px !important;
+    }
+
+    /* Card Footer */
+    .kpi-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--grey-200);
+    }
+
+    .kpi-target {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+
+    .kpi-refresh {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 11px;
+      color: var(--grey-400);
+    }
+    .kpi-refresh .material-symbols-outlined { font-size: 12px; }
+
+    /* Drill-down link */
+    .kpi-drilldown {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-hyperlink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .kpi-drilldown:hover { color: var(--text-hyperlink-hover); }
+    .kpi-drilldown .material-symbols-outlined { font-size: 14px; }
+
+    /* --- Progress Ring (donut) --------------------------------- */
+    .kpi-ring-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-7);
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-ring-card:hover { box-shadow: var(--shadow-card); }
+
+    .kpi-ring-wrap {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .kpi-ring-wrap canvas { width: 80px !important; height: 80px !important; }
+    .kpi-ring-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      pointer-events: none;
+    }
+
+    .kpi-ring-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+    .kpi-ring-label {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+    .kpi-ring-meta {
+      font-size: var(--font-size-caption);
+      color: var(--grey-500);
+    }
+
+    /* --- Chart Panel ------------------------------------------ */
+    .kpi-chart-panel {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-chart-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .kpi-chart-title .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--text-secondary);
+    }
+
+    .kpi-chart-body {
+      position: relative;
+      height: 220px;
+    }
+    .kpi-chart-body canvas { width: 100% !important; height: 100% !important; }
+
+    .kpi-chart-body--tall { height: 260px; }
+
+    /* Threshold line label */
+    .kpi-threshold-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .kpi-threshold-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .kpi-threshold-dot--error { background: var(--color-error); }
+    .kpi-threshold-dot--warning { background: var(--color-warning); }
+    .kpi-threshold-dot--target { background: var(--color-primary); border: 1px dashed var(--color-primary-700); }
+
+    .kpi-chart-legend {
+      display: flex;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+    }
+
+    /* Breakdown Bar Chart */
+    .kpi-breakdown {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-breakdown-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+
+    .kpi-breakdown-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .kpi-breakdown-item {
+      display: grid;
+      grid-template-columns: 120px 1fr 48px;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .kpi-breakdown-label {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+    }
+
+    .kpi-bar-track {
+      height: 8px;
+      background: var(--grey-200);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .kpi-bar-fill {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: var(--radius-pill);
+      transition: width var(--duration-standard) var(--easing-enter);
+    }
+
+    .kpi-breakdown-value {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      text-align: right;
+    }
+
+    /* Approval Delay Cards */
+    .kpi-delay-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
+    }
+
+    .kpi-delay-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      border-top: 4px solid var(--grey-300);
+      position: relative;
+    }
+    .kpi-delay-card--success { border-top-color: var(--color-success); }
+    .kpi-delay-card--warning { border-top-color: var(--color-warning); }
+    .kpi-delay-card--critical { border-top-color: var(--color-error); }
+
+    .kpi-delay-bracket {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+
+    .kpi-delay-count {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+    }
+
+    .kpi-delay-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+
+    /* Mini donut inside delay card */
+    .kpi-delay-ring {
+      width: 48px; height: 48px;
+      position: relative;
+    }
+    .kpi-delay-ring canvas { width: 48px !important; height: 48px !important; }
+    .kpi-delay-ring-pct {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+    }
+
+    /* --- Heatmap ---------------------------------------------- */
+    .kpi-heatmap {
+      display: grid;
+      grid-template-columns: 80px repeat(7, 1fr);
+      gap: 2px;
+      font-size: 11px;
+    }
+    .kpi-heatmap-header {
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      text-align: center;
+      padding: var(--space-2);
+    }
+    .kpi-heatmap-label {
+      display: flex;
+      align-items: center;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      padding: var(--space-2);
+    }
+    .kpi-heatmap-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3);
+      border-radius: 4px;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      min-height: 36px;
+      cursor: default;
+    }
+    .kpi-heat-0 { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .kpi-heat-1 { background: #C8E6C9; color: var(--color-success-darker); }
+    .kpi-heat-2 { background: var(--color-warning-bg); color: var(--color-warning); }
+    .kpi-heat-3 { background: #FFE0B2; color: var(--color-warning); }
+    .kpi-heat-4 { background: #FFCCBC; color: var(--color-error); }
+    .kpi-heat-5 { background: var(--color-error-bg); color: var(--color-error-deeper); }
+
+    /* Insights Section */
+    .kpi-insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: var(--space-5);
+    }
+
+    .kpi-insights-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-insights-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .kpi-insights-title .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--color-warning);
+    }
+
+    /* Simple Table */
+    .kpi-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body);
+    }
+    .kpi-table th {
+      text-align: left;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--grey-200);
+      font-size: var(--font-size-caption);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--grey-100);
+      color: var(--text-primary);
+    }
+    .kpi-table tr:last-child td { border-bottom: none; }
+    .text-critical { color: var(--color-error); font-weight: var(--font-weight-medium); }
+    .text-warning { color: var(--color-warning); font-weight: var(--font-weight-medium); }
+    .text-success { color: var(--color-success-darker); font-weight: var(--font-weight-medium); }
+
+    /* --- Tooltip ----------------------------------------------- */
+    .kpi-tooltip {
+      position: fixed;
+      z-index: 1000;
+      background: var(--grey-900);
+      color: #fff;
+      font-size: var(--font-size-caption);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-input);
+      max-width: 260px;
+      line-height: 1.5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-tooltip.is-visible { opacity: 1; }
+    .kpi-tooltip-title {
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    /* --- KPI Responsive --------------------------------------- */
+    @media (max-width: 1279px) {
+      .kpi-delay-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .kpi-grid--2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-delay-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .kpi-insights-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .kpi-breakdown-item {
+        grid-template-columns: 90px 1fr 40px;
+      }
+      .kpi-ring-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .kpi-heatmap {
+        grid-template-columns: 60px repeat(7, 1fr);
+        font-size: 10px;
+      }
+      .kpi-chart-body { height: 180px; }
+    }
+
+    /* --- Responsive ------------------------------------------- */
+    @media (max-width: 1279px) {
+      .sidebar {
+        display: none;
+      }
+      .vertical-divider {
+        display: none;
+      }
+      .topnav-tagline {
+        display: none;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .status-cards-row {
+        flex-wrap: wrap;
+      }
+      .status-card {
+        flex: 1 1 calc(50% - var(--space-4));
+        min-width: calc(50% - var(--space-4));
+      }
+      .main-layout {
+        padding: var(--space-5);
+      }
+      .greeting-title {
+        font-size: 20px;
+      }
+      .greeting-subtitle {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- --- Top Navigation --- -->
+    <header class="topnav" role="banner">
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E"
+            alt="FinOps — Enterprise Finance Automation Platform"
+            class="topnav-logo"
+          />
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 1 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">1</span>
+        </button>
+        <button aria-label="User profile menu">
+          <img
+            src="https://i.pravatar.cc/64?img=12"
+            alt=""
+            class="topnav-avatar"
+          />
+        </button>
+      </div>
+    </header>
+
+    <!-- --- Main Layout --- -->
+    <div class="main-layout">
+      <!-- --- Left Sidebar --- -->
+      <nav class="sidebar" aria-label="Module navigation">
+
+        <!-- Treasury -->
+        <div class="category-section">
+          <button
+            class="category-header"
+            aria-expanded="true"
+            aria-controls="treasury-cards"
+            onclick="toggleCategory(this)"
+          >
+            <span class="category-label">Treasury</span>
+            <span class="material-symbols-outlined category-chevron" aria-hidden="true">expand_less</span>
+          </button>
+          <div class="category-cards" id="treasury-cards" aria-hidden="false">
+            <a href="#" class="module-card" aria-label="Ad-hoc payments — Create and manage ad-hoc payment requests">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">Ad-hoc payments</div>
+                <div class="module-card-desc">Create &amp; manage ad-hoc payment requests</div>
+              </div>
+            </a>
+            <a href="#" class="module-card" aria-label="Bank Statement Transactions — Upload and view bank statements">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">Bank Statement Transactions</div>
+                <div class="module-card-desc">Upload &amp; view bank statements</div>
+              </div>
+            </a>
+            <a href="#" class="module-card" aria-label="Vehicle Release Payments — Create and manage Vehicle release payments">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">Vehicle Release Payments</div>
+                <div class="module-card-desc">Create &amp; manage Vehicle release payments</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Client Funds -->
+        <div class="category-section">
+          <button
+            class="category-header"
+            aria-expanded="true"
+            aria-controls="clientfunds-cards"
+            onclick="toggleCategory(this)"
+          >
+            <span class="category-label">Client Funds</span>
+            <span class="material-symbols-outlined category-chevron" aria-hidden="true">expand_less</span>
+          </button>
+          <div class="category-cards" id="clientfunds-cards" aria-hidden="false">
+            <a href="#" class="module-card" aria-label="All Pay — View and manage allpay files">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">receipt</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">All Pay</div>
+                <div class="module-card-desc">View and manage allpay files</div>
+              </div>
+            </a>
+            <a href="#" class="module-card" aria-label="KEYIVR Payments — View automated KeyIVR payments">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">KEYIVR Payments</div>
+                <div class="module-card-desc">View automated KeyIVR payments</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Payroll -->
+        <div class="category-section">
+          <button
+            class="category-header"
+            aria-expanded="true"
+            aria-controls="payroll-cards"
+            onclick="toggleCategory(this)"
+          >
+            <span class="category-label">Payroll</span>
+            <span class="material-symbols-outlined category-chevron" aria-hidden="true">expand_less</span>
+          </button>
+          <div class="category-cards" id="payroll-cards" aria-hidden="false">
+            <a href="#" class="module-card" aria-label="Variable Pay — Create and Manage variable pay requests">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">money_bag</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">Variable Pay</div>
+                <div class="module-card-desc">Create &amp; Manage variable pay requests</div>
+              </div>
+            </a>
+            <a href="#" class="module-card" aria-label="Pension Analysis — View and analyze pension records">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">savings</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">Pension Analysis</div>
+                <div class="module-card-desc">View &amp; analyze pension records</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="category-section">
+          <button
+            class="category-header"
+            aria-expanded="true"
+            aria-controls="settings-cards"
+            onclick="toggleCategory(this)"
+          >
+            <span class="category-label">Settings</span>
+            <span class="material-symbols-outlined category-chevron" aria-hidden="true">expand_less</span>
+          </button>
+          <div class="category-cards" id="settings-cards" aria-hidden="false">
+            <a href="#" class="module-card" aria-label="Users — Manage user profiles and access">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">group</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">Users</div>
+                <div class="module-card-desc">Manage user profiles and access</div>
+              </div>
+            </a>
+            <a href="#" class="module-card" aria-label="Configuration — Manage system configuration settings">
+              <div class="module-icon-circle">
+                <span class="material-symbols-outlined" aria-hidden="true">settings</span>
+              </div>
+              <div class="module-card-text">
+                <div class="module-card-title">Configuration</div>
+                <div class="module-card-desc">Manage system configuration settings</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </nav>
+
+      <!-- --- Vertical Divider --- -->
+      <div class="vertical-divider" role="separator" aria-orientation="vertical"></div>
+
+      <!-- --- Content Area --- -->
+      <main class="content-area">
+        <!-- Greeting -->
+        <section class="greeting-section" aria-label="Welcome message">
+          <h1 class="greeting-title">
+            <strong>Good Morning, John Doe </strong><span>(Today is Tuesday, 13/01/26).</span>
+          </h1>
+        </section>
+
+               
+
+        <!-- --- KPI Dashboard --- -->
+        <div class="kpi-dashboard" role="region" aria-label="Admin Dashboard KPI Metrics">
+
+          <!-- Dashboard Header & Filters -->
+          <div class="kpi-dashboard-header">
+            <h2 class="kpi-dashboard-title">Admin Dashboard</h2>
+            <div class="kpi-filters">
+              <div class="kpi-filter-group">
+                <label class="kpi-filter-label" for="filter-date">Period</label>
+                <select class="kpi-filter-select" id="filter-date">
+                  <option>Daily</option>
+                  <option selected>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Custom</option>
+                </select>
+              </div>
+              <div class="kpi-filter-group">
+                <label class="kpi-filter-label" for="filter-module">Module</label>
+                <select class="kpi-filter-select" id="filter-module">
+                  <option selected>All Modules</option>
+                  <option>Ad-hoc Payments</option>
+                  <option>Bank Statement</option>
+                  <option>Vehicle Release Payments</option>
+                  <option>All Pay</option>
+                  <option>KEYIVR</option>
+                  <option>Variable Pay</option>
+                  <option>Pension Analysis</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- --- 5.1 System Overview KPIs --- -->
+          <section class="kpi-section" aria-label="System Overview KPIs">
+            <h3 class="kpi-section-title">System Overview</h3>
+            <div class="kpi-grid">
+
+              <!-- Total Active Users — with sparkline -->
+              <div class="kpi-card kpi-card--warning" role="group" aria-label="Total Active Users: 342" data-kpi-tip="Count of unique users accessing FinOps in the selected period.|Threshold: =400 On Track, =300 At Risk, &lt;300 Breached|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Total Active Users</span>
+                  <span class="kpi-status-badge kpi-status-badge--warning"><span class="material-symbols-outlined" aria-hidden="true">warning</span> At Risk</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">342</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 12%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +12%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-users"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Target: 400</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <!-- Module with Highest Activity -->
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Highest Activity Module: Ad-hoc Payments" data-kpi-tip="Module with maximum user interactions in the selected period.|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Highest Activity Module</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value kpi-value--text">Ad-hoc Payments</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 18%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +18%</span>
+                </div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">1,245 interactions</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <!-- Peak Usage Time — with sparkline -->
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Peak Usage Time: 09:00 to 11:00" data-kpi-tip="Time period of highest system activity.|Based on hourly session counts|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Peak Usage Time</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value kpi-value--text">09:00 – 11:00</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-peak"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Peak window</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Active Users by Module — horizontal bar chart -->
+            <div class="kpi-chart-panel">
+              <div class="kpi-chart-header">
+                <h4 class="kpi-chart-title"><span class="material-symbols-outlined" aria-hidden="true">bar_chart</span> Active Users by Module</h4>
+                <a href="#" class="kpi-drilldown" aria-label="View user details">Details <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+              </div>
+              <div class="kpi-chart-body"><canvas id="chart-users-module"></canvas></div>
+            </div>
+          </section>
+
+          <!-- --- 5.2 Workflow Activity Monitoring --- -->
+          <section class="kpi-section" aria-label="Workflow Activity Monitoring">
+            <h3 class="kpi-section-title">Workflow Activity</h3>
+            <div class="kpi-grid">
+
+              <!-- Requests Raised — with sparkline -->
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Requests Raised: 1,463" data-kpi-tip="Total requests created across all modules in the selected period.|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Requests Raised</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">1,463</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 12%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +12%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-requests"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">vs prev. period</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <!-- Approvals Completed -->
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Approvals Completed: 1,244" data-kpi-tip="Total approved requests in the selected period.|Approval rate: 85%|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Approvals Completed</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">1,244</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 8%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +8%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-approvals"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">85% approval rate</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <!-- Rejected Requests -->
+              <div class="kpi-card kpi-card--warning" role="group" aria-label="Rejected Requests: 167" data-kpi-tip="Total rejected requests in the selected period.|11.4% rejection rate — rising|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Rejected Requests</span>
+                  <span class="kpi-status-badge kpi-status-badge--warning"><span class="material-symbols-outlined" aria-hidden="true">warning</span> At Risk</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">167</span>
+                  <span class="kpi-trend kpi-trend--negative" aria-label="Up 5%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +5%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-rejections"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">11.4% rejection rate</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Workflow Stacked Bar — Requests vs Approvals vs Rejections over time -->
+            <div class="kpi-chart-panel">
+              <div class="kpi-chart-header">
+                <h4 class="kpi-chart-title"><span class="material-symbols-outlined" aria-hidden="true">stacked_bar_chart</span> Workflow Volume — Last 7 Days</h4>
+              </div>
+              <div class="kpi-chart-body"><canvas id="chart-workflow-stack"></canvas></div>
+              <div class="kpi-chart-legend">
+                <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-primary)"></span> Approved</span>
+                <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-warning)"></span> Rejected</span>
+                <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--grey-400)"></span> Pending</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- --- 5.3 Approval Delay Monitoring --- -->
+          <section class="kpi-section" aria-label="Approval Delay Monitoring">
+            <h3 class="kpi-section-title">Approval Delays</h3>
+
+            <!-- Delay cards with mini donut -->
+            <div class="kpi-delay-grid">
+              <div class="kpi-delay-card kpi-delay-card--success" role="group" aria-label="23 approvals pending less than 1 day" data-kpi-tip="Approvals pending less than 1 day.|53% of total pending — healthy|Period: Current">
+                <span class="kpi-delay-bracket">&lt; 1 day</span>
+                <div class="kpi-delay-ring"><canvas id="delay-ring-1"></canvas><span class="kpi-delay-ring-pct">53%</span></div>
+                <span class="kpi-delay-count">23</span>
+                <span class="kpi-delay-label text-success">On Track</span>
+              </div>
+              <div class="kpi-delay-card kpi-delay-card--warning" role="group" aria-label="12 approvals pending 1 to 3 days" data-kpi-tip="Approvals pending 1–3 days.|28% of total pending — monitor|Period: Current">
+                <span class="kpi-delay-bracket">1 – 3 days</span>
+                <div class="kpi-delay-ring"><canvas id="delay-ring-2"></canvas><span class="kpi-delay-ring-pct">28%</span></div>
+                <span class="kpi-delay-count">12</span>
+                <span class="kpi-delay-label text-warning">At Risk</span>
+              </div>
+              <div class="kpi-delay-card kpi-delay-card--warning" role="group" aria-label="5 approvals pending 3 to 5 days" data-kpi-tip="Approvals pending 3–5 days.|12% of total pending — escalation recommended|Period: Current">
+                <span class="kpi-delay-bracket">3 – 5 days</span>
+                <div class="kpi-delay-ring"><canvas id="delay-ring-3"></canvas><span class="kpi-delay-ring-pct">12%</span></div>
+                <span class="kpi-delay-count">5</span>
+                <span class="kpi-delay-label text-warning">At Risk</span>
+              </div>
+              <div class="kpi-delay-card kpi-delay-card--critical" role="group" aria-label="3 approvals pending more than 5 days" data-kpi-tip="Approvals pending >5 days.|7% of total pending — SLA breached, escalate immediately|Period: Current">
+                <span class="kpi-delay-bracket">&gt; 5 days</span>
+                <div class="kpi-delay-ring"><canvas id="delay-ring-4"></canvas><span class="kpi-delay-ring-pct">7%</span></div>
+                <span class="kpi-delay-count">3</span>
+                <span class="kpi-delay-label text-critical">Breached</span>
+              </div>
+            </div>
+
+            <!-- Approval Delay Heatmap — days × modules -->
+            <div class="kpi-chart-panel">
+              <div class="kpi-chart-header">
+                <h4 class="kpi-chart-title"><span class="material-symbols-outlined" aria-hidden="true">grid_on</span> Approval Delay Heatmap</h4>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:#E8F5E9"></span> Low</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:#FFF3E0"></span> Medium</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:#FEEBEE"></span> High</span>
+                </div>
+              </div>
+              <div class="kpi-heatmap" role="img" aria-label="Heatmap showing pending approval concentration by module and day">
+                <!-- Header row -->
+                <div class="kpi-heatmap-header"></div>
+                <div class="kpi-heatmap-header">Mon</div>
+                <div class="kpi-heatmap-header">Tue</div>
+                <div class="kpi-heatmap-header">Wed</div>
+                <div class="kpi-heatmap-header">Thu</div>
+                <div class="kpi-heatmap-header">Fri</div>
+                <div class="kpi-heatmap-header">Sat</div>
+                <div class="kpi-heatmap-header">Sun</div>
+                <!-- Ad-hoc -->
+                <div class="kpi-heatmap-label">Ad-hoc</div>
+                <div class="kpi-heatmap-cell kpi-heat-2">4</div>
+                <div class="kpi-heatmap-cell kpi-heat-3">6</div>
+                <div class="kpi-heatmap-cell kpi-heat-1">2</div>
+                <div class="kpi-heatmap-cell kpi-heat-4">8</div>
+                <div class="kpi-heatmap-cell kpi-heat-5">11</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">1</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+                <!-- Variable Pay -->
+                <div class="kpi-heatmap-label">Var Pay</div>
+                <div class="kpi-heatmap-cell kpi-heat-1">3</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">1</div>
+                <div class="kpi-heatmap-cell kpi-heat-2">5</div>
+                <div class="kpi-heatmap-cell kpi-heat-1">2</div>
+                <div class="kpi-heatmap-cell kpi-heat-3">7</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+                <!-- Vehicle Rel -->
+                <div class="kpi-heatmap-label">Vehicle</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">1</div>
+                <div class="kpi-heatmap-cell kpi-heat-2">4</div>
+                <div class="kpi-heatmap-cell kpi-heat-3">6</div>
+                <div class="kpi-heatmap-cell kpi-heat-5">12</div>
+                <div class="kpi-heatmap-cell kpi-heat-4">9</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+                <!-- Bank Stmt -->
+                <div class="kpi-heatmap-label">Bank Stmt</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">1</div>
+                <div class="kpi-heatmap-cell kpi-heat-1">2</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">1</div>
+                <div class="kpi-heatmap-cell kpi-heat-1">3</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+                <div class="kpi-heatmap-cell kpi-heat-0">0</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- --- 5.4.1 Automation — All Pay --- -->
+          <section class="kpi-section" aria-label="All Pay Automation Efficiency">
+            <h3 class="kpi-section-title">Automation — All Pay</h3>
+
+            <!-- Key KPIs as compact cards + ring -->
+            <div class="kpi-grid">
+
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Avg Bot Completion: 2.4 min" data-kpi-tip="Average time taken by the All Pay bot to complete processing of a file.|Target: < 5 min|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Avg Bot Completion</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">2.4<small style="font-size:14px;font-weight:400"> min</small></span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Down 15%"><span class="material-symbols-outlined" aria-hidden="true">trending_down</span> -15%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-allpay-time"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Target: &lt; 5 min</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Files Received: 847" data-kpi-tip="Total files received for All Pay processing.|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Files Received</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">847</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 15%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +15%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-allpay-files"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">vs prev. period</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Last Bot Execution: 07 Apr 2026, 08:32" data-kpi-tip="Timestamp of last All Pay bot run.">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Last Bot Execution</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value kpi-value--text">07 Apr, 08:32</span>
+                </div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Today</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Success/Failure donut + line trend -->
+            <div class="kpi-grid kpi-grid--2col">
+              <div class="kpi-ring-card" role="group" aria-label="All Pay Success Rate 94.2%, Failure Rate 5.8%">
+                <div class="kpi-ring-wrap"><canvas id="ring-allpay"></canvas><span class="kpi-ring-center">94.2%</span></div>
+                <div class="kpi-ring-info">
+                  <span class="kpi-ring-label">Success vs Failure</span>
+                  <span class="kpi-status-badge kpi-status-badge--warning"><span class="material-symbols-outlined" aria-hidden="true">warning</span> At Risk — below 95% target</span>
+                  <span class="kpi-ring-meta">Success: 798 files · Failure: 49 files</span>
+                </div>
+              </div>
+              <div class="kpi-chart-panel">
+                <div class="kpi-chart-header">
+                  <h4 class="kpi-chart-title"><span class="material-symbols-outlined" aria-hidden="true">show_chart</span> Success Rate Trend</h4>
+                </div>
+                <div class="kpi-chart-body"><canvas id="chart-allpay-trend"></canvas></div>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-success)"></span> Success %</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot kpi-threshold-dot--error"></span> Target 95%</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- --- 5.4.2 Automation — KEYIVR --- -->
+          <section class="kpi-section" aria-label="KEYIVR Automation Efficiency">
+            <h3 class="kpi-section-title">Automation — KEYIVR</h3>
+
+            <div class="kpi-grid">
+
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Avg Bot Completion: 3.1 min" data-kpi-tip="Average time taken by the KEYIVR bot to complete processing of a file inside Atlas.|Target: < 5 min|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Avg Bot Completion</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">3.1<small style="font-size:14px;font-weight:400"> min</small></span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Down 10%"><span class="material-symbols-outlined" aria-hidden="true">trending_down</span> -10%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-keyivr-time"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Target: &lt; 5 min</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 07:45</span>
+                </div>
+              </div>
+
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Files Received: 623" data-kpi-tip="Total files received in Atlas for KEYIVR processing.|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Files Received</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">623</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 10%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +10%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-keyivr-files"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">vs prev. period</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 07:45</span>
+                </div>
+              </div>
+
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Last Bot Execution: 07 Apr 2026, 07:45" data-kpi-tip="Timestamp of last KEYIVR bot run.">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Last Bot Execution</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value kpi-value--text">07 Apr, 07:45</span>
+                </div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Today</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 07:45</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- KEYIVR donut + line trend -->
+            <div class="kpi-grid kpi-grid--2col">
+              <div class="kpi-ring-card" role="group" aria-label="KEYIVR Success 97.5%, Failure 0.7%, Manual 1.8%">
+                <div class="kpi-ring-wrap"><canvas id="ring-keyivr"></canvas><span class="kpi-ring-center">97.5%</span></div>
+                <div class="kpi-ring-info">
+                  <span class="kpi-ring-label">Success / Failure / Manual</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track — above 95%</span>
+                  <span class="kpi-ring-meta">Success: 607 · Failure: 5 · Manual: 11</span>
+                </div>
+              </div>
+              <div class="kpi-chart-panel">
+                <div class="kpi-chart-header">
+                  <h4 class="kpi-chart-title"><span class="material-symbols-outlined" aria-hidden="true">show_chart</span> KEYIVR Performance Trend</h4>
+                </div>
+                <div class="kpi-chart-body"><canvas id="chart-keyivr-trend"></canvas></div>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-success)"></span> Success %</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-warning)"></span> Manual %</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot kpi-threshold-dot--error"></span> Target 95%</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- --- 5.4.3 Automation — Bank Statement --- -->
+          <section class="kpi-section" aria-label="Bank Statement Automation Efficiency">
+            <h3 class="kpi-section-title">Automation — Bank Statement</h3>
+
+            <div class="kpi-grid">
+
+              <div class="kpi-card kpi-card--success" role="group" aria-label="Files Uploaded: 156" data-kpi-tip="Total bank statement files uploaded during the selected period.|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Files Uploaded</span>
+                  <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">156</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 8%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +8%</span>
+                </div>
+                <div class="kpi-sparkline-wrap" aria-hidden="true"><canvas id="spark-bank-files"></canvas></div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">vs prev. period</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <div class="kpi-card kpi-card--warning" role="group" aria-label="Processing Rate: 91.7%" data-kpi-tip="Percentage of uploaded files successfully processed and validated.|Target: = 95%|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Processing Rate</span>
+                  <span class="kpi-status-badge kpi-status-badge--warning"><span class="material-symbols-outlined" aria-hidden="true">warning</span> At Risk</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">91.7%</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Up 3%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +3%</span>
+                </div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Target: = 95%</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+              <div class="kpi-card kpi-card--critical" role="group" aria-label="Error Rate: 8.3%" data-kpi-tip="Percentage of uploaded files that failed validation due to format errors, duplicates, or data inconsistencies.|Target: < 5%|Period: Weekly">
+                <div class="kpi-card-header">
+                  <span class="kpi-card-name">Error Rate</span>
+                  <span class="kpi-status-badge kpi-status-badge--critical"><span class="material-symbols-outlined" aria-hidden="true">error</span> Breached</span>
+                </div>
+                <div class="kpi-card-body">
+                  <span class="kpi-value">8.3%</span>
+                  <span class="kpi-trend kpi-trend--positive" aria-label="Down 2%"><span class="material-symbols-outlined" aria-hidden="true">trending_down</span> -2%</span>
+                </div>
+                <div class="kpi-card-footer">
+                  <span class="kpi-target">Target: &lt; 5%</span>
+                  <span class="kpi-refresh"><span class="material-symbols-outlined" aria-hidden="true">schedule</span> 07 Apr, 08:32</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bank Statement donut -->
+            <div class="kpi-grid kpi-grid--2col">
+              <div class="kpi-ring-card" role="group" aria-label="Bank Statement Processing 91.7%, Error 8.3%">
+                <div class="kpi-ring-wrap"><canvas id="ring-bank"></canvas><span class="kpi-ring-center">91.7%</span></div>
+                <div class="kpi-ring-info">
+                  <span class="kpi-ring-label">Processing vs Error</span>
+                  <span class="kpi-status-badge kpi-status-badge--critical"><span class="material-symbols-outlined" aria-hidden="true">error</span> Breached — error rate above 5% target</span>
+                  <span class="kpi-ring-meta">Processed: 143 files · Errors: 13 files</span>
+                </div>
+              </div>
+              <div class="kpi-chart-panel">
+                <div class="kpi-chart-header">
+                  <h4 class="kpi-chart-title"><span class="material-symbols-outlined" aria-hidden="true">show_chart</span> Bank Statement Error Trend</h4>
+                </div>
+                <div class="kpi-chart-body"><canvas id="chart-bank-trend"></canvas></div>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-error)"></span> Error %</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot kpi-threshold-dot--target"></span> Target 5%</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- --- 5.6 Actionable Insights --- -->
+          <section class="kpi-section" aria-label="Actionable Insights">
+            <h3 class="kpi-section-title">Actionable Insights</h3>
+            <div class="kpi-insights-grid">
+
+              <!-- 5.6.1.1 Longest Pending Approval -->
+              <div class="kpi-insights-card">
+                <h4 class="kpi-insights-title">
+                  <span class="material-symbols-outlined" aria-hidden="true">priority_high</span>
+                  Longest Pending Approvals
+                </h4>
+                <table class="kpi-table" aria-label="Longest pending approvals">
+                  <thead>
+                    <tr><th scope="col">Request</th><th scope="col">Module</th><th scope="col">Age</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>VRP-2026-0847</td><td>Vehicle Release</td><td class="text-critical">8 days</td></tr>
+                    <tr><td>AHP-2026-1293</td><td>Ad-hoc Payments</td><td class="text-critical">6 days</td></tr>
+                    <tr><td>VAR-2026-0512</td><td>Variable Pay</td><td class="text-warning">4 days</td></tr>
+                    <tr><td>AHP-2026-1301</td><td>Ad-hoc Payments</td><td class="text-warning">3 days</td></tr>
+                  </tbody>
+                </table>
+                <a href="#" class="kpi-drilldown" aria-label="View all pending approvals">
+                  View all pending <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- 5.6.1.2 Highest Rejection Rate -->
+              <div class="kpi-insights-card">
+                <h4 class="kpi-insights-title">
+                  <span class="material-symbols-outlined" aria-hidden="true">do_not_disturb</span>
+                  Modules — Highest Rejection Rate
+                </h4>
+                <table class="kpi-table" aria-label="Modules ranked by rejection rate">
+                  <thead>
+                    <tr><th scope="col">Module</th><th scope="col">Rate</th><th scope="col">Trend</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Vehicle Release</td><td class="text-critical">18.2%</td><td class="text-critical">? +3.1%</td></tr>
+                    <tr><td>Ad-hoc Payments</td><td class="text-warning">12.4%</td><td class="text-warning">? +1.2%</td></tr>
+                    <tr><td>Variable Pay</td><td class="text-success">6.1%</td><td class="text-success">? -0.8%</td></tr>
+                    <tr><td>Bank Statement</td><td class="text-success">3.5%</td><td class="text-success">? -0.5%</td></tr>
+                  </tbody>
+                </table>
+                <a href="#" class="kpi-drilldown" aria-label="View rejection details">
+                  View details <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- 5.6.2 Rejection Rate Trend — Chart.js line -->
+              <div class="kpi-insights-card">
+                <h4 class="kpi-insights-title">
+                  <span class="material-symbols-outlined" aria-hidden="true">show_chart</span>
+                  Rejection Rate Trend
+                </h4>
+                <div class="kpi-chart-body"><canvas id="chart-rejection-trend"></canvas></div>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-primary)"></span> Current</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--grey-400)"></span> Previous</span>
+                </div>
+              </div>
+
+              <!-- 5.6.2 Bot Failure Trend — Chart.js line -->
+              <div class="kpi-insights-card">
+                <h4 class="kpi-insights-title">
+                  <span class="material-symbols-outlined" aria-hidden="true">show_chart</span>
+                  Bot Failure Trend
+                </h4>
+                <div class="kpi-chart-body"><canvas id="chart-bot-failure-trend"></canvas></div>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-primary)"></span> All Pay</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-warning)"></span> KEYIVR</span>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+        <!-- /KPI Dashboard -->
+
+      </main>
+    </div>
+  </div>
+
+  <!-- KPI Tooltip element -->
+  <div class="kpi-tooltip" id="kpiTooltip" role="tooltip" aria-hidden="true"></div>
+
+  <script>
+    /**
+     * Toggle collapsible category sections in the sidebar.
+     * Uses max-height transition and ARIA attributes for accessibility.
+     */
+    // Fixed card height (92px) + gap (16px) used to calculate container max-height
+    var CARD_HEIGHT = 92;
+    var CARD_GAP = 16;
+
+    function getCardsMaxHeight(container) {
+      var count = container.querySelectorAll('.module-card').length;
+      if (count === 0) return 0;
+      return (count * CARD_HEIGHT) + ((count - 1) * CARD_GAP);
+    }
+
+    function toggleCategory(button) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      var cardsId = button.getAttribute('aria-controls');
+      var cards = document.getElementById(cardsId);
+      var targetHeight = getCardsMaxHeight(cards);
+
+      if (expanded) {
+        cards.style.maxHeight = targetHeight + 'px';
+        cards.offsetHeight;
+        button.setAttribute('aria-expanded', 'false');
+        cards.setAttribute('aria-hidden', 'true');
+        cards.style.maxHeight = '0';
+        cards.style.marginTop = '0';
+      } else {
+        button.setAttribute('aria-expanded', 'true');
+        cards.setAttribute('aria-hidden', 'false');
+        cards.style.maxHeight = targetHeight + 'px';
+        cards.style.marginTop = '';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // -- Sidebar init --
+      var allCards = document.querySelectorAll('.category-cards');
+      allCards.forEach(function(cards) {
+        if (cards.getAttribute('aria-hidden') !== 'true') {
+          cards.style.maxHeight = getCardsMaxHeight(cards) + 'px';
+        } else {
+          cards.style.maxHeight = '0';
+          cards.style.marginTop = '0';
+        }
+      });
+
+      // ----------------------------------------------------------
+      // Design tokens for Chart.js
+      // ----------------------------------------------------------
+      var C = {
+        primary:   '#3276CF',
+        primary25: '#F2F5FA',
+        primary50: '#DEE8F7',
+        success:   '#43A047',
+        successBg: '#E8F5E9',
+        warning:   '#EF6C00',
+        warningBg: '#FFF3E0',
+        error:     '#E53935',
+        errorBg:   '#FEEBEE',
+        grey200:   '#EEEEEE',
+        grey300:   '#E0E0E0',
+        grey400:   '#BDBDBD',
+        textSec:   '#757575',
+        text:      '#212121'
+      };
+
+      // Chart.js global defaults
+      Chart.defaults.font.family = "'Roboto', system-ui, sans-serif";
+      Chart.defaults.font.size = 12;
+      Chart.defaults.color = C.textSec;
+      Chart.defaults.plugins.legend.display = false;
+      Chart.defaults.plugins.tooltip.backgroundColor = C.text;
+      Chart.defaults.plugins.tooltip.titleFont = { weight: '600', size: 12 };
+      Chart.defaults.plugins.tooltip.bodyFont = { size: 11 };
+      Chart.defaults.plugins.tooltip.cornerRadius = 8;
+      Chart.defaults.plugins.tooltip.padding = 10;
+      Chart.defaults.animation = { duration: 600, easing: 'easeOutQuart' };
+
+      var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+      // ----------------------------------------------------------
+      // Helper: sparkline (tiny line, no axes)
+      // ----------------------------------------------------------
+      function sparkline(id, data, color) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: data.map(function(_, i) { return ''; }),
+            datasets: [{
+              data: data,
+              borderColor: color,
+              borderWidth: 1.5,
+              fill: true,
+              backgroundColor: color + '18',
+              pointRadius: 0,
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { x: { display: false }, y: { display: false } },
+            plugins: { tooltip: { enabled: false }, legend: { display: false } },
+            interaction: { mode: 'none' }
+          }
+        });
+      }
+
+      // ----------------------------------------------------------
+      // Helper: donut / progress ring
+      // ----------------------------------------------------------
+      function donut(id, segments, size) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var cutout = size === 'sm' ? '70%' : '65%';
+        new Chart(el, {
+          type: 'doughnut',
+          data: {
+            labels: segments.map(function(s) { return s.label; }),
+            datasets: [{
+              data: segments.map(function(s) { return s.value; }),
+              backgroundColor: segments.map(function(s) { return s.color; }),
+              borderWidth: 0,
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            responsive: false,
+            cutout: cutout,
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) { return ctx.label + ': ' + ctx.parsed + '%'; }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // ----------------------------------------------------------
+      // Helper: threshold line plugin
+      // ----------------------------------------------------------
+      var thresholdPlugin = {
+        id: 'thresholdLine',
+        afterDraw: function(chart) {
+          var opts = chart.options.plugins.thresholdLine;
+          if (!opts || !opts.value) return;
+          var yAxis = chart.scales.y;
+          var ctx = chart.ctx;
+          var y = yAxis.getPixelForValue(opts.value);
+          ctx.save();
+          ctx.setLineDash([6, 4]);
+          ctx.strokeStyle = opts.color || C.error;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(chart.chartArea.left, y);
+          ctx.lineTo(chart.chartArea.right, y);
+          ctx.stroke();
+          ctx.restore();
+        }
+      };
+      Chart.register(thresholdPlugin);
+
+      // ----------------------------------------------------------
+      // SPARKLINES — KPI cards
+      // ----------------------------------------------------------
+      sparkline('spark-users', [280, 295, 310, 318, 330, 325, 342], C.warning);
+      sparkline('spark-peak', [12, 45, 80, 95, 78, 50, 22, 10, 5], C.primary);
+      sparkline('spark-requests', [180, 195, 210, 215, 205, 220, 238], C.success);
+      sparkline('spark-approvals', [155, 168, 178, 182, 175, 188, 198], C.success);
+      sparkline('spark-rejections', [20, 18, 22, 25, 23, 28, 31], C.error);
+      sparkline('spark-allpay-time', [3.8, 3.5, 3.2, 2.9, 2.7, 2.5, 2.4], C.success);
+      sparkline('spark-allpay-files', [100, 112, 118, 125, 120, 130, 142], C.primary);
+      sparkline('spark-keyivr-time', [4.2, 3.9, 3.6, 3.4, 3.3, 3.2, 3.1], C.success);
+      sparkline('spark-keyivr-files', [78, 82, 88, 90, 85, 92, 96], C.primary);
+      sparkline('spark-bank-files', [18, 20, 22, 21, 24, 23, 25], C.primary);
+
+      // ----------------------------------------------------------
+      // HORIZONTAL BAR — Active Users by Module
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-users-module');
+        if (!el) return;
+        new Chart(el, {
+          type: 'bar',
+          data: {
+            labels: ['Ad-hoc Payments', 'Variable Pay', 'All Pay', 'KEYIVR', 'Bank Statement', 'Pension', 'Vehicle Release'],
+            datasets: [{
+              data: [156, 98, 88, 59, 50, 38, 30],
+              backgroundColor: [C.primary, C.primary + 'CC', C.primary + 'AA', C.primary + '88', C.primary + '66', C.primary + '55', C.primary + '44'],
+              borderRadius: 4,
+              barThickness: 20
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false }, ticks: { stepSize: 50 } },
+              y: { grid: { display: false } }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) { return ctx.parsed.x + ' active users'; }
+                }
+              }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // STACKED BAR — Workflow Volume Last 7 Days
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-workflow-stack');
+        if (!el) return;
+        new Chart(el, {
+          type: 'bar',
+          data: {
+            labels: DAYS,
+            datasets: [
+              { label: 'Approved', data: [160, 175, 188, 182, 195, 168, 176], backgroundColor: C.primary, borderRadius: 2 },
+              { label: 'Rejected', data: [22, 18, 25, 28, 24, 20, 30], backgroundColor: C.warning, borderRadius: 2 },
+              { label: 'Pending', data: [8, 5, 6, 10, 4, 7, 12], backgroundColor: C.grey400, borderRadius: 2 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, grid: { color: C.grey200 }, ticks: { stepSize: 50 } }
+            },
+            plugins: {
+              tooltip: {
+                mode: 'index',
+                intersect: false
+              }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // MINI DONUTS — Approval Delay cards
+      // ----------------------------------------------------------
+      donut('delay-ring-1', [{ label: '<1 day', value: 53, color: C.success }, { label: 'Rest', value: 47, color: C.grey200 }], 'sm');
+      donut('delay-ring-2', [{ label: '1-3 days', value: 28, color: C.warning }, { label: 'Rest', value: 72, color: C.grey200 }], 'sm');
+      donut('delay-ring-3', [{ label: '3-5 days', value: 12, color: C.warning }, { label: 'Rest', value: 88, color: C.grey200 }], 'sm');
+      donut('delay-ring-4', [{ label: '>5 days', value: 7, color: C.error }, { label: 'Rest', value: 93, color: C.grey200 }], 'sm');
+
+      // ----------------------------------------------------------
+      // DONUT — All Pay Success/Failure
+      // ----------------------------------------------------------
+      donut('ring-allpay', [
+        { label: 'Success', value: 94.2, color: C.success },
+        { label: 'Failure', value: 5.8, color: C.error }
+      ]);
+
+      // LINE — All Pay Success Rate Trend
+      (function() {
+        var el = document.getElementById('chart-allpay-trend');
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: DAYS,
+            datasets: [{
+              label: 'Success %',
+              data: [93.5, 94.0, 93.8, 94.5, 94.1, 94.0, 94.2],
+              borderColor: C.success,
+              backgroundColor: C.successBg,
+              fill: true,
+              tension: 0.3,
+              pointRadius: 3,
+              pointHoverRadius: 5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 90, max: 100, grid: { color: C.grey200 }, ticks: { callback: function(v) { return v + '%'; } } }
+            },
+            plugins: {
+              thresholdLine: { value: 95, color: C.error },
+              tooltip: { callbacks: { label: function(ctx) { return ctx.parsed.y + '%'; } } }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // DONUT — KEYIVR Success/Failure/Manual
+      // ----------------------------------------------------------
+      donut('ring-keyivr', [
+        { label: 'Success', value: 97.5, color: C.success },
+        { label: 'Failure', value: 0.7, color: C.error },
+        { label: 'Manual', value: 1.8, color: C.warning }
+      ]);
+
+      // LINE — KEYIVR Performance Trend
+      (function() {
+        var el = document.getElementById('chart-keyivr-trend');
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: DAYS,
+            datasets: [
+              { label: 'Success %', data: [96.8, 97.0, 97.2, 97.1, 97.4, 97.3, 97.5], borderColor: C.success, fill: false, tension: 0.3, pointRadius: 3 },
+              { label: 'Manual %', data: [2.2, 2.1, 1.9, 2.0, 1.8, 1.9, 1.8], borderColor: C.warning, fill: false, tension: 0.3, pointRadius: 3, borderDash: [4, 3] }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 0, max: 100, grid: { color: C.grey200 }, ticks: { callback: function(v) { return v + '%'; } } }
+            },
+            plugins: {
+              thresholdLine: { value: 95, color: C.error },
+              tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '%'; } } }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // DONUT — Bank Statement Processing/Error
+      // ----------------------------------------------------------
+      donut('ring-bank', [
+        { label: 'Processed', value: 91.7, color: C.primary },
+        { label: 'Error', value: 8.3, color: C.error }
+      ]);
+
+      // LINE — Bank Statement Error Trend
+      (function() {
+        var el = document.getElementById('chart-bank-trend');
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: DAYS,
+            datasets: [{
+              label: 'Error %',
+              data: [10.5, 9.8, 9.2, 8.8, 8.5, 8.4, 8.3],
+              borderColor: C.error,
+              backgroundColor: C.errorBg,
+              fill: true,
+              tension: 0.3,
+              pointRadius: 3,
+              pointHoverRadius: 5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 0, max: 15, grid: { color: C.grey200 }, ticks: { callback: function(v) { return v + '%'; } } }
+            },
+            plugins: {
+              thresholdLine: { value: 5, color: C.error },
+              tooltip: { callbacks: { label: function(ctx) { return ctx.parsed.y + '%'; } } }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // LINE — Rejection Rate Trend (Current vs Previous)
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-rejection-trend');
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: DAYS,
+            datasets: [
+              { label: 'Current', data: [10.2, 11.0, 10.8, 11.5, 11.2, 11.0, 11.4], borderColor: C.primary, tension: 0.3, pointRadius: 3 },
+              { label: 'Previous', data: [9.8, 9.5, 10.2, 10.0, 9.8, 10.1, 10.3], borderColor: C.grey400, borderDash: [5, 3], tension: 0.3, pointRadius: 2, pointStyle: 'rect' }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 8, max: 14, grid: { color: C.grey200 }, ticks: { callback: function(v) { return v + '%'; } } }
+            },
+            plugins: {
+              tooltip: { mode: 'index', intersect: false, callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '%'; } } }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // LINE — Bot Failure Trend (All Pay vs KEYIVR)
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-bot-failure-trend');
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: DAYS,
+            datasets: [
+              { label: 'All Pay', data: [6.2, 6.0, 5.9, 5.8, 5.9, 5.8, 5.8], borderColor: C.primary, tension: 0.3, pointRadius: 3 },
+              { label: 'KEYIVR', data: [3.0, 2.8, 2.6, 2.5, 2.5, 2.5, 2.5], borderColor: C.warning, tension: 0.3, pointRadius: 3 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 0, max: 10, grid: { color: C.grey200 }, ticks: { callback: function(v) { return v + '%'; } } }
+            },
+            plugins: {
+              thresholdLine: { value: 5, color: C.error },
+              tooltip: { mode: 'index', intersect: false, callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '%'; } } }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // KPI TOOLTIP — hover on cards with data-kpi-tip
+      // ----------------------------------------------------------
+      var tip = document.getElementById('kpiTooltip');
+      document.querySelectorAll('[data-kpi-tip]').forEach(function(card) {
+        card.addEventListener('mouseenter', function(e) {
+          var parts = card.getAttribute('data-kpi-tip').split('|');
+          var html = '<div class="kpi-tooltip-title">' + (card.querySelector('.kpi-card-name, .kpi-delay-bracket')?.textContent || '') + '</div>';
+          parts.forEach(function(p) { html += '<div>' + p.trim() + '</div>'; });
+          tip.innerHTML = html;
+          tip.classList.add('is-visible');
+          tip.setAttribute('aria-hidden', 'false');
+        });
+        card.addEventListener('mousemove', function(e) {
+          var x = e.clientX + 12;
+          var y = e.clientY + 12;
+          if (x + 270 > window.innerWidth) x = e.clientX - 270;
+          if (y + 120 > window.innerHeight) y = e.clientY - 120;
+          tip.style.left = x + 'px';
+          tip.style.top = y + 'px';
+        });
+        card.addEventListener('mouseleave', function() {
+          tip.classList.remove('is-visible');
+          tip.setAttribute('aria-hidden', 'true');
+        });
+      });
+
+    });
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

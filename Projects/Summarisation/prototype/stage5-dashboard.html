@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stage 5 Dashboard — Acme Notice Processing System</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+  <script src="js/dashboard-charts.js" defer></script>
+  <style>
+    body { background:#ffffff; }
+    .main-wrapper {
+      flex: 1; display: flex; flex-direction: column;
+      min-width: 0; overflow: hidden;
+      border-radius: 24px; border: 16px solid #F2F5FA;
+    }
+    .sidebar { border-right: 0 solid #e5e7eb; }
+    .m-header { border-bottom: 0 solid #e5e7eb; }
+  </style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <header class="m-header">
+    <div class="m-brand">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 32'%3E%3Crect width='160' height='32' rx='4' fill='%23374151'/%3E%3Crect x='8' y='6' width='12' height='16' rx='2' fill='none' stroke='%2393c5fd' stroke-width='1.5'/%3E%3Cline x1='11' y1='10' x2='17' y2='10' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='13' x2='17' y2='13' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='16' x2='15' y2='16' stroke='%2393c5fd' stroke-width='1'/%3E%3Ctext x='26' y='20' font-family='system-ui,sans-serif' font-size='11' font-weight='600' fill='white'%3EAcme NPS%3C/text%3E%3C/svg%3E" alt="Acme Notice Processing System" class="m-logo" />
+    </div>
+    <div class="m-search">
+      <input type="text" placeholder="Search with PCN number or VRM" />
+      <button class="m-search-btn" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+    <div class="m-header-right">
+      <div class="m-notif-btn" role="button" tabindex="0" aria-label="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="m-notif-badge">1</span>
+      </div>
+      <div class="m-user">
+        <div class="m-avatar">JS</div>
+        <span class="m-username">John William</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <aside class="sidebar">
+      <nav class="sidebar-nav" style="padding-top:14px;" aria-label="Primary">
+        <a class="m-nav-item" href="index.html">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Home
+        </a>
+        <a class="m-nav-item" href="my-workflow.html">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/></svg>
+          My Workflow
+        </a>
+        <a class="m-nav-item" href="approval-queue.html">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          Approval Queue
+        </a>
+        <div class="m-nav-item active" aria-current="page">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 17v-6M13 17V7M17 17v-4"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          Reports
+        </div>
+        <div class="m-nav-sub">
+          <a class="m-nav-sub-item active" href="stage3-5-dashboard.html" aria-current="page">Stage 3 &amp; 5 Dashboard</a>
+        </div>
+        <a class="m-nav-item" href="qa-review.html">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          QA Review
+        </a>
+        <a class="m-nav-item" href="stage5_challenge_docprocessor.html">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+          Notice Processing
+        </a>
+      </nav>
+    </aside>
+
+    <div class="main-wrapper">
+      <div class="db-page">
+
+        <!-- Title row -->
+        <div class="db-title-row">
+          <h1>Stage 5 — Auto Response Dashboard</h1>
+          <span class="stage-pill stage5">Stage 5 · Non-ANPS · Formal Rep</span>
+          <p class="subtitle">Operational and business view of auto-generated Stage 5 responses to formal challenges, third-party data quality and agent override activity (Non-Notice IQ source).</p>
+          <div class="actions">
+                        <button type="button" class="db-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+              Refresh
+            </button>
+            <button type="button" class="db-btn primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Scope tabs -->
+        <div class="db-scope-tabs" role="tablist" aria-label="Scope">
+          <button type="button" role="tab" aria-selected="false" onclick="location.href='stage3-5-dashboard.html'">Both stages</button>
+          <button type="button" role="tab" aria-selected="false" onclick="location.href='stage3-dashboard.html'">Stage 3 only</button>
+          <button type="button" role="tab" aria-selected="true" class="active" onclick="location.href='stage5-dashboard.html'">Stage 5 only</button>
+        </div>
+
+        <!-- Filters -->
+        <fieldset class="db-filters">
+          <legend>Filters</legend>
+          <div class="db-filter-grid">
+            <div class="db-field"><label for="f-from">Date from</label><input id="f-from" type="date" value="2026-06-01" /></div>
+            <div class="db-field"><label for="f-to">Date to</label><input id="f-to" type="date" value="2026-06-29" /></div>
+            <div class="db-field"><label for="f-contract">Contract</label><select id="f-contract"><option>All contracts</option><option>C-2412 · Camden CPZ</option><option>C-2413 · Westminster CPE</option><option>C-2414 · TfL Red Routes</option><option>C-2415 · Manchester City Enforcement</option><option>C-2416 · Birmingham Bus Lane</option><option>C-2417 · Leeds Parking Zones</option><option>C-2418 · Bristol Residents Bays</option><option>C-2419 · Southwark PCN</option><option>C-2420 · Hackney CPZ</option><option>C-2421 · Lambeth Bus Lane</option><option>C-2422 · Islington Residents Bay</option><option>C-2423 · Croydon Off-Street</option></select></div>
+            <div class="db-field"><label for="f-agent">Agent name</label><select id="f-agent"><option>All agents</option><option>Tom Bennett</option><option>Aisha Rahman</option><option>Lewis Carter</option><option>Hannah Wright</option><option>Marco Rossi</option></select></div>
+            <div class="db-field"><label for="f-pcn">PCN number</label><input id="f-pcn" type="search" placeholder="e.g. WO98765478" /></div>
+            <div class="db-field"><label for="f-bot">Bot decision</label><select id="f-bot"><option>All</option><option>Green</option><option>Amber</option><option>Red</option></select></div>
+            <div class="db-field db-field-more" hidden><label for="f-amber">Amber reason</label><select id="f-amber"><option>All reasons</option><option>Third-party data incomplete</option><option>Notice-to-owner mismatch</option><option>Owner documentation conflict</option><option>Statutory grounds unclear</option><option>DVLA keeper data mismatch</option></select></div>
+            <div class="db-field db-field-more" hidden><label for="f-mit">Mitigation status</label><select id="f-mit"><option>All</option><option>Identified in template</option><option>Missing from template</option></select></div>
+            <div class="db-field db-field-more" hidden><label for="f-amend">Amendment status</label><select id="f-amend"><option>All</option><option>No amendment needed</option><option>Amendment made</option></select></div>
+            <div class="db-field db-field-more" hidden><label for="f-contra">Contravention code</label><select id="f-contra"><option>All codes</option><option>01 — Restricted street</option><option>12 — Residents bay</option><option>16 — Permit holders</option><option>22 — Re-parked 1 hour</option><option>30 — Over time limit</option></select></div>
+            <div class="db-field db-field-more" hidden><label for="f-custom">Custom mitigation</label><select id="f-custom"><option>Any</option><option>Present</option><option>Not present</option></select></div>
+          </div>
+          <div class="filter-actions">
+            <button type="button" class="db-more-toggle" aria-expanded="false" aria-controls="more-filters">+ More</button>
+            <button type="button" class="db-btn">Reset</button>
+            <button type="button" class="db-btn primary">Apply filters</button>
+          </div>
+        </fieldset>
+
+        <!-- KPI strip with sparklines -->
+        <section class="db-kpis" aria-label="Key metrics">
+          <div class="kpi accent">
+            <span class="label">Total Mitigation</span>
+            <span class="value">842</span>
+            <span class="delta">+6.1% vs previous period</span>
+            <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true" style="color:#3276CF">
+              <path class="area" fill="#3276CF" d="M0,30 L8,19 L15,22 L23,15 L31,21 L38,12 L46,16 L54,10 L62,12 L69,6 L77,10 L85,4 L92,6 L100,0 L100,32 L0,32 Z"/>
+              <path class="line" d="M0,30 L8,19 L15,22 L23,15 L31,21 L38,12 L46,16 L54,10 L62,12 L69,6 L77,10 L85,4 L92,6 L100,0" stroke="#3276CF"/>
+            </svg>
+            <a class="drill" href="#case-table">View cases ?</a>
+          </div>
+          <div class="kpi green">
+            <span class="label">Green</span>
+            <span class="value">620</span>
+            <span class="delta">74% auto-accepted mitigation</span>
+            <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true" style="color:#16a34a">
+              <path class="area" fill="#16a34a" d="M0,28 L8,21 L15,24 L23,16 L31,22 L38,14 L46,18 L54,12 L62,14 L69,8 L77,11 L85,5 L92,8 L100,2 L100,32 L0,32 Z"/>
+              <path class="line" d="M0,28 L8,21 L15,24 L23,16 L31,22 L38,14 L46,18 L54,12 L62,14 L69,8 L77,11 L85,5 L92,8 L100,2" stroke="#16a34a"/>
+            </svg>
+            <a class="drill" href="#case-table" data-filter-col="6" data-filter-val="Green">View cases ?</a>
+          </div>
+          <div class="kpi amber">
+            <span class="label">Amber</span>
+            <span class="value">118</span>
+            <span class="delta">14% — needs review</span>
+            <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true" style="color:#d97706">
+              <path class="area" fill="#d97706" d="M0,20 L8,18 L15,22 L23,16 L31,20 L38,14 L46,17 L54,12 L62,15 L69,10 L77,13 L85,8 L92,11 L100,7 L100,32 L0,32 Z"/>
+              <path class="line" d="M0,20 L8,18 L15,22 L23,16 L31,20 L38,14 L46,17 L54,12 L62,15 L69,10 L77,13 L85,8 L92,11 L100,7" stroke="#d97706"/>
+            </svg>
+            <a class="drill" href="#case-table" data-filter-col="6" data-filter-val="Amber">View cases ?</a>
+          </div>
+          <div class="kpi red">
+            <span class="label">Red</span>
+            <span class="value">104</span>
+            <div class="kpi-split">
+              <div>
+                <span class="split-label">Mitigation selected</span>
+                <span class="split-value">74 · 8.8%</span>
+              </div>
+              <div>
+                <span class="split-label">Custom entered</span>
+                <span class="split-value">30 · 3.6%</span>
+              </div>
+            </div>
+            <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true" style="color:#dc2626">
+              <path class="area" fill="#dc2626" d="M0,14 L8,16 L15,15 L23,19 L31,17 L38,21 L46,23 L54,20 L62,25 L69,23 L77,26 L85,24 L92,28 L100,26 L100,32 L0,32 Z"/>
+              <path class="line" d="M0,14 L8,16 L15,15 L23,19 L31,17 L38,21 L46,23 L54,20 L62,25 L69,23 L77,26 L85,24 L92,28 L100,26" stroke="#dc2626"/>
+            </svg>
+            <a class="drill" href="#case-table" data-filter-col="6" data-filter-val="Red">View cases ?</a>
+          </div>
+        </section>
+
+        <!-- Widget grid -->
+        <section class="db-widgets" aria-label="Charts and summary widgets">
+
+          <!-- Daily volume trend (multi-series line) -->
+          <article class="widget span-12">
+            <div class="widget-head">
+              <h2>Daily case volume — RAG trend</h2>
+              <span class="meta">02 Jun – 28 Jun 2026 · n = 842</span>
+            </div>
+            <p class="widget-purpose">Daily Stage 5 cases split by bot decision — note the steady rise alongside a small but persistent Red baseline driven by missing third-party data.</p>
+            <svg class="chart" viewBox="0 0 820 240" role="img" aria-label="Daily Stage 5 volume by RAG status">
+              <g>
+                <line class="grid-line" x1="44" y1="16"  x2="808" y2="16"/>
+                <line class="grid-line" x1="44" y1="47"  x2="808" y2="47"/>
+                <line class="grid-line" x1="44" y1="79"  x2="808" y2="79"/>
+                <line class="grid-line" x1="44" y1="110" x2="808" y2="110"/>
+                <line class="grid-line" x1="44" y1="141" x2="808" y2="141"/>
+                <line class="grid-line" x1="44" y1="173" x2="808" y2="173"/>
+                <line class="axis-line" x1="44" y1="204" x2="808" y2="204"/>
+              </g>
+              <g>
+                <text x="38" y="20"  text-anchor="end">30</text>
+                <text x="38" y="51"  text-anchor="end">25</text>
+                <text x="38" y="83"  text-anchor="end">20</text>
+                <text x="38" y="114" text-anchor="end">15</text>
+                <text x="38" y="145" text-anchor="end">10</text>
+                <text x="38" y="177" text-anchor="end">5</text>
+                <text x="38" y="208" text-anchor="end">0</text>
+              </g>
+              <g>
+                <text x="44"  y="224" text-anchor="middle">02 Jun</text>
+                <text x="162" y="224" text-anchor="middle">06</text>
+                <text x="279" y="224" text-anchor="middle">10</text>
+                <text x="397" y="224" text-anchor="middle">14</text>
+                <text x="515" y="224" text-anchor="middle">18</text>
+                <text x="632" y="224" text-anchor="middle">22</text>
+                <text x="750" y="224" text-anchor="middle">26</text>
+              </g>
+              <polyline class="series-green" stroke="#16a34a"
+                        data-series="Green" data-unit="cases"
+                        data-labels="02 Jun,04 Jun,06 Jun,08 Jun,10 Jun,12 Jun,14 Jun,16 Jun,18 Jun,20 Jun,22 Jun,24 Jun,26 Jun,28 Jun"
+                        data-values="14,18,16,20,17,22,19,24,21,25,23,26,24,28"
+                        points="44,116 103,91 162,104 220,79 279,97 338,66 397,85 456,54 515,72 573,47 632,60 691,41 750,54 808,29" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline class="series-amber" stroke="#f59e0b"
+                        data-series="Amber" data-unit="cases"
+                        data-labels="02 Jun,04 Jun,06 Jun,08 Jun,10 Jun,12 Jun,14 Jun,16 Jun,18 Jun,20 Jun,22 Jun,24 Jun,26 Jun,28 Jun"
+                        data-values="6,8,7,9,7,10,8,11,9,12,10,13,11,14"
+                        points="44,166 103,154 162,160 220,148 279,160 338,141 397,154 456,135 515,148 573,129 632,141 691,122 750,135 808,116" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline class="series-red"   stroke="#dc2626"
+                        data-series="Red" data-unit="cases"
+                        data-labels="02 Jun,04 Jun,06 Jun,08 Jun,10 Jun,12 Jun,14 Jun,16 Jun,18 Jun,20 Jun,22 Jun,24 Jun,26 Jun,28 Jun"
+                        data-values="3,4,4,5,4,5,6,4,7,5,6,5,7,6"
+                        points="44,185 103,179 162,179 220,173 279,179 338,173 397,166 456,179 515,160 573,173 632,166 691,173 750,160 808,166" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="chart-legend">
+              <span class="lg green">Green — 488</span>
+              <span class="lg amber">Amber — 228</span>
+              <span class="lg red">Red — 126</span>
+            </div>
+          </article>
+
+          <!-- Mitigation coverage gauge -->
+          <article class="widget span-4">
+            <div class="widget-head"><h2>1 · Mitigation coverage</h2></div>
+            <p class="widget-purpose">Share of cases where mitigation was identified in the template — third-party data quality directly affects this score.</p>
+            <div class="gauge-wrap">
+              <svg class="gauge-svg" viewBox="0 0 200 110" role="img" aria-label="Mitigation coverage 78 percent">
+                <path class="gauge-track" d="M20,100 A80,80 0 0,1 180,100" stroke-width="16"/>
+                <path class="gauge-prog good" d="M20,100 A80,80 0 0,1 180,100" stroke-width="16"
+                      stroke-dasharray="251.33" stroke-dashoffset="55.29"/>
+              </svg>
+              <div class="gauge-value"><span class="num">78%</span><span class="lbl">Identified · 657</span></div>
+            </div>
+            <div class="legend-inline" style="justify-content:center;margin-top:8px">
+              <span class="ll-good">Identified 657</span>
+              <span class="ll-miss" data-filter-col="5" data-filter-val="Missing">Missing 185</span>
+            </div>
+            <div class="widget-foot"><a href="#case-table">View 842 cases ?</a></div>
+          </article>
+
+          <!-- Bot RAG donut -->
+          <article class="widget span-4">
+            <div class="widget-head"><h2>2–4 · Bot decision (RAG)</h2></div>
+            <p class="widget-purpose">Auto-generated response confidence split for Stage 5 formal challenges.</p>
+            <div class="pie-row" style="justify-content:center">
+              <svg class="pie-svg" viewBox="0 0 160 160" role="img" aria-label="Bot decision: 58% Green, 27% Amber, 15% Red">
+                <g transform="translate(80,80) rotate(-90)">
+                  <circle class="track" r="64" stroke-width="22"/>
+                  <circle class="seg" r="64" stroke="#16a34a" stroke-width="22" stroke-dasharray="233.23 402.12" stroke-dashoffset="0" data-filter-col="6" data-filter-val="Green"/>
+                  <circle class="seg" r="64" stroke="#f59e0b" stroke-width="22" stroke-dasharray="108.57 402.12" stroke-dashoffset="-233.23" data-filter-col="6" data-filter-val="Amber"/>
+                  <circle class="seg" r="64" stroke="#dc2626" stroke-width="22" stroke-dasharray="60.32 402.12"  stroke-dashoffset="-341.80" data-filter-col="6" data-filter-val="Red"/>
+                </g>
+                <text class="center-num" x="80" y="78" text-anchor="middle">842</text>
+                <text class="center-lbl" x="80" y="96" text-anchor="middle">CASES</text>
+              </svg>
+            </div>
+            <div class="rag-legend" style="margin-top:10px">
+              <div class="rag-item" data-filter-col="6" data-filter-val="Green" aria-label="Filter master table by Green"><span class="swatch green"></span><span class="name">Green</span><span class="count">488</span><span class="pct">58%</span></div>
+              <div class="rag-item" data-filter-col="6" data-filter-val="Amber" aria-label="Filter master table by Amber"><span class="swatch amber"></span><span class="name">Amber</span><span class="count">228</span><span class="pct">27%</span></div>
+              <div class="rag-item" data-filter-col="6" data-filter-val="Red" aria-label="Filter master table by Red"><span class="swatch red"></span><span class="name">Red</span><span class="count">126</span><span class="pct">15%</span></div>
+            </div>
+          </article>
+
+          <!-- Letter amendment pie -->
+          <article class="widget span-4">
+            <div class="widget-head"><h2>5 · Letter amendment</h2></div>
+            <p class="widget-purpose">Auto-generated formal response letters accepted vs. amended before sending.</p>
+            <div class="pie-row" style="justify-content:center">
+              <svg class="pie-svg" viewBox="0 0 160 160" role="img" aria-label="Letter amendment: 72% clean, 28% amended">
+                <g transform="translate(80,80) rotate(-90)">
+                  <circle class="track" r="32" stroke="#E5E7EB" stroke-width="64"/>
+                  <circle class="seg" r="32" stroke="#16a34a" stroke-width="64" stroke-dasharray="144.76 201.06" stroke-dashoffset="0" data-filter-col="8" data-filter-val="No amendment"/>
+                  <circle class="seg" r="32" stroke="#3276CF" stroke-width="64" stroke-dasharray="56.30 201.06"  stroke-dashoffset="-144.76" data-filter-col="8" data-filter-val="Amended"/>
+                </g>
+              </svg>
+            </div>
+            <div class="rag-legend" style="margin-top:10px">
+              <div class="rag-item" data-filter-col="8" data-filter-val="No amendment" aria-label="Filter letters not amended"><span class="swatch green"></span><span class="name">No amendment needed</span><span class="count">605</span><span class="pct">72%</span></div>
+              <div class="rag-item" data-filter-col="8" data-filter-val="Amended" aria-label="Filter letters amended"><span class="swatch" style="background:#3276CF"></span><span class="name">Agent amended</span><span class="count">237</span><span class="pct">28%</span></div>
+            </div>
+          </article>
+
+          <!-- Amber reasons (ranked list) -->
+          <article class="widget span-6">
+            <div class="widget-head"><h2>Amber reasons — ranked</h2><span class="meta">Top 5 · n = 228</span></div>
+            <p class="widget-purpose">Why agent review was required for Stage 5 — click a reason to filter the master table.</p>
+            <ol class="ranked-list" aria-label="Top amber reasons ranked">
+              <li><a class="rl-row top" href="#case-table" data-filter-col="7" data-filter-val="Third-party data incomplete">
+                <span class="rl-rank">1</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Third-party data incomplete</span></div><div class="rl-bar"><div class="rl-fill amber" style="width:100%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">81</span><span class="rl-pct">36%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="7" data-filter-val="Notice-to-owner mismatch">
+                <span class="rl-rank">2</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Notice-to-owner mismatch</span></div><div class="rl-bar"><div class="rl-fill amber" style="width:68%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">55</span><span class="rl-pct">24%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="7" data-filter-val="Owner documentation conflict">
+                <span class="rl-rank">3</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Owner challenge documentation conflict</span></div><div class="rl-bar"><div class="rl-fill amber" style="width:58%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">47</span><span class="rl-pct">21%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="7" data-filter-val="Statutory grounds unclear">
+                <span class="rl-rank">4</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Statutory grounds unclear</span></div><div class="rl-bar"><div class="rl-fill amber" style="width:35%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">28</span><span class="rl-pct">12%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="7" data-filter-val="DVLA keeper data mismatch">
+                <span class="rl-rank">5</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">DVLA keeper data mismatch</span></div><div class="rl-bar"><div class="rl-fill amber" style="width:21%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">17</span><span class="rl-pct">7%</span></div>
+              </a></li>
+            </ol>
+          </article>
+
+          <!-- Top contravention codes — ranked list -->
+          <article class="widget span-6">
+            <div class="widget-head"><h2>Top contravention codes</h2><span class="meta">Top 5 · by case volume · n = 842</span></div>
+            <p class="widget-purpose">Ranked by Stage 5 formal challenge volume — click a code to filter the master table.</p>
+            <ol class="ranked-list" aria-label="Top 5 contravention codes ranked">
+              <li><a class="rl-row top" href="#case-table" data-filter-col="4" data-filter-val="12">
+                <span class="rl-rank">1</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Residents bay parking</span><span class="rl-meta">CODE 12</span></div><div class="rl-bar"><div class="rl-fill s5" style="width:100%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">238</span><span class="rl-pct">31%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="4" data-filter-val="22">
+                <span class="rl-rank">2</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Re-parked within 1 hour</span><span class="rl-meta">CODE 22</span></div><div class="rl-bar"><div class="rl-fill s5" style="width:79%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">187</span><span class="rl-pct">24%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="4" data-filter-val="01">
+                <span class="rl-rank">3</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Restricted street</span><span class="rl-meta">CODE 01</span></div><div class="rl-bar"><div class="rl-fill s5" style="width:60%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">142</span><span class="rl-pct">18%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="4" data-filter-val="16">
+                <span class="rl-rank">4</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Permit holders</span><span class="rl-meta">CODE 16</span></div><div class="rl-bar"><div class="rl-fill s5" style="width:51%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">121</span><span class="rl-pct">16%</span></div>
+              </a></li>
+              <li><a class="rl-row" href="#case-table" data-filter-col="4" data-filter-val="30">
+                <span class="rl-rank">5</span>
+                <div class="rl-body"><div class="rl-head"><span class="rl-name">Over time limit</span><span class="rl-meta">CODE 30</span></div><div class="rl-bar"><div class="rl-fill s5" style="width:37%"></div></div></div>
+                <div class="rl-num"><span class="rl-count">89</span><span class="rl-pct">11%</span></div>
+              </a></li>
+            </ol>
+            <button type="button" class="rl-more" data-open-pane="pane-contra">View all contravention codes ?</button>
+          </article>
+
+          <!-- Top agents stacked -->
+          <article class="widget span-6">
+            <div class="widget-head"><h2>Top agents — cases by RAG</h2><span class="meta">Top 5 of period</span></div>
+            <p class="widget-purpose">Agent workload split by bot decision outcome for Stage 5.</p>
+            <div class="stack-bars" role="list">
+              <div class="stack-row" role="listitem" data-filter-col="2" data-filter-val="Tom Bennett">
+                <span class="name">Tom Bennett</span>
+                <div class="stack-bar" style="width:100%"><div class="seg green" style="width:60%" data-filter-cols="2|6" data-filter-vals="Tom Bennett|Green"></div><div class="seg amber" style="width:28%" data-filter-cols="2|6" data-filter-vals="Tom Bennett|Amber"></div><div class="seg red" style="width:12%" data-filter-cols="2|6" data-filter-vals="Tom Bennett|Red"></div></div>
+                <span class="total">215</span>
+              </div>
+              <div class="stack-row" role="listitem" data-filter-col="2" data-filter-val="Aisha Rahman">
+                <span class="name">Aisha Rahman</span>
+                <div class="stack-bar" style="width:87%"><div class="seg green" style="width:59%" data-filter-cols="2|6" data-filter-vals="Aisha Rahman|Green"></div><div class="seg amber" style="width:29%" data-filter-cols="2|6" data-filter-vals="Aisha Rahman|Amber"></div><div class="seg red" style="width:12%" data-filter-cols="2|6" data-filter-vals="Aisha Rahman|Red"></div></div>
+                <span class="total">187</span>
+              </div>
+              <div class="stack-row" role="listitem" data-filter-col="2" data-filter-val="Lewis Carter">
+                <span class="name">Lewis Carter</span>
+                <div class="stack-bar" style="width:81%"><div class="seg green" style="width:54%" data-filter-cols="2|6" data-filter-vals="Lewis Carter|Green"></div><div class="seg amber" style="width:29%" data-filter-cols="2|6" data-filter-vals="Lewis Carter|Amber"></div><div class="seg red" style="width:17%" data-filter-cols="2|6" data-filter-vals="Lewis Carter|Red"></div></div>
+                <span class="total">175</span>
+              </div>
+              <div class="stack-row" role="listitem" data-filter-col="2" data-filter-val="Hannah Wright">
+                <span class="name">Hannah Wright</span>
+                <div class="stack-bar" style="width:69%"><div class="seg green" style="width:67%" data-filter-cols="2|6" data-filter-vals="Hannah Wright|Green"></div><div class="seg amber" style="width:23%" data-filter-cols="2|6" data-filter-vals="Hannah Wright|Amber"></div><div class="seg red" style="width:10%" data-filter-cols="2|6" data-filter-vals="Hannah Wright|Red"></div></div>
+                <span class="total">149</span>
+              </div>
+              <div class="stack-row" role="listitem" data-filter-col="2" data-filter-val="Marco Rossi">
+                <span class="name">Marco Rossi</span>
+                <div class="stack-bar" style="width:58%"><div class="seg green" style="width:60%" data-filter-cols="2|6" data-filter-vals="Marco Rossi|Green"></div><div class="seg amber" style="width:24%" data-filter-cols="2|6" data-filter-vals="Marco Rossi|Amber"></div><div class="seg red" style="width:16%" data-filter-cols="2|6" data-filter-vals="Marco Rossi|Red"></div></div>
+                <span class="total">125</span>
+              </div>
+            </div>
+            <div class="chart-legend"><span class="lg green">Green</span><span class="lg amber">Amber</span><span class="lg red">Red</span></div>
+          </article>
+
+          <!-- Activity heatmap -->
+          <article class="widget span-6">
+            <div class="widget-head"><h2>Activity heatmap</h2><span class="meta">Weekday × hour (08:00 – 19:00)</span></div>
+            <p class="widget-purpose">When Stage 5 cases are reviewed — Mon/Tue heavier owing to weekend backlog.</p>
+            <div class="heatmap-wrap">
+              <div class="heatmap" role="img" aria-label="Activity heatmap by weekday and hour">
+                <div class="hm-corner" aria-hidden="true"></div>
+                <div class="hm-hour">08</div><div class="hm-hour">09</div><div class="hm-hour">10</div><div class="hm-hour">11</div><div class="hm-hour">12</div><div class="hm-hour">13</div>
+                <div class="hm-hour">14</div><div class="hm-hour">15</div><div class="hm-hour">16</div><div class="hm-hour">17</div><div class="hm-hour">18</div><div class="hm-hour">19</div>
+                <div class="hm-label">Mon</div>
+                <div class="hm-cell l3"></div><div class="hm-cell l4"></div><div class="hm-cell l5"></div><div class="hm-cell l5"></div><div class="hm-cell l5"></div><div class="hm-cell l4"></div>
+                <div class="hm-cell l4"></div><div class="hm-cell l5"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div>
+                <div class="hm-label">Tue</div>
+                <div class="hm-cell l3"></div><div class="hm-cell l4"></div><div class="hm-cell l5"></div><div class="hm-cell l5"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div>
+                <div class="hm-cell l3"></div><div class="hm-cell l4"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div>
+                <div class="hm-label">Wed</div>
+                <div class="hm-cell l2"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l4"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div>
+                <div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div>
+                <div class="hm-label">Thu</div>
+                <div class="hm-cell l2"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div>
+                <div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div>
+                <div class="hm-label">Fri</div>
+                <div class="hm-cell l1"></div><div class="hm-cell l2"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div><div class="hm-cell l3"></div>
+                <div class="hm-cell l2"></div><div class="hm-cell l2"></div><div class="hm-cell l2"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div><div class="hm-cell l1"></div>
+              </div>
+            </div>
+            <div class="heatmap-legend">
+              Quiet
+              <span class="swatches" aria-hidden="true">
+                <span style="background:#F2F4F7;border:1px solid #E4E7EC" title="No activity"></span><span style="background:#D6EAF8" title="Very low"></span><span style="background:#85C1E9" title="Low"></span><span style="background:#3498DB" title="Medium"></span><span style="background:#6C3483" title="High"></span>
+              </span>
+              Busy · hover a cell for RAG breakdown · peak 10:00–13:00 Mon/Tue
+            </div>
+          </article>
+
+        </section>
+
+        <!-- Case-level table -->
+        <section class="db-table-wrap" id="case-table" aria-label="Case-level records">
+          <div class="db-table-head">
+            <h2>Case-level records</h2>
+            <span class="meta">Showing 1–10 of 842 · click a row for full case detail</span>
+            <button type="button" class="db-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+          </div>
+          <div class="db-active-filters" role="status" aria-live="polite" aria-label="Active filters" hidden>
+            <span class="af-label">Active filters</span>
+            <div class="af-chips"></div>
+            <button type="button" class="af-clear">Clear all</button>
+          </div>
+          <div class="db-table-quick-search">
+            <svg class="db-quick-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="search" class="db-quick-search-input" placeholder="Search table" data-table-global-search aria-label="Search table" />
+            <button type="button" class="db-quick-search-clear" data-clear-global-search aria-label="Clear search" hidden>×</button>
+            <div class="db-quick-search-actions">
+              <button type="button" class="db-icon-btn" data-toggle-filters aria-label="Toggle column filters" title="Toggle column filters" aria-expanded="false">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 4a1 1 0 011-1h16a1 1 0 01.8 1.6l-6.8 8.7V19a1 1 0 01-1.45.9l-4-2A1 1 0 018 17v-3.7L1.2 4.6A1 1 0 013 4z"/></svg>
+              </button>
+              <button type="button" class="db-icon-btn" data-toggle-columns aria-label="Column visibility" title="Column visibility" aria-haspopup="true" aria-expanded="false">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="4" width="4" height="16" rx="1"/><rect x="10" y="4" width="4" height="16" rx="1"/><rect x="17" y="4" width="4" height="16" rx="1"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="db-table-scroll">
+            <table class="db-table">
+              <thead>
+                <tr>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Client</th>
+                  <th scope="col">Agent</th>
+                  <th scope="col">PCN number</th>
+                  <th scope="col">Contravention</th>
+                  <th scope="col">Mitigation</th>
+                  <th scope="col">Bot decision</th>
+                  <th scope="col">Amber reason</th>
+                  <th scope="col">Letter</th>
+                  <th scope="col">Custom / Selected Mitigation</th>
+                  <th scope="col">QA Status</th>
+                  <th scope="col">QA Name</th>
+                  <th scope="col">Reviewed</th>
+                </tr>
+                <tr class="db-filter-row" hidden>
+                  <th><select data-col-filter="0" aria-label="Filter by stage"><option value="">All</option><option>Stage 3</option><option>Stage 5</option></select></th>
+                  <th><select data-col-filter="1" aria-label="Filter client"><option value="">All clients</option><option>Camden Council</option><option>Westminster City Council</option><option>Transport for London (TfL)</option><option>Manchester City Council</option><option>Birmingham City Council</option><option>Leeds City Council</option><option>Bristol City Council</option></select></th>
+                  <th><input type="search" data-col-filter="2" placeholder="Search agent" aria-label="Filter agent"></th>
+                  <th><input type="search" data-col-filter="3" placeholder="Search PCN" aria-label="Filter PCN number"></th>
+                  <th><select data-col-filter="4" aria-label="Filter contravention code"><option value="">All codes</option><option>01</option><option>12</option><option>16</option><option>22</option><option>30</option></select></th>
+                  <th><input type="search" data-col-filter="5" placeholder="Search mitigation" aria-label="Filter mitigation"></th>
+                  <th><select data-col-filter="6" aria-label="Filter bot decision"><option value="">All</option><option>Green</option><option>Amber</option><option>Red</option></select></th>
+                  <th><select data-col-filter="7" aria-label="Filter amber reason"><option value="">All reasons</option><option>Evidence ambiguous</option><option>Third-party data incomplete</option><option>Mitigation partially matched</option><option>Notice-to-owner mismatch</option><option>Multiple contraventions</option><option>Policy clause unclear</option><option>Vehicle keeper mismatch</option><option>Owner documentation conflict</option><option>Statutory grounds unclear</option><option>DVLA keeper data mismatch</option></select></th>
+                  <th><select data-col-filter="8" aria-label="Filter letter status"><option value="">All</option><option>No amendment</option><option>Amended</option></select></th>
+                  <th><input type="search" data-col-filter="9" placeholder="Search custom/selected" aria-label="Filter custom or selected mitigation"></th>
+                  <th><select data-col-filter="10" aria-label="Filter QA status"><option value="">All</option><option>Not reviewed</option><option>Passed</option><option>Failed</option></select></th>
+                  <th><input type="search" data-col-filter="11" placeholder="Search QA reviewer" aria-label="Filter QA reviewer"></th>
+                  <th><input type="search" data-col-filter="12" placeholder="Filter date" aria-label="Filter reviewed date"></th>
+                </tr>              </thead>              <tbody>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Camden Council</td><td>Tom Bennett</td><td>WO98765432</td><td>12 — Residents bay</td><td><span class="mit-cell" data-full="Valid resident permit on Camden roll — permit #RB-8814 verified against DVLA V5C; renewal within grace period.">Valid resident permit on Camden roll — permit …</span></td><td><span class="chip green"><span class="dot"></span>Green</span></td><td>—</td><td><span class="chip clean">No amendment</span></td><td>—</td><td>—</td><td>—</td><td>29 Jun, 09:11</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Westminster City Council</td><td>Aisha Rahman</td><td>WO98765455</td><td>22 — Re-parked 1 hour</td><td><span class="mit-cell" data-full="Owner reports continuous stay — third-party sensor timestamp missing; awaiting DVLA cross-check for confirmation.">Owner reports continuous stay — third-party …</span></td><td><span class="chip amber"><span class="dot"></span>Amber</span></td><td><span class="ar-cell" data-count="2" data-full="Third-party data incomplete | DVLA keeper data mismatch"><span class="ar-primary">Third-party data incomplete</span><span class="ar-more">+1</span></span></td><td><span class="chip amended">Amended</span></td><td>—</td><td>—</td><td>—</td><td>29 Jun, 08:57</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Transport for London (TfL)</td><td>Lewis Carter</td><td>WO98765478</td><td>01 — Restricted street</td><td><span class="chip missing">Missing</span></td><td><span class="chip red"><span class="dot"></span>Red</span></td><td>—</td><td><span class="chip amended">Amended</span></td><td><span class="cm-cell" data-count="1" data-full="Owner relocated abroad — DVLA address out of date; correspondence delivered to wrong address.">Owner relocated abroad — DVLA address out of date …</span></td><td>—</td><td>—</td><td>29 Jun, 08:42</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Transport for London (TfL)</td><td>Hannah Wright</td><td>WO98765501</td><td>16 — Permit holders</td><td><span class="mit-cell" data-full="Employer parking permit displayed — TfL contractor pass #EMP-1102 verified against employer roster.">Employer parking permit displayed — TfL …</span></td><td><span class="chip green"><span class="dot"></span>Green</span></td><td>—</td><td><span class="chip clean">No amendment</span></td><td>—</td><td>—</td><td>—</td><td>29 Jun, 08:25</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Manchester City Council</td><td>Marco Rossi</td><td>WO98765522</td><td>30 — Over time limit</td><td><span class="mit-cell" data-full="Owner claims machine fault (TMA s.66 defence) — Notice-to-owner service date does not align with PCN issue timestamp.">Owner claims machine fault (TMA s.66) — NtO …</span></td><td><span class="chip amber"><span class="dot"></span>Amber</span></td><td><span class="ar-cell" data-count="1" data-full="Notice-to-owner mismatch"><span class="ar-primary">Notice-to-owner mismatch</span></span></td><td><span class="chip clean">No amendment</span></td><td>—</td><td>—</td><td>—</td><td>29 Jun, 08:09</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Camden Council</td><td>Tom Bennett</td><td>WO98765545</td><td>12 — Residents bay</td><td><span class="chip missing">Missing</span></td><td><span class="chip red"><span class="dot"></span>Red</span></td><td>—</td><td><span class="chip amended">Amended</span></td><td><div class="cs-mit-stack"><span class="mit-cell" data-full="Vehicle sold prior to contravention (Reg 15) — operator selected the closest template match.">Vehicle sold prior to contravention (Reg 15) …</span><span class="cm-cell" data-count="1" data-full="Vehicle sold prior to contravention — V5C transfer date evidence attached; buyer confirmed on-record with insurance policy start-date.">Vehicle sold prior to contravention — V5C …</span></div></td><td>—</td><td>—</td><td>28 Jun, 18:01</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Westminster City Council</td><td>Aisha Rahman</td><td>WO98765568</td><td>01 — Restricted street</td><td><span class="mit-cell" data-full="Loading / unloading commercial goods — driver logbook and delivery slip supplied for the contravention window.">Loading / unloading commercial goods — driver …</span></td><td><span class="chip green"><span class="dot"></span>Green</span></td><td>—</td><td><span class="chip clean">No amendment</span></td><td>—</td><td>—</td><td>—</td><td>28 Jun, 17:46</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Birmingham City Council</td><td>Lewis Carter</td><td>WO98765591</td><td>22 — Re-parked 1 hour</td><td><span class="mit-cell" data-full="Vehicle keeper states re-parked by relative — supporting statement supplied but signatures do not match V5C.">Vehicle keeper states re-parked by relative …</span></td><td><span class="chip amber"><span class="dot"></span>Amber</span></td><td><span class="ar-cell" data-count="3" data-full="Owner documentation conflict | Statutory grounds unclear | Notice-to-owner mismatch"><span class="ar-primary">Owner documentation conflict</span><span class="ar-more">+2</span></span></td><td><span class="chip amended">Amended</span></td><td>—</td><td>—</td><td>—</td><td>28 Jun, 17:28</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Leeds City Council</td><td>Hannah Wright</td><td>WO98765614</td><td>16 — Permit holders</td><td><span class="mit-cell" data-full="Visitor permit displayed — scratch-card #VS-3312 valid for the day of contravention; scratch-off sequence intact.">Visitor permit displayed — scratch-card #VS-3312 …</span></td><td><span class="chip green"><span class="dot"></span>Green</span></td><td>—</td><td><span class="chip clean">No amendment</span></td><td>—</td><td>—</td><td>—</td><td>28 Jun, 17:09</td></tr>
+                <tr><td><span class="chip s5">Stage 5</span></td><td>Bristol City Council</td><td>Marco Rossi</td><td>WO98765637</td><td>30 — Over time limit</td><td><span class="chip missing">Missing</span></td><td><span class="chip red"><span class="dot"></span>Red</span></td><td>—</td><td><span class="chip amended">Amended</span></td><td><span class="cm-cell" data-count="1" data-full="Owner challenging on grounds of statutory exemption — healthcare visit, GP letter supplied dated same day as contravention.">Owner challenging on grounds of statutory …</span></td><td>—</td><td>—</td><td>28 Jun, 16:48</td></tr>
+              </tbody>            </table>
+          </div>
+          <div class="db-pagination">
+            <span>Page 1 of 85</span>
+            <div class="pager" role="navigation" aria-label="Pagination">
+              <button type="button" aria-label="Previous page" disabled>‹</button>
+              <button type="button" aria-current="page">1</button>
+              <button type="button">2</button>
+              <button type="button">3</button>
+              <button type="button">…</button>
+              <button type="button">85</button>
+              <button type="button" aria-label="Next page">›</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Side pane: all contravention codes -->
+        <aside class="side-pane" id="pane-contra" aria-hidden="true" aria-labelledby="pane-contra-title">
+          <div class="sp-backdrop" data-close></div>
+          <div class="sp-panel" role="dialog" aria-modal="true">
+            <header class="sp-head">
+              <div>
+                <h3 id="pane-contra-title">All contravention codes</h3>
+                <span class="sp-meta">Stage 5 · n = 842 · click a row to filter the master table</span>
+              </div>
+              <button type="button" class="sp-close" data-close aria-label="Close side pane">×</button>
+            </header>
+            <div class="sp-body">
+              <table class="sp-table">
+                <thead><tr><th style="width:40px">#</th><th>Code</th><th>Description</th><th class="num">Cases</th><th class="num">%</th></tr></thead>
+                <tbody>
+                  <tr data-filter-col="4" data-filter-val="12" tabindex="0"><td><span class="sp-rank">1</span></td><td>12</td><td>Residents bay parking (without a valid permit)</td><td class="num">238</td><td class="num">28.3%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="22" tabindex="0"><td><span class="sp-rank">2</span></td><td>22</td><td>Re-parked in the same place within 1 hour</td><td class="num">187</td><td class="num">22.2%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="01" tabindex="0"><td><span class="sp-rank">3</span></td><td>01</td><td>Parked in a restricted street</td><td class="num">142</td><td class="num">16.9%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="16" tabindex="0"><td><span class="sp-rank">4</span></td><td>16</td><td>Permit holders bay (no valid permit)</td><td class="num">121</td><td class="num">14.4%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="30" tabindex="0"><td><span class="sp-rank">5</span></td><td>30</td><td>Parked longer than permitted (time expired)</td><td class="num">89</td><td class="num">10.6%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="25" tabindex="0"><td><span class="sp-rank">6</span></td><td>25</td><td>Parked in a loading place during restricted hours</td><td class="num">28</td><td class="num">3.3%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="27" tabindex="0"><td><span class="sp-rank">7</span></td><td>27</td><td>Parked adjacent to a dropped footway</td><td class="num">14</td><td class="num">1.7%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="40" tabindex="0"><td><span class="sp-rank">8</span></td><td>40</td><td>Disabled bay without displaying a valid badge</td><td class="num">9</td><td class="num">1.1%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="47" tabindex="0"><td><span class="sp-rank">9</span></td><td>47</td><td>Stopped on a restricted bus stop / stand</td><td class="num">7</td><td class="num">0.8%</td></tr>
+                  <tr data-filter-col="4" data-filter-val="21" tabindex="0"><td><span class="sp-rank">10</span></td><td>21</td><td>Parked in a suspended bay or space</td><td class="num">7</td><td class="num">0.8%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

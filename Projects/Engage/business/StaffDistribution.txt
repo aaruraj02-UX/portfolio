@@ -1,0 +1,631 @@
+﻿
+
+
+Optimizer Capacity & Workforce Utilisation Logic
+
+Purpose
+The Optimizer evaluates before the start of the working day whether sufficient work exists to keep all available agents productively occupied throughout their shift.
+The assessment is based on work hours, not number of jobs.
+
+
+1. Agent Daily Capacity
+Each agentâ€™s usable working time is calculated as follows:
+
+Parameter
+
+Value
+Shift Duration
+8 hours
+Break / Non-productive Time
+0.5 hours
+Productive Capacity per Agent
+7.5 hours
+
+
+Total Workforce Capacity
+
+Input
+
+Example
+Available Agents
+5
+Productive Capacity per Agent
+7.5 hrs
+Total Workforce Capacity
+37.5 work hours
+This represents the maximum work that can be completed in one day.
+
+
+2. Job Workload Calculation
+Each job is converted into required work effort.
+
+Job Effort includes:
+
+Component
+
+Included
+Job execution duration
+From Magnus
+Travel time between locations
+From Web app Median calculation
+Skill requirement validation
+Web App
+
+
+Job Duration Determination
+Job duration is derived using:
+
+Magnus estimated duration (baseline)
+
+Historical completion averages
+
+Recent execution performance
+
+
+3. Travel Time Consideration
+Travel consumes agent capacity and is therefore included.
+
+Scenario
+
+Travel Measured Between
+First job
+Agent location â†’ Site
+Next job
+Previous site â†’ Next site
+Distance between coordinates is converted into travel time and added to job effort.
+
+
+Total Job Effort
+Total Job Effort = Job Duration + Travel Time
+
+
+4. Skill-Based Work Validation
+A job contributes to available workload only if:
+
+A suitably skilled agent exists.
+Where a job requires multiple skills:
+
+Each skill portion consumes capacity from a different agent.
+
+
+5. Regional Allocation Logic
+Agents normally operate within assigned regions.
+
+Situation
+
+Optimizer Behaviour
+Job within region
+Standard allocation
+Skill unavailable locally
+Cross-region allocation allowed
+Cross-region assignment
+Higher travel time applied
+
+
+6. Total Available Workload
+Optimizer sums all executable work hours from:
+
+Jobs loaded into the optimizer
+
+Jobs schedulable for the day
+
+Skill-compatible work only
+Unloaded or future unknown jobs are excluded.
+
+
+Output
+Total Workload Hours Available
+Example:
+
+Jobs Loaded
+
+Total Workload
+10 jobs
+24 hrs
+
+
+7. Workforce Utilisation Evaluation
+Optimizer compares:
+
+Measure
+
+Meaning
+Workforce Capacity
+Available agent hours
+Workload Hours
+Required execution effort
+
+
+Example
+
+Item
+
+Value
+Agents
+5
+Workforce Capacity
+37.5 hrs
+Workload Available
+24 hrs
+Result:
+Agents cannot be occupied for the full shift.
+
+
+8. Work Exhaustion Prediction
+Optimizer estimates when work will finish.
+
+Calculation
+
+Result
+Workload Ã· Agents
+Avg work per agent
+Example:
+24 hrs Ã· 5 agents = 4.8 hrs per agent
+Since daily capacity = 7.5 hrs:
+Agents become idle after approximately 5 hours.
+
+This condition is detected before the working day begins.
+
+
+9. Required Staffing Calculation
+Optimizer determines how many agents are actually required.
+
+Calculation
+
+Example
+Workload Ã· Capacity per Agent
+24 Ã· 7.5
+Required Agents = 3.2 â‰ˆ 3â€“4 agents
+
+
+Available
+
+Required
+
+Outcome
+5
+3â€“4
+Excess workforce
+
+
+10. Allocation Principle
+Work is allocated sequentially rather than evenly distributed.
+Optimizer behaviour:
+
+Fully utilise Agent 1
+
+Then Agent 2
+
+Continue until workload exhausted
+Objective:
+
+Maintain full productive diaries
+
+Avoid multiple partially utilised agents
+
+
+11. Alert Outcomes
+
+Too Many Agents
+Triggered when:
+
+Workforce capacity exceeds workload.
+
+Agents predicted to become idle during shift.
+Planner actions:
+
+Reassign engineers
+
+Pull future work forward
+
+Reduce deployed workforce
+
+
+Too Much Work
+Triggered when:
+
+Workload exceeds available workforce capacity.
+Planner actions:
+
+Deploy additional agents
+
+Cross-region allocation
+
+Workforce planning adjustments
+
+
+12. Planning Window
+Evaluation considers work already loaded into Optimizer, typically:
+
+Same-day work
+
+Upcoming scheduled jobs
+
+Future preload (1â€“4 weeks)
+This enables proactive intervention rather than reactive correction.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Workforce Planning Dashboard (Primary Screen)
+This becomes the Optimizer Landing Intelligence Panel.
+
+
+A. Workforce Health Summary (Top Panel)
+Displayed as high-visibility summary cards.
+
+Card 1 â€” Work Coverage
+Work Available in Optimizer:5.6 Days
+Supporting text:Work available until Saturday (12:30 PM)
+Status Logic:
+
+Green â†’ â‰¥ 7 days
+
+Amber â†’ 4â€“6 days
+
+Red â†’ < 4 days
+
+
+Card 2 â€” Workforce Capacity
+Available Agents: 5Daily Capacity: 37.5 hrs
+Derived automatically from shift configuration.
+
+
+Card 3 â€” Required Workforce
+Agents Required: 4
+Supporting Insight:1 excess agent detected.
+
+
+Card 4 â€” Work Gap
+Additional Work Required:52.5 hrs(â‰ˆ 35 jobs required)
+
+Planner to understand:
+
+Do we have enough work?
+
+Do we have too many agents?
+
+What action is required?
+
+
+2. Work Exhaustion Forecast Timeline
+Horizontal timeline showing upcoming days.
+
+Day
+
+Required Capacity
+
+Available Work
+
+Status
+Monday
+37.5h
+37.5h
+Covered
+Tuesday
+37.5h
+37.5h
+Covered
+Wednesday
+37.5h
+37.5h
+Covered
+Thursday
+37.5h
+37.5h
+Covered
+Friday
+37.5h
+22.5h
+Partial
+Saturday
+37.5h
+0h
+Idle Risk
+
+System Highlight:
+Idle Workforce Expected Starting: Saturday
+
+Purpose:Planner visually sees when failure happens, not just totals.
+
+
+3. Optimizer Load Visibility Panel
+Section title:
+
+Optimizer Job Loading Status
+Displayed values:Current Coverage: 5.6 Days
+System Message:
+Optimizer contains insufficient workload for full planning horizon.
+
+4. Staffing Recommendation Panel
+Section title:
+
+Workforce Recommendation
+Displayed Insights:
+Optimal Agents Required for loaded jobs: 4Agents Available: 5
+Recommendation:
+Reduce allocation by 1 agentORLoad additional 35 jobs
+
+Planner Action Buttons:
+
+View Excess Agents (Show agent with less work)
+
+Load Additional Jobs â€“ Redirect to Job list page
+
+
+5. Daily Utilisation Projection
+Planner sees predicted utilisation before execution.
+
+Agent
+
+Mon
+
+Tue
+
+Wed
+
+Thu
+
+Fri
+
+Sat
+Agent 1
+100%
+100%
+100%
+100%
+80%
+0%
+Agent 2
+100%
+100%
+100%
+100%
+60%
+0%
+Agent 3
+100%
+100%
+100%
+100%
+40%
+0%
+Agent 4
+100%
+100%
+100%
+80%
+0%
+0%
+Agent 5
+80%
+60%
+40%
+0%
+0%
+0%
+
+Purpose:Shows progressive idle creation.
+
+
+6. Alert Centre (Persistent Warning Area)
+
+Alert Type 1 â€” Running Out of Work
+Severity: Warning
+Message:
+Agents expected to run out of work on Friday due to insufficient optimizer workload.
+System Insight:5.6 days of work available against 7-day planning horizon.
+
+
+Alert Type 2 â€” Too Many Agents
+Severity: Advisory
+Message:
+Current workload supports only 4 agents.1 agent may remain idle.
+
+
+Alert Type 3 â€” Too Much Work (Future Case)
+Message:
+Available work exceeds workforce capacity.Additional agents required to meet demand.
+
+
+7. Key UX Principle (Very Important)
+UI must answer four planner questions instantly:
+
+How long will work last?
+
+When will agents become idle?
+
+How many agents do I actually need?
+
+How much more work must be loaded?
+
+
+Final Outcome
+UI Should :
+
+Preserves all optimizer calculations
+
+Shows predictive intelligence
+
+Prevents mid-day idle scenarios
+
+Enables proactive planning
+
+Requires no AI
+
+Works fully with rule-based optimizer
+
+
+
+1. Travel Time Must Be Agent-Specific
+Travel Time for Allocation must always be calculated as:
+Travel Time= Distance between Agentâ€™s Expected Previous Location and Job Location Ã· Travel Speed
+Meaning:
+Same job will have different travel times for different agents.
+
+
+Example
+Job J101 location: Site A
+
+Agent
+
+Previous Location
+
+Distance
+
+Travel Time
+Agent 1
+5 km away
+5 km
+10 mins
+Agent 2
+18 km away
+18 km
+36 mins
+Agent 3
+30 km away
+30 km
+60 mins
+Execution duration remains same.Total workload impact differs per agent.
+
+
+2. Forecasting Cannot Use Actual Allocation
+During weekly prediction:
+You do NOT yet know which agent will finally take which job.
+Therefore forecasting must use:
+Expected Travel Time, not final travel time.
+
+
+3. Expected Travel Time Calculation
+Expected Travel Time per Job= Average travel time from all eligible agents to that job
+
+Example:
+Eligible agents travel times:
+10 mins30 mins60 mins
+Expected Travel Time= (10 + 30 + 60) Ã· 3= 33 minutes
+
+This becomes forecasting travel duration.
+
+
+4. Adjusted Job Workload
+Each job workload must include travel impact.
+Adjusted Job Duration= Skill Execution Duration + Expected Travel Time
+
+Example:
+Execution duration = 90 minsExpected travel = 30 mins
+Adjusted workload contribution= 120 mins
+This value feeds workforce calculations.
+
+
+5. Agent-Level Allocation (Runtime Accuracy)
+When optimizer actually assigns:
+Travel Time recalculates using:
+Agentâ€™s last confirmed job location.
+Final Allocation Time= Actual Agent Travel Time + Execution Duration
+
+So system behaves as:
+
+Stage
+
+Travel Used
+Weekly Forecast
+Expected travel
+Optimizer Run
+Actual travel
+Execution
+Real travel
+
+
+6. Preventing Forecast Distortion
+Without this correction:
+Common failure occurs:
+Planner sees 7 days workloadReality delivers only 5 days
+Reason â†’ travel underestimated.
+Including expected travel prevents this.
+
+
+7. Workforce Capacity Including Travel
+Total Workload (Adjusted)= Sum of (Execution Duration + Expected Travel Time) for all jobs
+
+Example
+
+Job
+
+Work
+
+Expected Travel
+
+Adjusted
+J1
+90m
+30m
+120m
+J2
+60m
+20m
+80m
+J3
+120m
+40m
+160m
+Total workload becomes realistic field effort.
+
+
+8. Agent Requirement With Travel Included
+Required Agents= Total Adjusted Workload Ã· (Planning Days Ã— Net Working Time)
+Now staffing recommendation automatically reflects geography.
+
+
+9. Advanced Stability Improvement (Recommended)
+Instead of simple average, optimizer should prefer:
+Expected Travel Time= Median travel time of eligible agents
+Reason:
+Prevents distortion from very distant agents.
+
+Example:
+10, 12, 15, 18, 90 mins
+Average = 29 mins  misleadingMedian = 15 mins  realistic
+
+
+10. Continuous Learning Improvement
+Over time system may refine:
+Expected Travel Time= Historical average travel for similar jobs within same region in Magnus.
+
+
+Resulting Behaviour
+The system now correctly handles:
+
+Same job different agent distance
+
+Regional imbalance
+
+Cross-area allocation
+
+Travel-heavy rural regions
+
+Realistic weekly exhaustion prediction
+
+
+Outcome
+Planner warning becomes:
+â€œAvailable workload including estimated travel supports agents until Thursday.â€
+
+

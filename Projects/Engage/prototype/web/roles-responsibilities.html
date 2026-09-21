@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Roles &amp; Permissions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <style>
+    /* ---------------------------------------------------------------
+       MET-DS-V2 Design Tokens — Full :root block (mandatory)
+    ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #FF9800;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+      --orange-50:  #FFF3E0;
+      --orange-600: #FB8C00;
+      --orange-700: #F57C00;
+      --orange-800: #E56800;
+      --orange-900: #CC630C;
+      --red-50:  #FEEBEE;
+      --red-100: #FECDD2;
+      --red-600: #E53935;
+      --red-700: #D32F2F;
+      --red-800: #C62828;
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           8px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-body1: 16px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+      --line-height-heading: 1.2; --line-height-body: 1.43;
+      --duration-micro: 150ms; --duration-standard: 250ms;
+      --easing-enter: ease-out; --easing-exit: ease-in;
+      --shadow-card: 0 1px 4px rgba(50,118,207,0.10);
+      --shadow-modal: 0 8px 32px rgba(0,0,0,0.18);
+      --shadow-focus: 0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --table-header: #F5F5F5;
+      --table-row: #FAFAFA;
+      --table-row-hover: #F5F5F5;
+      --table-row-selected: #F2F5FA;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: var(--line-height-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .skip-link {
+      position: absolute; top: -60px; left: 0;
+      background: var(--color-primary); color: #fff;
+      padding: var(--space-3) var(--space-5);
+      border-radius: 0 0 var(--radius-button) 0;
+      font-weight: var(--font-weight-medium); text-decoration: none; z-index: 1000;
+    }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 4px; }
+    :focus:not(:focus-visible) { outline: none; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* --- App Shell --- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      grid-template-rows: 60px 1fr;
+      min-height: 100vh;
+    }
+
+    /* --- Top Bar --- */
+    .top-bar {
+      grid-column: 1 / -1; grid-row: 1;
+      position: sticky; top: 0;
+      display: flex; align-items: center; gap: var(--space-5);
+      padding: 0 var(--space-5);
+      background: var(--color-card); border-bottom: var(--border-default);
+      z-index: 100; height: 60px;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: var(--space-5); flex-shrink: 0; }
+    .hamburger-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border: none; background: transparent;
+      color: var(--text-primary); cursor: pointer; padding: 0;
+    }
+    .top-bar-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .top-bar-logo img { height: 35px; width: auto; }
+    .top-bar-spacer { flex: 1; }
+    .top-bar-search { position: relative; max-width: 585px; flex: 0 1 585px; }
+    .top-bar-search input {
+      width: 100%; height: 40px; padding: 0 48px 0 var(--space-5);
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--grey-50); outline: none;
+    }
+    .top-bar-search input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .top-bar-search input::placeholder { color: var(--text-secondary); }
+    .top-bar-search .search-icon {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--text-secondary); pointer-events: none; font-size: 22px;
+    }
+    .icon-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary); cursor: pointer; position: relative;
+      transition: background var(--duration-micro);
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .icon-btn .notif-dot {
+      position: absolute; top: 4px; right: 4px; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--color-error); border: 2px solid var(--color-card);
+    }
+    .user-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--color-primary); color: #FFFFFF;
+      font-size: 13px; font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+    }
+
+    /* --- Sidebar --- */
+    .sidebar {
+      grid-column: 1; grid-row: 2;
+      background: var(--color-card); border-right: var(--border-default);
+      width: 68px; padding: var(--space-4) 0;
+      overflow-y: hidden; display: flex; flex-direction: column; align-items: center;
+      position: sticky; top: 60px; height: calc(100vh - 60px);
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 4px; }
+    .sidebar-search-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: var(--radius-card);
+      color: var(--text-secondary); cursor: pointer; margin-bottom: var(--space-3);
+      border: none; background: transparent;
+    }
+    .sidebar-search-icon:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .nav-list {
+      list-style: none; display: flex; flex-direction: column;
+      align-items: center; gap: var(--space-1); width: 100%;
+    }
+    .nav-item {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: var(--radius-card);
+      color: var(--text-secondary); text-decoration: none; cursor: pointer;
+      transition: all var(--duration-micro); position: relative;
+    }
+    .nav-item:hover { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active::before {
+      content: ''; position: absolute; left: -12px; top: 8px; bottom: 8px;
+      width: 3px; background: var(--color-primary); border-radius: 0 2px 2px 0;
+    }
+    .nav-divider { width: 44px; height: 1px; background: var(--grey-200); margin: var(--space-3) 0; }
+
+    /* --- Main Content --- */
+    .main-content {
+      grid-column: 2; grid-row: 2;
+      padding: var(--space-5);
+      overflow-y: auto; background: var(--color-bg);
+    }
+
+    /* --- Page Title Bar (blue gradient banner) --- */
+    .page-title-bar {
+      display: flex; align-items: center;
+      padding: var(--space-4) var(--space-0);
+      background: transparent;
+      border-radius: var(--radius-card);
+      min-height: 48px;
+      margin-bottom: var(--space-5);
+    }
+    .page-title-bar-left {
+      display: flex; align-items: center; gap: var(--space-4);
+    }
+    .page-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--color-warning); color: #FFFFFF;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+    }
+    .page-title-bar h1 {
+      font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold);
+      color: var(--text-primary); line-height: var(--line-height-heading);
+    }
+    .page-title-bar-spacer { flex: 1; }
+    .btn-create {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 0 var(--space-6); border: none; border-radius: var(--radius-button);
+      background: var(--color-primary); color: #FFFFFF;
+      font-family: var(--font-family); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold); cursor: pointer;
+      height: 36px; white-space: nowrap; letter-spacing: 0.5px;
+      text-transform: uppercase; transition: background var(--duration-micro);
+    }
+    .btn-create:hover { background: var(--color-primary-hover); }
+    .btn-create .material-icons-outlined { font-size: 18px; }
+
+    /* --- Content Card (white card below banner) --- */
+    .content-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-7);
+    }
+
+    /* --- Search & Filter Row --- */
+    .search-filter-row {
+      display: flex; align-items: center; gap: var(--space-5);
+      margin-bottom: var(--space-7);
+    }
+    .table-search {
+      position: relative; flex: 1; max-width: 480px;
+    }
+    .table-search input {
+      width: 100%; height: 40px; padding: 0 var(--space-5) 0 40px;
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-card); outline: none;
+    }
+    .table-search input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .table-search input::placeholder { color: var(--text-secondary); }
+    .table-search .search-icon {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--grey-400); pointer-events: none; font-size: 20px;
+    }
+    .search-filter-spacer { flex: 1; }
+    .btn-filter {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 0 var(--space-5); border: none; background: transparent;
+      color: var(--color-primary); font-family: var(--font-family);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      cursor: pointer; height: 36px; text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .btn-filter:hover { background: var(--color-primary-25); border-radius: var(--radius-button); }
+    .btn-filter .material-icons-outlined { font-size: 18px; }
+
+    /* --- Roles Table --- */
+    .roles-table {
+      width: calc(100% + var(--space-7) * 2);
+      margin-left: calc(var(--space-7) * -1);
+      margin-right: calc(var(--space-7) * -1);
+      border-collapse: collapse;
+    }
+    .roles-table thead th {
+      padding: var(--space-3) var(--space-7);
+      text-align: left; font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium); color: var(--text-secondary);
+      border-bottom: var(--border-default); white-space: nowrap;
+    }
+    .roles-table tbody td {
+      padding: var(--space-3) var(--space-7);
+      font-size: var(--font-size-body); color: var(--text-primary);
+      border-bottom: var(--border-divider); vertical-align: middle;
+    }
+    .roles-table tbody tr:hover { background: var(--table-row-hover); }
+    .roles-table tbody tr:last-child td { border-bottom: none; }
+
+    /* Role link */
+    .role-link {
+      color: var(--text-hyperlink); text-decoration: none;
+      font-weight: var(--font-weight-medium);
+    }
+    .role-link:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+
+    /* Created by cell */
+    .created-by {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .created-by-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--grey-300); color: var(--grey-600);
+      font-size: 11px; font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* Status chip */
+    .status-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: var(--space-1) var(--space-4);
+      border-radius: var(--radius-pill); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium); line-height: 1.5;
+    }
+    .status-active {
+      background: var(--color-success-bg); color: var(--color-success-dark);
+    }
+    .status-inactive {
+      background: var(--grey-100); color: var(--grey-600);
+    }
+
+    /* Action icons */
+    .action-icons {
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .action-icon-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary); cursor: pointer;
+      transition: all var(--duration-micro);
+    }
+    .action-icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .action-icon-btn .material-icons-outlined { font-size: 20px; }
+
+    /* --- Pagination --- */
+    .pagination-row {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: var(--space-5); padding-top: var(--space-5);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .pagination-row label {
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .pagination-select {
+      border: none; background: transparent;
+      font-family: var(--font-family); font-size: var(--font-size-caption);
+      color: var(--text-primary); cursor: pointer; outline: none;
+      padding: var(--space-1) var(--space-2);
+    }
+    .pagination-info { white-space: nowrap; }
+    .pagination-nav {
+      display: flex; align-items: center; gap: 0;
+    }
+    .pagination-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary); cursor: pointer;
+    }
+    .pagination-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: not-allowed; }
+    .pagination-btn:disabled:hover { background: transparent; }
+    .pagination-btn .material-icons-outlined { font-size: 20px; }
+
+    /* --- Side Panel Overlay --- */
+    .sidepanel-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35); z-index: 200;
+    }
+    .sidepanel-overlay.open { display: block; }
+
+    /* --- Side Panel --- */
+    .sidepanel {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 40%; max-width: 100vw;
+      background: var(--color-card); z-index: 210;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+    }
+    .sidepanel.open { transform: translateX(0); }
+
+    .sidepanel-header {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-6) var(--space-7);
+      border-bottom: var(--border-default); flex-shrink: 0;
+    }
+    .sidepanel-header h2 {
+      font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold);
+      color: var(--text-primary); flex: 1;
+    }
+    .sidepanel-close {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary); cursor: pointer;
+    }
+    .sidepanel-close:hover { background: var(--color-primary-25); color: var(--color-primary); }
+
+    .sidepanel-body {
+      flex: 1; overflow-y: auto; padding: var(--space-7);
+    }
+    .sidepanel-body::-webkit-scrollbar { width: 4px; }
+    .sidepanel-body::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 4px; }
+
+    .form-group {
+      margin-bottom: var(--space-6);
+    }
+    .form-label {
+      display: block; font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium); color: var(--text-secondary);
+      margin-bottom: var(--space-2); text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .form-label .required { color: var(--color-error); }
+    .form-input {
+      width: 100%; height: 40px; padding: 0 var(--space-4);
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-card); outline: none;
+    }
+    .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .form-input::placeholder { color: var(--grey-400); }
+    .form-select {
+      width: 100%; height: 40px; padding: 0 36px 0 var(--space-4);
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-card); outline: none;
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23757575' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center;
+    }
+    .form-select:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .form-textarea {
+      width: 100%; min-height: 80px; padding: var(--space-3) var(--space-4);
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-card); outline: none;
+      resize: vertical;
+    }
+    .form-textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .form-textarea::placeholder { color: var(--grey-400); }
+
+    /* Toggle switch */
+    .toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .toggle-row-label {
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .toggle-switch {
+      position: relative; width: 44px; height: 24px;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute; inset: 0; border-radius: 12px;
+      background: var(--grey-300); cursor: pointer;
+      transition: background var(--duration-micro);
+    }
+    .toggle-track::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: transform var(--duration-micro);
+    }
+    .toggle-switch input:checked + .toggle-track { background: var(--color-primary); }
+    .toggle-switch input:checked + .toggle-track::after { transform: translateX(20px); }
+    .toggle-switch input:focus-visible + .toggle-track { box-shadow: var(--shadow-focus); }
+
+    /* Permissions section */
+    .permissions-section {
+      margin-top: var(--space-5);
+    }
+    .permissions-section-title {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: var(--space-4);
+    }
+
+    /* Perm sub-tabs */
+    .perm-subtabs {
+      display: flex; gap: 0; border-bottom: 2px solid var(--grey-200);
+      margin-bottom: var(--space-5);
+    }
+    .perm-subtab {
+      position: relative; padding: var(--space-3) var(--space-5);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      color: var(--text-secondary); background: none; border: none;
+      cursor: pointer; font-family: var(--font-family); white-space: nowrap;
+    }
+    .perm-subtab:hover { color: var(--color-primary); }
+    .perm-subtab.active { color: var(--color-primary); }
+    .perm-subtab.active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 2px; background: var(--color-primary);
+    }
+    .perm-subtab-content { display: none; }
+    .perm-subtab-content.active { display: block; }
+
+    /* Dashboard widget config placeholder */
+    .widget-config-list {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    }
+    .widget-config-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      cursor: pointer;
+      font-size: var(--font-size-body); color: var(--text-primary);
+      user-select: none;
+    }
+    .widget-config-item:hover { background: var(--grey-50); border-radius: 4px; }
+    .widget-config-item input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--color-primary);
+      cursor: pointer; flex-shrink: 0;
+    }
+    .widget-config-item-label { flex: 1; }
+
+    /* Success toast */
+    .toast {
+      position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-80px);
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      background: #e8f5e9; color: #2e7d32; border-radius: 8px;
+      font-size: var(--font-size-body); font-family: var(--font-family);
+      box-shadow: 0 2px 12px rgba(0,0,0,.12); z-index: 9999;
+      opacity: 0; transition: transform .35s ease, opacity .35s ease;
+      pointer-events: none; min-width: 280px;
+    }
+    .toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto;
+    }
+    .toast-msg { flex: 1; font-weight: 500; }
+    .toast-close {
+      background: none; border: none; color: #2e7d32; font-size: 20px;
+      cursor: pointer; padding: 0; line-height: 1;
+    }
+    .toast-close:hover { color: #1b5e20; }
+
+    /* Permission table */
+    .perm-matrix {
+      width: 100%; border-collapse: collapse;
+    }
+    .perm-matrix thead th {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--text-primary); text-align: center;
+      border-bottom: 2px solid var(--grey-200);
+    }
+    .perm-matrix thead th:first-child { text-align: left; }
+    .perm-matrix tbody td {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-body); color: var(--text-primary);
+      border-bottom: var(--border-divider); vertical-align: middle;
+      text-align: center;
+    }
+    .perm-matrix tbody td:first-child { text-align: left; }
+    .perm-matrix tbody tr:last-child td { border-bottom: none; }
+    .perm-matrix tbody tr:hover { background: var(--grey-50); }
+
+    /* Parent module row */
+    .perm-parent-cell {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .perm-expand-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border: none; border-radius: 4px;
+      background: transparent; color: var(--text-secondary); cursor: pointer; padding: 0;
+    }
+    .perm-expand-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .perm-expand-btn .material-icons-outlined { font-size: 20px; }
+    .perm-toggle {
+      position: relative; width: 36px; height: 20px; flex-shrink: 0;
+    }
+    .perm-toggle input { opacity: 0; width: 0; height: 0; }
+    .perm-toggle-track {
+      position: absolute; inset: 0; border-radius: 10px;
+      background: var(--grey-300); cursor: pointer;
+      transition: background var(--duration-micro);
+    }
+    .perm-toggle-track::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      transition: transform var(--duration-micro);
+    }
+    .perm-toggle input:checked + .perm-toggle-track { background: var(--color-primary); }
+    .perm-toggle input:checked + .perm-toggle-track::after { transform: translateX(16px); }
+    .perm-toggle input:focus-visible + .perm-toggle-track { box-shadow: var(--shadow-focus); }
+    .perm-module-label {
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+
+    /* Child row */
+    .perm-child-cell {
+      padding-left: var(--space-9);
+      font-size: var(--font-size-body); color: var(--text-primary);
+    }
+    .perm-matrix tbody tr.perm-child-row { background: var(--grey-100); }
+    .perm-matrix tbody tr.perm-child-row td {
+      padding-top: var(--space-2); padding-bottom: var(--space-2);
+    }
+
+    /* Checkbox styling in matrix */
+    .perm-matrix input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--color-primary);
+      cursor: pointer;
+    }
+
+    /* Side panel footer */
+    .sidepanel-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: var(--space-4); padding: var(--space-5) var(--space-7);
+      border-top: var(--border-default); flex-shrink: 0;
+    }
+    .btn-cancel {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 var(--space-7); border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-button); background: var(--color-card);
+      color: var(--text-primary); font-family: var(--font-family);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      cursor: pointer; height: 40px; white-space: nowrap;
+      transition: all var(--duration-micro);
+    }
+    .btn-cancel:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-25); }
+    .btn-save {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 var(--space-7); border: none;
+      border-radius: var(--radius-button); background: var(--color-primary);
+      color: #FFFFFF; font-family: var(--font-family);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      cursor: pointer; height: 40px; white-space: nowrap;
+      transition: background var(--duration-micro);
+    }
+    .btn-save:hover { background: var(--color-primary-hover); }
+
+    /* --- Panel Tabs --- */
+    .panel-tabs {
+      display: flex; gap: 0; border-bottom: 2px solid var(--grey-200);
+      padding: 0 var(--space-7); flex-shrink: 0;
+    }
+    .panel-tab {
+      position: relative; padding: var(--space-4) var(--space-5);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase;
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-family); white-space: nowrap;
+    }
+    .panel-tab:hover { color: var(--color-primary); }
+    .panel-tab.active { color: var(--color-primary); }
+    .panel-tab.active::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 2px; background: var(--color-primary);
+    }
+    .panel-tab-content { display: none; }
+    .panel-tab-content.active { display: block; }
+
+    /* Status row inside edit panel */
+    .status-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-5) 0; border-bottom: var(--border-divider);
+      margin-bottom: var(--space-5);
+    }
+    .status-row-label {
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .status-row-right {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .status-row-value {
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+
+    /* --- Assigned Users Tab --- */
+    .assign-section-label {
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      color: var(--text-primary); margin-bottom: var(--space-3);
+    }
+    .assign-input-row {
+      display: flex; gap: var(--space-3); align-items: center;
+      margin-bottom: var(--space-6);
+    }
+    .chip-input-wrap {
+      flex: 1; display: flex; flex-wrap: wrap; gap: var(--space-2);
+      align-items: center; min-height: 40px; padding: var(--space-2) var(--space-3);
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      background: var(--color-card); cursor: text;
+    }
+    .chip-input-wrap:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .chip-tag {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 2px 8px; border-radius: var(--radius-pill);
+      background: var(--color-primary-50); color: var(--color-primary);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      white-space: nowrap;
+    }
+    .chip-tag-remove {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px; border: none; border-radius: 50%;
+      background: transparent; color: var(--color-primary); cursor: pointer;
+      font-size: 14px; padding: 0; line-height: 1;
+    }
+    .chip-tag-remove:hover { background: var(--color-primary-75); }
+    .chip-input-field {
+      border: none; outline: none; font-family: var(--font-family);
+      font-size: var(--font-size-body); color: var(--text-primary); flex: 1;
+      min-width: 60px; background: transparent;
+    }
+    .chip-input-field::placeholder { color: var(--grey-400); }
+    .chip-input-dropdown {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; color: var(--text-secondary); margin-left: auto;
+      flex-shrink: 0;
+    }
+    .btn-assign {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 var(--space-6); height: 40px; border: none;
+      border-radius: var(--radius-button); background: var(--color-success);
+      color: #FFFFFF; font-family: var(--font-family); font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold); letter-spacing: 0.5px;
+      cursor: pointer; white-space: nowrap; text-transform: uppercase;
+    }
+    .btn-assign:hover { background: var(--color-success-dark); }
+
+    .assigned-list-header {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-bottom: var(--space-5);
+    }
+    .assigned-list-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--color-primary); color: #FFFFFF;
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+    }
+    .assigned-list-title {
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+
+    .assigned-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .assigned-table thead th {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); text-align: left;
+      border-bottom: 2px solid var(--grey-200);
+    }
+    .assigned-table tbody td {
+      padding: var(--space-4); font-size: var(--font-size-body);
+      color: var(--text-primary); border-bottom: var(--border-divider);
+      vertical-align: middle;
+    }
+    .assigned-table tbody tr:last-child td { border-bottom: none; }
+    .assigned-table tbody tr:hover { background: var(--grey-50); }
+    .assigned-user-cell {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .user-avatar-sm {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--grey-400); color: #FFFFFF;
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .status-chip-sm {
+      display: inline-block; padding: 2px 12px; border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      border: 1.5px solid var(--color-success); color: var(--color-success);
+      background: transparent;
+    }
+
+    /* --- History Tab --- */
+    .history-timeline {
+      position: relative; padding-left: 0;
+    }
+    .timeline-item {
+      display: flex; gap: var(--space-5); position: relative;
+      padding-bottom: var(--space-7); min-height: 48px;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-date {
+      width: 60px; flex-shrink: 0; text-align: right;
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+      line-height: 1.4; padding-top: 2px;
+    }
+    .timeline-dot-col {
+      display: flex; flex-direction: column; align-items: center;
+      width: 16px; flex-shrink: 0;
+    }
+    .timeline-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--grey-400); flex-shrink: 0; margin-top: 5px;
+    }
+    .timeline-line {
+      width: 2px; flex: 1; background: var(--grey-300); margin-top: var(--space-2);
+    }
+    .timeline-item:last-child .timeline-line { display: none; }
+    .timeline-body {
+      flex: 1; display: flex; align-items: flex-start; gap: var(--space-3);
+      padding-top: 0;
+    }
+    .timeline-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--grey-400); color: #FFFFFF;
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .timeline-text {
+      font-size: var(--font-size-body); color: var(--text-primary); line-height: 1.5;
+    }
+    .timeline-text strong { font-weight: var(--font-weight-semibold); }
+    .timeline-approved { color: var(--color-success); font-weight: var(--font-weight-semibold); }
+    .timeline-rejected { color: var(--color-error); font-weight: var(--font-weight-semibold); }
+    .timeline-changed { font-weight: var(--font-weight-semibold); }
+
+    /* --- Confirm Modal --- */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35); z-index: 300;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-dialog {
+      background: var(--color-card); border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal); width: 480px; max-width: calc(100vw - 48px);
+      padding: var(--space-7);
+    }
+    .modal-header {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+    .modal-warn-icon {
+      width: 28px; height: 28px; display: inline-flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+      color: var(--color-warning);
+    }
+    .modal-warn-icon .material-icons-outlined { font-size: 28px; }
+    .modal-header-title {
+      font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold);
+      color: var(--text-primary); flex: 1;
+    }
+    .modal-close {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary); cursor: pointer;
+    }
+    .modal-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .modal-body {
+      font-size: var(--font-size-body); color: var(--text-primary);
+      line-height: var(--line-height-body); margin-bottom: var(--space-7);
+    }
+    .modal-body p { margin: 0 0 var(--space-5) 0; }
+    .modal-body p:last-child { margin-bottom: 0; }
+    .modal-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: var(--space-4);
+    }
+    .btn-modal-cancel {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 var(--space-7); height: 40px;
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-button);
+      background: var(--color-card); color: var(--text-primary);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold); letter-spacing: 0.5px;
+      text-transform: uppercase; cursor: pointer;
+    }
+    .btn-modal-cancel:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-25); }
+    .btn-modal-confirm {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 var(--space-7); height: 40px; border: none;
+      border-radius: var(--radius-button); background: var(--color-primary);
+      color: #FFFFFF; font-family: var(--font-family); font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold); letter-spacing: 0.5px;
+      text-transform: uppercase; cursor: pointer; white-space: nowrap;
+    }
+    .btn-modal-confirm:hover { background: var(--color-primary-hover); }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="app-shell">
+
+    <!-- --- Top Bar --- -->
+    <header class="top-bar" role="banner">
+      <div class="top-bar-left">
+        <button class="hamburger-btn" aria-label="Toggle navigation">
+          <span class="material-icons-outlined">menu</span>
+        </button>
+        <a href="dashboard.html" class="top-bar-logo" aria-label="FieldSync Home">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23065f46'/%3E%3Ccircle cx='16' cy='14' r='4' fill='none' stroke='%2334d399' stroke-width='2'/%3E%3Cpath d='M16 10v-2M16 20v2M10 14H8M24 14h-2' stroke='%2334d399' stroke-width='2'/%3E%3C/svg%3E" alt="FieldSync" />
+        </a>
+      </div>
+      <div class="top-bar-spacer"></div>
+      <div class="top-bar-search">
+        <input type="search" placeholder="Search Keywords : Agent ID, Agent Name, Job ID, User, Client Name..." aria-label="Global search" />
+        <span class="material-icons-outlined search-icon" aria-hidden="true">search</span>
+      </div>
+      <button class="icon-btn" aria-label="Clipboard">
+        <span class="material-icons-outlined">content_paste</span>
+        <span class="notif-dot"></span>
+      </button>
+      <button class="icon-btn" aria-label="Notifications">
+        <span class="material-icons-outlined">notifications_none</span>
+      </button>
+      <div class="user-avatar" role="img" aria-label="User: Admin">AD</div>
+    </header>
+
+    <!-- --- Left Sidebar --- -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-search-icon" aria-label="Sidebar search">
+        <span class="material-icons-outlined" style="font-size:22px;">search</span>
+      </button>
+      <ul class="nav-list" role="list">
+        <li><a href="dashboard.html" class="nav-item" aria-label="Dashboard"><span class="material-icons-outlined">dashboard</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Calendar"><span class="material-icons-outlined">calendar_today</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Business"><span class="material-icons-outlined">business</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Library"><span class="material-icons-outlined">menu_book</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Settings"><span class="material-icons-outlined">settings</span></a></li>
+        <li><a href="roles-responsibilities.html" class="nav-item active" aria-current="page" aria-label="Roles &amp; Permissions"><span class="material-icons-outlined">people_outline</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Alerts"><span class="material-icons-outlined">warning_amber</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Clipboard"><span class="material-icons-outlined">content_paste</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Flag"><span class="material-icons-outlined">flag</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Globe"><span class="material-icons-outlined">public</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Help"><span class="material-icons-outlined">help_outline</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- --- Main Content --- -->
+    <main class="main-content" id="main-content">
+
+      <!-- Blue gradient title bar -->
+      <div class="page-title-bar">
+        <div class="page-title-bar-left">
+          <span class="page-badge">03</span>
+          <h1>Roles &amp; Permissions</h1>
+        </div>
+        <div class="page-title-bar-spacer"></div>
+        <button class="btn-create" aria-label="Create new role">
+          <span class="material-icons-outlined" aria-hidden="true">add</span>
+          Create New Role
+        </button>
+      </div>
+
+      <!-- White content card -->
+      <div class="content-card">
+
+        <!-- Search + Filters -->
+        <div class="search-filter-row">
+          <div class="table-search">
+            <span class="material-icons-outlined search-icon" aria-hidden="true">search</span>
+            <input type="search" placeholder="Search" aria-label="Search roles" />
+          </div>
+          <div class="search-filter-spacer"></div>
+          <button class="btn-filter" aria-label="Toggle filters">
+            <span class="material-icons-outlined" aria-hidden="true">filter_list</span>
+            Filters
+          </button>
+        </div>
+
+        <!-- Roles data table -->
+        <table class="roles-table" aria-label="Roles and permissions list">
+          <thead>
+            <tr>
+              <th scope="col">Role</th>
+              <th scope="col">Created On</th>
+              <th scope="col">Created by</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#" class="role-link">Admin</a></td>
+              <td>07/10/2024</td>
+              <td>
+                <div class="created-by">
+                  <span class="created-by-avatar" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><span class="status-chip status-active">Active</span></td>
+              <td>
+                <div class="action-icons">
+                  <button class="action-icon-btn" aria-label="Edit Admin role">
+                    <span class="material-icons-outlined">edit</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="Manage Admin permissions">
+                    <span class="material-icons-outlined">group_add</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="View Admin history">
+                    <span class="material-icons-outlined">history</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="#" class="role-link">Requestor</a></td>
+              <td>07/10/2024</td>
+              <td>
+                <div class="created-by">
+                  <span class="created-by-avatar" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><span class="status-chip status-active">Active</span></td>
+              <td>
+                <div class="action-icons">
+                  <button class="action-icon-btn" aria-label="Edit Requestor role">
+                    <span class="material-icons-outlined">edit</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="Manage Requestor permissions">
+                    <span class="material-icons-outlined">group_add</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="View Requestor history">
+                    <span class="material-icons-outlined">history</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="#" class="role-link">Approver</a></td>
+              <td>07/10/2024</td>
+              <td>
+                <div class="created-by">
+                  <span class="created-by-avatar" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><span class="status-chip status-active">Active</span></td>
+              <td>
+                <div class="action-icons">
+                  <button class="action-icon-btn" aria-label="Edit Approver role">
+                    <span class="material-icons-outlined">edit</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="Manage Approver permissions">
+                    <span class="material-icons-outlined">group_add</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="View Approver history">
+                    <span class="material-icons-outlined">history</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="#" class="role-link">Manager</a></td>
+              <td>07/10/2024</td>
+              <td>
+                <div class="created-by">
+                  <span class="created-by-avatar" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><span class="status-chip status-active">Active</span></td>
+              <td>
+                <div class="action-icons">
+                  <button class="action-icon-btn" aria-label="Edit Manager role">
+                    <span class="material-icons-outlined">edit</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="Manage Manager permissions">
+                    <span class="material-icons-outlined">group_add</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="View Manager history">
+                    <span class="material-icons-outlined">history</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="#" class="role-link">Field Agent</a></td>
+              <td>07/10/2024</td>
+              <td>
+                <div class="created-by">
+                  <span class="created-by-avatar" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><span class="status-chip status-active">Active</span></td>
+              <td>
+                <div class="action-icons">
+                  <button class="action-icon-btn" aria-label="Edit Field Agent role">
+                    <span class="material-icons-outlined">edit</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="Manage Field Agent permissions">
+                    <span class="material-icons-outlined">group_add</span>
+                  </button>
+                  <button class="action-icon-btn" aria-label="View Field Agent history">
+                    <span class="material-icons-outlined">history</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination-row" aria-label="Pagination">
+          <label>
+            Rows per page:
+            <select class="pagination-select" aria-label="Rows per page">
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+          <span class="pagination-info">1-5 of 13</span>
+          <div class="pagination-nav">
+            <button class="pagination-btn" disabled aria-label="Previous page">
+              <span class="material-icons-outlined">chevron_left</span>
+            </button>
+            <button class="pagination-btn" aria-label="Next page">
+              <span class="material-icons-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- --- Side Panel: Create New Role --- -->
+  <div class="sidepanel-overlay" id="panelOverlay" aria-hidden="true"></div>
+  <aside class="sidepanel" id="createRolePanel" role="dialog" aria-labelledby="panelTitle" aria-modal="true">
+    <div class="sidepanel-header">
+      <h2 id="panelTitle">Create New Role</h2>
+      <button class="sidepanel-close" id="btnClosePanel" aria-label="Close panel">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="sidepanel-body">
+      <form id="createRoleForm" novalidate>
+
+        <!-- Role Name -->
+        <div class="form-group">
+          <label class="form-label" for="roleName">Role Name <span class="required">*</span></label>
+          <input class="form-input" type="text" id="roleName" placeholder="Enter role name" required />
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label class="form-label" for="roleDescription">Description</label>
+          <textarea class="form-textarea" id="roleDescription" placeholder="Enter role description" rows="3"></textarea>
+        </div>
+
+        <!-- Permissions -->
+        <div class="permissions-section">
+          <div class="perm-subtabs" role="tablist" data-group="create">
+            <button class="perm-subtab active" role="tab" data-permtab="create-modulePerms">Module Permissions</button>
+            <button class="perm-subtab" role="tab" data-permtab="create-widgetConfig">Dashboard Widget Config</button>
+          </div>
+
+          <div class="perm-subtab-content active" id="create-modulePerms">
+          <table class="perm-matrix" aria-label="Module permissions matrix">
+            <thead>
+              <tr>
+                <th scope="col">Permission</th>
+                <th scope="col">Read Only</th>
+                <th scope="col">Read &amp; Write</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Schedule (parent) -->
+              <tr class="perm-parent-row" data-module="schedule">
+                <td>
+                  <div class="perm-parent-cell">
+                    <button class="perm-expand-btn" aria-expanded="true" aria-label="Toggle Schedule children">
+                      <span class="material-icons-outlined">expand_more</span>
+                    </button>
+                    <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                    <span class="perm-module-label">Schedule</span>
+                  </div>
+                </td>
+                <td><input type="checkbox" checked aria-label="Schedule Read Only" /></td>
+                <td><input type="checkbox" checked aria-label="Schedule Read & Write" /></td>
+                <td><input type="checkbox" checked aria-label="Schedule Delete" /></td>
+              </tr>
+              <tr class="perm-child-row" data-parent="schedule">
+                <td><div class="perm-child-cell">Jobs Schedule</div></td>
+                <td><input type="checkbox" checked aria-label="Jobs Schedule Read Only" /></td>
+                <td><input type="checkbox" checked aria-label="Jobs Schedule Read & Write" /></td>
+                <td><input type="checkbox" checked aria-label="Jobs Schedule Delete" /></td>
+              </tr>
+              <tr class="perm-child-row" data-parent="schedule">
+                <td><div class="perm-child-cell">Agents</div></td>
+                <td><input type="checkbox" checked aria-label="Agents Read Only" /></td>
+                <td><input type="checkbox" checked aria-label="Agents Read & Write" /></td>
+                <td><input type="checkbox" checked aria-label="Agents Delete" /></td>
+              </tr>
+              <tr class="perm-child-row" data-parent="schedule">
+                <td><div class="perm-child-cell">Generated Files</div></td>
+                <td><input type="checkbox" checked aria-label="Generated Files Read Only" /></td>
+                <td><input type="checkbox" aria-label="Generated Files Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Generated Files Delete" /></td>
+              </tr>
+
+              <!-- Jobs (parent, no children) -->
+              <tr class="perm-parent-row">
+                <td>
+                  <div class="perm-parent-cell">
+                    <span style="width:24px;" aria-hidden="true"></span>
+                    <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                    <span class="perm-module-label">Jobs</span>
+                  </div>
+                </td>
+                <td><input type="checkbox" checked aria-label="Jobs Read Only" /></td>
+                <td><input type="checkbox" aria-label="Jobs Read & Write" /></td>
+                <td><input type="checkbox" checked aria-label="Jobs Delete" /></td>
+              </tr>
+
+              <!-- Stock Equipments (parent, no children) -->
+              <tr class="perm-parent-row">
+                <td>
+                  <div class="perm-parent-cell">
+                    <span style="width:24px;" aria-hidden="true"></span>
+                    <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                    <span class="perm-module-label">Stock Equipments</span>
+                  </div>
+                </td>
+                <td><input type="checkbox" checked aria-label="Stock Equipments Read Only" /></td>
+                <td><input type="checkbox" aria-label="Stock Equipments Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Stock Equipments Delete" /></td>
+              </tr>
+
+              <!-- Notification (parent, no children) -->
+              <tr class="perm-parent-row">
+                <td>
+                  <div class="perm-parent-cell">
+                    <span style="width:24px;" aria-hidden="true"></span>
+                    <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                    <span class="perm-module-label">Notification</span>
+                  </div>
+                </td>
+                <td><input type="checkbox" checked aria-label="Notification Read Only" /></td>
+                <td><input type="checkbox" checked aria-label="Notification Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Notification Delete" /></td>
+              </tr>
+
+              <!-- Engage iAudit (parent, no children) -->
+              <tr class="perm-parent-row">
+                <td>
+                  <div class="perm-parent-cell">
+                    <span style="width:24px;" aria-hidden="true"></span>
+                    <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                    <span class="perm-module-label">Engage iAudit</span>
+                  </div>
+                </td>
+                <td><input type="checkbox" checked aria-label="Engage iAudit Read Only" /></td>
+                <td><input type="checkbox" aria-label="Engage iAudit Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Engage iAudit Delete" /></td>
+              </tr>
+
+              <!-- Map (parent, no children) -->
+              <tr class="perm-parent-row">
+                <td>
+                  <div class="perm-parent-cell">
+                    <span style="width:24px;" aria-hidden="true"></span>
+                    <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                    <span class="perm-module-label">Map</span>
+                  </div>
+                </td>
+                <td><input type="checkbox" checked aria-label="Map Read Only" /></td>
+                <td><input type="checkbox" aria-label="Map Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Map Delete" /></td>
+              </tr>
+
+              <!-- Users (parent) -->
+              <tr class="perm-parent-row" data-module="users">
+                <td>
+                  <div class="perm-parent-cell">
+                    <button class="perm-expand-btn" aria-expanded="true" aria-label="Toggle Users children">
+                      <span class="material-icons-outlined">expand_more</span>
+                    </button>
+                    <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                    <span class="perm-module-label">Users</span>
+                  </div>
+                </td>
+                <td><input type="checkbox" aria-label="Users Read Only" /></td>
+                <td><input type="checkbox" checked aria-label="Users Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Users Delete" /></td>
+              </tr>
+              <tr class="perm-child-row" data-parent="users">
+                <td><div class="perm-child-cell">Users Management</div></td>
+                <td><input type="checkbox" aria-label="Users Management Read Only" /></td>
+                <td><input type="checkbox" checked aria-label="Users Management Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Users Management Delete" /></td>
+              </tr>
+              <tr class="perm-child-row" data-parent="users">
+                <td><div class="perm-child-cell">Roles &amp; Permissions</div></td>
+                <td><input type="checkbox" aria-label="Roles & Permissions Read Only" /></td>
+                <td><input type="checkbox" checked aria-label="Roles & Permissions Read & Write" /></td>
+                <td><input type="checkbox" aria-label="Roles & Permissions Delete" /></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+          <div class="perm-subtab-content" id="create-widgetConfig">
+            <div class="widget-config-list">
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Staff Working vs Available</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">SLA Performance</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Jobs Outcome</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Visit Counter</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Avg Job Completion / Engineer</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Avg Job Duration / Engineer</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Vehicle Check Adherence</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Metering SLA Performance</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Staff Distribution by Scheduling Tool</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Jobs at Risk by SLA Status</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Total Tasks</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Task SLA Risk</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">SLA Deadlines</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Jobs Visited per Client</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Job Holdings / Agent</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Current Agent Locations</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">BWV Compliance</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Jeopardy View</span></label>
+            </div>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+    <div class="sidepanel-footer">
+      <button class="btn-cancel" id="btnCancelRole" type="button">Cancel</button>
+      <button class="btn-save" id="btnSaveRole" type="button">Save Role</button>
+    </div>
+  </aside>
+
+  <!-- --- Side Panel: Edit Role --- -->
+  <aside class="sidepanel" id="editRolePanel" role="dialog" aria-labelledby="editPanelTitle" aria-modal="true">
+    <div class="sidepanel-header">
+      <h2 id="editPanelTitle">Adhoc - user</h2>
+      <button class="sidepanel-close" id="btnCloseEditPanel" aria-label="Close panel">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="panel-tabs" role="tablist">
+      <button class="panel-tab active" role="tab" aria-selected="true" data-tab="detailsPermissions">Details &amp; Permissions</button>
+      <button class="panel-tab" role="tab" aria-selected="false" data-tab="assignedUsers">Assigned Users</button>
+      <button class="panel-tab" role="tab" aria-selected="false" data-tab="history">History</button>
+    </div>
+
+    <div class="sidepanel-body">
+
+      <!-- Tab 1: Details & Permissions -->
+      <div class="panel-tab-content active" id="tab-detailsPermissions">
+
+        <!-- Description -->
+        <div class="form-group">
+          <label class="form-label" for="editDescription">Description</label>
+          <textarea class="form-textarea" id="editDescription" rows="3">The user has only view access to all details.</textarea>
+        </div>
+
+        <!-- Status -->
+        <div class="status-row">
+          <span class="status-row-label">Status</span>
+          <div class="status-row-right">
+            <span class="status-row-value">Active</span>
+            <label class="toggle-switch">
+              <input type="checkbox" checked />
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Permission sub-tabs -->
+        <div class="permissions-section">
+          <div class="perm-subtabs" role="tablist" data-group="edit">
+            <button class="perm-subtab active" role="tab" data-permtab="edit-modulePerms">Module Permissions</button>
+            <button class="perm-subtab" role="tab" data-permtab="edit-widgetConfig">Dashboard Widget Config</button>
+          </div>
+
+          <div class="perm-subtab-content active" id="edit-modulePerms">
+        <!-- Permission matrix -->
+        <table class="perm-matrix" aria-label="Module permissions matrix">
+          <thead>
+            <tr>
+              <th scope="col">Permission</th>
+              <th scope="col">Read Only</th>
+              <th scope="col">Read &amp; Write</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="perm-parent-row" data-module="edit-schedule">
+              <td>
+                <div class="perm-parent-cell">
+                  <button class="perm-expand-btn" aria-expanded="true" aria-label="Toggle Schedule children">
+                    <span class="material-icons-outlined">expand_more</span>
+                  </button>
+                  <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                  <span class="perm-module-label">Schedule</span>
+                </div>
+              </td>
+              <td><input type="checkbox" checked aria-label="Schedule Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Schedule Read & Write" /></td>
+              <td><input type="checkbox" checked aria-label="Schedule Delete" /></td>
+            </tr>
+            <tr class="perm-child-row" data-parent="edit-schedule">
+              <td><div class="perm-child-cell">Jobs Schedule</div></td>
+              <td><input type="checkbox" checked aria-label="Jobs Schedule Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Jobs Schedule Read & Write" /></td>
+              <td><input type="checkbox" checked aria-label="Jobs Schedule Delete" /></td>
+            </tr>
+            <tr class="perm-child-row" data-parent="edit-schedule">
+              <td><div class="perm-child-cell">Agents</div></td>
+              <td><input type="checkbox" checked aria-label="Agents Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Agents Read & Write" /></td>
+              <td><input type="checkbox" checked aria-label="Agents Delete" /></td>
+            </tr>
+            <tr class="perm-child-row" data-parent="edit-schedule">
+              <td><div class="perm-child-cell">Generated files</div></td>
+              <td><input type="checkbox" checked aria-label="Generated files Read Only" /></td>
+              <td><input type="checkbox" aria-label="Generated files Read & Write" /></td>
+              <td><input type="checkbox" checked aria-label="Generated files Delete" /></td>
+            </tr>
+
+            <tr class="perm-parent-row">
+              <td>
+                <div class="perm-parent-cell">
+                  <span style="width:24px;" aria-hidden="true"></span>
+                  <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                  <span class="perm-module-label">Jobs</span>
+                </div>
+              </td>
+              <td><input type="checkbox" checked aria-label="Jobs Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Jobs Read & Write" /></td>
+              <td><input type="checkbox" checked aria-label="Jobs Delete" /></td>
+            </tr>
+
+            <tr class="perm-parent-row">
+              <td>
+                <div class="perm-parent-cell">
+                  <span style="width:24px;" aria-hidden="true"></span>
+                  <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                  <span class="perm-module-label">Stock Equipment's</span>
+                </div>
+              </td>
+              <td><input type="checkbox" checked aria-label="Stock Equipments Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Stock Equipments Read & Write" /></td>
+              <td><input type="checkbox" checked aria-label="Stock Equipments Delete" /></td>
+            </tr>
+
+            <tr class="perm-parent-row">
+              <td>
+                <div class="perm-parent-cell">
+                  <span style="width:24px;" aria-hidden="true"></span>
+                  <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                  <span class="perm-module-label">Notification</span>
+                </div>
+              </td>
+              <td><input type="checkbox" checked aria-label="Notification Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Notification Read & Write" /></td>
+              <td><input type="checkbox" aria-label="Notification Delete" /></td>
+            </tr>
+
+            <tr class="perm-parent-row">
+              <td>
+                <div class="perm-parent-cell">
+                  <span style="width:24px;" aria-hidden="true"></span>
+                  <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                  <span class="perm-module-label">Engage iAudit</span>
+                </div>
+              </td>
+              <td><input type="checkbox" checked aria-label="Engage iAudit Read Only" /></td>
+              <td><input type="checkbox" aria-label="Engage iAudit Read & Write" /></td>
+              <td><input type="checkbox" aria-label="Engage iAudit Delete" /></td>
+            </tr>
+
+            <tr class="perm-parent-row">
+              <td>
+                <div class="perm-parent-cell">
+                  <span style="width:24px;" aria-hidden="true"></span>
+                  <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                  <span class="perm-module-label">Map</span>
+                </div>
+              </td>
+              <td><input type="checkbox" checked aria-label="Map Read Only" /></td>
+              <td><input type="checkbox" aria-label="Map Read & Write" /></td>
+              <td><input type="checkbox" aria-label="Map Delete" /></td>
+            </tr>
+
+            <tr class="perm-parent-row" data-module="edit-users">
+              <td>
+                <div class="perm-parent-cell">
+                  <button class="perm-expand-btn" aria-expanded="true" aria-label="Toggle Users children">
+                    <span class="material-icons-outlined">expand_more</span>
+                  </button>
+                  <label class="perm-toggle"><input type="checkbox" checked /><span class="perm-toggle-track"></span></label>
+                  <span class="perm-module-label">Users</span>
+                </div>
+              </td>
+              <td><input type="checkbox" aria-label="Users Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Users Read & Write" /></td>
+              <td><input type="checkbox" aria-label="Users Delete" /></td>
+            </tr>
+            <tr class="perm-child-row" data-parent="edit-users">
+              <td><div class="perm-child-cell">Users Management</div></td>
+              <td><input type="checkbox" aria-label="Users Management Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Users Management Read & Write" /></td>
+              <td><input type="checkbox" aria-label="Users Management Delete" /></td>
+            </tr>
+            <tr class="perm-child-row" data-parent="edit-users">
+              <td><div class="perm-child-cell">Roles &amp; Permissions</div></td>
+              <td><input type="checkbox" aria-label="Roles & Permissions Read Only" /></td>
+              <td><input type="checkbox" checked aria-label="Roles & Permissions Read & Write" /></td>
+              <td><input type="checkbox" aria-label="Roles & Permissions Delete" /></td>
+            </tr>
+          </tbody>
+        </table>
+          </div>
+
+          <div class="perm-subtab-content" id="edit-widgetConfig">
+            <div class="widget-config-list">
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Staff Working vs Available</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">SLA Performance</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Jobs Outcome</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Visit Counter</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Avg Job Completion / Engineer</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Avg Job Duration / Engineer</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Vehicle Check Adherence</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Metering SLA Performance</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Staff Distribution by Scheduling Tool</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Jobs at Risk by SLA Status</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Total Tasks</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Task SLA Risk</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">SLA Deadlines</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Jobs Visited per Client</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Job Holdings / Agent</span></label>
+              <label class="widget-config-item"><input type="checkbox" checked /><span class="widget-config-item-label">Current Agent Locations</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">BWV Compliance</span></label>
+              <label class="widget-config-item"><input type="checkbox" /><span class="widget-config-item-label">Jeopardy View</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Assigned Users -->
+      <div class="panel-tab-content" id="tab-assignedUsers">
+
+        <div class="assign-section-label">Users</div>
+        <div class="assign-input-row">
+          <div class="chip-input-wrap">
+            <span class="chip-tag">John Doe <button class="chip-tag-remove" aria-label="Remove John Doe">&times;</button></span>
+            <span class="chip-tag">Thomas Williams <button class="chip-tag-remove" aria-label="Remove Thomas Williams">&times;</button></span>
+            <input class="chip-input-field" placeholder="Search users…" />
+            <span class="chip-input-dropdown material-icons-outlined" aria-hidden="true">arrow_drop_down</span>
+          </div>
+          <button class="btn-assign" type="button">Assign</button>
+        </div>
+
+        <div class="assigned-list-header">
+          <span class="assigned-list-badge">3</span>
+          <span class="assigned-list-title">Assigned Users list</span>
+        </div>
+
+        <table class="assigned-table" aria-label="Assigned users">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Email address</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="assigned-user-cell">
+                  <span class="user-avatar-sm" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><a href="mailto:jacobwilliams@sample.co.uk" style="color:var(--text-hyperlink); text-decoration:none;">jacobwilliams@sample.co.uk</a></td>
+              <td><span class="status-chip-sm">Active</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="assigned-user-cell">
+                  <span class="user-avatar-sm" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><a href="mailto:jacobwilliams@sample.co.uk" style="color:var(--text-hyperlink); text-decoration:none;">jacobwilliams@sample.co.uk</a></td>
+              <td><span class="status-chip-sm">Active</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="assigned-user-cell">
+                  <span class="user-avatar-sm" aria-hidden="true">JW</span>
+                  Jacob Williams
+                </div>
+              </td>
+              <td><a href="mailto:jacobwilliams@sample.co.uk" style="color:var(--text-hyperlink); text-decoration:none;">jacobwilliams@sample.co.uk</a></td>
+              <td><span class="status-chip-sm">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <!-- Tab 3: History -->
+      <div class="panel-tab-content" id="tab-history">
+
+        <div class="history-timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">13 Oct<br/>09:58</div>
+            <div class="timeline-dot-col">
+              <span class="timeline-dot"></span>
+              <span class="timeline-line"></span>
+            </div>
+            <div class="timeline-body">
+              <span class="timeline-avatar" aria-hidden="true">EW</span>
+              <span class="timeline-text"><strong>Elizabeth Wilson</strong> <span class="timeline-approved">approved</span></span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">12 Oct<br/>16:15</div>
+            <div class="timeline-dot-col">
+              <span class="timeline-dot"></span>
+              <span class="timeline-line"></span>
+            </div>
+            <div class="timeline-body">
+              <span class="timeline-avatar" aria-hidden="true">JD</span>
+              <span class="timeline-text"><strong>Jane Doe</strong> <span class="timeline-changed">changed</span> the Payment Region from International to UK.</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">12 Oct<br/>10:58</div>
+            <div class="timeline-dot-col">
+              <span class="timeline-dot"></span>
+              <span class="timeline-line"></span>
+            </div>
+            <div class="timeline-body">
+              <span class="timeline-avatar" aria-hidden="true">EW</span>
+              <span class="timeline-text"><strong>Elizabeth Wilson</strong> <span class="timeline-rejected">rejected</span> the Reason is some values are invalid/mismatched.</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date">10 Oct<br/>12:15</div>
+            <div class="timeline-dot-col">
+              <span class="timeline-dot"></span>
+              <span class="timeline-line"></span>
+            </div>
+            <div class="timeline-body">
+              <span class="timeline-avatar" aria-hidden="true">JD</span>
+              <span class="timeline-text"><strong>Jane Doe</strong> created</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="sidepanel-footer">
+      <button class="btn-cancel" id="btnCancelEdit" type="button">Cancel</button>
+      <button class="btn-save" id="btnUpdateRole" type="button">Update Role</button>
+    </div>
+  </aside>
+
+  <!-- Success Toast -->
+  <div class="toast" id="successToast">
+    <span class="toast-msg" id="toastMsg">Role updated successfully!</span>
+    <button class="toast-close" id="toastClose" aria-label="Dismiss">&times;</button>
+  </div>
+
+  <!-- --- Confirm Assign Change Modal --- -->
+  <div class="modal-overlay" id="confirmAssignModal" role="dialog" aria-labelledby="confirmAssignTitle" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <span class="modal-warn-icon"><span class="material-icons-outlined">warning</span></span>
+        <span class="modal-header-title" id="confirmAssignTitle">Confirm Assign Change</span>
+        <button class="modal-close" id="btnCloseConfirmModal" aria-label="Close">
+          <span class="material-icons-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>The selected user already has an existing role.<br/>Assigning this new role will replace the current one.</p>
+        <p>Are you sure you want to update the user's role?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal-cancel" id="btnCancelConfirm" type="button">Cancel</button>
+        <button class="btn-modal-confirm" id="btnYesUpdate" type="button">Yes, Update Role</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Shared helpers ---
+    const overlay = document.getElementById('panelOverlay');
+
+    function openOverlay() {
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+    function closeOverlay() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    // --- Create panel ---
+    const createPanel = document.getElementById('createRolePanel');
+    const btnOpen     = document.querySelector('.btn-create');
+    const btnClose    = document.getElementById('btnClosePanel');
+    const btnCancel   = document.getElementById('btnCancelRole');
+
+    function openCreatePanel() {
+      closeEditPanel();
+      openOverlay();
+      createPanel.classList.add('open');
+      document.getElementById('roleName').focus();
+    }
+    function closeCreatePanel() {
+      createPanel.classList.remove('open');
+      closeOverlay();
+      btnOpen.focus();
+    }
+
+    btnOpen.addEventListener('click', openCreatePanel);
+    btnClose.addEventListener('click', closeCreatePanel);
+    btnCancel.addEventListener('click', closeCreatePanel);
+
+    // --- Edit panel ---
+    const editPanel     = document.getElementById('editRolePanel');
+    const btnCloseEdit  = document.getElementById('btnCloseEditPanel');
+    const btnCancelEdit = document.getElementById('btnCancelEdit');
+    var lastEditTrigger = null;
+
+    function openEditPanel(roleName, triggerEl) {
+      closeCreatePanel();
+      lastEditTrigger = triggerEl || null;
+      document.getElementById('editPanelTitle').textContent = roleName;
+      activateTab('detailsPermissions');
+      openOverlay();
+      editPanel.classList.add('open');
+    }
+    function closeEditPanel() {
+      editPanel.classList.remove('open');
+      closeOverlay();
+      if (lastEditTrigger) { lastEditTrigger.focus(); lastEditTrigger = null; }
+    }
+
+    btnCloseEdit.addEventListener('click', closeEditPanel);
+    btnCancelEdit.addEventListener('click', closeEditPanel);
+
+    // Wire all edit icon buttons in table rows
+    document.querySelectorAll('.action-icon-btn[aria-label^="Edit"]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var row = this.closest('tr');
+        var roleName = row.querySelector('.role-link').textContent.trim();
+        openEditPanel(roleName, this);
+      });
+    });
+
+    // Wire all manage (group_add) icon buttons to open edit panel on Assigned Users tab
+    document.querySelectorAll('.action-icon-btn[aria-label^="Manage"]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var row = this.closest('tr');
+        var roleName = row.querySelector('.role-link').textContent.trim();
+        openEditPanel(roleName, this);
+        activateTab('assignedUsers');
+      });
+    });
+
+    // Wire all history icon buttons to open edit panel on History tab
+    document.querySelectorAll('.action-icon-btn[aria-label^="View"][aria-label$="history"]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var row = this.closest('tr');
+        var roleName = row.querySelector('.role-link').textContent.trim();
+        openEditPanel(roleName, this);
+        activateTab('history');
+      });
+    });
+
+    // Overlay closes whichever panel is open
+    overlay.addEventListener('click', function() {
+      if (createPanel.classList.contains('open')) closeCreatePanel();
+      if (editPanel.classList.contains('open')) closeEditPanel();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (createPanel.classList.contains('open')) closeCreatePanel();
+        if (editPanel.classList.contains('open')) closeEditPanel();
+      }
+    });
+
+    // --- Tab switching (edit panel) ---
+    function activateTab(tabName) {
+      document.querySelectorAll('.panel-tab').forEach(function(t) {
+        t.classList.remove('active'); t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.panel-tab-content').forEach(function(c) {
+        c.classList.remove('active');
+      });
+      var tab = document.querySelector('.panel-tab[data-tab="' + tabName + '"]');
+      if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected', 'true'); }
+      var content = document.getElementById('tab-' + tabName);
+      if (content) content.classList.add('active');
+    }
+    document.querySelectorAll('.panel-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        activateTab(this.dataset.tab);
+      });
+    });
+
+    // --- Perm sub-tab switching ---
+    document.querySelectorAll('.perm-subtab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var group = this.closest('.perm-subtabs').dataset.group;
+        this.closest('.perm-subtabs').querySelectorAll('.perm-subtab').forEach(function(t) {
+          t.classList.remove('active'); t.setAttribute('aria-selected', 'false');
+        });
+        this.closest('.permissions-section').querySelectorAll('.perm-subtab-content').forEach(function(c) {
+          c.classList.remove('active');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        document.getElementById(this.dataset.permtab).classList.add('active');
+      });
+    });
+
+    // --- Expand/collapse for permission modules (both panels) ---
+    document.querySelectorAll('.perm-expand-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        var icon = this.querySelector('.material-icons-outlined');
+        var moduleId = this.closest('.perm-parent-row').dataset.module;
+        this.setAttribute('aria-expanded', String(!expanded));
+        icon.textContent = expanded ? 'chevron_right' : 'expand_more';
+        document.querySelectorAll('.perm-child-row[data-parent="' + moduleId + '"]').forEach(function(row) {
+          row.style.display = expanded ? 'none' : '';
+        });
+      });
+    });
+
+    // --- Confirm Assign Modal ---
+    var confirmModal = document.getElementById('confirmAssignModal');
+    var btnAssign = document.querySelector('.btn-assign');
+    var btnCloseConfirm = document.getElementById('btnCloseConfirmModal');
+    var btnCancelConfirm = document.getElementById('btnCancelConfirm');
+    var btnYesUpdate = document.getElementById('btnYesUpdate');
+
+    function openConfirmModal() { confirmModal.classList.add('open'); }
+    function closeConfirmModal() { confirmModal.classList.remove('open'); }
+
+    btnAssign.addEventListener('click', openConfirmModal);
+    btnCloseConfirm.addEventListener('click', closeConfirmModal);
+    btnCancelConfirm.addEventListener('click', closeConfirmModal);
+    btnYesUpdate.addEventListener('click', function() {
+      closeConfirmModal();
+      closeEditPanel();
+      showToast('Role updated successfully!');
+    });
+    confirmModal.addEventListener('click', function(e) {
+      if (e.target === confirmModal) closeConfirmModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && confirmModal.classList.contains('open')) closeConfirmModal();
+    });
+
+    // --- Update Role & Save Role ? toast ---
+    var btnUpdateRole = document.getElementById('btnUpdateRole');
+    var btnSaveRole = document.getElementById('btnSaveRole');
+
+    btnUpdateRole.addEventListener('click', function() {
+      closeEditPanel();
+      showToast('Role updated successfully!');
+    });
+    btnSaveRole.addEventListener('click', function() {
+      closeCreatePanel();
+      showToast('Role created successfully!');
+    });
+
+    // --- Toast ---
+    var toast = document.getElementById('successToast');
+    var toastClose = document.getElementById('toastClose');
+    var toastMsg = document.getElementById('toastMsg');
+    var toastTimer;
+
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 4000);
+    }
+    toastClose.addEventListener('click', function() {
+      clearTimeout(toastTimer);
+      toast.classList.remove('show');
+    });
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

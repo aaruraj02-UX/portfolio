@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Manual Schedule</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <style>
+    /* ---------------------------------------------------------------
+       MET-DS-V2 Design Tokens
+    ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-disabled:         #BDBDBD;
+      --grey-50:   #FAFAFA;  --grey-100: #F5F5F5;  --grey-200: #EEEEEE;
+      --grey-300:  #E0E0E0;  --grey-400: #BDBDBD;  --grey-500: #9E9E9E;
+      --grey-600:  #757575;  --grey-700: #616161;  --grey-800: #424242;
+      --grey-900:  #212121;
+      --color-success:         #43A047;  --color-success-bg: #E8F5E9;
+      --color-error:           #E53935;  --color-error-bg:   #FEEBEE;
+      --color-warning:         #FF9800;  --color-warning-bg: #FFF3E0;
+      --orange-50: #FFF3E0;   --orange-600: #FB8C00;  --orange-700: #F57C00;
+      --red-50:    #FEEBEE;   --red-600:    #E53935;
+      --blue-50:   #E3F2FD;   --blue-600:   #1E88E5;
+      --purple-50: #F3E5F5;   --purple-600: #8E24AA;
+      --border-default: 1px solid #E0E0E0;
+      --border-divider: 1px solid #EEEEEE;
+      --border-focus:   2px solid #3276CF;
+      --radius-card:    8px;  --radius-button: 8px;
+      --radius-input:   8px;  --radius-pill:   100px;
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-body1: 16px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+      --line-height-heading: 1.2; --line-height-body: 1.43;
+      --duration-micro: 150ms; --duration-standard: 250ms;
+      --easing-enter: ease-out;
+      --shadow-card: 0 1px 4px rgba(50,118,207,0.10);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ----------- Base Reset ----------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: var(--line-height-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--color-primary); color: #fff; padding: 8px 12px;
+      z-index: 1000; border-radius: 0 0 8px 0;
+    }
+    .skip-link:focus { left: 0; }
+    :focus-visible { outline: var(--border-focus); outline-offset: 2px; }
+
+    /* ----------- App Shell ----------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      grid-template-rows: 60px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ----------- Top App Bar ----------- */
+    .top-bar {
+      grid-column: 1 / -1; grid-row: 1;
+      position: sticky; top: 0;
+      display: flex; align-items: center;
+      gap: var(--space-5); padding: 0 var(--space-5);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      z-index: 100; height: 60px;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: var(--space-5); flex-shrink: 0; }
+    .hamburger-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border: none; background: transparent;
+      color: var(--text-primary); cursor: pointer; padding: 0;
+    }
+    .top-bar-logo { display: flex; align-items: center; flex-shrink: 0; }
+    .top-bar-logo img { height: 35px; width: auto; }
+    .top-bar-spacer { flex: 1; }
+    .top-bar-search {
+      position: relative; max-width: 585px; flex: 0 1 585px;
+    }
+    .top-bar-search input {
+      width: 100%; height: 40px;
+      padding: 0 48px 0 var(--space-5);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--grey-50); outline: none;
+    }
+    .top-bar-search input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.12);
+    }
+    .top-bar-search input::placeholder { color: var(--text-secondary); }
+    .top-bar-search .search-icon {
+      position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%); color: var(--text-secondary);
+      pointer-events: none; font-size: 22px;
+    }
+    .icon-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer; position: relative;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .icon-btn .notif-dot {
+      position: absolute; top: 6px; right: 8px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--color-error);
+      border: 2px solid var(--color-card);
+    }
+    .user-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--color-primary); color: #FFFFFF;
+      font-size: 13px; font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+    }
+
+    /* ----------- Sidebar ----------- */
+    .sidebar {
+      grid-column: 1; grid-row: 2;
+      background: var(--color-card);
+      border-right: var(--border-default);
+      width: 68px; padding: var(--space-4) 0;
+      overflow-y: hidden;
+      display: flex; flex-direction: column; align-items: center;
+      position: sticky; top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar-search-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-card);
+      color: var(--text-secondary); cursor: pointer;
+      margin-bottom: var(--space-3); border: none; background: transparent;
+    }
+    .sidebar-search-icon:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .nav-list {
+      list-style: none; display: flex; flex-direction: column;
+      align-items: center; gap: var(--space-1); width: 100%;
+    }
+    .nav-item {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: var(--radius-card);
+      color: var(--text-secondary);
+      transition: all var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .nav-item:hover { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active::before {
+      content: ''; position: absolute;
+      left: -12px; top: 8px; bottom: 8px;
+      width: 3px; background: var(--color-primary);
+      border-radius: 0 2px 2px 0;
+    }
+    .nav-divider {
+      width: 44px; height: 1px;
+      background: var(--grey-200); margin: var(--space-3) 0;
+    }
+
+    /* ----------- Main ----------- */
+    .main-content {
+      grid-column: 2; grid-row: 2;
+      padding: var(--space-4) var(--space-5);
+      overflow: auto;
+      background: var(--color-bg);
+    }
+
+    /* ----------- Page header ----------- */
+    .page-header {
+      display: flex; align-items: center;
+      gap: var(--space-4);
+      min-height: 40px;
+      margin-bottom: var(--space-4);
+    }
+    .page-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      letter-spacing: -0.2px;
+      border-bottom: 2px solid var(--text-primary);
+      padding-bottom: 2px;
+    }
+    .header-spacer { flex: 1; }
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      height: 36px; padding: 0 var(--space-5);
+      border-radius: var(--radius-button);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer; border: none;
+      letter-spacing: 0.4px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .btn-outlined {
+      background: transparent;
+      border: 1.5px solid var(--color-primary);
+      color: var(--color-primary);
+      text-transform: uppercase;
+    }
+    .btn-outlined:hover { background: var(--color-primary-25); }
+    .btn-primary {
+      background: var(--color-primary); color: #fff;
+    }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+
+    /* ----------- Tabs ----------- */
+    .tabs {
+      display: flex; align-items: stretch;
+      gap: var(--space-7);
+      border-bottom: var(--border-default);
+      margin-bottom: var(--space-4);
+      padding: 0 var(--space-1);
+    }
+    .tab {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-4) var(--space-3);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      cursor: pointer; background: none; border: none;
+      letter-spacing: 0.6px; text-transform: uppercase;
+      position: relative;
+    }
+    .tab:hover { color: var(--text-primary); }
+    .tab.active { color: var(--color-primary); }
+    .tab.active::after {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: -1px;
+      height: 3px; background: var(--color-primary);
+      border-radius: 2px 2px 0 0;
+    }
+    .tab-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 36px; height: 22px; padding: 0 var(--space-3);
+      border-radius: var(--radius-pill);
+      background: var(--orange-50);
+      color: var(--orange-700);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+    }
+    .tab.active .tab-chip { background: var(--orange-50); color: var(--orange-700); }
+
+    /* ----------- 3-column layout ----------- */
+    .schedule-shell {
+      display: grid;
+      grid-template-columns: 304px 304px 1fr;
+      gap: 0;
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      min-height: 760px;
+    }
+    .panel { display: flex; flex-direction: column; min-width: 0; }
+    .panel + .panel { border-left: var(--border-divider); }
+
+    .panel-header {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-4) var(--space-3);
+    }
+    .panel-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .panel-search {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: 0 var(--space-4) var(--space-4);
+    }
+    .search-input {
+      position: relative; flex: 1;
+    }
+    .search-input input {
+      width: 100%; height: 36px;
+      padding: 0 var(--space-4) 0 36px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      outline: none;
+    }
+    .search-input input:focus { border-color: var(--color-primary); }
+    .search-input .material-icons-outlined {
+      position: absolute; left: 10px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary); font-size: 20px;
+      pointer-events: none;
+    }
+    .filter-btn {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-input);
+      border: 1px solid var(--grey-300);
+      background: var(--color-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    /* ----------- Jobs list ----------- */
+    .panel-body {
+      flex: 1; overflow-y: auto;
+      padding: 0 var(--space-4) var(--space-4);
+    }
+    .panel-body::-webkit-scrollbar { width: 8px; }
+    .panel-body::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 8px; }
+    .panel-body::-webkit-scrollbar-track { background: transparent; }
+
+    .group-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: var(--space-3) var(--space-1);
+    }
+
+    .job-card {
+      background: var(--color-card);
+      border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-3);
+      cursor: grab;
+      transition: border-color var(--duration-micro), box-shadow var(--duration-micro);
+    }
+    .job-card:hover { border-color: var(--color-primary-200); box-shadow: var(--shadow-card); }
+    .job-card-row1 {
+      display: flex; align-items: center; gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .job-id {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-medium);
+    }
+    .job-id b { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+    .priority-chip {
+      display: inline-flex; align-items: center;
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      color: #fff;
+      letter-spacing: 0.2px;
+      margin-left: auto;
+    }
+    .priority-chip.h { background: var(--red-600); }
+    .priority-chip.m { background: var(--orange-700); }
+    .priority-chip.l { background: var(--color-primary); }
+
+    .job-card-icon {
+      color: var(--orange-600); font-size: 16px;
+    }
+    .job-title {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-regular);
+      margin-bottom: var(--space-2);
+    }
+    .job-meta {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .job-meta .material-icons-outlined { font-size: 14px; }
+    .job-meta-spacer { flex: 1; }
+    .rec-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      color: var(--color-error);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.4px;
+    }
+    .rec-tag::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--color-error);
+    }
+
+    /* ----------- Agents list ----------- */
+    .agent-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-3);
+      border-bottom: var(--border-divider);
+      cursor: pointer;
+    }
+    .agent-row:hover { background: var(--color-primary-25); }
+    .agent-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--grey-300); color: var(--text-primary);
+      font-size: 12px; font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+    }
+    .agent-info { flex: 1; min-width: 0; }
+    .agent-name {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .agent-id {
+      font-size: 11px; color: var(--text-secondary);
+    }
+    .agent-status {
+      display: inline-flex; align-items: center;
+      gap: 4px; flex-shrink: 0;
+      color: var(--color-success);
+    }
+    .agent-status.unavailable { color: var(--grey-400); }
+    .agent-status .material-icons-outlined { font-size: 18px; }
+
+    /* ----------- Calendar / Timetable ----------- */
+    .cal-panel {
+      display: flex; flex-direction: column;
+      min-width: 0;
+    }
+    .cal-header {
+      display: flex; align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      border-bottom: var(--border-divider);
+    }
+    .cal-tabs {
+      display: inline-flex;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      overflow: hidden;
+    }
+    .cal-tabs button {
+      padding: 0 var(--space-5);
+      height: 32px;
+      background: var(--color-card);
+      color: var(--text-secondary);
+      border: none; cursor: pointer;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+    .cal-tabs button + button { border-left: 1px solid var(--grey-300); }
+    .cal-tabs button.active {
+      background: var(--color-primary-950);
+      color: #fff;
+    }
+    .cal-spacer { flex: 1; }
+    .cal-date {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      padding: 0 var(--space-2);
+      border-bottom: 1px solid var(--text-primary);
+    }
+    .cal-date .material-icons-outlined { font-size: 18px; color: var(--text-secondary); }
+    .cal-nav {
+      display: inline-flex;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      overflow: hidden;
+    }
+    .cal-nav button {
+      width: 32px; height: 32px;
+      background: var(--color-card);
+      color: var(--text-secondary);
+      border: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .cal-nav button + button { border-left: 1px solid var(--grey-300); }
+    .cal-nav button:hover { background: var(--color-primary-25); color: var(--color-primary); }
+
+    /* Time grid */
+    .cal-body {
+      flex: 1; overflow: auto;
+      position: relative;
+    }
+    /* 11 hour columns (07-17) + 2 metric columns (Working / At Job Hrs) */
+    .cal-grid {
+      --hour-w: 64px;
+      --metric-w: 56px;
+      --row-h: 44px;
+      display: grid;
+      grid-template-columns: repeat(11, var(--hour-w)) var(--metric-w) var(--metric-w);
+      min-width: max-content;
+      font-size: var(--font-size-caption);
+    }
+    .cal-grid .cal-cell {
+      border-right: var(--border-divider);
+      border-bottom: var(--border-divider);
+      height: var(--row-h);
+      padding: var(--space-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .cal-grid .cal-cell.header {
+      background: var(--color-card);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-semibold);
+      height: 32px;
+      display: flex; align-items: center; justify-content: flex-start;
+      position: sticky; top: 0; z-index: 5;
+      border-bottom: 1px solid var(--grey-300);
+    }
+    .cal-grid .cal-cell.header.metric {
+      justify-content: center;
+      letter-spacing: 0.4px; text-transform: uppercase;
+      font-size: 11px;
+    }
+    .cal-grid .cal-cell.metric {
+      display: flex; flex-direction: column;
+      align-items: flex-end; justify-content: center;
+      gap: 2px; padding: 4px 6px;
+      background: var(--grey-50);
+    }
+    .cal-grid .cal-cell.metric .v {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-body);
+      letter-spacing: 0.3px;
+    }
+    .cal-grid .cal-cell.metric .v.muted { color: var(--text-disabled); }
+    .cal-grid .cal-cell.metric .icon-row {
+      display: inline-flex; align-items: center;
+      gap: 2px; color: var(--text-secondary);
+    }
+    .cal-grid .cal-cell.metric .material-icons-outlined { font-size: 13px; }
+
+    /* Job block (positioned within a row using col-span) */
+    .cal-block {
+      position: absolute;
+      top: 4px; bottom: 4px;
+      left: 4px; right: 4px;
+      border-radius: 6px;
+      padding: 4px var(--space-3);
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: 11px;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      cursor: grab; overflow: hidden;
+    }
+    .cal-block .icon { font-size: 14px; flex-shrink: 0; }
+    .cal-block .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cal-block.notstarted { background: #FEEBEE; border: 1px solid var(--red-600); color: var(--red-600); }
+    .cal-block.completed  { background: #E8F5E9; border: 1px solid var(--color-success); color: #2E7D32; }
+    .cal-block.inprogress { background: #E3F2FD; border: 1px solid var(--blue-600);  color: #1565C0; }
+    .cal-block.aborted    { background: #F3E5F5; border: 1px solid var(--purple-600); color: #6A1B9A; }
+    .cal-block.declined   { background: #FFF3E0; border: 1px solid var(--orange-700); color: var(--orange-700); }
+    .cal-block.enroute    { background: #FFF8E1; border: 1px solid #FBC02D; color: #8D6E00; }
+    .cal-block.unavailable { background: repeating-linear-gradient(45deg, var(--grey-100), var(--grey-100) 6px, var(--grey-200) 6px, var(--grey-200) 12px); border: 1px dashed var(--grey-400); color: var(--grey-700); }
+
+    /* Cell that hosts the block (uses grid col-span via inline style) */
+    .cal-row { display: contents; }
+    .cal-host {
+      grid-column: var(--col-start) / span var(--col-span);
+      position: relative;
+      border-right: var(--border-divider);
+      border-bottom: var(--border-divider);
+      height: var(--row-h);
+    }
+
+    /* Legend */
+    .cal-legend {
+      display: flex; flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-7) var(--space-7);
+      padding: var(--space-4);
+      border-top: var(--border-default);
+      background: var(--color-card);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .legend-dot {
+      width: 14px; height: 14px; border-radius: 3px;
+      border: 1px solid currentColor;
+      display: inline-block;
+    }
+    .legend-dot.notstarted   { background: #FEEBEE; color: var(--red-600); }
+    .legend-dot.completed    { background: #E8F5E9; color: var(--color-success); }
+    .legend-dot.inprogress   { background: #E3F2FD; color: var(--blue-600); }
+    .legend-dot.aborted      { background: #F3E5F5; color: var(--purple-600); }
+    .legend-dot.declined     { background: #FFF3E0; color: var(--orange-700); }
+    .legend-dot.enroute      { background: #FFF8E1; color: #8D6E00; }
+    .legend-dot.unavailable  { background: var(--grey-200); color: var(--grey-500); border-style: dashed; }
+
+    /* ----------- Responsive ----------- */
+    @media (max-width: 1279px) {
+      .schedule-shell { grid-template-columns: 280px 280px 1fr; }
+    }
+    @media (max-width: 1023px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .schedule-shell {
+        grid-template-columns: 1fr;
+      }
+      .panel + .panel { border-left: none; border-top: var(--border-divider); }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ----------- Top App Bar ----------- -->
+    <header class="top-bar" role="banner">
+      <div class="top-bar-left">
+        <button class="hamburger-btn" aria-label="Toggle navigation">
+          <span class="material-icons-outlined">menu</span>
+        </button>
+        <a href="dashboard.html" class="top-bar-logo" aria-label="FieldSync Home">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23065f46'/%3E%3Ccircle cx='16' cy='14' r='4' fill='none' stroke='%2334d399' stroke-width='2'/%3E%3Cpath d='M16 10v-2M16 20v2M10 14H8M24 14h-2' stroke='%2334d399' stroke-width='2'/%3E%3C/svg%3E" alt="FieldSync" />
+        </a>
+      </div>
+      <div class="top-bar-spacer"></div>
+      <div class="top-bar-search" role="search">
+        <label for="global-search" class="visually-hidden" style="position:absolute;left:-9999px;">Global search</label>
+        <input id="global-search" type="search"
+          placeholder="Search Keywords : Agent ID, Agent Name, Job ID, User, Client Name..." />
+        <span class="material-icons-outlined search-icon" aria-hidden="true">search</span>
+      </div>
+      <button class="icon-btn" aria-label="Notifications (3 unread)">
+        <span class="material-icons-outlined">notifications_none</span>
+        <span class="notif-dot" aria-hidden="true"></span>
+      </button>
+      <div class="user-avatar" role="img" aria-label="User: Operations Planner">OP</div>
+    </header>
+
+    <!-- ----------- Sidebar ----------- -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-search-icon" aria-label="Sidebar search">
+        <span class="material-icons-outlined" style="font-size:22px;">search</span>
+      </button>
+      <ul class="nav-list" role="list">
+        <li><a href="dashboard.html" class="nav-item" aria-label="Dashboard"><span class="material-icons-outlined">dashboard</span></a></li>
+        <li><a href="manual-schedule.html" class="nav-item active" aria-current="page" aria-label="Manual Schedule"><span class="material-icons-outlined">calendar_today</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="People"><span class="material-icons-outlined">people_outline</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="jobs.html" class="nav-item" aria-label="Jobs"><span class="material-icons-outlined">work_outline</span></a></li>
+        <li><a href="tasks.html" class="nav-item" aria-label="Tasks"><span class="material-icons-outlined">task_alt</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Timesheets"><span class="material-icons-outlined">schedule</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Tools"><span class="material-icons-outlined">build_circle</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Invoices"><span class="material-icons-outlined">receipt_long</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Locations"><span class="material-icons-outlined">location_on</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Configuration"><span class="material-icons-outlined">settings</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Reports"><span class="material-icons-outlined">bar_chart</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Help"><span class="material-icons-outlined">help_outline</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Support"><span class="material-icons-outlined">support_agent</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- ----------- Main ----------- -->
+    <main class="main-content" id="main-content" role="main">
+
+      <!-- Page header -->
+      <div class="page-header">
+        <h1 class="page-title">Manual Schedule</h1>
+        <div class="header-spacer"></div>
+        <button class="btn btn-outlined" type="button">Bulk Scheduler</button>
+      </div>
+
+      <!-- Module tabs -->
+      <div class="tabs" role="tablist" aria-label="Module">
+        <button class="tab" role="tab" aria-selected="false">
+          Motors <span class="tab-chip" aria-label="100 jobs">100</span>
+        </button>
+        <button class="tab active" role="tab" aria-selected="true">
+          Field <span class="tab-chip" aria-label="100 jobs">100</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false">
+          Metering <span class="tab-chip" aria-label="100 jobs">100</span>
+        </button>
+      </div>
+
+      <!-- ----------- 3-column scheduler ----------- -->
+      <section class="schedule-shell" aria-label="Manual scheduler">
+
+        <!-- ------- Jobs panel ------- -->
+        <aside class="panel" aria-label="Unscheduled jobs">
+          <div class="panel-header"><h2 class="panel-title">Jobs</h2></div>
+          <div class="panel-search">
+            <div class="search-input">
+              <span class="material-icons-outlined" aria-hidden="true">search</span>
+              <input type="search" placeholder="Search" aria-label="Search jobs" />
+            </div>
+            <button class="filter-btn" aria-label="Filter jobs">
+              <span class="material-icons-outlined">tune</span>
+            </button>
+          </div>
+          <div class="panel-body">
+            <div class="group-label">Un-assigned</div>
+
+            <article class="job-card" draggable="true" tabindex="0" aria-label="Job 1243526, High priority, Castle Water Reconnection, SW1 1AA">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243526</b></span>
+                <span class="priority-chip h" aria-label="High priority">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">local_fire_department</span>
+              </div>
+              <div class="job-title">Castle Water | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag" aria-label="Recurrence">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0" aria-label="Job 1243527, Medium priority, EDF Reconnection, SW1 1AA">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243527</b></span>
+                <span class="priority-chip m" aria-label="Medium priority">M.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">bolt</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0" aria-label="Job 1243528, Low priority, Stark Energy Reconnection, SW1 1AA">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243528</b></span>
+                <span class="priority-chip l" aria-label="Low priority">L.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">water_drop</span>
+              </div>
+              <div class="job-title">Stark Energy | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag" style="color:var(--grey-500);">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243529</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">bolt</span>
+              </div>
+              <div class="job-title">Stark Energy | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243530</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">local_fire_department</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243531</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">water_drop</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <div class="group-label">Assigned</div>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243532</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">local_fire_department</span>
+              </div>
+              <div class="job-title">Stark Energy | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243533</b></span>
+                <span class="priority-chip m">M.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">bolt</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag" style="color:var(--grey-500);">REC</span>
+              </div>
+            </article>
+          </div>
+        </aside>
+
+        <!-- ------- Agents panel ------- -->
+        <aside class="panel" aria-label="Agents">
+          <div class="panel-header"><h2 class="panel-title">Agents</h2></div>
+          <div class="panel-search">
+            <div class="search-input">
+              <span class="material-icons-outlined" aria-hidden="true">search</span>
+              <input type="search" placeholder="Search" aria-label="Search agents" />
+            </div>
+            <button class="filter-btn" aria-label="Filter agents">
+              <span class="material-icons-outlined">tune</span>
+            </button>
+          </div>
+          <div class="panel-body" style="padding:0;">
+            <!-- Each agent row aligns with the calendar timetable rows below -->
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar" aria-hidden="true">AM</div>
+              <div class="agent-info">
+                <div class="agent-name">Angus MacGyver</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">WS</div>
+              <div class="agent-info">
+                <div class="agent-name">Williams Smith</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">PT</div>
+              <div class="agent-info">
+                <div class="agent-name">Peter Thornton</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">HS</div>
+              <div class="agent-info">
+                <div class="agent-name">Hannibal Smith</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status unavailable" aria-label="Unavailable"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">AB</div>
+              <div class="agent-info">
+                <div class="agent-name">Angela Bower</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DD</div>
+              <div class="agent-info">
+                <div class="agent-name">Dori Doreau</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status unavailable" aria-label="Unavailable"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">TP</div>
+              <div class="agent-info">
+                <div class="agent-name">Templeton Peck</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">JD</div>
+              <div class="agent-info">
+                <div class="agent-name">John Doe</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243527</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243528</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243529</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243530</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- ------- Calendar / Timetable panel ------- -->
+        <section class="panel cal-panel" aria-label="Schedule timetable">
+          <div class="cal-header">
+            <div class="cal-tabs" role="tablist" aria-label="View granularity">
+              <button class="active" role="tab" aria-selected="true">Day</button>
+              <button role="tab" aria-selected="false">Week</button>
+              <button role="tab" aria-selected="false">Month</button>
+            </div>
+            <div class="cal-spacer"></div>
+            <div class="cal-date" aria-label="Selected date">
+              <span>Feb 20, 2026</span>
+              <span class="material-icons-outlined" aria-hidden="true">calendar_today</span>
+            </div>
+            <div class="cal-nav">
+              <button aria-label="Previous day"><span class="material-icons-outlined">chevron_left</span></button>
+              <button aria-label="Next day"><span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+          </div>
+
+          <div class="cal-body">
+            <div class="cal-grid" role="grid" aria-label="Hourly timetable, 7 AM to 5 PM">
+
+              <!-- Column header row -->
+              <div class="cal-cell header" role="columnheader">7</div>
+              <div class="cal-cell header" role="columnheader">8</div>
+              <div class="cal-cell header" role="columnheader">9</div>
+              <div class="cal-cell header" role="columnheader">10</div>
+              <div class="cal-cell header" role="columnheader">11</div>
+              <div class="cal-cell header" role="columnheader">12</div>
+              <div class="cal-cell header" role="columnheader">13</div>
+              <div class="cal-cell header" role="columnheader">14</div>
+              <div class="cal-cell header" role="columnheader">15</div>
+              <div class="cal-cell header" role="columnheader">16</div>
+              <div class="cal-cell header" role="columnheader">17</div>
+              <div class="cal-cell header metric" role="columnheader">Working</div>
+              <div class="cal-cell header metric" role="columnheader">At Job Hrs</div>
+
+              <!-- Row 1: Angus -->
+              <div class="cal-host" style="--col-start:5; --col-span:2;" role="gridcell" aria-label="EDF Reconnection 11:00-13:00, not started">
+                <div class="cal-block notstarted"><span class="material-icons-outlined icon">flash_on</span><span class="label">EDF | R</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:7; --col-span:3;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">water_drop</span><span class="label">Castle Water | Reconnection</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:10; --col-span:1;" role="gridcell">
+                <div class="cal-block inprogress"><span class="material-icons-outlined icon">flash_on</span><span class="label">EDF | Reconnect</span></div>
+              </div>
+              <div class="cal-cell metric" role="gridcell"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric" role="gridcell"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 2: Williams -->
+              <div class="cal-host" style="--col-start:1; --col-span:11;" role="gridcell">
+                <div class="cal-block aborted" style="left:auto;width:auto;right:auto;"><span class="material-icons-outlined icon">bolt</span><span class="label" style="margin-left:55%;">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">06:00</span></div>
+
+              <!-- Row 3: Peter -->
+              <div class="cal-host" style="--col-start:1; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="material-icons-outlined icon">block</span><span class="label">30</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:3; --col-span:3;" role="gridcell">
+                <div class="cal-block declined"><span class="material-icons-outlined icon">flash_on</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">05:00</span></div>
+
+              <!-- Row 4: Hannibal -->
+              <div class="cal-host" style="--col-start:1; --col-span:11;" role="gridcell">
+                <div class="cal-block unavailable"><span class="material-icons-outlined icon">block</span><span class="label">Agent not available</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v muted">00:00</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v muted">00:00</span></div>
+
+              <!-- Row 5: Angela -->
+              <div class="cal-host" style="--col-start:1; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="material-icons-outlined icon">block</span><span class="label">30</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:3; --col-span:4;" role="gridcell">
+                <div class="cal-block inprogress"><span class="material-icons-outlined icon">flash_on</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:9; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="material-icons-outlined icon">block</span><span class="label">60</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 6: Dori -->
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v muted">00:00</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v muted">00:00</span></div>
+
+              <!-- Row 7: Templeton -->
+              <div class="cal-host" style="--col-start:5; --col-span:3;" role="gridcell">
+                <div class="cal-block inprogress"><span class="material-icons-outlined icon">flash_on</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 8: John -->
+              <div class="cal-host" style="--col-start:3; --col-span:2;" role="gridcell">
+                <div class="cal-block notstarted"><span class="material-icons-outlined icon">flash_on</span><span class="label">EDF | Reconnect</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">water_drop</span><span class="label">Castle Water | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 9: David Peter -->
+              <div class="cal-host" style="--col-start:3; --col-span:2;" role="gridcell">
+                <div class="cal-block notstarted"><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | R</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:5; --col-span:4;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:9; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="material-icons-outlined icon">block</span><span class="label">30</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 10 -->
+              <div class="cal-host" style="--col-start:3; --col-span:2;" role="gridcell">
+                <div class="cal-block notstarted"><span class="material-icons-outlined icon">flash_on</span><span class="label">EDF | R</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">bolt</span><span class="label">Stark Energy | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 11 -->
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v muted">00:00</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v muted">00:00</span></div>
+
+              <!-- Row 12 -->
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">water_drop</span><span class="label">Castle Water | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 13 -->
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">bolt</span><span class="label">Stark Energy | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span></span><span class="v">06:30</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">work_outline</span></span><span class="v">08:00</span></div>
+
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="cal-legend" role="group" aria-label="Status legend">
+            <span class="legend-item"><span class="legend-dot unavailable"></span> Agent Not Available</span>
+            <span class="legend-item"><span class="legend-dot notstarted"></span> Not Started Job</span>
+            <span class="legend-item"><span class="legend-dot completed"></span> Completed Job</span>
+            <span class="legend-item"><span class="legend-dot inprogress"></span> In&#8209;Progress Job</span>
+            <span class="legend-item"><span class="legend-dot aborted"></span> Aborted Job</span>
+            <span class="legend-item"><span class="legend-dot declined"></span> Declined Job</span>
+            <span class="legend-item"><span class="legend-dot enroute"></span> En&#8209;Route Job</span>
+          </div>
+        </section>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Tab switching (module + day/week/month)
+    document.querySelectorAll('[role="tablist"]').forEach(list => {
+      list.addEventListener('click', e => {
+        const t = e.target.closest('[role="tab"]');
+        if (!t) return;
+        list.querySelectorAll('[role="tab"]').forEach(x => {
+          x.classList.remove('active');
+          x.setAttribute('aria-selected', 'false');
+        });
+        t.classList.add('active');
+        t.setAttribute('aria-selected', 'true');
+      });
+    });
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

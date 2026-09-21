@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Journeys — FinOps Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .journey-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;box-shadow:var(--shadow)}
+    .journey-card-header h3{font-size:1rem;font-weight:700}
+    .journey-card-header .journey-meta{font-size:.75rem;color:var(--text-muted);margin-top:.25rem}
+    .journey-visual{background:linear-gradient(180deg,#eef2ff 0%,#fff 100%);border:1px solid #c7d2fe;border-radius:10px;padding:1.5rem 1rem;overflow-x:auto;margin-top:1rem}
+    .j-stages{display:flex;align-items:flex-start;gap:0;min-width:max-content}
+    .j-stage{display:flex;flex-direction:column;align-items:center;width:120px;position:relative}
+    .j-stage:not(:last-child)::after{content:'';position:absolute;top:22px;left:50%;width:100%;height:2px;background:linear-gradient(90deg,#a5b4fc,#6366f1);z-index:0}
+    .j-num{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;color:#fff;z-index:1;margin-bottom:.4rem;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+    .j-num--happy{background:linear-gradient(135deg,#10b981,#34d399)}
+    .j-num--neutral{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+    .j-num--stress{background:linear-gradient(135deg,#ef4444,#f87171)}
+    .j-num--focused{background:linear-gradient(135deg,#6366f1,#818cf8)}
+    .j-name{font-size:.68rem;font-weight:600;text-align:center;color:var(--text-primary);margin-bottom:.2rem;line-height:1.3}
+    .j-feel{font-size:1.1rem;margin-bottom:.2rem}
+    .j-note{font-size:.58rem;color:var(--text-muted);text-align:center;line-height:1.3;max-width:100px}
+    .emotion-line{margin-top:1.5rem;padding:1rem;background:#fff;border:1px solid var(--border);border-radius:8px}
+    .emotion-line h4{font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:.5rem}
+    .emotion-svg{width:100%;height:60px}
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FinOps</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html" class="active">User Journeys</a>
+    <a href="../prototype/Dashboard.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>User Journey Maps</h1>
+      <div class="doc-meta"><span>🗺️ FinOps Admin Dashboard</span><span>📅 10 April 2026</span></div>
+    </header>
+
+    <div class="journey-card">
+      <div class="journey-card-header"><h3>Journey 1 — Admin: Morning Health Check</h3><div class="journey-meta">Persona: Finance Admin &nbsp;|&nbsp; Goal: Identify any stuck approvals or failing bots within 60 seconds</div></div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--focused">1</div><div class="j-feel">☕</div><div class="j-name">Open Dashboard</div><div class="j-note">Morning routine</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">2</div><div class="j-feel">🧐</div><div class="j-name">Scan KPIs</div><div class="j-note">Active users, trends</div></div>
+          <div class="j-stage"><div class="j-num j-num--stress">3</div><div class="j-feel">😟</div><div class="j-name">Spot Red Flag</div><div class="j-note">3 approvals > 5 days</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">4</div><div class="j-feel">🙂</div><div class="j-name">Drill Down</div><div class="j-note">Click donut → grid</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">5</div><div class="j-feel">✅</div><div class="j-name">Take Action</div><div class="j-note">Nudge approver</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">6</div><div class="j-feel">😌</div><div class="j-name">Verify Bots</div><div class="j-note">All green — 96.4%</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 320 60" preserveAspectRatio="none">
+          <path d="M20,20 L70,22 L130,48 L195,20 L255,10 L300,12" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="4" fill="#6366f1"/><circle cx="70" cy="22" r="4" fill="#6366f1"/><circle cx="130" cy="48" r="4" fill="#ef4444"/><circle cx="195" cy="20" r="4" fill="#3b82f6"/><circle cx="255" cy="10" r="4" fill="#10b981"/><circle cx="300" cy="12" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="journey-card">
+      <div class="journey-card-header"><h3>Journey 2 — Operations Manager: Trend Reporting</h3><div class="journey-meta">Persona: Ops Manager &nbsp;|&nbsp; Goal: Generate weekly module activity report for leadership</div></div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--focused">1</div><div class="j-feel">🙂</div><div class="j-name">Set Date Filter</div><div class="j-note">Weekly range</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">2</div><div class="j-feel">🙂</div><div class="j-name">Review Charts</div><div class="j-note">Module comparison</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">3</div><div class="j-feel">📊</div><div class="j-name">Check Trends</div><div class="j-note">↑↓ period-over-period</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">4</div><div class="j-feel">😊</div><div class="j-name">Export CSV</div><div class="j-note">3 clicks — done!</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">5</div><div class="j-feel">✅</div><div class="j-name">Share Report</div><div class="j-note">Email to leadership</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 280 60" preserveAspectRatio="none">
+          <path d="M20,22 L75,20 L140,15 L210,10 L260,8" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="22" r="4" fill="#6366f1"/><circle cx="75" cy="20" r="4" fill="#6366f1"/><circle cx="140" cy="15" r="4" fill="#10b981"/><circle cx="210" cy="10" r="4" fill="#10b981"/><circle cx="260" cy="8" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="journey-card">
+      <div class="journey-card-header"><h3>Journey 3 — Admin: Bot Failure Investigation</h3><div class="journey-meta">Persona: Finance Admin &nbsp;|&nbsp; Trigger: Bot failure alert &nbsp;|&nbsp; Goal: Identify root cause and escalate</div></div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--stress">1</div><div class="j-feel">⚠️</div><div class="j-name">Alert Received</div><div class="j-note">AllPay bot failed</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">2</div><div class="j-feel">🧐</div><div class="j-name">Check Automation</div><div class="j-note">Navigate to section</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">3</div><div class="j-feel">😐</div><div class="j-name">Review Logs</div><div class="j-note">Last execution time</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">4</div><div class="j-feel">🔍</div><div class="j-name">Identify Cause</div><div class="j-note">Timeout on gateway</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">5</div><div class="j-feel">✅</div><div class="j-name">Escalate</div><div class="j-note">Ticket to dev team</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 280 60" preserveAspectRatio="none">
+          <path d="M20,50 L75,30 L140,30 L210,20 L260,12" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="50" r="4" fill="#ef4444"/><circle cx="75" cy="30" r="4" fill="#6366f1"/><circle cx="140" cy="30" r="4" fill="#f59e0b"/><circle cx="210" cy="20" r="4" fill="#6366f1"/><circle cx="260" cy="12" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProServe — Quick List</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <style>
+    /* -----------------------------------------------------------
+       MET-DS-V2 Design Tokens — Full :root block
+       (matches advance_contact_service.html)
+       ----------------------------------------------------------- */
+    :root {
+      /* Brand & Primary Scale */
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-75:  #C2D7F2;
+      --color-primary-100: #A2C1EA;
+      --color-primary-200: #84ADE4;
+      --color-primary-300: #6599DE;
+      --color-primary-400: #4B87D6;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-800: #22497D;
+      --color-primary-900: #1C3A62;
+      --color-primary-950: #152B48;
+
+      --color-primary:       var(--color-primary-500);
+      --color-primary-hover: var(--color-primary-600);
+      --color-bg:            var(--color-primary-25);
+      --color-card:          #FFFFFF;
+      --color-disabled:      #BDBDBD;
+
+      --text-primary:         #212121;
+      --text-secondary:       #757575;
+      --text-hyperlink:       #3276CF;
+      --text-hyperlink-hover: #2C66B4;
+      --text-disabled:        #BDBDBD;
+
+      --grey-50:  #FAFAFA; --grey-100: #F5F5F5; --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0; --grey-400: #BDBDBD; --grey-500: #9E9E9E;
+      --grey-600: #757575; --grey-700: #616161; --grey-800: #424242; --grey-900: #212121;
+
+      --color-success:        #43A047;
+      --color-success-dark:   #388E3C;
+      --color-success-darker: #2E7D32;
+      --color-success-bg:     #E8F5E9;
+
+      --color-error:        #E53935;
+      --color-error-dark:   #D32F2F;
+      --color-error-deeper: #C62828;
+      --color-error-bg:     #FEEBEE;
+
+      --color-warning:      #FF9800;
+      --color-warning-dark: #F57C00;
+      --color-warning-bg:   #FFF3E0;
+      --orange-800:         #E56800;
+
+      --leftnav-text:        #212121;
+      --leftnav-text-active: #3276CF;
+
+      --table-header:       #F5F5F5;
+      --table-row-hover:    #F5F5F5;
+      --table-row-selected: #F2F5FA;
+
+      --border-default: 1px solid #E0E0E0;
+      --border-divider: 1px solid #EEEEEE;
+      --radius-card:    8px;
+      --radius-button:  8px;
+      --radius-input:   8px;
+      --radius-pill:    100px;
+
+      --space-1: 2px;  --space-2: 4px;  --space-3: 8px;
+      --space-4: 12px; --space-5: 16px; --space-6: 20px;
+      --space-7: 24px; --space-8: 32px; --space-9: 40px;
+      --space-10: 48px; --space-11: 56px; --space-12: 64px;
+
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+      --line-height-heading: 1.2; --line-height-body: 1.5;
+
+      --duration-micro: 150ms; --duration-standard: 250ms; --duration-complex: 350ms;
+      --easing-enter: ease-out; --easing-exit: ease-in;
+
+      --shadow-card:  0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus: 0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+    }
+
+    .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+    .skip-link {
+      position: absolute; top: -999px; left: var(--space-5);
+      background: var(--color-primary); color:#FFF;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button); z-index: 9999;
+      font-weight: var(--font-weight-semibold); text-decoration: none;
+    }
+    .skip-link:focus { top: var(--space-3); }
+
+    /* --- APP SHELL --- */
+    .app-shell {
+      display: grid; grid-template-columns: 220px 1fr;
+      height: 100vh; overflow: hidden;
+    }
+    .main-column { display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+    /* --- Top Navigation Bar --- */
+    .topnav {
+      height: 56px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 var(--space-7);
+      background: var(--color-card); border-bottom: var(--border-default);
+      flex-shrink: 0;
+    }
+    .topnav-left { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-search {
+      display: flex; align-items: center; gap: var(--space-3);
+      color: var(--text-secondary); font-size: var(--font-size-body);
+      cursor: pointer; padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-input); min-height: 44px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-search:hover { background: var(--grey-100); }
+    .topnav-search svg { width: 16px; height: 16px; }
+    .topnav-right { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-greeting { font-size: var(--font-size-caption); color: var(--text-secondary); text-align: right; line-height: 1.3; }
+    .topnav-greeting strong { display:block; font-size: var(--font-size-body); color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+    .icon-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: none; background: transparent; color: var(--text-secondary);
+      cursor: pointer; position: relative;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--grey-700); }
+    .icon-btn:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .icon-btn svg { width: 20px; height: 20px; }
+    .notification-dot { position:absolute; top:8px; right:8px; width:8px; height:8px; border-radius:50%; background: var(--color-warning); }
+    .avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--color-primary); color:#FFF;
+      display:flex; align-items:center; justify-content:center;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-bold);
+      cursor: pointer; flex-shrink: 0;
+    }
+    .user-dropdown {
+      display:flex; align-items:center; gap: var(--space-3);
+      cursor:pointer; padding: var(--space-2);
+      border-radius: var(--radius-button);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .user-dropdown:hover { background: var(--grey-100); }
+    .user-dropdown svg { width:12px; height:12px; color: var(--text-secondary); }
+
+    /* --- Left Sidebar --- */
+    .leftnav {
+      background: var(--color-card); border-right: var(--border-default);
+      grid-row: 1 / -1; display: flex; flex-direction: column;
+      overflow-y: auto; height: 100vh;
+    }
+    .leftnav-brand {
+      display:flex; align-items:center;
+      padding: var(--space-4) var(--space-5);
+      text-decoration:none; flex-shrink:0;
+      border-bottom: var(--border-divider);
+    }
+    .leftnav-brand img { height:32px; width:auto; display:block; }
+    .leftnav-list { list-style:none; padding: var(--space-3) 0; flex:1; overflow-y:auto; }
+    .leftnav-item {
+      display:flex; align-items:center; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      color: var(--leftnav-text); text-decoration:none;
+      font-size: var(--font-size-body); font-weight: var(--font-weight-regular);
+      cursor:pointer; min-height: 44px;
+      border-left: 3px solid transparent;
+      transition: color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+    }
+    .leftnav-item:hover { color: var(--color-primary); background: var(--color-primary-25); }
+    .leftnav-item[aria-current="page"], .leftnav-item.active {
+      color: var(--leftnav-text-active); font-weight: var(--font-weight-semibold);
+      border-left-color: var(--color-primary); background: var(--color-primary-25);
+    }
+    .leftnav-item:focus-visible { box-shadow: var(--shadow-focus); outline:none; border-radius: var(--radius-button); }
+    .leftnav-icon { width:20px; height:20px; flex-shrink:0; }
+    .leftnav-chevron { width:16px; height:16px; margin-left:auto; color: var(--text-secondary); }
+
+    /* --- Main --- */
+    .main-content { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+    .main-body { flex:1; padding:0; overflow-y:auto; min-height:0; }
+
+    /* --- PAGE HEADER BANNER --- */
+    .page-header-banner {
+      background: linear-gradient(90deg, #006494 0%, #8EC0E2 100%);
+      box-shadow: 0 4px 3px 0 rgba(0,0,0,.10);
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--space-4) var(--space-7); min-height: 48px;
+    }
+    .page-header-title {
+      color:#FFF; font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-heading);
+    }
+    .page-header-title span { font-weight: var(--font-weight-regular); }
+    .page-header-meta {
+      display:flex; align-items:center; gap: var(--space-5);
+      color:#FFF; font-size: var(--font-size-caption);
+    }
+    .page-header-meta strong { font-weight: var(--font-weight-semibold); }
+
+    /* --- BREADCRUMB --- */
+    .breadcrumb {
+      display:flex; align-items:center; gap: var(--space-2);
+      padding: var(--space-5) var(--space-7);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .breadcrumb a { color: var(--text-hyperlink); text-decoration:none; font-weight: var(--font-weight-semibold); }
+    .breadcrumb a:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); display:inline-flex; align-items:center; }
+    .breadcrumb-separator svg { width:14px; height:14px; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+
+    /* --- QUICK LIST TAB BAR --- */
+    .ql-tabbar {
+      display:flex; align-items:stretch; gap:0;
+      margin: 0 var(--space-7);
+      background: linear-gradient(90deg, #006494 0%, #3276CF 60%, #8EC0E2 100%);
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+      overflow-x: auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+    .ql-tab {
+      flex: 1 0 auto; min-width: 140px;
+      display:inline-flex; align-items:center; justify-content:center; gap: var(--space-2);
+      padding: var(--space-4) var(--space-5);
+      background: transparent; border: none;
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold); line-height: 1.25;
+      cursor: pointer; white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: background var(--duration-micro), color var(--duration-micro), border-color var(--duration-micro);
+    }
+    .ql-tab:hover { background: rgba(255,255,255,0.08); color:#FFF; }
+    .ql-tab:focus-visible { outline:none; box-shadow: inset 0 0 0 2px #FFF; }
+    .ql-tab[aria-selected="true"] {
+      color: #FFF;
+      background: rgba(255,255,255,0.12);
+      border-bottom-color: #FFF;
+    }
+    .ql-tab-count {
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width: 22px; height: 22px; padding: 0 var(--space-2);
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.22); color:#FFF;
+      font-size: 11px; font-weight: var(--font-weight-bold); line-height:1;
+    }
+    .ql-tab[aria-selected="true"] .ql-tab-count { background:#FFF; color: var(--color-primary-700); }
+
+    /* --- KPI CARDS GRID --- */
+    .kpi-grid {
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-5);
+      padding: var(--space-7);
+      padding-bottom: var(--space-5);
+    }
+    @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 600px)  { .kpi-grid { grid-template-columns: 1fr; } }
+
+    .kpi-card {
+      position: relative;
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-5) var(--space-6);
+      display:flex; align-items:flex-start; gap: var(--space-4);
+      cursor: pointer;
+      text-align: left;
+      transition: transform var(--duration-micro) var(--easing-enter),
+                  box-shadow var(--duration-micro) var(--easing-enter),
+                  border-color var(--duration-micro) var(--easing-enter);
+      width:100%; font-family: var(--font-family); color: inherit;
+      border-left: 4px solid var(--color-primary);
+    }
+    .kpi-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(50,118,207,0.18); }
+    .kpi-card:focus-visible { outline:none; box-shadow: var(--shadow-focus); }
+    .kpi-card[aria-pressed="true"] { background: var(--color-primary-25); border-color: var(--color-primary); }
+
+    .kpi-card--success { border-left-color: var(--color-success); }
+    .kpi-card--warning { border-left-color: var(--color-warning); }
+    .kpi-card--error   { border-left-color: var(--color-error); }
+    .kpi-card--info    { border-left-color: var(--color-primary); }
+
+    .kpi-icon {
+      width:40px; height:40px; border-radius: var(--radius-button);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+      background: var(--color-primary-25); color: var(--color-primary);
+    }
+    .kpi-card--success .kpi-icon { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .kpi-card--warning .kpi-icon { background: var(--color-warning-bg); color: var(--orange-800); }
+    .kpi-card--error   .kpi-icon { background: var(--color-error-bg); color: var(--color-error-deeper); }
+    .kpi-icon svg { width:20px; height:20px; }
+
+    .kpi-body { display:flex; flex-direction:column; gap: var(--space-1); min-width:0; flex:1; }
+    .kpi-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: .3px;
+    }
+    .kpi-value { font-size: 28px; font-weight: var(--font-weight-bold); color: var(--text-primary); line-height: 1.1; }
+    .kpi-sub { font-size: var(--font-size-caption); color: var(--text-secondary); }
+
+    /* --- TABLE CARD --- */
+    .table-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      margin: 0 var(--space-7) var(--space-7);
+      overflow: hidden;
+    }
+    .table-controls {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--space-5) var(--space-7); flex-wrap:wrap; gap: var(--space-3);
+    }
+    .table-controls-left { display:flex; align-items:center; gap: var(--space-3); font-size: var(--font-size-body); color: var(--text-primary); }
+    .table-controls-right { display:flex; align-items:center; gap: var(--space-4); }
+    .entries-select {
+      height:36px; padding: 0 var(--space-8) 0 var(--space-4);
+      border: 1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-card);
+      outline:none; appearance:none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position: right 8px center;
+      cursor:pointer; min-width:64px;
+    }
+    .entries-select:focus { border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+    .search-inline {
+      height:36px; padding: 0 var(--space-4) 0 var(--space-9);
+      border:1.5px solid var(--grey-300); border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-card);
+      outline:none; width:220px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position: 12px center;
+    }
+    .search-inline:focus { border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+    .export-btn {
+      display:inline-flex; align-items:center; gap: var(--space-2);
+      padding: var(--space-2) var(--space-5);
+      border-radius: var(--radius-button);
+      font-family: var(--font-family); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      color: var(--color-primary); background: var(--color-card);
+      border: 1.5px solid var(--color-primary); cursor:pointer; min-height:36px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .export-btn:hover { background: var(--color-primary-25); }
+    .export-btn:focus-visible { box-shadow: var(--shadow-focus); outline:none; }
+    .export-btn svg { width:14px; height:14px; }
+
+    /* --- Data Table --- */
+    .table-wrapper {
+      overflow-x:auto; background: var(--color-card);
+      border-top: var(--border-default); border-bottom: var(--border-default);
+    }
+    .data-table { width:100%; border-collapse: collapse; font-size: var(--font-size-body); }
+    .data-table thead th {
+      background: var(--table-header); color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      padding: var(--space-3) var(--space-4);
+      text-align:left; border-bottom: var(--border-default); white-space:nowrap;
+      cursor:pointer; user-select:none;
+    }
+    .data-table thead th .sort-icon { display:inline-flex; margin-left: var(--space-2); color: var(--text-secondary); vertical-align:middle; }
+    .data-table thead th .sort-icon svg { width:12px; height:12px; }
+    .data-table tbody td {
+      padding: var(--space-4); color: var(--text-primary);
+      border-bottom: var(--border-divider); vertical-align: middle;
+    }
+    .data-table tbody tr { background: var(--color-card); }
+    .data-table tbody tr:hover { background: var(--table-row-hover); }
+    .name-cell { display:flex; align-items:center; gap: var(--space-3); }
+    .name-cell-avatar {
+      width:32px; height:32px; border-radius:50%; flex-shrink:0;
+      overflow:hidden; background: var(--grey-200);
+    }
+    .name-cell-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Row action button */
+    .row-action-btn {
+      width:32px; height:32px; border:none; background:transparent;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      border-radius:50%; color: var(--color-primary);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .row-action-btn:hover { background: var(--color-primary-25); }
+    .row-action-btn:focus-visible { box-shadow: var(--shadow-focus); outline:none; }
+    .row-action-btn svg { width:16px; height:16px; }
+
+    /* --- BADGES --- */
+    .badge {
+      display:inline-flex; align-items:center;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold); line-height:1.4;
+    }
+    .badge--success { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .badge--error   { background: var(--color-error-bg);   color: var(--color-error-deeper); }
+    .badge--warning { background: var(--color-warning-bg); color: var(--orange-800); }
+    .badge--info    { background: var(--color-primary-50); color: var(--color-primary-800); }
+    .badge--neutral { background: var(--grey-200);         color: var(--grey-800); }
+
+    /* --- Table Footer --- */
+    .table-footer {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--space-4) var(--space-7);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+      background: var(--color-card);
+    }
+    .pagination { display:flex; align-items:center; gap: var(--space-2); list-style:none; }
+    .pagination-btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:32px; height:32px; padding: 0 var(--space-3);
+      border:1px solid var(--grey-300); border-radius: var(--radius-button);
+      background: var(--color-card); color: var(--text-primary);
+      font-family: var(--font-family); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold); cursor:pointer; text-decoration:none;
+    }
+    .pagination-btn:hover { background: var(--color-primary-25); border-color: var(--color-primary); color: var(--color-primary); }
+    .pagination-btn[aria-current="page"] { background: var(--color-primary); border-color: var(--color-primary); color:#FFF; }
+    .pagination-btn[aria-disabled="true"], .pagination-btn:disabled { color: var(--text-disabled); border-color: var(--grey-200); cursor:not-allowed; background: var(--grey-50); }
+    .pagination-btn svg { width:14px; height:14px; }
+    .pagination-ellipsis { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; color: var(--text-secondary); font-size: var(--font-size-caption); }
+
+    /* --- TAB PANELS --- */
+    .ql-panel { display: none; }
+    .ql-panel.active { display: block; }
+
+    /* --- FOOTER --- */
+    .page-footer {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--space-4) var(--space-7);
+      background: var(--color-card); border-top: var(--border-default);
+      min-height:48px; flex-shrink:0;
+    }
+    .footer-links { display:flex; gap: var(--space-5); }
+    .footer-links a { color: var(--text-hyperlink); text-decoration:none; font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); }
+    .footer-links a:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    .footer-branding { display:flex; align-items:center; gap: var(--space-3); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .footer-branding img { height:24px; width:auto; }
+
+    /* --- TOAST --- */
+    .toast {
+      position: fixed; left:50%; bottom: var(--space-7);
+      transform: translateX(-50%) translateY(20px);
+      background:#212121; color:#FFF;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      box-shadow: var(--shadow-modal);
+      opacity:0; pointer-events:none; transition: opacity .25s, transform .25s;
+      z-index: 9999;
+    }
+    .toast.show { opacity:1; transform: translateX(-50%) translateY(0); pointer-events:auto; }
+
+    /* Responsive collapse to icon-only sidebar */
+    @media (max-width: 1024px) {
+      .app-shell { grid-template-columns: 72px 1fr; }
+      .leftnav-item span:not(.leftnav-icon), .leftnav-chevron { display:none; }
+      .leftnav-item { justify-content:center; padding: var(--space-4) var(--space-3); gap:0; }
+      .leftnav-brand img { height:24px; }
+      .search-inline { width: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- --- LEFT SIDEBAR --- -->
+    <nav class="leftnav" aria-label="Side navigation">
+      <a class="leftnav-brand" href="quick_list.html" aria-label="ProServe home">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 32'%3E%3Crect width='140' height='32' rx='4' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3Ctext x='28' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EProServe%3C/text%3E%3C/svg%3E" alt="ProServe" />
+      </a>
+      <ul class="leftnav-list" role="list">
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span>Navigation</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item active" href="quick_list.html" aria-current="page">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span>QuickList</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="advance_contact_service.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-3-3.87"/><path d="M4 21v-2a4 4 0 013-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Records</span>
+          </a>
+        </li>
+        <li class="leftnav-group" id="nav-settings">
+          <a class="leftnav-item" href="#" aria-expanded="false" aria-controls="settings-sub" onclick="toggleSettings(event)">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            <span>Settings</span>
+            <svg class="leftnav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="leftnav-sub" id="settings-sub" role="list">
+            <li><a class="leftnav-sub-item" href="user_details.html">User Details</a></li>
+            <li><a class="leftnav-sub-item" href="roles_details.html">Roles Details</a></li>
+            <li><a class="leftnav-sub-item" href="list_configuration.html">List Configuration</a></li>
+            <li><a class="leftnav-sub-item" href="dynamic_fields.html">Dynamic Fields</a></li>
+            <li><a class="leftnav-sub-item" href="email_template.html">Email Template</a></li>
+            <li><a class="leftnav-sub-item" href="email_queue.html">Email Queue</a></li>
+            <li><a class="leftnav-sub-item" href="documents_upload.html">Documents Upload</a></li>
+            <li><a class="leftnav-sub-item" href="notification.html">Notification</a></li>
+            <li><a class="leftnav-sub-item" href="#" onclick="return false;">Query Builder</a></li>
+            <li><a class="leftnav-sub-item" href="asset_details.html">Asset Details</a></li>
+            <li><a class="leftnav-sub-item" href="engage_bwv_log.html">FieldSync BWV Log Screen</a></li>
+            <li><a class="leftnav-sub-item" href="talos_log.html">Talos Log</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="leftnav-item" href="reports.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Reports</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- --- COLUMN 2 --- -->
+    <div class="main-column">
+
+      <!-- TOP NAV -->
+      <header class="topnav" role="banner">
+        <div class="topnav-left">
+          <div class="topnav-search" role="search" tabindex="0" aria-label="Global search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Search</span>
+          </div>
+        </div>
+        <div class="topnav-right">
+          <button class="icon-btn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <span class="notification-dot" aria-hidden="true"></span>
+          </button>
+          <div class="user-dropdown" role="button" tabindex="0" aria-label="User profile: Johny Wick" aria-haspopup="true">
+            <div class="avatar" aria-hidden="true">JW</div>
+            <div class="topnav-greeting"><span>Good afternoon</span><strong>Johny Wick</strong></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN -->
+      <main class="main-content" id="main-content">
+        <div class="main-body">
+
+          <!-- Header banner -->
+          <div class="page-header-banner">
+            <h1 class="page-header-title">Quick List <span>- Operational worklists</span></h1>
+            <div class="page-header-meta" aria-label="Last refreshed">
+              <span>Last updated <strong id="lastUpdated">just now</strong></span>
+            </div>
+          </div>
+
+          <!-- Breadcrumb -->
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="quick_list.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            <span class="breadcrumb-current" aria-current="page">Quick List</span>
+          </nav>
+
+          <!-- --- QUICK LIST TAB BAR --- -->
+          <div class="ql-tabbar" role="tablist" aria-label="Quick list categories">
+            <button class="ql-tab" role="tab" aria-selected="true"  aria-controls="panel-certificate"      id="tab-certificate"      data-tab="certificate">Certificate <span class="ql-tab-count">42</span></button>
+            <button class="ql-tab" role="tab" aria-selected="false" aria-controls="panel-court-hearing"    id="tab-court-hearing"    data-tab="court-hearing">Court Hearing <span class="ql-tab-count">18</span></button>
+            <button class="ql-tab" role="tab" aria-selected="false" aria-controls="panel-renewal"          id="tab-renewal"          data-tab="renewal">Renewal <span class="ql-tab-count">27</span></button>
+            <button class="ql-tab" role="tab" aria-selected="false" aria-controls="panel-renewal-hearing"  id="tab-renewal-hearing"  data-tab="renewal-hearing">Renewal Court Hearing <span class="ql-tab-count">9</span></button>
+            <button class="ql-tab" role="tab" aria-selected="false" aria-controls="panel-risk"             id="tab-risk"             data-tab="risk">Risk Register <span class="ql-tab-count">14</span></button>
+            <button class="ql-tab" role="tab" aria-selected="false" aria-controls="panel-dbs"              id="tab-dbs"              data-tab="dbs">DBS Request <span class="ql-tab-count">6</span></button>
+            <button class="ql-tab" role="tab" aria-selected="false" aria-controls="panel-contractors"      id="tab-contractors"      data-tab="contractors">Contractors <span class="ql-tab-count">312</span></button>
+          </div>
+
+          <!-- ------------------------------------------------
+               PANEL 1 — CERTIFICATE
+               ------------------------------------------------ -->
+          <section class="ql-panel active" id="panel-certificate" role="tabpanel" aria-labelledby="tab-certificate">
+            <div class="kpi-grid">
+              <button class="kpi-card kpi-card--success" aria-pressed="false" onclick="filterKpi(this,'certificated')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></span>
+                <span class="kpi-body">
+                  <span class="kpi-label">Currently Certificated</span>
+                  <span class="kpi-value">1,284</span>
+                  <span class="kpi-sub">Active agents across all brands</span>
+                </span>
+              </button>
+              <button class="kpi-card kpi-card--info" aria-pressed="false" onclick="filterKpi(this,'new-inprogress')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 14l2 2 4-4"/></svg></span>
+                <span class="kpi-body">
+                  <span class="kpi-label">New Apps · In-Progress</span>
+                  <span class="kpi-value">23</span>
+                  <span class="kpi-sub">Drafted, not yet submitted</span>
+                </span>
+              </button>
+              <button class="kpi-card kpi-card--warning" aria-pressed="false" onclick="filterKpi(this,'new-submitted')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
+                <span class="kpi-body">
+                  <span class="kpi-label">New Apps · Submitted</span>
+                  <span class="kpi-value">11</span>
+                  <span class="kpi-sub">Awaiting court hearing</span>
+                </span>
+              </button>
+              <button class="kpi-card kpi-card--info" aria-pressed="false" onclick="filterKpi(this,'self-cert')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+                <span class="kpi-body">
+                  <span class="kpi-label">New Self-Cert · In-Progress</span>
+                  <span class="kpi-value">8</span>
+                  <span class="kpi-sub">Self-certification draft</span>
+                </span>
+              </button>
+            </div>
+
+            <div class="table-card">
+              <div class="table-controls">
+                <div class="table-controls-left">
+                  <span>show</span>
+                  <select class="entries-select" aria-label="Number of entries to show">
+                    <option>10</option><option>25</option><option>50</option><option>100</option>
+                  </select>
+                  <span>entries</span>
+                </div>
+                <div class="table-controls-right">
+                  <input type="search" class="search-inline" placeholder="Search certificates" aria-label="Search certificates" />
+                  <button class="export-btn" type="button" onclick="showToast('Exported to CSV')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Export
+                  </button>
+                </div>
+              </div>
+              <div class="table-wrapper" role="region" aria-label="Certificate worklist" tabindex="0">
+                <table class="data-table" aria-label="Certificate worklist">
+                  <thead>
+                    <tr>
+                      <th>ID <span class="sort-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></th>
+                      <th>Agent Name</th>
+                      <th>Certificate No.</th>
+                      <th>Application Type</th>
+                      <th>Brand</th>
+                      <th>Court</th>
+                      <th>Granted</th>
+                      <th>Expiry</th>
+                      <th>Status</th>
+                      <th><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>36701</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></span>Mr. Benjamin Adams</div></td><td>CERT-2024-001284</td><td>New</td><td>FieldSync Services</td><td>Manchester</td><td>14 Mar 2024</td><td>14 Mar 2026</td><td><span class="badge badge--success">Certificated</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36702</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/22.jpg" alt=""></span>Ms. Olivia Hughes</div></td><td>CERT-2024-001285</td><td>New</td><td>Acme Recovery</td><td>Leeds</td><td>02 Apr 2024</td><td>02 Apr 2026</td><td><span class="badge badge--success">Certificated</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36703</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/45.jpg" alt=""></span>Mr. Daniel Carter</div></td><td>—</td><td>New (Draft)</td><td>FieldSync Services</td><td>Birmingham</td><td>—</td><td>—</td><td><span class="badge badge--info">In-Progress</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36704</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/55.jpg" alt=""></span>Ms. Priya Sharma</div></td><td>—</td><td>New (Submitted)</td><td>Acme Recovery</td><td>Cardiff</td><td>—</td><td>—</td><td><span class="badge badge--warning">Awaiting Hearing</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36705</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/68.jpg" alt=""></span>Mr. James O'Connor</div></td><td>—</td><td>Self-Cert (Draft)</td><td>FieldSync Services</td><td>Liverpool</td><td>—</td><td>—</td><td><span class="badge badge--info">In-Progress</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div>Showing 1 to 5 of 42 entries</div>
+                <nav aria-label="Pagination"><ul class="pagination">
+                  <li><button class="pagination-btn" aria-disabled="true" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button></li>
+                  <li><button class="pagination-btn" aria-current="page">1</button></li>
+                  <li><button class="pagination-btn">2</button></li>
+                  <li><button class="pagination-btn">3</button></li>
+                  <li><button class="pagination-btn">4</button></li>
+                  <li><button class="pagination-btn">5</button></li>
+                  <li><button class="pagination-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></li>
+                </ul></nav>
+              </div>
+            </div>
+          </section>
+
+          <!-- ------------------------------------------------
+               PANEL 2 — COURT HEARING
+               ------------------------------------------------ -->
+          <section class="ql-panel" id="panel-court-hearing" role="tabpanel" aria-labelledby="tab-court-hearing" hidden>
+            <div class="kpi-grid">
+              <button class="kpi-card kpi-card--warning" aria-pressed="false" onclick="filterKpi(this,'awaiting-hearing')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                <span class="kpi-body">
+                  <span class="kpi-label">Awaiting Court Hearing</span>
+                  <span class="kpi-value">11</span>
+                  <span class="kpi-sub">Hearing scheduled</span>
+                </span>
+              </button>
+              <button class="kpi-card kpi-card--error" aria-pressed="false" onclick="filterKpi(this,'deferred-hearing')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></span>
+                <span class="kpi-body">
+                  <span class="kpi-label">Deferred Court Hearings</span>
+                  <span class="kpi-value">7</span>
+                  <span class="kpi-sub">Re-scheduling required</span>
+                </span>
+              </button>
+            </div>
+
+            <div class="table-card">
+              <div class="table-controls">
+                <div class="table-controls-left"><span>show</span><select class="entries-select"><option>10</option><option>25</option><option>50</option></select><span>entries</span></div>
+                <div class="table-controls-right">
+                  <input type="search" class="search-inline" placeholder="Search hearings" aria-label="Search hearings" />
+                  <button class="export-btn" type="button" onclick="showToast('Exported to CSV')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+                </div>
+              </div>
+              <div class="table-wrapper" role="region" tabindex="0">
+                <table class="data-table">
+                  <thead><tr><th>ID</th><th>Agent Name</th><th>Application Type</th><th>Brand</th><th>Court</th><th>Hearing Date</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                  <tbody>
+                    <tr><td>36710</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/15.jpg" alt=""></span>Mr. Aaron Wells</div></td><td>New</td><td>FieldSync Services</td><td>Manchester</td><td>28 May 2026</td><td><span class="badge badge--warning">Awaiting</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36711</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/35.jpg" alt=""></span>Ms. Hannah Bright</div></td><td>New</td><td>Acme Recovery</td><td>Leeds</td><td>03 Jun 2026</td><td><span class="badge badge--warning">Awaiting</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36712</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/27.jpg" alt=""></span>Mr. Ravi Kapoor</div></td><td>New</td><td>FieldSync Services</td><td>Cardiff</td><td>—</td><td><span class="badge badge--error">Deferred</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div>Showing 1 to 3 of 18 entries</div>
+                <nav aria-label="Pagination"><ul class="pagination">
+                  <li><button class="pagination-btn" disabled aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button></li>
+                  <li><button class="pagination-btn" aria-current="page">1</button></li>
+                  <li><button class="pagination-btn">2</button></li>
+                  <li><button class="pagination-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></li>
+                </ul></nav>
+              </div>
+            </div>
+          </section>
+
+          <!-- ------------------------------------------------
+               PANEL 3 — RENEWAL
+               ------------------------------------------------ -->
+          <section class="ql-panel" id="panel-renewal" role="tabpanel" aria-labelledby="tab-renewal" hidden>
+            <div class="kpi-grid">
+              <button class="kpi-card kpi-card--info" aria-pressed="false" onclick="filterKpi(this,'renewal-inprogress')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 019-9 9.75 9.75 0 016.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Renewal Apps · In-Progress</span><span class="kpi-value">15</span><span class="kpi-sub">Renewal drafts open</span></span>
+              </button>
+              <button class="kpi-card kpi-card--warning" aria-pressed="false" onclick="filterKpi(this,'renewal-submitted')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Renewal Apps · Submitted</span><span class="kpi-value">9</span><span class="kpi-sub">Awaiting court hearing</span></span>
+              </button>
+              <button class="kpi-card kpi-card--info" aria-pressed="false" onclick="filterKpi(this,'renewal-self-cert')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Renewal Self-Cert · In-Progress</span><span class="kpi-value">3</span><span class="kpi-sub">Self-cert renewal drafts</span></span>
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-controls">
+                <div class="table-controls-left"><span>show</span><select class="entries-select"><option>10</option><option>25</option></select><span>entries</span></div>
+                <div class="table-controls-right"><input type="search" class="search-inline" placeholder="Search renewals" aria-label="Search renewals" /><button class="export-btn" type="button" onclick="showToast('Exported to CSV')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button></div>
+              </div>
+              <div class="table-wrapper" role="region" tabindex="0">
+                <table class="data-table">
+                  <thead><tr><th>ID</th><th>Agent Name</th><th>Current Cert No.</th><th>Application Type</th><th>Brand</th><th>Court</th><th>Renewal Due</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                  <tbody>
+                    <tr><td>36720</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt=""></span>Mr. Liam Stone</div></td><td>CERT-2024-000812</td><td>Renewal (Draft)</td><td>FieldSync Services</td><td>Manchester</td><td>20 Jun 2026</td><td><span class="badge badge--info">In-Progress</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36721</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/72.jpg" alt=""></span>Ms. Emma Walters</div></td><td>CERT-2024-000814</td><td>Renewal (Submitted)</td><td>Acme Recovery</td><td>Leeds</td><td>02 Jul 2026</td><td><span class="badge badge--warning">Awaiting Hearing</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36722</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/77.jpg" alt=""></span>Mr. Noah Patel</div></td><td>CERT-2024-000817</td><td>Renewal Self-Cert</td><td>FieldSync Services</td><td>Birmingham</td><td>15 Jul 2026</td><td><span class="badge badge--info">In-Progress</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div>Showing 1 to 3 of 27 entries</div>
+                <nav aria-label="Pagination"><ul class="pagination">
+                  <li><button class="pagination-btn" disabled aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button></li>
+                  <li><button class="pagination-btn" aria-current="page">1</button></li>
+                  <li><button class="pagination-btn">2</button></li>
+                  <li><button class="pagination-btn">3</button></li>
+                  <li><button class="pagination-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></li>
+                </ul></nav>
+              </div>
+            </div>
+          </section>
+
+          <!-- ------------------------------------------------
+               PANEL 4 — RENEWAL COURT HEARING
+               ------------------------------------------------ -->
+          <section class="ql-panel" id="panel-renewal-hearing" role="tabpanel" aria-labelledby="tab-renewal-hearing" hidden>
+            <div class="kpi-grid">
+              <button class="kpi-card kpi-card--warning" aria-pressed="false" onclick="filterKpi(this,'awaiting-renewal-hearing')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Awaiting Renewal Hearing</span><span class="kpi-value">6</span><span class="kpi-sub">Hearing scheduled</span></span>
+              </button>
+              <button class="kpi-card kpi-card--error" aria-pressed="false" onclick="filterKpi(this,'deferred-renewal-hearing')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Deferred Renewal Hearings</span><span class="kpi-value">3</span><span class="kpi-sub">Re-scheduling required</span></span>
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-controls">
+                <div class="table-controls-left"><span>show</span><select class="entries-select"><option>10</option><option>25</option></select><span>entries</span></div>
+                <div class="table-controls-right"><input type="search" class="search-inline" placeholder="Search renewal hearings" aria-label="Search renewal hearings" /><button class="export-btn" type="button" onclick="showToast('Exported to CSV')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button></div>
+              </div>
+              <div class="table-wrapper" role="region" tabindex="0">
+                <table class="data-table">
+                  <thead><tr><th>ID</th><th>Agent Name</th><th>Current Cert No.</th><th>Brand</th><th>Court</th><th>Hearing Date</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                  <tbody>
+                    <tr><td>36730</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/63.jpg" alt=""></span>Mr. Oscar Bennett</div></td><td>CERT-2024-000901</td><td>FieldSync Services</td><td>Manchester</td><td>04 Jun 2026</td><td><span class="badge badge--warning">Awaiting</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36731</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/63.jpg" alt=""></span>Ms. Sofia Ahmed</div></td><td>CERT-2024-000903</td><td>Acme Recovery</td><td>Leeds</td><td>—</td><td><span class="badge badge--error">Deferred</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div>Showing 1 to 2 of 9 entries</div>
+                <nav aria-label="Pagination"><ul class="pagination">
+                  <li><button class="pagination-btn" disabled aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button></li>
+                  <li><button class="pagination-btn" aria-current="page">1</button></li>
+                  <li><button class="pagination-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></li>
+                </ul></nav>
+              </div>
+            </div>
+          </section>
+
+          <!-- ------------------------------------------------
+               PANEL 5 — RISK REGISTER
+               ------------------------------------------------ -->
+          <section class="ql-panel" id="panel-risk" role="tabpanel" aria-labelledby="tab-risk" hidden>
+            <div class="kpi-grid">
+              <button class="kpi-card kpi-card--warning" aria-pressed="false" onclick="filterKpi(this,'cert-expiry-risk')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Certification Expiry Risk</span><span class="kpi-value">8</span><span class="kpi-sub">Expiring within 30 days</span></span>
+              </button>
+              <button class="kpi-card kpi-card--warning" aria-pressed="false" onclick="filterKpi(this,'bond-expiry-risk')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-3-3.87"/><path d="M4 21v-2a4 4 0 013-3.87"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Bond Expiry Risk</span><span class="kpi-value">4</span><span class="kpi-sub">Expiring within 30 days</span></span>
+              </button>
+              <button class="kpi-card kpi-card--error" aria-pressed="false" onclick="filterKpi(this,'cert-expired')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Certification Expired</span><span class="kpi-value">2</span><span class="kpi-sub">Action required immediately</span></span>
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-controls">
+                <div class="table-controls-left"><span>show</span><select class="entries-select"><option>10</option><option>25</option></select><span>entries</span></div>
+                <div class="table-controls-right"><input type="search" class="search-inline" placeholder="Search risks" aria-label="Search risks" /><button class="export-btn" type="button" onclick="showToast('Exported to CSV')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button></div>
+              </div>
+              <div class="table-wrapper" role="region" tabindex="0">
+                <table class="data-table">
+                  <thead><tr><th>ID</th><th>Agent Name</th><th>Brand</th><th>Risk Type</th><th>Cert / Bond No.</th><th>Expiry Date</th><th>Days to Expiry</th><th>Severity</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                  <tbody>
+                    <tr><td>36740</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/41.jpg" alt=""></span>Mr. Henry Clarke</div></td><td>FieldSync Services</td><td>Certificate</td><td>CERT-2024-000420</td><td>10 Jun 2026</td><td>19</td><td><span class="badge badge--warning">Medium</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36741</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/14.jpg" alt=""></span>Ms. Grace Lin</div></td><td>Acme Recovery</td><td>Bond</td><td>BOND-2024-0078</td><td>14 Jun 2026</td><td>23</td><td><span class="badge badge--warning">Medium</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36742</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/24.jpg" alt=""></span>Mr. Felix Howard</div></td><td>FieldSync Services</td><td>Certificate</td><td>CERT-2024-000312</td><td>10 May 2026</td><td>-12</td><td><span class="badge badge--error">Expired</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div>Showing 1 to 3 of 14 entries</div>
+                <nav aria-label="Pagination"><ul class="pagination">
+                  <li><button class="pagination-btn" disabled aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button></li>
+                  <li><button class="pagination-btn" aria-current="page">1</button></li>
+                  <li><button class="pagination-btn">2</button></li>
+                  <li><button class="pagination-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></li>
+                </ul></nav>
+              </div>
+            </div>
+          </section>
+
+          <!-- ------------------------------------------------
+               PANEL 6 — DBS REQUEST
+               ------------------------------------------------ -->
+          <section class="ql-panel" id="panel-dbs" role="tabpanel" aria-labelledby="tab-dbs" hidden>
+            <div class="kpi-grid">
+              <button class="kpi-card kpi-card--info" aria-pressed="false" onclick="filterKpi(this,'awaiting-dbs')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Awaiting DBS</span><span class="kpi-value">6</span><span class="kpi-sub">Background check pending</span></span>
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-controls">
+                <div class="table-controls-left"><span>show</span><select class="entries-select"><option>10</option><option>25</option></select><span>entries</span></div>
+                <div class="table-controls-right"><input type="search" class="search-inline" placeholder="Search DBS requests" aria-label="Search DBS requests" /><button class="export-btn" type="button" onclick="showToast('Exported to CSV')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button></div>
+              </div>
+              <div class="table-wrapper" role="region" tabindex="0">
+                <table class="data-table">
+                  <thead><tr><th>ID</th><th>Agent Name</th><th>Brand</th><th>Requested On</th><th>Awaiting Since (days)</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                  <tbody>
+                    <tr><td>36750</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/86.jpg" alt=""></span>Mr. Theo Marshall</div></td><td>FieldSync Services</td><td>01 May 2026</td><td>21</td><td><span class="badge badge--info">Awaiting</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36751</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/86.jpg" alt=""></span>Ms. Layla Roberts</div></td><td>Acme Recovery</td><td>08 May 2026</td><td>14</td><td><span class="badge badge--info">Awaiting</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div>Showing 1 to 2 of 6 entries</div>
+                <nav aria-label="Pagination"><ul class="pagination">
+                  <li><button class="pagination-btn" disabled aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button></li>
+                  <li><button class="pagination-btn" aria-current="page">1</button></li>
+                  <li><button class="pagination-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></li>
+                </ul></nav>
+              </div>
+            </div>
+          </section>
+
+          <!-- ------------------------------------------------
+               PANEL 7 — CONTRACTORS
+               ------------------------------------------------ -->
+          <section class="ql-panel" id="panel-contractors" role="tabpanel" aria-labelledby="tab-contractors" hidden>
+            <div class="kpi-grid">
+              <button class="kpi-card kpi-card--info" aria-pressed="false" onclick="filterKpi(this,'acme')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">Acme Contractors</span><span class="kpi-value">187</span><span class="kpi-sub">Active contracts</span></span>
+              </button>
+              <button class="kpi-card kpi-card--success" aria-pressed="false" onclick="filterKpi(this,'engage')">
+                <span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+                <span class="kpi-body"><span class="kpi-label">FieldSync Contractors</span><span class="kpi-value">125</span><span class="kpi-sub">Active contracts</span></span>
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-controls">
+                <div class="table-controls-left"><span>show</span><select class="entries-select"><option>10</option><option>25</option></select><span>entries</span></div>
+                <div class="table-controls-right"><input type="search" class="search-inline" placeholder="Search contractors" aria-label="Search contractors" /><button class="export-btn" type="button" onclick="showToast('Exported to CSV')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button></div>
+              </div>
+              <div class="table-wrapper" role="region" tabindex="0">
+                <table class="data-table">
+                  <thead><tr><th>ID</th><th>Contractor Name</th><th>Brand</th><th>Role</th><th>Contract Start</th><th>Contract End</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                  <tbody>
+                    <tr><td>36760</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/91.jpg" alt=""></span>Mr. Adrian Pope</div></td><td>Acme Recovery</td><td>Enforcement Agent</td><td>01 Jan 2025</td><td>31 Dec 2026</td><td><span class="badge badge--success">Active</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36761</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/women/91.jpg" alt=""></span>Ms. Bethany Cole</div></td><td>FieldSync Services</td><td>Director</td><td>15 Mar 2024</td><td>14 Mar 2027</td><td><span class="badge badge--success">Active</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                    <tr><td>36762</td><td><div class="name-cell"><span class="name-cell-avatar"><img src="https://randomuser.me/api/portraits/men/29.jpg" alt=""></span>Mr. Callum Ward</div></td><td>Acme Recovery</td><td>Manager</td><td>20 Aug 2023</td><td>19 Aug 2026</td><td><span class="badge badge--warning">Ending Soon</span></td><td><button class="row-action-btn" aria-label="Actions"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div>Showing 1 to 3 of 312 entries</div>
+                <nav aria-label="Pagination"><ul class="pagination">
+                  <li><button class="pagination-btn" disabled aria-disabled="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button></li>
+                  <li><button class="pagination-btn" aria-current="page">1</button></li>
+                  <li><button class="pagination-btn">2</button></li>
+                  <li><button class="pagination-btn">3</button></li>
+                  <li><span class="pagination-ellipsis">…</span></li>
+                  <li><button class="pagination-btn">32</button></li>
+                  <li><button class="pagination-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></li>
+                </ul></nav>
+              </div>
+            </div>
+          </section>
+
+        </div><!-- /.main-body -->
+
+        <!-- Footer -->
+        <footer class="page-footer" role="contentinfo">
+          <div class="footer-links">
+            <a href="#" onclick="return false;">Atlas</a>
+            <a href="#" onclick="return false;">ProServe Learn</a>
+          </div>
+          <div class="footer-branding">
+            <span>Powered by</span>
+            <img src="images/acme-logo@small-logo.png" alt="Acme" />
+          </div>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">Action complete</div>
+
+  <script>
+    // --- Tab switching ---
+    (function () {
+      var tabs = document.querySelectorAll('.ql-tab');
+      var panels = document.querySelectorAll('.ql-panel');
+
+      function activate(id) {
+        tabs.forEach(function (t) {
+          var selected = t.getAttribute('aria-controls') === id;
+          t.setAttribute('aria-selected', selected ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          var isActive = p.id === id;
+          p.classList.toggle('active', isActive);
+          if (isActive) { p.removeAttribute('hidden'); } else { p.setAttribute('hidden', ''); }
+        });
+        try { history.replaceState(null, '', '#' + id.replace('panel-', '')); } catch (e) {}
+      }
+
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { activate(t.getAttribute('aria-controls')); });
+        t.addEventListener('keydown', function (e) {
+          var list = Array.prototype.slice.call(tabs);
+          var i = list.indexOf(t);
+          if (e.key === 'ArrowRight') { e.preventDefault(); list[(i + 1) % list.length].focus(); list[(i + 1) % list.length].click(); }
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); list[(i - 1 + list.length) % list.length].focus(); list[(i - 1 + list.length) % list.length].click(); }
+          if (e.key === 'Home')       { e.preventDefault(); list[0].focus(); list[0].click(); }
+          if (e.key === 'End')        { e.preventDefault(); list[list.length - 1].focus(); list[list.length - 1].click(); }
+        });
+      });
+
+      // Open from URL hash
+      var hash = (location.hash || '').replace('#', '');
+      if (hash) {
+        var target = document.getElementById('panel-' + hash);
+        if (target) activate(target.id);
+      }
+    })();
+
+    // --- KPI filter toggle (visual only in this prototype) ---
+    function filterKpi(btn, key) {
+      var panel = btn.closest('.ql-panel');
+      var others = panel.querySelectorAll('.kpi-card');
+      others.forEach(function (c) { if (c !== btn) c.setAttribute('aria-pressed', 'false'); });
+      var pressed = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+      showToast(pressed ? 'Filter cleared' : 'Filtered by ' + btn.querySelector('.kpi-label').textContent);
+    }
+
+    // --- Toast ---
+    var toastTimer;
+    function showToast(msg) {
+      var el = document.getElementById('toast');
+      el.textContent = msg; el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2500);
+    }
+
+    // Last updated stamp
+    (function () {
+      var el = document.getElementById('lastUpdated');
+      if (!el) return;
+      var d = new Date();
+      el.textContent = d.toLocaleString(undefined, { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+    })();
+  </script>
+  <style>
+    .leftnav-group .leftnav-caret { margin-left:auto; width:14px; height:14px; transition: transform .15s; flex-shrink:0; }
+    .leftnav-group.is-open > .leftnav-item .leftnav-caret { transform: rotate(180deg); }
+    .leftnav-sub { display:none; padding:4px 0 8px; background:#FAFAFA; list-style:none; margin:0; }
+    .leftnav-group.is-open .leftnav-sub { display:block; }
+    .leftnav-sub-item { display:flex; align-items:center; padding:8px 16px 8px 52px; color:#212121; font-size:14px; text-decoration:underline; text-decoration-color:transparent; min-height:36px; border-left:3px solid transparent; transition:color .15s, background .15s, text-decoration-color .15s; }
+    .leftnav-sub-item:hover { color:#3276CF; background:#F2F5FA; text-decoration-color:#3276CF; }
+    .leftnav-sub-item[aria-current="page"], .leftnav-sub-item.active { color:#275798; font-weight:600; border-left-color:#3276CF; background:#F2F5FA; text-decoration-color:#275798; }
+    @media (max-width:1024px){ .leftnav-sub, .leftnav-group .leftnav-caret { display:none !important; } }
+  </style>
+  <script>function toggleSettings(e){
+  e.preventDefault();
+  var g = document.getElementById('nav-settings');
+  if (!g) return;
+  var i = g.querySelector('.leftnav-item');
+  var open = g.classList.toggle('is-open');
+  if (i) i.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+(function initHoverExpandLeftnav(){
+  var DESKTOP_MEDIA = '(min-width: 1025px)';
+  var COLLAPSED_CLASS = 'leftnav-collapsed';
+  var COLLAPSED_BRAND_SRC = 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E';
+
+  function isDesktop() {
+    return window.matchMedia(DESKTOP_MEDIA).matches;
+  }
+
+  function injectCollapsedStyle() {
+    if (document.getElementById('leftnav-collapsible-style')) return;
+    var style = document.createElement('style');
+    style.id = 'leftnav-collapsible-style';
+    style.textContent = [
+      '.app-shell.leftnav-collapsed{grid-template-columns:72px 1fr;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand{padding:var(--space-5, 12px);justify-content:center;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand img{height:24px;width:24px;object-fit:contain;}',
+      '.app-shell.leftnav-collapsed .leftnav-item span:not(.leftnav-icon),',
+      '.app-shell.leftnav-collapsed .leftnav-caret,',
+      '.app-shell.leftnav-collapsed .leftnav-chevron,',
+      '.app-shell.leftnav-collapsed .leftnav-sub,',
+      '.app-shell.leftnav-collapsed .leftnav-submenu{display:none !important;}',
+      '.app-shell.leftnav-collapsed .leftnav-item{justify-content:center;padding:var(--space-4,12px) var(--space-3,8px);gap:0;}'
+    ].join('');
+    document.head.appendChild(style);
+  }
+
+  function init() {
+    var shell = document.querySelector('.app-shell');
+    var leftnav = document.querySelector('.leftnav');
+    var brandImg = document.querySelector('.leftnav-brand img');
+    if (!shell || !leftnav) return;
+
+    injectCollapsedStyle();
+
+    var expandedBrandSrc = brandImg ? brandImg.getAttribute('src') : '';
+
+    function syncBrandImage() {
+      if (!brandImg) return;
+      if (shell.classList.contains(COLLAPSED_CLASS) && isDesktop()) {
+        brandImg.setAttribute('src', COLLAPSED_BRAND_SRC);
+      } else if (expandedBrandSrc) {
+        brandImg.setAttribute('src', expandedBrandSrc);
+      }
+    }
+
+    leftnav.addEventListener('click', function(event) {
+      var item = event.target.closest('.leftnav-item, .leftnav-sub-item, .leftnav-submenu-item');
+      if (!item || !isDesktop()) return;
+
+      var clickedIcon = !!event.target.closest('.leftnav-icon');
+      if (shell.classList.contains(COLLAPSED_CLASS) && clickedIcon) {
+        event.preventDefault();
+        shell.classList.remove(COLLAPSED_CLASS);
+        syncBrandImage();
+        return;
+      }
+
+      var isSettingsToggle = item.matches('.leftnav-item[aria-controls="settings-sub"]');
+      if (isSettingsToggle) return;
+      shell.classList.add(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    window.addEventListener('resize', function() {
+      if (isDesktop()) {
+        syncBrandImage();
+        return;
+      }
+      shell.classList.remove(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    syncBrandImage();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();</script>
+  <script src="notification-panel.js"></script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

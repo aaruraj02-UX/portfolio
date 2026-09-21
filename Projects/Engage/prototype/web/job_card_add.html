@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Add Job Card Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <style>
+    /* ---------------------------------------------------------------
+       MET-DS-V2 Design Tokens
+    ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #FF9800;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+      --orange-600: #FB8C00;
+      --orange-700: #F57C00;
+      --orange-800: #E56800;
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           8px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-body1: 16px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+      --line-height-heading: 1.2; --line-height-body: 1.43;
+      --duration-micro: 150ms; --duration-standard: 250ms;
+      --easing-enter: ease-out; --easing-exit: ease-in;
+      --shadow-card: 0 1px 4px rgba(50,118,207,0.10);
+      --shadow-modal: 0 8px 32px rgba(0,0,0,0.18);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: var(--line-height-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .skip-link {
+      position: absolute; top: -60px; left: 0;
+      background: var(--color-primary); color: #fff;
+      padding: var(--space-3) var(--space-5);
+      border-radius: 0 0 var(--radius-button) 0;
+      font-weight: var(--font-weight-medium);
+      text-decoration: none; z-index: 1000;
+    }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 4px; }
+    :focus:not(:focus-visible) { outline: none; }
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
+
+    /* ------------------------------------------- App Shell ----------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      grid-template-rows: 60px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ------------------------------------------- Top Bar ----------- */
+    .top-bar {
+      grid-column: 1 / -1; grid-row: 1;
+      position: sticky; top: 0;
+      display: flex; align-items: center;
+      gap: var(--space-5);
+      padding: 0 var(--space-5);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      z-index: 100; height: 60px;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: var(--space-5); flex-shrink: 0; }
+    .hamburger-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px;
+      border: none; background: transparent;
+      color: var(--color-primary); cursor: pointer; padding: 0;
+    }
+    .top-bar-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .top-bar-logo img { height: 35px; width: auto; }
+    .top-bar-spacer { flex: 1; }
+    .top-bar-search { position: relative; max-width: 585px; flex: 0 1 585px; }
+    .top-bar-search input {
+      width: 100%; height: 40px;
+      padding: 0 48px 0 var(--space-5);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--grey-50);
+      outline: none;
+      transition: border-color var(--duration-micro) var(--easing-enter);
+    }
+    .top-bar-search input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .top-bar-search input::placeholder { color: var(--text-secondary); }
+    .top-bar-search .search-icon {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--text-secondary); pointer-events: none; font-size: 22px;
+    }
+    .icon-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer; position: relative;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .user-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--color-primary); color: #FFFFFF;
+      font-size: 13px; font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+    }
+
+    /* ------------------------------------------- Sidebar ----------- */
+    .sidebar {
+      grid-column: 1; grid-row: 2;
+      background: var(--color-card);
+      border-right: var(--border-default);
+      width: 68px;
+      padding: var(--space-4) 0;
+      overflow-y: hidden;
+      display: flex; flex-direction: column; align-items: center;
+      position: sticky; top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar-search-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-card);
+      color: var(--text-secondary); cursor: pointer;
+      margin-bottom: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter);
+      border: none; background: transparent;
+    }
+    .sidebar-search-icon:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .nav-list { list-style: none; display: flex; flex-direction: column; align-items: center; gap: var(--space-1); width: 100%; }
+    .nav-item {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-card);
+      color: var(--text-secondary);
+      text-decoration: none; cursor: pointer;
+      transition: all var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .nav-item:hover, .nav-item.active { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active::before {
+      content: ''; position: absolute;
+      left: -12px; top: 8px; bottom: 8px;
+      width: 3px; background: var(--color-primary);
+      border-radius: 0 2px 2px 0;
+    }
+    .nav-divider { width: 44px; height: 1px; background: var(--grey-200); margin: var(--space-3) 0; }
+
+    /* ------------------------------------------- Main ----------- */
+    .main-content {
+      grid-column: 2; grid-row: 2;
+      padding: var(--space-4) var(--space-5) var(--space-7);
+      overflow-y: auto;
+      background: var(--color-bg);
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex; align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+      /* min-height: 50px; */
+      flex-wrap: wrap;
+    }
+    .page-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      line-height: var(--line-height-heading);
+    }
+    .page-header-spacer { flex: 1; }
+
+    /* Buttons */
+    .btn-primary, .btn-outlined, .btn-text {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 0 var(--space-5);
+      border-radius: var(--radius-button);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer; height: 36px;
+      white-space: nowrap;
+      transition: all var(--duration-micro) var(--easing-enter);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; border: none; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-primary:disabled { background: var(--color-disabled); cursor: not-allowed; }
+    .btn-outlined { background: var(--color-card); color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-outlined:hover { background: var(--color-primary-25); }
+    .btn-outlined.subtle { color: var(--text-secondary); border-color: var(--grey-300); }
+    .btn-outlined.subtle:hover { background: var(--grey-50); color: var(--text-primary); }
+    .btn-text { background: transparent; color: var(--color-primary); border: none; padding: 0 var(--space-3); }
+    .btn-text:hover { background: var(--color-primary-25); }
+    .btn-primary .material-icons-outlined,
+    .btn-outlined .material-icons-outlined,
+    .btn-text .material-icons-outlined { font-size: 18px; }
+
+    /* Small button modifier */
+    .btn-sm {
+      height: 28px;
+      padding: 0 var(--space-3);
+      font-size: var(--font-size-caption);
+      letter-spacing: 0.3px;
+    }
+    .btn-sm .material-icons-outlined { font-size: 16px; }
+
+    /* ------------------------------------------- Wizard Card ----------- */
+    .wizard-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-7);
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      max-width: 720px;
+      margin: 0 auto var(--space-7);
+    }
+    .step {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+    .step-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--grey-400);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: var(--font-weight-semibold);
+      flex-shrink: 0;
+    }
+    .step.active .step-circle  { background: var(--color-primary); }
+    .step.active .step-label   { color: var(--text-primary); }
+    .step.done .step-circle    { background: var(--color-primary); }
+    .step.done .step-circle .material-icons-outlined { font-size: 18px; }
+    .step.done .step-label     { color: var(--text-primary); }
+    .step-connector {
+      flex: 1;
+      height: 1px;
+      background: var(--grey-300);
+      max-width: 280px;
+      min-width: 80px;
+    }
+    .step-connector.done { background: var(--color-primary); }
+
+    /* ------------------------------------------- Step 1 — Details ----------- */
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-7);
+      align-items: end;
+      margin-bottom: var(--space-6);
+    }
+    .field-group { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+    .field-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-regular);
+    }
+    .field-input, .field-select {
+      width: 100%;
+      height: 36px;
+      padding: 0 var(--space-3);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+      outline: none;
+      transition: border-color var(--duration-micro);
+    }
+    .field-input:focus, .field-select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.12);
+    }
+    .field-select {
+      appearance: none;
+      padding-right: 32px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24'%3E%3Cpath fill='%23757575' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+
+    .toggles-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-7);
+      height: 36px;
+    }
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      cursor: pointer;
+      user-select: none;
+    }
+    .toggle[hidden] { display: none !important; }
+    .toggle input { position: absolute; opacity: 0; pointer-events: none; }
+    .toggle-track {
+      position: relative;
+      width: 34px; height: 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(0, 0, 0, 0.38);
+      transition: background var(--duration-micro);
+      flex-shrink: 0;
+    }
+    .toggle-thumb {
+      position: absolute;
+      top: 50%; left: 0;
+      width: 20px; height: 20px;
+      margin-top: -10px;
+      border-radius: 50%;
+      background: #FAFAFA;
+      box-shadow: 0 2px 1px -1px rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+      transition: transform var(--duration-micro), background var(--duration-micro);
+    }
+    .toggle input:checked + .toggle-track { background: var(--color-primary-200); }
+    .toggle input:checked + .toggle-track .toggle-thumb { transform: translateX(20px); background: var(--color-primary); }
+    .toggle input:focus-visible + .toggle-track { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+    .toggle input:disabled + .toggle-track { opacity: 0.5; cursor: not-allowed; }
+    .toggle-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .wizard-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+
+    /* ------------------------------------------- Step 2 — Tasks / Inspections ----------- */
+    .builder-layout {
+      display: grid;
+      grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr);
+      gap: var(--space-6);
+      align-items: stretch;
+      min-height: 420px;
+    }
+    .builder-pane {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .builder-pane-title {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .builder-pane-title h2 {
+      font-size: var(--font-size-body1);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .builder-pane-title-spacer { flex: 1; }
+
+    /* Left pane — tasks table */
+    .tasks-toolbar {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      margin-bottom: var(--space-3);
+    }
+    .table-search { position: relative; flex: 1; max-width: 320px; }
+    .table-search input {
+      width: 100%; height: 36px;
+      padding: 0 var(--space-4) 0 36px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+      outline: none;
+      transition: border-color var(--duration-micro);
+    }
+    .table-search input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.12); }
+    .table-search .s-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      color: var(--grey-500); pointer-events: none; font-size: 18px;
+    }
+    .tasks-toolbar-spacer { flex: 1; }
+    .filters-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 0 var(--space-3);
+      border: none; border-radius: var(--radius-button);
+      background: transparent; color: var(--color-primary);
+      font-family: var(--font-family);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer; height: 32px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .filters-btn:hover { background: var(--color-primary-25); }
+    .filters-btn .material-icons-outlined { font-size: 16px; }
+
+    .tasks-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body);
+    }
+    .tasks-table thead th {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-caption);
+      padding: var(--space-3) var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--grey-300);
+      border-right: 1px solid var(--grey-200);
+      background: var(--color-card);
+      white-space: nowrap;
+    }
+    .tasks-table thead th:last-child { border-right: none; }
+    .tasks-table tbody td {
+      padding: var(--space-4);
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--grey-200);
+    }
+    .empty-row td {
+      text-align: center;
+      color: var(--text-secondary);
+      font-style: italic;
+      padding: var(--space-6) var(--space-4);
+    }
+
+    .table-mini-footer {
+      display: flex; align-items: center; justify-content: center;
+      gap: var(--space-5);
+      padding: var(--space-3) 0;
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .table-mini-footer select {
+      height: 26px;
+      padding: 0 var(--space-7) 0 var(--space-3);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-size: var(--font-size-caption);
+      color: var(--text-primary);
+      background: var(--color-card);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='%23757575' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+    }
+    .mini-page-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px;
+      border: none; border-radius: 50%;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background var(--duration-micro);
+    }
+    .mini-page-btn:hover:not(:disabled) { background: var(--grey-100); color: var(--text-primary); }
+    .mini-page-btn:disabled { cursor: not-allowed; color: var(--grey-300); }
+
+    /* Right pane — canvas */
+    .canvas-pane {
+      position: relative;
+      background: var(--color-primary-25);
+      border: 1px dashed var(--grey-300);
+      border-radius: var(--radius-card);
+      min-height: 420px;
+      overflow: hidden;
+    }
+    .canvas-toolbar {
+      position: absolute;
+      top: var(--space-3); right: var(--space-3);
+      display: flex; gap: var(--space-1);
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-button);
+      padding: var(--space-1);
+      box-shadow: var(--shadow-card);
+      z-index: 2;
+    }
+    .canvas-tool-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      border: none; border-radius: 6px;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background var(--duration-micro);
+    }
+    .canvas-tool-btn:hover { background: var(--grey-100); color: var(--text-primary); }
+    .canvas-tool-btn .material-icons-outlined { font-size: 16px; }
+
+    .canvas-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      color: var(--text-secondary);
+      text-align: center;
+      padding: var(--space-7);
+      background-image:
+        linear-gradient(rgba(50,118,207,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(50,118,207,0.08) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: -1px -1px;
+    }
+    .canvas-stage .material-icons-outlined { font-size: 40px; color: var(--color-primary-200); }
+    .canvas-stage-title { font-size: var(--font-size-body); font-weight: var(--font-weight-medium); color: var(--text-primary); font-style: normal; }
+    .canvas-stage-hint { font-size: var(--font-size-caption); color: var(--text-secondary); font-style: normal; max-width: 260px; }
+
+    .canvas-legend {
+      position: absolute;
+      bottom: var(--space-4);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: var(--space-5);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-card);
+      font-size: var(--font-size-caption);
+      color: var(--text-primary);
+    }
+    .canvas-legend .legend-dot {
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      margin-right: var(--space-2);
+      vertical-align: middle;
+    }
+    .canvas-legend .legend-dot.questions  { background: var(--color-primary); }
+    .canvas-legend .legend-dot.nodelabel  { background: var(--color-primary-900); }
+
+    /* ----------------------------------- Question Config Pane (Step 2 right side) ----- */
+    .right-pane-wrap { position: relative; min-height: 420px; }
+    .right-pane-wrap > [hidden] { display: none !important; }
+    /* Backdrop shown when QC pane is open as full-height drawer */
+    .qc-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(33, 33, 33, 0.32);
+      z-index: 199;
+      animation: qc-fade-in var(--duration-standard) var(--easing-enter);
+    }
+    .qc-backdrop[hidden] { display: none !important; }
+    @keyframes qc-fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes qc-slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+    .qc-pane {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 60vw;
+      max-width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-card);
+      border-left: var(--border-default);
+      border-radius: 0;
+      box-shadow: var(--shadow-modal);
+      overflow: hidden;
+      z-index: 200;
+      animation: qc-slide-in var(--duration-standard) var(--easing-enter);
+    }
+    .qc-header {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      background: var(--grey-50);
+      border-bottom: var(--border-default);
+      flex-shrink: 0;
+    }
+    .qc-title {
+      font-size: var(--font-size-body1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .qc-header-spacer { flex: 1; }
+    .qc-close {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .qc-close:hover { background: var(--grey-200); color: var(--text-primary); }
+
+    .qc-body {
+      padding: var(--space-5);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      flex: 1;
+    }
+
+    .qc-field { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+    .qc-field[hidden] { display: none !important; }
+    .qc-field-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-regular);
+    }
+    .qc-textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-3);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+      resize: vertical;
+      outline: none;
+    }
+    .qc-textarea:focus, .qc-field input:focus, .qc-field select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.12);
+    }
+
+    .qc-toggle-row {
+      display: flex; flex-wrap: wrap;
+      gap: var(--space-6);
+      padding: var(--space-3) 0;
+    }
+
+    .qc-section-head {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      padding-top: var(--space-3);
+    }
+    .qc-section-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .qc-section-head .spacer { flex: 1; }
+
+    /* Branch card */
+    .qc-branch {
+      position: relative;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      display: flex; flex-direction: column;
+      gap: var(--space-5);
+    }
+    .qc-branch[hidden] { display: none !important; }
+    .qc-branch::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 3px;
+      background: var(--color-primary);
+      border-radius: 0 2px 2px 0;
+    }
+    .qc-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+    .qc-divider {
+      height: 1px;
+      background: var(--grey-200);
+      margin: 0 calc(var(--space-5) * -1);
+    }
+
+    .qc-cond-row {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .qc-cond-row[hidden] { display: none !important; }
+    .qc-cond-row > .qc-field { flex: 1; min-width: 140px; }
+    .qc-cond-select { flex: 0 0 110px !important; }
+
+    .qc-cond-actions { display: flex; align-items: center; gap: var(--space-2); }
+    .qc-link-btn {
+      display: inline-flex; align-items: center; gap: var(--space-1);
+      height: 28px;
+      padding: 0 var(--space-3);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-button);
+      background: var(--color-card);
+      color: var(--color-primary);
+      font-family: var(--font-family);
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .qc-link-btn:hover { background: var(--color-primary-25); }
+    .qc-link-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .qc-remove {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px;
+      border: 1.5px solid var(--color-error);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--color-error);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .qc-remove:hover { background: var(--color-error-bg); }
+    .qc-remove .material-icons-outlined { font-size: 16px; }
+
+    /* Nested condition group inside branch */
+    .qc-cond-group {
+      position: relative;
+      padding: var(--space-4) var(--space-5);
+      border-left: 3px solid var(--color-primary);
+      background: transparent;
+    }
+    .qc-cond-group[hidden] { display: none !important; }
+
+    .qc-add-branch {
+      background: var(--color-card);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      cursor: pointer;
+    }
+    .qc-add-branch:hover { background: var(--color-primary-25); }
+
+    .qc-footer {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      border-top: var(--border-default);
+      background: var(--color-card);
+      flex-shrink: 0;
+    }
+    .qc-footer .spacer { flex: 1; }
+    .qc-footer .btn-primary:disabled { background: var(--grey-300); color: var(--text-secondary); }
+
+    /* Step footer (back/save) */
+    .step-footer {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-top: var(--space-7);
+      padding-top: var(--space-6);
+      border-top: var(--border-divider);
+    }
+    .step-footer-spacer { flex: 1; }
+
+    /* Step panels */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* ------------------------------------------- Responsive ----------- */
+    @media (max-width: 1023px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .details-grid { grid-template-columns: 1fr; align-items: stretch; }
+      .toggles-group { height: auto; flex-wrap: wrap; gap: var(--space-5); margin-bottom: var(--space-6); }
+      .builder-layout { grid-template-columns: 1fr; }
+      .canvas-pane { min-height: 360px; }
+    }
+
+    /* Hide default list ::marker bullets/numbers */
+    li::marker { content: ''; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+    <!-- ----------- Top App Bar ----------- -->
+    <header class="top-bar" role="banner">
+      <div class="top-bar-left">
+        <button class="hamburger-btn" aria-label="Toggle navigation">
+          <span class="material-icons-outlined">menu</span>
+        </button>
+        <a href="#" class="top-bar-logo" aria-label="FieldSync Home">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23065f46'/%3E%3Ccircle cx='16' cy='14' r='4' fill='none' stroke='%2334d399' stroke-width='2'/%3E%3Cpath d='M16 10v-2M16 20v2M10 14H8M24 14h-2' stroke='%2334d399' stroke-width='2'/%3E%3C/svg%3E" alt="FieldSync" />
+        </a>
+      </div>
+      <div class="top-bar-spacer"></div>
+      <div class="top-bar-search">
+        <input type="search" placeholder="Search Keywords : Agent ID, Agent Name, Job ID, User, Client Name..." aria-label="Global search" />
+        <span class="material-icons-outlined search-icon" aria-hidden="true">search</span>
+      </div>
+      <button class="icon-btn" aria-label="Notifications">
+        <span class="material-icons-outlined">notifications_none</span>
+      </button>
+      <div class="user-avatar" role="img" aria-label="User: Operator">OP</div>
+    </header>
+
+    <!-- ----------- Left Sidebar ----------- -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-search-icon" aria-label="Sidebar search">
+        <span class="material-icons-outlined" style="font-size:22px;">search</span>
+      </button>
+      <ul class="nav-list" role="list">
+        <li><a href="#" class="nav-item" aria-label="Dashboard"><span class="material-icons-outlined">dashboard</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Calendar"><span class="material-icons-outlined">calendar_today</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="job_card.html" class="nav-item active" aria-current="page" aria-label="Jobs"><span class="material-icons-outlined">work_outline</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Configuration"><span class="material-icons-outlined">settings</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="People"><span class="material-icons-outlined">people_outline</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Alerts"><span class="material-icons-outlined">notifications_active</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Settings"><span class="material-icons-outlined">settings</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Teams"><span class="material-icons-outlined">groups</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Flag"><span class="material-icons-outlined">outlined_flag</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Integrations"><span class="material-icons-outlined">extension</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Map"><span class="material-icons-outlined">map</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- ----------- Main Content ----------- -->
+    <main class="main-content" id="main-content">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">Add Job Card Template</h1>
+        <div class="page-header-spacer"></div>
+      </div>
+
+      <!-- Wizard Card -->
+      <section class="wizard-card" aria-label="Add job card template wizard">
+
+        <!-- Stepper -->
+        <ol class="stepper" role="list" aria-label="Template wizard steps">
+          <li class="step active" id="step-1" data-step="1">
+            <span class="step-circle" aria-hidden="true">1</span>
+            <span class="step-label">Details</span>
+          </li>
+          <li class="step-connector" id="step-connector" aria-hidden="true"></li>
+          <li class="step" id="step-2" data-step="2">
+            <span class="step-circle" aria-hidden="true">2</span>
+            <span class="step-label">Tasks / Inspections</span>
+          </li>
+        </ol>
+
+        <!-- Step 1 — Details -->
+        <section class="step-panel active" id="panel-1" aria-labelledby="step-1">
+          <div class="details-grid">
+            <div class="field-group">
+              <label class="field-label" for="tpl-name">Template Name</label>
+              <input class="field-input" id="tpl-name" type="text" value="Electric Exchange" placeholder="Enter template name" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="tpl-business-area">Business Area</label>
+              <select class="field-select" id="tpl-business-area">
+                <option>Select business area</option>
+                <option>Electricity</option>
+                <option>Gas</option>
+                <option>Dual Fuel</option>
+                <option>Water</option>
+                <option>Heat Network</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="tpl-skill">Skill Set</label>
+              <select class="field-select" id="tpl-skill">
+                <option>Warrant Officer</option>
+                <option>Field Engineer</option>
+                <option>Metering Specialist</option>
+                <option>Locksmith</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="tpl-client">Client</label>
+              <select class="field-select" id="tpl-client">
+                <option>Select client</option>
+                <option>British Gas</option>
+                <option>EDF Energy</option>
+                <option>E.ON Next</option>
+                <option>Octopus Energy</option>
+                <option>OVO Energy</option>
+                <option>Scottish Power</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="tpl-workstream">Workstream</label>
+              <select class="field-select" id="tpl-workstream">
+                <option>Select workstream</option>
+                <option>Metering</option>
+                <option>Warrant</option>
+                <option>Revenue Protection</option>
+                <option>Disconnection</option>
+                <option>Maintenance</option>
+              </select>
+            </div>
+            <div class="toggles-group">
+              <label class="toggle" hidden>
+                <input type="checkbox" id="tg-status" checked />
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                <span class="toggle-label">Status</span>
+              </label>
+              <label class="toggle" hidden>
+                <input type="checkbox" id="tg-bwv" checked />
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                <span class="toggle-label">BWV Recording</span>
+              </label>
+              <label class="toggle">
+                <input type="checkbox" id="tg-pausing" />
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                <span class="toggle-label">Allow Pausing</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="wizard-actions">
+            <a href="job_card.html" class="btn-outlined subtle" role="button">Cancel</a>
+            <button type="button" class="btn-primary" id="btn-continue">
+              Continue <span class="material-icons-outlined">chevron_right</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Step 2 — Tasks / Inspections -->
+        <section class="step-panel" id="panel-2" aria-labelledby="step-2">
+          <div class="builder-layout">
+            <!-- Left: Tasks list -->
+            <div class="builder-pane">
+              <div class="builder-pane-title">
+                <h2>Tasks / Inspections</h2>
+                <div class="builder-pane-title-spacer"></div>
+                <button type="button" class="btn-outlined btn-sm" id="btn-add-task">
+                  <span class="material-icons-outlined">add</span> Add New
+                </button>
+              </div>
+
+              <div class="tasks-toolbar">
+                <div class="table-search">
+                  <span class="material-icons-outlined s-icon" aria-hidden="true">search</span>
+                  <input type="search" placeholder="Search" aria-label="Search tasks" />
+                </div>
+                <div class="tasks-toolbar-spacer"></div>
+                <button type="button" class="filters-btn" aria-label="Filter tasks">
+                  <span class="material-icons-outlined">filter_list</span> Filters
+                </button>
+              </div>
+
+              <table class="tasks-table" id="tasks-table">
+                <thead>
+                  <tr>
+                    <th>Question</th>
+                    <th>Type</th>
+                    <th>Answer Mandatory</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tasks-tbody">
+                  <tr class="empty-row">
+                    <td colspan="4">No data found</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="table-mini-footer">
+                <span>Rows per page:</span>
+                <select aria-label="Rows per page">
+                  <option>0</option>
+                  <option>5</option>
+                  <option>10</option>
+                  <option>25</option>
+                </select>
+                <span>0-0 of 0</span>
+                <button class="mini-page-btn" disabled aria-label="Previous page"><span class="material-icons-outlined" style="font-size:18px;">chevron_left</span></button>
+                <button class="mini-page-btn" disabled aria-label="Next page"><span class="material-icons-outlined" style="font-size:18px;">chevron_right</span></button>
+              </div>
+            </div>
+
+            <!-- Right: Canvas / Question Config -->
+            <div class="right-pane-wrap">
+              <!-- Canvas / flow visualization -->
+              <div class="canvas-pane" id="canvas-pane" role="region" aria-label="Template flow preview">
+                <div class="canvas-toolbar" role="toolbar" aria-label="Canvas controls">
+                  <button type="button" class="canvas-tool-btn" aria-label="Zoom in"><span class="material-icons-outlined">add</span></button>
+                  <button type="button" class="canvas-tool-btn" aria-label="Zoom out"><span class="material-icons-outlined">remove</span></button>
+                  <button type="button" class="canvas-tool-btn" aria-label="Fit to screen"><span class="material-icons-outlined">fit_screen</span></button>
+                  <button type="button" class="canvas-tool-btn" aria-label="Download"><span class="material-icons-outlined">file_download</span></button>
+                </div>
+                <div class="canvas-stage" aria-hidden="true">
+                  <span class="material-icons-outlined">account_tree</span>
+                  <span class="canvas-stage-title">Flow preview</span>
+                  <span class="canvas-stage-hint">Add tasks on the left to build the template flow. Connections appear here as you go.</span>
+                </div>
+                <div class="canvas-legend" aria-label="Canvas legend">
+                  <span><span class="legend-dot questions" aria-hidden="true"></span>Questions</span>
+                  <span><span class="legend-dot nodelabel" aria-hidden="true"></span>Node Label</span>
+                </div>
+              </div>
+
+              <!-- Questions Configuration pane (full-height drawer) -->
+              <div class="qc-backdrop" id="qc-backdrop" hidden></div>
+              <section class="qc-pane" id="qc-pane" aria-label="Questions configuration" role="dialog" aria-modal="true" hidden>
+                <header class="qc-header">
+                  <span class="qc-title">Questions Configuration</span>
+                  <span class="qc-header-spacer"></span>
+                  <button type="button" class="qc-close" id="qc-close-btn" aria-label="Close question configuration">
+                    <span class="material-icons-outlined">close</span>
+                  </button>
+                </header>
+
+                <div class="qc-body">
+                  <div class="qc-field">
+                    <label class="qc-field-label" for="qc-question">Question</label>
+                    <textarea class="qc-textarea" id="qc-question" rows="2">Are you reached the location?</textarea>
+                  </div>
+
+                  <div class="qc-field">
+                    <label class="qc-field-label" for="qc-uid">Unique Identifier</label>
+                    <input class="field-input" id="qc-uid" type="text" value="123" />
+                  </div>
+
+                  <!-- Type + type-dependent fields in one row -->
+                  <div class="qc-cond-row">
+                    <div class="qc-field" style="flex: 0 0 30%;">
+                      <label class="qc-field-label" for="qc-type">Type</label>
+                      <select class="field-select" id="qc-type">
+                        <option>Yes/No</option>
+                        <option>Text</option>
+                        <option>List</option>
+                        <option>Launch App</option>
+                        <option>Cost</option>
+                        <option>Statement</option>
+                        <option>Signature</option>
+                        <option>Icons List</option>
+                        <option>Decimal</option>
+                        <option>Date</option>
+                        <option>Photo</option>
+                        <option>Whole Number</option>
+                        <option>Time</option>
+                        <option>Barcode</option>
+                        <option>Stocks</option>
+                        <option>Consumables</option>
+                      </select>
+                    </div>
+
+                    <div class="qc-field" id="qc-text-maxlen-field" hidden style="flex: 0 0 30%;">
+                      <label class="qc-field-label" for="qc-text-maxlen">Max. number of character for answer</label>
+                      <input class="field-input" id="qc-text-maxlen" type="number" min="1" placeholder="e.g. 250" />
+                    </div>
+
+                    <div class="qc-field" id="qc-package-name-field" hidden style="flex: 0 0 30%;">
+                      <label class="qc-field-label" for="qc-package-name">Package Name</label>
+                      <input class="field-input" id="qc-package-name" type="text" placeholder="com.example.app" />
+                    </div>
+                  </div>
+
+                  <div class="qc-toggle-row">
+                    <label class="toggle"><input type="checkbox" /><span class="toggle-track"><span class="toggle-thumb"></span></span><span class="toggle-label">Mandatory</span></label>
+                    <label class="toggle" hidden><input type="checkbox" /><span class="toggle-track"><span class="toggle-thumb"></span></span><span class="toggle-label">BWV-Mandatory</span></label>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle-track"><span class="toggle-thumb"></span></span><span class="toggle-label">Pause Audio</span></label>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle-track"><span class="toggle-thumb"></span></span><span class="toggle-label">Enable Comments</span></label>
+                    <label class="toggle"><input type="checkbox" /><span class="toggle-track"><span class="toggle-thumb"></span></span><span class="toggle-label">Question At Risk</span></label>
+                    <label class="toggle" id="qc-show-calc-toggle" hidden><input type="checkbox" id="qc-show-calc-input" /><span class="toggle-track"><span class="toggle-thumb"></span></span><span class="toggle-label">Show Calculated Value</span></label>
+                  </div>
+
+                  <div class="qc-section-head">
+                    <span class="qc-section-title">Conditional Branching</span>
+                    <span class="spacer"></span>
+                    <button type="button" class="qc-link-btn qc-add-branch" id="qc-add-branch-btn">
+                      <span class="material-icons-outlined" style="font-size:14px;">add</span> Add Conditional Branching
+                    </button>
+                  </div>
+<section id="qc-branch">
+                  <!-- Branch card -->
+                  <div class="qc-branch" id="" >
+                    <div class="qc-grid-2">
+                      <div class="qc-field">
+                        <label class="qc-field-label">If answer is</label>
+                        <select class="field-select">
+                          <option>=</option>
+                          <option>?</option>
+                          <option>&gt;</option>
+                          <option>&lt;</option>
+                        </select>
+                      </div>
+                      <div class="qc-field">
+                        <label class="qc-field-label">Value</label>
+                        <select class="field-select">
+                          <option>Yes</option>
+                          <option>No</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="qc-divider"></div>
+
+                    <div class="qc-field">
+                      <label class="qc-field-label">Condition</label>
+                      <div class="qc-cond-row">
+                        <select class="field-select qc-cond-select">
+                          <option>AND</option>
+                          <option>OR</option>
+                        </select>
+                        <div class="qc-cond-actions">
+                          <button type="button" class="qc-link-btn" id="qc-add-rule-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Rule</button>
+                          <button type="button" class="qc-link-btn" id="qc-add-group-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Group</button>
+                          <button type="button" class="qc-link-btn" id="qc-add-outcome-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Calculated Value</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="qc-cond-row" id="add-rule-row" hidden>
+                      <div class="qc-field">
+                        <label class="qc-field-label">Field / Variable</label>
+                        <select class="field-select"><option>Select Option</option></select>
+                      </div>
+                      <div class="qc-field">
+                        <label class="qc-field-label">Operator</label>
+                        <select class="field-select"><option>Select Option</option></select>
+                      </div>
+                      <div class="qc-field">
+                        <label class="qc-field-label">Value / Variable</label>
+                        <input class="field-input" type="text" placeholder="Type answer" />
+                      </div>
+                      <button type="button" class="qc-remove" id="add-rule-row-remove" aria-label="Remove rule"><span class="material-icons-outlined">remove</span></button>
+                    </div>
+
+                    <div class="qc-cond-row" id="qc-outcome-row" hidden>
+                      <div class="qc-field" id="qc-outcome-field" style="flex:1;">
+                        <label class="qc-field-label" for="qc-outcome">Calculated Value</label>
+                        <textarea class="qc-textarea" id="qc-outcome" rows="3" placeholder="Enter the calculated value expression"></textarea>
+                      </div>
+                      <button type="button" class="qc-remove" id="qc-outcome-remove" aria-label="Remove calculated value"><span class="material-icons-outlined">remove</span></button>
+                    </div>
+
+                    <div class="qc-cond-group" id="qc-cond-group" hidden>
+                      <div class="qc-field">
+                        <label class="qc-field-label">Condition</label>
+                        <div class="qc-cond-row">
+                          <select class="field-select qc-cond-select">
+                            <option>AND</option>
+                            <option>OR</option>
+                          </select>
+                          <div class="qc-cond-actions">
+                            <button type="button" class="qc-link-btn" id="qc-grp-add-rule-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Rule</button>
+                            <button type="button" class="qc-link-btn" id="qc-grp-add-group-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Group</button>
+                            <button type="button" class="qc-link-btn" id="qc-grp-add-outcome-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Calculated Value</button>
+                          </div>
+                          <button type="button" class="qc-remove" aria-label="Remove group" style="margin-left:auto;"><span class="material-icons-outlined">remove</span></button>
+                        </div>
+                      </div>
+
+                      <div class="qc-cond-row" id="qc-grp-add-rule-row" hidden>
+                        <div class="qc-field">
+                          <label class="qc-field-label">Field / Variable</label>
+                          <select class="field-select"><option>Select Option</option></select>
+                        </div>
+                        <div class="qc-field">
+                          <label class="qc-field-label">Operator</label>
+                          <select class="field-select"><option>Select Option</option></select>
+                        </div>
+                        <div class="qc-field">
+                          <label class="qc-field-label">Value / Variable</label>
+                          <input class="field-input" type="text" placeholder="Type answer" />
+                        </div>
+                        <button type="button" class="qc-remove" aria-label="Remove rule"><span class="material-icons-outlined">remove</span></button>
+                      </div>
+
+                      <div class="qc-field" id="qc-grp-outcome-field" hidden>
+                        <label class="qc-field-label" for="qc-grp-outcome">Calculated Value</label>
+                        <textarea class="qc-textarea" id="qc-grp-outcome" rows="3" placeholder="Enter the calculated value expression"></textarea>
+                      </div>
+
+                      <div class="qc-cond-group" id="qc-grp-nested-group" hidden>
+                        <div class="qc-field">
+                          <label class="qc-field-label">Condition</label>
+                          <div class="qc-cond-row">
+                            <select class="field-select qc-cond-select">
+                              <option>AND</option>
+                              <option>OR</option>
+                            </select>
+                            <div class="qc-cond-actions">
+                              <button type="button" class="qc-link-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Rule</button>
+                              <button type="button" class="qc-link-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Group</button>
+                              <button type="button" class="qc-link-btn"><span class="material-icons-outlined" style="font-size:14px;">add</span> Add Calculated Value</button>
+                            </div>
+                            <button type="button" class="qc-remove" aria-label="Remove group" style="margin-left:auto;"><span class="material-icons-outlined">remove</span></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Next Step / Action Target -->
+                  <div class="qc-cond-row" id="qc-action-row">
+                    <div class="qc-field">
+                      <label class="qc-field-label">Next Step or Action</label>
+                      <select class="field-select"><option>Select Option</option></select>
+                    </div>
+                    <div class="qc-field">
+                      <label class="qc-field-label">Action Target</label>
+                      <select class="field-select"><option>Select Option</option></select>
+                    </div>
+                    <button type="button" class="qc-remove" id="qc-action-row-remove" aria-label="Remove action"><span class="material-icons-outlined">remove</span></button>
+                  </div></section>
+                </div>
+
+                <footer class="qc-footer">
+                  <span class="spacer"></span>
+                  <button type="button" class="btn-outlined" id="qc-cancel-btn">Cancel</button>
+                  <button type="button" class="btn-primary" id="qc-add-btn" disabled>Add</button>
+                </footer>
+              </section>
+            </div>
+          </div>
+
+          <div class="step-footer">
+            <button type="button" class="btn-outlined" id="btn-back">
+              <span class="material-icons-outlined">chevron_left</span> Back
+            </button>
+            <div class="step-footer-spacer"></div>
+            <button type="button" class="btn-primary" id="btn-save" disabled>
+              <span class="material-icons-outlined">save</span> Save
+            </button>
+          </div>
+        </section>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Stepper navigation between Step 1 and Step 2
+    (function () {
+      const step1     = document.getElementById('step-1');
+      const step2     = document.getElementById('step-2');
+      const connector = document.getElementById('step-connector');
+      const panel1    = document.getElementById('panel-1');
+      const panel2    = document.getElementById('panel-2');
+      const btnNext   = document.getElementById('btn-continue');
+      const btnBack   = document.getElementById('btn-back');
+
+      function goToStep(n) {
+        if (n === 2) {
+          step1.classList.remove('active');
+          step1.classList.add('done');
+          step1.querySelector('.step-circle').innerHTML = '<span class="material-icons-outlined">check</span>';
+          step2.classList.add('active');
+          connector.classList.add('done');
+          panel1.classList.remove('active');
+          panel2.classList.add('active');
+        } else {
+          step2.classList.remove('active');
+          step1.classList.remove('done');
+          step1.classList.add('active');
+          step1.querySelector('.step-circle').textContent = '1';
+          connector.classList.remove('done');
+          panel2.classList.remove('active');
+          panel1.classList.add('active');
+        }
+      }
+
+      btnNext.addEventListener('click', () => goToStep(2));
+      btnBack.addEventListener('click', () => goToStep(1));
+    })();
+
+    // Toggle visual focus shim (browsers without focus-visible)
+    (function () {
+      const toggles = document.querySelectorAll('.toggle input');
+      toggles.forEach(t => t.addEventListener('change', () => {
+        // future hook: persist toggle state
+      }));
+    })();
+
+    // Question Configuration pane toggle (full-height drawer)
+    (function () {
+      const qcPane    = document.getElementById('qc-pane');
+      const backdrop  = document.getElementById('qc-backdrop');
+      const btnAdd    = document.getElementById('btn-add-task');
+      const btnClose  = document.getElementById('qc-close-btn');
+      const btnCancel = document.getElementById('qc-cancel-btn');
+      if (!qcPane || !btnAdd) return;
+
+      const open = () => {
+        qcPane.hidden = false;
+        if (backdrop) backdrop.hidden = false;
+        document.body.style.overflow = 'hidden';
+        const resets = [
+          ['qc-add-branch-btn',     'qc-branch'],
+          ['qc-add-rule-btn',       'add-rule-row'],
+          ['qc-add-group-btn',      'qc-cond-group'],
+          ['qc-add-outcome-btn',    'qc-outcome-row'],
+          ['qc-grp-add-rule-btn',   'qc-grp-add-rule-row'],
+          ['qc-grp-add-group-btn',  'qc-grp-nested-group'],
+          ['qc-grp-add-outcome-btn','qc-grp-outcome-field']
+        ];
+        resets.forEach(([btnId, targetId]) => {
+          const target = document.getElementById(targetId);
+          const btn    = document.getElementById(btnId);
+          if (target) target.hidden = true;
+          if (btn) btn.disabled = false;
+        });
+        const calcToggle = document.getElementById('qc-show-calc-toggle');
+        const calcInput  = document.getElementById('qc-show-calc-input');
+        if (calcToggle) calcToggle.hidden = true;
+        if (calcInput)  calcInput.checked = false;
+        qcPane.querySelector('#qc-question')?.focus();
+      };
+      const close = () => {
+        qcPane.hidden = true;
+        if (backdrop) backdrop.hidden = true;
+        document.body.style.overflow = '';
+        btnAdd.focus();
+      };
+
+      btnAdd.addEventListener('click', open);
+      btnClose?.addEventListener('click', close);
+      btnCancel?.addEventListener('click', close);
+      backdrop?.addEventListener('click', close);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !qcPane.hidden) close();
+      });
+    })();
+
+    // Conditional Branching: show branch card only after clicking "Add Conditional Branching"
+    (function () {
+      const addBranchBtn = document.getElementById('qc-add-branch-btn');
+      const branchCard   = document.getElementById('qc-branch');
+      if (!addBranchBtn || !branchCard) return;
+
+      addBranchBtn.addEventListener('click', () => {
+        branchCard.hidden = false;
+        addBranchBtn.disabled = true;
+        branchCard.querySelector('select, input, textarea')?.focus();
+      });
+    })();
+
+    // Conditional Branching: show "Add Rule" row only after clicking "Add Rule"
+    (function () {
+      const addRuleBtn = document.getElementById('qc-add-rule-btn');
+      const addRuleRow = document.getElementById('add-rule-row');
+      if (!addRuleBtn || !addRuleRow) return;
+
+      addRuleBtn.addEventListener('click', () => {
+        addRuleRow.hidden = false;
+        addRuleBtn.disabled = true;
+        addRuleRow.querySelector('select, input, textarea')?.focus();
+      });
+    })();
+
+    // Conditional Branching: show nested condition group only after clicking "Add Group"
+    (function () {
+      const addGroupBtn = document.getElementById('qc-add-group-btn');
+      const condGroup   = document.getElementById('qc-cond-group');
+      if (!addGroupBtn || !condGroup) return;
+
+      addGroupBtn.addEventListener('click', () => {
+        condGroup.hidden = false;
+        addGroupBtn.disabled = true;
+        condGroup.querySelector('select, input, textarea')?.focus();
+      });
+    })();
+
+    // Conditional Branching: show outcome textarea only after clicking "Add Outcome"
+    (function () {
+      const addOutcomeBtn = document.getElementById('qc-add-outcome-btn');
+      const outcomeRow    = document.getElementById('qc-outcome-row');
+      if (!addOutcomeBtn || !outcomeRow) return;
+
+      addOutcomeBtn.addEventListener('click', () => {
+        outcomeRow.hidden = false;
+        addOutcomeBtn.disabled = true;
+        revealCalcToggle();
+        outcomeRow.querySelector('textarea')?.focus();
+      });
+    })();
+
+    // Remove buttons: hide their associated section and re-enable the matching Add button
+    (function () {
+      const removes = [
+        ['add-rule-row-remove',  'add-rule-row',   'qc-add-rule-btn'],
+        ['qc-outcome-remove',    'qc-outcome-row', 'qc-add-outcome-btn'],
+        ['qc-action-row-remove', 'qc-action-row',  null]
+      ];
+      removes.forEach(([btnId, targetId, addBtnId]) => {
+        const btn    = document.getElementById(btnId);
+        const target = document.getElementById(targetId);
+        if (!btn || !target) return;
+        btn.addEventListener('click', () => {
+          target.hidden = true;
+          if (addBtnId) {
+            const addBtn = document.getElementById(addBtnId);
+            if (addBtn) addBtn.disabled = false;
+          }
+        });
+      });
+    })();
+
+    // Helper: reveal & enable the "Show Calculated Value" toggle
+    function revealCalcToggle() {
+      const calcToggle = document.getElementById('qc-show-calc-toggle');
+      const calcInput  = document.getElementById('qc-show-calc-input');
+      if (calcToggle) calcToggle.hidden = false;
+      if (calcInput)  calcInput.checked = true;
+    }
+
+    // Nested group (qc-cond-group): Add Rule / Add Group / Add Outcome — same behaviour
+    (function () {
+      const bindings = [
+        ['qc-grp-add-rule-btn',    'qc-grp-add-rule-row'],
+        ['qc-grp-add-group-btn',   'qc-grp-nested-group'],
+        ['qc-grp-add-outcome-btn', 'qc-grp-outcome-field']
+      ];
+      bindings.forEach(([btnId, targetId]) => {
+        const btn    = document.getElementById(btnId);
+        const target = document.getElementById(targetId);
+        if (!btn || !target) return;
+        btn.addEventListener('click', () => {
+          target.hidden = false;
+          btn.disabled = true;
+          if (btnId === 'qc-grp-add-outcome-btn') revealCalcToggle();
+          target.querySelector('select, input, textarea')?.focus();
+        });
+      });
+    })();
+
+    // Type-dependent extra fields (Text -> max length, Launch App -> package name)
+    (function () {
+      const typeSel    = document.getElementById('qc-type');
+      const textField  = document.getElementById('qc-text-maxlen-field');
+      const pkgField   = document.getElementById('qc-package-name-field');
+      if (!typeSel) return;
+
+      const sync = () => {
+        const v = typeSel.value;
+        if (textField) textField.hidden = (v !== 'Text');
+        if (pkgField)  pkgField.hidden  = (v !== 'Launch App');
+      };
+
+      typeSel.addEventListener('change', sync);
+      sync();
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

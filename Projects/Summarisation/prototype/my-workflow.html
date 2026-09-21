@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Workflow — Acme Notice Processing System</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    body { background:#ffffff; }
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 16px solid #F2F5FA;
+    }
+    .sidebar { border-right: 0 solid #e5e7eb; }
+    .m-header { border-bottom: 0 solid #e5e7eb; }
+    .page-content { background: #ffffff; }
+
+    /* Header brand override for council branding */
+    .mw-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .mw-brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #3276CF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .mw-brand-icon img { width: 22px; height: 22px; }
+    .mw-brand-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    /* -- My Workflow page wrapper -- */
+    .mw-page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      /* margin: 4px 14px 14px; */
+      background: #ffffff;
+      /* border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06); */
+      box-sizing: border-box;
+    }
+
+    .mw-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 8px;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .mw-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.3;
+      margin: 0;
+    }
+    .mw-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mw-btn {
+      height: 34px;
+      padding: 0 18px;
+      background: #E5E7EB;
+      color: #9CA3AF;
+      border: none;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: not-allowed;
+      transition: background 120ms, color 120ms;
+    }
+    .mw-btn.is-enabled {
+      background: #3276CF;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .mw-btn.is-enabled:hover { background: #2C66B4; }
+
+    /* Show entries selector */
+    .mw-entries {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 24px 16px;
+      font-size: 13px;
+      color: #374151;
+      flex-shrink: 0;
+    }
+    .mw-entries-select {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      padding: 4px 26px 4px 10px;
+      font-size: 13px;
+      color: #111827;
+      background: #ffffff;
+      cursor: pointer;
+      font-family: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+
+    /* Table */
+    .mw-table-wrap {
+      flex: 1;
+      overflow: auto;
+      padding: 0 24px;
+    }
+    .mw-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .mw-table thead th {
+      text-align: left;
+      font-weight: 500;
+      color: #374151;
+      padding: 10px 12px;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .mw-th-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .mw-sort-btn {
+      background: none;
+      border: none;
+      padding: 2px;
+      cursor: pointer;
+      color: #9ca3af;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 3px;
+      transition: color 120ms, background 120ms;
+    }
+    .mw-sort-btn:hover { color: #374151; background: #f3f4f6; }
+
+    .mw-table tbody td {
+      padding: 14px 12px;
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: middle;
+    }
+    .mw-table tbody tr:hover td { background: #fafbfd; }
+
+    .mw-checkbox {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: #3276CF;
+    }
+    .mw-col-check { width: 36px; }
+
+    .mw-case-link {
+      color: #3276CF;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    .mw-case-link:hover { color: #2C66B4; }
+
+    /* E-signature attached notice (toolbar) */
+    .mw-esign-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #111827;
+      margin-left: auto;
+      margin-right: 16px;
+      white-space: nowrap;
+    }
+    .mw-esign-note svg { color: #43A047; flex-shrink: 0; }
+
+    /* Tabs */
+    .mw-tabs {
+      display: flex;
+      gap: 28px;
+      padding: 4px 24px 0;
+      border-bottom: 1px solid #e5e7eb;
+      margin-top: -4px;
+    }
+    .mw-tab {
+      background: none;
+      border: none;
+      padding: 10px 2px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: #6b7280;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 120ms, border-color 120ms;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .mw-tab:hover { color: #111827; }
+    .mw-tab.is-active { color: #3276CF; border-bottom-color: #3276CF; font-weight: 600; }
+
+    /* Priority chips */
+    .mw-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 22px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      border: 1px solid transparent;
+    }
+    .mw-pill-yes { background: #E8F5E9; color: #2E7D32; border-color: #C8E6C9; }
+    .mw-pill-no  { background: #FFF4E5; color: #B45309; border-color: #FBD9A6; }
+
+    /* AI Letter Status pills */
+    .mw-ai-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 22px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .mw-ai-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+    .mw-ai-yet         { background: #F3F4F6; color: #4B5563; border-color: #D1D5DB; }
+    .mw-ai-generated   { background: #E8F0FE; color: #1A56DB; border-color: #C6D8FA; }
+    .mw-ai-in-progress { background: #FFF8E1; color: #B45309; border-color: #FBD9A6; }
+
+    /* Status / approval text colours */
+    .mw-status-rejected { color: #DC2626; font-weight: 500; }
+    .mw-status-muted    { color: #9ca3af; }
+    .mw-rejected-notes  {
+      display: inline-block;
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: bottom;
+      color: #374151;
+    }
+
+    /* Row actions column (kebab + hover hold-task badge) */
+    .mw-col-actions { width: 130px; text-align: right; white-space: nowrap; }
+    .mw-row-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .mw-hold-badge {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      height: 28px;
+      padding: 0 12px;
+      background: #3276CF;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .mw-hold-badge svg { width: 12px; height: 12px; }
+    .mw-table tbody tr:hover .mw-hold-badge { display: inline-flex; }
+    .mw-kebab {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 120ms, color 120ms;
+    }
+    .mw-kebab:hover { background: #f3f4f6; color: #111827; }
+
+    /* Pagination footer */
+    .mw-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px 18px;
+      font-size: 13px;
+      color: #374151;
+      flex-shrink: 0;
+    }
+    .mw-pager {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .mw-pager-btn {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 120ms, color 120ms;
+    }
+    .mw-pager-btn:hover:not([disabled]) { background: #f3f4f6; color: #111827; }
+    .mw-pager-btn[disabled] { color: #d1d5db; cursor: default; }
+    .mw-pager-label {
+      padding: 0 8px;
+      color: #111827;
+    }
+
+    /* -- Case Detail right-drawer (shared pattern from stage3-ANPS) -- */
+    .vc-overlay { display: none; position: fixed; inset: 0; z-index: 900; background: rgba(0,0,0,0.45); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); opacity: 0; transition: opacity 0.2s; }
+    .vc-overlay.open { display: block; opacity: 1; }
+    .vc-panel { position: fixed; top: 0; right: 0; width: 820px; max-width: 96vw; height: 100vh; background: #fff; box-shadow: -4px 0 32px rgba(0,0,0,0.18); display: flex; flex-direction: column; z-index: 901; transform: translateX(100%); transition: transform 0.25s cubic-bezier(.4,0,.2,1); }
+    .vc-overlay.open .vc-panel { transform: translateX(0); }
+    .vc-header { display: flex; flex-direction: column; gap: 6px; padding: 18px 22px 14px; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+    .vc-header-top { display: flex; align-items: center; justify-content: space-between; }
+    .vc-title { font-size: 17px; font-weight: 700; color: #111827; }
+    .vc-close { background: none; border: none; cursor: pointer; color: #6b7280; padding: 4px; display: flex; align-items: center; border-radius: 5px; transition: background 0.12s, color 0.12s; }
+    .vc-close:hover { background: #f3f4f6; color: #111827; }
+    .vc-meta { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; flex-wrap: wrap; }
+    .vc-meta-sep { color: #d1d5db; margin: 0 4px; }
+    .vc-meta-bold { font-weight: 600; color: #111827; }
+    .vc-status-chip { display: inline-flex; align-items: center; border: 1.5px solid #9ca3af; border-radius: 20px; font-size: 12px; font-weight: 500; color: #374151; padding: 1px 11px; background: #fff; }
+    .vc-view-case-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #3276CF; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; margin-left: 8px; }
+    .vc-view-case-link:hover { text-decoration: underline; }
+
+    .vc-body { flex: 1; overflow-y: auto; padding: 0 0 96px; }
+    .vc-body::-webkit-scrollbar { width: 5px; }
+    .vc-body::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+    .vc-cv-section { padding: 18px 22px 0; }
+    .vc-cv-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .vc-cv-title { font-size: 15px; font-weight: 700; color: #111827; }
+    .vc-first-time-badge { font-size: 12px; font-weight: 500; color: #374151; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 20px; padding: 2px 12px; }
+    .vc-warn-banner { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 14px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 7px; margin-bottom: 0; }
+    .vc-warn-left { display: flex; align-items: center; gap: 9px; font-size: 13px; color: #92400e; font-weight: 500; }
+    .vc-view-details-btn { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #374151; background: none; border: none; cursor: pointer; white-space: nowrap; letter-spacing: 0.04em; padding: 0; text-transform: uppercase; flex-shrink: 0; }
+    .vc-view-details-btn:hover { color: #111827; }
+    .vc-view-details-btn svg { transition: transform 0.18s; }
+    .vc-view-details-btn.open svg { transform: rotate(180deg); }
+
+    /* Permit/Ringo expanded details table */
+    .vc-warn-details { background: #fff; border: 1px solid #fcd34d; border-top: none; border-radius: 0 0 7px 7px; padding: 14px 16px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px 18px; margin-bottom: 12px; }
+    .vc-warn-details.hidden { display: none; }
+    .vc-warn-cell-label { display: block; font-size: 12px; color: #6b7280; margin-bottom: 4px; }
+    .vc-warn-cell-value { font-size: 13px; font-weight: 600; color: #111827; }
+
+    /* Validation rows + VRM expanded table */
+    .vc-val-rows { display: flex; flex-direction: column; padding-bottom: 6px; }
+    .vc-val-row { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #f3f4f6; }
+    .vc-val-row:last-child { border-bottom: none; }
+    .vc-val-label { flex: 1; font-size: 13px; color: #111827; }
+    .vc-override-text { font-size: 11.5px; color: #6b7280; white-space: nowrap; }
+    .vc-override-text strong { color: #3276CF; font-weight: 700; }
+    .vc-row-chevron { background: none; border: none; cursor: pointer; color: #6b7280; padding: 4px; display: flex; align-items: center; transition: transform 0.18s, color 0.12s; }
+    .vc-row-chevron.open { transform: rotate(180deg); }
+
+    .vc-vrm-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; margin: 4px 0 8px; }
+    .vc-vrm-table.hidden { display: none; }
+    .vc-vrm-table thead th { text-align: left; font-size: 12px; font-weight: 600; color: #111827; padding: 9px 12px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+    .vc-vrm-table tbody td { padding: 12px; font-size: 13px; color: #111827; vertical-align: middle; }
+    .vc-vrm-evidence-link { font-size: 12px; font-weight: 700; color: #3276CF; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; }
+    .vc-vrm-evidence-link:hover { text-decoration: underline; }
+    .vc-vrm-reason {
+      width: 100%;
+      padding: 6px 26px 6px 10px;
+      font-size: 13px;
+      color: #111827;
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      font-family: inherit;
+    }
+    .vc-toggle { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+    .vc-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+    .vc-toggle-track { width: 32px; height: 18px; background: #d1d5db; border-radius: 999px; position: relative; transition: background 120ms; }
+    .vc-toggle-track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: transform 120ms; }
+    .vc-toggle input:checked + .vc-toggle-track { background: #3276CF; }
+    .vc-toggle input:checked + .vc-toggle-track::after { transform: translateX(14px); }
+    .vc-toggle-label { font-size: 13px; color: #374151; }
+
+    /* Evidence / CEO / Challenge sections */
+    .vc-evidence-section { border-top: 1px solid #e5e7eb; padding: 16px 22px; }
+    .vc-evidence-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+    .vc-evidence-question { font-size: 13.5px; font-weight: 700; color: #111827; }
+    .vc-yes-no { display: flex; border: 1px solid #d1d5db; border-radius: 7px; overflow: hidden; flex-shrink: 0; }
+    .vc-yn-btn { display: flex; align-items: center; gap: 6px; padding: 8px 22px; font-size: 13px; font-weight: 600; background: #fff; border: none; cursor: pointer; color: #374151; letter-spacing: 0.03em; transition: background 0.12s, color 0.12s; }
+    .vc-yn-btn:first-child { border-right: 1px solid #d1d5db; }
+    .vc-yn-btn.active-yes, .vc-yn-btn.active-no { background: #e5e7eb; color: #374151; }
+    .vc-yn-btn:hover:not(.active-yes):not(.active-no) { background: #f3f4f6; }
+    .vc-evidence-cols { display: flex; gap: 40px; align-items: flex-start; padding-bottom: 4px; }
+    .vc-contrav-col { flex: 1; min-width: 0; }
+    .vc-col-label { font-size: 13px; font-weight: 600; color: #111827; margin: 0 0 5px; }
+    .vc-contrav-col-text { font-size: 12.5px; color: #6b7280; line-height: 1.6; margin: 0; }
+    .vc-evidence-col { flex-shrink: 0; min-width: 100px; }
+    .vc-view-evidence-link { display: block; font-size: 13px; font-weight: 700; color: #3276CF; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; }
+    .vc-view-evidence-link:hover { text-decoration: underline; }
+    .vc-ceo-section { border-top: 1px solid #e5e7eb; padding: 16px 22px 20px; }
+    .vc-ceo-header { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; color: #111827; margin: 0 0 8px; }
+    .vc-ceo-text { font-size: 12.5px; color: #4b5563; line-height: 1.65; margin: 0; }
+
+    .vc-challenge-section { border-top: 1px solid #e5e7eb; padding: 16px 22px 0; }
+    .vc-challenge-title { font-size: 15px; font-weight: 700; color: #111827; margin: 0 0 12px; }
+    .vc-challenge-tab-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; padding: 10px 16px; border-bottom: 1px solid #e5e7eb; }
+    .vc-challenge-tab { display: flex; align-items: center; gap: 10px; }
+    .vc-challenge-tab-label { font-size: 13px; font-weight: 600; color: #111827; }
+    .vc-challenge-tab-date { font-size: 12px; color: #6b7280; border-left: 1px solid #d1d5db; padding-left: 10px; }
+    .vc-ocr-row { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #374151; white-space: nowrap; }
+    .vc-ocr-bar { width: 64px; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+    .vc-ocr-bar-fill { height: 100%; background: #22c55e; border-radius: 3px; }
+    .vc-summary-card { background: #f8faff; border: 1px solid #e0eaff; border-radius: 8px; padding: 0; overflow: hidden; margin-bottom: 16px; }
+    .vc-summary-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 0; margin-bottom: 12px; }
+    .vc-summary-title { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; color: #111827; }
+    .vc-copy-btn { display: flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: #3276CF; background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 4px; letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.12s; }
+    .vc-copy-btn:hover { background: #eff6ff; }
+    .vc-summary-list { list-style: none; margin: 0; padding: 0 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+    .vc-summary-list li { font-size: 12.5px; color: #374151; line-height: 1.65; padding-left: 36px; position: relative; }
+    .vc-summary-list li::before { content: '\2022'; position: absolute; left: 24px; color: #6b7280; }
+    .vc-summary-list li strong { color: #111827; }
+
+    .vc-support-docs { padding: 0 16px 16px 38px; }
+    .vc-docs-label { font-size: 13px; font-weight: 700; color: #111827; margin: 4px 0 6px; }
+    .vc-docs-desc { font-size: 12px; color: #6b7280; line-height: 1.65; margin: 0 0 12px; }
+    .vc-doc-item { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; background: #fff; border: 1px solid #e5e7eb; border-radius: 7px; font-size: 12.5px; color: #374151; }
+    .vc-doc-thumb { width: 36px; height: 24px; border-radius: 5px; flex-shrink: 0; background: #e5e7eb; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .vc-doc-thumb svg { color: #6b7280; }
+    .vc-doc-name { font-size: 12.5px; color: #111827; }
+
+    .vc-corr-section { border-top: 1px solid #e5e7eb; margin-top: 8px; padding-bottom: 8px; }
+    .vc-corr-section-title { font-size: 14px; font-weight: 700; color: #111827; padding: 14px 22px 8px; }
+    .vc-corr-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; border-top: 1px solid #f3f4f6; font-size: 13px; color: #374151; }
+    .vc-corr-eye { color: #9ca3af; background: none; border: none; cursor: pointer; padding: 2px; display: flex; align-items: center; transition: color 0.12s; }
+    .vc-corr-eye:hover { color: #3276CF; }
+
+    /* Sticky footer action bar */
+    .vc-action-bar {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .vc-action-left, .vc-action-right { display: flex; align-items: center; gap: 10px; }
+    .vc-act-btn {
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      transition: background 120ms, color 120ms, border-color 120ms;
+    }
+    .vc-act-btn svg { flex-shrink: 0; }
+    .vc-act-outline { border: 1.5px solid #A2C1EA; color: #3276CF; }
+    .vc-act-outline:hover { background: #eff6ff; }
+    .vc-act-danger { border: 1.5px solid #FCA5A5; color: #DC2626; }
+    .vc-act-danger:hover { background: #FEF2F2; }
+    .vc-act-primary { background: #3276CF; color: #ffffff; border: 1.5px solid #3276CF; }
+    .vc-act-primary:hover { background: #2C66B4; border-color: #2C66B4; }
+  </style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- Header (full width) -->
+  <header class="m-header">
+    <div class="mw-brand">
+      <span class="mw-brand-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 6 .9-4.5 4.2 1 6.4L12 16.8 6.5 19.5l1-6.4L3 8.9 9 8z"/></svg>
+      </span>
+      <span class="mw-brand-name">Wokingham</span>
+    </div>
+    <div class="m-search">
+      <input type="text" placeholder="Search with PCN number or VRM" />
+      <button class="m-search-btn" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+    <div class="m-header-right">
+      <div class="m-notif-btn" role="button" tabindex="0" aria-label="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+        <span class="m-notif-badge">1</span>
+      </div>
+      <div class="m-user">
+        <div class="m-avatar">JS</div>
+        <span class="m-username">John William</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Body: sidebar + main -->
+  <div class="app-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav" style="padding-top:14px;">
+        <div class="m-nav-item" data-page="home">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Home
+        </div>
+        <div class="m-nav-item" data-page="wokingham-pcn">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/>
+          </svg>
+          Wokingham PCN
+        </div>
+        <div class="m-nav-item" data-page="search">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          Search
+        </div>
+        <div class="m-nav-item" data-page="reports">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 17v-6M13 17V7M17 17v-4"/><rect x="3" y="3" width="18" height="18" rx="2"/>
+          </svg>
+          Reports
+        </div>
+        <div class="m-nav-item active" data-page="my-workflow">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="16" width="18" height="4" rx="1"/>
+          </svg>
+          My Workflow
+        </div>
+        <div class="m-nav-item" data-page="rep-review">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+          </svg>
+          Rep. Review
+        </div>
+        <div class="m-nav-item" data-page="workflow-manager">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          Workflow Manager
+        </div>
+        <div class="m-nav-item" data-page="approval-queue">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+          </svg>
+          Approval Queue
+        </div>
+        <div class="m-nav-item" data-page="notice-processing">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/>
+          </svg>
+          Notice Processing
+        </div>
+        <div class="m-nav-item" data-page="hhd-message">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="6" y="2" width="12" height="20" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/>
+          </svg>
+          HHD Message
+        </div>
+        <div class="m-nav-item" data-page="manual-case">
+          <svg class="m-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+          </svg>
+          Manual Case
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+      <div class="page-content">
+
+        <div class="mw-page">
+
+          <div class="mw-toolbar">
+            <h1 class="mw-title">My Workflow</h1>
+            <div class="mw-toolbar-actions">
+              <span class="mw-esign-note">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="8 12.5 11 15.5 16 9.5"/></svg>
+                E-signature has been attached.
+              </span>
+              <button class="mw-btn" id="btn-reassign" type="button" disabled>ReAssign User</button>
+              <button class="mw-btn" id="btn-complete" type="button" disabled>Complete</button>
+            </div>
+          </div>
+
+          <div class="mw-tabs" role="tablist">
+            <button class="mw-tab is-active" type="button" role="tab" aria-selected="true">Active</button>
+            <button class="mw-tab" type="button" role="tab" aria-selected="false">On Hold</button>
+            <button class="mw-tab" type="button" role="tab" aria-selected="false">Manual Review</button>
+          </div>
+
+          <div class="mw-entries">
+            <span>Show</span>
+            <select class="mw-entries-select" id="mw-entries-select" aria-label="Entries per page">
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <span>entries</span>
+          </div>
+
+          <div class="mw-table-wrap">
+            <table class="mw-table">
+              <thead>
+                <tr>
+                  <th class="mw-col-check">
+                    <input type="checkbox" class="mw-checkbox" id="mw-check-all" aria-label="Select all rows" />
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Case Number
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by case number">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      VRM
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by VRM">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Contravention Code
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by contravention code">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Priority
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by priority">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Source
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by source">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Stage
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by stage">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Status
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by status">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      AI Letter Status
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by AI letter status">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Approval Status
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by approval status">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Rejected Notes
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by rejected notes">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th>
+                    <span class="mw-th-inner">
+                      Task Created Date
+                      <button class="mw-sort-btn" type="button" aria-label="Sort by task created date">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                      </button>
+                    </span>
+                  </th>
+                  <th class="mw-col-actions" aria-label="Row actions"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mw-col-check">
+                    <input type="checkbox" class="mw-checkbox mw-row-check" aria-label="Select row CW00004041" />
+                  </td>
+                  <td><a href="#" class="mw-case-link js-open-case" data-case="CW00004041">CW00004041</a></td>
+                  <td>BGH25KL</td>
+                  <td>01</td>
+                  <td><span class="mw-pill mw-pill-yes">Yes</span></td>
+                  <td>BO Manager</td>
+                  <td>Posted PCN</td>
+                  <td>On Hold</td>
+                  <td><span class="mw-ai-pill mw-ai-generated">Generated</span></td>
+                  <td><span class="mw-status-rejected">Rejected</span></td>
+                  <td><span class="mw-rejected-notes" title="Your application has been rejected by the QA reviewer.">Your application h...</span></td>
+                  <td>01/12/22 17:35</td>
+                  <td class="mw-col-actions">
+                    <span class="mw-row-actions">
+                      <button class="mw-kebab" type="button" aria-label="Row options">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="mw-col-check">
+                    <input type="checkbox" class="mw-checkbox mw-row-check" aria-label="Select row CW00002182" />
+                  </td>
+                  <td><a href="#" class="mw-case-link js-open-case" data-case="CW00002182">CW00002182</a></td>
+                  <td>NRS52LO</td>
+                  <td>004</td>
+                  <td><span class="mw-pill mw-pill-no">No</span></td>
+                  <td>KADOE</td>
+                  <td>28 Days Letter</td>
+                  <td>On Hold</td>
+                  <td><span class="mw-ai-pill mw-ai-in-progress">In-progress</span></td>
+                  <td class="mw-status-muted">-</td>
+                  <td class="mw-status-muted">-</td>
+                  <td>01/12/22 09:12</td>
+                  <td class="mw-col-actions">
+                    <span class="mw-row-actions">
+                      <span class="mw-hold-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="9" y1="6" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="18"/></svg>
+                        Hold Task
+                      </span>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="mw-col-check">
+                    <input type="checkbox" class="mw-checkbox mw-row-check" aria-label="Select row CW00003265" />
+                  </td>
+                  <td><a href="#" class="mw-case-link js-open-case" data-case="CW00003265">CW00003265</a></td>
+                  <td>YHV10LO</td>
+                  <td>023</td>
+                  <td><span class="mw-pill mw-pill-no">No</span></td>
+                  <td>BO User</td>
+                  <td>Live</td>
+                  <td>On Hold</td>
+                  <td><span class="mw-ai-pill mw-ai-yet">Yet to start</span></td>
+                  <td><span class="mw-status-rejected">Rejected</span></td>
+                  <td><span class="mw-rejected-notes" title="Your application has been rejected by the QA reviewer.">Your application h...</span></td>
+                  <td>01/12/22 14:02</td>
+                  <td class="mw-col-actions">
+                    <span class="mw-row-actions">
+                      <button class="mw-kebab" type="button" aria-label="Row options">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mw-pagination">
+            <span>1 to 3 of 3</span>
+            <div class="mw-pager">
+              <button class="mw-pager-btn" type="button" aria-label="First page" disabled>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"/><line x1="18" y1="17" x2="18" y2="7"/></svg>
+              </button>
+              <button class="mw-pager-btn" type="button" aria-label="Previous page" disabled>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <span class="mw-pager-label">Page 1 of 1</span>
+              <button class="mw-pager-btn" type="button" aria-label="Next page" disabled>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button class="mw-pager-btn" type="button" aria-label="Last page" disabled>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><line x1="6" y1="17" x2="6" y2="7"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- -- Case Detail right-drawer -- -->
+<div class="vc-overlay" id="case-overlay" aria-hidden="true">
+  <aside class="vc-panel" role="dialog" aria-modal="true" aria-labelledby="case-title">
+    <div class="vc-header">
+      <div class="vc-header-top">
+        <span class="vc-title" id="case-title">CW00004041</span>
+        <button class="vc-close" id="case-close" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="vc-meta">
+        <span>Name: <span class="vc-meta-bold">John Doe</span></span>
+        <span class="vc-meta-sep">|</span>
+        <span>Stage: <span class="vc-meta-bold">14 days letter</span></span>
+        <span class="vc-meta-sep">|</span>
+        <span>Status: <span class="vc-status-chip">Active</span></span>
+        <a href="#" class="vc-view-case-link" id="case-view-info">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Case Info
+        </a>
+      </div>
+    </div>
+
+    <div class="vc-body">
+
+      <div class="vc-cv-section">
+        <div class="vc-cv-header">
+          <span class="vc-cv-title">Case Validation</span>
+          <span class="vc-first-time-badge">First time offender</span>
+        </div>
+
+        <div class="vc-warn-banner">
+          <div class="vc-warn-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Permit/Ringo was active when PCN was issued. Please review the details.
+          </div>
+          <button class="vc-view-details-btn open" id="case-warn-toggle" type="button">
+            <span class="js-warn-label">HIDE DETAILS</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform:rotate(180deg);"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="vc-warn-details" id="case-warn-details">
+          <div><span class="vc-warn-cell-label">From</span><span class="vc-warn-cell-value">01-01-2025 14:57</span></div>
+          <div><span class="vc-warn-cell-label">To</span><span class="vc-warn-cell-value">10-08-2025 23:59</span></div>
+          <div><span class="vc-warn-cell-label">Zone</span><span class="vc-warn-cell-value">Zone A</span></div>
+          <div><span class="vc-warn-cell-label">PCN Issued Date</span><span class="vc-warn-cell-value">14-08-2025</span></div>
+          <div><span class="vc-warn-cell-label">PCN Issued Zone</span><span class="vc-warn-cell-value">Zone A</span></div>
+        </div>
+
+        <div class="vc-val-rows">
+          <div class="vc-val-row">
+            <svg width="20" height="20" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="10" fill="#ef4444"/><line x1="15" y1="9" x2="9" y2="15" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+            <span class="vc-val-label">VRM Mismatch</span>
+            <span class="vc-override-text">Override: <strong>IMAGE QUALITY ACCEPTABLE</strong></span>
+            <button class="vc-row-chevron open" id="case-vrm-toggle" type="button" aria-label="Toggle details">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <table class="vc-vrm-table" id="case-vrm-table">
+            <thead>
+              <tr>
+                <th>VRM</th>
+                <th>Evidence:</th>
+                <th>Override reason</th>
+                <th>Mark as valid?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GD12 HKT</td>
+                <td><a href="#" class="vc-vrm-evidence-link">View Evidence</a></td>
+                <td>
+                  <select class="vc-vrm-reason" aria-label="Override reason">
+                    <option selected>Image Quality Acceptable</option>
+                    <option>Operator confirmed match</option>
+                    <option>Manual review</option>
+                  </select>
+                </td>
+                <td>
+                  <label class="vc-toggle">
+                    <input type="checkbox" id="case-vrm-mark" />
+                    <span class="vc-toggle-track"></span>
+                    <span class="vc-toggle-label" id="case-vrm-mark-label">No</span>
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="vc-val-row">
+            <svg width="20" height="20" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="10" fill="#22c55e"/><polyline points="8 12 11 15 16 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            <span class="vc-val-label">Make &amp; Colour Match</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vc-evidence-section">
+        <div class="vc-evidence-top">
+          <span class="vc-evidence-question">Does this evidence confirm the contravention?</span>
+          <div class="vc-yes-no">
+            <button class="vc-yn-btn" id="case-yn-yes" type="button"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> YES</button>
+            <button class="vc-yn-btn" id="case-yn-no" type="button"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> NO</button>
+          </div>
+        </div>
+        <div class="vc-evidence-cols">
+          <div class="vc-contrav-col">
+            <p class="vc-col-label">Contravention Description</p>
+            <p class="vc-contrav-col-text">Contravention Code: 01 - This code pertains to parking a vehicle in a restricted zone without permission, which may include areas like bus lanes or no-parking zones.</p>
+          </div>
+          <div class="vc-evidence-col">
+            <p class="vc-col-label">Evidence:</p>
+            <a href="#" class="vc-view-evidence-link">View Evidence</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="vc-ceo-section">
+        <div class="vc-ceo-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round"><path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+          CEO Notes
+        </div>
+        <p class="vc-ceo-text">Vehicle observed parked on double yellow lines at High Street near junction with Church Road. No loading/unloading activity noted during observation period (10:05–10:11). Driver not present. Photographic evidence captured showing vehicle position and signage</p>
+      </div>
+
+      <div class="vc-challenge-section">
+        <p class="vc-challenge-title">Challenge</p>
+        <div class="vc-summary-card">
+          <div class="vc-challenge-tab-row">
+            <div class="vc-challenge-tab">
+              <span class="vc-challenge-tab-label">Challenge Details</span>
+              <span class="vc-challenge-tab-date">14-08-2025 10:59</span>
+            </div>
+            <div class="vc-ocr-row">
+              OCR Confidence Score
+              <div class="vc-ocr-bar"><div class="vc-ocr-bar-fill" style="width:95%"></div></div>
+              <strong>95%</strong>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            </div>
+          </div>
+          <div class="vc-summary-header">
+            <span class="vc-summary-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#3276CF"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12zm7.5 4.5l-1.25 2.75L15 18l2.75 1.25L19 22l1.25-2.75L23 18l-2.75-1.25z"/></svg>
+              Challenge Summary
+            </span>
+            <button class="vc-copy-btn" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy Summary
+            </button>
+          </div>
+          <ul class="vc-summary-list">
+            <li><strong>Challenge Reason:</strong> The appellant requests cancellation of the PCN due to an unexpected medical emergency. The appellant claims they did not exceed the free parking period.</li>
+            <li><strong>Assessment:</strong> The appellant parked in a car park with one hour of free parking. They left the car to purchase water due to an allergic reaction. They forgot to register for the free parking and returned to find a Civil Enforcement Officer issuing a PCN. The appellant attempted to explain the situation but was dismissed.</li>
+            <li><strong>Unexpected Circumstances/Concerns:</strong> The appellant experienced a medical emergency due to a possible allergic reaction. The appellant is concerned about the conduct of the Civil Enforcement Officer, who took photographs of the appellant and their friend in a manner they found inappropriate.</li>
+          </ul>
+
+          <div class="vc-support-docs">
+            <p class="vc-docs-label">Supported documents</p>
+            <p class="vc-docs-desc">Description: This screenshot shows the outbound flight boarding pass for Charlotte Harris departing to Sardinia on 17 May 2025. It supports the claim that she was out of the country starting before the date of the first PCN, proving she could not have seen the suspension notices.</p>
+            <div class="vc-doc-item">
+              <div class="vc-doc-thumb">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <span class="vc-doc-name">Boarding Pass Screenshot 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vc-corr-section">
+        <div class="vc-corr-section-title">Correspondences</div>
+        <div class="vc-corr-row">
+          <span>14-08-2025 10:59</span>
+          <button class="vc-corr-eye" type="button" aria-label="View correspondence">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="vc-corr-row">
+          <span>14-08-2025 10:59</span>
+          <button class="vc-corr-eye" type="button" aria-label="View correspondence">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vc-action-bar">
+      <div class="vc-action-left">
+        <button class="vc-act-btn vc-act-outline" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Add Notes
+        </button>
+      </div>
+      <div class="vc-action-right">
+        <button class="vc-act-btn vc-act-danger" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Cancel
+        </button>
+        <button class="vc-act-btn vc-act-outline" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          Hold
+        </button>
+        <button class="vc-act-btn vc-act-primary" id="case-send-corr" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Correspondence
+        </button>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<script>
+  /* Select-all toggles every row check */
+  (function () {
+    var all  = document.getElementById('mw-check-all');
+    var rows = document.querySelectorAll('.mw-row-check');
+    var btnReassign = document.getElementById('btn-reassign');
+    var btnComplete = document.getElementById('btn-complete');
+
+    function refreshActions() {
+      var anyChecked = Array.prototype.some.call(rows, function (r) { return r.checked; });
+      [btnReassign, btnComplete].forEach(function (b) {
+        if (anyChecked) { b.classList.add('is-enabled'); b.disabled = false; }
+        else            { b.classList.remove('is-enabled'); b.disabled = true; }
+      });
+    }
+
+    if (all) all.addEventListener('change', function () {
+      rows.forEach(function (r) { r.checked = all.checked; });
+      refreshActions();
+    });
+    rows.forEach(function (r) {
+      r.addEventListener('change', function () {
+        var allChecked = Array.prototype.every.call(rows, function (x) { return x.checked; });
+        if (all) all.checked = allChecked;
+        refreshActions();
+      });
+    });
+
+    refreshActions();
+  })();
+
+  /* Workflow tabs: toggle active state on click */
+  (function () {
+    var tabs = document.querySelectorAll('.mw-tab');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) {
+          x.classList.remove('is-active');
+          x.setAttribute('aria-selected', 'false');
+        });
+        t.classList.add('is-active');
+        t.setAttribute('aria-selected', 'true');
+      });
+    });
+  })();
+
+  /* Case-detail drawer */
+  (function () {
+    var overlay = document.getElementById('case-overlay');
+    var closeBtn = document.getElementById('case-close');
+    var titleEl  = document.getElementById('case-title');
+
+    function openPanel(caseId) {
+      if (caseId) titleEl.textContent = caseId;
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePanel() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.js-open-case').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        openPanel(link.getAttribute('data-case'));
+      });
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closePanel);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closePanel(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closePanel(); });
+
+    /* Permit/Ringo details toggle */
+    var warnBtn  = document.getElementById('case-warn-toggle');
+    var warnBody = document.getElementById('case-warn-details');
+    var warnLbl  = warnBtn ? warnBtn.querySelector('.js-warn-label') : null;
+    if (warnBtn && warnBody) {
+      warnBtn.addEventListener('click', function () {
+        var isOpen = warnBtn.classList.toggle('open');
+        warnBody.classList.toggle('hidden', !isOpen);
+        if (warnLbl) warnLbl.textContent = isOpen ? 'HIDE DETAILS' : 'VIEW DETAILS';
+      });
+    }
+
+    /* VRM expanded table toggle */
+    var vrmBtn   = document.getElementById('case-vrm-toggle');
+    var vrmTable = document.getElementById('case-vrm-table');
+    if (vrmBtn && vrmTable) {
+      vrmBtn.addEventListener('click', function () {
+        var isOpen = vrmBtn.classList.toggle('open');
+        vrmTable.classList.toggle('hidden', !isOpen);
+      });
+    }
+
+    /* Mark-as-valid toggle label */
+    var markChk = document.getElementById('case-vrm-mark');
+    var markLbl = document.getElementById('case-vrm-mark-label');
+    if (markChk && markLbl) {
+      markChk.addEventListener('change', function () {
+        markLbl.textContent = markChk.checked ? 'Yes' : 'No';
+      });
+    }
+
+    /* Yes / No selector */
+    var ynYes = document.getElementById('case-yn-yes');
+    var ynNo  = document.getElementById('case-yn-no');
+    function setYn(yes) {
+      ynYes.classList.toggle('active-yes', yes);
+      ynNo.classList.toggle('active-no', !yes);
+    }
+    if (ynYes && ynNo) {
+      ynYes.addEventListener('click', function () { setYn(true); });
+      ynNo.addEventListener('click', function () { setYn(false); });
+    }
+
+    /* Send Correspondence ? Stage 3 page */
+    var sendBtn = document.getElementById('case-send-corr');
+    if (sendBtn) {
+      sendBtn.addEventListener('click', function () {
+        window.location.href = 'stage3-ANPS.html';
+      });
+    }
+  })();
+</script>
+
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

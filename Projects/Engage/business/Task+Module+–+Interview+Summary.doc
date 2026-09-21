@@ -1,0 +1,374 @@
+Date: Mon, 9 Mar 2026 07:20:35 +0000 (UTC)
+Message-ID: <403805305.1.1773040835302@c17875074fc1>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_0_1609527459.1773040835285"
+
+------=_Part_0_1609527459.1773040835285
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>Task Module =E2=80=93 Interview Summary</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>Task Module =E2=80=93 Interview Summary</h1>
+    <div class=3D"Section1">
+        <p local-id=3D"54dc9cdb343b"><strong>Source:</strong></p>
+<p local-id=3D"6f0deaaeef19">Interview Summary.doc</p>
+<h1 local-id=3D"a4f8e50a61df" id=3D"TaskModule=E2=80=93InterviewSummary-1.E=
+xecutiveSummary">1. Executive Summary</h1>
+<p local-id=3D"2e859384a294">This document captures Task Module insights de=
+rived solely from the Interview Summary, focusing on lifecycle, actions, ra=
+tionale capture, layout preferences, and cross-business visibility.</p>
+<h1 local-id=3D"330e80f184e2" id=3D"TaskModule=E2=80=93InterviewSummary-2.K=
+eyThemes&amp;Implications">2. Key Themes &amp; Implications</h1>
+<div class=3D"table-wrap">
+<table data-layout=3D"default" data-local-id=3D"97d2a5b1-451c-43d4-83bd-40a=
+a11aac56b" class=3D"confluenceTable">
+<tbody>
+<tr data-local-id=3D"d846a8e1-2c55-4c41-acc4-06a13736e170">
+<td data-local-id=3D"af8e5561-a231-44a3-a8e5-03bf24ddf03b" class=3D"conflue=
+nceTd">
+<p local-id=3D"f1e41d728685">Theme</p></td>
+<td data-local-id=3D"9e2efd20-480b-4b28-b340-c2630cba417b" class=3D"conflue=
+nceTd">
+<p local-id=3D"a18dcfb6e95c">Insight / Requirement</p></td>
+<td data-local-id=3D"4cb3e516-1243-41c9-a881-4c2965e6f497" class=3D"conflue=
+nceTd">
+<p local-id=3D"8b3d1bf1c656">User Need / Pain Point</p></td>
+<td data-local-id=3D"3c21824e-4d7b-4ad9-aed8-b84511abb159" class=3D"conflue=
+nceTd">
+<p local-id=3D"2dad3559332e">Implication for UX</p></td>
+</tr>
+<tr data-local-id=3D"40e787f7-91cc-4628-8afc-42f849e823a5">
+<td data-local-id=3D"64979e9b-fd94-4bc8-8ce7-3b49f64b0679" class=3D"conflue=
+nceTd">
+<p local-id=3D"51154437a763">Task lifecycle &amp; reminders</p></td>
+<td data-local-id=3D"434e4378-0937-43bc-891a-61c6ecb6b592" class=3D"conflue=
+nceTd">
+<p local-id=3D"43fa45f015d5">Tasks must be explicitly Completed or Rejected=
+; otherwise they keep reappearing as Overdue. Capture the reason when rejec=
+ting.</p></td>
+<td data-local-id=3D"0eb13fdd-f9cb-4992-943b-9a4ed4151df7" class=3D"conflue=
+nceTd">
+<p local-id=3D"783344eabaa3">Users are nagged by persistent overdue items; =
+need a conclusive way to resolve or dismiss with context.</p></td>
+<td data-local-id=3D"2284de81-5089-4c01-8c17-0edd7e8330c4" class=3D"conflue=
+nceTd">
+<p local-id=3D"a214a08e635d">Provide clear Complete/Reject actions; require=
+ reason on Reject; consider Snooze/Dismiss with reason; display overdue bad=
+ges and filters.</p></td>
+</tr>
+<tr data-local-id=3D"52d68b54-1fca-4a37-b226-7645932bd131">
+<td data-local-id=3D"0ea1b986-6163-445c-9740-33b87a3cd73c" class=3D"conflue=
+nceTd">
+<p local-id=3D"87cb4fa28ae7">Rejection rationale (scenarios)</p></td>
+<td data-local-id=3D"3ac870d9-9ebc-4529-95e9-95ec2f61690e" class=3D"conflue=
+nceTd">
+<p local-id=3D"aa157878c447">Include structured scenario questions to under=
+stand why a task is rejected.</p></td>
+<td data-local-id=3D"675ac8c7-70db-4ff7-b99f-ec17506d6008" class=3D"conflue=
+nceTd">
+<p local-id=3D"44eb4477f375">Lack of structured reasons makes it hard to fi=
+nd patterns and improve processes.</p></td>
+<td data-local-id=3D"ec1bd375-7cf8-4250-86d3-c2b0b68feaa0" class=3D"conflue=
+nceTd">
+<p local-id=3D"d5a3128865e7">Design a guided reason picker with optional no=
+tes and analytics tagging.</p></td>
+</tr>
+<tr data-local-id=3D"5484f634-00cf-41e1-a0e8-8e80587e079b">
+<td data-local-id=3D"017432ff-bf4b-4d74-9f98-35c2bfe134c7" class=3D"conflue=
+nceTd">
+<p local-id=3D"15f99c1f9d63">Layout orientation</p></td>
+<td data-local-id=3D"c044c4ea-f9f9-411b-bb19-dc292989f1a2" class=3D"conflue=
+nceTd">
+<p local-id=3D"4da47920b3b3">Grid views cause confusion about reading order=
+; preference for single-page / linear view.</p></td>
+<td data-local-id=3D"3d075efd-9f33-44c3-90f0-73b0728e0ef0" class=3D"conflue=
+nceTd">
+<p local-id=3D"2b78384e34a9">Users feel disoriented in multi-panel grids an=
+d are unsure of progression.</p></td>
+<td data-local-id=3D"178763dc-192b-4d67-9005-d00881b33548" class=3D"conflue=
+nceTd">
+<p local-id=3D"a914fb83c5e1">Default to linear list or stepper with explici=
+t numbering; if a grid is used, add orientation cues and offer a toggle to =
+single-page view.</p></td>
+</tr>
+<tr data-local-id=3D"9ea5bf16-daf0-4d9f-bd73-7e25dfdb6231">
+<td data-local-id=3D"84a868bc-acb2-4b70-acc9-6a37d0424750" class=3D"conflue=
+nceTd">
+<p local-id=3D"41f070d6fc1b">Multi-business area visibility</p></td>
+<td data-local-id=3D"bb370c84-be29-4121-872c-eff2ae668cc4" class=3D"conflue=
+nceTd">
+<p local-id=3D"1d13321abab2">Stakeholders from Motor asked for their screen=
+s in a multi-area app.</p></td>
+<td data-local-id=3D"77531567-ff41-4a45-afe7-1c1f99b5d2d4" class=3D"conflue=
+nceTd">
+<p local-id=3D"00c562ac427b">Each business area needs assurance that their =
+workflows are represented.</p></td>
+<td data-local-id=3D"e007fd3f-1e44-4bda-b2cc-2bf00a3f0da6" class=3D"conflue=
+nceTd">
+<p local-id=3D"3b9477b07619">Provide a business-area switcher and label are=
+a-specific screens; include area-specific demos in reviews.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 local-id=3D"f492cc1a9a18" id=3D"TaskModule=E2=80=93InterviewSummary-3.A=
+ctionableDesignRequirements">3. Actionable Design Requirements</h1>
+<p local-id=3D"f8627c35d29a">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Add prominent Complete and Reject buttons on task cards; open a required=
+-reason dialog on Reject.</p>
+<p local-id=3D"8d8b8b0b1173">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Introduce a structured reason taxonomy (scenario picker) with free-text =
+notes; feed analytics.</p>
+<p local-id=3D"2af186234ba7">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Use a default linear list with collapsed cards; expand for details and a=
+ctions.</p>
+<p local-id=3D"3a5bc36ff707">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Highlight Overdue state clearly; add filters for Overdue and Rejected-wi=
+th-reason.</p>
+<p local-id=3D"f78c423452e3">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Provide a business-area selector (e.g., tabs/segmented) and area labels =
+on task views.</p>
+<h1 local-id=3D"b8b1e1b45e23" id=3D"TaskModule=E2=80=93InterviewSummary-4.A=
+ssumptions&amp;OutofScope(forthisversion)">4. Assumptions &amp; Out of Scop=
+e (for this version)</h1>
+<p local-id=3D"9ca75b90c872">This version excludes MOM-derived items such a=
+s SLA thresholds, escalation hierarchy, manager/admin dashboards, task crea=
+tion by web users, and audit configuration. Those are covered in the Combin=
+ed Requirements document.</p>
+<h1 local-id=3D"1fa5b50c1e00" id=3D"TaskModule=E2=80=93InterviewSummary-5.T=
+raceabilitytoInterviewSummary">5. Traceability to Interview Summary</h1>
+<p local-id=3D"114d6fa961cb"><strong>Items mapped to Interview Summary exce=
+rpts:</strong></p>
+<p local-id=3D"caa3ec82a789">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Lifecycle &amp; overdue behaviour; need for Complete/Reject with reasons=
+.</p>
+<p local-id=3D"884c55df6051">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Scenario questions for rejection rationale.</p>
+<p local-id=3D"60900e6f147e">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Preference for linear over grid view due to reading-order confusion.</p>
+<p local-id=3D"729622017adb">=C2=B7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Need for visibility across Motor and other business areas.</p>
+    </div>
+</body>
+</html>
+------=_Part_0_1609527459.1773040835285--

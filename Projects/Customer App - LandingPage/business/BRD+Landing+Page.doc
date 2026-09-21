@@ -1,0 +1,3459 @@
+Date: Mon, 25 May 2026 06:39:56 +0000 (UTC)
+Message-ID: <941034426.515.1779691196727@2e0836230d82>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_514_614887706.1779691196726"
+
+------=_Part_514_614887706.1779691196726
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>BRD Landing Page</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>BRD Landing Page</h1>
+    <div class=3D"Section1">
+        <h1 style=3D"text-align: center;" id=3D"BRDLandingPage-BusinessRequ=
+irementDocument">
+<style>[data-colorid=3Dvn0k0xwirj]{color:#0a1d30} html[data-color-mode=3Dda=
+rk] [data-colorid=3Dvn0k0xwirj]{color:#cfe2f5}</style><span data-colorid=3D=
+"vn0k0xwirj">Business Requirement Document </span></h1>
+<h1 style=3D"text-align: center;" id=3D"BRDLandingPage-NewLandingPage">New =
+Landing Page</h1>
+<h1 style=3D"text-align: center;" id=3D"BRDLandingPage-MarstonCustomerApp">=
+Marston Customer App</h1>
+<p></p>
+<p style=3D"text-align: center;"></p>
+<p style=3D"text-align: center;"></p><span class=3D"confluence-embedded-fil=
+e-wrapper image-center-wrapper confluence-embedded-manual-size"><img class=
+=3D"confluence-embedded-image image-center" alt=3D"LogicValley Technologies=
+" width=3D"238" loading=3D"lazy" src=3D"ea1efee776f33cfd6adc22f9a8c3f18b15a=
+6b41535d90d40438790225ca47abb" data-image-src=3D"https://marston.atlassian.=
+net/wiki/download/attachments/1984692230/att_0_for_1984692230.png?version=
+=3D1&amp;modificationDate=3D1779380010485&amp;cacheVersion=3D1&amp;api=3Dv2=
+" data-height=3D"74" data-width=3D"240" data-unresolved-comment-count=3D"0"=
+ data-linked-resource-id=3D"1984692240" data-linked-resource-version=3D"1" =
+data-linked-resource-type=3D"attachment" data-linked-resource-default-alias=
+=3D"att_0_for_1984692230.png" data-base-url=3D"https://marston.atlassian.ne=
+t/wiki" data-linked-resource-content-type=3D"image/png" data-linked-resourc=
+e-container-id=3D"1984692230" data-linked-resource-container-version=3D"1" =
+data-media-id=3D"72a29793-d090-4798-b00e-b5d0dec3ede1" data-media-type=3D"f=
+ile" height=3D"73"></span>
+<p></p>
+<p>&nbsp;</p>
+<p></p>
+<p></p>
+<p></p>
+<p local-id=3D"4ceb5668ae4c"></p>
+<p><strong>LogicValley Technologies Pvt Ltd,</strong></p>
+<p>Betaspace, No.2224/3, 2nd Floor, Trichy Road, Reliance Garden, Singanall=
+ur, Coimbatore, Tamil Nadu 641005.</p>
+<p>Phone: (+91) 422 497 4006&nbsp;&nbsp;||&nbsp;e-mail: <a class=3D"externa=
+l-link" href=3D"mailto:info@logicvalley.in" rel=3D"nofollow">info@logicvall=
+ey.in</a>&nbsp;||&nbsp;website: <a class=3D"external-link" href=3D"http://w=
+ww.logicvalley.in" rel=3D"nofollow">http://www.logicvalley.in</a></p>
+<p></p>
+<p></p>
+<p><strong>Document Details</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<colgroup>
+<col style=3D"width: 57.0px;">
+<col style=3D"width: 157.0px;">
+<col style=3D"width: 52.0px;">
+<col style=3D"width: 66.0px;">
+</colgroup>
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Project Name</strong></p></td>
+<td class=3D"confluenceTd">
+<p>Marston Customer App Landing Page</p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Project No.</strong></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Version</strong></p></td>
+<td class=3D"confluenceTd">
+<p>1.0</p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p><strong>Author</strong></p></td>
+<td class=3D"confluenceTd">
+<p>Manoj Prabhakar KS</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<p><strong>Document History</strong></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<colgroup>
+<col style=3D"width: 33.0px;">
+<col style=3D"width: 90.0px;">
+<col style=3D"width: 78.0px;">
+<col style=3D"width: 66.0px;">
+<col style=3D"width: 66.0px;">
+</colgroup>
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Version No.</strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Change Summary</strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Prepared/ Modified By &amp; Date</=
+strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Reviewed By </strong><br><strong>&=
+amp; Date</strong></p></td>
+<td data-highlight-colour=3D"#153D63" class=3D"confluenceTd">
+<p style=3D"text-align: center;"><strong>Approved By </strong><br><strong>&=
+amp; Date</strong></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>1.0</p></td>
+<td class=3D"confluenceTd">
+<p>Initial Draft</p></td>
+<td class=3D"confluenceTd">
+<p>Manoj /21-May-26</p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+<td class=3D"confluenceTd">
+<p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<h1 id=3D"BRDLandingPage-Contents">Contents</h1>
+<p></p>
+<style type=3D"text/css">/*<![CDATA[*/
+div.rbtoc1779691196437 {padding: 0px;}
+div.rbtoc1779691196437 ul {list-style: disc;margin-left: 0px;}
+div.rbtoc1779691196437 li {margin-left: 0px;padding-left: 0px;}
+
+/*]]>*/</style>
+<div class=3D"toc-macro rbtoc1779691196437">
+<ul class=3D"toc-indentation">
+<li><a href=3D"#BRDLandingPage-BusinessRequirementDocument">Business Requir=
+ement Document</a></li>
+<li><a href=3D"#BRDLandingPage-NewLandingPage">New Landing Page</a></li>
+<li><a href=3D"#BRDLandingPage-MarstonCustomerApp">Marston Customer App</a>=
+</li>
+<li><a href=3D"#BRDLandingPage-Contents">Contents</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292098ExecutiveSummary">Executive Sum=
+mary</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292099BusinessObjectives">Business Ob=
+jectives</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292100Scope">Scope</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292101UsersandRoles">Users and Roles<=
+/a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292102LandingPageOverview(End-UserJou=
+rneySummary)">Landing Page Overview (End-User Journey Summary)</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292103CustomerApp=E2=80=93LandingPage=
+SettingsOverview">Customer App =E2=80=93 Landing Page Settings Overview</a>=
+</li>
+<li><a href=3D"#BRDLandingPage-_Toc230292104FunctionalRequirements">Functio=
+nal Requirements</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292105BusinessRequirements(BR)">Busin=
+ess Requirements (BR)</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292106BusinessRules">Business Rules</=
+a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292107PersonalisationLogic">Personali=
+sation Logic</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292108BusinessProcess/Workflow">Busin=
+ess Process / Workflow</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292109Tracking&amp;ReportingRequireme=
+nts">Tracking &amp; Reporting Requirements</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292110ConfigurationRequirements">Conf=
+iguration Requirements</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292111Link&amp;AccessRequirements">Li=
+nk &amp; Access Requirements</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292112Non-FunctionalRequirements">Non=
+-Functional Requirements</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292113UI/UXBehaviour(CustomerAppEdito=
+r)">UI / UX Behaviour (Customer App Editor)</a></li>
+<li><a href=3D"#BRDLandingPage-_Toc230292114Risks&amp;Dependencies">Risks &=
+amp; Dependencies</a></li>
+</ul>
+</div>
+<p><br></p>
+<h1 local-id=3D"641422a810c9" id=3D"BRDLandingPage-_Toc230292098ExecutiveSu=
+mmary"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_Toc2302=
+92098"><span class=3D"confluence-anchor-link" id=3D"_Toc230292098"></span><=
+/span>Executive Summary</h1>
+<p>This Business Requirements Document (BRD) defines the combined capabilit=
+y of customer-facing Landing Pages and the internal Customer App Landing Pa=
+ge Settings module, enabling a fully controlled, secure, and business-manag=
+ed digital experience.</p>
+<p>The customer-facing Landing Pages provide a structured, end-to-end self-=
+service journey for customers to securely access their case information, un=
+derstand their enforcement stage, and complete key actions such as making p=
+ayments or seeking support. These pages are personalised post-authenticatio=
+n and are designed to drive clarity, reduce confusion, and increase success=
+ful digital engagement and payment conversion while maintaining compliance =
+and accessibility standards.</p>
+<p>Complementing this experience, the Customer App Landing Page Settings mo=
+dule enables authorised business users to manage and control the content di=
+splayed on these Landing Pages without requiring technical intervention. Th=
+rough this capability, users can access structured content areas aligned to=
+ Landing Page sections (such as Payment, Enforcement, and Support), edit co=
+ntent in a format that reflects the end-user view, apply formatting, insert=
+ variables, and manage hyperlinks, while preserving the overall layout and =
+structure of the pages.</p>
+<p>All content changes are governed by a structured approval workflow compr=
+ising Author, Reviewer, and Publisher roles, ensuring that updates are vali=
+dated for accuracy, compliance, and policy alignment before being released =
+to production. The system enforces segregation of duties, maintains a compl=
+ete audit trail, and supports traceability through logged actions and times=
+tamps at each stage of the approval process.</p>
+<p>This combined solution ensures:</p>
+<ul>
+<li>
+<p>A consistent and compliant customer experience across all Landing Pages<=
+/p></li>
+<li>
+<p>Business-led control over content and messaging</p></li>
+<li>
+<p>Reduced dependency on development teams for content updates</p></li>
+<li>
+<p>Full auditability and governance of all changes</p></li>
+<li>
+<p>Alignment between backend case data, frontend presentation, and controll=
+ed content evolution</p></li>
+</ul>
+<p>The BRD provides a comprehensive definition of functional behaviour, gov=
+ernance rules, workflows, and system requirements necessary to deliver and =
+manage both the customer journey and the supporting content management capa=
+bility effectively.</p>
+<p><br></p>
+<p></p>
+<h1 local-id=3D"098c31b586bb" id=3D"BRDLandingPage-_Toc230292099BusinessObj=
+ectives"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_Toc23=
+0292099"><span class=3D"confluence-anchor-link" id=3D"_Toc230292099"></span=
+></span>Business Objectives</h1>
+<p>The primary objective of this initiative is to deliver a controlled, sca=
+lable, and business-managed digital capability that enables both an effecti=
+ve customer self-service journey and a governed content management framewor=
+k through the Customer App.</p>
+<p><strong>Customer-Facing Objectives</strong></p>
+<ul>
+<li>
+<p>Enable customers to securely access and view their case information thro=
+ugh Landing Pages following successful authentication</p></li>
+<li>
+<p>Provide clear, structured, and personalised information to help customer=
+s understand their enforcement stage, outstanding balance, and next steps</=
+p></li>
+<li>
+<p>Drive increased self-service adoption and reduce dependency on agent-ass=
+isted interactions</p></li>
+<li>
+<p>Improve payment conversion by guiding users toward the primary action us=
+ing clear messaging and structured page design</p></li>
+<li>
+<p>Reduce disputes and confusion by presenting enforcement information in a=
+ simplified and understandable format</p></li>
+<li>
+<p>Ensure all customer-facing content remains compliant, transparent, and a=
+ccessible</p></li>
+</ul>
+<p><strong>Business and Operational Objectives</strong></p>
+<ul>
+<li>
+<p>Enable business users to manage Landing Page content directly through th=
+e Customer App without requiring technical intervention</p></li>
+<li>
+<p>Ensure all updates to Landing Page content, messaging, and journey eleme=
+nts are controlled through a structured approval process</p></li>
+<li>
+<p>Maintain consistency across all customer-facing touchpoints by centralis=
+ing content management</p></li>
+<li>
+<p>Reduce operational overhead and turnaround time for content updates by r=
+emoving dependency on development cycles</p></li>
+</ul>
+<p><strong>Governance and Compliance Objectives</strong></p>
+<ul>
+<li>
+<p>Enforce a three-step governance model (Author =E2=86=92 Reviewer =E2=86=
+=92 Publisher) for all content changes</p></li>
+<li>
+<p>Ensure segregation of duties across all stages of the content update lif=
+ecycle</p></li>
+<li>
+<p>Maintain a complete and traceable audit trail of all changes, approvals,=
+ and publishing actions</p></li>
+<li>
+<p>Ensure all published content is reviewed and approved for accuracy, comp=
+liance, and policy alignment before being made live</p></li>
+<li>
+<p>Support audit, compliance review, and regulatory requirements through sy=
+stematic tracking and logging</p></li>
+</ul>
+<p><strong>Technology and Process Objectives</strong></p>
+<ul>
+<li>
+<p>Provide an intuitive content editing interface within the Customer App t=
+hat reflects the structure and layout of the Landing Pages</p></li>
+<li>
+<p>Allow business users to format content, insert variables, and configure =
+hyperlinks while preserving page structure</p></li>
+<li>
+<p>Integrate with existing ticketing systems to manage approval workflows a=
+nd track change requests</p></li>
+<li>
+<p>Ensure reliable and secure publication of approved content directly to p=
+roduction environments</p></li>
+</ul>
+<p>These objectives collectively ensure that the solution delivers a high-q=
+uality customer experience while maintaining strong governance, operational=
+ efficiency, and compliance control.</p>
+<p><br></p>
+<p></p>
+<h1 local-id=3D"4fcebaa3bea3" id=3D"BRDLandingPage-_Toc230292100Scope"><spa=
+n class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_Toc230292100"><spa=
+n class=3D"confluence-anchor-link" id=3D"_Toc230292100"></span></span>Scope=
+</h1>
+<p></p>
+<p><strong>In Scope</strong></p>
+<p>The scope of this capability includes both the <strong>customer-facing L=
+anding Pages</strong> and the <strong>Customer App Landing Page Settings mo=
+dule</strong>, along with all associated content management, governance, an=
+d supporting functionality.</p>
+<p></p>
+<p><strong>Customer-Facing Landing Pages</strong></p>
+<ul>
+<li>
+<p>Sign-In / ID&amp;V Entry Page</p></li>
+<li>
+<p>Home / Timeline Page (Primary Landing Page)</p></li>
+<li>
+<p>Make a Payment Page</p></li>
+<li>
+<p>Enforcement Information Pages (full-page and modal views)</p></li>
+<li>
+<p>Support Pages</p></li>
+<li>
+<p>Shared global components including header, footer, modals, notifications=
+, and error states</p></li>
+<li>
+<p>Personalised content rendering based on verified case data</p></li>
+<li>
+<p>Integration with backend systems for case data (e.g., Columbus) and paym=
+ent gateway</p></li>
+<li>
+<p>Tracking of user interactions and engagement events across the journey</=
+p></li>
+</ul>
+<p></p>
+<p><strong>Customer App =E2=80=93 Landing Page Settings Module</strong></p>
+<ul>
+<li>
+<p>Landing Page Settings interface displaying content areas as structured c=
+ards (e.g., Payment, Enforcement, Support)</p></li>
+<li>
+<p>Navigation from card view to detailed content editing view for each land=
+ing page section</p></li>
+<li>
+<p>Content editing capability with:</p>
+<ul>
+<li>
+<p>Editable structured panels reflecting Landing Page layout</p></li>
+<li>
+<p>Ability to modify content directly as it appears to end users</p></li>
+<li>
+<p>Formatting options for content editing</p></li>
+<li>
+<p>Ability to insert variables</p></li>
+<li>
+<p>Ability to create and manage hyperlinks</p></li>
+</ul></li>
+<li>
+<p>Retention of page structure and layout during content editing</p></li>
+<li>
+<p>Mapping of panel names in the editor to corresponding Landing Page headi=
+ngs</p></li>
+<li>
+<p>Logging of all changes within the audit trail</p></li>
+</ul>
+<p></p>
+<p><strong>Governance and Approval Workflow</strong></p>
+<ul>
+<li>
+<p>Three-step approval process:</p>
+<ul>
+<li>
+<p>Author (create/edit content)</p></li>
+<li>
+<p>Reviewer (validate content)</p></li>
+<li>
+<p>Publisher (final release to production)</p></li>
+</ul></li>
+<li>
+<p>Integration with ticketing system for:</p>
+<ul>
+<li>
+<p>Change request creation</p></li>
+<li>
+<p>Tracking approvals and rejections</p></li>
+</ul></li>
+<li>
+<p>Enforcement of role-based segregation within the workflow</p></li>
+<li>
+<p>Capture of approval decisions, comments, and timestamps</p></li>
+<li>
+<p>Publishing of approved content to production</p></li>
+</ul>
+<p></p>
+<p><strong>Audit, Tracking, and Reporting</strong></p>
+<ul>
+<li>
+<p>Audit logs capturing:</p>
+<ul>
+<li>
+<p>Content changes</p></li>
+<li>
+<p>User actions</p></li>
+<li>
+<p>Workflow status transitions</p></li>
+<li>
+<p>Approval and publishing records</p></li>
+</ul></li>
+<li>
+<p>Tracking of workflow activities including:</p>
+<ul>
+<li>
+<p>Ticket creation</p></li>
+<li>
+<p>Approval/rejection events</p></li>
+<li>
+<p>Publishing confirmation</p></li>
+</ul></li>
+<li>
+<p>Time and user stamp tracking for all actions</p></li>
+</ul>
+<p></p>
+<p><strong>Out of Scope</strong></p>
+<p>The following items are explicitly excluded from this capability:</p>
+<ul>
+<li>
+<p>Development of a system-level permissions framework</p></li>
+<li>
+<p>Role-Based Access Control (RBAC) system implementation</p></li>
+<li>
+<p>Automated approval or decision-making workflows</p></li>
+<li>
+<p>Redesign or modification of existing Landing Page UI/UX layouts created =
+by external teams</p></li>
+<li>
+<p>Editing of structural components such as the timeline visualisation</p><=
+/li>
+<li>
+<p>Backend system changes related to case data management (e.g., Columbus s=
+ystem redesign)</p></li>
+<li>
+<p>Live chat handling logic or integration within the support journey</p></=
+li>
+<li>
+<p>Dispute handling, payment plan creation, or case modification functional=
+ity</p></li>
+<li>
+<p>Passing personally identifiable information through external links or UR=
+Ls</p></li>
+</ul>
+<p></p>
+<p>This scope ensures clear separation between <strong>content management c=
+apability</strong>, <strong>customer-facing functionality</strong>, and <st=
+rong>underlying system responsibilities</strong>, enabling controlled and c=
+ompliant implementation.</p>
+<p></p>
+<h1 local-id=3D"2eb40c9c0e5d" id=3D"BRDLandingPage-_Toc230292101UsersandRol=
+es"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_Toc2302921=
+01"><span class=3D"confluence-anchor-link" id=3D"_Toc230292101"></span></sp=
+an>Users and Roles</h1>
+<p>This capability involves multiple user types across both the customer-fa=
+cing journey and the internal Customer App, with clearly defined responsibi=
+lities to ensure controlled content management and governance.</p>
+<p></p>
+<p><strong>Customer-Facing Users</strong></p>
+<p><strong>Customer</strong></p>
+<ul>
+<li>
+<p>Primary end user of the Landing Pages</p></li>
+<li>
+<p>Accesses the journey via SMS link and completes authentication</p></li>
+<li>
+<p>Interacts with:</p>
+<ul>
+<li>
+<p>Home / Timeline page</p></li>
+<li>
+<p>Payment page</p></li>
+<li>
+<p>Enforcement information</p></li>
+<li>
+<p>Support pages</p></li>
+</ul></li>
+<li>
+<p>Performs key actions such as:</p>
+<ul>
+<li>
+<p>Viewing case details</p></li>
+<li>
+<p>Understanding enforcement stage</p></li>
+<li>
+<p>Making payments</p></li>
+<li>
+<p>Accessing support</p></li>
+</ul></li>
+</ul>
+<p>Customers do not have any content editing capability and only interact w=
+ith published content.</p>
+<p></p>
+<p><strong>Customer App Users (Internal Business Users)</strong></p>
+<p>All internal users access the <strong>Customer App Landing Page Settings=
+ module</strong> to manage and govern content displayed on Landing Pages. T=
+hese users are assigned specific roles within the approval workflow.</p>
+<p></p>
+<p><strong>Author</strong></p>
+<ul>
+<li>
+<p>Business user responsible for creating or editing Landing Page content</=
+p></li>
+<li>
+<p>Uses the Customer App editor to:</p>
+<ul>
+<li>
+<p>Access Landing Page settings</p></li>
+<li>
+<p>Edit content within structured panels</p></li>
+<li>
+<p>Apply formatting, insert variables, and configure hyperlinks</p></li>
+</ul></li>
+<li>
+<p>Initiates change requests via the ticketing system</p></li>
+<li>
+<p>Responsible for ensuring initial accuracy of content updates</p></li>
+<li>
+<p>Cannot approve or publish their own changes</p></li>
+</ul>
+<p></p>
+<p><strong>Reviewer</strong></p>
+<ul>
+<li>
+<p>Business or compliance user responsible for validating changes</p></li>
+<li>
+<p>Reviews submitted content updates for:</p>
+<ul>
+<li>
+<p>Accuracy</p></li>
+<li>
+<p>Compliance with policies and regulations</p></li>
+<li>
+<p>Alignment with enforcement and business messaging</p></li>
+</ul></li>
+<li>
+<p>Can:</p>
+<ul>
+<li>
+<p>Approve changes for publishing</p></li>
+<li>
+<p>Reject changes with feedback for rework</p></li>
+</ul></li>
+<li>
+<p>Must not be the same individual as the Author or Publisher for the same =
+request</p></li>
+</ul>
+<p></p>
+<p><strong>Publisher</strong></p>
+<ul>
+<li>
+<p>Final approver responsible for releasing content to production</p></li>
+<li>
+<p>Reviews approved changes before publishing</p></li>
+<li>
+<p>Ensures readiness and correctness of content prior to go-live</p></li>
+<li>
+<p>Executes publishing action to make content visible on customer-facing La=
+nding Pages</p></li>
+<li>
+<p>Accountable for final sign-off</p></li>
+</ul>
+<p></p>
+<p><strong>Compliance Leads</strong></p>
+<ul>
+<li>
+<p>Oversight role across the entire process</p></li>
+<li>
+<p>Monitors:</p>
+<ul>
+<li>
+<p>Adherence to governance model</p></li>
+<li>
+<p>Audit logs and change history</p></li>
+</ul></li>
+<li>
+<p>Supports compliance reviews and internal audits</p></li>
+<li>
+<p>Does not directly perform editing, reviewing, or publishing actions</p><=
+/li>
+</ul>
+<p></p>
+<p><strong>Role Governance Constraints</strong></p>
+<ul>
+<li>
+<p>A single user must not perform multiple roles within the same request:</=
+p>
+<ul>
+<li>
+<p>Author and Reviewer</p></li>
+<li>
+<p>Reviewer and Publisher</p></li>
+<li>
+<p>Author and Publisher</p></li>
+</ul></li>
+<li>
+<p>All content changes must pass through all three roles:</p>
+<ul>
+<li>
+<p>Author =E2=86=92 Reviewer =E2=86=92 Publisher</p></li>
+</ul></li>
+<li>
+<p>Role assignments and actions must be fully traceable through audit logs<=
+/p></li>
+</ul>
+<p></p>
+<p></p>
+<h1 local-id=3D"2552eead15a8" id=3D"BRDLandingPage-_Toc230292102LandingPage=
+Overview(End-UserJourneySummary)"><span class=3D"confluence-anchor-link" id=
+=3D"BRDLandingPage-_Toc230292102"><span class=3D"confluence-anchor-link" id=
+=3D"_Toc230292102"></span></span>Landing Page Overview (End-User Journey Su=
+mmary)</h1>
+<p>The Landing Pages represent a structured, secure, and personalised digit=
+al journey that enables customers to access case information, understand th=
+eir enforcement status, and complete key actions such as making a payment o=
+r seeking support. This journey is initiated through a controlled entry poi=
+nt and progresses through a series of defined stages designed to ensure cla=
+rity, security, and compliance.</p>
+<p></p>
+<p><strong>Entry and Authentication</strong></p>
+<p>The journey begins when a customer accesses the system via a generic SMS=
+ link. Upon entry, the user is presented with a Sign-In / Identity Verifica=
+tion page where they must provide required credentials (such as postcode an=
+d other validation inputs). Authentication is enforced with controlled atte=
+mpt limits, and access to any personal or case-related information is restr=
+icted until verification is successfully completed.</p>
+<p>If authentication fails, the system provides controlled retry attempts a=
+nd recovery options. Upon exceeding the allowed attempts, the user is restr=
+icted from further access and directed to recovery or support channels.</p>
+<p></p>
+<p><strong>Case Retrieval and Personalisation</strong></p>
+<p>Once authenticated, the system retrieves the customer=E2=80=99s case dat=
+a from backend systems. This includes key attributes such as case reference=
+, enforcement stage, outstanding balance, and applicable fees. This data dr=
+ives all subsequent page behaviour, including content personalisation, time=
+line positioning, and action prioritisation.</p>
+<p>Personalisation is dynamically applied based on verified data, ensuring =
+that all information displayed is accurate, relevant, and contextual to the=
+ customer=E2=80=99s situation.</p>
+<p></p>
+<p><strong>Home / Timeline Page (Primary Landing Page)</strong></p>
+<p>The Home / Timeline page serves as the central point of the journey and =
+the primary decision-making interface for the customer. This page provides:=
+</p>
+<ul>
+<li>
+<p>A visual timeline representing the customer=E2=80=99s enforcement stage<=
+/p></li>
+<li>
+<p>A summary of the case, including balance and status</p></li>
+<li>
+<p>Contextual messaging explaining the current position and next steps</p><=
+/li>
+<li>
+<p>A clearly defined primary call-to-action (typically =E2=80=9CPay Now=E2=
+=80=9D)</p></li>
+</ul>
+<p>The timeline simplifies complex backend enforcement stages into a clear,=
+ structured visual representation to improve customer understanding and red=
+uce confusion.</p>
+<p></p>
+<p><strong>Customer Decision Paths</strong></p>
+<p>From the Home / Timeline page, the user is guided into one of the follow=
+ing paths:</p>
+<p><strong>1. Payment Path (Primary Path)</strong></p>
+<p>The user selects the primary call-to-action and is directed to the Payme=
+nt page, where they can:</p>
+<ul>
+<li>
+<p>Review outstanding balance and fees</p></li>
+<li>
+<p>Confirm payment details</p></li>
+<li>
+<p>Proceed to a secure external payment gateway</p></li>
+</ul>
+<p>Upon successful payment, the system confirms the transaction and updates=
+ the case status accordingly.</p>
+<p></p>
+<p><strong>2. Enforcement Information Path</strong></p>
+<p>Users may choose to view additional information about their enforcement =
+stage. This provides:</p>
+<ul>
+<li>
+<p>Stage-specific explanations</p></li>
+<li>
+<p>Consequences of non-payment</p></li>
+<li>
+<p>Clear description of what happens next</p></li>
+</ul>
+<p>This path is designed to improve understanding and encourage informed de=
+cision-making without causing confusion or escalation.</p>
+<p></p>
+<p><strong>3. Support Path</strong></p>
+<p>Users can access support-related content which includes:</p>
+<ul>
+<li>
+<p>Frequently asked questions</p></li>
+<li>
+<p>Vulnerability support options</p></li>
+<li>
+<p>Complaint and assistance routes</p></li>
+</ul>
+<p>This path provides reassurance and assistance while maintaining alignmen=
+t with the overall journey objectives.</p>
+<p></p>
+<p><strong>Journey Outcomes</strong></p>
+<p>The journey supports multiple outcomes:</p>
+<ul>
+<li>
+<p><strong>Successful outcome:</strong> Payment completed and case updated<=
+/p></li>
+<li>
+<p><strong>Return path:</strong> User navigates back to the Home page or co=
+ntinues the journey</p></li>
+<li>
+<p><strong>Exit path:</strong> User leaves the journey or transitions to of=
+fline support channels</p></li>
+</ul>
+<p></p>
+<p><strong>Journey Design Principles</strong></p>
+<p>The Landing Page journey is built on the following principles:</p>
+<ul>
+<li>
+<p><strong>Security:</strong> No personal data is exposed prior to successf=
+ul authentication</p></li>
+<li>
+<p><strong>Clarity:</strong> Complex information is simplified through visu=
+al and structured presentation</p></li>
+<li>
+<p><strong>Guided Action:</strong> Primary actions are clearly highlighted =
+to drive completion</p></li>
+<li>
+<p><strong>Compliance:</strong> Content and messaging follow regulatory and=
+ policy requirements</p></li>
+<li>
+<p><strong>Continuity:</strong> The journey avoids dead ends, always provid=
+ing a next actionable step</p></li>
+</ul>
+<p></p>
+<p></p>
+<h1 local-id=3D"ac333c8d9e79" id=3D"BRDLandingPage-_Toc230292103CustomerApp=
+=E2=80=93LandingPageSettingsOverview"><span class=3D"confluence-anchor-link=
+" id=3D"BRDLandingPage-_Toc230292103"><span class=3D"confluence-anchor-link=
+" id=3D"_Toc230292103"></span></span>Customer App =E2=80=93 Landing Page Se=
+ttings Overview</h1>
+<p>The Customer App Landing Page Settings module provides authorised busine=
+ss users with the capability to manage, edit, review, and publish content t=
+hat is displayed across all customer-facing Landing Pages. This module acts=
+ as the central content management interface, enabling controlled updates w=
+hile ensuring consistency, compliance, and auditability.</p>
+<p></p>
+<p><strong>Access and Navigation</strong></p>
+<p>When a user accesses the Landing Page Settings section within the Custom=
+er App, they are presented with a structured interface consisting of visual=
+ly distinct cards. Each card represents a major Landing Page content area, =
+such as:</p>
+<ul>
+<li>
+<p>Make a Payment</p></li>
+<li>
+<p>Enforcement</p></li>
+<li>
+<p>Support</p></li>
+</ul>
+<p>These cards serve as entry points for managing content associated with s=
+pecific sections of the customer journey.</p>
+<p></p>
+<p><strong>Content Editing Experience</strong></p>
+<p>Upon selecting and editing a card, the user is navigated to a dedicated =
+content editing view corresponding to that section. The editor is designed =
+to mirror the structure and layout of the actual customer-facing Landing Pa=
+ges, allowing users to view and modify content in the same format as it app=
+ears to end users.</p>
+<p>The content editing interface includes the following capabilities:</p>
+<ul>
+<li>
+<p><strong>Direct content editing within structured panels</strong>, mainta=
+ining alignment with Landing Page layout</p></li>
+<li>
+<p><strong>Panel-based organisation</strong>, where each panel represents a=
+ distinct content block or section</p></li>
+<li>
+<p><strong>Panel names mapped to Landing Page headings</strong>, ensuring c=
+larity and consistency between editor and live pages</p></li>
+<li>
+<p><strong>Preservation of layout and structure</strong>, preventing uninte=
+nded changes to page design</p></li>
+</ul>
+<p></p>
+<p><strong>Content Authoring Capabilities</strong></p>
+<p>Business users are able to manage content using the following features:<=
+/p>
+<ul>
+<li>
+<p>Apply formatting to content (e.g., structured text presentation)</p></li=
+>
+<li>
+<p>Insert variables to dynamically reflect case-specific or contextual info=
+rmation</p></li>
+<li>
+<p>Create and configure hyperlinks within content</p></li>
+</ul>
+<p>These capabilities enable flexible yet controlled content management whi=
+le ensuring the output remains consistent with the defined Landing Page exp=
+erience.</p>
+<p></p>
+<p><strong>Content Lifecycle and Workflow Integration</strong></p>
+<p>All changes made within the editor are part of a controlled lifecycle al=
+igned with the governance model. Users can:</p>
+<ul>
+<li>
+<p>Save changes within the editor</p></li>
+<li>
+<p>Submit changes for review through the defined approval process</p></li>
+</ul>
+<p>The workflow consists of:</p>
+<ol start=3D"1">
+<li>
+<p><strong>Authoring</strong> =E2=80=93 content creation and editing</p></l=
+i>
+<li>
+<p><strong>Review</strong> =E2=80=93 validation of content for compliance a=
+nd accuracy</p></li>
+<li>
+<p><strong>Publishing</strong> =E2=80=93 final approval and release to prod=
+uction</p></li>
+</ol>
+<p>Users cannot directly publish content without completing the required re=
+view and approval stages.</p>
+<p></p>
+<p><strong>Audit and Traceability</strong></p>
+<p>Every action within the Landing Page Settings module is tracked to ensur=
+e full transparency and accountability. This includes:</p>
+<ul>
+<li>
+<p>Logging of all content changes</p></li>
+<li>
+<p>Recording user actions (create, edit, submit, approve, reject, publish)<=
+/p></li>
+<li>
+<p>Capturing timestamps and user identifiers for each action</p></li>
+<li>
+<p>Maintaining an audit log that reflects the complete history of changes</=
+p></li>
+</ul>
+<p>This ensures that all modifications to customer-facing content are trace=
+able and compliant with governance requirements.</p>
+<p></p>
+<p><strong>Design Principles</strong></p>
+<p>The Customer App editor is designed with the following principles:</p>
+<ul>
+<li>
+<p><strong>What-you-see-is-what-you-edit approach</strong>, ensuring consis=
+tency between editor and live pages</p></li>
+<li>
+<p><strong>Structured editing</strong>, preventing deviation from approved =
+page layouts</p></li>
+<li>
+<p><strong>Controlled flexibility</strong>, allowing content updates withou=
+t impacting system behaviour or layout</p></li>
+<li>
+<p><strong>Governance-first design</strong>, ensuring all changes pass thro=
+ugh review and approval controls</p></li>
+</ul>
+<p></p>
+<p></p>
+<h1 local-id=3D"78a955366627" id=3D"BRDLandingPage-_Toc230292104FunctionalR=
+equirements"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_T=
+oc230292104"><span class=3D"confluence-anchor-link" id=3D"_Toc230292104"></=
+span></span>Functional Requirements</h1>
+<p><strong>7.1 Landing Pages (Customer-Facing)</strong></p>
+<p>The system shall provide a set of customer-facing Landing Pages that ena=
+ble a secure, personalised, and structured journey from authentication to p=
+ayment completion.</p>
+<ul>
+<li>
+<p>The system shall display a Sign-In / ID&amp;V page as the entry point, r=
+estricting access to case data until successful verification</p></li>
+<li>
+<p>The system shall retrieve and render case data dynamically post-authenti=
+cation, including enforcement stage, balance, and fees</p></li>
+<li>
+<p>The system shall display a Home / Timeline page with a visual representa=
+tion of the customer=E2=80=99s enforcement stage</p></li>
+<li>
+<p>The system shall present a primary Call-to-Action (CTA) to guide users t=
+oward payment</p></li>
+<li>
+<p>The system shall allow navigation to the Payment page, Enforcement Infor=
+mation pages, and Support pages from the Home page</p></li>
+<li>
+<p>The system shall display the Payment page with accurate case summary, ba=
+lance, and applicable fees</p></li>
+<li>
+<p>The system shall enable redirection to a secure external payment gateway=
+ for transaction processing</p></li>
+<li>
+<p>The system shall handle payment success and failure states and provide a=
+ppropriate feedback to the user</p></li>
+<li>
+<p>The system shall display Enforcement Information pages with stage-specif=
+ic explanations and consequences</p></li>
+<li>
+<p>The system shall display Support pages with structured assistance option=
+s, including FAQs and escalation routes</p></li>
+<li>
+<p>The system shall ensure all pages are session-bound and accessible only =
+after successful authentication</p></li>
+<li>
+<p>The system shall track all user interactions and key events across the L=
+anding Page journey</p></li>
+</ul>
+<p></p>
+<p><strong>7.2 Customer App =E2=80=93 Content Editor</strong></p>
+<p>The system shall provide a Landing Page Settings module within the Custo=
+mer App to enable business users to manage and control Landing Page content=
+.</p>
+<ul>
+<li>
+<p>The system shall display Landing Page content areas as structured cards =
+(e.g., Payment, Enforcement, Support)</p></li>
+<li>
+<p>The system shall allow users to select and edit a specific card, navigat=
+ing to a corresponding content editing screen</p></li>
+<li>
+<p>The system shall present content in a structured format that mirrors the=
+ layout and appearance of the customer-facing Landing Pages</p></li>
+<li>
+<p>The system shall organise content into panels, with each panel represent=
+ing a section of the Landing Page</p></li>
+<li>
+<p>The system shall display panel names aligned with corresponding headings=
+ in the Landing Pages</p></li>
+<li>
+<p>The system shall allow users to edit content directly within panels with=
+out altering the overall page structure</p></li>
+<li>
+<p>The system shall provide formatting options to modify content presentati=
+on</p></li>
+<li>
+<p>The system shall allow insertion of variables within content</p></li>
+<li>
+<p>The system shall allow creation and configuration of hyperlinks within c=
+ontent</p></li>
+<li>
+<p>The system shall preserve the visual structure and layout of Landing Pag=
+es during editing</p></li>
+<li>
+<p>The system shall allow users to save content changes prior to submission=
+</p></li>
+<li>
+<p>The system shall ensure that all content changes are captured and reflec=
+ted in the audit log</p></li>
+</ul>
+<p></p>
+<p><strong>7.3 Governance and Approval Workflow</strong></p>
+<p>The system shall enforce a structured, business-led approval workflow go=
+verning all content changes.</p>
+<ul>
+<li>
+<p>The system shall support a three-step workflow: Author =E2=86=92 Reviewe=
+r =E2=86=92 Publisher</p></li>
+<li>
+<p>The system shall allow Authors to create and submit content changes for =
+review</p></li>
+<li>
+<p>The system shall enable integration with a ticketing system for managing=
+ change requests</p></li>
+<li>
+<p>The system shall allow assignment of Author, Reviewer, and Publisher rol=
+es per request</p></li>
+<li>
+<p>The system shall prevent a single user from performing multiple roles wi=
+thin the same request</p></li>
+<li>
+<p>The system shall allow Reviewers to approve or reject submitted changes<=
+/p></li>
+<li>
+<p>The system shall require Reviewers to provide feedback when rejecting ch=
+anges</p></li>
+<li>
+<p>The system shall allow only approved changes to proceed to the publishin=
+g stage</p></li>
+<li>
+<p>The system shall allow Publishers to perform final review and publish co=
+ntent to production</p></li>
+<li>
+<p>The system shall prevent publishing without prior approval</p></li>
+<li>
+<p>The system shall capture all workflow actions including submission, appr=
+oval, rejection, and publishing</p></li>
+<li>
+<p>The system shall record timestamps and user identifiers for each workflo=
+w stage</p></li>
+</ul>
+<p></p>
+<p></p>
+<h1 local-id=3D"206325a9b6c5" id=3D"BRDLandingPage-_Toc230292105BusinessReq=
+uirements(BR)"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-=
+_Toc230292105"><span class=3D"confluence-anchor-link" id=3D"_Toc230292105">=
+</span></span>Business Requirements (BR)</h1>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#F5F5F5" class=3D"confluenceTd">
+<p><strong>BR ID</strong></p></td>
+<td data-highlight-colour=3D"#F5F5F5" class=3D"confluenceTd">
+<p><strong>Requirement</strong></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9101</p></td>
+<td class=3D"confluenceTd">
+<p>The system must provide secure access to Landing Pages, ensuring no cust=
+omer data is exposed prior to successful authentication</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9102</p></td>
+<td class=3D"confluenceTd">
+<p>The system must generate and display personalised Landing Page content b=
+ased on verified case data</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9103</p></td>
+<td class=3D"confluenceTd">
+<p>The system must track all user interactions across Landing Pages, includ=
+ing navigation, engagement, and actions</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9104</p></td>
+<td class=3D"confluenceTd">
+<p>The system must integrate with external forms and support channels for c=
+ustomer assistance</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9105</p></td>
+<td class=3D"confluenceTd">
+<p>The system must enable escalation to appropriate support channels where =
+required</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9106</p></td>
+<td class=3D"confluenceTd">
+<p>The system must display accurate and real-time case details including ba=
+lance, fees, and enforcement stage</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9107</p></td>
+<td class=3D"confluenceTd">
+<p>The system must support time-sensitive and enforcement-based messaging t=
+o guide customer actions</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=9108</p></td>
+<td class=3D"confluenceTd">
+<p>The system must enforce business rules related to case prioritisation an=
+d visibility within the customer journey</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<div class=3D"table-wrap">
+<table data-table-width=3D"1800" data-layout=3D"default" class=3D"confluenc=
+eTable">
+<tbody>
+<tr>
+<td data-highlight-colour=3D"#F5F5F5" class=3D"confluenceTd">
+<p><strong>BR ID</strong></p></td>
+<td data-highlight-colour=3D"#F5F5F5" class=3D"confluenceTd">
+<p><strong>Customer App &amp; Governance Requirements</strong></p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9101</p></td>
+<td class=3D"confluenceTd">
+<p>The system must enforce a three-step approval workflow (Author =E2=86=92=
+ Reviewer =E2=86=92 Publisher) for all content changes</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9102</p></td>
+<td class=3D"confluenceTd">
+<p>The system must prevent a single user from performing multiple roles wit=
+hin the same request</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9103</p></td>
+<td class=3D"confluenceTd">
+<p>The system must maintain a complete and traceable audit log of all conte=
+nt changes and workflow actions</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9104</p></td>
+<td class=3D"confluenceTd">
+<p>The system must enable business users to manage Landing Page content wit=
+hout requiring technical system changes</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9105</p></td>
+<td class=3D"confluenceTd">
+<p>The system must ensure all content updates are reviewed and approved bef=
+ore being published to production</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9106</p></td>
+<td class=3D"confluenceTd">
+<p>The system must allow business users to edit Landing Page content via a =
+structured Customer App interface</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9107</p></td>
+<td class=3D"confluenceTd">
+<p>The system must ensure that content editing retains the structure and la=
+yout of the Landing Pages</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9108</p></td>
+<td class=3D"confluenceTd">
+<p>The system must support formatting, variable insertion, and hyperlink cr=
+eation within content</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9109</p></td>
+<td class=3D"confluenceTd">
+<p>The system must log all changes made within the Customer App editor, inc=
+luding user actions and timestamps</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p>BR=E2=80=91P=E2=80=9110</p></td>
+<td class=3D"confluenceTd">
+<p>The system must support integration with a ticketing system to manage co=
+ntent change requests and approvals</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<h1 local-id=3D"99adaf3c3c33" id=3D"BRDLandingPage-_Toc230292106BusinessRul=
+es"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_Toc2302921=
+06"><span class=3D"confluence-anchor-link" id=3D"_Toc230292106"></span></sp=
+an>Business Rules</h1>
+<p>The following business rules govern the behaviour of both the customer-f=
+acing Landing Pages and the Customer App Landing Page Settings module, ensu=
+ring consistency, compliance, and controlled content management.</p>
+<p></p>
+<p><strong>Customer-Facing Business Rules</strong></p>
+<ul>
+<li>
+<p>Customers must not be able to access any case or personal data prior to =
+successful authentication</p></li>
+<li>
+<p>Access to Landing Pages must be restricted to verified sessions only</p>=
+</li>
+<li>
+<p>The system must display information for one case at a time within the La=
+nding Pages</p></li>
+<li>
+<p>In scenarios with multiple cases, a default case must be selected based =
+on defined prioritisation logic (e.g., urgency)</p></li>
+<li>
+<p>All case-related data (balance, fees, enforcement stage) must match back=
+end system values at all times</p></li>
+<li>
+<p>Enforcement messaging must be accurate, factual, and compliant with appl=
+icable policies</p></li>
+<li>
+<p>Timeline representation must reflect the mapped enforcement stage and mu=
+st not be editable through the Customer App</p></li>
+<li>
+<p>Payment actions must always be tied to the currently active case</p></li=
+>
+<li>
+<p>Payment attempts must not restrict or lock the user out of the overall j=
+ourney</p></li>
+<li>
+<p>All navigation paths must ensure no dead-end states, providing users wit=
+h clear next actions</p></li>
+</ul>
+<p></p>
+<p><strong>Customer App =E2=80=93 Content Management Rules</strong></p>
+<ul>
+<li>
+<p>Business users must only be able to edit content within predefined struc=
+tured panels</p></li>
+<li>
+<p>The layout and structural elements of Landing Pages must remain unchange=
+d during content editing</p></li>
+<li>
+<p>Panel names within the editor must align with corresponding headings in =
+the Landing Pages</p></li>
+<li>
+<p>All content changes must be saved before being submitted for review</p><=
+/li>
+<li>
+<p>Content editing must support formatting, variable insertion, and hyperli=
+nk configuration</p></li>
+<li>
+<p>All changes made within the editor must be logged in the audit trail wit=
+h user and timestamp details</p></li>
+<li>
+<p>Content must reflect how it appears to end users, ensuring consistency b=
+etween editor and live view</p></li>
+</ul>
+<p></p>
+<p><strong>Governance and Approval Rules</strong></p>
+<ul>
+<li>
+<p>A single user must not perform multiple roles within the same request:</=
+p>
+<ul>
+<li>
+<p>Author and Reviewer</p></li>
+<li>
+<p>Reviewer and Publisher</p></li>
+<li>
+<p>Author and Publisher</p></li>
+</ul></li>
+<li>
+<p>Every content change must pass through all three stages:</p>
+<ul>
+<li>
+<p>Author</p></li>
+<li>
+<p>Reviewer</p></li>
+<li>
+<p>Publisher</p></li>
+</ul></li>
+<li>
+<p>Content must not be published without:</p>
+<ul>
+<li>
+<p>Explicit approval from the Reviewer</p></li>
+<li>
+<p>Final sign-off from the Publisher</p></li>
+</ul></li>
+<li>
+<p>Rejected changes:</p>
+<ul>
+<li>
+<p>Must be returned to the Author with clear feedback</p></li>
+<li>
+<p>Must not proceed further in the workflow until updated and resubmitted</=
+p></li>
+</ul></li>
+<li>
+<p>Publishing actions must only be available after successful completion of=
+ the review stage</p></li>
+</ul>
+<p></p>
+<p><strong>Audit and Compliance Rules</strong></p>
+<ul>
+<li>
+<p>All actions, including creation, editing, submission, approval, rejectio=
+n, and publishing must be fully logged</p></li>
+<li>
+<p>Each action must include:</p>
+<ul>
+<li>
+<p>User identifier</p></li>
+<li>
+<p>Timestamp</p></li>
+<li>
+<p>Action performed</p></li>
+</ul></li>
+<li>
+<p>Audit logs must be immutable and available for internal audit and compli=
+ance review</p></li>
+<li>
+<p>Content updates must not bypass the defined governance workflow</p></li>
+</ul>
+<p></p>
+<p></p>
+<h1 local-id=3D"9799788180b0" id=3D"BRDLandingPage-_Toc230292107Personalisa=
+tionLogic"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_Toc=
+230292107"><span class=3D"confluence-anchor-link" id=3D"_Toc230292107"></sp=
+an></span>Personalisation Logic</h1>
+<p>Personalisation across the Landing Pages is driven entirely by verified =
+case data retrieved post-authentication and system-defined contextual facto=
+rs. The logic ensures that all customer-facing content remains accurate, re=
+levant, and aligned with the customer=E2=80=99s current case status while m=
+aintaining strict control over data exposure and content consistency.</p>
+<p></p>
+<p><strong>Customer-Facing Personalisation</strong></p>
+<ul>
+<li>
+<p>Personalisation is applied <strong>only after successful authentication<=
+/strong></p></li>
+<li>
+<p>No personal or case-related data is displayed prior to verification</p><=
+/li>
+<li>
+<p>Personalised elements include:</p>
+<ul>
+<li>
+<p>Customer-specific greeting (where applicable)</p></li>
+<li>
+<p>Case reference and associated details</p></li>
+<li>
+<p>Debt type</p></li>
+<li>
+<p>Enforcement stage</p></li>
+<li>
+<p>Outstanding balance and applicable fees</p></li>
+<li>
+<p>Time-sensitive indicators (e.g., countdowns where applicable)</p></li>
+</ul></li>
+<li>
+<p>The system must dynamically adapt page content based on:</p>
+<ul>
+<li>
+<p>The currently selected case</p></li>
+<li>
+<p>Enforcement stage progression</p></li>
+<li>
+<p>Case status and conditions (e.g., active, on hold)</p></li>
+<li>
+<p>Single-case versus multi-case scenarios</p></li>
+</ul></li>
+<li>
+<p>In multi-case scenarios:</p>
+<ul>
+<li>
+<p>The system must default to a selected case based on defined prioritisati=
+on logic</p></li>
+<li>
+<p>Users must be able to switch between cases where applicable</p></li>
+<li>
+<p>All displayed content must refresh dynamically based on the selected cas=
+e</p></li>
+</ul></li>
+<li>
+<p>Enforcement messaging, urgency indicators, and call-to-action (CTA) cont=
+ent must adapt based on:</p>
+<ul>
+<li>
+<p>Stage progression (e.g., pre-compliance, compliance, enforcement)</p></l=
+i>
+<li>
+<p>Severity of enforcement position</p></li>
+<li>
+<p>Applicable fees and consequences</p></li>
+</ul></li>
+<li>
+<p>Personalisation must be rendered dynamically at runtime and must not be =
+stored client-side</p></li>
+</ul>
+<p></p>
+<p><strong>Customer App Content Personalisation</strong></p>
+<ul>
+<li>
+<p>The Customer App does not directly control personalisation logic but ena=
+bles the management of content that supports personalised rendering</p></li=
+>
+<li>
+<p>Business users can:</p>
+<ul>
+<li>
+<p>Define and edit content templates that include placeholders or variables=
+</p></li>
+<li>
+<p>Insert variables into content which will be resolved dynamically at runt=
+ime based on case data</p></li>
+</ul></li>
+<li>
+<p>Variables inserted through the editor must:</p>
+<ul>
+<li>
+<p>Resolve to appropriate values during runtime based on backend data</p></=
+li>
+<li>
+<p>Maintain consistency with system-defined personalisation logic</p></li>
+<li>
+<p>Not expose sensitive data prior to authentication</p></li>
+</ul></li>
+<li>
+<p>Content updated via the Customer App must remain compatible with:</p>
+<ul>
+<li>
+<p>Existing personalisation rules</p></li>
+<li>
+<p>Case-based rendering logic</p></li>
+<li>
+<p>Enforcement stage-based messaging</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>Governance of Personalised Content</strong></p>
+<ul>
+<li>
+<p>All updates to content that influences personalisation must follow the d=
+efined approval workflow:</p>
+<ul>
+<li>
+<p>Author =E2=86=92 Reviewer =E2=86=92 Publisher</p></li>
+</ul></li>
+<li>
+<p>Personalisation-related updates must be:</p>
+<ul>
+<li>
+<p>Reviewed for accuracy and correctness of variable usage</p></li>
+<li>
+<p>Validated for compliance with regulatory and policy requirements</p></li=
+>
+</ul></li>
+<li>
+<p>No personalised messaging or variable usage may be published without app=
+roval</p></li>
+</ul>
+<p></p>
+<p><strong>Personalisation Constraints</strong></p>
+<ul>
+<li>
+<p>Personalisation must not:</p>
+<ul>
+<li>
+<p>Override system-driven data such as balance, fees, or enforcement stage<=
+/p></li>
+<li>
+<p>Alter structural components such as the timeline</p></li>
+<li>
+<p>Introduce inconsistencies between displayed content and backend data</p>=
+</li>
+</ul></li>
+<li>
+<p>All personalised outputs must:</p>
+<ul>
+<li>
+<p>Reflect real-time system data</p></li>
+<li>
+<p>Remain consistent across all Landing Pages and related components</p></l=
+i>
+</ul></li>
+</ul>
+<p></p>
+<p></p>
+<h1 local-id=3D"0bccb3ec7e8a" id=3D"BRDLandingPage-_Toc230292108BusinessPro=
+cess/Workflow"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-=
+_Toc230292108"><span class=3D"confluence-anchor-link" id=3D"_Toc230292108">=
+</span></span>Business Process / Workflow</h1>
+<p>The solution follows a structured, end-to-end workflow covering both the=
+ <strong>customer-facing journey</strong> and the <strong>internal Customer=
+ App content management and governance process</strong>. This ensures a sea=
+mless customer experience while maintaining strict control over content cha=
+nges.</p>
+<p></p>
+<p><strong>1. Customer Journey Workflow</strong></p>
+<p><strong>1.1 Entry</strong></p>
+<ul>
+<li>
+<p>Customer receives an SMS containing a generic link</p></li>
+<li>
+<p>Customer clicks the link and is directed to the Sign-In / ID&amp;V page<=
+/p></li>
+</ul>
+<p></p>
+<p><strong>1.2 Authentication</strong></p>
+<ul>
+<li>
+<p>Customer enters required verification details</p></li>
+<li>
+<p>System validates input against backend system</p></li>
+<li>
+<p>Outcomes:</p>
+<ul>
+<li>
+<p><strong>Success:</strong> Secure session is created =E2=86=92 proceed to=
+ case retrieval</p></li>
+<li>
+<p><strong>Failure:</strong> Remaining attempts are reduced</p></li>
+<li>
+<p><strong>Maximum attempts reached:</strong> Customer is redirected to rec=
+overy/support options</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>1.3 Case Retrieval</strong></p>
+<ul>
+<li>
+<p>System retrieves all active cases from backend systems</p></li>
+<li>
+<p>Data includes:</p>
+<ul>
+<li>
+<p>Case reference</p></li>
+<li>
+<p>Enforcement stage</p></li>
+<li>
+<p>Balance and fees</p></li>
+</ul></li>
+<li>
+<p>A default case is selected for display</p></li>
+</ul>
+<p></p>
+<p><strong>1.4 Home / Timeline Page</strong></p>
+<ul>
+<li>
+<p>Timeline is rendered based on enforcement stage</p></li>
+<li>
+<p>Case summary and personalised content are displayed</p></li>
+<li>
+<p>Primary CTA (e.g., =E2=80=9CPay Now=E2=80=9D) is presented</p></li>
+</ul>
+<p></p>
+<p><strong>1.5 Customer Decision Paths</strong></p>
+<p>From the Home page, the customer can choose:</p>
+<p><strong>a. Payment Path</strong></p>
+<ul>
+<li>
+<p>Customer selects =E2=80=9CPay Now=E2=80=9D</p></li>
+<li>
+<p>System loads Payment page with case details</p></li>
+<li>
+<p>Customer proceeds to secure payment gateway</p></li>
+<li>
+<p>Outcomes:</p>
+<ul>
+<li>
+<p><strong>Success:</strong> Payment confirmed and case updated</p></li>
+<li>
+<p><strong>Failure:</strong> Error displayed, retry allowed</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>b. Enforcement Information Path</strong></p>
+<ul>
+<li>
+<p>Customer accesses stage-specific explanation</p></li>
+<li>
+<p>System displays:</p>
+<ul>
+<li>
+<p>Current stage</p></li>
+<li>
+<p>Consequences</p></li>
+<li>
+<p>Next steps</p></li>
+</ul></li>
+<li>
+<p>Customer can:</p>
+<ul>
+<li>
+<p>Proceed to payment</p></li>
+<li>
+<p>Return to Home page</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>c. Support Path</strong></p>
+<ul>
+<li>
+<p>Customer accesses support options</p></li>
+<li>
+<p>System displays:</p>
+<ul>
+<li>
+<p>FAQs</p></li>
+<li>
+<p>Vulnerability options</p></li>
+<li>
+<p>Complaint forms</p></li>
+</ul></li>
+<li>
+<p>Customer can:</p>
+<ul>
+<li>
+<p>Submit request via external forms</p></li>
+<li>
+<p>Return to journey</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>1.6 Journey Outcomes</strong></p>
+<ul>
+<li>
+<p><strong>Successful outcome:</strong> Payment completed</p></li>
+<li>
+<p><strong>Return path:</strong> Customer navigates back within journey</p>=
+</li>
+<li>
+<p><strong>Exit path:</strong> Customer leaves or moves to offline support =
+channels</p></li>
+</ul>
+<p></p>
+<p><strong>2. Customer App Content Management Workflow</strong></p>
+<p><strong>2.1 Access Landing Page Settings</strong></p>
+<ul>
+<li>
+<p>Business user logs into Customer App</p></li>
+<li>
+<p>Navigates to Landing Page Settings</p></li>
+<li>
+<p>System displays content cards (e.g., Payment, Enforcement, Support)</p><=
+/li>
+</ul>
+<p></p>
+<p><strong>2.2 Content Editing (Author Stage)</strong></p>
+<ul>
+<li>
+<p>User selects a card and opens content editor</p></li>
+<li>
+<p>System displays structured panels reflecting Landing Page layout</p></li=
+>
+<li>
+<p>User performs:</p>
+<ul>
+<li>
+<p>Content updates</p></li>
+<li>
+<p>Formatting changes</p></li>
+<li>
+<p>Variable insertion</p></li>
+<li>
+<p>Hyperlink creation</p></li>
+</ul></li>
+<li>
+<p>User saves the changes</p></li>
+<li>
+<p>User submits changes for review</p></li>
+</ul>
+<p></p>
+<p><strong>2.3 Review Stage (Reviewer)</strong></p>
+<ul>
+<li>
+<p>Reviewer receives change request via ticketing system</p></li>
+<li>
+<p>Reviewer validates:</p>
+<ul>
+<li>
+<p>Accuracy</p></li>
+<li>
+<p>Compliance</p></li>
+<li>
+<p>Policy alignment</p></li>
+</ul></li>
+<li>
+<p>Outcomes:</p>
+<ul>
+<li>
+<p><strong>Approve:</strong> Moves to Publisher stage</p></li>
+<li>
+<p><strong>Reject:</strong> Returned to Author with feedback</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>2.4 Publishing Stage (Publisher)</strong></p>
+<ul>
+<li>
+<p>Publisher reviews approved content</p></li>
+<li>
+<p>Performs final validation</p></li>
+<li>
+<p>Publishes content to production</p></li>
+<li>
+<p>Content becomes visible on customer-facing Landing Pages</p></li>
+</ul>
+<p></p>
+<p><strong>3. Audit and Tracking Workflow</strong></p>
+<ul>
+<li>
+<p>Each stage in the process is logged:</p>
+<ul>
+<li>
+<p>Content creation and edits</p></li>
+<li>
+<p>Submission for review</p></li>
+<li>
+<p>Approval / rejection actions</p></li>
+<li>
+<p>Publishing actions</p></li>
+</ul></li>
+<li>
+<p>System captures:</p>
+<ul>
+<li>
+<p>User ID</p></li>
+<li>
+<p>Timestamp</p></li>
+<li>
+<p>Action performed</p></li>
+</ul></li>
+<li>
+<p>Audit logs support:</p>
+<ul>
+<li>
+<p>Compliance review</p></li>
+<li>
+<p>Internal audits</p></li>
+<li>
+<p>Traceability of all changes</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>4. Governance Workflow Summary</strong></p>
+<p>Author =E2=86=92 Edit &amp; Submit</p>
+<p>=E2=86=93</p>
+<p>Reviewer =E2=86=92 Approve / Reject</p>
+<p>=E2=86=93</p>
+<p>Publisher =E2=86=92 Final Approval &amp; Publish</p>
+<ul>
+<li>
+<p>No stage can be skipped</p></li>
+<li>
+<p>Role segregation enforced</p></li>
+<li>
+<p>Publishing only possible after approval</p></li>
+</ul>
+<p></p>
+<p><strong>5. End-to-End Integration Flow</strong></p>
+<ul>
+<li>
+<p>Customer App content updates =E2=86=92 Approved =E2=86=92 Published</p><=
+/li>
+<li>
+<p>Published content =E2=86=92 Rendered in Landing Pages</p></li>
+<li>
+<p>Landing Pages =E2=86=92 Driven by real-time backend data + managed conte=
+nt</p></li>
+</ul>
+<p></p>
+<h1 local-id=3D"58432140d527" id=3D"BRDLandingPage-_Toc230292109Tracking&am=
+p;ReportingRequirements"><span class=3D"confluence-anchor-link" id=3D"BRDLa=
+ndingPage-_Toc230292109"><span class=3D"confluence-anchor-link" id=3D"_Toc2=
+30292109"></span></span>Tracking &amp; Reporting Requirements</h1>
+<p>The system must implement comprehensive tracking and reporting capabilit=
+ies across both the <strong>customer-facing Landing Pages</strong> and the =
+<strong>Customer App content management workflow</strong> to ensure full vi=
+sibility, performance monitoring, and audit compliance.</p>
+<p></p>
+<p><strong>1. Customer Journey Tracking</strong></p>
+<p>The system must track all key user interactions across the Landing Pages=
+ to enable behavioural analysis, conversion monitoring, and performance opt=
+imisation.</p>
+<p><strong>Tracked Events</strong></p>
+<ul>
+<li>
+<p>Page load events for all Landing Pages</p></li>
+<li>
+<p>Authentication attempts (success and failure)</p></li>
+<li>
+<p>Navigation between pages (Home, Payment, Enforcement, Support)</p></li>
+<li>
+<p>Timeline interactions (hover, tap, selection)</p></li>
+<li>
+<p>Case selection and switching (for multi-case scenarios)</p></li>
+<li>
+<p>Primary CTA clicks (e.g., =E2=80=9CPay Now=E2=80=9D)</p></li>
+<li>
+<p>Secondary CTA clicks (e.g., support links, informational links)</p></li>
+<li>
+<p>Payment journey events:</p>
+<ul>
+<li>
+<p>Payment initiation</p></li>
+<li>
+<p>Payment method selection</p></li>
+<li>
+<p>Payment submission</p></li>
+<li>
+<p>Payment success</p></li>
+<li>
+<p>Payment failure</p></li>
+</ul></li>
+</ul>
+<p><strong>Captured Attributes</strong></p>
+<p>Each tracked event must include:</p>
+<ul>
+<li>
+<p>Case reference</p></li>
+<li>
+<p>Enforcement stage</p></li>
+<li>
+<p>Debt type (where applicable)</p></li>
+<li>
+<p>Multi-case indicator (true/false)</p></li>
+<li>
+<p>Page identifier</p></li>
+<li>
+<p>Timestamp</p></li>
+</ul>
+<p><strong>Purpose</strong></p>
+<ul>
+<li>
+<p>Analyse user behaviour and drop-off points within the journey</p></li>
+<li>
+<p>Measure payment conversion rates</p></li>
+<li>
+<p>Identify friction points in authentication and payment flows</p></li>
+<li>
+<p>Support continuous optimisation of the Landing Page experience</p></li>
+</ul>
+<p></p>
+<p><strong>2. Customer App Tracking (Content Management)</strong></p>
+<p>The system must track all activities performed within the Customer App L=
+anding Page Settings module to ensure traceability and governance.</p>
+<p><strong>Tracked Actions</strong></p>
+<ul>
+<li>
+<p>Access to Landing Page Settings module</p></li>
+<li>
+<p>Selection of content cards (e.g., Payment, Enforcement, Support)</p></li=
+>
+<li>
+<p>Content edits within panels</p></li>
+<li>
+<p>Save actions</p></li>
+<li>
+<p>Submission for review</p></li>
+<li>
+<p>Approval actions by Reviewer</p></li>
+<li>
+<p>Rejection actions with feedback</p></li>
+<li>
+<p>Publishing actions by Publisher</p></li>
+</ul>
+<p><strong>Captured Attributes</strong></p>
+<p>Each activity must capture:</p>
+<ul>
+<li>
+<p>User identifier (Author, Reviewer, Publisher)</p></li>
+<li>
+<p>Action performed</p></li>
+<li>
+<p>Affected content section</p></li>
+<li>
+<p>Timestamp</p></li>
+<li>
+<p>Status of request (pending, approved, rejected, published)</p></li>
+</ul>
+<p><strong>Purpose</strong></p>
+<ul>
+<li>
+<p>Monitor content management activity</p></li>
+<li>
+<p>Track user actions for audit and governance</p></li>
+<li>
+<p>Identify bottlenecks in approval workflow</p></li>
+</ul>
+<p></p>
+<p><strong>3. Governance and Audit Tracking</strong></p>
+<p>The system must maintain a complete and immutable audit trail for all co=
+ntent changes and workflow transitions.</p>
+<p><strong>Audit Log Requirements</strong></p>
+<ul>
+<li>
+<p>Record all content modifications, including before and after states</p><=
+/li>
+<li>
+<p>Capture all workflow transitions:</p>
+<ul>
+<li>
+<p>Created</p></li>
+<li>
+<p>Submitted</p></li>
+<li>
+<p>Approved</p></li>
+<li>
+<p>Rejected</p></li>
+<li>
+<p>Published</p></li>
+</ul></li>
+<li>
+<p>Store user and timestamp details for each action</p></li>
+<li>
+<p>Maintain association between content changes and related ticket/request<=
+/p></li>
+</ul>
+<p><strong>Purpose</strong></p>
+<ul>
+<li>
+<p>Support internal and external audits</p></li>
+<li>
+<p>Ensure compliance with governance policies</p></li>
+<li>
+<p>Provide full traceability of all content changes</p></li>
+</ul>
+<p></p>
+<p><strong>4. Reporting Requirements</strong></p>
+<p>The system must support reporting capabilities to provide insights into =
+both customer behaviour and internal operational efficiency.</p>
+<p><strong>Customer Journey Reports</strong></p>
+<ul>
+<li>
+<p>Page-level engagement metrics</p></li>
+<li>
+<p>Drop-off analysis across journey stages</p></li>
+<li>
+<p>Payment conversion rates</p></li>
+<li>
+<p>Authentication success and failure rates</p></li>
+</ul>
+<p><strong>Content Management Reports</strong></p>
+<ul>
+<li>
+<p>Volume of content changes over time</p></li>
+<li>
+<p>Approval and rejection rates</p></li>
+<li>
+<p>Time taken for each workflow stage (Author =E2=86=92 Reviewer =E2=86=92 =
+Publisher)</p></li>
+<li>
+<p>User activity reports by role</p></li>
+</ul>
+<p></p>
+<p><strong>5. Data Handling and Constraints</strong></p>
+<ul>
+<li>
+<p>All tracking data must be captured securely and aligned with data protec=
+tion policies</p></li>
+<li>
+<p>No sensitive personal data should be exposed unnecessarily in reporting =
+outputs</p></li>
+<li>
+<p>Tracking mechanisms must not impact page performance or user experience<=
+/p></li>
+</ul>
+<p></p>
+<p></p>
+<p></p>
+<h1 local-id=3D"3598bf1e3144" id=3D"BRDLandingPage-_Toc230292110Configurati=
+onRequirements"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage=
+-_Toc230292110"><span class=3D"confluence-anchor-link" id=3D"_Toc230292110"=
+></span></span>Configuration Requirements</h1>
+<p>The system must support configurable elements across both the <strong>cu=
+stomer-facing Landing Pages</strong> and the <strong>Customer App Landing P=
+age Settings module</strong> to ensure flexibility, scalability, and ease o=
+f maintenance without requiring code-level changes.</p>
+<p></p>
+<p><strong>1. Customer-Facing Configuration Requirements</strong></p>
+<ul>
+<li>
+<p>Landing Page content must be configurable through the Customer App, allo=
+wing updates without system deployment</p></li>
+<li>
+<p>Content displayed across all Landing Pages must be dynamically driven ba=
+sed on configured values and backend data</p></li>
+<li>
+<p>The following elements must be configurable:</p>
+<ul>
+<li>
+<p>Text content (headings, descriptions, messages)</p></li>
+<li>
+<p>Call-to-Action (CTA) labels and messaging</p></li>
+<li>
+<p>Support-related content and links</p></li>
+<li>
+<p>Enforcement-related messaging and explanatory content</p></li>
+<li>
+<p>Payment-related messaging and instructions</p></li>
+</ul></li>
+<li>
+<p>Threshold-based elements must be configurable where applicable:</p>
+<ul>
+<li>
+<p>Time-sensitive messaging triggers</p></li>
+<li>
+<p>Countdown thresholds (if applicable to enforcement stages)</p></li>
+</ul></li>
+<li>
+<p>All configurable content must be centrally managed through the Customer =
+App to ensure consistency across pages</p></li>
+</ul>
+<p></p>
+<p><strong>2. Customer App Configuration Requirements</strong></p>
+<ul>
+<li>
+<p>The Landing Page Settings module must allow configuration of:</p>
+<ul>
+<li>
+<p>Content mapped to different Landing Page sections (e.g., Payment, Enforc=
+ement, Support)</p></li>
+<li>
+<p>Structured panels aligned to Landing Page layout and headings</p></li>
+</ul></li>
+<li>
+<p>The system must support:</p>
+<ul>
+<li>
+<p>Configuration of variables that can be inserted into content</p></li>
+<li>
+<p>Configuration of hyperlink destinations used within content</p></li>
+<li>
+<p>Configuration of formatting options available within the editor</p></li>
+</ul></li>
+<li>
+<p>Panel structures and layout definitions must be predefined and remain co=
+nsistent across environments</p></li>
+<li>
+<p>The system must allow configuration of:</p>
+<ul>
+<li>
+<p>Visibility of content sections (where applicable)</p></li>
+<li>
+<p>Contextual content alignment with specific Landing Page areas</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>3. Governance and Workflow Configuration</strong></p>
+<ul>
+<li>
+<p>The approval workflow must be configurable within the existing ticketing=
+ system, including:</p>
+<ul>
+<li>
+<p>Workflow stages (Author, Reviewer, Publisher)</p></li>
+<li>
+<p>Status transitions (Pending, Approved, Rejected, Published)</p></li>
+</ul></li>
+<li>
+<p>The system must allow configuration of:</p>
+<ul>
+<li>
+<p>Role definitions (Author, Reviewer, Publisher)</p></li>
+<li>
+<p>Notification triggers (e.g., email alerts for submission, approval, reje=
+ction)</p></li>
+<li>
+<p>Routing of requests between roles</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>4. Integration Configuration</strong></p>
+<ul>
+<li>
+<p>Integration endpoints must be configurable for:</p>
+<ul>
+<li>
+<p>Backend case data system (e.g., Columbus)</p></li>
+<li>
+<p>Payment gateway redirection</p></li>
+<li>
+<p>External support forms</p></li>
+</ul></li>
+<li>
+<p>URLs used within Landing Pages must be configurable and centrally mainta=
+ined</p></li>
+<li>
+<p>Any environment-specific configurations (e.g., test vs production endpoi=
+nts) must be manageable without code changes</p></li>
+</ul>
+<p></p>
+<p><strong>5. Audit and Tracking Configuration</strong></p>
+<ul>
+<li>
+<p>The system must allow configuration of:</p>
+<ul>
+<li>
+<p>Audit logging parameters</p></li>
+<li>
+<p>Tracking event definitions (where applicable)</p></li>
+<li>
+<p>Retention of audit and tracking data</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>6. Constraints</strong></p>
+<ul>
+<li>
+<p>Structural components such as the timeline visualisation must not be con=
+figurable through the Customer App</p></li>
+<li>
+<p>Configuration must not allow changes that impact system-driven logic suc=
+h as:</p>
+<ul>
+<li>
+<p>Enforcement stage mapping</p></li>
+<li>
+<p>Case data retrieval</p></li>
+<li>
+<p>Payment processing logic</p></li>
+</ul></li>
+<li>
+<p>All configuration changes must be subject to the defined governance and =
+approval workflow before becoming active</p></li>
+</ul>
+<p></p>
+<p></p>
+<p></p>
+<h1 local-id=3D"9baf71b1afcc" id=3D"BRDLandingPage-_Toc230292111Link&amp;Ac=
+cessRequirements"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPa=
+ge-_Toc230292111"><span class=3D"confluence-anchor-link" id=3D"_Toc23029211=
+1"></span></span>Link &amp; Access Requirements</h1>
+<p>The system must enforce controlled, secure, and appropriate access mecha=
+nisms for both <strong>customer-facing Landing Pages</strong> and the <stro=
+ng>Customer App Landing Page Settings module</strong>, ensuring that all ac=
+cess points, navigation paths, and external links comply with security, pri=
+vacy, and governance requirements.</p>
+<p></p>
+<p><strong>1. Customer-Facing Access Requirements</strong></p>
+<ul>
+<li>
+<p>All Landing Pages must be accessible <strong>only after successful user =
+authentication</strong></p></li>
+<li>
+<p>The system must ensure that:</p>
+<ul>
+<li>
+<p>No unauthorised or unauthenticated access to case data is possible</p></=
+li>
+<li>
+<p>All pages are session-bound and tied to a verified user session</p></li>
+</ul></li>
+<li>
+<p>Session handling must ensure:</p>
+<ul>
+<li>
+<p>Access continuity across the customer journey</p></li>
+<li>
+<p>Automatic restriction of access once the session is terminated or expire=
+d</p></li>
+</ul></li>
+<li>
+<p>Direct URL access to internal pages (e.g., Payment, Enforcement, Support=
+) must not bypass authentication or session validation</p></li>
+</ul>
+<p></p>
+<p><strong>2. URL and Navigation Requirements</strong></p>
+<ul>
+<li>
+<p>All Landing Page URLs must:</p>
+<ul>
+<li>
+<p>Be secure and not expose any personally identifiable information (PII)</=
+p></li>
+<li>
+<p>Avoid embedding customer-specific identifiers (e.g., case reference, pos=
+tcode)</p></li>
+</ul></li>
+<li>
+<p>Navigation between pages must:</p>
+<ul>
+<li>
+<p>Be handled internally within the secured session</p></li>
+<li>
+<p>Preserve context (e.g., selected case, enforcement stage)</p></li>
+</ul></li>
+<li>
+<p>External links (e.g., support forms, payment gateway) must:</p>
+<ul>
+<li>
+<p>Open in a controlled manner (same tab or new tab as defined by design)</=
+p></li>
+<li>
+<p>Not expose sensitive session or customer data via URL parameters</p></li=
+>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>3. Payment Gateway Access</strong></p>
+<ul>
+<li>
+<p>The system must allow access to the payment gateway <strong>only from an=
+ authenticated session</strong></p></li>
+<li>
+<p>Redirection to the payment gateway must:</p>
+<ul>
+<li>
+<p>Be secure and validated</p></li>
+<li>
+<p>Include only necessary, non-sensitive transaction data</p></li>
+</ul></li>
+<li>
+<p>Return from the payment gateway must:</p>
+<ul>
+<li>
+<p>Be validated against the originating session</p></li>
+<li>
+<p>Route the user back to the appropriate state within the journey (success=
+ or failure)</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>4. Support and External Links</strong></p>
+<ul>
+<li>
+<p>Links to external support forms (e.g., complaints, vulnerability, =E2=80=
+=9CNot at this address=E2=80=9D) must:</p>
+<ul>
+<li>
+<p>Open securely in a new tab or controlled context</p></li>
+<li>
+<p>Not pass any sensitive personal or case data via URL</p></li>
+</ul></li>
+<li>
+<p>Upon returning from external links:</p>
+<ul>
+<li>
+<p>The user=E2=80=99s session context should be preserved where applicable<=
+/p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>5. Customer App Access Requirements</strong></p>
+<ul>
+<li>
+<p>The Landing Page Settings module must be accessible <strong>only to auth=
+orised internal business users</strong></p></li>
+<li>
+<p>Access must be restricted to:</p>
+<ul>
+<li>
+<p>Users assigned appropriate roles (Author, Reviewer, Publisher)</p></li>
+</ul></li>
+<li>
+<p>The system must ensure:</p>
+<ul>
+<li>
+<p>No customer-facing exposure of internal tools or content editor</p></li>
+<li>
+<p>Secure authentication and access to the Customer App</p></li>
+</ul></li>
+<li>
+<p>Actions performed within the Customer App must:</p>
+<ul>
+<li>
+<p>Be linked to authenticated user identities</p></li>
+<li>
+<p>Be logged for audit and traceability</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>6. Governance and Workflow Access</strong></p>
+<ul>
+<li>
+<p>Access to workflow actions must be role-based:</p>
+<ul>
+<li>
+<p>Only Authors can create and submit changes</p></li>
+<li>
+<p>Only Reviewers can approve or reject changes</p></li>
+<li>
+<p>Only Publishers can publish approved content</p></li>
+</ul></li>
+<li>
+<p>The system must enforce:</p>
+<ul>
+<li>
+<p>Users cannot perform multiple roles within the same request</p></li>
+<li>
+<p>Workflow actions are accessible only at the appropriate stage</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>7. Security and Data Protection Constraints</strong></p>
+<ul>
+<li>
+<p>No Personally Identifiable Information (PII) must be:</p>
+<ul>
+<li>
+<p>Exposed in URLs</p></li>
+<li>
+<p>Passed through external links</p></li>
+<li>
+<p>Stored client-side beyond session requirements</p></li>
+</ul></li>
+<li>
+<p>All links and access points must comply with:</p>
+<ul>
+<li>
+<p>Applicable data protection and security standards</p></li>
+<li>
+<p>Internal security and governance policies</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p></p>
+<p></p>
+<h1 local-id=3D"17af2bdeaa7a" id=3D"BRDLandingPage-_Toc230292112Non-Functio=
+nalRequirements"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPag=
+e-_Toc230292112"><span class=3D"confluence-anchor-link" id=3D"_Toc230292112=
+"></span></span>Non-Functional Requirements</h1>
+<p>The system must meet defined non-functional requirements to ensure perfo=
+rmance, scalability, security, accessibility, and reliability across both t=
+he <strong>customer-facing Landing Pages</strong> and the <strong>Customer =
+App Landing Page Settings module</strong>.</p>
+<p></p>
+<p><strong>1. Performance Requirements</strong></p>
+<ul>
+<li>
+<p>All Landing Pages must load within <strong>2 seconds under standard oper=
+ating conditions</strong></p></li>
+<li>
+<p>Timeline rendering and dynamic data loading must be <strong>near-instant=
+aneous post-authentication</strong></p></li>
+<li>
+<p>Customer App editor screens must load without noticeable delay, ensuring=
+ a smooth editing experience</p></li>
+<li>
+<p>Content updates and publishing actions must be executed without impactin=
+g system responsiveness</p></li>
+</ul>
+<p></p>
+<p><strong>2. Availability and Reliability</strong></p>
+<ul>
+<li>
+<p>The system must maintain <strong>high availability</strong> during opera=
+tional hours, ensuring uninterrupted access for customers and business user=
+s</p></li>
+<li>
+<p>Integration points (e.g., backend data systems, payment gateway, ticketi=
+ng system) must be reliable and monitored</p></li>
+<li>
+<p>The system must handle partial failures gracefully, ensuring:</p>
+<ul>
+<li>
+<p>Clear error messaging</p></li>
+<li>
+<p>No data corruption or inconsistent states</p></li>
+</ul></li>
+<li>
+<p>Published content must be consistently available across all Landing Page=
+s without delay</p></li>
+</ul>
+<p></p>
+<p><strong>3. Security Requirements</strong></p>
+<ul>
+<li>
+<p>All data exchanges must be <strong>secure and encrypted</strong></p></li=
+>
+<li>
+<p>Access to customer-facing pages must be restricted to <strong>authentica=
+ted sessions only</strong></p></li>
+<li>
+<p>Customer App access must be restricted to <strong>authorised business us=
+ers</strong></p></li>
+<li>
+<p>No sensitive data must be:</p>
+<ul>
+<li>
+<p>Exposed before authentication</p></li>
+<li>
+<p>Stored unnecessarily on the client side</p></li>
+<li>
+<p>Passed through URLs or external links</p></li>
+</ul></li>
+<li>
+<p>The system must comply with applicable <strong>data protection and secur=
+ity standards</strong></p></li>
+</ul>
+<p></p>
+<p><strong>4. Accessibility Requirements</strong></p>
+<ul>
+<li>
+<p>All customer-facing Landing Pages must adhere to <strong>WCAG 2.1 / 2.2 =
+AA compliance standards</strong></p></li>
+<li>
+<p>Pages must be:</p>
+<ul>
+<li>
+<p>Fully navigable via keyboard</p></li>
+<li>
+<p>Compatible with screen readers</p></li>
+<li>
+<p>Designed with sufficient colour contrast and readable typography</p></li=
+>
+</ul></li>
+<li>
+<p>Customer App interfaces must also follow accessibility best practices to=
+ ensure usability for all business users</p></li>
+</ul>
+<p></p>
+<p><strong>5. Scalability Requirements</strong></p>
+<ul>
+<li>
+<p>The system must support increasing volumes of:</p>
+<ul>
+<li>
+<p>Customer traffic</p></li>
+<li>
+<p>Content updates</p></li>
+<li>
+<p>Concurrent users on the Customer App</p></li>
+</ul></li>
+<li>
+<p>The architecture must allow for <strong>scaling without degradation of p=
+erformance</strong></p></li>
+</ul>
+<p></p>
+<p><strong>6. Usability Requirements</strong></p>
+<ul>
+<li>
+<p>Landing Pages must follow a <strong>clear, intuitive design</strong> all=
+owing users to easily understand their case and next steps</p></li>
+<li>
+<p>The Customer App editor must provide a <strong>structured and easy-to-us=
+e interface</strong> that reflects the end-user view</p></li>
+<li>
+<p>Content editing must be straightforward, ensuring minimal training is re=
+quired for business users</p></li>
+</ul>
+<p></p>
+<p><strong>7. Maintainability Requirements</strong></p>
+<ul>
+<li>
+<p>Content updates must be manageable without requiring system deployment</=
+p></li>
+<li>
+<p>Configuration changes must be applied without impacting live system stab=
+ility</p></li>
+<li>
+<p>The system must support easy maintenance of:</p>
+<ul>
+<li>
+<p>Content structures</p></li>
+<li>
+<p>Workflow configurations</p></li>
+<li>
+<p>Integration endpoints</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>8. Audit and Logging Requirements</strong></p>
+<ul>
+<li>
+<p>The system must maintain <strong>complete audit logs</strong> for all ac=
+tions within the Customer App</p></li>
+<li>
+<p>Logs must be:</p>
+<ul>
+<li>
+<p>Accurate</p></li>
+<li>
+<p>Time-stamped</p></li>
+<li>
+<p>User-specific</p></li>
+</ul></li>
+<li>
+<p>Audit data must be retained as per organisational and regulatory policie=
+s</p></li>
+<li>
+<p>Logging mechanisms must not impact system performance</p></li>
+</ul>
+<p></p>
+<p><strong>9. Compatibility and Responsiveness</strong></p>
+<ul>
+<li>
+<p>Landing Pages must be fully <strong>responsive across devices</strong>:<=
+/p>
+<ul>
+<li>
+<p>Desktop</p></li>
+<li>
+<p>Tablet</p></li>
+<li>
+<p>Mobile</p></li>
+</ul></li>
+<li>
+<p>The system must support all major modern browsers</p></li>
+<li>
+<p>Customer App interfaces must also adapt across supported resolutions and=
+ devices</p></li>
+</ul>
+<p></p>
+<p><strong>10. Compliance Requirements</strong></p>
+<ul>
+<li>
+<p>The system must adhere to:</p>
+<ul>
+<li>
+<p>Data protection regulations (e.g., GDPR principles where applicable)</p>=
+</li>
+<li>
+<p>Industry standards related to payment processing (e.g., PCI-DSS complian=
+ce via payment gateway)</p></li>
+<li>
+<p>Internal compliance and governance policies</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p></p>
+<p></p>
+<h1 local-id=3D"63128039ddd3" id=3D"BRDLandingPage-_Toc230292113UI/UXBehavi=
+our(CustomerAppEditor)"><span class=3D"confluence-anchor-link" id=3D"BRDLan=
+dingPage-_Toc230292113"><span class=3D"confluence-anchor-link" id=3D"_Toc23=
+0292113"></span></span>UI / UX Behaviour (Customer App Editor)</h1>
+<p>The Customer App Landing Page Settings module must provide a structured,=
+ intuitive, and controlled user interface that enables business users to ma=
+nage Landing Page content effectively while preserving the integrity of the=
+ end-user experience.</p>
+<p></p>
+<p><strong>1. Landing Page Settings Overview Screen</strong></p>
+<ul>
+<li>
+<p>The system must display Landing Page sections as <strong>individual card=
+s</strong>, representing key areas such as:</p>
+<ul>
+<li>
+<p>Make a Payment</p></li>
+<li>
+<p>Enforcement</p></li>
+<li>
+<p>Support</p></li>
+</ul></li>
+<li>
+<p>Each card must:</p>
+<ul>
+<li>
+<p>Clearly represent a distinct Landing Page section</p></li>
+<li>
+<p>Provide a visual entry point to manage corresponding content</p></li>
+</ul></li>
+<li>
+<p>Selecting a card must:</p>
+<ul>
+<li>
+<p>Navigate the user to the detailed content editing interface for that sec=
+tion</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>2. Content Editing Interface</strong></p>
+<ul>
+<li>
+<p>The system must present a <strong>structured editing view</strong> that =
+mirrors the layout and appearance of the corresponding customer-facing Land=
+ing Page</p></li>
+<li>
+<p>Content must be organised into <strong>panels</strong>, where:</p>
+<ul>
+<li>
+<p>Each panel represents a specific section or content block</p></li>
+<li>
+<p>Panel names must match the headings displayed on the Landing Pages</p></=
+li>
+</ul></li>
+<li>
+<p>The editor must follow a <strong>What-You-See-Is-What-You-Edit (WYSIWYE)=
+</strong> approach, ensuring:</p>
+<ul>
+<li>
+<p>Visual alignment between editor and live page</p></li>
+<li>
+<p>Clear understanding of how content will appear to end users</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>3. Content Editing Capabilities</strong></p>
+<ul>
+<li>
+<p>The system must allow users to:</p>
+<ul>
+<li>
+<p>Edit text content directly within panels</p></li>
+<li>
+<p>Apply formatting to content (e.g., structured text presentation)</p></li=
+>
+<li>
+<p>Insert variables to support dynamic content rendering</p></li>
+<li>
+<p>Create and manage hyperlinks within content</p></li>
+</ul></li>
+<li>
+<p>The system must ensure:</p>
+<ul>
+<li>
+<p>The structural layout of the page is preserved at all times</p></li>
+<li>
+<p>Users cannot alter non-editable components such as layout or timeline el=
+ements</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>4. Interaction Behaviour</strong></p>
+<ul>
+<li>
+<p>The system must allow users to:</p>
+<ul>
+<li>
+<p>Save changes during editing</p></li>
+<li>
+<p>Submit content for review after saving</p></li>
+</ul></li>
+<li>
+<p>The UI must clearly indicate:</p>
+<ul>
+<li>
+<p>Current state of the content (e.g., edited, submitted)</p></li>
+<li>
+<p>Available actions based on workflow stage</p></li>
+</ul></li>
+<li>
+<p>Navigation within the editor must:</p>
+<ul>
+<li>
+<p>Allow users to move between panels easily</p></li>
+<li>
+<p>Maintain context without losing unsaved changes</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>5. Workflow Visibility</strong></p>
+<ul>
+<li>
+<p>The interface must provide clear visual indicators of workflow status, i=
+ncluding:</p>
+<ul>
+<li>
+<p>Pending</p></li>
+<li>
+<p>Approved</p></li>
+<li>
+<p>Rejected</p></li>
+<li>
+<p>Published</p></li>
+</ul></li>
+<li>
+<p>Users must be able to:</p>
+<ul>
+<li>
+<p>Identify the current stage of a content change</p></li>
+<li>
+<p>View feedback in case of rejection</p></li>
+</ul></li>
+</ul>
+<p>]</p>
+<p><strong>6. Audit Visibility</strong></p>
+<ul>
+<li>
+<p>The system must provide visibility into audit-related information, inclu=
+ding:</p>
+<ul>
+<li>
+<p>Changes made to content</p></li>
+<li>
+<p>User who performed the change</p></li>
+<li>
+<p>Timestamp of change</p></li>
+</ul></li>
+<li>
+<p>Audit information may be displayed within:</p>
+<ul>
+<li>
+<p>A dedicated audit log view</p></li>
+<li>
+<p>Or as contextual information within the editor</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>7. Usability and Accessibility</strong></p>
+<ul>
+<li>
+<p>The editor must:</p>
+<ul>
+<li>
+<p>Be intuitive and require minimal training for business users</p></li>
+<li>
+<p>Provide clear labelling of panels and actions</p></li>
+<li>
+<p>Maintain consistency across all sections</p></li>
+</ul></li>
+<li>
+<p>The interface must:</p>
+<ul>
+<li>
+<p>Support responsive behaviour across screen sizes</p></li>
+<li>
+<p>Follow accessibility best practices where applicable</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>8. Constraints</strong></p>
+<ul>
+<li>
+<p>Users must not be able to:</p>
+<ul>
+<li>
+<p>Modify structural elements of the Landing Page</p></li>
+<li>
+<p>Change layout or positioning of components</p></li>
+<li>
+<p>Edit system-driven elements such as timeline visualisation</p></li>
+</ul></li>
+<li>
+<p>All editing actions must:</p>
+<ul>
+<li>
+<p>Be part of the defined governance workflow</p></li>
+<li>
+<p>Be logged for audit and traceability</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p></p>
+<h1 local-id=3D"da42137756c0" id=3D"BRDLandingPage-_Toc230292114Risks&amp;D=
+ependencies"><span class=3D"confluence-anchor-link" id=3D"BRDLandingPage-_T=
+oc230292114"><span class=3D"confluence-anchor-link" id=3D"_Toc230292114"></=
+span></span>Risks &amp; Dependencies</h1>
+<p>The successful implementation and operation of the Landing Pages and Cus=
+tomer App Landing Page Settings module are dependent on multiple systems, p=
+rocesses, and design considerations. The following risks and dependencies h=
+ave been identified.</p>
+<p></p>
+<p><strong>1. Risks</strong></p>
+<p><strong>1.1 Customer Journey Risks</strong></p>
+<ul>
+<li>
+<p>Risk of <strong>user drop-off during authentication</strong> due to fail=
+ed attempts or friction in the sign-in process</p></li>
+<li>
+<p>Risk of <strong>user abandonment</strong> if enforcement messaging is pe=
+rceived as too aggressive or unclear</p></li>
+<li>
+<p>Risk of <strong>payment drop-off</strong> during redirection to the exte=
+rnal payment gateway</p></li>
+<li>
+<p>Risk of <strong>confusion in multi-case scenarios</strong> if case prior=
+itisation and selection are not clearly understood by users</p></li>
+</ul>
+<p></p>
+<p><strong>1.2 Content and UX Risks</strong></p>
+<ul>
+<li>
+<p>Risk of <strong>incorrect or misleading content</strong> being published=
+ if not properly reviewed</p></li>
+<li>
+<p>Risk of <strong>inconsistent messaging</strong> across Landing Pages if =
+content updates are not centrally controlled</p></li>
+<li>
+<p>Risk of <strong>layout inconsistency</strong> if editing controls are no=
+t strictly enforced</p></li>
+<li>
+<p>Risk of <strong>content complexity increasing</strong>, reducing clarity=
+ for end users</p></li>
+</ul>
+<p></p>
+<p><strong>1.3 Governance and Process Risks</strong></p>
+<ul>
+<li>
+<p>Risk of <strong>delays in content publishing</strong> due to dependency =
+on Author =E2=86=92 Reviewer =E2=86=92 Publisher workflow</p></li>
+<li>
+<p>Risk of <strong>workflow bottlenecks</strong> if roles are not adequatel=
+y resourced</p></li>
+<li>
+<p>Risk of <strong>process bypass</strong> if governance controls are not s=
+trictly enforced</p></li>
+<li>
+<p>Risk of <strong>human error</strong> during manual approval processes</p=
+></li>
+</ul>
+<p></p>
+<p><strong>1.4 Technical Risks</strong></p>
+<ul>
+<li>
+<p>Risk of <strong>dependency on external systems</strong> (e.g., backend c=
+ase system, payment gateway, ticketing system) affecting availability and p=
+erformance</p></li>
+<li>
+<p>Risk of <strong>data inconsistency</strong> if backend system data is de=
+layed or inaccurate</p></li>
+<li>
+<p>Risk of <strong>integration failures</strong> between systems impacting =
+user journey or content publishing</p></li>
+<li>
+<p>Risk of <strong>performance degradation</strong> under high traffic cond=
+itions</p></li>
+</ul>
+<p></p>
+<p><strong>1.5 Compliance and Security Risks</strong></p>
+<ul>
+<li>
+<p>Risk of <strong>data exposure</strong> if access controls and session ma=
+nagement are not properly enforced</p></li>
+<li>
+<p>Risk of <strong>non-compliance</strong> due to incorrect enforcement mes=
+saging or content updates</p></li>
+<li>
+<p>Risk of <strong>incomplete audit trails</strong> affecting compliance an=
+d audit requirements</p></li>
+</ul>
+<p></p>
+<p><strong>2. Dependencies</strong></p>
+<p><strong>2.1 System Dependencies</strong></p>
+<ul>
+<li>
+<p>Backend case management system (e.g., Columbus) for:</p>
+<ul>
+<li>
+<p>Case data retrieval</p></li>
+<li>
+<p>Enforcement stage and status</p></li>
+<li>
+<p>Balance and fee information</p></li>
+</ul></li>
+<li>
+<p>Payment gateway provider for:</p>
+<ul>
+<li>
+<p>Secure payment processing</p></li>
+<li>
+<p>Transaction confirmation and status updates</p></li>
+</ul></li>
+<li>
+<p>Ticketing system for:</p>
+<ul>
+<li>
+<p>Managing content change requests</p></li>
+<li>
+<p>Supporting approval workflow (Author, Reviewer, Publisher)</p></li>
+</ul></li>
+</ul>
+<p></p>
+<p><strong>2.2 Content and Governance Dependencies</strong></p>
+<ul>
+<li>
+<p>Availability and definition of:</p>
+<ul>
+<li>
+<p>Business users (Authors, Reviewers, Publishers)</p></li>
+<li>
+<p>Compliance teams for review and oversight</p></li>
+</ul></li>
+<li>
+<p>Timely review and approval of content updates</p></li>
+<li>
+<p>Adherence to governance processes and role segregation</p></li>
+</ul>
+<p></p>
+<p><strong>2.3 Design and UX Dependencies</strong></p>
+<ul>
+<li>
+<p>Finalised Landing Page designs provided by external/offshore teams</p></=
+li>
+<li>
+<p>Alignment between Customer App editor layout and Landing Page structure<=
+/p></li>
+<li>
+<p>Availability of approved content templates and messaging guidelines</p><=
+/li>
+</ul>
+<p></p>
+<p><strong>2.4 Operational Dependencies</strong></p>
+<ul>
+<li>
+<p>Availability of resources to manage content updates and workflow stages<=
+/p></li>
+<li>
+<p>Coordination between business, compliance, and technical teams</p></li>
+<li>
+<p>Monitoring and support for system health, performance, and incidents</p>=
+</li>
+</ul>
+<p></p>
+<p><strong>2.5 Data and Integration Dependencies</strong></p>
+<ul>
+<li>
+<p>Accuracy and availability of real-time case data</p></li>
+<li>
+<p>Stability and performance of API integrations</p></li>
+<li>
+<p>Secure handling of data during external interactions (e.g., payment gate=
+way, support forms)</p></li>
+</ul>
+<p></p>
+<p><strong>3. Mitigation Considerations</strong></p>
+<ul local-id=3D"17851c0bc2d3">
+<li>
+<p>Enforce strict governance rules and audit logging for all content change=
+s</p></li>
+<li>
+<p>Provide clear UI feedback and guidance to reduce user confusion and erro=
+r</p></li>
+<li>
+<p>Ensure robust integration monitoring and fallback mechanisms</p></li>
+<li>
+<p>Define operational SLAs for content approval and publishing</p></li>
+<li local-id=3D"d1bedd073fe7">
+<p local-id=3D"78a819c09739">Regularly review content and workflows for com=
+pliance and effectiveness</p></li>
+</ul>
+    </div>
+</body>
+</html>
+------=_Part_514_614887706.1779691196726
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/ea1efee776f33cfd6adc22f9a8c3f18b15a6b41535d90d40438790225ca47abb
+
+iVBORw0KGgoAAAANSUhEUgAAASMAAABaCAYAAADzejCQAAA2K0lEQVR4Ae3AA6AkWZbG8f937o3I
+zKdyS2Oubdu2bdu2bdu2bWmMnpZKr54yMyLu+Xa3anqmhztr1a9y1VVXXfXfC4DKVVddddV/LwAq
+V1111VX/vQCoXHXVVVf99wKgctVVV1313wuAylVXXXXVfy8AKlddddVV/70AqPwLjj/4tY/3G/OP
+snhtnum+v/8lAF7jrT+QJz7ldh718Afx09/1JZw6cYz7PfGpz+BRD3sQD/SY13hnzl+8xH+wW8fG
+5+w+4Zdv5aqrrvrfCIDKC3H80W/84K7wW4YH83wcHQ0AfNh7vx2nThwD4Fu+76f5sm/8fvb2D7n5
+hmt557d+Az7hQ98NgPd9lzfny77xB/iP1hVe+/ij3/h1dp/wy7dy1VVX/W8DQPBCdIXPAh7MC3Fs
+e5N3fus3AOCHf/rX+Iwv+Rb29g8BuP2ue/myb/x+fvinfw2AD3yPt2Fne5P/BA/uCt/FVVdd9b8R
+AMELYfzW/Ate/NEP5X7f8v0/zfPzIz/z6wAc297k5huv5T/Ja3PVVVf9bwRA5YUQOs6/4OYbr+N+
+e3uHPD+33Xkv9zu2vcVVV/1fd/rRb/zaPIBa2z375F/7ax7g+INf+3idz1+aB1Bru2ef/Gt/zf8v
+AFT+nf7+CU/lfjffeC2333Uvz+3VXvElud+l/QP+q7z4N/zCZzl4MA/QrYaP+euPeZtdrvovc/yl
+X/t4HeYfzXM597hf/mz+E5x57Bu/t+HBPFDw2+f+/pd/m/8C1z36jR/cCr/FA7iU3wZehwfoNuZv
+jfguHijKdwPvw/8vAFT+nf7+CU/j0v4hx7Y3+brP/1je+n0/idvvvJf73XzjtXzCh7wbALffdS//
+8ISn8V/F0muTfm0eYL3dfzawy1XP4RHf8AsvXTKPM023PuFj3uZW/gPt/vVv755+sTf6KKHjPMDp
+R7/xb597wi//Nv+Bjj/6jR+M+CzBg3kAT/w2V/1PBUDwH+AzvuRbALj5xmv56e/8Ej7oPd6ad37r
+1+cTPvTd+K0f/wZuvvFaAL70G7+fF8UHvvtb85s//g3c9/e/xH1//0v85k98Pe/81q/PVf/xHv1V
+v/TgF/vGX/ytHv6qRPxW6funv9g3/uJX8R9N+hqeiwqfxX+wLnht4ME8B//1uSf88m9z1f9UAFT+
+A/zwT/8aN99wLZ/woe/GzTdey+d90gfx3L7sG3+AH/npX+df8rVf8LG881u9AQ/04o96GF/7+R/H
+iz/qYXz6l3wLV/3HKX3+FubBPJD90Y/9hp+79LgPe4vP5j/IVFdfXcfZRwkd59le+/Sj3/i1zz3h
+l3+b/yjis3hu1tdw1f9kAAT/Qb7sG7+f9/rIz+UP/+xveaA/+LO/5a3f55P4sm/8fv4l7/zWb8A7
+v9Ub8IJ84Hu8Ne/81q/PVf8xXuLrfvatgQfzfIj4qJf+qp86zn+Q3b/+7V2kr+G5qPBe/Ac589g3
+fm/gwTynW88+7pe/m6v+JwMg+A/0S7/5R7z1+3wSP/zTvwbAl33j9/M27/NJ/OGf/S0vik/4kHfj
+X/LOb/UGXPUfo7kc5wU7vt7uj/EfqE58N89Db338pV/7OP8BLH8Uz818Dlf9TwdA8D/Ese1Nbr7x
+Wv4lr/oKL8lV/zFCeSsv2O7j3//NnsF/oHue8Mu3Ar/Nc/DxOsw/mn+n0y/+xq8t9NI8p1tL8ttc
+9T8dAMFV/2/9/Ue8xW8j/TbPh8mv4T+BxefwXCR91PGXfu3j/DvIvBfP67fvecIv38pV/9MBEPwP
+cWn/kNvvupd/yT888Wlc9R+nSe+D/T08k2AX+2Me92Fv8dn8Jzj397/828Bv8xx8vK4X782/0fFH
+v/GDgffmuZTG53DV/wYABP+DfMv3/TT/km/+vp/iqv84T/iQN7n1Hz78zd/7cGM4YXiZg43hIf/w
+4W/+1fxnMt/Dc1Hke/Fv1BU+i+f13fc84Zdv5ar/DQAI/gf51u/7aX74Z36dF+Rbvu+n+ZGf/nWu
++o936/u8ze7jPuzN/vrW93mbXf6TnX3cL3+38S7PQS99+tFv/Nr8Kx1/9Bs/2PiteW5D+xqu+t8C
+gOB/mGPbmzy3v3/iU/n0L/kWPuNLvoWr/o+QvobnosJn8a/UBa8tdJwHMPz22Sf/2l9z1f8WAFT+
+B3nnt34D3uR1XwWAl3vD9+bS/gEAe/uH/E/26G/6qQfH2L82ygfzTFLZbW5//YSPeIvf5j/Ag7/q
+p44vanltoZfmmaSyO8i//eQPe7O/5r/Ro7/ppx4cY//aKB/MAxj/taf210/4mLe5lecy1dVX13H2
+UULHebbXPv3oN37tc0/45d/mRSU+i+ci8z28CI4/+LWP94vFa2fkg7GOAwhuZWx/ffbJv/bX/C9w
+/MGvfbzbmL+14cHcT96l6a+n1eqvd2/97V3+5wOg8j/IJ3zIuwHwwz/9a9x+1738T/diX/+LH438
+XiQvTQEIns0UBS/2Db9wK/DbbRg+5wkf8za38q/06K/6pQeXPj9L5q0tjvMcTA+82Df8wq2Gz3nc
+h73Zd/NMj/6mX3pwyfwtHsDwM4/7sDf7aJ7Li33DLzydBzD89uM+7M3ehxfiwV/1U8c3u9l7E7wV
+6demAAQPJIC+8GLf8At/bfiaHIbffsLHvM2tALt//du7px77Jt8j+aN4AIXfGvhtXgRnHvvG7w08
+mOd069nH/fJ380Icf/BrH+835h+V4Y+2fVwIxLP1hTMv9iZ/jf01Zx/3y9/NM51+8Td+7TDfxQPY
+/pmzj/uVj+a/2OlHv/Frq/BZwGsDiAcSFOg255x5sTf+7rHxObtP+OVbeS5nHvvG3yXx2jyQ/df3
+Pe5X3oZ/pTOPfeP3lvgsHsh8z32P++XP5l8GQPA/xCd86Ltx843Xcvtd9/Jl3/gD/E/22K/6hZd+
+sW/4hacjfxXw0rxwDwbeu/T9Xz3mG3/xo/lXePFv+OWPql3+FfDeFsd5wR4s+K4X+8Zf/K1Hf9VP
+PZhnezDwYODBwIOBYzx/DwYeDDwYeLDkB/NCPPrrfu61N/v+r5C/Cvu1+Ze9tOC7ou+/mgcIpu/m
+uSne6/hLv/ZxXhTis3hu5nN4Ia55zJu8dd2aPd3is2Ud5wXySyO+68yLvfF3HX/0Gz+YZzI82PBg
+w4MNDwYd47/Q8Ue/8YPPvNgb/5YKvwW8Nv+y9+4KT7/msW/8WTyXknxO4uOGBxsebHiwpbe+9jFv
+8tH8a4nPMjzY8GDDgw0PzuS3edEAEPwPcPON1/IJH/ruAHzpN34/t991L/9Tvfg3/PJHqeevgAfz
+r3M87K96sW/8xa/iRfDi3/BLn2XaV1sc50Vlv3bp+9969Ff91IP5T/Li3/BLn1Uifgt4MP9Kko/x
+AGcf92t/Dfw2z8HH6zD/aP4Fp1/8jV8beDDP6dazj/vl7+YFOPPib/RRDv+UrOO86N67K/zW8Ue/
+8YP5b3bmsW/60rX6r4DX5l/J4rPPvNib/NXxl37t4zzTPU/45VshPofnksFnHX/0Gz+YF9GZx77x
+ewMP5gEMv33uCb/827xoAAj+B/iED3k3AG6/615+5Kd/nf+pXvwbfumzTPtq/j3sj36xb/zF3+KF
+ePFv+OWPMvnZ/Ns8uPT9T0Xmcf6Dvfg3/NJnmfxs/gNZfA7PRdJHHX/p1z7OCyHzXjwP/TQvwDWP
+eZO3xvpq/m0e3BV+yy2P89/kzGPf9KUd7bdkHeffzC/djYvfOv7Sr32cZzr3D7/01cBv8xx8vCt8
+Fy8q8V48F5nv4UUHQPDf7J3f+g1457d+AwDe+r0/if+pHvONP/vWJj+b50Owa/gaN94nsr1NZHsb
+Z34O9m/z/Niv/WLf+ItfxfPx6K/6pQeb9tW8IPZvR7a3aTE85B8+7M10uDGcMLwM1scgbuWKlw70
+WfwHesw3/uxbm/xsng/BruFr3HgfZb6OMl8H62OwvwdxKy/Eub//5d8Gfpvn4ON1vXhvXoDjj37j
+BwPvzXMpzV/D83H80W/84Cz5XbwAht/GvM/YeMjYeMjYeIjF6wDfw7M9OCI+iv8Gxx/9xg9G+VOy
+jvO8vtvidcbD1Ymz//DLOvsPv6zSeAjmfYBbeR5+6W6cfxUPUBrvY7zLc3rtax/zJh/Nv+D0i7/x
+awOvzXO69ezjfvm7edEBUPlv9gkf8m4A/PBP/xq333Uv/xM9+qt+6cHh/CqeD5Nfc7gxffat7/M2
+uzynnwZ4ia/72bfOUr4K82AeyP7ox3zdz/7O4z/iLX+aBygzfxfmeYlb1fJ9/v4j3uK3eYBb3+dt
+doG/Bv4a+OoX/7qf+2xHfJbxW/Mf5MFf9VPHw+WreD5Mfs3hxvTZt77P2+zynH6bZ3rsN/zCe0t8
+Fi+I+R7Ea/MACr8V8NU8H13hs3he333PE375Vp6PrvBZWMd5LpZ3QW9z7u9/+bd5XrcCv33do9/4
+s1vxT4FeGnht/ht0hc8CHsxzutXifc79/S//Ns/lnif88q3AdwPfffrF3/izZT6L5/Tepx/9xt9z
+7gm//NsA9zzhl289/WJv8jngr+IBMvis449+45/efcIv38oLIPNePDfzOfzrABD8J9rZ3uTmG67h
+5huu4eYbruHmG67h5huu4eYbruHmG67hEz703bj5xmu5/a57+bJv/AH+pyp9fhbwYJ6L4X0e92Fv
+8dG3vs/b7PIC/N1HvOVPN8XrIG7luUSUr3rpr/qp4zzTi3/dz7029mvz3MStTcPr/P1HvMVv8y/4
++494i89W5ufwH2ij798aeDDPxfA+j/uwt/joW9/nbXZ5IR73YW/23f/woW/2kCS/hudj7Fc/bbzL
+c3rt049+49fmuRx/9Bs/GHhvnktpfA7Px/FHv/GDgffmed1aJ73Mub//5d/mhbjnCb9869l/+JWX
+sfTT/Dc4/ug3fjDw3jynW0vjdc79/S//Nv+Cc3//y5+d0tfwXFT4LB7g3D/80lcDv81z8PGu8F28
+AMcf/cYPBt6b53Tr2cf98nfzrwNA8J/og97jbfiLX/0e/uJXv4e/+NXv4S9+9Xv4i1/9Hv7iV7+H
+v/jV7+ETPvTdAfjSb/x+br/rXv4nevRX/dKDgffmudkf87gPe7Pv5kXwhA95k1ub4nWAXZ7Tg9d1
+9to8kyPei+ejaXidJ3zI29zKi+jvP+ItPlvST/MfRPBZPDf7Yx73YW/23fwrPP5D3/KneT52//q3
+d5G+hueiwmfxXGrRW/NcZP/MPU/45Vt5PrrCZ/H8ON7mnif88q28iKa6fB/gVv6LdYXP4rmZz7nn
+Cb98Ky+i83//Sx8N/mue02uffvQbvzYPUBrvY7zLc3rtax/zJh/N89EVPovnEqmv4V8PgMp/s9vv
+upcf+elf53+q6PO1eW7yb//Dh735V/Ov8IQPeZNbH/sNv/Axgu/iARR+b+CnAbBfGonn8t1P+JC3
+uZV/pUn6mGK/Nf9Oj/2GX3hp4ME8kLj1Hz7szb+a/0BTXX11HWcfJXScZ3vt049+49c+94Rf/m2e
+SfijeC6Z+mpesNfmeX332cf94l/zr7D717+9e/rF3/h9ZH6L/1qvzXPwXzt16+lHv/Fr868g89MW
+L80DKPzWwG/zTPc84ZdvPf1ib/I54K/iATL4rOOPfuOf3n3CL9/KMx1/9Bs/GHhvnoN2Zf80/3oA
+VP4TfPqXfAtf9o0/wIvi0v4B/7PprcA8ULb4Gv4NHvdhb/bdL/YNv/BVwHGeSfBaAC/9VT91fJRe
+mucywNfwb/CED3mTW1/sG3/xt7Ffm38H2a+NxAPZfA7/wXb/+rd3Tz32Tb5H8kfxAAq/NfDbAGce
++8bvDTyY53TruSf88m/zfBx/6dc+zsiDeS5ufA//Buf+/pd/+/SLvdGu0HH+Cxx/7Bu8NPBgnoNe
+WoXf4l/JPB/SS/Fczv3DL331mRd747cCXptn8fGu6KeAl+GZusJn8Tz80/c84Zdv5V8PgOA/wd7+
+IbffdS+333Uvt991L7ffdS+333Uvt991L7ffdS+333Uvt991L7ffdS97+4f8TyZxnOcym9a/zb+R
+0W/znI6/9Ff91PGh7x/M89p98oe92V/zb+TW/oZ/J9vHeS4j/DX/CRT+aZ6b4r2Ov/RrHwdAfBbP
+zXwOL0Cd5i/N83HuCb/82/xbmd/mv0iNcpz/XA/m+SiN9zHe5Tn4pU8/9o0/G+D4o9/4wcBr81xK
+43P4twEguOqFsx/Mc/nrj3mbXf6N7LzEc1lv98ci8zjPa5d/n13+nSw9mOdSZ1zkP8G5v//l3wZ+
+m+fg43WYf/TpF3/j1wYezHO69ezjfvm7+de5lX8HWZf4v+PBPB/3POGXb4X4HJ6LxGedeewbvHQX
+vDbwYJ7Td9/zhF++lX8bACpXvXD2LhL/UaQ4BuaBZvvDpdV8fmvJ5Lkc53+gac0J4Bn8J7D4HJnX
+5gEkfRTOtwLxHMzn8K+m4/wvZvunLe3yn+zcP/zSV595sTd+K+C1eSDV7wIf57mUxufwbwdA5aoX
+yopbhV+aB3jEN/zCSz/5w97sr/k3EH5pnstff8zb7L70V/0UY9/zXI6/9Ff91PG//pi32eXfIspL
+gfn3kH0rEg/UtfbSwF/zn+Dc3//yb59+sTf6a6GX5ll8HPTSPAftlvRv80LUiVtb4bn4+PHHvOmD
+dh//i8/g3yJ4EP9Fpmy7nQoPZPQz5//hl7+b/wKl8T5T8V8JHedZ/NI8F8Nv3/OEX76VfzsAgqte
+qMj2NzyXjnxr/g1e/Ot+7rWBB/NA8m8D/PXHvM0usMtzWXfde/NvJPza/Hs5buW5qNb34j/X9/Av
+8k/f84RfvpUX4p4n/PKtxrs8l4rfhn+D449+4wcDr81/lX68lecS8Fr8F7nnCb98K8Tn8C9pfA7/
+PgAE/w1e7RVegu/52s/kL371u/mLX/1ufvq7voR3fuvXZ2d7k/+BfpvnIuKjHv1VP/Vg/pUc8V08
+l0x+hmdK+2d4LiF91Et/1U8d51/pxb/hlz8KOM6/U9+Gn+a52a/96K/7udfmP8nUrb/beJcXojQ+
+hxeB0F/zXBT+KP4N+sp78V9o969/exf4bR5IeuvjL/3ax/kvcu4ffumrgd/mBbv13BN++bf59wEg
++C/2CR/6bvzUd30pb/K6r8LNN1zLzTdcy6u+wkvytZ//cfzWj38DN994Lf+T/P1HvMVvI/02z+l4
+6fufeumv+qnjvIhe/Bt+6bOAB/NcXMaf5pmK/d08rwePs9ln8a/w6K/6pQfj9tn8B/jrj3mbXaTf
+5rmUiO969Ff91IN5ET34q37q+GO+7mffmhfB7l//9i7S1/CCffc9T/jlW3kRGP8Mz+vBZ17sTb6K
+f4Uzj33Tl7b5bP6LGf8Mz8HH+2H2XfwrnXnsm770mRd7k686/tKvfZx/pdJ4H+Ndnh/zOfz7ARD8
+F/qED303PuFD3x2Avf1DvuX7foov+8bv5w//7G8BuPnGa/np7/wSdrY3+Z9ErX0Oz+ulx77/q0d/
+1U89mBfiwV/1U8df7Bt/8atMfjbPxeTXPOFD3uZWnunvP+ItfhtxK8/N/ujHftMvfRYvgsd+1S+8
+dOnztyyO8x9ErX0Oz+vBpe9/69Ff9VMP5l/w2G/4hffe7Pu/ihIfxYtoqquvNt7l+XDje3gRTd36
+u413eR7+6Gse+8afxYvgzGPf9KVR/hT/DaZu/d3GuzyApbe+5rFv/Fm8iM682Bu/l6P9Fviju3H+
+V8cf/cYP5l/hnif88q1IX8PzuvXs4375u/n3A6DyX+TmG6/lEz703QH4+yc+lbd+709ib/8QgC/j
+B/jA93hrPv+TPoibb7yWD3qPt+bLvvEH+M+gdX7MY7/u53Z5EVjaffyHv/lX//1HvMVvv/jX/dzX
+OOKjeE4PLn3/9Bf7hl/47gG+5skf9mZ/zTM9+Kt+6vhmN3tv5I/CfjDPTdx6tJg+m+eilu/jiN/i
+uSjzs1/sG3/xtdt6/T5P+Ji3uZXn8uCv+qnjG/P5R0XLjzYcF+wajvMf4O8/4i1++8W/7ue+xhEf
+xXN6cOn7p7/YN/zCdw/wNU/+sDf7a57pEd/wCy/dRbxVtPxow3GuuJUX0e5f//bumRd7458B3osH
+MPz2uSf88m/zItr969/ePf1ib/I54K/iuVh89pkXe+MHj43P2X3CL9/Kczn+4Nc+3m/MPyqjfbSs
+4/w32P3r3949/WJv8jngr+IBLD77zIu98Xu78T7nnvDLv83zcfzBr32821x8FvijZfFMD+6K/urM
+i73xR5/9h1/+Hl5EMg/iuZnP4T8GAJV/hxd/9EO5+cZreFG82iu8JPd7r4/4PPb2D3mgb/2+n+ZN
+X/dVeNVXeEne+a3egC/7xh/gP4OIjyJ4kQhuBb4aoE7TZ499/1rAS/O83ruH936xb/gFgFu54sFg
+nh/B7qThdW59n7fZ5bn8/Ue8xW+/+Nf93Nc44qN4bvZrl75/+ot9wy/8NdJvu7VLKuWY4cGRfm1n
+Hre4IvN7iPgo/oPUafrsse9fC3hpntd79/DeL/YNvwBwK/BgADKx+Dez+G6Z9+IBZL6Hf6Vz//BL
+X33mxd74rYDX5nm9d1d47zMv9sa/bfM7PJPEgyy/tc1xWQAYfYzwV/Ff7Nw//NJXn3mxN35p4L14
+Tg9W4bfOvNgb3wr8ts0zACQfA7008NpgnpuV1Em/w4vo+KPf+MHAe/Ocbj37uF/+bv5jAFD5d/ie
+r/1M/rVuv/Nebr/rXp6fH/6ZX+dVX+ElufnGa/mf5q8/5m12X/qrfup1xr7/LeClecEezAsh2E14
+nSd8yNvcygvw9x/xFh/9Yt/4iy+F/do8fy+N/dKKABsBFs9i8nNard9dMj+K/yB//TFvs/vob/ql
+tynO38I8mBfswfwHOff3v/zbZ17sjX8beG2uuPXs4375u/k3GLvV23Tj/K+AB/P8vbbEa/MAsrif
+0ccg/zXmv8XZf/jl9z7zYm/8IOC1eV4PBt5b4pnEC2J5V1le554n/OKtvIi6wmfxXGy+h/84AAT/
+g+xsbfI/2V9/zNvsdsPwOsr8Gv4txK0Jr/O4D3uzv+Zf0K3Xb6PMr+FfyeTnPO7D3uKz+U/whA95
+k1u79fAy2N/DfxGLz+F+5nP4N9r969/eLY3XAf81/0pGH3PuH37pq/lvdvYffvl1Uvoa/s3013XS
+y5x93C/+NS+i449+4wcD781zqcl38x8HgMoLYbwrdJzncs2Lvwn/Wu/81m/A137+x3Lzjdfyqq/w
+kvzhn/0tz+2D3uOtAfiHJz6N/6n++mPeZhf46Md+wy/8tcRnYR7Mv0CwS+bXHGxNX33r+7zNLi+C
+v/6Yt9kFPvqx3/ALfy3xWZgH88KIW9Xyff7hI97it/lP9Ncf8za7wHs/9ht+4bclPgvzYP4Fgl0y
+v+Zga/pq/pXO/f0v//aZF3vjWwHGfvXT/Dvc84RfvhV4mdMv/safLfNZ/AsMvy3Hx5x73C/+Nf9D
+nP/7X/roM499479GfBbwYF4ElndxfM65f/ilr+ZfqSt8Fs/ru+95wi/fyn8cACovhNBfA6/Nf4Bf
++o0/5NInfRDHtjf5us//WN76fT+J2++8F4Cd7U0+8UPfnZtvvBaAb/6+n+Jfz3/Nc1Frn5OO7+Hf
+yGq7vACP+7A3+27gu1/8637utTPirWW/lKSXNhzniluxb4X4mYPN9Xff+j5vs8u/weM+7M2++9Hf
+9Eu/Hc7Xlv1ekl7acJwrbhX8dcv2PY//iLf8af6N3HgfHsDKXf4Fj/uwN/tu4Ltf4ut+9q1T8dbA
+SyG9NIBg17AL/LYyv+dga/rrW9/nbXb5NzL+GqGX2v3r397lP8C5v//lz77u0W/83S14bYv3Qn5p
+Wce54taE35b4nnN//8u/zQNMdfXX3TB/Hx7Aya08l9V8tdsN8/fhAcLa5bmU5Ldb8D48gJNb+Rec
+fdwvfzfw3adf/I1fW+a9jV8K8WBZxwEs72Julfkdh3763N//ym/zb3D80W/8YOC1eS6l8Tn8xwJA
+vBCnXuIN3zoyfor/IG/yuq/C93ztZ3K/v3/iU9nbO+TFH/0wdrY3AfiDP/tb3uZ9Pol/NfM+Zx/3
+y9/NVZe9+Nf93Gs74rd4AGd+zuM+4i0+m/9ljr/0ax+fr+bH73nCL9/KVf9lzjz2jd8b8V08p+8+
++w+//D78xwIgeCHO/92v/jTmfYBb+Q/wS7/5R7zXR34ut991LwAv/qiH8aqv8JLsbG8C8MM/8+u8
+10d+Lv8alneNPubs4375u7nqWRLemueS8Nv8L7T717+9e88TfvlWrvqvJT6L51Ian8N/PADEi+j4
+o9/4wfwH+aSPeic++YPfm+d24jFvwr/W7hN++Vb+j3mxb/zF3+K5tPX6fZ7wMW9zKy+CB3/VTx3f
+7Pu/Ah7Ms+3+w4e92QmuuupFcOaxb/zeiO/iAQy/fe4ffvl1+I8HQOVFtPuEX76V/yCf8iG/zKd8
+yPtw1QthvzYPUGaz7wJehxfB5mz2WdgP5jn9NFdd9aISn8Vza3wO/zkACK76H0etfQ7PzX7tx37j
+L/7Uo7/qpx7MC/Fi3/iLX4X90TyQuLXF8DlcddWL4Mxj3/i9gQfznG4994Rf/m3+cwAgrvof6cW/
+7ue+2hEfxfO6FetrBvm3n/xhb/bXAI/+pp96cGmzt0b+KODBPDf7Y/7hw9/8q7nqqhfBmRd7498C
+XpsHMu9z9nG//N385wBAXPU/1ot9wy/8FfDS/DuY/JzHfdhbfDZXXfUiOP3ib/zaMr/Fc7r17D/8
+8kP4zwNAcNX/WN0wvI6kn+bfyOTnPO7D3uKzueqqF5HMe/HczOfwnwsAcdX/eI/9hl94b4nPwjyY
+F4W4VS3f5+8/4i1+m6uuehEdf/QbP7grPJ3ndOvYrV5m969/e5f/PAAEV/2P97gPe7PvPlwML2N4
+H+zf5gWxfxvrYw4Xw8v8/Ue8xW9z1VX/Cl3hs3ge+undv/7tXf5zASCu+l/psd/wCy8dmccBMmL3
+aGO49db3eZtdrrrq3+j0i7/xa/NcpoPVX+/e+tu7/OcCQFx11VVX/fcCoHLVVVdd9d8LgMpVV111
+1X8vACpXXXXVVf+9AKhcddVVV/33AqBy1b/KW7/1Wx/vuo0HA/zYj/3gX3PVVVf9ewEgrnqRveu7
+vvtHWfps28cBSF7nh3/4+3+bq656Lu/8Lu/23UjvRfI6P/zD3//bvIje+V3f473B3wV8zg//4Pd/
+Ns/0zu/87q9t8VE55ef82I/94F/zfwsAlateJO/8ru/63glfTeatxt8jxW5rucsL8c7v/O6vTfBb
+XObv/uEf/IH34UX0zu/6bt8Fem+AIB/8gz/4g8/gqn+Vd363d/8tzGuTvM4P//D3/zYvxDu/67sb
+4Id/8PvF/0SFz5J57SgS8Nb83wJA5X+hd37nd39tIl/rh3/wBz+H/yqK98KA9T4/8sM/8Nv8Kwm9
+9Vu/9Xt/zE//9Hfv8i9453d+5weD3pv/od75nd/9tYl8rR/+wR/8HK76r9HyeyiB0Ffzfw8Alf9l
+3vmd3/nBBL8F5Vbgc/gvIvPSBn74h7//t/lX063GD55vTB8NfDb/kiifBSBp1/Zx/gd553d+5wcT
+/BaUW4HP4ar/Ej/8wz/43cB3838TAMFVLxLDcf6NhP9asCv4qLd+6/c+zgvx1u/93schXhv71sS3
+ctVV//cBUHkRvPVbv/Xx+Xx+/Id/+IdvBXjrt37r4/ON7bcGSHs3PP31D//wD9/KC/DWb/3Wx/vF
+1muHdByA9K0//MPf/9s8H+/8zu/8YIAf/uEfvvWt3/qtj8/nWy+d4viwrL89n6+OQ30wz/TO7/zO
+D+aZfviHf/hW/hXe4R3e9aVLV14aIO3d8PTXP/zDP3wrz+Wd3/mdH8wDvPM7v/ODAVar1e5P//RP
+7/IisDkO/hmk91osxvcGvpoXYD4Mbw3xYOz3keOzwLwg7/zO7/xgonttgLR3w9Nf//AP//CtPJe3
+fuu3Pj6fz4+vVqvdn/7pn95967d+6+Pzje23Jn3rD//w9/82z/TWb/3Wx+fzrZcm9GAA0rf+8A9/
+/2/zTO/8zu/8YKgP5pne+Z3f+cE80w//8A/fynN567d+6+P9Yuu1QzoOQPrWH/7h7/9tno+3fuu3
+Pj6fz4+vVqvdn/7pn95967d+6+Pz+dZLE3pw2rvh6a9/+Id/+Fb+G73zO7/zg4nutQHS3g1Pf/3D
+P/zDt/Jv9M7v/O6vTejBAOT42z/8wz98Ky/AW7/1Wx+fz+fHV6vV7k//9E/v8kzv/M7v/GCAH/7h
+H74V4K3f+q2Pzze23xqA9K0//MPf/9u8EG/91m99vF9svXZIx9PeDU9//cM//MO3vvVbv/Xx+Xx+
+fLVa7f70T//0Ls/lHd7hXV+6dOWlAdLeDU9//cM//MO38m8DQOVFMF9sfjXSe73zO7/760TwUpY+
+2/ZxgBCgyju/67t/9g//4Pd/Dg/w1u/93sfnw/hVoPcGAANAwDu/63vcSo6v88M//MO38kzv/M7v
+/GCiPh106zu/8zu/DtH9FvjBAcw32vtA/S6exQ8m6tMBQLcCD+FF8K7v+q4vnY6vQrw2GIAQoMo7
+v+u7fTfZPueHf/iHb+V+UZ/OA0V9OsB8sfXbwOvworK+G/FeRm8FfDUvUPks4V2Tvw3ls3g+3vVd
+3/Wl0/FViNcGAxACVHmXd3u3r/6hH/iBj+EB5hvbbw3+rvnG1ue8y7u829OJ+GrbxwndCjwE4F3f
+9d0/ytJn2z4OBoCAd3rnd/uZH/nhH3jrd37nd34wUZ/Os/jBRH06AOhW4CE801u/9VsfX2xuf5bt
+jwYAA0DAO7/re9xK+n1++Ie//7d5gPnG9luDv2u+sfnd7/qu7/o1Vvkt28fBhAB1t77ju7z7x/zo
+D33/T/Nf7F3f9V1fOh1fhXhtMAAhQJV3epd3/2l5+pgf/uEfvpUX0Tu/87u/NqHvAj8YzGVReZd3
+e7evtvkbno/5xtZHA58139h4H+C7uV+p34V57Xd+53d/HYLXAj4bDAAB7/yu73ErOb7OD//wD9/K
+c3nXd333j7L02baPgwkBqrzzu777Z2M/BOm95hsb7wN8N8/0ru/6ri+djq9CvDYYgBCgCiD+bQAI
+/jXC72X4bNtfk+ZtSF5H8DVc8dnv8i7v9tE8wHy1Og56b8xvg96H5HVIXsfw1+AHo/pdvCClfhf2
+rbI/xs6vIX0r8DmCrwEQ7AKfA3yOnF/Di+Bd3/VdX9oqv4V4bfB3p3kbktch832wbwW9N9H91lu/
+9Xsf59k+B/gcnu1zgM/B+T38K/zwD3//byN+G/Ha7/zO7/7aPB/v/K7v+t7gBxv/9A//8A/fyguQ
+xFtLvLSdX5PmbUheh8z3wb7V1ke/87u+63vzfPlBRHy1nT8NfA607wF4x3d5l7dO+Gpn7sr+GJLX
+IXkd2R+j4CLAaj7fBT5H8DUAgl3gc4DPkfNreKa3fuu3Pj7f2P4r2x+N+W3Q+5C8DsnrYH8P+MEE
+v/XO7/zur83zYz3YKr9l+2vSvA3J62B/D/jBRXzXW7/1ex/nv9C7vuu7vrRVfgvx2uDvTvM2JK+T
+5m0Mfy3x1kT3W2/91u99nBfBu77ru740wW+BHwz+7jRvQ/I6sj8G671xfhb/FuKzsN9b9seQvA6Z
+74N9K/jBqH4Xz+Vd3/XdPyrhq7EBPofkdUheB/t7gM9G8Vo8l3d+53d+cFJ+CvHawOeQvA7J68j+
+GOxb+bcDoPKvovcW+TI/9IM/+Nc822+/8zu/618T8V1InwV8Nc+0ms9356vpdX74h7//t3mAt37v
+936dxTA93eK13/qt3/v4T//0d+/yHPxgmb/+oR/6/rfhOf32O7/zOz+YqB9ltPvDP/h9n82/QlJ+
+Cvu47I/5oR/6ga/mOX33O7/bu/8W9mvPN6aPBj4b4Id/8Ps/G+Cd3/XdPwvgh3/w+z+bf6vG5xC8
+NuKzgN/muVjxUTKQ7XN4IXJqfz0My4f89E//9C4P8M7v/O63In4Lx3sB381zEXpr21/zwz/4A5/N
+A0jlvQCwP+eHfvgHv5tn+22e6ae/+7t3gc9+53d+5wcT9aOMdn/4B7/vs3kui83tz7L9YMFP/9AP
+ff/b8Jx++53e5d3+WtJXEfou4CE8N/HaZH7MD//QD3w1z/bb7/xu7/4gm9deLMb3Br6af43we73z
+u777a/NvkJSfwj4OfM4P/+APfDbP6aff+d3e/bewX3u+MX008Nn8C5LyU2Bkf8wP/dAPfDXP9tvv
++q7v+tsofsv8W/jBuL3OD/3wD9/KM73zO7/zb6P6dMRrv/Vbv/fxn/7p794FeOd3fucHW/psbES+
+zg/94A/+Nc/22+/8zu/620R8F88t4rXBDwZ/9w//4A98Ns/228BX828HQPCv4u/+wR/8wb/mufzw
+D//gdyN+23D8nd/53V+bZ/rp7/7u3R/+4e//bZ7LT3/3d++muBWg64YH83xMY34O/4He8V3e/a3B
+D8b89g/90A98Nc9P43MABB/Ff4If/uHv/23EbyNe+x3e4V1fmgd453d+99eWeWnwd//wD//wrbwQ
+P/qjP/TTP/3TP73Lc1nN618DID2Y58P27g//4Pd/Ni9I8O9nvzeAc/oYno8f+aEf+GrEb4Mf/M7v
+/O6vzXOzb/2hH/qBr+a5KP0zABYvxb+a3hv4LOCzgM8CPgv4LOCzgM8CPovn4x3f5d3fGvxgzG//
+8A9+/2fzfLQhPwZA8FH8C975nd/9tcEPxr71h37oB76a5/KDP/iDfw18D/8W0vf88A//8K08wA//
+8A/fivhtgMVi/drcL+K1bR8Hf/cP/uAP/jXP5Yd/+Ae/G/HbPBdZxwFsHec/FgCVfwU5f4YXQOZv
+DK8t+aWB3+a5vPM7v/ODU/WlS/jBNi+FdRxMKXGc5yLY/bEf+8G/5j9QEa9tQPhneAF++Ie//7ff
++V3f41bjB7/ru77rg37wB3/wGfwHU/pnLL121Hhv4KO5X/i9QJD6Hl5Eb/3Wb3286zYeXLry0uAH
+M4wPAvGC2PwNz4cyf4aItxbxVe/8ru/KD//gD343/wbv/M7v/tqG45jf/uEf/uFbeQFk/sbw2pJf
+GvhtHkj8Ns+Hrb9G/JtI/hg3/TUvTPBbPJciXtuA8M/wAvzYj/3gX7/zu77HrcYPftd3fdcH/eAP
+/uAzeEGC1wZA+h5eAKO/BvOvlvw2z0/6GUhYOs4zmXgrAXL+DC9I+hlIPJDdfhrVr5J463d6l/f4
+Knn8mh/+4R++lX8/ACr/CnbZ5QUw7AJYOs4zvfVbv/Xx+cbWR0n6aNvHA7CFYNf4OC+A0S7/wRIe
+JMDWX/PCyLdiHjyOnACewX+w5az77sUwfZbEe731W7/3Z//0T3/37ju/8zs/GPTegr/+oR/+/t/m
+X/DO7/zOD0b1uxCvDQAGAOJWMC+IQn/N8/HDP/yD3/3O7/ruDzZ8FsR3vfO7vsdnQf422T7nh3/4
+h2/lRZTieADIt/LC2LciYek4/wXc9Nc//MPf/9u8EO/8ru/Oc7N9HAnLu7ww8q2YB2fGQ4Bn8ILY
+D0YC8lb+G0kcxzBNupV/hR/+4R++9Z3f+V3fB+mzJD4a1Y9+53d9t+9uo7/mx37sB/+afzsAgv8g
+guMAsnd5pvnG5lcBn52Zt8r+mCBfZnV0cOKHfvD7TyB+m/9Csi8BSO04L4JS4jj/CX76u7971/A1
+huPzjemjAYjyWQDO/Br+Be/8zu/8YKL7LcRr2/w06H2CfJnV0cGJH/7B73sI/0Y//IPf/9nk9BDs
+78EJ6L0V9a/e5V3e7b14EYV0nBeBpeNc9d/HejBA13GRf6Uf/uEf/G7cXofM98G+FfTepYu/eud3
+fffP4t8OgMq/gtSO8wJYvBQGyFsB3vmd3/nBoPfGvvVHfugHXob/ZpJ2DUA8mBdC5qUNrFb1r/lP
+surrVy+G6aOAj3rnd37n7wa9N/atP/zDP/jd/EsiXhv8YPB3/8gP/cD78B/oh3/4h28F3vut3/qt
+j883tj7a8FmSvvqt3/q9f+anf/q7d/kXtLH9dekCoZfmhfKDQJB5K/+DSdo1APFgXhjrwWBWq/rX
+vBCSdg3IOs4L5Afzn8z4rwUPtv0ywDN4PiwdE8/fD//wD98KfDfw3e/8zu/63or4KsNnv/M7v/vv
+/PAPf/9v868HQPCvkJTX5vl453d+5wdjXhtguZz9NkCqvjSAzd/wfMi8NP+FnPw0gNFb8QK88zu/
++2sbjgv++qd/+rt3+U/y09/93bvA9xiOE+WzALA/hxeF9dpc5t/hubzzO7/7a/Mf4Kd/+qd3f/gH
+v/+zLf7acHw+n16aF8G42d8q2DW89Du/8zs/mBcoXhsA8rf5H8zJTwMY3ooX4B3e4V1fGvxgwV//
+9E9/9y4vhNFfAxi9FS+Q3ov/ZAHPALDirXg+3vmd3/nBAa/Ni+CHf/gHvxv4HgCC1+bfBoDgX0Hi
+o97hHd71pXkuivpVAODv/umf/u5dAE95K0CEXovn8s7v+u6fZTjOv8EP//AP3wogfPyt3/q9j/Mi
++uEf/v7fxr4V8drv/K7v/lk8l7d+67c+Tui7AJz5Nfwnm8b8bi7Tewt2IX+bF4GkXQBJL8UDvPVb
+v/VxQt/Fv8E7v/O7vzbPh6zjAK3lLs+0ms93AYSPv/Vbv/dxHuCnv/u7dw1fA+CoP/XO7/zOD+a5
+vPO7vvtngR8M/u4f/uEfvpX/wX74h7//tw1/LXjpd37Xd/8snstbv/VbHy9d+SkAZ34N/4JVX35a
+sIt47Xd+13f/LJ7LO7/ru38W+MH8J3Py0wCg937nd3731+a5KOpXGY7zXN7hHd71pd/6rd/7OM/F
++BiA7F3+bQCo/CsIfrp08Vfv/K7v9t0QvyPl8bTey/DS2Lfi9jk804/92A/+9Tu/y7vdaunB7/yu
+7/F0Kb8GwKm3wn4wilvBD+bfQvy2zWvPFtN3vcu7vdvv2D72wz/4g5/DvyDktzH6LcNnv/O7vsd7
+S/k1duza+VIR8d62jwOf88M//IPfzX+yH/uxH/zrd363d/9tzGsb//QP//AP38qLwMlPE3yUrY9+
+53d9t+MQvwN+EOi9IX8b9N78axU+653f9T2+y86fluJvpDzu1FuBH2zz0z/2Yz/41zzTT3/3d+++
+87u9+2/bvPZsMX3Xu7zbu/2O7WM//IM/+DkAq75+9WyY3krw0kT3W+/0Lu/201L8jZTHnXor4LWx
+b8Xtc/hfQDm9DSq/hfTZ7/yu7/HeUn6NHbt2vlREvLft48Dn/PAP/+B38y/46e/+7t13epd3+xxJ
+XwV89ju/67s9WOJvAJx6K8FLGz4H+Cz+E/3wD3//b7/zu7775wCfRfBb7/yu7/bdEL8j5fG03sv2
+cUK/jXltHqB08dala+/1zu/6br8t8Td27EK+Fui9sW+120/zbwNA8K/g5GuAzxF6a/B32foqwUsL
+fhq31/nhH/7hW3kgt9fBvhX8YFtfZeurAHB7HeRb+bdq0/tg3yrx1ra+SsRb8yL4wR/8wb92Ti+D
+/T3gB9v6KvB3Sfpom13ZH/PDP/j9n81/lcbnAJDtc3gR/fAPf/9v2/4Y7FtB7w3+LuCzbf/M6ujw
+Y/i3ML8DfrCkjwZ/l62vknhp4HPWy4P34bmE82Owb5V4a1tfJeKteaaf/u7v3v2RH/z+lwE+ByeS
+Phr8Xba+SuKlgc9ZLQ9f5od/+Idv5X+BH/7hH74Vt9fB/h7wg219Ffi7JH00NrI/5od/8Ps/mxfR
+j/zQD3w1me+DfSvovW19la2vAhD5OqBb+S/wwz/4/Z8NfA72raD3Bn+Xra+S2cXtdUg/A0D2LvfL
+vBUnoPe29VXg7wK9N+a3cXudH/7hH76VfxsAxIvgnd/l3b4b6b1IXueHf/j7f/ut3/qtj8/nWy8d
+kbtHR0e3/vRP//QuL8S7vuu7vnRmHIfp1h/+4R++lf8g7/qu7/rSAEdHR7f+9E//9C7/Cm/91m99
+fD7femkAmG794R/+4Vv5X+ad3/ndXxtgtTr465/+6Z/e5d/pXd/1XV86M47DdOsP//AP38q/4F3f
+9V1fGuDo6OjWn/7pn97l+XjXd33Xl86M4zDd+sM//MO38r/YW7/1Wx+fz7demsumW3/4h3/4Vv4d
+3vVd3/WlM+M4TLf+8A//8K38N3nnd3731wZYrQ7++qd/+qd3Ad7pXd/9pwRvTfI6P/zD3//bPMC7
+vuu7vnRmHI/I3aOjo1t/+qd/epd/HwDEi+Cd3+XdvhvpvUhe54d/+Pt/m6uuuur/tHd+1/d4OvjB
+q6N64qd/+rt3+c8FQOWqq6666gHe+V3f/bPAD3b6Z376p797l/98AFSuuuqq/3fe+V3f4+lSfs00
++Ld/7Md+8K8B3vmd3/21VfRWtj9asAvto/mvAUDlqquu+v/HidFXlU6887u+O/ezDfatkt/mh374
+h2/lvwYAlRdBop8OuBWmW7nqqqv+11stD1+mX2y9tsjXlnQMwPYlOX76h3/4B36b/1oA/CNdaPYx
+i09s1QAAAABJRU5ErkJggg==
+------=_Part_514_614887706.1779691196726--

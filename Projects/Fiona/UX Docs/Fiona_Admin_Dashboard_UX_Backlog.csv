@@ -1,0 +1,19 @@
+Title,Problem,Proposal,Impact,Effort,Priority
+Skip-to-main link,No skip link for keyboard/screen-reader users — WCAG 2.4.1 failure,Add <a class='skip-link'> as first focusable element,High,Small,P1
+Shimmer loading states,No visual feedback during filter-triggered data refresh,Skeleton/shimmer placeholders per card section during data load,High,Medium,P1
+Empty state design,No content displayed when selected period has no data,Illustrated empty state with message + Try a different date range guidance,High,Medium,P1
+Error state design,API failures result in blank sections with no feedback,Inline error alert per section: icon + message + Retry button,High,Medium,P1
+Chart accessibility (ARIA),Chart canvases have no screen-reader descriptions,Add role=img + aria-label describing chart purpose and key data,High,Small,P1
+KPI definition tooltips,Users may not understand KPI names or threshold logic,Info icon per KPI label with popover tooltip from BRD glossary,Medium,Medium,P2
+Consistent help mechanism,No help feature exists — fails WCAG 3.2.6,Add help icon in top nav linking to help centre / contextual guide,Medium,Small,P2
+Filter persistence,Filters reset on page refresh — user loses context,Store last-used Period/Module in localStorage; add Reset filters button,Medium,Small,P2
+Stale bot timestamp warning,Last Bot Execution shows timestamp but no freshness context,Add relative time (X hrs ago) + warning badge if > 8 hours,Medium,Small,P2
+Donut centre consistency,Some donuts show count and others show percentage — inconsistent,Standardise: primary value in centre + label; secondary in legend,Low,Small,P2
+Section quick-jump navigation,Automation section requires scrolling past overview — no fast route,Sticky sub-nav tabs: Overview · Automation · Insights,Medium,Medium,P3
+Drill-down from rejection table,Clicking module name in rejection table does nothing,Link module names to filtered rejection detail view,Medium,Medium,P3
+Nudge approver action,No in-app escalation for overdue approvals — admins must email,Add Nudge button in side panel → sends notification to approver,Medium,Large,P3
+Export preview,Export output unknown until file is downloaded,Show export preview modal with format selection (CSV/PDF),Low,Medium,P3
+Dashboard summary email,Admins must log in daily to review status,Scheduled 08:00 email with top KPIs + exceptions + dashboard link,Medium,Large,P4
+Historical comparison toggle,Cannot compare current period with previous period on same card,Compare toggle on KPI cards showing period-over-period overlay,Medium,Large,P4
+Bot log deep links,Dashboard shows failed file IDs but no link to execution log,Add hyperlink from file ID in side panel to bot log viewer,Low,Medium,P4
+Filter URL parameters,Cannot bookmark or share a filtered dashboard view,Sync filter state to URL query params; Copy link button,Low,Small,P4

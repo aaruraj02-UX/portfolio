@@ -1,0 +1,3540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Ad-hoc Payments · Requests</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* ----------------------------------------------------------------
+       MET-DS-V2 — Token Block (Light Theme)
+       Aligned with FinOps_Web_Design_Guidelines.md
+       ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-75:  #C2D7F2;
+      --color-primary-100: #A2C1EA;
+      --color-primary-200: #84ADE4;
+      --color-primary-300: #6599DE;
+      --color-primary-400: #4B87D6;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-800: #22497D;
+      --color-primary-900: #1C3A62;
+      --color-primary-950: #152B48;
+      --color-primary-975: #0C1A2D;
+
+      --color-primary:        var(--color-primary-500);
+      --color-primary-hover:  var(--color-primary-600);
+      --color-bg:             var(--color-primary-25);
+      --color-card:           #FFFFFF;
+      --color-disabled:       #BDBDBD;
+
+      --text-primary:         #212121;
+      --text-secondary:       #757575;
+      --text-tertiary:        #9E9E9E;
+      --text-hyperlink:       #3276CF;
+      --text-hyperlink-hover: #2C66B4;
+      --text-disabled:        #BDBDBD;
+
+      --grey-50:  #FAFAFA; --grey-100: #F5F5F5; --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0; --grey-400: #BDBDBD; --grey-500: #9E9E9E;
+      --grey-600: #757575; --grey-700: #616161; --grey-800: #424242; --grey-900: #212121;
+
+      --color-success: #43A047; --color-success-dark: #388E3C; --color-success-bg: #E8F5E9;
+      --color-error:   #E53935; --color-error-dark:   #D32F2F; --color-error-bg:   #FEEBEE;
+      --color-warning: #EF6C00; --color-warning-dark: #F57C00; --color-warning-bg: #FFF3E0;
+      --color-info:    #1976D2; --color-info-bg:     #E3F2FD;
+
+      --leftnav-text-active:   #3276CF;
+      --topnav-icon:           #757575;
+      --topnav-icon-hover:     #616161;
+
+      --border-default: 1px solid #E0E0E0;
+      --border-subtle:  1px solid #EEEEEE;
+      --border-focus:   2px solid #3276CF;
+      --radius-card:    16px;
+      --radius-button:  8px;
+      --radius-input:   8px;
+      --radius-pill:    100px;
+
+      --space-1: 2px;  --space-2: 4px;  --space-3: 8px;  --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-regular:  400;
+      --font-weight-medium:   500;
+      --font-weight-semibold: 600;
+      --font-weight-bold:     700;
+
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --easing-enter:      ease-out;
+
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* --- Reset ------------------------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: absolute;
+      top: -100px; left: var(--space-5);
+      background: var(--color-primary); color: #FFFFFF;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button);
+      font-weight: var(--font-weight-medium);
+      z-index: 1000;
+      transition: top var(--duration-micro) var(--easing-enter);
+    }
+    .skip-link:focus { top: var(--space-3); color: #FFFFFF; }
+
+    /* --- App Shell -------------------------------------------- */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* --- Top Nav ---------------------------------------------- */
+    .topnav {
+      display: flex; align-items: center;
+      padding: var(--space-3); gap: var(--space-3);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; min-width: 0; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .topnav-logo { height: 28px; width: auto; }
+    .topnav-tagline {
+      display: none;
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      letter-spacing: 0.15px;
+    }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn {
+      position: relative; width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--topnav-icon); padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge {
+      position: absolute; top: 0; right: 0;
+      min-width: 20px; height: 20px;
+      background: var(--color-warning); color: #FFFFFF;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 6.5px; line-height: 1;
+    }
+    .topnav-avatar {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-pill);
+      object-fit: cover; cursor: pointer;
+    }
+
+    @media (min-width: 1280px) {
+      .topnav-tagline { display: block; }
+    }
+
+    /* --- Main Layout ------------------------------------------ */
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* --- Sidebar ---------------------------------------------- */
+    .sidebar {
+      width: 56px; flex-shrink: 0; background: var(--color-card);
+      border-right: 1px solid var(--divider-color);
+      display: flex; flex-direction: column; padding: var(--space-5) 0;
+      overflow-x: hidden; overflow-y: hidden;
+      transition: width var(--duration-standard) var(--easing-enter);
+      z-index: 10;
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: var(--radius-button);
+      color: var(--text-secondary); flex-shrink: 0;
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section {
+      margin-top: var(--space-3); padding-top: var(--space-3);
+      border-top: 1px solid var(--divider-color);
+    }
+    .sidebar-heading {
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); text-transform: uppercase;
+      letter-spacing: 0.8px; padding: var(--space-2) var(--space-5);
+      white-space: nowrap; opacity: 0;
+      transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-3); color: var(--text-secondary);
+      text-decoration: none; white-space: nowrap;
+      min-height: 40px; margin: 0 var(--space-3);
+      border-radius: 8px;
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+    .sidebar-link.is-active {
+      background: var(--color-primary-50);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+    }
+    .sidebar-back {
+      color: var(--color-primary); font-weight: var(--font-weight-semibold);
+      text-transform: uppercase; font-size: var(--font-size-caption);
+      letter-spacing: 0.5px; border-radius: 0;
+      margin: 0; padding: var(--space-3) var(--space-5);
+    }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text {
+      font-size: var(--font-size-body);
+      opacity: 0;
+      transition: opacity var(--duration-micro) var(--easing-enter);
+      overflow: hidden;
+    }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+
+    /* --- Content Area ----------------------------------------- */
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner {
+      max-width: 1440px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: var(--space-5);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .breadcrumb a { color: var(--text-hyperlink); font-weight: var(--font-weight-medium); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); font-size: 16px; line-height: 1; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+    /* Page Header */
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--space-5);
+    }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .page-subtitle { font-size: var(--font-size-body); color: var(--text-secondary); }
+    .page-header-actions { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      min-height: 40px; white-space: nowrap;
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter),
+                  border-color var(--duration-micro) var(--easing-enter);
+      border: 1.5px solid transparent;
+    }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border-color: var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-danger { background: var(--color-error); color: #FFFFFF; }
+    .btn-danger:hover { background: var(--color-error-dark); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+    /* Status summary */
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--space-4);
+    }
+    .status-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-5) var(--space-6);
+      display: flex; align-items: center; gap: var(--space-5);
+    }
+    .status-card-icon {
+      width: 40px; height: 40px; border-radius: var(--radius-pill);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .status-card-icon .material-symbols-outlined { font-size: 22px; }
+    .status-card-info { display: flex; flex-direction: column; }
+    .status-card-number {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary); line-height: 1.2;
+    }
+    .status-card-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+
+    /* Toolbar */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; }
+    .toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-5); padding: var(--space-5);
+      flex-wrap: wrap; border-bottom: 1px solid var(--grey-200);
+    }
+    .toolbar-left, .toolbar-right { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .search-box {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card); min-width: 240px;
+    }
+    .search-box:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.15); }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input {
+      border: none; outline: none; background: none;
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); flex: 1;
+    }
+    .search-box input::placeholder { color: var(--grey-400); }
+
+    /* Filter pill (chip) */
+    .filter-chip {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      height: 36px; padding: 0 var(--space-4);
+      border-radius: var(--radius-pill);
+      background: var(--color-card);
+      border: 1px solid var(--grey-300);
+      color: var(--text-secondary);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+    }
+    .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip.is-active { background: var(--color-primary-25); border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip .material-symbols-outlined { font-size: 16px; }
+    button.filter-chip { display: none; }
+
+    /* Data table */
+    .table-scroll { overflow-x: auto; }
+    .data-table {
+      width: 100%; border-collapse: collapse;
+      font-size: var(--font-size-body); min-width: 1100px;
+    }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th {
+      padding: var(--space-4) var(--space-4); text-align: left;
+      font-weight: var(--font-weight-semibold); color: var(--text-primary);
+      font-size: var(--font-size-caption);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      white-space: nowrap; border-bottom: 1px solid var(--grey-300);
+      position: relative;
+    }
+    .data-table th + th::before {
+      content: ""; position: absolute; left: 0; top: 25%; bottom: 25%;
+      width: 1px; background: var(--grey-200);
+    }
+    .data-table td {
+      padding: var(--space-4) var(--space-4);
+      border-bottom: 1px solid var(--grey-200);
+      color: var(--text-primary); vertical-align: middle;
+    }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+    .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .row-action-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: var(--radius-button);
+      color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .row-action-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .row-action-btn .material-symbols-outlined { font-size: 18px; }
+    .row-actions { display: flex; gap: var(--space-1); justify-content: flex-end; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex; align-items: center; gap: var(--space-1);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium); line-height: 1.5;
+      white-space: nowrap;
+    }
+    .badge .material-symbols-outlined { font-size: 14px; }
+    .badge--draft     { background: var(--grey-200);          color: var(--grey-700); }
+    .badge--pending   { background: var(--color-warning-bg);  color: var(--color-warning-dark); }
+    .badge--approved  { background: var(--color-info-bg);     color: var(--color-primary-700); }
+    .badge--generated { background: var(--color-primary-50);  color: var(--color-primary-700); }
+    .badge--completed { background: var(--color-success-bg);  color: var(--color-success-dark); }
+    .badge--rejected  { background: var(--color-error-bg);    color: var(--color-error-dark); }
+    .badge--failed    { background: var(--color-error-bg);    color: var(--color-error-dark); }
+    .badge--cancelled { background: var(--grey-200);           color: var(--grey-700); }
+    .badge--int       { background: #E3F2FD;                  color: #1565C0; }
+
+    /* Pagination */
+    .table-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) var(--space-5);
+      border-top: 1px solid var(--grey-200);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-button); color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; background: none; }
+
+    /* ----------------------------------------------------------------
+       Wizard — Side Drawer (slide from right)
+       ---------------------------------------------------------------- */
+    .drawer-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(12, 26, 45, 0.45);
+      z-index: 100; display: none;
+      backdrop-filter: blur(2px);
+    }
+    .drawer-backdrop[data-open="true"] { display: block; }
+
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(720px, 100vw);
+      background: var(--color-bg);
+      box-shadow: var(--shadow-modal);
+      z-index: 110;
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+      display: flex; flex-direction: column;
+    }
+    .drawer[data-open="true"] { transform: translateX(0); }
+
+    .drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-7);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+    .drawer-header-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .drawer-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .drawer-subtitle { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .drawer-close {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .drawer-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .drawer-close .material-symbols-outlined { font-size: 24px; }
+
+    /* Stepper */
+    .stepper {
+      display: flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-5) var(--space-7);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      overflow-x: auto;
+      flex-shrink: 0;
+    }
+    .stepper-item {
+      display: flex; align-items: center; gap: var(--space-2);
+      color: var(--text-secondary);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      white-space: nowrap;
+    }
+    .stepper-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--grey-200); color: var(--text-secondary);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      flex-shrink: 0;
+    }
+    .stepper-item.is-active { color: var(--color-primary); }
+    .stepper-item.is-active .stepper-num { background: var(--color-primary); color: #FFFFFF; }
+    .stepper-item.is-done   { color: var(--color-success); }
+    .stepper-item.is-done .stepper-num { background: var(--color-success); color: #FFFFFF; }
+    .stepper-item.is-done .stepper-num::after { content: '?'; }
+    .stepper-item.is-done .stepper-num-text { display: none; }
+    .stepper-bar {
+      width: 24px; height: 2px;
+      background: var(--grey-300);
+      flex-shrink: 0;
+    }
+    .stepper-bar.is-done { background: var(--color-success); }
+
+    /* Wizard body */
+    .drawer-body {
+      flex: 1; overflow-y: auto;
+      padding: var(--space-7);
+    }
+    .step { display: none; }
+    .step[data-active="true"] { display: flex; flex-direction: column; gap: var(--space-7); }
+
+    .step-prompt {
+      display: flex; flex-direction: column; gap: var(--space-1);
+    }
+    .step-question {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .step-hint {
+      font-size: var(--font-size-body);
+      color: var(--text-secondary);
+    }
+
+    /* Rejection banner shown at top of wizard body when editing a rejected request */
+    .reject-banner {
+      display: flex; flex-direction: column; gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: 12px;
+      background: var(--color-error-bg);
+      border: 1px solid var(--color-error);
+      margin-bottom: var(--space-6);
+    }
+    .reject-banner > header {
+      display: flex; gap: var(--space-3); align-items: flex-start;
+    }
+    .reject-banner > header > .material-symbols-outlined {
+      color: var(--color-error-dark); font-size: 24px; flex-shrink: 0;
+    }
+    .reject-banner strong {
+      display: block; color: var(--color-error-dark);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+    }
+    .reject-banner .reject-meta {
+      margin: 2px 0 0; font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .reject-banner .reject-note {
+      padding: var(--space-3) var(--space-4);
+      background: #fff;
+      border-left: 3px solid var(--color-error);
+      border-radius: 8px;
+      font-size: var(--font-size-body); color: var(--text-primary);
+    }
+    .reject-activity-wrap > summary {
+      cursor: pointer; font-size: var(--font-size-caption);
+      color: var(--color-primary); padding: var(--space-2) 0;
+      list-style: none; user-select: none;
+    }
+    .reject-activity-wrap > summary::-webkit-details-marker { display: none; }
+    .reject-activity-wrap > summary::before {
+      content: '\25B8'; display: inline-block; margin-right: var(--space-2);
+      transition: transform 120ms ease;
+    }
+    .reject-activity-wrap[open] > summary::before { transform: rotate(90deg); }
+    .reject-activity {
+      list-style: none; margin: var(--space-2) 0 0; padding: 0;
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .reject-activity li {
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+      display: flex; gap: var(--space-2); align-items: flex-start;
+    }
+    .reject-activity .material-symbols-outlined { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .reject-activity em { font-style: normal; color: var(--grey-500); margin-left: var(--space-1); }
+
+    /* Wizard edit-mode tabs (Edit details / Activity) */
+    .wizard-tabs { padding: 0 var(--space-7); flex-shrink: 0; }
+    .wizard-activity-panel {
+      padding: var(--space-5) 0;
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .wizard-activity-panel[hidden] { display: none; }
+    .wizard-activity-panel .panel-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .wizard-activity-panel .panel-hint {
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .wizard-activity {
+      list-style: none; margin: 0; padding: 0;
+      display: flex; flex-direction: column; gap: var(--space-3);
+    }
+    .wizard-activity li {
+      display: flex; gap: var(--space-3); align-items: flex-start;
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-card);
+      border: 1px solid var(--divider-color);
+      border-radius: 8px;
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+    }
+    .wizard-activity li .material-symbols-outlined {
+      font-size: 20px; flex-shrink: 0; margin-top: 2px;
+      color: var(--color-primary);
+    }
+    .wizard-activity li.is-error .material-symbols-outlined { color: var(--color-error-dark); }
+    .wizard-activity li.is-success .material-symbols-outlined { color: var(--color-success-dark); }
+    .wizard-activity li.is-warn .material-symbols-outlined { color: var(--color-warning, #B26A00); }
+    .wizard-activity em {
+      display: block;
+      font-style: normal; font-size: var(--font-size-caption);
+      color: var(--text-secondary); margin-top: 2px;
+    }
+
+    /* Inputs */
+    .field { display: flex; flex-direction: column; gap: var(--space-2); }
+    .field-row { display: grid; gap: var(--space-5); grid-template-columns: 1fr 1fr; }
+    @media (max-width: 720px) { .field-row { grid-template-columns: 1fr; } }
+    .field-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .field-label .req { color: var(--color-error); margin-left: 2px; }
+    .field-help { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .field-error {
+      font-size: var(--font-size-caption);
+      color: var(--color-error-dark);
+      display: flex; align-items: center; gap: var(--space-1);
+    }
+    .field-error .material-symbols-outlined { font-size: 14px; }
+
+    .input, .select, .textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .textarea { min-height: 88px; resize: vertical; }
+    .input:hover, .select:hover, .textarea:hover { border-color: var(--grey-500); }
+    .input:focus, .select:focus, .textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.18);
+    }
+    .input::placeholder, .textarea::placeholder { color: var(--grey-400); }
+    .input[readonly], .select[readonly] {
+      background: var(--grey-50); color: var(--text-secondary);
+    }
+    .input-with-prefix {
+      display: flex; align-items: center;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .input-with-prefix:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.18); }
+    .input-with-prefix .prefix {
+      padding: 0 var(--space-4);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-medium);
+      border-right: 1px solid var(--grey-300);
+      align-self: stretch;
+      display: flex; align-items: center;
+    }
+    .input-with-prefix input {
+      flex: 1; border: none; outline: none; background: none;
+      padding: var(--space-3) var(--space-4);
+      font: inherit; color: inherit;
+    }
+    .char-count {
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      align-self: flex-end;
+    }
+
+    /* Radio cards */
+    .radio-group {
+      display: grid; gap: var(--space-4);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .radio-card {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      padding: var(--space-5);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-card);
+      background: var(--color-card);
+      cursor: pointer;
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+    }
+    .radio-card:hover { border-color: var(--color-primary); }
+    .radio-card input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .radio-card .radio-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid var(--grey-400);
+      flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color var(--duration-micro) var(--easing-enter);
+    }
+    .radio-card .radio-dot::after {
+      content: ''; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--color-primary);
+      transform: scale(0);
+      transition: transform var(--duration-micro) var(--easing-enter);
+    }
+    .radio-card.is-selected { border-color: var(--color-primary); background: var(--color-primary-25); }
+    .radio-card.is-selected .radio-dot { border-color: var(--color-primary); }
+    .radio-card.is-selected .radio-dot::after { transform: scale(1); }
+    .radio-card-body { display: flex; flex-direction: column; gap: var(--space-1); }
+    .radio-card-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .radio-card-desc {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary); line-height: 1.45;
+    }
+
+    /* Inline switch (Yes/No) */
+    .toggle-group { display: inline-flex; border: 1px solid var(--grey-300); border-radius: var(--radius-button); overflow: hidden; width: fit-content; }
+    .toggle-group button {
+      padding: var(--space-3) var(--space-6);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      background: var(--color-card);
+      min-height: 40px;
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .toggle-group button + button { border-left: 1px solid var(--grey-300); }
+    .toggle-group button[aria-pressed="true"] { background: var(--color-primary); color: #FFFFFF; }
+
+    /* Callout / notice box */
+    .callout {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      padding: var(--space-5);
+      border-radius: var(--radius-card);
+      background: var(--color-info-bg);
+      border: 1px solid #BBDEFB;
+      color: var(--color-primary-700);
+      font-size: var(--font-size-body);
+    }
+    .callout.warn { background: var(--color-warning-bg); border-color: #FFCC80; color: var(--color-warning-dark); }
+    .callout-icon { flex-shrink: 0; margin-top: 2px; }
+    .callout-icon .material-symbols-outlined { font-size: 22px; }
+    .callout-body { line-height: 1.5; }
+    .callout-body strong { font-weight: var(--font-weight-semibold); }
+    .callout-body ul { margin: var(--space-2) 0 0 var(--space-5); list-style: disc; }
+    .callout-body ul li { margin-bottom: var(--space-1); }
+
+    /* Custom date picker */
+    .date-field { position: relative; }
+    .date-field .input { padding-right: 44px; cursor: pointer; background: var(--color-card); }
+    .date-toggle {
+      position: absolute; top: 50%; right: 4px; transform: translateY(-50%);
+      width: 36px; height: 36px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent; border: 0; color: var(--text-secondary); cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .date-toggle:hover { background: var(--grey-100); color: var(--color-primary); }
+    .date-toggle .material-symbols-outlined { font-size: 22px; }
+    .datepicker {
+      position: absolute; top: calc(100% + 6px); left: 0; z-index: 60;
+      width: 300px; padding: var(--space-4);
+      background: var(--color-card); border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card); box-shadow: var(--shadow-modal, 0 8px 24px rgba(0,0,0,0.12));
+      font-size: var(--font-size-caption); color: var(--text-primary);
+    }
+    .datepicker[hidden] { display: none; }
+    .dp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3); }
+    .dp-nav {
+      width: 32px; height: 32px; border-radius: 50%; border: 0; background: transparent;
+      color: var(--text-secondary); cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+    }
+    .dp-nav:hover:not(:disabled) { background: var(--grey-100); color: var(--color-primary); }
+    .dp-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+    .dp-title { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .dp-dow { text-align: center; font-size: 11px; text-transform: uppercase; color: var(--text-secondary); padding: 4px 0; font-weight: var(--font-weight-medium); }
+    .dp-cell {
+      height: 34px; border: 0; border-radius: 6px; background: transparent;
+      font: inherit; color: var(--text-primary); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .dp-cell:hover:not(:disabled) { background: var(--color-primary-25, #E3F2FD); color: var(--color-primary); }
+    .dp-cell.is-other { color: var(--grey-400); }
+    .dp-cell.is-today { font-weight: var(--font-weight-semibold); box-shadow: inset 0 0 0 1px var(--color-primary); }
+    .dp-cell.is-selected { background: var(--color-primary); color: #FFFFFF; }
+    .dp-cell.is-selected:hover { background: var(--color-primary); color: #FFFFFF; }
+    .dp-cell:disabled { color: var(--grey-400); cursor: not-allowed; background: transparent; text-decoration: line-through; opacity: 0.55; }
+    .dp-cell.is-weekend:disabled { background: var(--grey-100); }
+    .dp-cell.is-holiday:disabled { background: rgba(255, 204, 128, 0.35); }
+    .dp-legend { margin-top: var(--space-3); display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: 11px; color: var(--text-secondary); }
+    .dp-legend span { display: inline-flex; align-items: center; gap: 4px; }
+    .dp-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+    .dp-legend .sw-weekend { background: var(--grey-100); border: 1px solid var(--grey-300); }
+    .dp-legend .sw-holiday { background: rgba(255, 204, 128, 0.6); border: 1px solid #FFCC80; }
+
+    /* Conditional section reveal */
+    .conditional {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-5);
+      padding: var(--space-5);
+      border-left: 3px solid var(--color-primary-50);
+      background: var(--color-primary-25);
+      border-radius: var(--radius-button);
+    }
+    .conditional[data-show="true"] { display: flex; }
+
+    /* Upload / dropzone */
+    .dropzone {
+      border: 1.5px dashed var(--grey-400);
+      border-radius: var(--radius-card);
+      padding: var(--space-7);
+      text-align: center;
+      background: var(--color-card);
+      color: var(--text-secondary);
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  background var(--duration-micro) var(--easing-enter);
+      cursor: pointer;
+    }
+    .dropzone:hover, .dropzone.is-drag { border-color: var(--color-primary); background: var(--color-primary-25); }
+    .dropzone.is-disabled { opacity: 0.55; cursor: not-allowed; background: var(--grey-100); border-color: var(--grey-300); pointer-events: none; }
+    .dropzone .material-symbols-outlined { font-size: 28px; color: var(--color-primary); margin-bottom: var(--space-3); display: block; }
+    .file-list { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-3); }
+    .file-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3); background: var(--color-card);
+      border: 1px solid var(--grey-300); border-radius: var(--radius-button);
+      font-size: var(--font-size-body);
+    }
+    .file-item .material-symbols-outlined { font-size: 20px; color: var(--color-primary); }
+    .file-item .file-name { flex: 1; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file-item .file-size { color: var(--text-tertiary); font-size: var(--font-size-caption); }
+
+    /* File preview modal */
+    .file-preview-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 90;
+    }
+    .file-preview-overlay[hidden] { display: none; }
+    .file-preview-modal {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: min(900px, 92vw); height: min(720px, 90vh);
+      background: var(--color-card, #fff);
+      border-radius: var(--radius-card, 8px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      display: flex; flex-direction: column;
+      z-index: 91; overflow: hidden;
+    }
+    .file-preview-modal[hidden] { display: none; }
+    .fpm-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      border-bottom: 1px solid var(--grey-200);
+      flex-shrink: 0;
+    }
+    .fpm-title {
+      margin: 0;
+      font-size: var(--font-size-h4, 16px);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .fpm-body {
+      flex: 1; overflow: auto;
+      background: var(--grey-100, #F5F5F5);
+      display: flex; align-items: center; justify-content: center;
+      padding: var(--space-4);
+    }
+    .fpm-body iframe { width: 100%; height: 100%; border: 0; background: #fff; border-radius: 4px; }
+    .fpm-body img { max-width: 100%; max-height: 100%; background: #fff; border: 1px solid var(--grey-200); border-radius: 4px; }
+    .fpm-placeholder {
+      text-align: center; color: var(--text-secondary);
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+      padding: var(--space-6);
+    }
+    .fpm-placeholder .material-symbols-outlined { font-size: 56px; color: var(--color-primary); }
+    .fpm-placeholder strong { color: var(--text-primary); font-size: var(--font-size-body); }
+
+    /* Summary */
+    .summary-grid {
+      display: grid; gap: var(--space-5);
+      grid-template-columns: 1fr;
+    }
+    .summary-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      border: 1px solid var(--divider-color);
+    }
+    .summary-card-title {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-4);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .summary-edit {
+      font-size: var(--font-size-caption);
+      color: var(--text-hyperlink);
+      font-weight: var(--font-weight-medium);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .summary-rows { display: flex; flex-direction: column; gap: var(--space-3); }
+    .summary-row {
+      display: flex; justify-content: space-between; gap: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px dashed var(--grey-200);
+    }
+    .summary-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .summary-row-label { color: var(--text-secondary); }
+    .summary-row-value {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      text-align: right;
+    }
+    .summary-confirm {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-5);
+      background: var(--color-info-bg);
+      border-radius: var(--radius-card);
+      font-size: var(--font-size-body);
+      color: var(--color-primary-700);
+    }
+    .summary-confirm input { width: 18px; height: 18px; accent-color: var(--color-primary); }
+
+    /* Drawer footer */
+    .drawer-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-5) var(--space-7);
+      background: var(--color-card);
+      border-top: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+    .drawer-footer-left, .drawer-footer-right { display: flex; gap: var(--space-3); }
+
+    /* Toast */
+    .toast {
+      position: fixed; left: 50%; bottom: var(--space-7);
+      transform: translateX(-50%) translateY(20px);
+      background: var(--color-success-dark); color: #FFFFFF;
+      padding: var(--space-4) var(--space-6);
+      border-radius: var(--radius-button);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-body);
+      box-shadow: var(--shadow-modal);
+      display: flex; align-items: center; gap: var(--space-3);
+      opacity: 0; pointer-events: none; z-index: 200;
+      transition: opacity var(--duration-standard) var(--easing-enter),
+                  transform var(--duration-standard) var(--easing-enter);
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .toast .material-symbols-outlined { font-size: 20px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .content-area { padding: var(--space-5); }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .drawer-header, .stepper, .drawer-footer, .drawer-body { padding-left: var(--space-5); padding-right: var(--space-5); }
+    }
+
+    /* -------------------------------------------------------------
+       View Drawer — Right pane for request details (read-only)
+       ------------------------------------------------------------- */
+    .view-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(12, 26, 45, 0.35);
+      z-index: 90; display: none;
+    }
+    .view-backdrop[data-open="true"] { display: block; }
+
+    .view-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(540px, 100vw);
+      background: var(--color-bg);
+      box-shadow: var(--shadow-modal);
+      z-index: 95;
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+      display: flex; flex-direction: column;
+    }
+    .view-drawer[data-open="true"] { transform: translateX(0); }
+
+    .view-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-5) var(--space-6);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+    .view-header-text { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; flex: 1; }
+    .view-subtitle {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.5px;
+    }
+    .view-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .view-tabs {
+      display: flex; gap: 0;
+      padding: 0 var(--space-6);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+    .view-tab {
+      padding: var(--space-4) var(--space-4);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent;
+      transition: color var(--duration-micro) var(--easing-enter),
+                  border-color var(--duration-micro) var(--easing-enter);
+      margin-bottom: -1px;
+      display: inline-flex; align-items: center; gap: var(--space-2);
+    }
+    .view-tab:hover { color: var(--color-primary); }
+    .view-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .view-tab .tab-count {
+      display: inline-flex; min-width: 18px; padding: 0 6px;
+      align-items: center; justify-content: center;
+      background: var(--grey-200); color: var(--text-secondary);
+      border-radius: var(--radius-pill);
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+    }
+    .view-tab.is-active .tab-count { background: var(--color-primary-25); color: var(--color-primary); }
+
+    .view-body {
+      flex: 1; overflow-y: auto;
+      padding: var(--space-6);
+    }
+    .view-panel { display: none; flex-direction: column; gap: var(--space-5); }
+    .view-panel.is-active { display: flex; }
+
+    .view-section {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      border: 1px solid var(--divider-color);
+    }
+    .view-section-title {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-4);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .view-section-title .material-symbols-outlined { font-size: 16px; color: var(--color-primary); }
+
+    .view-grid {
+      display: grid; gap: var(--space-4);
+      grid-template-columns: 1fr 1fr;
+    }
+    .view-cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .view-cell.full { grid-column: 1 / -1; }
+    .view-cell-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .view-cell-value {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      word-break: break-word;
+    }
+    .view-cell-value.num { font-variant-numeric: tabular-nums; }
+    .view-cell-value.big {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item {
+      display: flex; gap: var(--space-4);
+      padding-bottom: var(--space-5);
+      position: relative;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 15px; top: 32px; bottom: 0;
+      width: 2px; background: var(--grey-200);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--color-primary-25); color: var(--color-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0; z-index: 1;
+      border: 2px solid var(--color-card);
+    }
+    .timeline-dot.success { background: var(--color-success-bg); color: var(--color-success); }
+    .timeline-dot.warn    { background: var(--color-warning-bg); color: var(--color-warning); }
+    .timeline-dot.error   { background: var(--color-error-bg);   color: var(--color-error); }
+    .timeline-dot .material-symbols-outlined { font-size: 18px; }
+    .timeline-body { flex: 1; padding-top: 4px; min-width: 0; }
+    .timeline-text {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      line-height: 1.45;
+    }
+    .timeline-text strong { font-weight: var(--font-weight-semibold); }
+    .timeline-meta {
+      font-size: var(--font-size-caption);
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    .view-empty {
+      padding: var(--space-8) var(--space-5);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+    .view-empty .material-symbols-outlined {
+      font-size: 40px;
+      color: var(--grey-400);
+      display: block;
+      margin: 0 auto var(--space-3);
+    }
+
+    .view-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-6);
+      background: var(--color-card);
+      border-top: 1px solid var(--divider-color);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .view-footer-spacer { flex: 1; }
+
+    /* Make request reference links look clickable */
+    .data-table a[href="#"] { cursor: pointer; }
+
+    @media (max-width: 540px) {
+      .view-drawer { width: 100vw; }
+      .view-grid { grid-template-columns: 1fr; }
+      .view-header, .view-tabs, .view-body, .view-footer {
+        padding-left: var(--space-5); padding-right: var(--space-5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ----------------------------------------------------------------
+         Top Navigation
+         ---------------------------------------------------------------- -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Ad-hoc Payments</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 2 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">2</span>
+        </button>
+        <button aria-label="User profile menu — John Doe">
+          <img src="https://i.pravatar.cc/64?img=12" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <!-- ----------------------------------------------------------------
+         Main Layout
+         ---------------------------------------------------------------- -->
+    <div class="main-layout">
+
+      <!-- --- Sidebar --- -->
+      <nav class="sidebar" id="sidebar" aria-label="Ad-hoc Payments navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Ad-hoc Payments</span>
+          <a href="AdHocPayments.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Requests</span>
+          </a>
+          <a href="AdHocApprovals.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">approval</span>
+            <span class="sidebar-link-text">Approvals</span>
+          </a>
+          <a href="AdHocExportedFiles.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">outbox</span>
+            <span class="sidebar-link-text">Exported Files</span>
+          </a>
+          <a href="AdHocPaymentTypeLookup.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_search</span>
+            <span class="sidebar-link-text">Payment Reason</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- --- Content --- -->
+      <main class="content-area" id="main-content" tabindex="-1">
+        <div class="content-inner">
+
+          <!-- Breadcrumb -->
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="LandingPage.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <a href="AdHocPayments.html">Ad-hoc Payments</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">Requests</span>
+          </nav>
+
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title">Ad-hoc Payment Requests</h1>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-secondary" id="bulkUploadBtn" aria-label="Bulk upload requests via CSV">
+                <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+                Bulk upload
+              </button>
+              <button class="btn btn-primary" id="newRequestBtn" aria-label="New ad-hoc payment request">
+                <span class="material-symbols-outlined" aria-hidden="true">add</span>
+                New ad-hoc payment
+              </button>
+            </div>
+          </div>
+
+          <!-- Status Summary -->
+          <div class="status-row" role="list" aria-label="Request status summary">
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--grey-200);">
+                <span class="material-symbols-outlined" style="color: var(--grey-700);" aria-hidden="true">edit_note</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">3</span>
+                <span class="status-card-label">Draft</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-warning-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-warning);" aria-hidden="true">pending_actions</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">12</span>
+                <span class="status-card-label">Pending</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-info-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-info);" aria-hidden="true">verified</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">8</span>
+                <span class="status-card-label">Approved</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-success-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-success);" aria-hidden="true">task_alt</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">42</span>
+                <span class="status-card-label">Completed</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-error-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-error);" aria-hidden="true">cancel</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">1</span>
+                <span class="status-card-label">Rejected</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-error-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-error);" aria-hidden="true">error</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">1</span>
+                <span class="status-card-label">Failed</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--grey-200);">
+                <span class="material-symbols-outlined" style="color: var(--grey-700);" aria-hidden="true">block</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">1</span>
+                <span class="status-card-label">Cancelled</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Toolbar + Table -->
+          <div class="card-container">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="search-box">
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                  <input type="search" placeholder="Search by Req. ID, beneficiary or requester…" aria-label="Search requests" />
+                </div>
+                <button class="filter-chip is-active" type="button" aria-pressed="true">All</button>
+                <button class="filter-chip" type="button" aria-pressed="false">Pending</button>
+                <button class="filter-chip" type="button" aria-pressed="false">Approved</button>
+                <button class="filter-chip" type="button" aria-pressed="false">Completed</button>
+                <button class="filter-chip" type="button" aria-pressed="false">
+                  <span class="material-symbols-outlined" aria-hidden="true">tune</span>
+                  More filters
+                </button>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn btn-text-primary" type="button" aria-label="Export to CSV">
+                  <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                  Export
+                </button>
+              </div>
+            </div>
+
+            <div class="table-scroll">
+              <table class="data-table" aria-label="Ad-hoc payment requests">
+                <thead>
+                  <tr>
+                    <th scope="col">Req. ID</th>
+                    <th scope="col">Beneficiary</th>
+                    <th scope="col">Region</th>
+                    <th scope="col" class="num">Total</th>
+                    <th scope="col">Payment for</th>
+                    <th scope="col">Due date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="#" style="font-weight:var(--font-weight-medium);">1241</a></td>
+                    <td>Bramble &amp; Co.</td>
+                    <td><span class="badge badge--draft">UK</span></td>
+                    <td class="num">£ 1,250.00</td>
+                    <td>Refund — overpayment</td>
+                    <td>24/06/2026</td>
+                    <td><span class="badge badge--draft"><span class="material-symbols-outlined" aria-hidden="true">edit</span>Draft</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="Edit request 1241"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>
+                        <!-- <button class="row-action-btn" type="button" aria-label="Submit"><span class="material-symbols-outlined" aria-hidden="true">send</span></button> -->
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">1240</a></td>
+                    <td>Lambeth BC</td>
+                    <td><span class="badge badge--draft">UK</span></td>
+                    <td class="num">£ 4,680.00</td>
+                    <td>Court fee</td>
+                    <td>25/06/2026</td>
+                    <td><span class="badge badge--pending"><span class="material-symbols-outlined" aria-hidden="true">pending_actions</span>Pending</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View request"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">1239</a></td>
+                    <td>NorthBridge Ltd</td>
+                    <td><span class="badge badge--int">International</span></td>
+                    <td class="num">€ 12,400.00</td>
+                    <td>Supplier — services</td>
+                    <td>26/06/2026</td>
+                    <td><span class="badge badge--approved"><span class="material-symbols-outlined" aria-hidden="true">verified</span>Approved</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View request"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">1238</a></td>
+                    <td>R. Patel</td>
+                    <td><span class="badge badge--draft">UK</span></td>
+                    <td class="num">£ 380.00</td>
+                    <td>Goodwill payment</td>
+                    <td>23/06/2026</td>
+                    <td><span class="badge badge--completed"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span>Completed</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View request"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <!-- <button class="row-action-btn" type="button" aria-label="View journal"><span class="material-symbols-outlined" aria-hidden="true">receipt</span></button> -->
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">1237</a></td>
+                    <td>Severn Trent Water</td>
+                    <td><span class="badge badge--draft">UK</span></td>
+                    <td class="num">£ 2,100.00</td>
+                    <td>Utilities — refund</td>
+                    <td>22/06/2026</td>
+                    <td><span class="badge badge--completed"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span>Completed</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View request"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <!-- <button class="row-action-btn" type="button" aria-label="View journal"><span class="material-symbols-outlined" aria-hidden="true">receipt</span></button> -->
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">1236</a></td>
+                    <td>Walden Holdings</td>
+                    <td><span class="badge badge--int">International</span></td>
+                    <td class="num">$ 6,000.00</td>
+                    <td>Vendor — software</td>
+                    <td>21/06/2026</td>
+                    <td><span class="badge badge--failed"><span class="material-symbols-outlined" aria-hidden="true">error</span>Failed</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <!-- <button class="row-action-btn" type="button" aria-label="Retry payment"><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button> -->
+                        <button class="row-action-btn" type="button" aria-label="View failure reason"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">1235</a></td>
+                    <td>Cheshire CC</td>
+                    <td><span class="badge badge--draft">UK</span></td>
+                    <td class="num">£ 875.00</td>
+                    <td>Court fee</td>
+                    <td>20/06/2026</td>
+                    <td><span class="badge badge--rejected"><span class="material-symbols-outlined" aria-hidden="true">cancel</span>Rejected</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="Edit request 1235"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>
+                        <button class="row-action-btn" type="button" aria-label="View rejection reason"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">1234</a></td>
+                    <td>Hartwell Ltd</td>
+                    <td><span class="badge badge--draft">UK</span></td>
+                    <td class="num">£ 540.00</td>
+                    <td>Supplier — services</td>
+                    <td>19/06/2026</td>
+                    <td><span class="badge badge--cancelled"><span class="material-symbols-outlined" aria-hidden="true">block</span>Cancelled</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View request"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-footer">
+              <span>Showing 1–8 of 72 requests</span>
+              <div class="pagination">
+                <button class="pagination-btn" type="button" disabled aria-label="Previous page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                </button>
+                <span>Page 1 of 11</span>
+                <button class="pagination-btn" type="button" aria-label="Next page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ----------------------------------------------------------------
+       Wizard Drawer — New Ad-hoc Payment (BRD phase 3, question-led)
+       ---------------------------------------------------------------- -->
+  <div class="drawer-backdrop" id="drawerBackdrop" data-open="false"></div>
+  <aside
+    class="drawer"
+    id="wizardDrawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="wizardTitle"
+    data-open="false"
+  >
+    <header class="drawer-header">
+      <div class="drawer-header-text">
+        <span class="drawer-subtitle" id="drawerSubtitle">Step 1 of 6 · Beneficiary</span>
+        <h2 class="drawer-title" id="wizardTitle">New ad-hoc payment</h2>
+      </div>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="Close wizard">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+
+    <!-- Stepper -->
+    <nav class="stepper" id="stepper" aria-label="Wizard progress">
+      <span class="stepper-item is-active" data-step="1"><span class="stepper-num"><span class="stepper-num-text">1</span></span> Beneficiary</span>
+      <span class="stepper-bar" aria-hidden="true"></span>
+      <span class="stepper-item" data-step="2"><span class="stepper-num"><span class="stepper-num-text">2</span></span> Bank details</span>
+      <span class="stepper-bar" aria-hidden="true"></span>
+      <span class="stepper-item" data-step="3"><span class="stepper-num"><span class="stepper-num-text">3</span></span> Amount</span>
+      <span class="stepper-bar" aria-hidden="true"></span>
+      <span class="stepper-item" data-step="4"><span class="stepper-num"><span class="stepper-num-text">4</span></span> When</span>
+      <span class="stepper-bar" aria-hidden="true"></span>
+      <span class="stepper-item" data-step="5"><span class="stepper-num"><span class="stepper-num-text">5</span></span> What for</span>
+      <span class="stepper-bar" aria-hidden="true"></span>
+      <span class="stepper-item" data-step="6"><span class="stepper-num"><span class="stepper-num-text">6</span></span> Review</span>
+    </nav>
+
+    <!-- Body -->
+    <div class="drawer-body" id="drawerBody">
+
+      <!-- --- Step 1 · Beneficiary --- -->
+      <section class="step" data-step="1" data-active="true" aria-labelledby="q1">
+        <div class="step-prompt">
+          <h3 class="step-question" id="q1">Who are we paying?</h3>
+          <p class="step-hint">Type the Beneficiary name as it should appear on the bank file. Maximum 15 characters.</p>
+        </div>
+        <div class="field">
+          <label for="beneficiary" class="field-label">Beneficiary name<span class="req" aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            class="input"
+            id="beneficiary"
+            maxlength="15"
+            placeholder="e.g. Bramble &amp; Co."
+            autocomplete="off"
+            aria-describedby="beneficiary-help beneficiary-count"
+            required
+          />
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="field-help" id="beneficiary-help">Allowed: letters, numbers, spaces, basic punctuation.</span>
+            <span class="char-count" id="beneficiary-count" aria-live="polite">0 / 15</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- --- Step 2 · International? + Bank details --- -->
+      <section class="step" data-step="2" aria-labelledby="q2">
+        <div class="step-prompt">
+          <h3 class="step-question" id="q2">Is this an international payment?</h3>
+          <p class="step-hint">Are we paying someone with a non-UK bank account?</p>
+        </div>
+
+        <div class="radio-group" role="radiogroup" aria-labelledby="q2">
+          <label class="radio-card" data-value="domestic">
+            <input type="radio" name="intl" value="domestic" />
+            <span class="radio-dot" aria-hidden="true"></span>
+            <span class="radio-card-body">
+              <span class="radio-card-title">No — UK payment</span>
+              <span class="radio-card-desc">Sort code and account number, paid via Faster Payments, CHAPS or BACS.</span>
+            </span>
+          </label>
+          <label class="radio-card" data-value="international">
+            <input type="radio" name="intl" value="international" />
+            <span class="radio-dot" aria-hidden="true"></span>
+            <span class="radio-card-body">
+              <span class="radio-card-title">Yes — international</span>
+              <span class="radio-card-desc">Includes IBAN / BIC where available. Country rules may extend timing.</span>
+            </span>
+          </label>
+        </div>
+
+        <!-- Domestic fields -->
+        <div class="conditional" id="domesticFields" data-show="false">
+          <p class="field-help">Please complete the sort code and account number of the account we are paying to.</p>
+          <div class="field-row">
+            <div class="field">
+              <label for="sortCode" class="field-label">Sort code<span class="req" aria-hidden="true">*</span></label>
+              <input type="text" class="input" id="sortCode" placeholder="00-00-00" inputmode="numeric" maxlength="8" autocomplete="off" pattern="^[0-9]{2}-?[0-9]{2}-?[0-9]{2}$" aria-describedby="sortCodeHint" />
+              <span class="field-help" id="sortCodeHint">UK sort code — 6 digits (e.g. 30-00-04).</span>
+            </div>
+            <div class="field">
+              <label for="accountNo" class="field-label">Account number<span class="req" aria-hidden="true">*</span></label>
+              <input type="text" class="input" id="accountNo" placeholder="8 digits" inputmode="numeric" maxlength="8" />
+            </div>
+          </div>
+        </div>
+
+        <!-- International fields -->
+        <div class="conditional" id="intlFields" data-show="false">
+          <p class="field-help">Please complete as much of the below as you can.</p>
+          <div class="field-row">
+            <div class="field">
+              <label for="intlSortCode" class="field-label">Sort code</label>
+              <input type="text" class="input" id="intlSortCode" placeholder="National routing code" />
+            </div>
+            <div class="field">
+              <label for="intlAccountNo" class="field-label">Account number</label>
+              <input type="text" class="input" id="intlAccountNo" placeholder="Local account number" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="currency" class="field-label">Currency<span class="req" aria-hidden="true">*</span></label>
+              <select class="select" id="currency">
+                <option value="GBP" selected>GBP — Pound sterling</option>
+                <option value="EUR">EUR — Euro</option>
+                <option value="USD">USD — US Dollar</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="iban" class="field-label">IBAN <span class="field-help">(optional)</span></label>
+              <input type="text" class="input" id="iban" placeholder="e.g. DE89 3704 0044 0532 0130 00" />
+            </div>
+            <div class="field">
+              <label for="bic" class="field-label">BIC <span class="field-help">(optional)</span></label>
+              <input type="text" class="input" id="bic" placeholder="e.g. COBADEFFXXX" />
+            </div>
+          </div>
+          <div class="callout warn" role="note">
+            <span class="callout-icon"><span class="material-symbols-outlined" aria-hidden="true">schedule</span></span>
+            <div class="callout-body">
+              <strong>Same-day delivery is not guaranteed for international payments.</strong>
+              Specific country rules apply. Requests submitted after <strong>14:00</strong> will be paid the next working day.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- --- Step 3 · Amount + VAT --- -->
+      <section class="step" data-step="3" aria-labelledby="q3">
+        <div class="step-prompt">
+          <h3 class="step-question" id="q3">What is the net value to be paid?</h3>
+          <p class="step-hint">Enter the amount before VAT.</p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="netValue" class="field-label">Net value<span class="req" aria-hidden="true">*</span></label>
+            <div class="input-with-prefix">
+              <span class="prefix" id="netPrefix" aria-hidden="true">£</span>
+              <input type="number" id="netValue" min="0" step="0.01" placeholder="0.00" aria-describedby="netPrefix" />
+            </div>
+          </div>
+          <div class="field">
+            <span class="field-label">Is VAT applicable?</span>
+            <div class="toggle-group" role="group" aria-label="VAT applicable">
+              <button type="button" id="vatNo"  aria-pressed="true">No</button>
+              <button type="button" id="vatYes" aria-pressed="false">Yes</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="conditional" id="vatFields" data-show="false">
+          <div class="field">
+            <label for="vatAmount" class="field-label">VAT amount</label>
+            <div class="input-with-prefix">
+              <span class="prefix" aria-hidden="true">£</span>
+              <input type="number" id="vatAmount" min="0" step="0.01" placeholder="0.00" />
+            </div>
+            <span class="field-help">Enter the VAT amount to include in the total.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Total to be paid</span>
+          <div class="input-with-prefix">
+            <span class="prefix" aria-hidden="true">£</span>
+            <input type="text" id="totalValue" readonly value="0.00" aria-live="polite" />
+          </div>
+          <span class="field-help">Auto-calculated from Net + VAT.</span>
+        </div>
+      </section>
+
+      <!-- --- Step 4 · When is payment due --- -->
+      <section class="step" data-step="4" aria-labelledby="q4">
+        <div class="step-prompt">
+          <h3 class="step-question" id="q4">When is the payment due?</h3>
+          <p class="step-hint">Choose the date the payment is due. We’ll suggest when it will reach the recipient.</p>
+        </div>
+
+        <!-- Payment method is backend-controlled; kept hidden for reach-date calculations -->
+        <select id="payMethod" hidden aria-hidden="true" tabindex="-1">
+          <option value="FP" selected>Faster Payments (FP)</option>
+          <option value="CHAPS">CHAPS</option>
+          <option value="BACS">BACS</option>
+        </select>
+
+        <div class="field">
+          <label for="dueDate" class="field-label">Payment due date<span class="req" aria-hidden="true">*</span></label>
+          <div class="date-field" id="dueDateField">
+            <input type="text" class="input" id="dueDate" readonly placeholder="Select date" aria-describedby="dueDateHint" aria-haspopup="dialog" aria-expanded="false" autocomplete="off" />
+            <button type="button" class="date-toggle" id="dueDateToggle" aria-label="Open calendar" aria-controls="dueDatePopover">
+              <span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>
+            </button>
+            <div class="datepicker" id="dueDatePopover" role="dialog" aria-label="Choose a payment due date" hidden></div>
+          </div>
+          <span class="field-help" id="dueDateHint">Weekends and UK bank holidays are not selectable.</span>
+        </div>
+
+        <div class="field">
+          <label for="reachDate" class="field-label">Will reach recipient on</label>
+          <div class="input-with-prefix">
+            <span class="prefix" aria-hidden="true"><span class="material-symbols-outlined" style="font-size:18px;">event_available</span></span>
+            <input type="date" class="input" id="reachDate" aria-live="polite" readonly aria-readonly="true" tabindex="-1" style="pointer-events:none;background:var(--color-disabled-bg,#F5F5F5);color:var(--text-secondary);" onkeydown="return false" />
+          </div>
+          <span class="field-help">Auto-populated from payment method and the 14:00 cut-off &mdash; not editable.</span>
+        </div>
+
+        <div class="callout" role="note">
+          <span class="callout-icon"><span class="material-symbols-outlined" aria-hidden="true">info</span></span>
+          <div class="callout-body">
+            <strong>Payment Date Information</strong>
+            <ul>
+              <li>FP / CHAPS submitted <strong>before 14:00</strong> — reaches recipient <strong>same day</strong>.</li>
+              <li>FP / CHAPS submitted <strong>after 14:00</strong> — reaches recipient <strong>next working day</strong>.</li>
+              <li>BACS submitted <strong>before 14:00</strong> — reaches recipient in <strong>3 working days</strong>.</li>
+              <li>BACS submitted <strong>after 14:00</strong> — reaches recipient in <strong>4 working days</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- --- Step 5 · Payment reason + Ledger --- -->
+      <section class="step" data-step="5" aria-labelledby="q5">
+        <div class="step-prompt">
+          <h3 class="step-question" id="q5">What is the payment for?</h3>
+          <p class="step-hint">Select a reason. The ledger fields below will auto-populate where possible.</p>
+        </div>
+
+        <div class="field">
+          <label for="paymentReason" class="field-label">Payment reason<span class="req" aria-hidden="true">*</span></label>
+          <select class="select" id="paymentReason">
+            <option value="">Choose a reason…</option>
+            <option value="refund">Refund — overpayment</option>
+            <option value="goodwill">Goodwill payment</option>
+            <option value="supplier">Supplier — services</option>
+            <option value="vendor">Vendor — software</option>
+            <option value="court">Court fee</option>
+            <option value="utilities">Utilities — refund</option>
+            <option value="other">Other (specify below)</option>
+          </select>
+          <span class="field-help" hidden>Managed in <a href="AdHocPaymentTypeLookup.html">Payment Reason</a> by Treasury.</span>
+        </div>
+
+        <h4 style="font-size:var(--font-size-h3); font-weight:var(--font-weight-semibold); margin-top: var(--space-3);">Paying from</h4>
+        <div class="field-row">
+          <div class="field">
+            <label for="payFromAccount" class="field-label">Bank account</label>
+            <input type="text" class="input" id="payFromAccount" readonly value="12345678 — Acme Treasury" />
+          </div>
+          <div class="field">
+            <label for="payFromSortCode" class="field-label">Sort code</label>
+            <input type="text" class="input" id="payFromSortCode" readonly value="30-00-04" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="payFromEntity" class="field-label">Legal entity</label>
+          <input type="text" class="input" id="payFromEntity" readonly value="Acme Holdings Ltd" />
+        </div>
+
+        <h4 style="font-size:var(--font-size-h3); font-weight:var(--font-weight-semibold); margin-top: var(--space-3);">Ledger to debit</h4>
+        <div class="field-row">
+          <div class="field">
+            <label for="ledgerType" class="field-label">Ledger account type<span class="req" aria-hidden="true">*</span></label>
+            <select class="select" id="ledgerType">
+              <option value="">Select…</option>
+              <option value="customer">Customer</option>
+              <option value="ledger">Ledger</option>
+              <option value="supplier">Supplier</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ledgerNumber" class="field-label">Ledger account number<span class="req" aria-hidden="true">*</span></label>
+            <input type="text" class="input" id="ledgerNumber" placeholder="e.g. 60914868" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="costCentre" class="field-label">Cost centre<span class="req" aria-hidden="true">*</span></label>
+            <input type="text" class="input" id="costCentre" placeholder="e.g. CC-1010 · Treasury" autocomplete="off" />
+          </div>
+          <div class="field" aria-hidden="true"></div>
+        </div>
+        <div class="field">
+          <label for="caseRef" class="field-label">Description</label>
+          <input type="text" class="input" id="caseRef" placeholder="Auto-filled from ledger · e.g. C000048MMGH" />
+        </div>
+
+        <div class="field">
+          <label for="comments" class="field-label">Additional comments</label>
+          <textarea class="textarea" id="comments" placeholder="Optional notes for approver and Treasury"></textarea>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Supporting documentation</span>
+          <span class="field-help" title="Please upload your line manager's approval (attach email).">
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px; vertical-align:middle;">info</span>
+            Please upload your line manager’s approval (attach email).
+          </span>
+          <label class="dropzone" id="dropzone" for="fileInput">
+            <span class="material-symbols-outlined" aria-hidden="true">cloud_upload</span>
+            <strong>Drop file or click to upload</strong>
+            <div style="font-size:var(--font-size-caption); margin-top:var(--space-2);">PDF, PNG, JPG, MSG · up to 10 MB · max 10 files</div>
+            <input type="file" id="fileInput" multiple accept=".pdf,.png,.jpg,.jpeg,.msg,.eml" hidden />
+          </label>
+          <div class="file-list" id="fileList" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- --- Step 6 · Review --- -->
+      <section class="step" data-step="6" aria-labelledby="q6">
+        <div class="step-prompt">
+          <h3 class="step-question" id="q6">Review and submit</h3>
+          <p class="step-hint">Please check all details before submitting. The request will go to your approver.</p>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="summary-card-title">
+              Beneficiary &amp; bank
+              <button class="summary-edit" type="button" data-jump="1">Edit</button>
+            </div>
+            <div class="summary-rows" id="sumBeneficiary">
+              <div class="summary-row"><span class="summary-row-label">Beneficiary</span><span class="summary-row-value" data-bind="beneficiary">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Type</span><span class="summary-row-value" data-bind="intl">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Account</span><span class="summary-row-value" data-bind="account">—</span></div>
+              <div class="summary-row" id="sumCurrencyRow"><span class="summary-row-label">Currency</span><span class="summary-row-value" data-bind="ccy">—</span></div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-card-title">
+              Amount
+              <button class="summary-edit" type="button" data-jump="3">Edit</button>
+            </div>
+            <div class="summary-rows">
+              <div class="summary-row"><span class="summary-row-label">Net</span><span class="summary-row-value" data-bind="net">£ 0.00</span></div>
+              <div class="summary-row"><span class="summary-row-label">VAT</span><span class="summary-row-value" data-bind="vat">£ 0.00</span></div>
+              <div class="summary-row"><span class="summary-row-label">Total</span><span class="summary-row-value" data-bind="total">£ 0.00</span></div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-card-title">
+              Timing
+              <button class="summary-edit" type="button" data-jump="4">Edit</button>
+            </div>
+            <div class="summary-rows">
+              <div class="summary-row" hidden><span class="summary-row-label">Method</span><span class="summary-row-value" data-bind="method">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Payment due</span><span class="summary-row-value" data-bind="submission">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Reaches recipient</span><span class="summary-row-value" data-bind="reach">—</span></div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-card-title">
+              Payment reason &amp; ledger
+              <button class="summary-edit" type="button" data-jump="5">Edit</button>
+            </div>
+            <div class="summary-rows">
+              <div class="summary-row"><span class="summary-row-label">Reason</span><span class="summary-row-value" data-bind="reason">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Ledger</span><span class="summary-row-value" data-bind="ledger">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Cost centre</span><span class="summary-row-value" data-bind="costcentre">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Description</span><span class="summary-row-value" data-bind="caseref">—</span></div>
+              <div class="summary-row"><span class="summary-row-label">Attachments</span><span class="summary-row-value" data-bind="files">None</span></div>
+            </div>
+          </div>
+        </div>
+
+        <label class="summary-confirm">
+          <input type="checkbox" id="confirmCheckbox" />
+          <span>I confirm the above details are correct and authorise submission for approval.</span>
+        </label>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="drawer-footer">
+      <div class="drawer-footer-left">
+        <button class="btn btn-ghost" id="saveDraftBtn" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">save</span>
+          Save as draft
+        </button>
+      </div>
+      <div class="drawer-footer-right">
+        <button class="btn btn-ghost" id="backBtn" type="button" disabled>
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+          Back
+        </button>
+        <button class="btn btn-primary" id="nextBtn" type="button">
+          Next
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        </button>
+        <button class="btn btn-primary" id="submitBtn" type="button" style="display:none;" disabled>
+          <span class="material-symbols-outlined" aria-hidden="true">send</span>
+          Submit
+        </button>
+      </div>
+    </footer>
+  </aside>
+
+  <!-- -------------------------------------------------------------
+       View Pane — Read-only request details (right drawer)
+       ------------------------------------------------------------- -->
+  <div class="view-backdrop" id="viewBackdrop" data-open="false"></div>
+  <aside
+    class="view-drawer"
+    id="viewDrawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="viewTitle"
+    data-open="false"
+  >
+    <header class="view-header">
+      <div class="view-header-text">
+        <span class="view-subtitle" id="viewSubtitle">—</span>
+        <h2 class="view-title" id="viewTitle">—</h2>
+        <span id="viewStatusBadge"></span>
+      </div>
+      <button class="drawer-close" id="viewClose" type="button" aria-label="Close details">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+
+    <nav class="view-tabs" role="tablist" aria-label="Request sections">
+      <button class="view-tab is-active" role="tab" aria-selected="true" type="button" data-tab="details" id="tab-details">Details</button>
+      <button class="view-tab" role="tab" aria-selected="false" type="button" data-tab="activity" id="tab-activity">Audit Trail <span class="tab-count" id="activityCount">0</span></button>
+      <button class="view-tab" role="tab" aria-selected="false" type="button" data-tab="files" id="tab-files">Files <span class="tab-count" id="filesCount">0</span></button>
+    </nav>
+
+    <div class="view-body">
+
+      <!-- --- Details panel --- -->
+      <div class="view-panel is-active" data-panel="details" role="tabpanel" aria-labelledby="tab-details">
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">person</span> Beneficiary &amp; bank</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Beneficiary</span><span class="view-cell-value" id="vw-beneficiary">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Type</span><span class="view-cell-value" id="vw-intl">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Sort code / IBAN</span><span class="view-cell-value" id="vw-account">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Account number / BIC</span><span class="view-cell-value" id="vw-accountNum">—</span></div>
+            <div class="view-cell" id="vw-currency-cell"><span class="view-cell-label">Currency</span><span class="view-cell-value" id="vw-ccy">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">payments</span> Amount</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Net</span><span class="view-cell-value num" id="vw-net">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">VAT</span><span class="view-cell-value num" id="vw-vat">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Total to be paid</span><span class="view-cell-value num big" id="vw-total">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">event</span> Timing</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Method</span><span class="view-cell-value" id="vw-method">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Submission</span><span class="view-cell-value" id="vw-submission">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Reaches recipient on</span><span class="view-cell-value" id="vw-reach">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">balance</span> Payment reason &amp; ledger</h3>
+          <div class="view-grid">
+            <div class="view-cell full"><span class="view-cell-label">Payment reason</span><span class="view-cell-value" id="vw-reason">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Ledger account</span><span class="view-cell-value" id="vw-ledger">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Cost centre</span><span class="view-cell-value" id="vw-costcentre">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Description</span><span class="view-cell-value" id="vw-caseref">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Comments</span><span class="view-cell-value" id="vw-comments">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section" hidden>
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">person_check</span> Requester</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Raised by</span><span class="view-cell-value" id="vw-requester">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Raised on</span><span class="view-cell-value" id="vw-raised">—</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- --- Activity panel --- -->
+      <div class="view-panel" data-panel="activity" role="tabpanel" aria-labelledby="tab-activity" hidden>
+        <ol class="timeline" id="vw-timeline"></ol>
+      </div>
+
+      <!-- --- Files panel --- -->
+      <div class="view-panel" data-panel="files" role="tabpanel" aria-labelledby="tab-files" hidden>
+        <div class="file-list" id="vw-files"></div>
+      </div>
+    </div>
+
+    <footer class="view-footer" id="viewFooter"></footer>
+  </aside>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <!-- File preview modal -->
+  <div class="file-preview-overlay" id="filePreviewOverlay" hidden></div>
+  <div class="file-preview-modal" id="filePreviewModal" role="dialog" aria-modal="true" aria-labelledby="filePreviewTitle" hidden>
+    <header class="fpm-header">
+      <h3 class="fpm-title" id="filePreviewTitle">Preview</h3>
+      <button class="drawer-close" type="button" id="filePreviewClose" aria-label="Close preview">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+    <div class="fpm-body" id="filePreviewBody"></div>
+  </div>
+
+  <script>
+    /* -- Sidebar toggle -- */
+    (function () {
+      const sidebar = document.getElementById('sidebar');
+      const toggle  = document.getElementById('sidebarToggle');
+      toggle.addEventListener('click', () => {
+        const expanded = sidebar.classList.toggle('is-expanded');
+        toggle.setAttribute('aria-expanded', String(expanded));
+      });
+    })();
+
+    /* -- Wizard -- */
+    (function () {
+      const drawer    = document.getElementById('wizardDrawer');
+      const backdrop  = document.getElementById('drawerBackdrop');
+      const openBtn   = document.getElementById('newRequestBtn');
+      const closeBtn  = document.getElementById('drawerClose');
+      const backBtn   = document.getElementById('backBtn');
+      const nextBtn   = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      const saveBtn   = document.getElementById('saveDraftBtn');
+      const subtitle  = document.getElementById('drawerSubtitle');
+      const stepperItems = Array.from(document.querySelectorAll('.stepper-item'));
+      const stepperBars  = Array.from(document.querySelectorAll('.stepper-bar'));
+      const steps  = Array.from(document.querySelectorAll('.step'));
+      const TOTAL = steps.length;
+      const titles = ['Beneficiary','Bank details','Amount','When','What for','Review'];
+      let current = 1;
+      let lastFocus = null;
+      let editingRef = null;
+      const SUBMIT_LABEL_NEW  = '<span class="material-symbols-outlined" aria-hidden="true">send</span>Submit';
+      const SUBMIT_LABEL_EDIT = '<span class="material-symbols-outlined" aria-hidden="true">send</span>Submit';
+
+      function open() {
+        lastFocus = document.activeElement;
+        backdrop.dataset.open = 'true';
+        drawer.dataset.open = 'true';
+        document.body.style.overflow = 'hidden';
+        go(1);
+        setTimeout(() => document.getElementById('beneficiary')?.focus(), 250);
+      }
+      function close() {
+        backdrop.dataset.open = 'false';
+        drawer.dataset.open = 'false';
+        document.body.style.overflow = '';
+        if (lastFocus) lastFocus.focus();
+        /* Reset edit-mode UI so a subsequent “New request” is clean */
+        editingRef = null;
+        const titleEl = document.getElementById('wizardTitle');
+        if (titleEl) titleEl.textContent = 'New ad-hoc payment';
+        submitBtn.innerHTML = SUBMIT_LABEL_NEW;
+        /* Remove any rejection banner, edit-mode tabs and activity panel */
+        const body = drawer.querySelector('.drawer-body');
+        if (body) {
+          body.querySelectorAll('.reject-banner, .wizard-activity-panel').forEach(n => n.remove());
+          body.querySelectorAll('.step').forEach(s => s.style.display = '');
+        }
+        const wTabs = drawer.querySelector('.wizard-tabs');
+        if (wTabs) wTabs.remove();
+        const stepperEl = drawer.querySelector('.stepper');
+        if (stepperEl) stepperEl.style.display = '';
+      }
+      function go(n) {
+        current = Math.max(1, Math.min(TOTAL, n));
+        steps.forEach(s => s.dataset.active = (Number(s.dataset.step) === current) ? 'true' : 'false');
+        stepperItems.forEach((it, idx) => {
+          const stepN = idx + 1;
+          it.classList.toggle('is-active', stepN === current);
+          it.classList.toggle('is-done',   stepN <  current);
+        });
+        stepperBars.forEach((bar, idx) => bar.classList.toggle('is-done', idx + 1 < current));
+        subtitle.textContent = 'Step ' + current + ' of ' + TOTAL + ' · ' + titles[current - 1];
+        backBtn.disabled = (current === 1);
+        if (current === TOTAL) {
+          nextBtn.style.display = 'none';
+          submitBtn.style.display = 'inline-flex';
+          buildSummary();
+        } else {
+          nextBtn.style.display = 'inline-flex';
+          submitBtn.style.display = 'none';
+        }
+        drawer.querySelector('.drawer-body').scrollTop = 0;
+      }
+
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      backdrop.addEventListener('click', close);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.dataset.open === 'true') close(); });
+      backBtn.addEventListener('click', () => go(current - 1));
+      nextBtn.addEventListener('click', () => {
+        if (!validateStep(current)) return;
+        go(current + 1);
+      });
+      submitBtn.addEventListener('click', () => {
+        showToast(editingRef ? (editingRef + ' updated and submitted for approval') : 'Request submitted for approval');
+        close();
+      });
+      saveBtn.addEventListener('click', () => showToast('Draft saved'));
+
+      /* Summary edit jumps */
+      document.querySelectorAll('.summary-edit').forEach(b =>
+        b.addEventListener('click', () => go(Number(b.dataset.jump)))
+      );
+
+      /* -- Step 1 — beneficiary char count -- */
+      const benef = document.getElementById('beneficiary');
+      const count = document.getElementById('beneficiary-count');
+      benef.addEventListener('input', () => count.textContent = benef.value.length + ' / 15');
+
+      /* -- Step 2 — radio + conditionals -- */
+      const radios = document.querySelectorAll('.radio-card');
+      const domesticFields = document.getElementById('domesticFields');
+      const intlFields     = document.getElementById('intlFields');
+      const sumCurrencyRow = document.getElementById('sumCurrencyRow');
+      let intlChoice = null;
+      function selectedCurrency() {
+        return intlChoice === 'international' ? document.getElementById('currency').value : 'GBP';
+      }
+      function syncCurrencyUi() {
+        const isInternational = intlChoice === 'international';
+        netPrefix.textContent = ccyPrefix(selectedCurrency());
+        if (sumCurrencyRow) sumCurrencyRow.hidden = !isInternational;
+      }
+      radios.forEach(r => {
+        r.addEventListener('click', () => {
+          radios.forEach(o => o.classList.remove('is-selected'));
+          r.classList.add('is-selected');
+          r.querySelector('input').checked = true;
+          intlChoice = r.dataset.value;
+          domesticFields.dataset.show = String(intlChoice === 'domestic');
+          intlFields.dataset.show     = String(intlChoice === 'international');
+          syncCurrencyUi();
+        });
+      });
+
+      /* -- Step 3 — VAT toggle + auto total -- */
+      const vatYes = document.getElementById('vatYes');
+      const vatNo  = document.getElementById('vatNo');
+      const vatFields = document.getElementById('vatFields');
+      const netInput = document.getElementById('netValue');
+      const vatInput = document.getElementById('vatAmount');
+      const totalOut = document.getElementById('totalValue');
+      const netPrefix = document.getElementById('netPrefix');
+
+      function setVat(applies) {
+        vatYes.setAttribute('aria-pressed', String(applies));
+        vatNo .setAttribute('aria-pressed', String(!applies));
+        vatFields.dataset.show = String(applies);
+        if (!applies) vatInput.value = '';
+        recalcTotal();
+      }
+      vatYes.addEventListener('click', () => setVat(true));
+      vatNo .addEventListener('click', () => setVat(false));
+      function recalcTotal() {
+        const net = parseFloat(netInput.value) || 0;
+        const vat = parseFloat(vatInput.value) || 0;
+        totalOut.value = (net + vat).toFixed(2);
+      }
+      netInput.addEventListener('input', recalcTotal);
+      vatInput.addEventListener('input', recalcTotal);
+
+      /* Sync currency prefix on net field */
+      function ccyPrefix(code) {
+        return ({ GBP:'£', EUR:'€', USD:'$' }[code]) || code || '£';
+      }
+      document.getElementById('currency').addEventListener('change', () => syncCurrencyUi());
+
+      /* -- Step 4 — auto reach-date -- */
+      const payMethod  = document.getElementById('payMethod');
+      const dueDate    = document.getElementById('dueDate');
+      const reachOut   = document.getElementById('reachDate');
+
+      /* UK bank holidays (England & Wales). Source: https://www.gov.uk/bank-holidays
+         (JSON feed: https://www.gov.uk/bank-holidays.json). Update annually. */
+      const UK_BANK_HOLIDAYS = new Set([
+        /* 2026 */
+        '2026-01-01','2026-04-03','2026-04-06','2026-05-04','2026-05-25',
+        '2026-08-31','2026-12-25','2026-12-28',
+        /* 2027 */
+        '2027-01-01','2027-03-26','2027-03-29','2027-05-03','2027-05-31',
+        '2027-08-30','2027-12-27','2027-12-28'
+      ]);
+      function isWeekend(d)     { const w = d.getDay(); return w === 0 || w === 6; }
+      function isBankHoliday(d) { return UK_BANK_HOLIDAYS.has(fmt(d)); }
+      function isWorkingDay(d)  { return !isWeekend(d) && !isBankHoliday(d); }
+      function nextWorkingDay(d) {
+        const n = new Date(d.getTime());
+        while (!isWorkingDay(n)) n.setDate(n.getDate() + 1);
+        return n;
+      }
+
+      function addWorkingDays(date, n) {
+        const d = new Date(date.getTime());
+        let added = 0;
+        while (added < n) {
+          d.setDate(d.getDate() + 1);
+          if (isWorkingDay(d)) added++;
+        }
+        return d;
+      }
+      function fmt(d) {
+        const dd = String(d.getDate()).padStart(2,'0');
+        const mm = String(d.getMonth()+1).padStart(2,'0');
+        const yy = d.getFullYear();
+        return yy + '-' + mm + '-' + dd;
+      }
+      /* Submission time is taken from the system clock — recorded backend at submit. */
+      function currentSystemTime() {
+        const n = new Date();
+        return { hh: n.getHours(), mn: n.getMinutes() };
+      }
+      function fmtHm(t) {
+        return String(t.hh).padStart(2,'0') + ':' + String(t.mn).padStart(2,'0');
+      }
+      function recalcReach() {
+        if (!dueDate.value) { reachOut.value = ''; return; }
+        const [y,m,d] = dueDate.value.split('-').map(Number);
+        const base = new Date(y, m-1, d);
+        const { hh, mn } = currentSystemTime();
+        const beforeCutoff = (hh < 14) || (hh === 14 && mn === 0);
+        const method = payMethod.value;
+        let result;
+        if (method === 'FP' || method === 'CHAPS') {
+          result = beforeCutoff ? base : addWorkingDays(base, 1);
+        } else { // BACS
+          result = addWorkingDays(base, beforeCutoff ? 3 : 4);
+        }
+        reachOut.value = fmt(result);
+      }
+      [payMethod, dueDate].forEach(el => el.addEventListener('change', recalcReach));
+
+      /* Default date today (or tomorrow if past the 13:55 same-day cut-off).
+         Also enforces a min date on the picker so past dates cannot be chosen. */
+      function isPastTodayCutoff() {
+        const n = new Date();
+        return (n.getHours() * 60 + n.getMinutes()) > (13 * 60 + 55);
+      }
+      function defaultDueDate() {
+        const t = new Date();
+        const base = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+        if (isPastTodayCutoff()) base.setDate(base.getDate() + 1);
+        return nextWorkingDay(base);
+      }
+
+      /* -- Custom date picker (weekends + UK bank holidays disabled) -- */
+      const dueDateField    = document.getElementById('dueDateField');
+      const dueDateToggle   = document.getElementById('dueDateToggle');
+      const dueDatePopover  = document.getElementById('dueDatePopover');
+      const DP_MIN_DATE     = defaultDueDate();
+      const DP_MIN_ISO      = fmt(DP_MIN_DATE);
+      let dpViewYear  = DP_MIN_DATE.getFullYear();
+      let dpViewMonth = DP_MIN_DATE.getMonth();
+
+      const DP_MONTHS = ['January','February','March','April','May','June',
+                         'July','August','September','October','November','December'];
+      const DP_DOW    = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+      function dpSameYm(y, m) {
+        const today = new Date();
+        return y < today.getFullYear() || (y === today.getFullYear() && m <= today.getMonth());
+      }
+      function dpAtMinMonth() {
+        return dpViewYear === DP_MIN_DATE.getFullYear() && dpViewMonth === DP_MIN_DATE.getMonth();
+      }
+
+      function renderDatepicker() {
+        const selectedIso = dueDate.value || '';
+        const todayIso    = fmt(new Date());
+        const first       = new Date(dpViewYear, dpViewMonth, 1);
+        /* Monday-first offset (getDay: 0=Sun..6=Sat) */
+        const leading     = (first.getDay() + 6) % 7;
+        const daysInMonth = new Date(dpViewYear, dpViewMonth + 1, 0).getDate();
+        const cells = [];
+
+        /* leading blanks from previous month */
+        for (let i = 0; i < leading; i++) cells.push('<span class="dp-cell is-other" aria-hidden="true"></span>');
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const d       = new Date(dpViewYear, dpViewMonth, day);
+          const iso     = fmt(d);
+          const weekend = isWeekend(d);
+          const holiday = isBankHoliday(d);
+          const beforeMin = iso < DP_MIN_ISO;
+          const disabled  = weekend || holiday || beforeMin;
+          const classes   = ['dp-cell'];
+          if (weekend)         classes.push('is-weekend');
+          if (holiday)         classes.push('is-holiday');
+          if (iso === todayIso)   classes.push('is-today');
+          if (iso === selectedIso) classes.push('is-selected');
+          const title = holiday ? 'UK bank holiday' : (weekend ? 'Weekend' : (beforeMin ? 'Before earliest allowed date' : ''));
+          cells.push(
+            '<button type="button" class="' + classes.join(' ') + '" data-iso="' + iso + '"' +
+            (disabled ? ' disabled aria-disabled="true"' : '') +
+            (title ? ' title="' + title + '"' : '') +
+            (iso === selectedIso ? ' aria-current="date"' : '') +
+            '>' + day + '</button>'
+          );
+        }
+
+        const prevDisabled = dpAtMinMonth();
+        dueDatePopover.innerHTML =
+          '<div class="dp-head">' +
+            '<button type="button" class="dp-nav" data-nav="prev"' + (prevDisabled ? ' disabled' : '') + ' aria-label="Previous month">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>' +
+            '<span class="dp-title" aria-live="polite">' + DP_MONTHS[dpViewMonth] + ' ' + dpViewYear + '</span>' +
+            '<button type="button" class="dp-nav" data-nav="next" aria-label="Next month">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>' +
+          '</div>' +
+          '<div class="dp-grid" role="grid">' +
+            DP_DOW.map(d => '<span class="dp-dow" role="columnheader">' + d + '</span>').join('') +
+            cells.join('') +
+          '</div>' +
+          '<div class="dp-legend" aria-hidden="true">' +
+            '<span><i class="sw-weekend"></i> Weekend</span>' +
+            '<span><i class="sw-holiday"></i> Bank holiday</span>' +
+          '</div>';
+      }
+
+      function openDatepicker() {
+        if (dueDate.value) {
+          const [y, m] = dueDate.value.split('-').map(Number);
+          dpViewYear = y; dpViewMonth = m - 1;
+        }
+        renderDatepicker();
+        dueDatePopover.hidden = false;
+        dueDate.setAttribute('aria-expanded', 'true');
+      }
+      function closeDatepicker() {
+        dueDatePopover.hidden = true;
+        dueDate.setAttribute('aria-expanded', 'false');
+      }
+      function toggleDatepicker() {
+        if (dueDatePopover.hidden) openDatepicker(); else closeDatepicker();
+      }
+
+      dueDate.addEventListener('click', openDatepicker);
+      dueDate.addEventListener('focus', openDatepicker);
+      dueDate.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); openDatepicker(); }
+        if (e.key === 'Escape') closeDatepicker();
+      });
+      dueDateToggle.addEventListener('click', function (e) { e.stopPropagation(); toggleDatepicker(); });
+
+      dueDatePopover.addEventListener('click', function (e) {
+        const nav = e.target.closest('[data-nav]');
+        if (nav) {
+          if (nav.disabled) return;
+          const step = nav.dataset.nav === 'prev' ? -1 : 1;
+          dpViewMonth += step;
+          if (dpViewMonth < 0)  { dpViewMonth = 11; dpViewYear--; }
+          if (dpViewMonth > 11) { dpViewMonth = 0;  dpViewYear++; }
+          renderDatepicker();
+          return;
+        }
+        const cell = e.target.closest('.dp-cell[data-iso]');
+        if (!cell || cell.disabled) return;
+        dueDate.value = cell.dataset.iso;
+        closeDatepicker();
+        dueDate.dispatchEvent(new Event('change'));
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!dueDatePopover.hidden && !dueDateField.contains(e.target)) closeDatepicker();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !dueDatePopover.hidden) closeDatepicker();
+      });
+
+      (function () {
+        const iso = DP_MIN_ISO;
+        dueDate.value = iso;
+        recalcReach();
+      })();
+
+      /* -- Step 5 — file upload UI -- */
+      const fileInput = document.getElementById('fileInput');
+      const fileList  = document.getElementById('fileList');
+      const dropzone  = document.getElementById('dropzone');
+      const files = [];
+      const MAX_FILES = 10;
+
+      function addFiles(incoming) {
+        const remaining = MAX_FILES - files.length;
+        if (remaining <= 0) {
+          showToast('You can attach a maximum of ' + MAX_FILES + ' documents.', true);
+          return;
+        }
+        const list = Array.from(incoming || []);
+        const accepted = list.slice(0, remaining);
+        accepted.forEach(f => files.push(f));
+        if (list.length > accepted.length) {
+          showToast('Only the first ' + accepted.length + ' file(s) were added. Maximum ' + MAX_FILES + ' documents.', true);
+        }
+        refreshFiles();
+      }
+      function updateDropzoneState() {
+        const full = files.length >= MAX_FILES;
+        dropzone.classList.toggle('is-disabled', full);
+        fileInput.disabled = full;
+        dropzone.setAttribute('aria-disabled', full ? 'true' : 'false');
+        dropzone.title = full ? 'Maximum ' + MAX_FILES + ' documents reached' : '';
+      }
+      function refreshFiles() {
+        fileList.innerHTML = '';
+        files.forEach((f, idx) => {
+          const item = document.createElement('div');
+          item.className = 'file-item';
+          item.innerHTML =
+            '<span class="material-symbols-outlined" aria-hidden="true">description</span>' +
+            '<span class="file-name">' + escapeHtml(f.name) + '</span>' +
+            '<span class="file-size">' + (f.size / 1024).toFixed(0) + ' KB</span>' +
+            '<button class="row-action-btn" type="button" aria-label="View ' + escapeHtml(f.name) + '" data-view="' + idx + '">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>' +
+            '<button class="row-action-btn" type="button" aria-label="Remove ' + escapeHtml(f.name) + '" data-remove="' + idx + '">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">close</span></button>';
+          fileList.appendChild(item);
+        });
+        fileList.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => {
+          const f = files[Number(b.dataset.view)];
+          if (f && window.openFilePreview) window.openFilePreview(f);
+        }));
+        fileList.querySelectorAll('[data-remove]').forEach(b => b.addEventListener('click', () => {
+          files.splice(Number(b.dataset.remove), 1);
+          refreshFiles();
+        }));
+        updateDropzoneState();
+      }
+      fileInput.addEventListener('change', e => {
+        addFiles(e.target.files);
+        fileInput.value = '';
+      });
+      ['dragenter','dragover'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault();
+        if (files.length < MAX_FILES) dropzone.classList.add('is-drag');
+      }));
+      ['dragleave','drop'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove('is-drag'); }));
+      dropzone.addEventListener('drop', e => {
+        addFiles(e.dataTransfer.files);
+      });
+      updateDropzoneState();
+
+      /* -- Confirm checkbox enables submit -- */
+      document.getElementById('confirmCheckbox').addEventListener('change', e => submitBtn.disabled = !e.target.checked);
+
+      /* -- Payment reason ? auto-populate ledger + cost centre --
+         Keep this map in sync with PAYMENT_TYPES seed data in AdHocPaymentTypeLookup.html. */
+      const LEDGER_DEFAULTS = {
+        refund:    { ledgerType: 'customer', ledgerNumber: '60914868', costCentre: 'CC-1010 · Treasury' },
+        goodwill:  { ledgerType: 'customer', ledgerNumber: '60914001', costCentre: 'CC-1020 · Customer Service' },
+        supplier:  { ledgerType: 'supplier', ledgerNumber: '70200455', costCentre: 'CC-2020 · Operations' },
+        vendor:    { ledgerType: 'supplier', ledgerNumber: '70200712', costCentre: 'CC-2050 · IT' },
+        court:     { ledgerType: 'ledger',   ledgerNumber: '80510033', costCentre: 'CC-3030 · Legal' },
+        utilities: { ledgerType: 'customer', ledgerNumber: '60914512', costCentre: 'CC-1030 · Facilities' },
+        other:     { ledgerType: '',         ledgerNumber: '',         costCentre: '' }
+      };
+      (function () {
+        const reasonSel = document.getElementById('paymentReason');
+        const ltSel = document.getElementById('ledgerType');
+        const lnInp = document.getElementById('ledgerNumber');
+        const ccInp = document.getElementById('costCentre');
+        if (!reasonSel || !ltSel || !lnInp || !ccInp) return;
+        reasonSel.addEventListener('change', function () {
+          const preset = LEDGER_DEFAULTS[reasonSel.value];
+          if (!preset) return;
+          ltSel.value = preset.ledgerType;
+          lnInp.value = preset.ledgerNumber;
+          ccInp.value = preset.costCentre;
+          [ltSel, lnInp, ccInp].forEach(function (el) {
+            el.classList.remove('is-invalid');
+            el.removeAttribute('aria-invalid');
+          });
+        });
+      })();
+
+      /* -- Sort code: UK format (6 digits, auto-hyphenate) -- */
+      (function() {
+        const sc = document.getElementById('sortCode');
+        if (!sc) return;
+        sc.addEventListener('input', () => {
+          const digits = sc.value.replace(/\D/g, '').slice(0, 6);
+          const formatted = digits.replace(/(\d{2})(?=\d)/g, '$1-');
+          if (formatted !== sc.value) sc.value = formatted;
+        });
+      })();
+
+      /* -- Validation per step -- */
+      function validateStep(n) {
+        clearErrors();
+        if (n === 1) {
+          if (!benef.value.trim()) return fail(benef, 'Please enter the beneficiary name.');
+          if (benef.value.length > 15) return fail(benef, 'Maximum 15 characters.');
+        }
+        if (n === 2) {
+          if (!intlChoice) {
+            showToast('Please choose domestic or international', true);
+            return false;
+          }
+          if (intlChoice === 'domestic') {
+            const sc = document.getElementById('sortCode');
+            const ac = document.getElementById('accountNo');
+            if (!sc.value.trim()) return fail(sc, 'Sort code required.');
+            const scDigits = sc.value.replace(/\D/g, '');
+            if (scDigits.length !== 6) return fail(sc, 'Sort code must be exactly 6 digits (e.g. 30-00-04).');
+            sc.value = scDigits.replace(/(\d{2})(?=\d)/g, '$1-');
+            if (!ac.value.trim()) return fail(ac, 'Account number required.');
+          }
+        }
+        if (n === 3) {
+          if (!(parseFloat(netInput.value) > 0)) return fail(netInput, 'Enter a net value greater than zero.');
+        }
+        if (n === 4) {
+          if (!dueDate.value) return fail(dueDate, 'Choose a payment due date.');
+        }
+        if (n === 5) {
+          const reason = document.getElementById('paymentReason');
+          const lt = document.getElementById('ledgerType');
+          const ln = document.getElementById('ledgerNumber');
+          const cc = document.getElementById('costCentre');
+          if (!reason.value) return fail(reason, 'Choose a payment reason.');
+          if (!lt.value)     return fail(lt, 'Choose a ledger account type.');
+          if (!ln.value.trim()) return fail(ln, 'Enter the ledger account number.');
+          if (!cc.value.trim()) return fail(cc, 'Enter the cost centre.');
+        }
+        return true;
+      }
+      function fail(el, msg) {
+        const f = el.closest('.field');
+        if (f) {
+          const err = document.createElement('span');
+          err.className = 'field-error';
+          err.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">error</span>' + escapeHtml(msg);
+          f.appendChild(err);
+          el.setAttribute('aria-invalid', 'true');
+          el.focus();
+        }
+        showToast(msg, true);
+        return false;
+      }
+      function clearErrors() {
+        document.querySelectorAll('.field-error').forEach(e => e.remove());
+        document.querySelectorAll('[aria-invalid]').forEach(e => e.removeAttribute('aria-invalid'));
+      }
+
+      /* -- Build summary on step 6 -- */
+      function buildSummary() {
+        const bind = (key, val) => {
+          const el = document.querySelector('[data-bind="' + key + '"]');
+          if (el) el.textContent = val || '—';
+        };
+        const ccy = selectedCurrency();
+        const sym = ccyPrefix(ccy);
+        bind('beneficiary', benef.value || '—');
+        bind('intl', intlChoice === 'international' ? 'International' : (intlChoice === 'domestic' ? 'Domestic (UK)' : '—'));
+        if (intlChoice === 'domestic') {
+          const sc = document.getElementById('sortCode').value;
+          const ac = document.getElementById('accountNo').value;
+          bind('account', (sc && ac) ? (sc + ' · ' + ac) : '—');
+        } else if (intlChoice === 'international') {
+          const iban = document.getElementById('iban').value;
+          const bic  = document.getElementById('bic').value;
+          bind('account', iban || bic || '—');
+        }
+        bind('ccy', intlChoice === 'international' ? ccy : '—');
+        if (sumCurrencyRow) sumCurrencyRow.hidden = intlChoice !== 'international';
+        bind('net',   sym + ' ' + (parseFloat(netInput.value) || 0).toFixed(2));
+        bind('vat',   sym + ' ' + (parseFloat(vatInput.value) || 0).toFixed(2));
+        bind('total', sym + ' ' + (parseFloat(totalOut.value) || 0).toFixed(2));
+        bind('method', payMethod.options[payMethod.selectedIndex].text);
+        bind('submission', dueDate.value ? fmtIsoUk(dueDate.value) : '—');
+        bind('reach', reachOut.value ? fmtIsoUk(reachOut.value) : '—');
+        const reasonEl = document.getElementById('paymentReason');
+        bind('reason', reasonEl.value ? reasonEl.options[reasonEl.selectedIndex].text : '—');
+        const lt = document.getElementById('ledgerType');
+        const ln = document.getElementById('ledgerNumber').value;
+        const cc = document.getElementById('costCentre').value;
+        bind('ledger', (lt.value ? lt.options[lt.selectedIndex].text : '—') + (ln ? ' · ' + ln : ''));
+        bind('costcentre', cc || '—');
+        bind('caseref', document.getElementById('caseRef').value || '—');
+        bind('files', files.length ? (files.length + ' file' + (files.length > 1 ? 's' : '')) : 'None');
+      }
+      function fmtIsoUk(s) {
+        const [y,m,d] = s.split('-');
+        return d + '/' + m + '/' + y;
+      }
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+      }
+
+      /* -- File preview modal -- */
+      (function () {
+        const overlay = document.getElementById('filePreviewOverlay');
+        const modal   = document.getElementById('filePreviewModal');
+        const titleEl = document.getElementById('filePreviewTitle');
+        const bodyEl  = document.getElementById('filePreviewBody');
+        const closeBtn = document.getElementById('filePreviewClose');
+        if (!overlay || !modal) return;
+        let currentObjectUrl = null;
+
+        function iconForName(name) {
+          const ext = (String(name).split('.').pop() || '').toLowerCase();
+          if (['png','jpg','jpeg','gif','webp','svg'].includes(ext)) return 'image';
+          if (ext === 'pdf') return 'picture_as_pdf';
+          if (['doc','docx'].includes(ext)) return 'description';
+          if (['xls','xlsx','csv'].includes(ext)) return 'table_chart';
+          if (['msg','eml'].includes(ext)) return 'mail';
+          return 'description';
+        }
+        function placeholderHtml(name, sizeText) {
+          return '<div class="fpm-placeholder">'
+            + '<span class="material-symbols-outlined" aria-hidden="true">' + iconForName(name) + '</span>'
+            + '<strong>' + escapeHtml(name) + '</strong>'
+            + (sizeText ? '<span>' + escapeHtml(sizeText) + '</span>' : '')
+            + '<span>Preview is simulated for this prototype.</span>'
+            + '</div>';
+        }
+        function closePreview() {
+          overlay.hidden = true;
+          modal.hidden = true;
+          if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); currentObjectUrl = null; }
+          bodyEl.innerHTML = '';
+        }
+
+        window.openFilePreview = function (file) {
+          bodyEl.innerHTML = '';
+          if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); currentObjectUrl = null; }
+          if (file && (file instanceof File || file instanceof Blob)) {
+            const name = file.name || 'Preview';
+            titleEl.textContent = name;
+            const url = URL.createObjectURL(file);
+            currentObjectUrl = url;
+            const type = file.type || '';
+            if (type.startsWith('image/')) {
+              const img = document.createElement('img');
+              img.src = url; img.alt = name;
+              bodyEl.appendChild(img);
+            } else if (type === 'application/pdf' || /\.pdf$/i.test(name)) {
+              const iframe = document.createElement('iframe');
+              iframe.src = url; iframe.title = 'Document preview';
+              bodyEl.appendChild(iframe);
+            } else {
+              const size = ((file.size || 0) / 1024).toFixed(0) + ' KB';
+              bodyEl.innerHTML = placeholderHtml(name, size);
+            }
+          } else {
+            const name = (file && file.name) || 'Document';
+            const size = (file && file.size) || '';
+            titleEl.textContent = name;
+            bodyEl.innerHTML = placeholderHtml(name, size);
+          }
+          overlay.hidden = false;
+          modal.hidden = false;
+        };
+
+        overlay.addEventListener('click', closePreview);
+        closeBtn.addEventListener('click', closePreview);
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape' && !modal.hidden) closePreview();
+        });
+      })();
+
+      /* -- Toast -- */
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      let toastTimer;
+      function showToast(msg, isError) {
+        toastMsg.textContent = msg;
+        toast.style.background = isError ? 'var(--color-error-dark)' : 'var(--color-success-dark)';
+        toast.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2800);
+      }
+      window.__fionaToast = showToast;
+
+      /* -- Edit mode: open the wizard pre-filled from an existing request -- */
+      function openForEdit(ref, data) {
+        open();
+        if (!ref || !data) return;
+        editingRef = ref;
+        const titleEl = document.getElementById('wizardTitle');
+        if (titleEl) titleEl.textContent = 'Edit ad-hoc payment · ' + ref;
+        submitBtn.innerHTML = SUBMIT_LABEL_EDIT;
+
+        /* Step 1 — beneficiary */
+        benef.value = (data.beneficiary || '').slice(0, 15);
+        count.textContent = benef.value.length + ' / 15';
+
+        /* Step 2 — domestic / international */
+        const isIntl = /international/i.test(data.intl || '');
+        const card = document.querySelector('.radio-card[data-value="' + (isIntl ? 'international' : 'domestic') + '"]');
+        if (card) card.click();
+        if (isIntl) {
+          document.getElementById('iban').value = data.account || '';
+          document.getElementById('bic').value  = data.accountNum || '';
+          const cc = document.getElementById('currency');
+          cc.value = data.ccy || 'GBP';
+          cc.dispatchEvent(new Event('change'));
+        } else {
+          const scRaw = (data.account || '').replace(/\D/g, '').slice(0, 6);
+          document.getElementById('sortCode').value  = scRaw.replace(/(\d{2})(?=\d)/g, '$1-');
+          document.getElementById('accountNo').value = data.accountNum || '';
+          const cc = document.getElementById('currency');
+          cc.value = 'GBP';
+          cc.dispatchEvent(new Event('change'));
+        }
+
+        /* Step 3 — amount + VAT */
+        netInput.value = (typeof data.net === 'number') ? data.net.toFixed(2) : '';
+        if ((data.vat || 0) > 0) {
+          vatYes.click();
+          vatInput.value = data.vat.toFixed(2);
+        } else {
+          vatNo.click();
+          vatInput.value = '';
+        }
+        recalcTotal();
+
+        /* Step 4 — method + due date + reach date */
+        const methodMap = { 'Faster Payments (FP)': 'FP', 'CHAPS': 'CHAPS', 'BACS': 'BACS' };
+        payMethod.value = methodMap[data.method] || 'FP';
+        if (data.submission) {
+          const datePart = String(data.submission).split(' ')[0];
+          const parts = datePart.split('/');
+          if (parts.length === 3) dueDate.value = parts[2] + '-' + parts[1] + '-' + parts[0];
+        }
+        recalcReach();
+        if (data.reach) {
+          const rParts = String(data.reach).split('/');
+          if (rParts.length === 3) reachOut.value = rParts[2] + '-' + rParts[1] + '-' + rParts[0];
+        }
+
+        /* Step 5 — reason + ledger + comments */
+        const reasonMap = {
+          'Refund — overpayment': 'refund',
+          'Goodwill payment':     'goodwill',
+          'Supplier — services':  'supplier',
+          'Vendor — software':    'vendor',
+          'Court fee':            'court',
+          'Utilities — refund':   'utilities'
+        };
+        document.getElementById('paymentReason').value = reasonMap[data.reason] || 'other';
+        if (data.ledger) {
+          const m = String(data.ledger).match(/^([^·]+?)\s*·\s*(.+)$/);
+          if (m) {
+            const ltMap = { 'Customer': 'customer', 'Ledger': 'ledger', 'Supplier': 'supplier' };
+            document.getElementById('ledgerType').value   = ltMap[m[1].trim()] || '';
+            document.getElementById('ledgerNumber').value = m[2].trim();
+          }
+        }
+        document.getElementById('costCentre').value = data.costcentre || '';
+        document.getElementById('caseRef').value  = data.caseref  || '';
+        document.getElementById('comments').value = data.comments || '';
+
+        /* -- Build edit-mode tabs: Edit details | Activity -- */
+        const body = drawer.querySelector('.drawer-body');
+        const stepperEl = drawer.querySelector('.stepper');
+
+        /* Clear any leftovers from a prior edit session */
+        body.querySelectorAll('.reject-banner, .wizard-activity-panel').forEach(n => n.remove());
+        const prevTabs = drawer.querySelector('.wizard-tabs');
+        if (prevTabs) prevTabs.remove();
+
+        const tl = data.timeline || [];
+        const kindMap = { error: 'is-error', success: 'is-success', warn: 'is-warn', primary: '' };
+        const activityListHtml = tl.length
+          ? '<ol class="wizard-activity">' + tl.map(it => (
+              '<li class="' + (kindMap[it.kind] || '') + '">'
+                + '<span class="material-symbols-outlined" aria-hidden="true">' + (it.icon || 'circle') + '</span>'
+                + '<div><span>' + it.text + '</span><em>' + it.meta + '</em></div>'
+              + '</li>'
+            )).join('') + '</ol>'
+          : '<p class="panel-hint">No audit trail recorded yet.</p>';
+
+        const tabsHtml =
+          '<nav class="wizard-tabs view-tabs" role="tablist" aria-label="Edit sections">'
+          + '<button class="view-tab is-active" role="tab" type="button" data-wtab="edit" aria-selected="true">Edit details</button>'
+          + '<button class="view-tab" role="tab" type="button" data-wtab="activity" aria-selected="false">'
+            + 'Audit Trail <span class="tab-count">' + tl.length + '</span></button>'
+          + '</nav>';
+        stepperEl.insertAdjacentHTML('beforebegin', tabsHtml);
+
+        const activityPanelHtml =
+          '<div class="wizard-activity-panel" hidden role="tabpanel" aria-label="Audit Trail">'
+          + '<h3 class="panel-title">Audit trail</h3>'
+          + '<p class="panel-hint">A full history of this request. Switch back to “Edit details” to make changes.</p>'
+          + activityListHtml
+          + '</div>';
+        body.insertAdjacentHTML('beforeend', activityPanelHtml);
+
+        const wTabs = drawer.querySelectorAll('.wizard-tabs .view-tab');
+        const activityPanel = body.querySelector('.wizard-activity-panel');
+        wTabs.forEach(t => t.addEventListener('click', () => {
+          const which = t.dataset.wtab;
+          const showEdit = (which === 'edit');
+          wTabs.forEach(o => {
+            const on = (o === t);
+            o.classList.toggle('is-active', on);
+            o.setAttribute('aria-selected', String(on));
+          });
+          stepperEl.style.display = showEdit ? '' : 'none';
+          body.querySelectorAll('.step').forEach(s => s.style.display = showEdit ? '' : 'none');
+          const bn = body.querySelector('.reject-banner');
+          if (bn) bn.style.display = showEdit ? '' : 'none';
+          activityPanel.hidden = showEdit;
+          body.scrollTop = 0;
+        }));
+
+        /* If editing a rejected request, surface a compact rejection note (activity lives in its own tab) */
+        if (data.status === 'rejected') {
+          const rej = tl.slice().reverse().find(t => t.icon === 'cancel' || t.kind === 'error');
+          const rejHeader = rej
+            ? ('<header><span class="material-symbols-outlined" aria-hidden="true">cancel</span>'
+                + '<div><strong>This request was rejected — please address the feedback and resubmit</strong>'
+                + '<p class="reject-meta">' + rej.meta + ' · full history in the <em>Audit Trail</em> tab</p></div></header>'
+                + '<div class="reject-note">' + rej.text + '</div>')
+            : ('<header><span class="material-symbols-outlined" aria-hidden="true">cancel</span>'
+                + '<div><strong>This request was rejected — please review and resubmit</strong>'
+                + '<p class="reject-meta">Full history in the <em>Audit Trail</em> tab</p></div></header>');
+          body.insertAdjacentHTML('afterbegin',
+            '<aside class="reject-banner" role="alert" aria-live="polite">' + rejHeader + '</aside>');
+          body.scrollTop = 0;
+          showToast('Editing rejected request ' + ref + ' — update and resubmit');
+          return;
+        }
+
+        showToast('Editing ' + ref + ' — review and submit when ready');
+      }
+      window.__fionaEditRequest = openForEdit;
+
+      /* Bulk upload button ? toast stub */
+      document.getElementById('bulkUploadBtn').addEventListener('click', () => showToast('Bulk upload — coming soon'));
+    })();
+
+    /* ------------------------------------------------------------
+       View pane — read-only request details
+       ------------------------------------------------------------ */
+    (function () {
+      const drawer   = document.getElementById('viewDrawer');
+      const backdrop = document.getElementById('viewBackdrop');
+      const closeBtn = document.getElementById('viewClose');
+      const subtitle = document.getElementById('viewSubtitle');
+      const title    = document.getElementById('viewTitle');
+      const statusEl = document.getElementById('viewStatusBadge');
+      const footer   = document.getElementById('viewFooter');
+      const tabs     = Array.from(document.querySelectorAll('.view-tab'));
+      const panels   = Array.from(document.querySelectorAll('.view-panel'));
+      const table    = document.querySelector('.data-table');
+      const toast    = (msg, err) => (window.__fionaToast || (() => {}))(msg, err);
+      let lastFocus  = null;
+
+      /* -- Sample data per request -- */
+      const CURRENT_USER = 'John Doe';
+      const requests = {
+        '1241': {
+          beneficiary: 'Bramble & Co.', intl: 'Domestic (UK)',
+          account: '40-20-15', accountNum: '12345678',
+          ccy: 'GBP', sym: '£',
+          net: 1041.67, vat: 208.33, total: 1250.00,
+          method: 'Faster Payments (FP)', submission: '24/06/2026 10:00', reach: '24/06/2026',
+          reason: 'Refund — overpayment',
+          ledger: 'Customer · 60914868', caseref: 'C000048MMGH',
+          comments: 'Customer raised complaint on 20/06; refund agreed by team lead.',
+          requester: 'John Doe', raised: '22/06/2026 09:14',
+          status: 'draft',
+          timeline: [
+            { kind:'primary', icon:'edit', text:'<strong>You</strong> created the request', meta:'22/06/2026 09:14' }
+          ],
+          files: [
+            { name:'line-manager-approval.msg', size:'48 KB' },
+            { name:'refund-evidence.pdf', size:'320 KB' }
+          ]
+        },
+        '1240': {
+          beneficiary: 'Lambeth BC', intl: 'Domestic (UK)',
+          account: '20-00-00', accountNum: '50447733',
+          ccy: 'GBP', sym: '£',
+          net: 4680.00, vat: 0, total: 4680.00,
+          method: 'CHAPS', submission: '25/06/2026 09:30', reach: '25/06/2026',
+          reason: 'Court fee',
+          ledger: 'Customer · 60912100', caseref: 'C000301LMBT',
+          comments: 'Statutory court filing fee — due before hearing.',
+          requester: 'John Doe', raised: '23/06/2026 14:22',
+          status: 'pending',
+          timeline: [
+            { kind:'primary', icon:'edit',   text:'<strong>John Doe</strong> created the request', meta:'23/06/2026 14:22' },
+            { kind:'warn',    icon:'send',   text:'Submitted for approval to <strong>Sarah K.</strong>', meta:'23/06/2026 14:30' }
+          ],
+          files: [{ name:'court-order-LMBT.pdf', size:'212 KB' }]
+        },
+        '1239': {
+          beneficiary: 'NorthBridge Ltd', intl: 'International',
+          account: 'DE89 3704 0044 0532 0130 00', accountNum: 'COBADEFFXXX',
+          ccy: 'EUR', sym: '€',
+          net: 10333.33, vat: 2066.67, total: 12400.00,
+          method: 'CHAPS', submission: '26/06/2026 11:00', reach: '26/06/2026',
+          reason: 'Supplier — services',
+          ledger: 'Supplier · 60914200', caseref: 'PO-2026-0814',
+          comments: 'Q2 platform services invoice INV-0814.',
+          requester: 'Sarah K.', raised: '21/06/2026 16:05',
+          status: 'approved',
+          timeline: [
+            { kind:'primary', icon:'edit',     text:'<strong>Sarah K.</strong> created the request', meta:'21/06/2026 16:05' },
+            { kind:'warn',    icon:'send',     text:'Submitted for approval', meta:'21/06/2026 16:08' },
+            { kind:'success', icon:'verified', text:'<strong>David L.</strong> approved the request', meta:'22/06/2026 09:42' }
+          ],
+          files: [{ name:'INV-0814.pdf', size:'186 KB' }, { name:'PO-2026-0814.pdf', size:'94 KB' }]
+        },
+        '1238': {
+          beneficiary: 'R. Patel', intl: 'Domestic (UK)',
+          account: '30-99-50', accountNum: '40338811',
+          ccy: 'GBP', sym: '£',
+          net: 380.00, vat: 0, total: 380.00,
+          method: 'Faster Payments (FP)', submission: '23/06/2026 10:00', reach: '23/06/2026',
+          reason: 'Goodwill payment',
+          ledger: 'Customer · 60918810', caseref: 'C000211RPTL',
+          comments: 'Service-impact compensation per case team recommendation.',
+          requester: 'Tom B.', raised: '20/06/2026 11:18',
+          status: 'completed',
+          timeline: [
+            { kind:'primary', icon:'edit',        text:'<strong>Tom B.</strong> created the request', meta:'20/06/2026 11:18' },
+            { kind:'warn',    icon:'send',        text:'Submitted for approval', meta:'20/06/2026 11:25' },
+            { kind:'success', icon:'verified',    text:'<strong>Priya M.</strong> approved the request', meta:'20/06/2026 14:08' },
+            { kind:'success', icon:'task_alt',    text:'Payment marked <strong>complete</strong> — journal generated', meta:'23/06/2026 16:05' }
+          ],
+          files: [
+            { name:'lloyds-1238.bacs', size:'4 KB' },
+            { name:'journal-1238.csv', size:'2 KB' }
+          ]
+        },
+        '1237': {
+          beneficiary: 'Severn Trent Water', intl: 'Domestic (UK)',
+          account: '30-12-95', accountNum: '00553301',
+          ccy: 'GBP', sym: '£',
+          net: 1750.00, vat: 350.00, total: 2100.00,
+          method: 'BACS', submission: '17/06/2026 11:30', reach: '22/06/2026',
+          reason: 'Utilities — refund',
+          ledger: 'Customer · 60919910', caseref: 'UTL-2026-0533',
+          comments: 'Overpayment refund for account 00553301.',
+          requester: 'John Doe', raised: '15/06/2026 10:00',
+          status: 'completed',
+          timeline: [
+            { kind:'primary', icon:'edit',        text:'<strong>John Doe</strong> created the request', meta:'15/06/2026 10:00' },
+            { kind:'warn',    icon:'send',        text:'Submitted for approval', meta:'15/06/2026 10:05' },
+            { kind:'success', icon:'verified',    text:'<strong>Sarah K.</strong> approved the request', meta:'15/06/2026 15:30' },
+            { kind:'success', icon:'task_alt',    text:'Payment marked <strong>complete</strong> — journal generated', meta:'22/06/2026 16:20' }
+          ],
+          files: [
+            { name:'lloyds-1237.bacs', size:'4 KB' },
+            { name:'journal-1237.csv', size:'2 KB' }
+          ]
+        },
+        '1236': {
+          beneficiary: 'Walden Holdings', intl: 'International',
+          account: 'US06 4000 0144 0211 6055 30', accountNum: 'CHASUS33XXX',
+          ccy: 'USD', sym: '$',
+          net: 5000.00, vat: 1000.00, total: 6000.00,
+          method: 'CHAPS', submission: '21/06/2026 10:00', reach: '21/06/2026',
+          reason: 'Vendor — software',
+          ledger: 'Supplier · 60915001', caseref: 'PO-2026-0744',
+          comments: 'Annual licence renewal.',
+          requester: 'Priya M.', raised: '18/06/2026 14:00',
+          status: 'failed',
+          timeline: [
+            { kind:'primary', icon:'edit',        text:'<strong>Priya M.</strong> created the request', meta:'18/06/2026 14:00' },
+            { kind:'warn',    icon:'send',        text:'Submitted for approval', meta:'18/06/2026 14:05' },
+            { kind:'success', icon:'verified',    text:'<strong>David L.</strong> approved the request', meta:'19/06/2026 11:00' },
+            { kind:'error',   icon:'error',      text:'Payment <strong>failed</strong> — bank rejected: invalid BIC for receiving institution', meta:'21/06/2026 13:14' }
+          ],
+          files: [{ name:'lloyds-1236.chaps', size:'4 KB' }, { name:'bank-reject-notice.pdf', size:'68 KB' }]
+        },
+        '1235': {
+          beneficiary: 'Cheshire CC', intl: 'Domestic (UK)',
+          account: '20-00-00', accountNum: '50337711',
+          ccy: 'GBP', sym: '£',
+          net: 875.00, vat: 0, total: 875.00,
+          method: 'CHAPS', submission: '20/06/2026 09:00', reach: '20/06/2026',
+          reason: 'Court fee',
+          ledger: 'Customer · 60912100', caseref: 'C000119CHES',
+          comments: 'Court hearing fee.',
+          requester: 'John Doe', raised: '17/06/2026 16:42',
+          status: 'rejected',
+          timeline: [
+            { kind:'primary', icon:'edit',  text:'<strong>John Doe</strong> created the request', meta:'17/06/2026 16:42' },
+            { kind:'warn',    icon:'send',  text:'Submitted for approval', meta:'17/06/2026 16:50' },
+            { kind:'error',   icon:'cancel',text:'<strong>Sarah K.</strong> rejected: “Missing line-manager approval email — please re-attach”', meta:'18/06/2026 09:30' }
+          ],
+          files: [{ name:'court-order-CHES.pdf', size:'140 KB' }]
+        },
+        '1234': {
+          beneficiary: 'Hartwell Ltd', intl: 'Domestic (UK)',
+          account: '40-11-22', accountNum: '77889900',
+          ccy: 'GBP', sym: '£',
+          net: 540.00, vat: 0, total: 540.00,
+          method: 'Faster Payments (FP)', submission: '19/06/2026 09:00', reach: '19/06/2026',
+          reason: 'Supplier — services',
+          ledger: 'Supplier · 60915600', caseref: 'PO-2026-0619',
+          comments: 'Cancelled by requester — invoice raised in error.',
+          requester: 'John Doe', raised: '16/06/2026 09:30',
+          status: 'cancelled',
+          timeline: [
+            { kind:'primary', icon:'edit',   text:'<strong>John Doe</strong> created the request', meta:'16/06/2026 09:30' },
+            { kind:'warn',    icon:'send',   text:'Submitted for approval', meta:'16/06/2026 09:45' },
+            { kind:'error',   icon:'block',  text:'<strong>You</strong> cancelled the request', meta:'16/06/2026 15:10' }
+          ],
+          files: []
+        }
+      };
+
+      /* -- Status badge config -- */
+      const badges = {
+        draft:     { cls:'badge--draft',     icon:'edit',            label:'Draft' },
+        pending:   { cls:'badge--pending',   icon:'pending_actions', label:'Pending' },
+        approved:  { cls:'badge--approved',  icon:'verified',        label:'Approved' },
+        completed: { cls:'badge--completed', icon:'task_alt',        label:'Completed' },
+        rejected:  { cls:'badge--rejected',  icon:'cancel',          label:'Rejected' },
+        failed:    { cls:'badge--failed',    icon:'error',           label:'Failed' },
+        cancelled: { cls:'badge--cancelled', icon:'block',           label:'Cancelled' }
+      };
+
+      /* -- Footer action sets per status --
+         Pending shows Cancel Request only (added conditionally in render).
+         Completed, Failed and Cancelled have no footer actions. */
+      const actionByStatus = {
+        draft:     [ ['edit','Edit','edit','secondary'], ['submit','Submit','send','primary'], ['delete','Delete','delete','ghost'] ],
+        pending:   [],
+        approved: [],
+        // approved:  [ ['recall','Recall','undo','ghost'],  ['complete','Mark complete','task_alt','primary'] ],
+        completed: [],
+        rejected:  [ ['edit','Edit &amp; resubmit','edit','primary'] ],
+        failed:    [],
+        cancelled: []
+      };
+      const actionMsg = {
+        edit:     'Opening editor (stub)',
+        submit:   'Request submitted for approval',
+        delete:   'Draft deleted',
+        recall:   'Request recalled',
+        approve:  'Request approved',
+        reject:   'Rejection recorded — requester notified',
+        download: 'Lloyds file download started',
+        complete: 'Marked complete — journal generated',
+        fail:     'Marked failed — requester notified',
+        retry:    'Retry initiated',
+        journal:  'Journal opened',
+        'cancel-request': 'Request cancelled'
+      };
+
+      /* -- Open / close -- */
+      function open(ref) {
+        const data = requests[ref];
+        if (!data) { toast('Request ' + ref + ' not found', true); return; }
+        lastFocus = document.activeElement;
+        render(ref, data);
+        backdrop.dataset.open = 'true';
+        drawer.dataset.open = 'true';
+        setTimeout(() => closeBtn.focus(), 250);
+        document.addEventListener('keydown', onKey);
+      }
+      function close() {
+        backdrop.dataset.open = 'false';
+        drawer.dataset.open = 'false';
+        document.removeEventListener('keydown', onKey);
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      function onKey(e) { if (e.key === 'Escape') close(); }
+
+      closeBtn.addEventListener('click', close);
+      backdrop.addEventListener('click', close);
+
+      /* -- Tab switching -- */
+      tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+      function switchTab(name) {
+        tabs.forEach(t => {
+          const on = t.dataset.tab === name;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', String(on));
+        });
+        panels.forEach(p => {
+          const on = p.dataset.panel === name;
+          p.classList.toggle('is-active', on);
+          p.hidden = !on;
+        });
+      }
+
+      /* -- Render request -- */
+      function render(ref, d) {
+        switchTab('details');
+        subtitle.textContent = ref;
+        title.textContent = d.beneficiary;
+
+        const b = badges[d.status];
+        statusEl.innerHTML = b
+          ? '<span class="badge ' + b.cls + '"><span class="material-symbols-outlined" aria-hidden="true">' + b.icon + '</span>' + b.label + '</span>'
+          : '';
+
+        set('vw-beneficiary', d.beneficiary);
+        set('vw-intl', d.intl);
+        set('vw-account', d.account);
+        set('vw-accountNum', d.accountNum);
+        const isInternational = /international/i.test(d.intl || '');
+        const vwCurrencyCell = document.getElementById('vw-currency-cell');
+        if (vwCurrencyCell) vwCurrencyCell.hidden = !isInternational;
+        set('vw-ccy', isInternational ? d.ccy : '—');
+        set('vw-net',   d.sym + ' ' + fmtMoney(d.net));
+        set('vw-vat',   d.sym + ' ' + fmtMoney(d.vat));
+        set('vw-total', d.sym + ' ' + fmtMoney(d.total));
+        set('vw-method', d.method);
+        set('vw-submission', d.submission);
+        set('vw-reach', d.reach);
+        set('vw-reason', d.reason);
+        set('vw-ledger', d.ledger);
+        set('vw-costcentre', d.costcentre || '—');
+        set('vw-caseref', d.caseref);
+        set('vw-comments', d.comments || '—');
+        set('vw-requester', d.requester);
+        set('vw-raised', d.raised);
+
+        /* Activity */
+        const tl = document.getElementById('vw-timeline');
+        tl.innerHTML = (d.timeline || []).map(item => (
+          '<li class="timeline-item">' +
+            '<span class="timeline-dot ' + (item.kind || '') + '" aria-hidden="true">' +
+              '<span class="material-symbols-outlined">' + item.icon + '</span>' +
+            '</span>' +
+            '<div class="timeline-body">' +
+              '<p class="timeline-text">' + item.text + '</p>' +
+              '<p class="timeline-meta">' + item.meta + '</p>' +
+            '</div>' +
+          '</li>'
+        )).join('') || emptyHtml('history', 'No audit trail yet');
+        document.getElementById('activityCount').textContent = (d.timeline || []).length;
+
+        /* Files */
+        const fl = document.getElementById('vw-files');
+        fl.innerHTML = (d.files || []).map((f, idx) => (
+          '<div class="file-item" data-file-idx="' + idx + '">' +
+            '<span class="material-symbols-outlined" aria-hidden="true">description</span>' +
+            '<span class="file-name">' + escapeHtml(f.name) + '</span>' +
+            '<span class="file-size">' + escapeHtml(f.size) + '</span>' +
+            '<button class="row-action-btn" type="button" aria-label="View ' + escapeHtml(f.name) + '" data-view="' + idx + '">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>' +
+            '<button class="row-action-btn" type="button" aria-label="Download ' + escapeHtml(f.name) + '" data-download="' + idx + '">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">download</span></button>' +
+          '</div>'
+        )).join('') || emptyHtml('attach_file', 'No attachments');
+        document.getElementById('filesCount').textContent = (d.files || []).length;
+
+        /* Wire file buttons */
+        fl.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => {
+          const f = (d.files || [])[Number(b.dataset.view)];
+          if (f && window.openFilePreview) window.openFilePreview(f);
+        }));
+        fl.querySelectorAll('[data-download]').forEach(b => b.addEventListener('click', () => toast('File download started')));
+
+        /* Footer actions */
+        const list = (actionByStatus[d.status] || []).slice();
+        if (d.status === 'pending' && d.requester === CURRENT_USER) {
+          list.push(['cancel-request', 'Cancel Request', 'block', 'danger']);
+        }
+        /* Hide the footer entirely when there are no actions for this status */
+        footer.hidden = (list.length === 0);
+        footer.style.display = (list.length === 0) ? 'none' : '';
+        footer.innerHTML =
+          '<span class="view-footer-spacer"></span>' +
+          list.map(([key, label, icon, kind]) => (
+            '<button class="btn btn-' + kind + '" type="button" data-action="' + key + '">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">' + icon + '</span>' +
+              label +
+            '</button>'
+          )).join('');
+        footer.querySelectorAll('[data-action]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const k = btn.dataset.action;
+            const isNeg = (k === 'reject' || k === 'fail' || k === 'delete' || k === 'cancel-request');
+            toast(actionMsg[k] || (k + ' done'), isNeg);
+            if (k === 'edit') {
+              close();
+              setTimeout(() => {
+                if (window.__fionaEditRequest) window.__fionaEditRequest(ref, d);
+                else document.getElementById('newRequestBtn')?.click();
+              }, 200);
+            } else {
+              close();
+            }
+          });
+        });
+      }
+
+      function set(id, val) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = (val === null || val === undefined || val === '') ? '—' : val;
+      }
+      function fmtMoney(n) {
+        if (typeof n !== 'number') return '0.00';
+        return n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      function emptyHtml(icon, msg) {
+        return '<div class="view-empty"><span class="material-symbols-outlined" aria-hidden="true">' + icon + '</span>' + msg + '</div>';
+      }
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+      }
+
+      /* -- Trigger: clicks inside the requests table -- */
+      if (table) {
+        table.addEventListener('click', e => {
+          const link = e.target.closest('a[href="#"]');
+          const btn  = e.target.closest('button[aria-label]');
+          const tr   = e.target.closest('tr');
+          if (!tr) return;
+          const refLink = tr.querySelector('td a');
+          const ref = refLink ? refLink.textContent.trim() : null;
+          if (!ref) return;
+
+          if (link) { e.preventDefault(); open(ref); return; }
+          if (!btn) return;
+          const label = (btn.getAttribute('aria-label') || '').toLowerCase();
+          /* View / View request / View rejection / View failure / View journal ? open viewer */
+          if (label.startsWith('view')) { open(ref); return; }
+          /* Edit request ? open wizard pre-filled and ready to submit */
+          if (label.startsWith('edit request')) {
+            if (window.__fionaEditRequest) window.__fionaEditRequest(ref, requests[ref]);
+            else toast('Edit pane unavailable', true);
+            return;
+          }
+          /* Submit (row action on a draft) */
+          if (label === 'submit' || label.startsWith('submit for approval')) {
+            toast(ref + ' submitted for approval');
+            return;
+          }
+          /* Other row actions — keep them functional via toast stubs */
+          const stub = {
+            'download lloyds file': 'Lloyds file download started',
+            'retry payment': 'Retry initiated'
+          };
+          for (const key in stub) {
+            if (label.startsWith(key)) { toast(stub[key]); return; }
+          }
+        });
+      }
+    })();
+  </script>
+
+  <!-- ----- Column Header Menu (3-dot) ----- -->
+  <style>
+    .data-table th { position: relative; }
+    .th-menu-btn {
+      position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 4px; padding: 0;
+      border: none; background: transparent; color: var(--text-secondary, #616161);
+      cursor: pointer; opacity: 0; transition: opacity 120ms ease, background 120ms ease;
+    }
+    .th-menu-btn .material-symbols-outlined { font-size: 18px; }
+    .data-table th:hover .th-menu-btn,
+    .th-menu-btn.is-open,
+    .th-menu-btn:focus-visible { opacity: 1; }
+    .th-menu-btn:hover { background: var(--grey-100, #f0f0f0); }
+
+    .col-menu {
+      position: absolute; z-index: 1000; min-width: 210px;
+      background: #FFFFFF; border: 1px solid var(--grey-200, #E0E0E0);
+      border-radius: 8px; box-shadow: 0 6px 20px rgba(12, 26, 45, 0.14);
+      padding: 6px 0; display: none; font-size: 13px;
+    }
+    .col-menu.is-open { display: block; }
+    .col-menu button {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 8px 16px; background: transparent; border: none;
+      text-align: left; cursor: pointer; color: var(--text-primary, #212121);
+      font-size: 13px; text-transform: none; letter-spacing: 0;
+    }
+    .col-menu button:hover,
+    .col-menu button:focus-visible { background: var(--color-primary-25, #F0F5FC); outline: none; }
+    .col-menu button.is-selected { background: var(--color-primary-25, #F0F5FC); font-weight: 600; }
+    .col-menu .material-symbols-outlined { font-size: 18px; color: var(--text-secondary, #616161); }
+    .col-menu hr { border: none; border-top: 1px solid var(--grey-200, #E0E0E0); margin: 4px 0; }
+  </style>
+  <script>
+    (function () {
+      function initColumnMenus(root) {
+        var scope = root || document;
+        var tables = scope.querySelectorAll('table.data-table');
+        tables.forEach(function (table) {
+          table.querySelectorAll('thead th').forEach(function (th) {
+            if (th.classList.contains('col-check')) return;
+            var label = (th.textContent || '').trim().toLowerCase();
+            if (!label || label === 'actions') return;
+            if (th.querySelector('.th-menu-btn')) return;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'th-menu-btn';
+            btn.setAttribute('aria-label', 'Column options');
+            btn.setAttribute('aria-haspopup', 'menu');
+            btn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">more_vert</span>';
+            th.appendChild(btn);
+          });
+        });
+      }
+
+      function ensureMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) return menu;
+        menu = document.createElement('div');
+        menu.id = 'columnMenuPopup';
+        menu.className = 'col-menu';
+        menu.setAttribute('role', 'menu');
+        menu.innerHTML = [
+          '<button type="button" data-act="sort-asc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>Sort by ASC</button>',
+          '<button type="button" data-act="sort-desc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span>Sort by DESC</button>',
+          '<hr>',
+          '<button type="button" data-act="pin-left" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to left</button>',
+          '<button type="button" data-act="pin-right" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to right</button>',
+          '<hr>',
+          '<button type="button" data-act="filter" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">filter_alt</span>Filter</button>',
+          '<button type="button" data-act="hide" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>Hide Column</button>',
+          '<button type="button" data-act="manage" role="menuitem" class="is-selected"><span class="material-symbols-outlined" aria-hidden="true">view_column</span>Manage Column</button>'
+        ].join('');
+        document.body.appendChild(menu);
+        return menu;
+      }
+
+      var currentBtn = null;
+      var currentTh = null;
+
+      function openMenuFor(btn) {
+        var menu = ensureMenu();
+        closeMenu();
+        currentBtn = btn;
+        currentTh = btn.closest('th');
+        btn.classList.add('is-open');
+        var rect = btn.getBoundingClientRect();
+        menu.style.top = (window.scrollY + rect.bottom + 4) + 'px';
+        menu.style.left = (window.scrollX + rect.left) + 'px';
+        menu.classList.add('is-open');
+      }
+
+      function closeMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) menu.classList.remove('is-open');
+        if (currentBtn) currentBtn.classList.remove('is-open');
+        currentBtn = null;
+        currentTh = null;
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('.th-menu-btn');
+        if (btn) {
+          e.stopPropagation();
+          if (btn === currentBtn) { closeMenu(); return; }
+          openMenuFor(btn);
+          return;
+        }
+        var item = e.target.closest && e.target.closest('#columnMenuPopup button');
+        if (item) {
+          e.stopPropagation();
+          handleMenuAction(item.getAttribute('data-act'));
+          closeMenu();
+          return;
+        }
+        if (e.target.closest && e.target.closest('#columnMenuPopup')) return;
+        closeMenu();
+      });
+
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+      window.addEventListener('scroll', closeMenu, true);
+      window.addEventListener('resize', closeMenu);
+
+      function handleMenuAction(act) {
+        if (!currentTh || act !== 'hide') return;
+        var table = currentTh.closest('table');
+        var headerRow = currentTh.parentElement;
+        var colIndex = Array.prototype.indexOf.call(headerRow.children, currentTh);
+        currentTh.style.display = 'none';
+        table.querySelectorAll('tbody tr').forEach(function (tr) {
+          var cell = tr.children[colIndex];
+          if (cell) cell.style.display = 'none';
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { initColumnMenus(); });
+      } else {
+        initColumnMenus();
+      }
+      window.reinitColumnMenus = initColumnMenus;
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

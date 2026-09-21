@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProServe — List Configuration</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <style>
+    /* --------- MET-DS-V2 Design Tokens --------- */
+    :root {
+      --color-primary-25:#F2F5FA; --color-primary-50:#DEE8F7; --color-primary-75:#C2D7F2;
+      --color-primary-100:#A2C1EA; --color-primary-200:#84ADE4; --color-primary-300:#6599DE;
+      --color-primary-400:#4B87D6; --color-primary-500:#3276CF; --color-primary-600:#2C66B4;
+      --color-primary-700:#275798; --color-primary-800:#22497D; --color-primary-900:#1C3A62;
+      --color-primary-950:#152B48;
+      --color-primary:var(--color-primary-500); --color-primary-hover:var(--color-primary-600);
+      --color-bg:var(--color-primary-25); --color-card:#FFFFFF; --color-disabled:#BDBDBD;
+      --text-primary:#212121; --text-secondary:#757575;
+      --text-hyperlink:#3276CF; --text-hyperlink-hover:#2C66B4; --text-disabled:#BDBDBD;
+      --grey-50:#FAFAFA; --grey-100:#F5F5F5; --grey-200:#EEEEEE; --grey-300:#E0E0E0;
+      --grey-400:#BDBDBD; --grey-500:#9E9E9E; --grey-600:#757575; --grey-700:#616161;
+      --grey-800:#424242; --grey-900:#212121;
+      --color-success:#43A047; --color-success-darker:#2E7D32; --color-success-bg:#E8F5E9;
+      --color-error:#E53935; --color-error-deeper:#C62828; --color-error-bg:#FEEBEE;
+      --color-warning:#FF9800; --color-warning-bg:#FFF3E0;
+      --leftnav-text:#212121; --leftnav-text-active:#3276CF;
+      --topnav-icon:#757575; --topnav-icon-hover:#616161;
+      --border-default:1px solid #E0E0E0;
+      --border-divider:1px solid #EEEEEE;
+      --radius-card:12px; --radius-button:8px; --radius-input:8px; --radius-pill:100px;
+      --space-1:2px; --space-2:4px; --space-3:8px; --space-4:12px;
+      --space-5:16px; --space-6:20px; --space-7:24px; --space-8:32px;
+      --space-9:40px; --space-10:48px;
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1:24px; --font-size-h2:20px; --font-size-h3:16px;
+      --font-size-body:14px; --font-size-caption:12px;
+      --font-weight-bold:700; --font-weight-semibold:600; --font-weight-medium:500; --font-weight-regular:400;
+      --duration-micro:150ms; --duration-standard:250ms; --easing-enter:ease-out;
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-hover:  0 4px 16px rgba(50, 118, 207, 0.14);
+      --shadow-popover:0 8px 24px rgba(0, 0, 0, 0.14);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html, body { height:100%; font-family:var(--font-family); font-size:var(--font-size-body); line-height:1.5; color:var(--text-primary); background:var(--color-bg); }
+    a { color:var(--text-hyperlink); text-decoration:none; }
+    a:hover { color:var(--text-hyperlink-hover); text-decoration:underline; }
+    ul { list-style:none; }
+    button { font-family:inherit; }
+    .skip-link { position:absolute; top:-999px; left:var(--space-5); background:var(--color-primary); color:#FFF; padding:var(--space-3) var(--space-5); border-radius:var(--radius-button); z-index:9999; font-weight:600; }
+    .skip-link:focus { top:var(--space-3); color:#FFF; text-decoration:none; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    /* --------- App Shell --------- */
+    .app-shell { display:grid; grid-template-columns:220px 1fr; height:100vh; overflow:hidden; }
+    .main-column { display:flex; flex-direction:column; min-width:0; overflow:hidden; }
+
+    .leftnav { background:var(--color-card); border-right:var(--border-default); display:flex; flex-direction:column; overflow-y:auto; height:100vh; }
+    .leftnav-brand { display:flex; align-items:center; padding:var(--space-4) var(--space-5); border-bottom:var(--border-divider); flex-shrink:0; }
+    .leftnav-brand img { height:32px; width:auto; display:block; }
+    .leftnav-list { padding:var(--space-3) 0; flex:1; }
+    .leftnav-item {
+      display:flex; align-items:center; gap:var(--space-4);
+      padding:var(--space-4) var(--space-5);
+      color:var(--leftnav-text); font-size:var(--font-size-body);
+      cursor:pointer; min-height:44px; border-left:3px solid transparent;
+      text-decoration:none;
+      transition: color var(--duration-micro), background var(--duration-micro);
+    }
+    .leftnav-item:hover { color:var(--color-primary); background:var(--color-primary-25); text-decoration:none; }
+    .leftnav-item.active, .leftnav-item[aria-current="page"] {
+      color:var(--leftnav-text-active); font-weight:600;
+      border-left-color:var(--color-primary); background:var(--color-primary-25);
+    }
+    .leftnav-item:focus-visible { box-shadow:var(--shadow-focus); outline:none; border-radius:var(--radius-button); }
+    .leftnav-icon { width:20px; height:20px; flex-shrink:0; }
+    .leftnav-caret { margin-left:auto; width:14px; height:14px; transition: transform var(--duration-micro); flex-shrink:0; }
+    .leftnav-group.is-open > .leftnav-item .leftnav-caret { transform: rotate(180deg); }
+
+    .leftnav-sub { display:none; padding: var(--space-2) 0 var(--space-3); background: var(--grey-50); }
+    .leftnav-group.is-open .leftnav-sub { display:block; }
+    .leftnav-sub-item {
+      display:flex; align-items:center;
+      padding: var(--space-3) var(--space-5) var(--space-3) calc(var(--space-5) + 36px);
+      color: var(--text-primary); font-size: var(--font-size-body);
+      text-decoration: underline; text-decoration-color: transparent;
+      min-height: 36px; border-left: 3px solid transparent;
+      transition: color var(--duration-micro), background var(--duration-micro), text-decoration-color var(--duration-micro);
+    }
+    .leftnav-sub-item:hover { color: var(--color-primary); background: var(--color-primary-25); text-decoration-color: var(--color-primary); }
+    .leftnav-sub-item[aria-current="page"], .leftnav-sub-item.active {
+      color: var(--color-primary-700); font-weight: 600;
+      border-left-color: var(--color-primary);
+      background: var(--color-primary-25);
+      text-decoration-color: var(--color-primary-700);
+    }
+
+    .topnav { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-7); background:var(--color-card); border-bottom:var(--border-default); flex-shrink:0; }
+    .topnav-search { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-5); border-radius:var(--radius-input); color:var(--text-secondary); cursor:pointer; min-height:40px; min-width:280px; transition:background var(--duration-micro); }
+    .topnav-search:hover { background:var(--grey-100); }
+    .topnav-search svg { width:16px; height:16px; }
+    .topnav-right { display:flex; align-items:center; gap:var(--space-5); }
+    .icon-btn { width:40px; height:40px; border-radius:50%; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center; color:var(--topnav-icon); cursor:pointer; position:relative; transition:background var(--duration-micro); }
+    .icon-btn:hover { background:var(--color-primary-25); color:var(--topnav-icon-hover); }
+    .icon-btn:focus-visible { box-shadow:var(--shadow-focus); outline:none; }
+    .icon-btn svg { width:20px; height:20px; }
+    .badge-count { position:absolute; top:2px; right:0; min-width:22px; height:18px; padding:0 5px; border-radius:var(--radius-pill); background:var(--color-warning); color:#FFF; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; line-height:1; }
+
+    .user-dropdown { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-2); border-radius:var(--radius-button); cursor:pointer; transition:background var(--duration-micro); }
+    .user-dropdown:hover { background:var(--grey-100); }
+    .user-dropdown:focus-visible { box-shadow:var(--shadow-focus); outline:none; }
+    .avatar { width:36px; height:36px; border-radius:50%; background:var(--color-primary); color:#FFF; font-weight:700; font-size:var(--font-size-body); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .topnav-greeting { font-size:var(--font-size-caption); color:var(--text-secondary); line-height:1.3; }
+    .topnav-greeting strong { display:block; font-size:var(--font-size-body); color:var(--text-primary); font-weight:600; }
+    .user-dropdown svg { width:12px; height:12px; color:var(--text-secondary); }
+
+    .main-content { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+    .main-body { flex:1; overflow-y:auto; min-height:0; }
+
+    /* --------- Page Hero --------- */
+    .page-hero {
+      background: linear-gradient(135deg, #006494 0%, #3276CF 55%, #8EC0E2 100%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+      padding: var(--space-5);
+      color: #FFFFFF;
+      position: relative;
+    }
+    .page-hero::after {
+      content:""; position:absolute; right:-40px; top:-40px;
+      width: 240px; height: 240px; border-radius:50%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.18), transparent 60%);
+      pointer-events:none;
+    }
+    .crumbs { display:flex; align-items:center; gap:var(--space-2); font-size:var(--font-size-caption); color:rgba(255,255,255,0.85); margin-bottom:var(--space-3); }
+    .crumbs a { color:rgba(255,255,255,0.85); }
+    .crumbs a:hover { color:#FFF; text-decoration:underline; }
+    .crumbs svg { width:12px; height:12px; opacity:.7; }
+    .hero-row { display:flex; align-items:center; justify-content:space-between; gap:var(--space-7); flex-wrap:wrap; position:relative; z-index:1; }
+    .hero-title { font-size:var(--font-size-h1); font-weight:700; letter-spacing:-0.4px; margin-bottom:var(--space-2); }
+    .hero-sub { font-size:var(--font-size-body); color:rgba(255,255,255,0.92); max-width:640px; display:none; }
+    .hero-actions { display:flex; gap: var(--space-3); flex-wrap: wrap; }
+
+    /* --------- Surface --------- */
+    .lc-surface {
+      margin: var(--space-7) var(--space-8) var(--space-8);
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    .lc-panel { padding: var(--space-6); }
+
+    /* DataTable-style toolbar (Show entries on left, Search on right) */
+    .lc-dt-toolbar {
+      display:flex; align-items:center; justify-content:space-between;
+      gap: var(--space-5); margin-bottom: var(--space-5); flex-wrap: wrap;
+    }
+    .lc-show-entries { display:inline-flex; align-items:center; gap: var(--space-3); font-size: var(--font-size-body); color: var(--text-primary); }
+    .lc-entries-select {
+      height: 36px;
+      padding: 0 var(--space-7) 0 var(--space-3);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: inherit; font-size: var(--font-size-body);
+      color: var(--text-primary);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      cursor: pointer;
+    }
+    .lc-entries-select:focus { outline:none; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+    .lc-search-global { display:inline-flex; align-items:center; gap: var(--space-3); font-size: var(--font-size-body); color: var(--text-primary); }
+    .lc-search-global input {
+      height: 36px; width: 240px;
+      padding: 0 var(--space-4);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: inherit; font-size: var(--font-size-body);
+      color: var(--text-primary);
+      transition: border-color var(--duration-micro), box-shadow var(--duration-micro);
+    }
+    .lc-search-global input:focus { outline:none; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+
+    /* Buttons */
+    .btn {
+      display:inline-flex; align-items:center; gap:var(--space-2);
+      height:40px; padding: 0 var(--space-5);
+      border-radius: var(--radius-button);
+      font-family:inherit; font-size: var(--font-size-body); font-weight:600;
+      cursor:pointer; border: 1.5px solid transparent;
+      transition: background var(--duration-micro), border-color var(--duration-micro), color var(--duration-micro), box-shadow var(--duration-micro);
+      white-space: nowrap;
+    }
+    .btn svg { width:16px; height:16px; }
+    .btn:focus-visible { box-shadow: var(--shadow-focus); outline:none; }
+    .btn-primary { background: var(--color-primary); color:#FFF; border-color: var(--color-primary); }
+    .btn-primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+    .btn-on-hero { background: #FFFFFF; color: var(--color-primary-700); border-color: #FFFFFF; }
+    .btn-on-hero:hover { background: var(--color-primary-25); color: var(--color-primary-800); border-color: var(--color-primary-25); }
+
+    /* Table */
+    .lc-table-wrap {
+      border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+    .lc-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); }
+    .lc-table thead th {
+      text-align:left;
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-primary-50);
+      color: var(--color-primary-800);
+      font-weight: 600;
+      font-size: var(--font-size-caption);
+      text-transform: uppercase; letter-spacing:.4px;
+      border-bottom: 1px solid var(--grey-200);
+      white-space: nowrap;
+      cursor: pointer; user-select: none;
+    }
+    .lc-table thead th .sort-icon {
+      display:inline-flex; vertical-align: middle; margin-left: var(--space-2);
+      color: var(--grey-400);
+    }
+    .lc-table thead th[aria-sort="ascending"] .sort-icon,
+    .lc-table thead th[aria-sort="descending"] .sort-icon { color: var(--color-primary); }
+    .lc-table thead th.col-action { text-align: right; width: 80px; cursor:default; }
+    .lc-table thead tr.lc-col-filter th { background: var(--grey-50); padding: var(--space-3) var(--space-5); border-bottom: 1px solid var(--grey-200); cursor:default; }
+    .lc-col-filter input {
+      width:100%; height: 32px;
+      padding: 0 var(--space-3);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: inherit; font-size: var(--font-size-body);
+      color: var(--text-primary);
+      transition: border-color var(--duration-micro), box-shadow var(--duration-micro);
+    }
+    .lc-col-filter input::placeholder { color: var(--grey-500); font-style: normal; }
+    .lc-col-filter input:focus { outline:none; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+
+    .lc-table tbody td {
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      vertical-align: middle;
+      color: var(--text-primary);
+    }
+    .lc-table tbody tr:last-child td { border-bottom: none; }
+    .lc-table tbody tr { transition: background var(--duration-micro); }
+    .lc-table tbody tr:hover td { background: var(--color-primary-25); }
+
+    .cell-list-name { font-weight: 600; color: var(--text-primary); }
+    .cell-empty { color: var(--text-disabled); }
+
+    .col-action { width: 80px; text-align:right; }
+
+    /* Row kebab popover */
+    .row-action-wrapper { position: relative; display:inline-block; }
+    .row-icon-btn {
+      width: 32px; height: 32px; border-radius:8px;
+      border:none; background:transparent; cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center;
+      color: var(--color-primary); /* match blue kebab in screenshot */
+      transition: background var(--duration-micro), color var(--duration-micro);
+    }
+    .row-icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary-700); }
+    .row-icon-btn:focus-visible { box-shadow: var(--shadow-focus); outline:none; }
+    .row-icon-btn svg { width:18px; height:18px; }
+    .row-action-menu {
+      display:none; position:absolute; right:0; top:calc(100% + 4px);
+      z-index:50; min-width:160px;
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-popover);
+      padding: var(--space-2) 0;
+    }
+    .row-action-menu.open { display:block; }
+    .row-action-menu-item {
+      display:flex; align-items:center; gap:var(--space-3);
+      width:100%; padding: var(--space-3) var(--space-5);
+      border:none; background:transparent; cursor:pointer;
+      font-family:inherit; font-size:var(--font-size-body);
+      color: var(--text-primary); text-align:left;
+    }
+    .row-action-menu-item:hover { background: var(--color-primary-25); }
+    .row-action-menu-item.is-delete { color: var(--color-error-deeper); }
+    .row-action-menu-item svg { width:16px; height:16px; }
+
+    /* Empty state */
+    .lc-empty {
+      padding: var(--space-9) var(--space-7);
+      text-align:center;
+      color: var(--text-secondary);
+    }
+    .lc-empty svg { width: 48px; height: 48px; color: var(--grey-400); margin-bottom: var(--space-3); }
+    .lc-empty h3 { font-size: var(--font-size-h3); color: var(--text-primary); margin-bottom: var(--space-2); }
+    .lc-empty p { font-size: var(--font-size-body); }
+
+    /* Footer pager */
+    .lc-table-footer {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--space-5) var(--space-2) 0;
+      font-size: var(--font-size-body); color: var(--text-secondary);
+      flex-wrap:wrap; gap: var(--space-4);
+    }
+    .lc-pager { display:flex; gap: var(--space-2); align-items:center; }
+    .lc-pager button {
+      min-width:36px; height:32px; padding: 0 var(--space-4);
+      border:1px solid var(--grey-300);
+      background: var(--color-card); color: var(--text-primary);
+      font-family:inherit; font-size: var(--font-size-caption); font-weight:600;
+      border-radius: var(--radius-input); cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: background var(--duration-micro), color var(--duration-micro), border-color var(--duration-micro);
+    }
+    .lc-pager button:hover:not([disabled]):not([aria-current="true"]) {
+      border-color: var(--color-primary); color: var(--color-primary);
+    }
+    .lc-pager button[aria-current="true"] {
+      background: var(--color-primary); color:#FFF; border-color: var(--color-primary);
+    }
+    .lc-pager button[disabled] { color: var(--grey-400); cursor:not-allowed; }
+    .lc-pager .lc-pager-label { border:none; background:transparent; padding:0 var(--space-3); cursor:default; font-weight:600; color: var(--text-primary); }
+
+    .page-footer { display:flex; align-items:center; justify-content:space-between; padding:var(--space-4) var(--space-7); background:var(--color-card); border-top:var(--border-default); min-height:48px; flex-shrink:0; }
+    .footer-links { display:flex; gap:var(--space-5); }
+    .footer-links a { color:var(--text-hyperlink); font-size:var(--font-size-body); font-weight:600; text-decoration:underline; }
+    .footer-branding { display:flex; align-items:center; gap:var(--space-3); font-size:var(--font-size-caption); color:var(--text-secondary); }
+    .footer-branding img { height:24px; width:auto; }
+
+    @media (max-width: 1024px) {
+      .app-shell { grid-template-columns: 72px 1fr; }
+      .leftnav-item span:not(.leftnav-icon), .leftnav-caret { display:none; }
+      .leftnav-item { justify-content:center; padding: var(--space-4) var(--space-3); gap:0; }
+      .leftnav-sub { display:none !important; }
+    }
+    @media (max-width: 720px) {
+      .lc-surface { margin: var(--space-5); }
+      .page-hero { padding: var(--space-5); }
+      .lc-dt-toolbar { flex-direction: column; align-items: stretch; }
+      .lc-search-global input { width:100%; }
+      .hero-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- --- LEFT SIDEBAR --- -->
+    <nav class="leftnav" aria-label="Side navigation">
+      <a class="leftnav-brand" href="landing.html" aria-label="ProServe home">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 32'%3E%3Crect width='140' height='32' rx='4' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3Ctext x='28' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EProServe%3C/text%3E%3C/svg%3E" alt="ProServe" />
+      </a>
+      <ul class="leftnav-list" role="list">
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span>Navigation</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="quick_list.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span>QuickList</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="advance_contact_service.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-3-3.87"/><path d="M4 21v-2a4 4 0 013-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Records</span>
+            <svg class="leftnav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+        </li>
+        <li class="leftnav-group is-open" id="nav-settings">
+          <a class="leftnav-item active" href="#" aria-expanded="true" aria-controls="settings-sub" onclick="toggleSettings(event)">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            <span>Settings</span>
+            <svg class="leftnav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="leftnav-sub" id="settings-sub" role="list">
+            <li><a class="leftnav-sub-item" href="user_details.html">User Details</a></li>
+            <li><a class="leftnav-sub-item" href="roles_details.html">Roles Details</a></li>
+            <li><a class="leftnav-sub-item active" href="list_configuration.html" aria-current="page">List Configuration</a></li>
+            <li><a class="leftnav-sub-item" href="dynamic_fields.html">Dynamic Fields</a></li>
+            <li><a class="leftnav-sub-item" href="email_template.html">Email Template</a></li>
+            <li><a class="leftnav-sub-item" href="email_queue.html">Email Queue</a></li>
+            <li><a class="leftnav-sub-item" href="documents_upload.html">Documents Upload</a></li>
+            <li><a class="leftnav-sub-item" href="notification.html">Notification</a></li>
+            <li><a class="leftnav-sub-item" href="#" onclick="return false;">Query Builder</a></li>
+            <li><a class="leftnav-sub-item" href="asset_details.html">Asset Details</a></li>
+            <li><a class="leftnav-sub-item" href="engage_bwv_log.html">FieldSync BWV Log Screen</a></li>
+            <li><a class="leftnav-sub-item" href="talos_log.html">Talos Log</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="leftnav-item" href="reports.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Reports</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- --- COLUMN 2 --- -->
+    <div class="main-column">
+
+      <!-- --- TOP NAV --- -->
+      <header class="topnav" role="banner">
+        <div class="topnav-search" role="search" tabindex="0" aria-label="Global search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search...</span>
+        </div>
+        <div class="topnav-right">
+          <button class="icon-btn" aria-label="Notifications (2536 new)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <span class="badge-count" aria-hidden="true">2536</span>
+          </button>
+          <div class="user-dropdown" role="button" tabindex="0" aria-haspopup="true" aria-label="User profile: Arumugam">
+            <div class="avatar" aria-hidden="true">A</div>
+            <div class="topnav-greeting">
+              <span>Good Morning</span>
+              <strong>Arumugam</strong>
+            </div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content" id="main-content">
+
+        <!-- --- HERO --- -->
+        <div class="page-hero">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="landing.html">Home</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            <a href="#" onclick="return false;">Settings</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            <span aria-current="page">List Configuration</span>
+          </nav>
+          <div class="hero-row">
+            <div>
+              <h1 class="hero-title">List Configuration</h1>
+              <p class="hero-sub">Manage reference lists used across the platform. Create new lookup sets, edit existing entries, and audit when lists were last modified.</p>
+            </div>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-on-hero" data-action="add-list">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add List
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-body">
+
+          <section class="lc-surface" aria-labelledby="lc-heading">
+            <h2 id="lc-heading" class="sr-only">List Configuration table</h2>
+            <div class="lc-panel">
+
+              <div class="lc-dt-toolbar">
+                <div class="lc-show-entries">
+                  <label for="lc-size">Show</label>
+                  <select id="lc-size" class="lc-entries-select" aria-label="Entries per page">
+                    <option>10</option><option>25</option><option>50</option><option>100</option>
+                  </select>
+                  <span>entries</span>
+                </div>
+                <div class="lc-search-global">
+                  <label for="lc-search">Search:</label>
+                  <input id="lc-search" type="search" aria-label="Search all columns" />
+                </div>
+              </div>
+
+              <div class="lc-table-wrap">
+                <table class="lc-table" aria-label="Configured lists">
+                  <thead>
+                    <tr>
+                      <th scope="col" data-sort-key="name" aria-sort="ascending">List Name <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="createdBy">Created By <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="modifiedBy">Modified By <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="createDate">Create Date <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" data-sort-key="modifiedDate">Modified Date <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col" class="col-action">Action</th>
+                    </tr>
+                    <tr class="lc-col-filter">
+                      <th><input type="search" placeholder="Search List Name" aria-label="Filter List Name" data-col="name" /></th>
+                      <th><input type="search" placeholder="Search Created By" aria-label="Filter Created By" data-col="createdBy" /></th>
+                      <th><input type="search" placeholder="Search Modified By" aria-label="Filter Modified By" data-col="modifiedBy" /></th>
+                      <th><input type="search" placeholder="Search Create Date" aria-label="Filter Create Date" data-col="createDate" /></th>
+                      <th><input type="search" placeholder="Search Modified Date" aria-label="Filter Modified Date" data-col="modifiedDate" /></th>
+                      <th aria-hidden="true"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="lc-body"></tbody>
+                </table>
+              </div>
+
+              <div class="lc-table-footer">
+                <div id="lc-summary">Showing 0 entries</div>
+                <div class="lc-pager" id="lc-pager"></div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+        <footer class="page-footer" role="contentinfo">
+          <div class="footer-links">
+            <a href="#" onclick="return false;">ProServe Learn</a>
+          </div>
+          <div class="footer-branding">
+            <span>Powered by</span>
+            <img src="images/acme-logo@small-logo.png" alt="Acme"
+                 onerror="this.replaceWith(Object.assign(document.createElement('strong'),{textContent:'acme',style:'color:#22497D;font-weight:700;'}));" />
+          </div>
+        </footer>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    /* ----- Settings nav toggle ----- */
+    function toggleSettings(e){
+  e.preventDefault();
+  var g = document.getElementById('nav-settings');
+  if (!g) return;
+  var i = g.querySelector('.leftnav-item');
+  var open = g.classList.toggle('is-open');
+  if (i) i.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+(function initHoverExpandLeftnav(){
+  var DESKTOP_MEDIA = '(min-width: 1025px)';
+  var COLLAPSED_CLASS = 'leftnav-collapsed';
+  var COLLAPSED_BRAND_SRC = 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E';
+
+  function isDesktop() {
+    return window.matchMedia(DESKTOP_MEDIA).matches;
+  }
+
+  function injectCollapsedStyle() {
+    if (document.getElementById('leftnav-collapsible-style')) return;
+    var style = document.createElement('style');
+    style.id = 'leftnav-collapsible-style';
+    style.textContent = [
+      '.app-shell.leftnav-collapsed{grid-template-columns:72px 1fr;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand{padding:var(--space-5, 12px);justify-content:center;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand img{height:24px;width:24px;object-fit:contain;}',
+      '.app-shell.leftnav-collapsed .leftnav-item span:not(.leftnav-icon),',
+      '.app-shell.leftnav-collapsed .leftnav-caret,',
+      '.app-shell.leftnav-collapsed .leftnav-chevron,',
+      '.app-shell.leftnav-collapsed .leftnav-sub,',
+      '.app-shell.leftnav-collapsed .leftnav-submenu{display:none !important;}',
+      '.app-shell.leftnav-collapsed .leftnav-item{justify-content:center;padding:var(--space-4,12px) var(--space-3,8px);gap:0;}'
+    ].join('');
+    document.head.appendChild(style);
+  }
+
+  function init() {
+    var shell = document.querySelector('.app-shell');
+    var leftnav = document.querySelector('.leftnav');
+    var brandImg = document.querySelector('.leftnav-brand img');
+    if (!shell || !leftnav) return;
+
+    injectCollapsedStyle();
+
+    var expandedBrandSrc = brandImg ? brandImg.getAttribute('src') : '';
+
+    function syncBrandImage() {
+      if (!brandImg) return;
+      if (shell.classList.contains(COLLAPSED_CLASS) && isDesktop()) {
+        brandImg.setAttribute('src', COLLAPSED_BRAND_SRC);
+      } else if (expandedBrandSrc) {
+        brandImg.setAttribute('src', expandedBrandSrc);
+      }
+    }
+
+    leftnav.addEventListener('click', function(event) {
+      var item = event.target.closest('.leftnav-item, .leftnav-sub-item, .leftnav-submenu-item');
+      if (!item || !isDesktop()) return;
+
+      var clickedIcon = !!event.target.closest('.leftnav-icon');
+      if (shell.classList.contains(COLLAPSED_CLASS) && clickedIcon) {
+        event.preventDefault();
+        shell.classList.remove(COLLAPSED_CLASS);
+        syncBrandImage();
+        return;
+      }
+
+      var isSettingsToggle = item.matches('.leftnav-item[aria-controls="settings-sub"]');
+      if (isSettingsToggle) return;
+      shell.classList.add(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    window.addEventListener('resize', function() {
+      if (isDesktop()) {
+        syncBrandImage();
+        return;
+      }
+      shell.classList.remove(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    syncBrandImage();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+    /* ----- Sample Data (41 entries) ----- */
+    const LISTS = [
+      { name:'A Uma',                    createdBy:'Umamaheswari',     modifiedBy:'Mercy',          createDate:'05/08/2024', modifiedDate:'06/02/2026',
+        audit:[
+          { action:'Updated', field:'Status Change Date', user:'Johny Wick',   role:'Admin User', when:'10 Apr 2026 · 14:15', year:2026, sortKey:'2026-04-10T14:15', oldValue:'01/12/2024',        newValue:'15/01/2025' },
+          { action:'Updated', field:'Phone / Mobile No',  user:'Johny Wick',   role:'Admin User', when:'22 Mar 2026 · 09:42', year:2026, sortKey:'2026-03-22T09:42', oldValue:'+44 234 5678 000',  newValue:'+44 234 5678 901' },
+          { action:'Updated', field:'Role',               user:'Admin User',   role:'Super User', when:'15 Jan 2025 · 11:30', year:2025, sortKey:'2025-01-15T11:30', oldValue:'Enforcement Agent', newValue:'Enforcement Director' },
+          { action:'Added',   field:'List Values',        user:'Umamaheswari', role:'Admin User', when:'06 Aug 2024 · 05:14', year:2024, sortKey:'2024-08-06T05:14',                                newValue:'Field Officer' },
+          { action:'Updated', field:'Certificate Status', user:'Admin User',   role:'Super User', when:'01 Sep 2022 · 08:00', year:2022, sortKey:'2022-09-01T08:00', oldValue:'Pending',           newValue:'Active' }
+        ] },
+      { name:'Ab',                       createdBy:'Umamaheswari',     modifiedBy:'Umamaheswari',   createDate:'31/05/2024', modifiedDate:'27/08/2024' },
+      { name:'acceptance',               createdBy:'Deepshika Prasad', modifiedBy:'prasanth K',     createDate:'31/10/2023', modifiedDate:'09/11/2023' },
+      { name:'Access Level',             createdBy:'Shabeen Saleemi',  modifiedBy:'Shabeen Saleemi',createDate:'09/02/2026', modifiedDate:'09/02/2026' },
+      { name:'Area',                     createdBy:'',                 modifiedBy:'Umamaheswari',   createDate:'',           modifiedDate:'04/11/2024' },
+      { name:'BondTypes',                createdBy:'',                 modifiedBy:'Daniel',         createDate:'',           modifiedDate:'01/06/2024' },
+      { name:'Brand',                    createdBy:'',                 modifiedBy:'Umamaheswari',   createDate:'',           modifiedDate:'08/05/2025' },
+      { name:'CertificateProcessStatus4',createdBy:'',                 modifiedBy:'Mercy',          createDate:'',           modifiedDate:'09/02/2026' },
+      { name:'Company/Authority',        createdBy:'Admin',            modifiedBy:'',               createDate:'18/01/2022', modifiedDate:'' },
+      { name:'Compliance_AwardingBody',  createdBy:'',                 modifiedBy:'Umamaheswari',   createDate:'',           modifiedDate:'22/06/2022' },
+      { name:'Contract Type',            createdBy:'Admin',            modifiedBy:'Tracey Harrold', createDate:'12/03/2022', modifiedDate:'14/07/2025' },
+      { name:'Country',                  createdBy:'Admin',            modifiedBy:'Umamaheswari',   createDate:'01/01/2022', modifiedDate:'10/09/2024' },
+      { name:'Currency',                 createdBy:'Admin',            modifiedBy:'Admin',          createDate:'01/01/2022', modifiedDate:'01/01/2022' },
+      { name:'Department',               createdBy:'Shabeen Saleemi',  modifiedBy:'Mercy',          createDate:'04/05/2023', modifiedDate:'18/01/2026' },
+      { name:'DocumentCategory',         createdBy:'Umamaheswari',     modifiedBy:'Umamaheswari',   createDate:'22/07/2024', modifiedDate:'02/02/2026' },
+      { name:'DocumentType',             createdBy:'Umamaheswari',     modifiedBy:'Daniel',         createDate:'22/07/2024', modifiedDate:'15/08/2025' },
+      { name:'EmploymentStatus',         createdBy:'Admin',            modifiedBy:'Mercy',          createDate:'10/02/2022', modifiedDate:'09/02/2026' },
+      { name:'EquipmentType',            createdBy:'Daniel',           modifiedBy:'Daniel',         createDate:'15/04/2024', modifiedDate:'20/04/2024' },
+      { name:'Ethnicity',                createdBy:'Admin',            modifiedBy:'Tracey Harrold', createDate:'01/01/2022', modifiedDate:'12/05/2024' },
+      { name:'Gender',                   createdBy:'Admin',            modifiedBy:'Admin',          createDate:'01/01/2022', modifiedDate:'01/01/2022' },
+      { name:'IncidentCategory',         createdBy:'Mercy',            modifiedBy:'Mercy',          createDate:'14/06/2024', modifiedDate:'09/02/2026' },
+      { name:'IncidentSeverity',         createdBy:'Mercy',            modifiedBy:'Mercy',          createDate:'14/06/2024', modifiedDate:'12/12/2025' },
+      { name:'JobRole',                  createdBy:'Shabeen Saleemi',  modifiedBy:'Umamaheswari',   createDate:'09/09/2023', modifiedDate:'05/03/2025' },
+      { name:'Language',                 createdBy:'Admin',            modifiedBy:'Admin',          createDate:'01/01/2022', modifiedDate:'01/01/2022' },
+      { name:'Location',                 createdBy:'Umamaheswari',     modifiedBy:'Mercy',          createDate:'02/02/2024', modifiedDate:'09/02/2026' },
+      { name:'NoticeType',               createdBy:'Daniel',           modifiedBy:'Daniel',         createDate:'10/10/2024', modifiedDate:'04/11/2024' },
+      { name:'OffenceType',              createdBy:'prasanth K',       modifiedBy:'Deepshika Prasad', createDate:'05/05/2023', modifiedDate:'30/10/2023' },
+      { name:'PaymentMethod',            createdBy:'Admin',            modifiedBy:'Mercy',          createDate:'01/01/2022', modifiedDate:'18/01/2026' },
+      { name:'Priority',                 createdBy:'Admin',            modifiedBy:'Admin',          createDate:'01/01/2022', modifiedDate:'01/01/2022' },
+      { name:'Region',                   createdBy:'Umamaheswari',     modifiedBy:'Umamaheswari',   createDate:'15/03/2024', modifiedDate:'27/08/2024' },
+      { name:'RiskLevel',                createdBy:'Mercy',            modifiedBy:'Mercy',          createDate:'14/06/2024', modifiedDate:'09/02/2026' },
+      { name:'Salutation',               createdBy:'Admin',            modifiedBy:'Admin',          createDate:'01/01/2022', modifiedDate:'01/01/2022' },
+      { name:'ServiceType',              createdBy:'Tracey Harrold',   modifiedBy:'Tracey Harrold', createDate:'19/04/2023', modifiedDate:'14/07/2025' },
+      { name:'Site',                     createdBy:'Daniel',           modifiedBy:'Umamaheswari',   createDate:'10/10/2024', modifiedDate:'05/03/2025' },
+      { name:'Status',                   createdBy:'Admin',            modifiedBy:'Mercy',          createDate:'01/01/2022', modifiedDate:'09/02/2026' },
+      { name:'Subcontractor',            createdBy:'Tracey Harrold',   modifiedBy:'Tracey Harrold', createDate:'19/04/2023', modifiedDate:'19/04/2023' },
+      { name:'Team',                     createdBy:'Shabeen Saleemi',  modifiedBy:'Shabeen Saleemi',createDate:'04/05/2023', modifiedDate:'04/05/2023' },
+      { name:'Title',                    createdBy:'Admin',            modifiedBy:'Admin',          createDate:'01/01/2022', modifiedDate:'01/01/2022' },
+      { name:'TrainingType',             createdBy:'Mercy',            modifiedBy:'Mercy',          createDate:'14/06/2024', modifiedDate:'12/12/2025' },
+      { name:'Vehicle',                  createdBy:'Daniel',           modifiedBy:'Daniel',         createDate:'15/04/2024', modifiedDate:'20/04/2024' },
+      { name:'WorkType',                 createdBy:'Tracey Harrold',   modifiedBy:'Umamaheswari',   createDate:'19/04/2023', modifiedDate:'05/03/2025' },
+    ];
+
+    /* ----- Helpers ----- */
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    const ICONS = {
+      view: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+      edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+      copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+      del:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
+      kebab:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>',
+    };
+
+    /* ----- Controller ----- */
+    const body = document.getElementById('lc-body');
+    const summary = document.getElementById('lc-summary');
+    const pager = document.getElementById('lc-pager');
+    const sizeSelect = document.getElementById('lc-size');
+    const globalSearch = document.getElementById('lc-search');
+    const headThs = document.querySelectorAll('.lc-table thead th[data-sort-key]');
+    const colInputs = document.querySelectorAll('.lc-col-filter input[data-col]');
+
+    const state = {
+      page: 1,
+      size: parseInt(sizeSelect.value, 10) || 10,
+      query: '',
+      sortKey: 'name',
+      sortDir: 'asc',
+      colFilters: {},
+    };
+
+    function getFiltered() {
+      let rows = LISTS.slice();
+      if (state.query) {
+        const q = state.query.toLowerCase();
+        rows = rows.filter(r => ['name','createdBy','modifiedBy','createDate','modifiedDate'].some(k => String(r[k]||'').toLowerCase().includes(q)));
+      }
+      Object.entries(state.colFilters).forEach(([k,v]) => {
+        if (v) { const q = v.toLowerCase(); rows = rows.filter(r => String(r[k]||'').toLowerCase().includes(q)); }
+      });
+      if (state.sortKey) {
+        const dir = state.sortDir === 'asc' ? 1 : -1;
+        rows.sort((a,b) => {
+          const av = String(a[state.sortKey]||'').toLowerCase();
+          const bv = String(b[state.sortKey]||'').toLowerCase();
+          if (av < bv) return -dir; if (av > bv) return dir; return 0;
+        });
+      }
+      return rows;
+    }
+
+    function cellOrEmpty(v) { return v ? esc(v) : '<span class="cell-empty"></span>'; }
+
+    function renderRow(r) {
+      return `
+        <tr data-list-name="${esc(r.name)}">
+          <td><span class="cell-list-name">${esc(r.name)}</span></td>
+          <td>${cellOrEmpty(r.createdBy)}</td>
+          <td>${cellOrEmpty(r.modifiedBy)}</td>
+          <td>${cellOrEmpty(r.createDate)}</td>
+          <td>${cellOrEmpty(r.modifiedDate)}</td>
+          <td class="col-action">
+            <div class="row-action-wrapper">
+              <button type="button" class="row-icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Actions for ${esc(r.name)}" onclick="lcToggleMenu(this, event)">${ICONS.kebab}</button>
+              <div class="row-action-menu" role="menu">
+                <button type="button" class="row-action-menu-item" role="menuitem" data-row-action="view">${ICONS.view}<span>View</span></button>
+                <button type="button" class="row-action-menu-item" role="menuitem" data-row-action="edit">${ICONS.edit}<span>Edit</span></button>
+                <button type="button" class="row-action-menu-item" role="menuitem" data-row-action="duplicate">${ICONS.copy}<span>Duplicate</span></button>
+                <button type="button" class="row-action-menu-item is-delete" role="menuitem" data-row-action="delete">${ICONS.del}<span>Delete</span></button>
+              </div>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    function renderEmpty() {
+      return `<tr><td colspan="6">
+        <div class="lc-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <h3>No matching lists</h3>
+          <p>Try adjusting your search or clearing column filters.</p>
+        </div>
+      </td></tr>`;
+    }
+
+    function render() {
+      const filtered = getFiltered();
+      const total = filtered.length;
+      const totalPages = Math.max(1, Math.ceil(total / state.size));
+      if (state.page > totalPages) state.page = totalPages;
+      const start = (state.page - 1) * state.size;
+      const slice = filtered.slice(start, start + state.size);
+
+      body.innerHTML = slice.length ? slice.map(renderRow).join('') : renderEmpty();
+      summary.textContent = total === 0
+        ? 'No entries to show'
+        : `Showing ${start + 1} to ${Math.min(start + state.size, total)} of ${total} entries`;
+
+      headThs.forEach(th => {
+        if (th.dataset.sortKey === state.sortKey) th.setAttribute('aria-sort', state.sortDir === 'asc' ? 'ascending' : 'descending');
+        else th.removeAttribute('aria-sort');
+      });
+
+      let html = `<button type="button" class="lc-pager-label" data-jump="prev" ${state.page === 1 ? 'disabled' : ''}>Previous</button>`;
+      const max = 5;
+      let from = Math.max(1, state.page - 2);
+      let to = Math.min(totalPages, from + max - 1);
+      from = Math.max(1, to - max + 1);
+      for (let p = from; p <= to; p++) {
+        html += `<button type="button" data-page="${p}" ${p === state.page ? 'aria-current="true"' : ''}>${p}</button>`;
+      }
+      html += `<button type="button" class="lc-pager-label" data-jump="next" ${state.page === totalPages ? 'disabled' : ''}>Next</button>`;
+      pager.innerHTML = html;
+    }
+
+    /* ----- Bind ----- */
+    globalSearch.addEventListener('input', () => { state.query = globalSearch.value.trim(); state.page = 1; render(); });
+    sizeSelect.addEventListener('change', () => { state.size = parseInt(sizeSelect.value, 10) || 10; state.page = 1; render(); });
+    pager.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b || b.disabled) return;
+      const totalPages = Math.max(1, Math.ceil(getFiltered().length / state.size));
+      if (b.dataset.jump === 'prev' && state.page > 1) state.page--;
+      else if (b.dataset.jump === 'next' && state.page < totalPages) state.page++;
+      else if (b.dataset.page) state.page = parseInt(b.dataset.page, 10);
+      render();
+    });
+    headThs.forEach(th => th.addEventListener('click', () => {
+      const k = th.dataset.sortKey;
+      if (state.sortKey === k) state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+      else { state.sortKey = k; state.sortDir = 'asc'; }
+      render();
+    }));
+    colInputs.forEach(inp => inp.addEventListener('input', () => {
+      state.colFilters[inp.dataset.col] = inp.value.trim();
+      state.page = 1;
+      render();
+    }));
+
+    /* ----- Kebab popover ----- */
+    function lcToggleMenu(btn, e) {
+      e.stopPropagation();
+      const menu = btn.nextElementSibling;
+      const wasOpen = menu.classList.contains('open');
+      lcCloseAllMenus();
+      if (!wasOpen) { menu.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    }
+    function lcCloseAllMenus() {
+      document.querySelectorAll('.row-action-menu.open').forEach(m => m.classList.remove('open'));
+      document.querySelectorAll('[aria-expanded="true"][aria-haspopup="true"]').forEach(b => b.setAttribute('aria-expanded','false'));
+    }
+    document.addEventListener('click', lcCloseAllMenus);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lcCloseAllMenus(); });
+
+    /* ----- Init ----- */
+    render();
+
+    /* expose render + LISTS for the drawer to refresh after Save */
+    window.__lcRefresh = render;
+  </script>
+
+  <!-- ------------ Properties drawer (Add / Edit / View) ------------ -->
+  <style>
+    .lc-drawer-backdrop {
+      position: fixed; inset: 0; background: rgba(15,30,55,0.45);
+      z-index: 1100; opacity: 0; transition: opacity .22s ease;
+    }
+    .lc-drawer-backdrop.is-open { opacity: 1; }
+    .lc-drawer-backdrop[hidden] { display: none; }
+
+    .lc-drawer {
+      position: fixed; top: 0; right: 0; height: 100vh;
+      width: min(880px, 100vw);
+      background: #FFFFFF; box-shadow: -10px 0 32px rgba(15,30,55,.18);
+      display: flex; flex-direction: column; z-index: 1101;
+      transform: translateX(100%); transition: transform .26s cubic-bezier(.22,.61,.36,1);
+    }
+    .lc-drawer.is-open { transform: translateX(0); }
+    .lc-drawer[hidden] { display: none; }
+    @media (max-width: 640px){ .lc-drawer { width: 100%; } }
+    @media (prefers-reduced-motion: reduce) {
+      .lc-drawer, .lc-drawer-backdrop { transition: none; }
+    }
+
+    .lc-drawer-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid #EEEEEE; flex-shrink: 0;
+    }
+    .lc-drawer-title-wrap { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .lc-drawer-title-icon {
+      width: 26px; height: 26px; color: #1F1F1F; flex-shrink: 0;
+    }
+    .lc-drawer-title {
+      font: 700 22px/1.2 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #1F1F1F; letter-spacing: -0.2px; margin: 0;
+    }
+    .lc-drawer-title-edit {
+      width: 28px; height: 28px; display:inline-flex; align-items:center; justify-content:center;
+      border:0; background:transparent; color:#616161; cursor:pointer; border-radius:6px;
+      transition: background .15s, color .15s;
+    }
+    .lc-drawer-title-edit:hover { background:#F2F5FA; color:#3276CF; }
+    .lc-drawer-title-edit:focus-visible { outline:none; box-shadow:0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF; }
+    .lc-drawer-title-edit svg { width:16px; height:16px; }
+    .lc-drawer-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 0; background: #E53935; color: #FFFFFF; cursor: pointer;
+      transition: background .15s, transform .15s; flex-shrink: 0;
+    }
+    .lc-drawer-close:hover { background: #C62828; }
+    .lc-drawer-close:focus-visible { outline:none; box-shadow:0 0 0 2px #FFFFFF, 0 0 0 4px #E53935; }
+    .lc-drawer-close svg { width: 16px; height: 16px; }
+
+    .lc-tabs {
+      display: flex; gap: 0; padding: 0 20px;
+      border-bottom: 1px solid #EEEEEE; flex-shrink: 0;
+      overflow-x: auto;
+    }
+    .lc-tab {
+      background: transparent; border: 0; padding: 14px 6px; margin-right: 28px;
+      font: 600 14px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #9E9E9E; cursor: pointer; border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s; white-space: nowrap;
+    }
+    .lc-tab:hover { color: #3276CF; }
+    .lc-tab[aria-selected="true"] { color: #1F1F1F; border-bottom-color: #3276CF; }
+    .lc-tab:focus-visible { outline: none; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #3276CF; border-radius: 4px; }
+
+    .lc-drawer-body { flex: 1; overflow-y: auto; padding: 24px 20px; }
+    .lc-panel[hidden] { display: none; }
+
+    .lc-field-label {
+      display: block; font: 500 14px/1.3 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #616161; margin-bottom: 8px;
+    }
+    .lc-input {
+      width: 100%; padding: 12px 14px; border: 1px solid #BDBDBD; border-radius: 8px;
+      font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #212121; background: #FFFFFF; box-sizing: border-box;
+    }
+    .lc-input:focus { border-color: #3276CF; box-shadow: 0 0 0 3px rgba(50,118,207,.2); outline: none; }
+    .lc-input[readonly] { background:#FAFAFA; color:#424242; }
+
+    /* Items tab toolbar */
+    .lc-items-tools {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px;
+    }
+    .lc-items-search-wrap { position: relative; width: 260px; max-width: 50%; }
+    .lc-items-search {
+      width: 100%; padding: 10px 38px 10px 14px; border: 1px solid #BDBDBD; border-radius: 8px;
+      font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; box-sizing: border-box;
+    }
+    .lc-items-search:focus { border-color: #3276CF; box-shadow: 0 0 0 3px rgba(50,118,207,.2); outline: none; }
+    .lc-items-search-icon {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: #757575; pointer-events: none;
+    }
+    .lc-items-search-icon svg { width: 16px; height: 16px; }
+
+    /* Drawer table (shared by Items / Linked Pages) */
+    .lc-drawer-table-wrap { border-top: 1px solid #E0E0E0; }
+    .lc-drawer-table { width: 100%; border-collapse: collapse; font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+    .lc-drawer-table th {
+      text-align: left; font-weight: 700; color: #212121;
+      padding: 12px 10px; background: #FFFFFF; border-bottom: 1px solid #E0E0E0;
+      white-space: nowrap; user-select: none;
+    }
+    .lc-drawer-table th .lc-sort-icons {
+      display: inline-flex; flex-direction: column; gap: 0; margin-left: 6px; vertical-align: middle;
+      color: #BDBDBD;
+    }
+    .lc-drawer-table th .lc-sort-icons svg { width: 10px; height: 10px; display:block; }
+    .lc-drawer-table th[aria-sort="ascending"] .lc-sort-up { color: #6E6EE6; }
+    .lc-drawer-table th[aria-sort="descending"] .lc-sort-down { color: #6E6EE6; }
+    .lc-drawer-table td { padding: 12px 10px; border-bottom: 1px solid #F0F0F0; color: #212121; }
+    .lc-drawer-empty { text-align: center; color: #757575; padding: 18px 10px; }
+
+    /* Linked Pages: top "Show N entries" + bottom summary/pager */
+    .lc-lp-tools { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; color: #424242; }
+    .lc-lp-tools select {
+      padding: 4px 26px 4px 10px; border: 1px solid #BDBDBD; border-radius: 6px; background: #FFFFFF;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23616161' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat; background-position: right 6px center; background-size: 14px;
+    }
+    .lc-lp-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0 0; border-top: 1px solid #E0E0E0; margin-top: 4px; color: #424242; font-size: 14px;
+    }
+    .lc-lp-pager { display: inline-flex; gap: 4px; }
+    .lc-lp-pager button {
+      border: 0; background: transparent; color: #3276CF; cursor: pointer; padding: 6px 10px; border-radius: 6px;
+      font: 500 14px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+    .lc-lp-pager button:disabled { color: #BDBDBD; cursor: default; }
+    .lc-lp-pager button:not(:disabled):hover { background: #F2F5FA; }
+
+    /* Audit log — grouped timeline */
+    .lc-audit-empty { color: #424242; font-size: 14px; padding: 8px 4px; }
+
+    .lc-audit-toolbar {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .lc-audit-search-wrap { position: relative; flex: 1 1 220px; min-width: 200px; }
+    .lc-audit-search-wrap input {
+      width: 100%; padding: 8px 12px 8px 34px;
+      border: 1px solid #E0E0E0; border-radius: 100px; background: #FFFFFF;
+      font: 400 13px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #212121; outline: none;
+    }
+    .lc-audit-search-wrap input::placeholder { color: #9E9E9E; }
+    .lc-audit-search-wrap input:focus {
+      border-color: #3276CF;
+      box-shadow: 0 0 0 3px rgba(50, 118, 207, .15);
+    }
+    .lc-audit-search-icon {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; color: #757575; pointer-events: none;
+    }
+    .lc-audit-select {
+      padding: 7px 30px 7px 12px;
+      border: 1px solid #E0E0E0; border-radius: 6px; background: #FFFFFF; color: #212121;
+      font: 400 13px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      min-width: 120px; cursor: pointer;
+      appearance: none; -webkit-appearance: none; -moz-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23616161' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat: no-repeat; background-position: right 10px center; background-size: 12px;
+    }
+    .lc-audit-select:focus { outline: none; border-color: #3276CF; box-shadow: 0 0 0 3px rgba(50, 118, 207, .15); }
+    .lc-audit-count { color: #757575; font-size: 13px; margin-left: auto; white-space: nowrap; }
+
+    .lc-audit-tl { position: relative; padding-left: 28px; }
+    .lc-audit-tl::before {
+      content: ""; position: absolute; left: 5px; top: 8px; bottom: 8px;
+      width: 2px; background: #E0E0E0;
+    }
+    .lc-audit-year {
+      font-weight: 600; color: #616161; font-size: 13px;
+      margin: 14px 0 8px;
+    }
+    .lc-audit-year:first-child { margin-top: 0; }
+    .lc-audit-entry { position: relative; margin-bottom: 10px; }
+    .lc-audit-marker {
+      position: absolute; left: -28px; top: 18px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #FFFFFF; border: 2px solid #3276CF;
+      box-sizing: border-box;
+    }
+    .lc-audit-card {
+      background: #FFFFFF; border: 1px solid #EEEEEE; border-radius: 10px;
+      padding: 12px 16px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .lc-audit-card-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .lc-audit-head-left { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .lc-audit-pill {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: 12px; font-weight: 600; letter-spacing: .01em;
+    }
+    .lc-audit-pill--updated { background: #FFF3E0; color: #B85E00; }
+    .lc-audit-pill--added   { background: #E8F5E9; color: #2E7D32; }
+    .lc-audit-pill--removed { background: #FEEBEE; color: #C62828; }
+    .lc-audit-field-title { font-weight: 700; color: #212121; font-size: 14px; }
+    .lc-audit-time {
+      color: #616161; font-size: 12px; white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .lc-audit-time-sep { color: #BDBDBD; }
+    .lc-audit-user {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: #616161; font-size: 13px;
+    }
+    .lc-audit-user-icon { width: 14px; height: 14px; color: #757575; flex-shrink: 0; }
+    .lc-audit-change {
+      display: grid; grid-template-columns: minmax(140px, 200px) 1fr;
+      align-items: center; gap: 12px;
+      background: #F5F5F5; border-radius: 8px; padding: 10px 14px;
+    }
+    .lc-audit-change-field { color: #424242; font-size: 13px; font-weight: 500; }
+    .lc-audit-change-vals { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .lc-audit-old { color: #C62828; text-decoration: line-through; font-size: 13px; }
+    .lc-audit-new { color: #2E7D32; font-weight: 600; font-size: 13px; }
+    .lc-audit-arrow { width: 14px; height: 14px; color: #757575; flex-shrink: 0; }
+
+    /* Footer */
+    .lc-drawer-foot {
+      display: flex; align-items: center; justify-content: flex-end; gap: 18px;
+      padding: 14px 20px; border-top: 1px solid #EEEEEE; flex-shrink: 0; background: #FFFFFF;
+    }
+    .lc-btn-link {
+      background: transparent; border: 0; color: #3276CF;
+      font: 600 14px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      cursor: pointer; padding: 10px 6px;
+    }
+    .lc-btn-link:hover { color: #275798; text-decoration: underline; }
+    .lc-btn-link:focus-visible { outline: none; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #3276CF; border-radius: 4px; }
+    .lc-btn-save {
+      background: #1F4E79; color: #FFFFFF; border: 0; border-radius: 6px;
+      padding: 10px 20px; font: 600 14px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      cursor: pointer; transition: background .15s;
+    }
+    .lc-btn-save:hover { background: #163E60; }
+    .lc-btn-save:focus-visible { outline: none; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #3276CF; }
+
+    .lc-add-item-btn {
+      background: #1F4E79; color: #FFFFFF; border: 0; border-radius: 6px;
+      padding: 10px 18px; font: 600 14px/1 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      cursor: pointer; transition: background .15s;
+    }
+    .lc-add-item-btn:hover { background: #163E60; }
+  </style>
+
+  <div class="lc-drawer-backdrop" id="lc-drawer-backdrop" hidden onclick="lcCloseDrawer()"></div>
+  <aside class="lc-drawer" id="lc-drawer" role="dialog" aria-modal="true" aria-labelledby="lc-drawer-title" hidden>
+    <header class="lc-drawer-head">
+      <div class="lc-drawer-title-wrap">
+        <svg class="lc-drawer-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.7 6.3l3 3-9.4 9.4H5.3v-3z"/><path d="M3 21h18"/>
+        </svg>
+        <h2 class="lc-drawer-title" id="lc-drawer-title">Properties</h2>
+        <button type="button" class="lc-drawer-title-edit" id="lc-title-edit" aria-label="Edit list name" onclick="lcFocusName()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/>
+          </svg>
+        </button>
+      </div>
+      <button type="button" class="lc-drawer-close" aria-label="Close panel" onclick="lcCloseDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+
+    <div class="lc-tabs" role="tablist" aria-label="List sections">
+      <button type="button" class="lc-tab" role="tab" id="lc-tab-settings" aria-controls="lc-panel-settings" aria-selected="true" onclick="lcSwitchTab('settings')">Settings</button>
+      <button type="button" class="lc-tab" role="tab" id="lc-tab-items" aria-controls="lc-panel-items" aria-selected="false" tabindex="-1" onclick="lcSwitchTab('items')">Items</button>
+      <button type="button" class="lc-tab" role="tab" id="lc-tab-linked" aria-controls="lc-panel-linked" aria-selected="false" tabindex="-1" onclick="lcSwitchTab('linked')">Linked Pages</button>
+      <button type="button" class="lc-tab" role="tab" id="lc-tab-audit" aria-controls="lc-panel-audit" aria-selected="false" tabindex="-1" onclick="lcSwitchTab('audit')">Audit Log</button>
+    </div>
+
+    <div class="lc-drawer-body">
+      <!-- Settings -->
+      <section class="lc-panel" id="lc-panel-settings" role="tabpanel" aria-labelledby="lc-tab-settings">
+        <label class="lc-field-label" for="lc-system-name">System List Name</label>
+        <input id="lc-system-name" class="lc-input" type="text" autocomplete="off" />
+      </section>
+
+      <!-- Items -->
+      <section class="lc-panel" id="lc-panel-items" role="tabpanel" aria-labelledby="lc-tab-items" hidden>
+        <div class="lc-items-tools">
+          <div class="lc-items-search-wrap">
+            <input type="search" class="lc-items-search" id="lc-items-search" aria-label="Search items" />
+            <span class="lc-items-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          </div>
+          <button type="button" class="lc-add-item-btn" onclick="lcAddItem()">Add Item</button>
+        </div>
+        <div class="lc-drawer-table-wrap">
+          <table class="lc-drawer-table" id="lc-items-table">
+            <thead>
+              <tr>
+                <th data-sort-key="id" aria-sort="ascending">ID <span class="lc-sort-icons"><svg class="lc-sort-up" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="lc-sort-down" viewBox="0 0 10 6"><path d="M5 6l5-6H0z" fill="currentColor"/></svg></span></th>
+                <th data-sort-key="value">Value <span class="lc-sort-icons"><svg class="lc-sort-up" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="lc-sort-down" viewBox="0 0 10 6"><path d="M5 6l5-6H0z" fill="currentColor"/></svg></span></th>
+                <th data-sort-key="builtIn">Built In <span class="lc-sort-icons"><svg class="lc-sort-up" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="lc-sort-down" viewBox="0 0 10 6"><path d="M5 6l5-6H0z" fill="currentColor"/></svg></span></th>
+                <th data-sort-key="enabled">Enabled <span class="lc-sort-icons"><svg class="lc-sort-up" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="lc-sort-down" viewBox="0 0 10 6"><path d="M5 6l5-6H0z" fill="currentColor"/></svg></span></th>
+                <th data-sort-key="order">Order <span class="lc-sort-icons"><svg class="lc-sort-up" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="lc-sort-down" viewBox="0 0 10 6"><path d="M5 6l5-6H0z" fill="currentColor"/></svg></span></th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="lc-items-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Linked Pages -->
+      <section class="lc-panel" id="lc-panel-linked" role="tabpanel" aria-labelledby="lc-tab-linked" hidden>
+        <div class="lc-lp-tools">
+          <span>Show</span>
+          <select id="lc-lp-size" aria-label="Rows per page">
+            <option>10</option><option>25</option><option>50</option><option>100</option>
+          </select>
+          <span>entries</span>
+        </div>
+        <div class="lc-drawer-table-wrap">
+          <table class="lc-drawer-table">
+            <thead>
+              <tr>
+                <th data-sort-key="screen" aria-sort="ascending">Screen Name <span class="lc-sort-icons"><svg class="lc-sort-up" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="lc-sort-down" viewBox="0 0 10 6"><path d="M5 6l5-6H0z" fill="currentColor"/></svg></span></th>
+                <th data-sort-key="column">Column Name <span class="lc-sort-icons"><svg class="lc-sort-up" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="lc-sort-down" viewBox="0 0 10 6"><path d="M5 6l5-6H0z" fill="currentColor"/></svg></span></th>
+              </tr>
+            </thead>
+            <tbody id="lc-lp-body"></tbody>
+          </table>
+        </div>
+        <div class="lc-lp-foot">
+          <span id="lc-lp-summary">Showing 0 to 0 of 0 entries</span>
+          <div class="lc-lp-pager">
+            <button type="button" disabled>Previous</button>
+            <button type="button" disabled>Next</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Audit Log -->
+      <section class="lc-panel" id="lc-panel-audit" role="tabpanel" aria-labelledby="lc-tab-audit" hidden>
+        <div class="lc-audit-toolbar">
+          <div class="lc-audit-search-wrap">
+            <span class="lc-audit-search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <input type="search" id="lc-audit-search" placeholder="Search by field, user, or value" aria-label="Search audit log" />
+          </div>
+          <select id="lc-audit-action-filter" class="lc-audit-select" aria-label="Filter by action">
+            <option value="">All Actions</option>
+            <option value="Updated">Updated</option>
+            <option value="Added">Added</option>
+            <option value="Removed">Removed</option>
+          </select>
+          <select id="lc-audit-user-filter" class="lc-audit-select" aria-label="Filter by user">
+            <option value="">All Users</option>
+          </select>
+          <span class="lc-audit-count" id="lc-audit-count">0 entries</span>
+        </div>
+        <div id="lc-audit-content" class="lc-audit-empty">No Records Found</div>
+      </section>
+    </div>
+
+    <footer class="lc-drawer-foot">
+      <button type="button" class="lc-btn-link" onclick="lcCloseDrawer()">Cancel</button>
+      <button type="button" class="lc-btn-save" id="lc-drawer-save" onclick="lcSubmitDrawer()">Save</button>
+    </footer>
+  </aside>
+
+  <script>
+    /* ----- List Properties drawer controller ----- */
+    (function(){
+      const backdrop = document.getElementById('lc-drawer-backdrop');
+      const drawer   = document.getElementById('lc-drawer');
+      const inName   = document.getElementById('lc-system-name');
+      const itemsBody = document.getElementById('lc-items-body');
+      const itemsSearch = document.getElementById('lc-items-search');
+      const lpBody   = document.getElementById('lc-lp-body');
+      const lpSize   = document.getElementById('lc-lp-size');
+      const lpSummary = document.getElementById('lc-lp-summary');
+      const auditContent = document.getElementById('lc-audit-content');
+      const saveBtn  = document.getElementById('lc-drawer-save');
+
+      let mode = 'add';        // 'add' | 'edit' | 'view'
+      let current = null;      // bound LISTS entry when editing
+      let workingItems = [];   // [{id, value, builtIn, enabled, order}]
+      let workingLinked = [];  // [{screen, column}]
+      let workingAudit = [];   // [{who, action, when}]
+      let lastFocus = null;
+      let lpPage = 1;
+
+      function escHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      }
+
+      /* -- Audit helpers -- */
+      const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      function parseDMY(s) {
+        const m = /^(\d{2})\/(\d{2})\/(\d{4})/.exec(String(s || ''));
+        return m ? { d: m[1], mo: m[2], y: m[3] } : null;
+      }
+      function fmtWhen(dmy, hh, mm) {
+        const p = parseDMY(dmy);
+        if (!p) return '';
+        const h = String(hh).padStart(2, '0');
+        const mi = String(mm).padStart(2, '0');
+        return `${p.d} ${MONTHS_SHORT[parseInt(p.mo, 10) - 1]} ${p.y} · ${h}:${mi}`;
+      }
+      function yearOf(dmy) {
+        const p = parseDMY(dmy);
+        return p ? parseInt(p.y, 10) : new Date().getFullYear();
+      }
+      function sortKey(dmy, hh, mm) {
+        const p = parseDMY(dmy);
+        if (!p) return '';
+        return `${p.y}-${p.mo}-${p.d}T${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
+      }
+
+      // Build a timeline from createdBy/modifiedBy when a list has no explicit audit array
+      function buildAuditFromList(list) {
+        if (Array.isArray(list.audit) && list.audit.length) {
+          return list.audit.map(a => ({...a}));
+        }
+        const entries = [];
+        if (list.modifiedBy && list.modifiedDate) {
+          entries.push({
+            action: 'Updated',
+            field: 'List Values',
+            user: list.modifiedBy,
+            role: list.modifiedBy === 'Admin' ? 'Super User' : 'Admin User',
+            when: fmtWhen(list.modifiedDate, 7, 24),
+            year: yearOf(list.modifiedDate),
+            sortKey: sortKey(list.modifiedDate, 7, 24)
+          });
+        }
+        if (list.createdBy && list.createDate) {
+          entries.push({
+            action: 'Added',
+            field: 'List Values',
+            user: list.createdBy,
+            role: list.createdBy === 'Admin' ? 'Super User' : 'Admin User',
+            when: fmtWhen(list.createDate, 5, 14),
+            year: yearOf(list.createDate),
+            sortKey: sortKey(list.createDate, 5, 14)
+          });
+        }
+        return entries;
+      }
+
+      window.lcSwitchTab = function(which) {
+        const ids = ['settings','items','linked','audit'];
+        ids.forEach(k => {
+          const sel = k === which;
+          const tab = document.getElementById('lc-tab-' + k);
+          const panel = document.getElementById('lc-panel-' + k);
+          tab.setAttribute('aria-selected', sel ? 'true' : 'false');
+          tab.tabIndex = sel ? 0 : -1;
+          panel.hidden = !sel;
+        });
+      };
+
+      window.lcFocusName = function() {
+        lcSwitchTab('settings');
+        inName.focus();
+        inName.select();
+      };
+
+      function renderItems() {
+        const q = (itemsSearch.value || '').trim().toLowerCase();
+        const rows = workingItems.filter(it =>
+          !q ||
+          String(it.id).toLowerCase().includes(q) ||
+          String(it.value).toLowerCase().includes(q)
+        );
+        if (!rows.length) {
+          itemsBody.innerHTML = `<tr><td colspan="6" class="lc-drawer-empty">No data available in table</td></tr>`;
+          return;
+        }
+        itemsBody.innerHTML = rows.map((it, idx) => `
+          <tr>
+            <td>${escHtml(it.id)}</td>
+            <td>${escHtml(it.value)}</td>
+            <td>${it.builtIn ? 'Yes' : 'No'}</td>
+            <td>${it.enabled ? 'Yes' : 'No'}</td>
+            <td>${escHtml(it.order)}</td>
+            <td>
+              <button type="button" class="lc-btn-link" data-item-action="remove" data-idx="${idx}" aria-label="Remove ${escHtml(it.value)}">Remove</button>
+            </td>
+          </tr>`).join('');
+      }
+
+      itemsBody.addEventListener('click', e => {
+        const b = e.target.closest('[data-item-action="remove"]');
+        if (!b) return;
+        const idx = parseInt(b.dataset.idx, 10);
+        workingItems.splice(idx, 1);
+        renderItems();
+      });
+
+      itemsSearch.addEventListener('input', renderItems);
+
+      window.lcAddItem = function() {
+        const nextId = workingItems.length
+          ? Math.max(...workingItems.map(i => parseInt(i.id, 10) || 0)) + 1
+          : 1;
+        const value = window.prompt('Item value:');
+        if (value === null) return;
+        const trimmed = value.trim();
+        if (!trimmed) return;
+        workingItems.push({
+          id: String(nextId),
+          value: trimmed,
+          builtIn: false,
+          enabled: true,
+          order: String(workingItems.length + 1)
+        });
+        renderItems();
+      };
+
+      function renderLinked() {
+        const size = parseInt(lpSize.value, 10) || 10;
+        const total = workingLinked.length;
+        const pages = Math.max(1, Math.ceil(total / size));
+        if (lpPage > pages) lpPage = pages;
+        const start = (lpPage - 1) * size;
+        const slice = workingLinked.slice(start, start + size);
+        if (!slice.length) {
+          lpBody.innerHTML = `<tr><td colspan="2" class="lc-drawer-empty">No data available in table</td></tr>`;
+          lpSummary.textContent = 'Showing 0 to 0 of 0 entries';
+          return;
+        }
+        lpBody.innerHTML = slice.map(r =>
+          `<tr><td>${escHtml(r.screen)}</td><td>${escHtml(r.column)}</td></tr>`
+        ).join('');
+        lpSummary.textContent = `Showing ${start + 1} to ${Math.min(start + size, total)} of ${total} entries`;
+      }
+      lpSize.addEventListener('change', () => { lpPage = 1; renderLinked(); });
+
+      function renderAudit() {
+        const searchEl = document.getElementById('lc-audit-search');
+        const actionSel = document.getElementById('lc-audit-action-filter');
+        const userSel = document.getElementById('lc-audit-user-filter');
+        const countEl = document.getElementById('lc-audit-count');
+
+        // Refresh the user filter options (preserve current selection)
+        const currentUser = userSel.value;
+        const users = Array.from(new Set(workingAudit.map(a => a.user).filter(Boolean))).sort();
+        userSel.innerHTML = '<option value="">All Users</option>' +
+          users.map(u => `<option value="${escHtml(u)}"${u === currentUser ? ' selected' : ''}>${escHtml(u)}</option>`).join('');
+
+        const q = (searchEl.value || '').trim().toLowerCase();
+        const actionFilter = actionSel.value;
+        const userFilter = userSel.value;
+
+        let filtered = workingAudit.slice();
+        if (actionFilter) filtered = filtered.filter(a => (a.action || '') === actionFilter);
+        if (userFilter) filtered = filtered.filter(a => (a.user || '') === userFilter);
+        if (q) filtered = filtered.filter(a =>
+          String(a.field || '').toLowerCase().includes(q) ||
+          String(a.user || '').toLowerCase().includes(q) ||
+          String(a.oldValue || '').toLowerCase().includes(q) ||
+          String(a.newValue || '').toLowerCase().includes(q)
+        );
+        filtered.sort((a, b) => String(b.sortKey || b.when || '').localeCompare(String(a.sortKey || a.when || '')));
+
+        countEl.textContent = filtered.length + (filtered.length === 1 ? ' entry' : ' entries');
+
+        if (!filtered.length) {
+          auditContent.className = 'lc-audit-empty';
+          auditContent.textContent = 'No Records Found';
+          return;
+        }
+        auditContent.className = '';
+
+        const arrowSvg = '<svg class="lc-audit-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        const userSvg = '<svg class="lc-audit-user-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+
+        // Group by year (already sorted desc)
+        const groups = [];
+        const seen = new Map();
+        filtered.forEach(a => {
+          const y = a.year || 'Unknown';
+          if (!seen.has(y)) { seen.set(y, []); groups.push([y, seen.get(y)]); }
+          seen.get(y).push(a);
+        });
+
+        const html = groups.map(([year, items]) => `
+          <div class="lc-audit-year">${escHtml(year)}</div>
+          ${items.map(a => {
+            const action = a.action || 'Updated';
+            const pillClass = 'lc-audit-pill--' + action.toLowerCase();
+            const hasOld = a.oldValue !== undefined && a.oldValue !== null && a.oldValue !== '';
+            const hasNew = a.newValue !== undefined && a.newValue !== null && a.newValue !== '';
+            const hasChange = hasOld || hasNew;
+            return `
+            <div class="lc-audit-entry">
+              <span class="lc-audit-marker" aria-hidden="true"></span>
+              <article class="lc-audit-card">
+                <header class="lc-audit-card-head">
+                  <div class="lc-audit-head-left">
+                    <span class="lc-audit-pill ${pillClass}">${escHtml(action)}</span>
+                    <span class="lc-audit-field-title">${escHtml(a.field || '')}</span>
+                  </div>
+                  <span class="lc-audit-time">${escHtml(a.when || '')}</span>
+                </header>
+                <div class="lc-audit-user">${userSvg}<span>${escHtml(a.user || '')}</span></div>
+                ${hasChange ? `
+                <div class="lc-audit-change">
+                  <span class="lc-audit-change-field">${escHtml(a.field || '')}</span>
+                  <span class="lc-audit-change-vals">
+                    ${hasOld ? `<span class="lc-audit-old">${escHtml(a.oldValue)}</span>` : ''}
+                    ${hasOld && hasNew ? arrowSvg : ''}
+                    ${hasNew ? `<span class="lc-audit-new">${escHtml(a.newValue)}</span>` : ''}
+                  </span>
+                </div>` : ''}
+              </article>
+            </div>`;
+          }).join('')}
+        `).join('');
+
+        auditContent.innerHTML = '<div class="lc-audit-tl">' + html + '</div>';
+      }
+
+      // Wire audit toolbar (once)
+      document.getElementById('lc-audit-search').addEventListener('input', renderAudit);
+      document.getElementById('lc-audit-action-filter').addEventListener('change', renderAudit);
+      document.getElementById('lc-audit-user-filter').addEventListener('change', renderAudit);
+
+      window.lcOpenDrawer = function(m, list) {
+        lastFocus = document.activeElement;
+        mode = m;
+        current = list || null;
+        lpPage = 1;
+        lcSwitchTab('settings');
+
+        if (mode === 'add') {
+          inName.value = '';
+          inName.readOnly = false;
+          workingItems = [];
+          workingLinked = [];
+          workingAudit = [];
+          saveBtn.textContent = 'Save';
+          saveBtn.hidden = false;
+        } else if (mode === 'edit') {
+          inName.value = list.name || '';
+          inName.readOnly = false;
+          workingItems = Array.isArray(list.items) ? list.items.map(i => ({...i})) : [];
+          workingLinked = Array.isArray(list.linkedPages) ? list.linkedPages.map(l => ({...l})) : [];
+          workingAudit  = buildAuditFromList(list);
+          saveBtn.textContent = 'Save';
+          saveBtn.hidden = false;
+        } else { /* view */
+          inName.value = list.name || '';
+          inName.readOnly = true;
+          workingItems = Array.isArray(list.items) ? list.items.map(i => ({...i})) : [];
+          workingLinked = Array.isArray(list.linkedPages) ? list.linkedPages.map(l => ({...l})) : [];
+          workingAudit  = buildAuditFromList(list);
+          saveBtn.textContent = 'Edit';
+        }
+
+        itemsSearch.value = '';
+        renderItems(); renderLinked(); renderAudit();
+
+        backdrop.hidden = false; drawer.hidden = false;
+        requestAnimationFrame(() => { backdrop.classList.add('is-open'); drawer.classList.add('is-open'); });
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => { inName.focus(); }, 60);
+      };
+
+      window.lcCloseDrawer = function() {
+        backdrop.classList.remove('is-open'); drawer.classList.remove('is-open');
+        setTimeout(() => { backdrop.hidden = true; drawer.hidden = true; }, 240);
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      };
+
+      function todayStr() {
+        const d = new Date();
+        const dd = String(d.getDate()).padStart(2,'0');
+        const mm = String(d.getMonth()+1).padStart(2,'0');
+        return `${dd}/${mm}/${d.getFullYear()}`;
+      }
+
+      window.lcSubmitDrawer = function() {
+        if (mode === 'view') { lcOpenDrawer('edit', current); return; }
+        const name = inName.value.trim();
+        if (!name) { lcSwitchTab('settings'); inName.focus(); inName.style.borderColor = '#C62828'; return; }
+        inName.style.borderColor = '';
+
+        const today = todayStr();
+        if (mode === 'add') {
+          LISTS.unshift({
+            name,
+            createdBy: 'Current User',
+            modifiedBy: 'Current User',
+            createDate: today,
+            modifiedDate: today,
+            items: workingItems,
+            linkedPages: workingLinked,
+            audit: workingAudit
+          });
+        } else if (mode === 'edit' && current) {
+          current.name = name;
+          current.modifiedBy = 'Current User';
+          current.modifiedDate = today;
+          current.items = workingItems;
+          current.linkedPages = workingLinked;
+          current.audit = workingAudit;
+        }
+
+        if (typeof window.__lcRefresh === 'function') window.__lcRefresh();
+        lcCloseDrawer();
+      };
+
+      /* ESC + focus trap */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !drawer.hidden) { e.preventDefault(); lcCloseDrawer(); }
+        if (e.key === 'Tab' && !drawer.hidden) {
+          const focusables = drawer.querySelectorAll('input:not([type="hidden"]), select, textarea, button, [tabindex]:not([tabindex="-1"])');
+          const visible = Array.from(focusables).filter(el => el.offsetParent !== null && !el.disabled);
+          if (!visible.length) return;
+          const first = visible[0], last = visible[visible.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+
+      /* Wire triggers */
+      document.addEventListener('click', e => {
+        const addBtn = e.target.closest('[data-action="add-list"]');
+        if (addBtn) { e.preventDefault(); lcOpenDrawer('add'); return; }
+
+        const rowAct = e.target.closest('[data-row-action]');
+        if (!rowAct) return;
+        const tr = rowAct.closest('tr[data-list-name]');
+        if (!tr) return;
+        const name = tr.dataset.listName;
+        const list = LISTS.find(x => x.name === name);
+        if (!list) return;
+        const act = rowAct.dataset.rowAction;
+        if (act === 'view') { e.preventDefault(); lcOpenDrawer('view', list); }
+        else if (act === 'edit') { e.preventDefault(); lcOpenDrawer('edit', list); }
+        else if (act === 'duplicate') {
+          e.preventDefault();
+          const copy = { ...list, name: list.name + ' (Copy)', items: (list.items||[]).map(i => ({...i})), linkedPages: (list.linkedPages||[]).map(l => ({...l})), audit: (list.audit||[]).map(a => ({...a})) };
+          LISTS.unshift(copy);
+          if (typeof window.__lcRefresh === 'function') window.__lcRefresh();
+        }
+        // delete left as no-op stub
+      });
+    })();
+  </script>
+
+  <script src="notification-panel.js"></script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

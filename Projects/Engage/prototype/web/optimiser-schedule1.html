@@ -1,0 +1,2859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Optimiser Schedule</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <style>
+    /* ---------------------------------------------------------------
+       MET-DS-V2 Design Tokens
+    ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-disabled:         #BDBDBD;
+      --grey-50:   #FAFAFA;  --grey-100: #F5F5F5;  --grey-200: #EEEEEE;
+      --grey-300:  #E0E0E0;  --grey-400: #BDBDBD;  --grey-500: #9E9E9E;
+      --grey-600:  #757575;  --grey-700: #616161;  --grey-800: #424242;
+      --grey-900:  #212121;
+      --color-success:         #43A047;  --color-success-bg: #E8F5E9;
+      --color-error:           #E53935;  --color-error-bg:   #FEEBEE;
+      --color-warning:         #FF9800;  --color-warning-bg: #FFF3E0;
+      --orange-50: #FFF3E0;   --orange-600: #FB8C00;  --orange-700: #F57C00;
+      --red-50:    #FEEBEE;   --red-600:    #E53935;
+      --blue-50:   #E3F2FD;   --blue-600:   #1E88E5;
+      --purple-50: #F3E5F5;   --purple-600: #8E24AA;
+      --border-default: 1px solid #E0E0E0;
+      --border-divider: 1px solid #EEEEEE;
+      --border-focus:   2px solid #3276CF;
+      --radius-card:    8px;  --radius-button: 8px;
+      --radius-input:   8px;  --radius-pill:   100px;
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-body1: 16px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+      --line-height-heading: 1.2; --line-height-body: 1.43;
+      --duration-micro: 150ms; --duration-standard: 250ms;
+      --easing-enter: ease-out;
+      --shadow-card: 0 1px 4px rgba(50,118,207,0.10);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ----------- Base Reset ----------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: var(--line-height-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--color-primary); color: #fff; padding: 8px 12px;
+      z-index: 1000; border-radius: 0 0 8px 0;
+    }
+    .skip-link:focus { left: 0; }
+    :focus-visible { outline: var(--border-focus); outline-offset: 2px; }
+
+    /* ----------- App Shell ----------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      grid-template-rows: 60px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ----------- Top App Bar ----------- */
+    .top-bar {
+      grid-column: 1 / -1; grid-row: 1;
+      position: sticky; top: 0;
+      display: flex; align-items: center;
+      gap: var(--space-5); padding: 0 var(--space-5);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      z-index: 100; height: 60px;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: var(--space-5); flex-shrink: 0; }
+    .hamburger-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border: none; background: transparent;
+      color: var(--text-primary); cursor: pointer; padding: 0;
+    }
+    .top-bar-logo { display: flex; align-items: center; flex-shrink: 0; }
+    .top-bar-logo img { height: 35px; width: auto; }
+    .top-bar-spacer { flex: 1; }
+    .top-bar-search {
+      position: relative; max-width: 585px; flex: 0 1 585px;
+    }
+    .top-bar-search input {
+      width: 100%; height: 40px;
+      padding: 0 48px 0 var(--space-5);
+      border: 1.5px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--grey-50); outline: none;
+    }
+    .top-bar-search input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.12);
+    }
+    .top-bar-search input::placeholder { color: var(--text-secondary); }
+    .top-bar-search .search-icon {
+      position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%); color: var(--text-secondary);
+      pointer-events: none; font-size: 22px;
+    }
+    .icon-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer; position: relative;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .icon-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .icon-btn .notif-dot {
+      position: absolute; top: 6px; right: 8px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--color-error);
+      border: 2px solid var(--color-card);
+    }
+    .user-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--color-primary); color: #FFFFFF;
+      font-size: 13px; font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+    }
+
+    /* ----------- Sidebar ----------- */
+    .sidebar {
+      grid-column: 1; grid-row: 2;
+      background: var(--color-card);
+      border-right: var(--border-default);
+      width: 68px; padding: var(--space-4) 0;
+      overflow-y: hidden;
+      display: flex; flex-direction: column; align-items: center;
+      position: sticky; top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar-search-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-card);
+      color: var(--text-secondary); cursor: pointer;
+      margin-bottom: var(--space-3); border: none; background: transparent;
+    }
+    .sidebar-search-icon:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .nav-list {
+      list-style: none; display: flex; flex-direction: column;
+      align-items: center; gap: var(--space-1); width: 100%;
+    }
+    .nav-item {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: var(--radius-card);
+      color: var(--text-secondary);
+      transition: all var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .nav-item:hover { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active::before {
+      content: ''; position: absolute;
+      left: -12px; top: 8px; bottom: 8px;
+      width: 3px; background: var(--color-primary);
+      border-radius: 0 2px 2px 0;
+    }
+    .nav-divider {
+      width: 44px; height: 1px;
+      background: var(--grey-200); margin: var(--space-3) 0;
+    }
+
+    /* ----------- Main ----------- */
+    .main-content {
+      grid-column: 2; grid-row: 2;
+      padding: var(--space-4) var(--space-5);
+      overflow: auto;
+      background: var(--color-bg);
+    }
+
+    /* ----------- Page header ----------- */
+    .page-header {
+      display: flex; align-items: center;
+      gap: var(--space-4);
+      min-height: 40px;
+      margin-bottom: var(--space-4);
+    }
+    .page-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: #595959;
+      letter-spacing: -0.1px;
+    }
+    .header-spacer { flex: 1; }
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      height: 36px; padding: 0 var(--space-5);
+      border-radius: var(--radius-button);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer; border: none;
+      letter-spacing: 0.4px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .btn-outlined {
+      background: transparent;
+      border: 1.5px solid var(--color-primary);
+      color: var(--color-primary);
+      text-transform: uppercase;
+    }
+    .btn-outlined:hover { background: var(--color-primary-25); }
+    .btn-secondary {
+      background: var(--color-primary-25);
+      border: 1px solid var(--color-primary-50);
+      color: var(--color-primary-700);
+    }
+    .btn-secondary:hover { background: var(--color-primary-50); border-color: var(--color-primary-100); }
+    .btn-secondary .material-icons-outlined { font-size: 18px; }
+
+    /* Header: Job Loading status chip */
+    .header-loading {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      height: 36px; padding: 0 var(--space-4);
+      border-radius: var(--radius-pill);
+      background: var(--color-card);
+      border: var(--border-default);
+      box-shadow: 0 1px 2px rgba(21,43,72,0.04);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .header-loading:hover { border-color: var(--color-primary-100); }
+    .header-loading .hl-icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--color-warning-bg); color: var(--orange-700);
+    }
+    .header-loading .hl-icon .material-icons-outlined { font-size: 14px; }
+    .header-loading .hl-label {
+      text-transform: uppercase; letter-spacing: 0.4px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+    }
+    .header-loading .hl-value {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .header-loading .hl-value .unit {
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-regular);
+      margin-left: 2px;
+    }
+    .header-loading .hl-bar {
+      width: 80px; height: 6px; border-radius: 3px;
+      background: var(--grey-100); overflow: hidden;
+    }
+    .header-loading .hl-bar > span {
+      display: block; height: 100%;
+      background: var(--orange-600);
+      border-radius: 3px;
+    }
+    .header-loading .hl-pct {
+      font-weight: var(--font-weight-semibold);
+      color: var(--orange-700);
+    }
+
+    /* Title-bar advisory badge */
+    .title-advisory {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-left: var(--space-3);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--blue-50, #E8F1FE);
+      color: var(--color-primary);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      vertical-align: middle;
+    }
+    .title-advisory .label { line-height: 1; }
+    .title-advisory .info-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: transparent; border: 0; cursor: pointer;
+      color: var(--color-primary);
+      padding: 0; margin-left: 2px;
+    }
+    .title-advisory .info-btn .material-icons-outlined { font-size: 16px; }
+    .title-advisory .info-btn:hover { background: rgba(50,118,207,0.12); }
+    .btn-primary {
+      background: var(--color-primary); color: #fff;
+    }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+
+    /* ----------- KPI Widgets Row ----------- */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    .kpi-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 132px;
+      box-shadow: var(--shadow-card);
+    }
+    .kpi-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.3;
+    }
+    .kpi-gauge {
+      position: relative;
+      width: 110px;
+      height: 66px;
+      margin-top: auto;
+    }
+    .kpi-gauge svg { width: 100%; height: 100%; display: block; }
+    .kpi-value {
+      position: absolute;
+      left: 0; right: 0; bottom: -4px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+    }
+    .kpi-bigvalue {
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1;
+      margin-top: var(--space-2);
+    }
+    .kpi-status {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      margin-top: auto;
+    }
+    .kpi-status .material-icons-outlined { font-size: 14px; }
+    .kpi-status--success { background: var(--color-success-bg); color: var(--color-success); }
+    .kpi-status--warning { background: var(--color-warning-bg); color: var(--orange-700); }
+    .kpi-status--error   { background: var(--color-error-bg);   color: var(--color-error); }
+    .kpi-card--chart .kpi-spark { width: 100%; height: 60px; margin-top: var(--space-2); }
+    .kpi-card--chart .kpi-spark svg { width: 100%; height: 100%; }
+    @media (max-width: 1280px) {
+      .kpi-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 768px) {
+      .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    /* Status toggle for KPI row */
+    .kpi-status-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      cursor: pointer;
+      margin-left: var(--space-2);
+      vertical-align: middle;
+      line-height: 1;
+      transition: background var(--duration-fast) var(--easing-standard);
+    }
+    .kpi-status-toggle:hover { background: var(--color-bg); }
+    .kpi-status-toggle .material-icons-outlined { font-size: 18px; color: var(--color-primary); }
+    .kpi-status-toggle .chev {
+      font-size: 18px;
+      transition: transform var(--duration-fast) var(--easing-standard);
+    }
+    .kpi-status-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+    .kpi-row[hidden] { display: none; }
+
+    /* ----------- Optimizer Landing Intelligence Panel ----------- */
+    .oli-overlay {
+      position: fixed; inset: 0;
+      background: rgba(21, 43, 72, 0.45);
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--duration-standard) var(--easing-enter);
+      z-index: 1000;
+    }
+    .oli-overlay.is-open { opacity: 1; pointer-events: auto; }
+    .oli-panel {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 80vw;
+      max-width: 100%;
+      background: var(--color-bg);
+      box-shadow: -8px 0 24px rgba(21,43,72,0.18);
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+      z-index: 1001;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .oli-panel.is-open { transform: translateX(0); }
+    .oli-header {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-5) var(--space-7);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+    }
+    .oli-header-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: var(--radius-card);
+      background: var(--color-primary-25); color: var(--color-primary);
+    }
+    .oli-header-titles { flex: 1; min-width: 0; }
+    .oli-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: #595959;
+      margin: 0;
+    }
+    .oli-subtitle {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .oli-close {
+      width: 36px; height: 36px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: none; background: transparent; cursor: pointer;
+      border-radius: 50%; color: var(--text-secondary);
+    }
+    .oli-close:hover { background: var(--grey-100); color: var(--text-primary); }
+
+    .oli-body {
+      flex: 1; overflow-y: auto;
+      padding: var(--space-6) var(--space-7);
+      display: flex; flex-direction: column;
+      gap: var(--space-6);
+    }
+    .oli-section-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .oli-section-title .material-icons-outlined {
+      font-size: 20px; color: var(--color-primary);
+    }
+    .oli-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Health summary */
+    .oli-health-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+    .oli-health-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      display: flex; flex-direction: column; gap: var(--space-2);
+      box-shadow: var(--shadow-card);
+    }
+    .oli-health-card.is-success { border-left-color: var(--color-success); }
+    .oli-health-card.is-warning { border-left-color: var(--orange-600); }
+    .oli-health-card.is-error   { border-left-color: var(--color-error); }
+    .oli-health-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      font-weight: var(--font-weight-semibold);
+    }
+    .oli-health-value {
+      font-size: 26px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+    .oli-health-meta {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .oli-health-meta .hl {
+      font-weight: var(--font-weight-semibold);
+    }
+    .oli-health-meta .hl--amber   { color: var(--orange-700); }
+    .oli-health-meta .hl--success { color: var(--color-success); }
+    .oli-health-meta .hl--error   { color: var(--color-error); }
+    .oli-health-pill {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      width: fit-content;
+    }
+    .oli-health-pill .material-icons-outlined { font-size: 14px; }
+    .oli-pill--success { background: var(--color-success-bg); color: var(--color-success); }
+    .oli-pill--warning { background: var(--color-warning-bg); color: var(--orange-700); }
+    .oli-pill--error   { background: var(--color-error-bg);   color: var(--color-error); }
+
+    /* Forecast timeline */
+    .oli-forecast {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+    .oli-day {
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      padding: var(--space-4);
+      background: var(--color-card);
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .oli-day-name {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .oli-day-bar {
+      position: relative;
+      height: 8px; background: var(--grey-200); border-radius: 4px;
+      overflow: hidden;
+    }
+    .oli-day-bar > span {
+      position: absolute; inset: 0 auto 0 0;
+      background: var(--color-success); border-radius: 4px;
+    }
+    .oli-day.is-partial .oli-day-bar > span { background: var(--orange-600); }
+    .oli-day.is-idle    .oli-day-bar > span { background: var(--color-error); width: 0 !important; }
+    .oli-day-meta {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .oli-day-status {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-success);
+    }
+    .oli-day.is-partial .oli-day-status { color: var(--orange-700); }
+    .oli-day.is-idle    .oli-day-status { color: var(--color-error); }
+
+    /* Two-up grid for load + recommendation */
+    .oli-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+    .oli-load-meter {
+      display: flex; align-items: center; gap: var(--space-5);
+      margin-top: var(--space-4);
+    }
+    .oli-load-donut {
+      position: relative;
+      width: 160px; height: 160px;
+      flex-shrink: 0;
+    }
+    .oli-load-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .oli-load-donut .track  { stroke: var(--grey-100); }
+    .oli-load-donut .value  {
+      stroke: var(--orange-600);
+      stroke-linecap: round;
+      transition: stroke-dashoffset .6s ease;
+    }
+    .oli-load-donut .center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+    }
+    .oli-load-donut .center .pct {
+      font-size: 28px; line-height: 1;
+      font-weight: var(--font-weight-semibold);
+      color: var(--orange-700);
+    }
+    .oli-load-donut .center .lbl {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      margin-top: 4px;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+
+    /* Work Exhaustion Forecast line chart */
+    .oli-forecast-meter {
+      display: flex; flex-direction: column; gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .oli-forecast-chart {
+      position: relative;
+      width: 100%;
+      background: var(--surface-1, #fff);
+      border: 1px solid var(--grey-100);
+      border-radius: var(--radius-md, 8px);
+      padding: var(--space-3);
+    }
+    .oli-forecast-chart svg {
+      width: 100%; height: 220px;
+      display: block;
+      overflow: visible;
+    }
+    .oli-forecast-chart .grid-line {
+      stroke: var(--grey-100);
+      stroke-width: 1;
+    }
+    .oli-forecast-chart .axis-label {
+      font-size: 11px;
+      fill: var(--text-secondary);
+      font-family: inherit;
+    }
+    .oli-forecast-chart .capacity-line {
+      stroke: var(--grey-400, #9aa0a6);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+      fill: none;
+    }
+    .oli-forecast-chart .threshold-line {
+      stroke: var(--orange-600);
+      stroke-width: 1;
+      stroke-dasharray: 2 3;
+      fill: none;
+      opacity: 0.6;
+    }
+    .oli-forecast-chart .bar {
+      rx: 3; ry: 3;
+    }
+    .oli-forecast-chart .bar.covered { fill: var(--color-success); }
+    .oli-forecast-chart .bar.partial { fill: var(--orange-600); }
+    .oli-forecast-chart .bar.idle    { fill: var(--color-error); }
+    .oli-forecast-chart .bar.idle-empty {
+      fill: none;
+      stroke: var(--color-error);
+      stroke-width: 1.5;
+      stroke-dasharray: 3 3;
+      rx: 3; ry: 3;
+    }
+    .oli-forecast-chart .point-label {
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      fill: var(--text-primary);
+      text-anchor: middle;
+      font-family: inherit;
+    }
+    .oli-forecast-chart .inline-tag {
+      font-size: 10px;
+      fill: var(--text-secondary);
+      text-anchor: end;
+      font-family: inherit;
+    }
+    .oli-forecast-summary {
+      display: flex; align-items: baseline; gap: var(--space-2);
+      padding: 0 var(--space-1);
+    }
+    .oli-forecast-summary .pct {
+      font-size: 24px; line-height: 1;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .oli-forecast-summary .pct .unit {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-left: 2px;
+      font-weight: var(--font-weight-medium);
+    }
+    .oli-forecast-summary .lbl {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .oli-load-info { display: flex; flex-direction: column; gap: var(--space-3); flex: 1; min-width: 0; }
+    .oli-load-info .num {
+      font-size: 28px; line-height: 1;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .oli-load-info .num .unit {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      margin-left: 6px;
+    }
+    .oli-load-legend { display: flex; flex-direction: column; gap: 6px; }
+    .oli-load-legend .row {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .oli-load-legend .row .swatch {
+      width: 10px; height: 10px; border-radius: 2px;
+    }
+    .oli-load-legend .row .swatch.loaded { background: var(--orange-600); }
+    .oli-load-legend .row .swatch.gap    { background: var(--grey-100); border: 1px solid var(--grey-300); }
+    .oli-load-legend .row strong { color: var(--text-primary); margin-left: auto; }
+
+    .oli-info-msg {
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-warning-bg);
+      color: var(--orange-700);
+      border-radius: var(--radius-input);
+      font-size: var(--font-size-caption);
+      display: flex; align-items: flex-start; gap: var(--space-2);
+    }
+    .oli-info-msg .material-icons-outlined { font-size: 16px; }
+
+    /* Workforce Recommendation — visual decision card */
+    /* Workforce Recommendation — compact */
+    .oli-rec-card {
+      padding: var(--space-5);
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: 0 1px 2px rgba(21,43,72,0.04);
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+
+    .oli-rec-title-row {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .oli-rec-title-row .icon-wrap {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--color-primary-25, #EAF1FB);
+      color: var(--color-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .oli-rec-title-row .icon-wrap .material-icons-outlined { font-size: 16px; }
+    .oli-rec-title-row h3 {
+      margin: 0;
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .oli-rec-title-row .status-pill {
+      margin-left: auto;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 2px 10px; border-radius: var(--radius-pill);
+      background: var(--color-warning-bg);
+      color: var(--orange-700);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+    }
+    .oli-rec-title-row .status-pill .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange-600);
+    }
+
+    /* Compact verdict strip: needed | allocated | excess */
+    .oli-rec-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      padding: var(--space-3) var(--space-4);
+      background: var(--grey-50);
+      border-radius: var(--radius-card);
+    }
+    .oli-rec-strip .stat {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 0 var(--space-4);
+      border-right: 1px solid var(--grey-200);
+    }
+    .oli-rec-strip .stat:last-child { border-right: 0; }
+    .oli-rec-strip .stat .lbl {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .oli-rec-strip .stat .num {
+      font-size: 22px; line-height: 1;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .oli-rec-strip .stat.required .num { color: var(--color-primary); }
+    .oli-rec-strip .stat.allocated .num { color: var(--color-success); }
+    .oli-rec-strip .stat.excess .num { color: var(--orange-700); }
+
+    .oli-rec-options {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-3);
+    }
+    .oli-rec-option {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      background: var(--color-card);
+      text-align: left; cursor: pointer;
+      transition: border-color .15s, box-shadow .15s;
+      font: inherit; color: inherit;
+    }
+    .oli-rec-option:hover {
+      border-color: var(--color-primary);
+      box-shadow: 0 2px 6px rgba(50,118,207,0.10);
+    }
+    .oli-rec-option .opt-icon {
+      flex-shrink: 0;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--color-primary-25, #EAF1FB); color: var(--color-primary);
+    }
+    .oli-rec-option .opt-icon .material-icons-outlined { font-size: 16px; }
+    .oli-rec-option.is-recommended { border-color: var(--color-primary); }
+    .oli-rec-option.is-recommended .opt-icon { background: var(--color-primary); color: #fff; }
+    .oli-rec-option .opt-title {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      font-size: var(--font-size-body);
+    }
+    .oli-rec-option .badge-rec {
+      padding: 1px 6px; border-radius: var(--radius-pill);
+      background: var(--color-primary); color: #fff;
+      font-size: 10px; font-weight: var(--font-weight-semibold);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+
+    @media (max-width: 720px) {
+      .oli-rec-options { grid-template-columns: 1fr; }
+      .oli-rec-strip { grid-template-columns: 1fr; }
+      .oli-rec-strip .stat { border-right: 0; padding: var(--space-2) 0; }
+    }
+
+    /* Excess Agents popup */
+    .ea-overlay {
+      position: fixed; inset: 0;
+      background: rgba(15,28,49,0.45);
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s ease;
+      z-index: 1200;
+    }
+    .ea-overlay.is-open { opacity: 1; pointer-events: auto; }
+    .ea-modal {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -45%);
+      width: min(92vw, 640px);
+      max-height: 85vh;
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: 0 24px 56px rgba(15,28,49,0.28);
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 1201;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .ea-modal.is-open {
+      opacity: 1; pointer-events: auto;
+      transform: translate(-50%, -50%);
+    }
+    .ea-head {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-5) var(--space-6);
+      border-bottom: var(--border-default);
+    }
+    .ea-head h3 { margin: 0; font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); flex: 1; }
+    .ea-head .ea-close {
+      background: transparent; border: 0; cursor: pointer;
+      width: 32px; height: 32px; border-radius: 50%;
+      color: var(--text-secondary);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .ea-head .ea-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .ea-body {
+      padding: var(--space-5) var(--space-6);
+      overflow-y: auto;
+    }
+    .ea-hint {
+      display: flex; gap: var(--space-2);
+      margin-bottom: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-input);
+      background: var(--color-warning-bg);
+      color: var(--orange-700);
+      font-size: var(--font-size-caption);
+    }
+    .ea-hint .material-icons-outlined { font-size: 18px; }
+    .ea-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .ea-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-default);
+      border-radius: var(--radius-input);
+    }
+    .ea-item .avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--color-primary); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: var(--font-weight-semibold); font-size: 13px;
+      flex-shrink: 0;
+    }
+    .ea-item .name {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .ea-item .info {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .ea-item .meta {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .ea-item .util {
+      padding: 2px 10px; border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      background: var(--color-warning-bg); color: var(--orange-700);
+    }
+    .ea-item .util.low { background: var(--red-50); color: var(--color-error); }
+    .ea-foot {
+      display: flex; justify-content: flex-end; gap: var(--space-3);
+      padding: var(--space-4) var(--space-6);
+      border-top: var(--border-default);
+      background: var(--grey-50);
+    }
+
+    /* Forecast bar chart (single chart, Mon–Sat) */
+    .oli-chart {
+      position: relative;
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      grid-template-rows: 1fr auto;
+      gap: var(--space-2) var(--space-3);
+      height: 220px;
+      margin-top: var(--space-3);
+    }
+    .oli-chart-yaxis {
+      position: relative;
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+    .oli-chart-yaxis span {
+      position: absolute; right: 0;
+      transform: translateY(-50%);
+    }
+    .oli-chart-plot {
+      position: relative;
+      border-left: 1px solid var(--grey-300);
+      border-bottom: 1px solid var(--grey-300);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding: 0 var(--space-3);
+    }
+    .oli-chart-plot::before, .oli-chart-plot::after {
+      content: '';
+      position: absolute; left: 0; right: 0;
+      border-top: 1px dashed var(--grey-200);
+    }
+    .oli-chart-plot::before { top: 0; }
+    .oli-chart-plot::after  { top: 50%; }
+    .oli-bar-group {
+      display: flex; flex-direction: column-reverse; align-items: stretch;
+      width: 9%; height: 100%;
+      position: relative;
+    }
+    .oli-bar {
+      width: 100%;
+      min-height: 2px;
+      position: relative;
+    }
+    .oli-bar.available { background: var(--color-success); border-radius: 4px 4px 0 0; }
+    .oli-bar.gap       { background: var(--grey-300); border-radius: 4px 4px 0 0; }
+    .oli-bar-group.is-partial .oli-bar.available { background: var(--orange-600); border-radius: 0; }
+    .oli-bar-group.is-partial .oli-bar.gap       { background: var(--color-warning-bg); border: 1px dashed var(--orange-600); border-bottom: none; }
+    .oli-bar-group.is-idle .oli-bar.available    { background: var(--color-error); display: none; }
+    .oli-bar-group.is-idle .oli-bar.gap          { background: var(--color-error-bg); border: 1px dashed var(--color-error); border-bottom: none; border-radius: 4px 4px 0 0; }
+    .oli-chart-xaxis {
+      grid-column: 2;
+      display: flex; justify-content: space-around;
+      padding: 0 var(--space-3);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-semibold);
+    }
+    .oli-chart-xaxis span {
+      width: 9%; text-align: center;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .oli-chart-legend {
+      display: flex; flex-wrap: wrap; gap: var(--space-4);
+      margin-top: var(--space-4);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .oli-chart-legend .swatch {
+      display: inline-block; width: 12px; height: 12px;
+      border-radius: 2px; margin-right: 6px;
+      vertical-align: -2px;
+    }
+
+    /* Utilisation table — listing pattern */
+    .oli-util-toolbar {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-2) var(--space-4);
+    }
+    .oli-util-search {
+      flex: 1;
+      display: flex; align-items: center; gap: var(--space-2);
+      color: var(--text-secondary);
+      font-size: var(--font-size-body);
+    }
+    .oli-util-search .material-icons-outlined { font-size: 18px; }
+    .oli-util-search input {
+      flex: 1; border: 0; outline: 0; background: transparent;
+      font: inherit; color: var(--text-primary);
+      padding: 6px 0;
+    }
+    .oli-util-search input::placeholder { color: var(--text-secondary); }
+    .oli-util-filter {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: transparent; border: 0; cursor: pointer;
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-caption);
+      letter-spacing: 0.6px; text-transform: uppercase;
+      padding: 6px 8px;
+    }
+    .oli-util-filter .material-icons-outlined { font-size: 18px; }
+    .oli-util-filter:hover { color: var(--blue-700); }
+
+    .oli-util-table {
+      width: 100%;
+      border-collapse: separate; border-spacing: 0;
+      font-size: var(--font-size-body);
+    }
+    .oli-util-scroll {
+      max-height: 360px;
+      overflow-y: auto;
+      overflow-x: auto;
+      border-top: var(--border-divider);
+      border-bottom: var(--border-divider);
+      background: var(--color-card);
+    }
+    .oli-util-scroll thead th {
+      position: sticky; top: 0;
+      z-index: 2;
+      background: var(--color-card);
+      box-shadow: inset 0 -1px 0 var(--grey-300);
+    }
+    .oli-util-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+    .oli-util-scroll::-webkit-scrollbar-thumb {
+      background: var(--grey-300); border-radius: 4px;
+    }
+    .oli-util-scroll::-webkit-scrollbar-thumb:hover { background: var(--grey-400); }
+    .oli-util-table th, .oli-util-table td {
+      padding: var(--space-4) var(--space-4);
+      text-align: left;
+      border-bottom: var(--border-divider);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .oli-util-table tbody tr:last-child td { border-bottom: 0; }
+    .oli-util-table tbody tr:hover td { background: var(--grey-50); }
+    .oli-util-table th {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      font-size: var(--font-size-caption);
+      padding-top: var(--space-3); padding-bottom: var(--space-3);
+    }
+    .oli-util-table .col-id { width: 96px; }
+    .oli-util-table .col-id .id-link {
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+    }
+    .oli-util-table .col-id .id-link:hover { text-decoration: underline; }
+    .oli-util-table .col-name { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .oli-util-table .col-actions { width: 40px; text-align: center; }
+    .oli-util-table .row-action {
+      background: transparent; border: 0; cursor: pointer;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--text-secondary);
+    }
+    .oli-util-table .row-action:hover { background: var(--grey-100); color: var(--text-primary); }
+    .oli-util-table .col-day { text-align: center; min-width: 64px; }
+
+    .oli-util-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: var(--space-5);
+      padding: var(--space-3) var(--space-2);
+      color: var(--text-secondary);
+      font-size: var(--font-size-caption);
+    }
+    .oli-util-footer .rows-per-page,
+    .oli-util-footer .range { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .oli-util-footer select {
+      border: 0; background: transparent; font: inherit;
+      color: var(--text-primary); cursor: pointer;
+    }
+    .oli-util-footer .pager {
+      display: inline-flex; gap: 4px;
+    }
+    .oli-util-footer .pager button {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: transparent; border: 0; cursor: pointer;
+      color: var(--text-secondary);
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .oli-util-footer .pager button:hover:not(:disabled) {
+      background: var(--grey-100); color: var(--text-primary);
+    }
+    .oli-util-footer .pager button:disabled {
+      color: var(--grey-300); cursor: default;
+    }
+
+    .util-cell {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 48px; padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-caption);
+    }
+    .util-cell.u-high   { background: var(--color-success-bg); color: var(--color-success); }
+    .util-cell.u-mid    { background: var(--color-warning-bg); color: var(--orange-700); }
+    .util-cell.u-low    { background: var(--red-50);           color: var(--color-error); }
+    .util-cell.u-zero   { background: var(--grey-100);         color: var(--text-secondary); }
+
+    /* Alerts */
+    .oli-alerts { display: flex; flex-direction: column; gap: var(--space-3); }
+    .oli-alert {
+      display: flex; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-card);
+      border: 1px solid transparent;
+    }
+    .oli-alert .material-icons-outlined { font-size: 22px; flex-shrink: 0; }
+    .oli-alert-body { flex: 1; }
+    .oli-alert-title {
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: 2px;
+    }
+    .oli-alert-msg { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .oli-alert--warning {
+      background: var(--color-warning-bg); border-color: var(--orange-600); color: var(--orange-700);
+    }
+    .oli-alert--info {
+      background: var(--blue-50); border-color: var(--blue-600); color: var(--blue-600);
+    }
+    .oli-alert--error {
+      background: var(--color-error-bg); border-color: var(--color-error); color: var(--color-error);
+    }
+
+    @media (max-width: 1024px) {
+      .oli-health-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .oli-forecast    { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .oli-two-col     { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .oli-health-grid { grid-template-columns: 1fr; }
+      .oli-forecast    { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .oli-body        { padding: var(--space-4); }
+    }
+
+    /* ----------- Tabs ----------- */
+    .tabs {
+      display: flex; align-items: stretch;
+      gap: var(--space-7);
+      border-bottom: var(--border-default);
+      margin-bottom: var(--space-4);
+      padding: 0 var(--space-1);
+    }
+    .tab {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-4) var(--space-3);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      cursor: pointer; background: none; border: none;
+      letter-spacing: 0.6px; text-transform: uppercase;
+      position: relative;
+    }
+    .tab:hover { color: var(--text-primary); }
+    .tab.active { color: var(--color-primary); }
+    .tab.active::after {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: -1px;
+      height: 3px; background: var(--color-primary);
+      border-radius: 2px 2px 0 0;
+    }
+    .tab-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 36px; height: 22px; padding: 0 var(--space-3);
+      border-radius: var(--radius-pill);
+      background: var(--orange-50);
+      color: var(--orange-700);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+    }
+    .tab.active .tab-chip { background: var(--orange-50); color: var(--orange-700); }
+
+    /* ----------- 3-column layout ----------- */
+    .schedule-shell {
+      display: grid;
+      grid-template-columns: 304px 304px 1fr;
+      gap: 0;
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      min-height: 760px;
+    }
+    .panel { display: flex; flex-direction: column; min-width: 0; }
+    .panel + .panel { border-left: var(--border-divider); }
+
+    .panel-header {
+      display: flex; align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-4) var(--space-3);
+    }
+    .panel-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .panel-search {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: 0 var(--space-4) var(--space-4);
+    }
+    .search-input {
+      position: relative; flex: 1;
+    }
+    .search-input input {
+      width: 100%; height: 36px;
+      padding: 0 var(--space-4) 0 36px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      outline: none;
+    }
+    .search-input input:focus { border-color: var(--color-primary); }
+    .search-input .material-icons-outlined {
+      position: absolute; left: 10px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary); font-size: 20px;
+      pointer-events: none;
+    }
+    .filter-btn {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-input);
+      border: 1px solid var(--grey-300);
+      background: var(--color-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    /* ----------- Jobs list ----------- */
+    .panel-body {
+      flex: 1; overflow-y: auto;
+      padding: 0 var(--space-4) var(--space-4);
+    }
+    .panel-body::-webkit-scrollbar { width: 8px; }
+    .panel-body::-webkit-scrollbar-thumb { background: var(--grey-300); border-radius: 8px; }
+    .panel-body::-webkit-scrollbar-track { background: transparent; }
+
+    .group-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: var(--space-3) var(--space-1);
+    }
+
+    .job-card {
+      background: var(--color-card);
+      border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card);
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-3);
+      cursor: grab;
+      transition: border-color var(--duration-micro), box-shadow var(--duration-micro);
+    }
+    .job-card:hover { border-color: var(--color-primary-200); box-shadow: var(--shadow-card); }
+    .job-card-row1 {
+      display: flex; align-items: center; gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .job-id {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-medium);
+    }
+    .job-id b { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+    .priority-chip {
+      display: inline-flex; align-items: center;
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      color: #fff;
+      letter-spacing: 0.2px;
+      margin-left: auto;
+    }
+    .priority-chip.h { background: var(--red-600); }
+    .priority-chip.m { background: var(--orange-700); }
+    .priority-chip.l { background: var(--color-primary); }
+
+    .job-card-icon {
+      color: var(--orange-600); font-size: 16px;
+    }
+    .job-title {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-regular);
+      margin-bottom: var(--space-2);
+    }
+    .job-meta {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .job-meta .material-icons-outlined { font-size: 14px; }
+    .job-meta-spacer { flex: 1; }
+    .rec-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      color: var(--color-error);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.4px;
+    }
+    .rec-tag::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--color-error);
+    }
+
+    /* ----------- Agents list ----------- */
+    .agent-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-3);
+      border-bottom: var(--border-divider);
+      cursor: pointer;
+    }
+    .agent-row:hover { background: var(--color-primary-25); }
+    .agent-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--grey-300); color: var(--text-primary);
+      font-size: 12px; font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+    }
+    .agent-info { flex: 1; min-width: 0; }
+    .agent-name {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .agent-id {
+      font-size: 11px; color: var(--text-secondary);
+    }
+    .agent-status {
+      display: inline-flex; align-items: center;
+      gap: 4px; flex-shrink: 0;
+      color: var(--color-success);
+    }
+    .agent-status.unavailable { color: var(--grey-400); }
+    .agent-status .material-icons-outlined { font-size: 18px; }
+
+    /* ----------- Calendar / Timetable ----------- */
+    .cal-panel {
+      display: flex; flex-direction: column;
+      min-width: 0;
+    }
+    .cal-header {
+      display: flex; align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      border-bottom: var(--border-divider);
+    }
+    .cal-tabs {
+      display: inline-flex;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      overflow: hidden;
+    }
+    .cal-tabs button {
+      padding: 0 var(--space-5);
+      height: 32px;
+      background: var(--color-card);
+      color: var(--text-secondary);
+      border: none; cursor: pointer;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+    .cal-tabs button + button { border-left: 1px solid var(--grey-300); }
+    .cal-tabs button.active {
+      background: var(--color-primary-950);
+      color: #fff;
+    }
+    .cal-spacer { flex: 1; }
+    .cal-date {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      padding: 0 var(--space-2);
+      border-bottom: 1px solid var(--text-primary);
+    }
+    .cal-date .material-icons-outlined { font-size: 18px; color: var(--text-secondary); }
+    .cal-nav {
+      display: inline-flex;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      overflow: hidden;
+    }
+    .cal-nav button {
+      width: 32px; height: 32px;
+      background: var(--color-card);
+      color: var(--text-secondary);
+      border: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .cal-nav button + button { border-left: 1px solid var(--grey-300); }
+    .cal-nav button:hover { background: var(--color-primary-25); color: var(--color-primary); }
+
+    /* Time grid */
+    .cal-body {
+      flex: 1; overflow: auto;
+      position: relative;
+    }
+    /* 11 hour columns (07-17) + 2 metric columns (Working / At Job Hrs) */
+    .cal-grid {
+      --hour-w: 64px;
+      --metric-w: 56px;
+      --row-h: 44px;
+      display: grid;
+      grid-template-columns: repeat(11, var(--hour-w)) var(--metric-w) var(--metric-w);
+      min-width: max-content;
+      font-size: var(--font-size-caption);
+    }
+    .cal-grid .cal-cell {
+      border-right: var(--border-divider);
+      border-bottom: var(--border-divider);
+      height: var(--row-h);
+      padding: var(--space-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .cal-grid .cal-cell.header {
+      background: var(--color-card);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-semibold);
+      height: 32px;
+      display: flex; align-items: center; justify-content: flex-start;
+      position: sticky; top: 0; z-index: 5;
+      border-bottom: 1px solid var(--grey-300);
+    }
+    .cal-grid .cal-cell.header.metric {
+      justify-content: center;
+      letter-spacing: 0.4px; text-transform: uppercase;
+      font-size: 11px;
+    }
+    .cal-grid .cal-cell.metric {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2px; padding: 4px 6px;
+      background: var(--grey-50);
+      text-align: center;
+    }
+    .cal-grid .cal-cell.metric .v {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-body);
+      letter-spacing: 0.3px;
+      line-height: 1.1;
+    }
+    .cal-grid .cal-cell.metric .v.muted { color: var(--text-disabled); }
+    .cal-grid .cal-cell.metric .cap {
+      font-size: 9px;
+      letter-spacing: 0.6px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .cal-grid .cal-cell.metric .icon-row {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 3px; color: var(--text-secondary);
+      line-height: 1;
+    }
+    .cal-grid .cal-cell.metric .material-icons-outlined { font-size: 13px; }
+
+    /* Job block (positioned within a row using col-span) */
+    .cal-block {
+      position: absolute;
+      top: 4px; bottom: 4px;
+      left: 4px; right: 4px;
+      border-radius: 6px;
+      padding: 4px var(--space-3);
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: 11px;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      cursor: grab; overflow: hidden;
+    }
+    .cal-block .icon { font-size: 14px; flex-shrink: 0; }
+    .cal-block .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* Leading duration badge (person silhouette + "30 mins") */
+    .cal-duration {
+      display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      min-width: 28px; height: 26px;
+      padding: 0 4px;
+      background: #1F2937; color: #FFFFFF;
+      border-radius: 4px;
+      line-height: 1;
+      font-size: 9px; font-weight: var(--font-weight-semibold);
+      gap: 1px;
+      margin: 0 4px 0 -2px;
+    }
+    .cal-duration .material-icons-outlined { font-size: 11px; }
+    .cal-duration small { font-size: 7px; opacity: 0.85; letter-spacing: 0.2px; }
+    .cal-block.notstarted { background: #FEEBEE; border: 1px solid var(--red-600); color: var(--red-600); }
+    .cal-block.completed  { background: #E8F5E9; border: 1px solid var(--color-success); color: #2E7D32; }
+    .cal-block.inprogress { background: #E3F2FD; border: 1px solid var(--blue-600);  color: #1565C0; }
+    .cal-block.aborted    { background: #F3E5F5; border: 1px solid var(--purple-600); color: #6A1B9A; }
+    .cal-block.declined   { background: #FFF3E0; border: 1px solid var(--orange-700); color: var(--orange-700); }
+    .cal-block.enroute    { background: #FFF8E1; border: 1px solid #FBC02D; color: #8D6E00; }
+    .cal-block.unavailable { background: repeating-linear-gradient(45deg, var(--grey-100), var(--grey-100) 6px, var(--grey-200) 6px, var(--grey-200) 12px); border: 1px dashed var(--grey-400); color: var(--grey-700); }
+
+    /* Cell that hosts the block (uses grid col-span via inline style) */
+    .cal-row { display: contents; }
+    .cal-host {
+      grid-column: var(--col-start) / span var(--col-span);
+      position: relative;
+      border-right: var(--border-divider);
+      border-bottom: var(--border-divider);
+      height: var(--row-h);
+    }
+
+    /* Legend */
+    .cal-legend {
+      display: flex; flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-7) var(--space-7);
+      padding: var(--space-4);
+      border-top: var(--border-default);
+      background: var(--color-card);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .legend-dot {
+      width: 14px; height: 14px; border-radius: 3px;
+      border: 1px solid currentColor;
+      display: inline-block;
+    }
+    .legend-dot.notstarted   { background: #FEEBEE; color: var(--red-600); }
+    .legend-dot.completed    { background: #E8F5E9; color: var(--color-success); }
+    .legend-dot.inprogress   { background: #E3F2FD; color: var(--blue-600); }
+    .legend-dot.aborted      { background: #F3E5F5; color: var(--purple-600); }
+    .legend-dot.declined     { background: #FFF3E0; color: var(--orange-700); }
+    .legend-dot.enroute      { background: #FFF8E1; color: #8D6E00; }
+    .legend-dot.unavailable  { background: var(--grey-200); color: var(--grey-500); border-style: dashed; }
+
+    /* ----------- Responsive ----------- */
+    @media (max-width: 1279px) {
+      .schedule-shell { grid-template-columns: 280px 280px 1fr; }
+    }
+    @media (max-width: 1023px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .schedule-shell {
+        grid-template-columns: 1fr;
+      }
+      .panel + .panel { border-left: none; border-top: var(--border-divider); }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- ----------- Top App Bar ----------- -->
+    <header class="top-bar" role="banner">
+      <div class="top-bar-left">
+        <button class="hamburger-btn" aria-label="Toggle navigation">
+          <span class="material-icons-outlined">menu</span>
+        </button>
+        <a href="dashboard.html" class="top-bar-logo" aria-label="FieldSync Home">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23065f46'/%3E%3Ccircle cx='16' cy='14' r='4' fill='none' stroke='%2334d399' stroke-width='2'/%3E%3Cpath d='M16 10v-2M16 20v2M10 14H8M24 14h-2' stroke='%2334d399' stroke-width='2'/%3E%3C/svg%3E" alt="FieldSync" />
+        </a>
+      </div>
+      <div class="top-bar-spacer"></div>
+      <div class="top-bar-search" role="search">
+        <label for="global-search" class="visually-hidden" style="position:absolute;left:-9999px;">Global search</label>
+        <input id="global-search" type="search"
+          placeholder="Search Keywords : Agent ID, Agent Name, Job ID, User, Client Name..." />
+        <span class="material-icons-outlined search-icon" aria-hidden="true">search</span>
+      </div>
+      <button class="icon-btn" aria-label="Notifications (3 unread)">
+        <span class="material-icons-outlined">notifications_none</span>
+        <span class="notif-dot" aria-hidden="true"></span>
+      </button>
+      <div class="user-avatar" role="img" aria-label="User: Operations Planner">OP</div>
+    </header>
+
+    <!-- ----------- Sidebar ----------- -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-search-icon" aria-label="Sidebar search">
+        <span class="material-icons-outlined" style="font-size:22px;">search</span>
+      </button>
+      <ul class="nav-list" role="list">
+        <li><a href="dashboard.html" class="nav-item" aria-label="Dashboard"><span class="material-icons-outlined">dashboard</span></a></li>
+        <li><a href="optimiser-schedule.html" class="nav-item active" aria-current="page" aria-label="Optimiser Schedule"><span class="material-icons-outlined">calendar_today</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="People"><span class="material-icons-outlined">people_outline</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="jobs.html" class="nav-item" aria-label="Jobs"><span class="material-icons-outlined">work_outline</span></a></li>
+        <li><a href="tasks.html" class="nav-item" aria-label="Tasks"><span class="material-icons-outlined">task_alt</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Timesheets"><span class="material-icons-outlined">schedule</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Tools"><span class="material-icons-outlined">build_circle</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Invoices"><span class="material-icons-outlined">receipt_long</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Locations"><span class="material-icons-outlined">location_on</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Configuration"><span class="material-icons-outlined">settings</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Reports"><span class="material-icons-outlined">bar_chart</span></a></li>
+        <li><div class="nav-divider"></div></li>
+        <li><a href="#" class="nav-item" aria-label="Help"><span class="material-icons-outlined">help_outline</span></a></li>
+        <li><a href="#" class="nav-item" aria-label="Support"><span class="material-icons-outlined">support_agent</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- ----------- Main ----------- -->
+    <main class="main-content" id="main-content" role="main">
+
+      <!-- Page header -->
+      <div class="page-header">
+        <h1 class="page-title">Optimiser Schedule
+          <button type="button" class="kpi-status-toggle"
+            aria-expanded="false" aria-controls="kpi-row"
+            onclick="toggleKpiRow(this)">
+            <span class="material-icons-outlined" aria-hidden="true">insights</span>
+            Status
+            <span class="material-icons-outlined chev" aria-hidden="true">expand_more</span>
+          </button>
+          <span class="title-advisory" role="status">
+            <span class="material-icons-outlined" aria-hidden="true" style="font-size:14px">info</span>
+            <span class="label">Too Many Agents · Advisory</span>
+            <button type="button" class="info-btn" aria-label="More info about advisory" onclick="openAdvisory()">
+              <span class="material-icons-outlined">help_outline</span>
+            </button>
+          </span>
+        </h1>
+        <div class="header-spacer"></div>
+        <button type="button" class="header-loading"
+          aria-label="Optimizer job loading: 5.6 of 7 days, 80%. Open metrics."
+          onclick="openOLI()">
+          <span class="hl-icon" aria-hidden="true">
+            <span class="material-icons-outlined">view_in_ar</span>
+          </span>
+          <span class="hl-label">Job Loading</span>
+          <span class="hl-value">5.6<span class="unit">/7d</span></span>
+          <span class="hl-bar" aria-hidden="true"><span style="width:80%"></span></span>
+          <span class="hl-pct">80%</span>
+        </button>
+        <button class="btn btn-secondary" type="button"
+          aria-haspopup="dialog" aria-controls="oli-panel" aria-expanded="false"
+          id="oli-trigger" onclick="openOLI()">
+          <span class="material-icons-outlined" aria-hidden="true">insights</span>
+          Optimizer Metrics
+        </button>
+      </div>
+
+      <!-- KPI Widgets -->
+      <section class="kpi-row" id="kpi-row" aria-label="Optimiser performance metrics" hidden>
+        <article class="kpi-card" aria-label="Optimizer Allocation Rate 80 percent">
+          <h3 class="kpi-title">Optimizer Allocation Rate</h3>
+          <div class="kpi-gauge" data-value="80" data-color="success">
+            <svg viewBox="0 0 110 66" role="img" aria-hidden="true">
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="#E0E0E0" stroke-width="10" stroke-linecap="round"/>
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="var(--color-success)" stroke-width="10" stroke-linecap="round" stroke-dasharray="141.4 176.7" stroke-dashoffset="0"/>
+            </svg>
+            <span class="kpi-value">80%</span>
+          </div>
+        </article>
+        <article class="kpi-card" aria-label="SLA Compliance 95 percent">
+          <h3 class="kpi-title">SLA Compliance</h3>
+          <div class="kpi-gauge" data-value="95" data-color="success">
+            <svg viewBox="0 0 110 66" role="img" aria-hidden="true">
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="#E0E0E0" stroke-width="10" stroke-linecap="round"/>
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="var(--color-success)" stroke-width="10" stroke-linecap="round" stroke-dasharray="167.9 176.7" stroke-dashoffset="0"/>
+            </svg>
+            <span class="kpi-value">95%</span>
+          </div>
+        </article>
+        <article class="kpi-card" aria-label="Average Travel Time 26 minutes">
+          <h3 class="kpi-title">Average Travel Time</h3>
+          <div class="kpi-gauge" data-value="55" data-color="success">
+            <svg viewBox="0 0 110 66" role="img" aria-hidden="true">
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="#E0E0E0" stroke-width="10" stroke-linecap="round"/>
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="var(--color-success)" stroke-width="10" stroke-linecap="round" stroke-dasharray="97.2 176.7" stroke-dashoffset="0"/>
+            </svg>
+            <span class="kpi-value">26min</span>
+          </div>
+        </article>
+        <article class="kpi-card kpi-card--text" aria-label="Jobs Per Agent 7.2, Need Attention">
+          <h3 class="kpi-title">Jobs Per Agent</h3>
+          <div class="kpi-bigvalue">7.2</div>
+          <span class="kpi-status kpi-status--warning">
+            <span class="material-icons-outlined" aria-hidden="true">error_outline</span>Need Attention
+          </span>
+        </article>
+        <article class="kpi-card kpi-card--text" aria-label="Workload Balance Score Low, Good">
+          <h3 class="kpi-title">Workload Balance Score</h3>
+          <div class="kpi-bigvalue">Low</div>
+          <span class="kpi-status kpi-status--success">
+            <span class="material-icons-outlined" aria-hidden="true">check_circle_outline</span>Good
+          </span>
+        </article>
+        <article class="kpi-card" aria-label="Average Agent Utilization 83 percent">
+          <h3 class="kpi-title">Average Agent Utilization</h3>
+          <div class="kpi-gauge" data-value="83" data-color="success">
+            <svg viewBox="0 0 110 66" role="img" aria-hidden="true">
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="#E0E0E0" stroke-width="10" stroke-linecap="round"/>
+              <path d="M10,60 A45,45 0 0 1 100,60" fill="none" stroke="var(--color-success)" stroke-width="10" stroke-linecap="round" stroke-dasharray="146.7 176.7" stroke-dashoffset="0"/>
+            </svg>
+            <span class="kpi-value">83%</span>
+          </div>
+        </article>
+        <article class="kpi-card kpi-card--chart" aria-label="At-Risk Jobs Identified, trending down, Good">
+          <h3 class="kpi-title">At-Risk Jobs Identified</h3>
+          <div class="kpi-spark" aria-hidden="true">
+            <svg viewBox="0 0 220 60" preserveAspectRatio="none">
+              <polyline points="0,40 30,28 60,34 90,18 120,30 150,12 180,22 220,8"
+                fill="none" stroke="var(--color-success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="0,46 30,38 60,42 90,30 120,38 150,28 180,32 220,22"
+                fill="none" stroke="var(--color-primary-100)" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="kpi-status kpi-status--success">
+            <span class="material-icons-outlined" aria-hidden="true">trending_down</span>Good
+          </span>
+        </article>
+      </section>
+
+      <!-- Module tabs -->
+      <div class="tabs" role="tablist" aria-label="Module">
+        <button class="tab" role="tab" aria-selected="false">
+          Motors <span class="tab-chip" aria-label="100 jobs">100</span>
+        </button>
+        <button class="tab active" role="tab" aria-selected="true">
+          Field <span class="tab-chip" aria-label="100 jobs">100</span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false">
+          Metering <span class="tab-chip" aria-label="100 jobs">100</span>
+        </button>
+      </div>
+
+      <!-- ----------- 3-column scheduler ----------- -->
+      <section class="schedule-shell" aria-label="Manual scheduler">
+
+        <!-- ------- Jobs panel ------- -->
+        <aside class="panel" aria-label="Unscheduled jobs">
+          <div class="panel-header"><h2 class="panel-title">Jobs</h2></div>
+          <div class="panel-search">
+            <div class="search-input">
+              <span class="material-icons-outlined" aria-hidden="true">search</span>
+              <input type="search" placeholder="Search" aria-label="Search jobs" />
+            </div>
+            <button class="filter-btn" aria-label="Filter jobs">
+              <span class="material-icons-outlined">tune</span>
+            </button>
+          </div>
+          <div class="panel-body">
+            <div class="group-label">Un-assigned</div>
+
+            <article class="job-card" draggable="true" tabindex="0" aria-label="Job 1243526, High priority, Castle Water Reconnection, SW1 1AA">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243526</b></span>
+                <span class="priority-chip h" aria-label="High priority">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">local_fire_department</span>
+              </div>
+              <div class="job-title">Castle Water | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag" aria-label="Recurrence">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0" aria-label="Job 1243527, Medium priority, EDF Reconnection, SW1 1AA">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243527</b></span>
+                <span class="priority-chip m" aria-label="Medium priority">M.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">bolt</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0" aria-label="Job 1243528, Low priority, Stark Energy Reconnection, SW1 1AA">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243528</b></span>
+                <span class="priority-chip l" aria-label="Low priority">L.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">water_drop</span>
+              </div>
+              <div class="job-title">Stark Energy | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag" style="color:var(--grey-500);">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243529</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">bolt</span>
+              </div>
+              <div class="job-title">Stark Energy | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243530</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">local_fire_department</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243531</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">water_drop</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <div class="group-label">Assigned</div>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243532</b></span>
+                <span class="priority-chip h">H.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">local_fire_department</span>
+              </div>
+              <div class="job-title">Stark Energy | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag">REC</span>
+              </div>
+            </article>
+
+            <article class="job-card" draggable="true" tabindex="0">
+              <div class="job-card-row1">
+                <span class="job-id">Engage ID: <b>1243533</b></span>
+                <span class="priority-chip m">M.Priority</span>
+                <span class="material-icons-outlined job-card-icon" aria-hidden="true">bolt</span>
+              </div>
+              <div class="job-title">EDF | Reconnection</div>
+              <div class="job-meta">
+                <span class="material-icons-outlined" aria-hidden="true">place</span>
+                <span>SW1 1AA</span>
+                <span class="job-meta-spacer"></span>
+                <span class="rec-tag" style="color:var(--grey-500);">REC</span>
+              </div>
+            </article>
+          </div>
+        </aside>
+
+        <!-- ------- Agents panel ------- -->
+        <aside class="panel" aria-label="Agents">
+          <div class="panel-header"><h2 class="panel-title">Agents</h2></div>
+          <div class="panel-search">
+            <div class="search-input">
+              <span class="material-icons-outlined" aria-hidden="true">search</span>
+              <input type="search" placeholder="Search" aria-label="Search agents" />
+            </div>
+            <button class="filter-btn" aria-label="Filter agents">
+              <span class="material-icons-outlined">tune</span>
+            </button>
+          </div>
+          <div class="panel-body" style="padding:0;">
+            <!-- Each agent row aligns with the calendar timetable rows below -->
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar" aria-hidden="true">AM</div>
+              <div class="agent-info">
+                <div class="agent-name">Angus MacGyver</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">WS</div>
+              <div class="agent-info">
+                <div class="agent-name">Williams Smith</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">PT</div>
+              <div class="agent-info">
+                <div class="agent-name">Peter Thornton</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">HS</div>
+              <div class="agent-info">
+                <div class="agent-name">Hannibal Smith</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status unavailable" aria-label="Unavailable"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">AB</div>
+              <div class="agent-info">
+                <div class="agent-name">Angela Bower</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DD</div>
+              <div class="agent-info">
+                <div class="agent-name">Dori Doreau</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status unavailable" aria-label="Unavailable"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">TP</div>
+              <div class="agent-info">
+                <div class="agent-name">Templeton Peck</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">JD</div>
+              <div class="agent-info">
+                <div class="agent-name">John Doe</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243526</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243527</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243528</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243529</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+            <div class="agent-row" tabindex="0">
+              <div class="agent-avatar">DP</div>
+              <div class="agent-info">
+                <div class="agent-name">David Peter</div>
+                <div class="agent-id">ID:1243530</div>
+              </div>
+              <span class="agent-status" aria-label="Available"><span class="material-icons-outlined">local_shipping</span></span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- ------- Calendar / Timetable panel ------- -->
+        <section class="panel cal-panel" aria-label="Schedule timetable">
+          <div class="cal-header">
+            <div class="cal-tabs" role="tablist" aria-label="View granularity">
+              <button class="active" role="tab" aria-selected="true">Day</button>
+              <button role="tab" aria-selected="false">Week</button>
+              <button role="tab" aria-selected="false">Month</button>
+            </div>
+            <div class="cal-spacer"></div>
+            <div class="cal-date" aria-label="Selected date">
+              <span>Feb 20, 2026</span>
+              <span class="material-icons-outlined" aria-hidden="true">calendar_today</span>
+            </div>
+            <div class="cal-nav">
+              <button aria-label="Previous day"><span class="material-icons-outlined">chevron_left</span></button>
+              <button aria-label="Next day"><span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+          </div>
+
+          <div class="cal-body">
+            <div class="cal-grid" role="grid" aria-label="Hourly timetable, 7 AM to 5 PM">
+
+              <!-- Column header row -->
+              <div class="cal-cell header" role="columnheader">7</div>
+              <div class="cal-cell header" role="columnheader">8</div>
+              <div class="cal-cell header" role="columnheader">9</div>
+              <div class="cal-cell header" role="columnheader">10</div>
+              <div class="cal-cell header" role="columnheader">11</div>
+              <div class="cal-cell header" role="columnheader">12</div>
+              <div class="cal-cell header" role="columnheader">13</div>
+              <div class="cal-cell header" role="columnheader">14</div>
+              <div class="cal-cell header" role="columnheader">15</div>
+              <div class="cal-cell header" role="columnheader">16</div>
+              <div class="cal-cell header" role="columnheader">17</div>
+              <div class="cal-cell header metric" role="columnheader">Working</div>
+              <div class="cal-cell header metric" role="columnheader">At Job Hrs</div>
+
+              <!-- Row 1: Angus -->
+              <div class="cal-host" style="--col-start:5; --col-span:2;" role="gridcell" aria-label="EDF Reconnection 11:00-13:00, not started">
+                <div class="cal-block notstarted"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | R</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:7; --col-span:3;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">water_drop</span><span class="label">Castle Water | Reconnection</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:10; --col-span:1;" role="gridcell">
+                <div class="cal-block inprogress"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | Reconnect</span></div>
+              </div>
+              <div class="cal-cell metric" role="gridcell"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric" role="gridcell"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 2: Williams -->
+              <div class="cal-host" style="--col-start:1; --col-span:11;" role="gridcell">
+                <div class="cal-block aborted" style="left:auto;width:auto;right:auto;"><span class="material-icons-outlined icon">do_not_disturb_on</span><span class="label" style="margin-left:55%;">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">06:00</span></div>
+
+              <!-- Row 3: Peter -->
+              <div class="cal-host" style="--col-start:1; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span></div>
+              </div>
+              <div class="cal-host" style="--col-start:3; --col-span:3;" role="gridcell">
+                <div class="cal-block declined"><span class="material-icons-outlined icon">do_not_disturb_on</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">05:00</span></div>
+
+              <!-- Row 4: Hannibal -->
+              <div class="cal-host" style="--col-start:1; --col-span:11;" role="gridcell">
+                <div class="cal-block unavailable"><span class="material-icons-outlined icon">block</span><span class="label">Agent not available</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v muted">00:00</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v muted">01:30</span></span><span class="v muted">00:00</span></div>
+
+              <!-- Row 5: Angela -->
+              <div class="cal-host" style="--col-start:1; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span></div>
+              </div>
+              <div class="cal-host" style="--col-start:3; --col-span:4;" role="gridcell">
+                <div class="cal-block inprogress"><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:9; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="cal-duration"><span class="material-icons-outlined">person</span>60<small>mins</small></span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 6: Dori -->
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell metric"><span class="v muted">00:00</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v muted">01:30</span></span><span class="v muted">00:00</span></div>
+
+              <!-- Row 7: Templeton -->
+              <div class="cal-host" style="--col-start:5; --col-span:3;" role="gridcell">
+                <div class="cal-block inprogress"><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 8: John -->
+              <div class="cal-host" style="--col-start:3; --col-span:2;" role="gridcell">
+                <div class="cal-block notstarted"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | Reconnect</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">water_drop</span><span class="label">Castle Water | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 9: David Peter -->
+              <div class="cal-host" style="--col-start:3; --col-span:2;" role="gridcell">
+                <div class="cal-block notstarted"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | R</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:5; --col-span:4;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | Reconnection</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:9; --col-span:1;" role="gridcell">
+                <div class="cal-block unavailable"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 10 -->
+              <div class="cal-host" style="--col-start:3; --col-span:2;" role="gridcell">
+                <div class="cal-block notstarted"><span class="cal-duration"><span class="material-icons-outlined">person</span>30<small>mins</small></span><span class="material-icons-outlined icon">bolt</span><span class="label">EDF | R</span></div>
+              </div>
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">eco</span><span class="label">Stark Energy | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 11 -->
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell"></div><div class="cal-cell"></div>
+              <div class="cal-cell metric"><span class="v muted">00:00</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v muted">01:30</span></span><span class="v muted">00:00</span></div>
+
+              <!-- Row 12 -->
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">water_drop</span><span class="label">Castle Water | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+              <!-- Row 13 -->
+              <div class="cal-host" style="--col-start:5; --col-span:5;" role="gridcell">
+                <div class="cal-block completed"><span class="material-icons-outlined icon">eco</span><span class="label">Stark Energy | Reconnection</span></div>
+              </div>
+              <div class="cal-cell metric"><span class="v">06:30</span><span class="cap">HH:MM</span></div>
+              <div class="cal-cell metric"><span class="icon-row"><span class="material-icons-outlined">access_time</span><span class="v">01:30</span></span><span class="v">08:00</span></div>
+
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="cal-legend" role="group" aria-label="Status legend">
+            <span class="legend-item"><span class="legend-dot unavailable"></span> Agent Not Available</span>
+            <span class="legend-item"><span class="legend-dot notstarted"></span> Not Started Job</span>
+            <span class="legend-item"><span class="legend-dot completed"></span> Completed Job</span>
+            <span class="legend-item"><span class="legend-dot inprogress"></span> In&#8209;Progress Job</span>
+            <span class="legend-item"><span class="legend-dot aborted"></span> Aborted Job</span>
+            <span class="legend-item"><span class="legend-dot declined"></span> Declined Job</span>
+            <span class="legend-item"><span class="legend-dot enroute"></span> En&#8209;Route Job</span>
+          </div>
+        </section>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- Advisory popup (Too Many Agents) — body-level so transform-containing parents don't trap fixed positioning -->
+  <div class="ea-overlay" id="adv-overlay" onclick="closeAdvisory()" aria-hidden="true"></div>
+  <div class="ea-modal" id="adv-modal" role="dialog" aria-modal="true" aria-labelledby="adv-title" aria-hidden="true" tabindex="-1">
+    <div class="ea-head">
+      <h3 id="adv-title">Too Many Agents · Advisory</h3>
+      <button type="button" class="ea-close" aria-label="Close" onclick="closeAdvisory()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="ea-body">
+      <div class="ea-hint">
+        <span class="material-icons-outlined" aria-hidden="true">info</span>
+        <span>Current loaded workload supports only <strong>4 agents</strong>. <strong>1 agent</strong> may remain idle across the 7-day planning horizon.</span>
+      </div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:var(--space-3);">
+        <li>
+          <div style="font-weight:var(--font-weight-semibold); color:var(--text-primary); margin-bottom:4px;">Why this advisory?</div>
+          <div style="font-size:var(--font-size-caption); color:var(--text-secondary);">
+            Optimizer compares loaded jobs against the active workforce. Allocated capacity exceeds the job pool by 1 agent (5 allocated vs 4 needed).
+          </div>
+        </li>
+        <li>
+          <div style="font-weight:var(--font-weight-semibold); color:var(--text-primary); margin-bottom:4px;">Impact</div>
+          <div style="font-size:var(--font-size-caption); color:var(--text-secondary);">
+            Friday utilisation drops to 60% average; Saturday is fully idle. Estimated unproductive cost: ~7.5 agent-hours.
+          </div>
+        </li>
+        <li>
+          <div style="font-weight:var(--font-weight-semibold); color:var(--text-primary); margin-bottom:4px;">Suggested actions</div>
+          <ul style="margin:6px 0 0 18px; padding:0; font-size:var(--font-size-caption); color:var(--text-secondary); display:flex; flex-direction:column; gap:4px;">
+            <li>Load <strong>35 additional jobs</strong> to fully utilise current allocation (recommended).</li>
+            <li>Or release <strong>1 agent</strong> back to the pool for reassignment.</li>
+            <li>Review the <strong>Excess Agents</strong> list to identify the lowest-utilised resource.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ----------- Optimizer Landing Intelligence Panel ----------- -->
+  <div class="oli-overlay" id="oli-overlay" onclick="closeOLI()" aria-hidden="true"></div>
+  <aside class="oli-panel" id="oli-panel" role="dialog" aria-modal="true"
+    aria-labelledby="oli-panel-title" aria-hidden="true" tabindex="-1">
+
+    <header class="oli-header">
+      <span class="oli-header-icon" aria-hidden="true">
+        <span class="material-icons-outlined">insights</span>
+      </span>
+      <div class="oli-header-titles">
+        <h2 class="oli-title" id="oli-panel-title">Optimizer Metrics</h2>
+        <div class="oli-subtitle">Workforce Planning Dashboard · Updated just now</div>
+      </div>
+      <button class="oli-close" type="button" aria-label="Close panel" onclick="closeOLI()">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </header>
+
+    <div class="oli-body">
+
+      <!-- A. Workforce Health Summary -->
+      <section aria-labelledby="oli-health-title">
+        <h3 class="oli-section-title" id="oli-health-title">
+          <span class="material-icons-outlined" aria-hidden="true">monitor_heart</span>
+          Workforce Health Summary
+        </h3>
+        <div class="oli-health-grid">
+          <article class="oli-health-card is-warning">
+            <span class="oli-health-label">Work Coverage</span>
+            <span class="oli-health-value">5.6 Days</span>
+            <span class="oli-health-meta">Work available until <span class="hl hl--amber">Saturday (12:30 PM)</span></span>
+            <span class="oli-health-pill oli-pill--warning">
+              <span class="material-icons-outlined" aria-hidden="true">work_outline</span>No of Jobs · 52
+            </span>
+          </article>
+          <article class="oli-health-card is-success">
+            <span class="oli-health-label">Workforce Capacity</span>
+            <span class="oli-health-value">37.5 hrs</span>
+            <span class="oli-health-meta"><span class="hl hl--success">5 available agents · 7.5 hrs each</span></span>
+            <span class="oli-health-pill oli-pill--success">
+              <span class="material-icons-outlined" aria-hidden="true">check_circle</span>Daily capacity ready
+            </span>
+          </article>
+          <article class="oli-health-card is-warning">
+            <span class="oli-health-label">Required Workforce</span>
+            <span class="oli-health-value">4 Agents</span>
+            <span class="oli-health-meta"><span class="hl hl--amber">1 excess agent</span> detected</span>
+            <span class="oli-health-pill oli-pill--warning">
+              <span class="material-icons-outlined" aria-hidden="true">person_off</span>Reassign 1 agent
+            </span>
+          </article>
+          <article class="oli-health-card is-error">
+            <span class="oli-health-label">Work Gap</span>
+            <span class="oli-health-value">52.5 hrs</span>
+            <span class="oli-health-meta">˜ <span class="hl hl--error">35 jobs</span> required to close gap</span>
+            <span class="oli-health-pill oli-pill--error">
+              <span class="material-icons-outlined" aria-hidden="true">priority_high</span>Load more work
+            </span>
+          </article>
+        </div>
+      </section>
+
+      <!-- B + C. Forecast + Optimizer Job Loading (one row) -->
+      <div class="oli-two-col">
+
+        <!-- B. Work Exhaustion Forecast (donut chart) -->
+        <section class="oli-card" aria-labelledby="oli-forecast-title">
+          <h3 class="oli-section-title" id="oli-forecast-title">
+            <span class="material-icons-outlined" aria-hidden="true">timeline</span>
+            Work Exhaustion Forecast
+          </h3>
+          <div class="oli-forecast-summary">
+            <span class="pct">2.6<span class="unit">w</span></span>
+            <span class="lbl">Effective Coverage · 4-week horizon</span>
+          </div>
+          <div class="oli-forecast-meter">
+            <div class="oli-forecast-chart" role="img"
+              aria-label="Weekly scheduled hours bar chart over 4 weeks: Week 1 187.5h covered, Week 2 187.5h covered, Week 3 112.5h partial, Week 4 0h idle risk. Capacity reference at 187.5h.">
+              <svg viewBox="0 0 480 220" preserveAspectRatio="none" aria-hidden="true">
+                <!-- Y grid lines (0, 50, 100, 150, 200) -->
+                <line class="grid-line" x1="48" y1="20"  x2="464" y2="20"></line>
+                <line class="grid-line" x1="48" y1="55"  x2="464" y2="55"></line>
+                <line class="grid-line" x1="48" y1="90"  x2="464" y2="90"></line>
+                <line class="grid-line" x1="48" y1="125" x2="464" y2="125"></line>
+                <line class="grid-line" x1="48" y1="160" x2="464" y2="160"></line>
+
+                <!-- Y axis labels -->
+                <text class="axis-label" x="42" y="24"  text-anchor="end">200h</text>
+                <text class="axis-label" x="42" y="59"  text-anchor="end">150h</text>
+                <text class="axis-label" x="42" y="94"  text-anchor="end">100h</text>
+                <text class="axis-label" x="42" y="129" text-anchor="end">50h</text>
+                <text class="axis-label" x="42" y="164" text-anchor="end">0h</text>
+
+                <!-- Capacity baseline (187.5h ? y ˜ 29) -->
+                <line class="capacity-line" x1="48" y1="29" x2="464" y2="29"></line>
+                <text class="inline-tag" x="462" y="22">Capacity 187.5h</text>
+
+                <!-- Partial threshold (112.5h ? y = 81) -->
+                <line class="threshold-line" x1="48" y1="81" x2="464" y2="81"></line>
+                <text class="inline-tag" x="462" y="76">Partial 60%</text>
+
+                <!-- Bars (baseline y=160; bar width=70, centered at 90/220/350/460) -->
+                <!-- Week 1: 187.5h ? y=29, h=131 -->
+                <rect class="bar covered" x="55"  y="29"  width="70" height="131" rx="3" ry="3"></rect>
+                <!-- Week 2: 187.5h ? y=29, h=131 -->
+                <rect class="bar covered" x="185" y="29"  width="70" height="131" rx="3" ry="3"></rect>
+                <!-- Week 3: 112.5h ? y=81, h=79 -->
+                <rect class="bar partial" x="315" y="81"  width="70" height="79"  rx="3" ry="3"></rect>
+                <!-- Week 4: 0h ? empty placeholder showing capacity gap -->
+                <rect class="bar idle-empty" x="425" y="29" width="70" height="131" rx="3" ry="3"></rect>
+
+                <!-- Value labels above bars -->
+                <text class="point-label" x="90"  y="22">187.5h</text>
+                <text class="point-label" x="220" y="22">187.5h</text>
+                <text class="point-label" x="350" y="74">112.5h</text>
+                <text class="point-label" x="460" y="22" fill="var(--color-error)">0h</text>
+
+                <!-- X axis labels -->
+                <text class="axis-label" x="90"  y="180" text-anchor="middle">Week 1</text>
+                <text class="axis-label" x="220" y="180" text-anchor="middle">Week 2</text>
+                <text class="axis-label" x="350" y="180" text-anchor="middle">Week 3</text>
+                <text class="axis-label" x="460" y="180" text-anchor="middle">Week 4</text>
+                <text class="axis-label" x="90"  y="196" text-anchor="middle">Apr 27</text>
+                <text class="axis-label" x="220" y="196" text-anchor="middle">May 4</text>
+                <text class="axis-label" x="350" y="196" text-anchor="middle">May 11</text>
+                <text class="axis-label" x="460" y="196" text-anchor="middle">May 18</text>
+              </svg>
+            </div>
+          </div>
+          <div class="oli-chart-legend">
+            <span><i class="swatch" style="background:var(--color-success)"></i>Covered</span>
+            <span><i class="swatch" style="background:var(--orange-600)"></i>Partial</span>
+            <span><i class="swatch" style="background:var(--color-error)"></i>Idle Risk</span>
+            <span><i class="swatch" style="background:var(--grey-300)"></i>Capacity Gap</span>
+          </div>
+        </section>
+
+        <!-- C. Optimizer Job Loading Status -->
+        <section class="oli-card" aria-labelledby="oli-load-title">
+          <h3 class="oli-section-title" id="oli-load-title">
+            <span class="material-icons-outlined" aria-hidden="true">view_in_ar</span>
+            Optimizer Job Loading Status
+          </h3>
+          <div class="oli-load-meter">
+            <div class="oli-load-donut" role="img" aria-label="Job loading 80 percent, 5.6 of 7 days">
+              <svg viewBox="0 0 160 160" aria-hidden="true">
+                <circle class="track" cx="80" cy="80" r="64" fill="none" stroke-width="18"></circle>
+                <circle class="value" cx="80" cy="80" r="64" fill="none" stroke-width="18"
+                        stroke-dasharray="402.12" stroke-dashoffset="80.42"></circle>
+              </svg>
+              <div class="center">
+                <span class="pct">80%</span>
+                <span class="lbl">Loaded</span>
+              </div>
+            </div>
+            <div class="oli-load-info">
+              <div class="num">5.6<span class="unit">/ 7 days of coverage</span></div>
+              <div class="oli-load-legend">
+                <div class="row"><span class="swatch loaded"></span>Loaded coverage <strong>5.6 days</strong></div>
+                <div class="row"><span class="swatch gap"></span>Capacity gap <strong>1.4 days</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="oli-info-msg">
+            <span class="material-icons-outlined" aria-hidden="true">report_problem</span>
+            <span>Optimizer contains insufficient workload for full 7-day planning horizon.</span>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- E. Daily Utilisation Projection (full-width row) -->
+      <section class="oli-card" aria-labelledby="oli-util-title">
+          <h3 class="oli-section-title" id="oli-util-title">
+            <span class="material-icons-outlined" aria-hidden="true">stacked_bar_chart</span>
+            Daily Utilisation Projection
+          </h3>
+          <div class="oli-util-toolbar">
+            <label class="oli-util-search" for="oli-util-search-input">
+              <span class="material-icons-outlined" aria-hidden="true">search</span>
+              <input id="oli-util-search-input" type="search" placeholder="Search" />
+            </label>
+            <button type="button" class="oli-util-filter" aria-label="Filters">
+              <span class="material-icons-outlined" aria-hidden="true">filter_list</span>
+              Filters
+            </button>
+          </div>
+          <div class="oli-util-scroll">
+          <table class="oli-util-table" aria-label="Daily utilisation by agent">
+            <thead>
+              <tr>
+                <th class="col-id" scope="col">Agent ID</th>
+                <th class="col-name" scope="col">Agent Name</th>
+                <th class="col-day" scope="col">Mon</th>
+                <th class="col-day" scope="col">Tue</th>
+                <th class="col-day" scope="col">Wed</th>
+                <th class="col-day" scope="col">Thu</th>
+                <th class="col-day" scope="col">Fri</th>
+                <th class="col-day" scope="col">Sat</th>
+                <th class="col-actions" scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123456</a></td>
+                <td class="col-name">Angus MacGyver</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">80%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123455</a></td>
+                <td class="col-name">Williams Smith</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">60%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123454</a></td>
+                <td class="col-name">Peter Thornton</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-low">40%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123453</a></td>
+                <td class="col-name">Hannibal Smith</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">80%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123452</a></td>
+                <td class="col-name">Angela Bower</td>
+                <td class="col-day"><span class="util-cell u-mid">80%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">60%</span></td>
+                <td class="col-day"><span class="util-cell u-low">40%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123451</a></td>
+                <td class="col-name">Dori Doreau</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">80%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">60%</span></td>
+                <td class="col-day"><span class="util-cell u-low">40%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123450</a></td>
+                <td class="col-name">Templeton Peck</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">80%</span></td>
+                <td class="col-day"><span class="util-cell u-low">40%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123449</a></td>
+                <td class="col-name">John Doe</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">80%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">60%</span></td>
+                <td class="col-day"><span class="util-cell u-low">40%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+              <tr>
+                <td class="col-id"><a class="id-link" href="#">123448</a></td>
+                <td class="col-name">David Peter</td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-high">100%</span></td>
+                <td class="col-day"><span class="util-cell u-mid">80%</span></td>
+                <td class="col-day"><span class="util-cell u-low">40%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-day"><span class="util-cell u-zero">0%</span></td>
+                <td class="col-actions"><button class="row-action" aria-label="Row actions"><span class="material-icons-outlined">more_vert</span></button></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oli-util-footer">
+            <span class="rows-per-page">
+              Rows per page:
+              <select aria-label="Rows per page">
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+              </select>
+            </span>
+            <span class="range">1&ndash;9 of 9</span>
+            <span class="pager">
+              <button type="button" aria-label="Previous page" disabled><span class="material-icons-outlined">chevron_left</span></button>
+              <button type="button" aria-label="Next page" disabled><span class="material-icons-outlined">chevron_right</span></button>
+            </span>
+          </div>
+        </section>
+
+      <!-- D. Workforce Recommendation (full-width row) -->
+      <section class="oli-rec-card" aria-labelledby="oli-rec-title">
+        <div class="oli-rec-title-row">
+          <span class="icon-wrap" aria-hidden="true">
+            <span class="material-icons-outlined">tips_and_updates</span>
+          </span>
+          <h3 id="oli-rec-title">Workforce Recommendation</h3>
+          <span class="status-pill"><span class="dot" aria-hidden="true"></span>1 over capacity</span>
+        </div>
+
+        <div class="oli-rec-strip" aria-label="Capacity summary">
+          <div class="stat required"><span class="lbl">Needed</span><span class="num">4</span></div>
+          <div class="stat allocated"><span class="lbl">Allocated</span><span class="num">5</span></div>
+          <div class="stat excess"><span class="lbl">Excess</span><span class="num">+1</span></div>
+        </div>
+
+        <div class="oli-rec-options">
+          <button type="button" class="oli-rec-option is-recommended" onclick="window.location.href='jobs.html'">
+            <span class="opt-icon" aria-hidden="true">
+              <span class="material-icons-outlined">add_task</span>
+            </span>
+            <span class="opt-title">Load 35 more jobs <span class="badge-rec">Rec</span></span>
+          </button>
+          <button type="button" class="oli-rec-option" onclick="openExcessAgents()">
+            <span class="opt-icon" aria-hidden="true">
+              <span class="material-icons-outlined">person_remove</span>
+            </span>
+            <span class="opt-title">Release 1 agent</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Excess Agents popup -->
+      <div class="ea-overlay" id="ea-overlay" onclick="closeExcessAgents()" aria-hidden="true"></div>
+      <div class="ea-modal" id="ea-modal" role="dialog" aria-modal="true" aria-labelledby="ea-title" aria-hidden="true" tabindex="-1">
+        <div class="ea-head">
+          <h3 id="ea-title">Excess Agents</h3>
+          <button type="button" class="ea-close" aria-label="Close" onclick="closeExcessAgents()">
+            <span class="material-icons-outlined">close</span>
+          </button>
+        </div>
+        <div class="ea-body">
+          <div class="ea-hint">
+            <span class="material-icons-outlined" aria-hidden="true">info</span>
+            <span>The agents below are projected to fall below 60% utilisation this week. Reassigning them frees capacity for other work.</span>
+          </div>
+          <ul class="ea-list">
+            <li class="ea-item">
+              <span class="avatar" aria-hidden="true">AB</span>
+              <span class="info">
+                <span class="name">Angela Bower</span>
+                <span class="meta">Field Agent · Metering · SW1A 2AA</span>
+              </span>
+              <span class="util low">30% util</span>
+            </li>
+            <li class="ea-item">
+              <span class="avatar" aria-hidden="true">JD</span>
+              <span class="info">
+                <span class="name">John Doe</span>
+                <span class="meta">Motor Agent · Manual · SW1A 5AA</span>
+              </span>
+              <span class="util">47% util</span>
+            </li>
+            <li class="ea-item">
+              <span class="avatar" aria-hidden="true">DP</span>
+              <span class="info">
+                <span class="name">David Peter</span>
+                <span class="meta">Field Agent · Manual · SW1A 6AA</span>
+              </span>
+              <span class="util">53% util</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- F. Alert Centre -->
+      <section aria-labelledby="oli-alert-title">
+        <h3 class="oli-section-title" id="oli-alert-title">
+          <span class="material-icons-outlined" aria-hidden="true">notifications_active</span>
+          Alert Centre
+        </h3>
+        <div class="oli-alerts">
+          <div class="oli-alert oli-alert--warning" role="alert">
+            <span class="material-icons-outlined" aria-hidden="true">warning_amber</span>
+            <div class="oli-alert-body">
+              <div class="oli-alert-title">Running Out of Work · Warning</div>
+              <div class="oli-alert-msg">Agents expected to run out of work on Friday due to insufficient optimizer workload — 5.6 days of work available against 7-day planning horizon.</div>
+            </div>
+          </div>
+          <div class="oli-alert oli-alert--info" role="alert">
+            <span class="material-icons-outlined" aria-hidden="true">info</span>
+            <div class="oli-alert-body">
+              <div class="oli-alert-title">Too Many Agents · Advisory</div>
+              <div class="oli-alert-msg">Current workload supports only 4 agents. 1 agent may remain idle.</div>
+            </div>
+          </div>
+          <div class="oli-alert oli-alert--error" style="opacity:.55" role="alert">
+            <span class="material-icons-outlined" aria-hidden="true">error_outline</span>
+            <div class="oli-alert-body">
+              <div class="oli-alert-title">Too Much Work · Future Case (no trigger)</div>
+              <div class="oli-alert-msg">Available work exceeds workforce capacity. Additional agents required to meet demand.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </aside>
+
+  <script>
+    // Tab switching (module + day/week/month)
+    document.querySelectorAll('[role="tablist"]').forEach(list => {
+      list.addEventListener('click', e => {
+        const t = e.target.closest('[role="tab"]');
+        if (!t) return;
+        list.querySelectorAll('[role="tab"]').forEach(x => {
+          x.classList.remove('active');
+          x.setAttribute('aria-selected', 'false');
+        });
+        t.classList.add('active');
+        t.setAttribute('aria-selected', 'true');
+      });
+    });
+
+    // Optimizer Landing Intelligence panel
+    const oliPanel   = document.getElementById('oli-panel');
+    const oliOverlay = document.getElementById('oli-overlay');
+    const oliTrigger = document.getElementById('oli-trigger');
+    // KPI row collapse/expand
+    function toggleKpiRow(btn) {
+      const row = document.getElementById('kpi-row');
+      if (!row) return;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      if (expanded) { row.setAttribute('hidden', ''); }
+      else { row.removeAttribute('hidden'); }
+    }
+    function openOLI() {
+      oliPanel.classList.add('is-open');
+      oliOverlay.classList.add('is-open');
+      oliPanel.setAttribute('aria-hidden', 'false');
+      oliOverlay.setAttribute('aria-hidden', 'false');
+      oliTrigger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => oliPanel.focus(), 50);
+    }
+    function closeOLI() {
+      oliPanel.classList.remove('is-open');
+      oliOverlay.classList.remove('is-open');
+      oliPanel.setAttribute('aria-hidden', 'true');
+      oliOverlay.setAttribute('aria-hidden', 'true');
+      oliTrigger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      oliTrigger.focus();
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && oliPanel.classList.contains('is-open')) closeOLI();
+    });
+
+    // Excess Agents popup
+    const eaModal   = document.getElementById('ea-modal');
+    const eaOverlay = document.getElementById('ea-overlay');
+    function openExcessAgents() {
+      eaModal.classList.add('is-open');
+      eaOverlay.classList.add('is-open');
+      eaModal.setAttribute('aria-hidden', 'false');
+      eaOverlay.setAttribute('aria-hidden', 'false');
+      setTimeout(() => eaModal.focus(), 50);
+    }
+    function closeExcessAgents() {
+      eaModal.classList.remove('is-open');
+      eaOverlay.classList.remove('is-open');
+      eaModal.setAttribute('aria-hidden', 'true');
+      eaOverlay.setAttribute('aria-hidden', 'true');
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && eaModal.classList.contains('is-open')) closeExcessAgents();
+    });
+
+    // Advisory popup (reuses Excess Agents modal styles)
+    const advModal   = document.getElementById('adv-modal');
+    const advOverlay = document.getElementById('adv-overlay');
+    function openAdvisory() {
+      advModal.classList.add('is-open');
+      advOverlay.classList.add('is-open');
+      advModal.setAttribute('aria-hidden', 'false');
+      advOverlay.setAttribute('aria-hidden', 'false');
+      setTimeout(() => advModal.focus(), 50);
+    }
+    function closeAdvisory() {
+      advModal.classList.remove('is-open');
+      advOverlay.classList.remove('is-open');
+      advModal.setAttribute('aria-hidden', 'true');
+      advOverlay.setAttribute('aria-hidden', 'true');
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && advModal.classList.contains('is-open')) closeAdvisory();
+    });
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

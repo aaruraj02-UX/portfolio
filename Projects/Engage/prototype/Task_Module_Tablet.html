@@ -1,0 +1,2925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Task Module Tablet Prototype — MET-DS-V2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------------------------------------------------------------
+       MET-DS-V2 Design Tokens — Full :root block (mandatory)
+    ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #FF9800;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+      --orange-50:  #FFF3E0;
+      --orange-600: #FB8C00;
+      --orange-700: #F57C00;
+      --orange-800: #E56800;
+      --red-50:  #FEEBEE;
+      --red-600: #E53935;
+      --red-700: #D32F2F;
+      --red-800: #C62828;
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid rgba(22,43,72,0.12);
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           4px;
+      --radius-button:         4px;
+      --radius-input:          8px;
+      --radius-pill:           16px;
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+      --space-11:  56px;
+      --space-12:  64px;
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1:      20px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-body1:   16px;
+      --font-size-caption: 12px;
+      --font-size-chip:    13px;
+      --font-weight-bold:    500;
+      --font-weight-semibold: 500;
+      --font-weight-regular:  400;
+      --line-height-heading: 1.6;
+      --line-height-body:    1.43;
+      --line-height-body1:   1.5;
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter:      ease-out;
+      --easing-exit:       ease-in;
+      --shadow-card:   0 1px 3px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.20);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --table-header:  #F5F5F5;
+      --table-row-hover: #F5F5F5;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ---------------------------------------------------------------
+       Base Reset
+    ---------------------------------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--grey-200);
+      line-height: var(--line-height-body);
+      min-height: 100vh;
+    }
+
+    .skip-link {
+      position: absolute; top: -60px; left: 0;
+      background: var(--color-primary); color: #fff;
+      padding: var(--space-3) var(--space-5);
+      border-radius: 0 0 var(--radius-button) 0;
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none; z-index: 1000;
+    }
+    .skip-link:focus { top: 0; }
+
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* ---------------------------------------------------------------
+       Tablet Device Frame
+    ---------------------------------------------------------------- */
+    .tablet-frame {
+      max-width: 1194px;
+      margin: var(--space-7) auto;
+      background: var(--color-card);
+      border-radius: 12px;
+      border: 2px solid var(--grey-300);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.14);
+      overflow: hidden;
+      min-height: 820px;
+    }
+
+    /* ---------------------------------------------------------------
+       Prototype Navigation Bar (Screen Switcher)
+    ---------------------------------------------------------------- */
+    .proto-nav {
+      background: var(--color-primary-975);
+      color: rgba(255,255,255,0.80);
+      padding: var(--space-3) var(--space-7);
+      font-size: var(--font-size-caption);
+      display: flex; align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .proto-nav strong { color: #FFFFFF; font-weight: var(--font-weight-semibold); }
+    .proto-nav-pill {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.10);
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+    }
+    .screen-btn {
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      font-family: var(--font-family);
+      min-height: 28px;
+      transition: all var(--duration-micro) var(--easing-enter);
+    }
+    .screen-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .screen-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    /* ---------------------------------------------------------------
+       App Shell — Tablet Layout
+    ---------------------------------------------------------------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      grid-template-rows: auto 1fr;
+      min-height: 820px;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      grid-column: 2;
+      grid-row: 1;
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      display: flex; align-items: center;
+      /* padding: 0 var(--space-6); */
+      margin: 0 var(--space-6);
+      gap: var(--space-5);
+      min-height: 56px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .top-nav-brand {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      letter-spacing: -0.02em;
+    }
+    .top-nav-spacer { flex: 1; }
+    .top-nav-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-secondary);
+      padding: var(--space-3); border-radius: var(--radius-button);
+      font-size: 18px; min-width: 44px; min-height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .top-nav-btn:hover { background: var(--grey-100); color: var(--grey-700); }
+    .notif-count {
+      position: absolute; top: 4px; right: 4px;
+      background: var(--color-error); color: #fff;
+      border-radius: var(--radius-pill);
+      font-size: 10px; font-weight: var(--font-weight-bold);
+      min-width: 16px; height: 16px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 4px;
+    }
+
+    /* Area Switcher */
+    .area-switcher {
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .area-btn {
+      padding: var(--space-2) var(--space-4);
+      border: var(--border-default);
+      border-radius: var(--radius-pill);
+      background: var(--grey-50);
+      font-size: var(--font-size-caption);
+      font-family: var(--font-family);
+      cursor: pointer; min-height: 32px;
+      transition: all var(--duration-micro) var(--easing-enter);
+    }
+    .area-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff; font-weight: var(--font-weight-semibold);
+    }
+    .area-btn:hover:not(.active) { background: var(--grey-200); }
+
+    /* Left Nav (Compact for tablet — full height with logo) */
+    .left-nav {
+      grid-column: 1;
+      grid-row: 1 / -1;
+      background: var(--color-card);
+      border-right: var(--border-default);
+      padding: 0;
+      display: flex; flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+    }
+    .nav-logo {
+      width: 50px; height: 51px;
+      margin: var(--space-5) auto var(--space-6);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo svg {
+      width: 50px; height: 51px;
+    }
+    .nav-items {
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: var(--space-9);
+      flex: 1;
+      width: 100%;
+      padding: 0;
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-4) var(--space-2);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-regular);
+      border-left: 3px solid transparent;
+      min-height: 61px;
+      width: 70px;
+      margin: 0 auto;
+      transition: all var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .nav-item:hover { color: var(--color-primary); background: var(--color-primary-25); }
+    .nav-item.active {
+      color: var(--color-primary);
+      border-left-color: var(--color-primary);
+      background: var(--color-primary-25);
+    }
+    .nav-icon { font-size: 20px; line-height: 1; }
+    .nav-icon img { width: 24px; height: 24px; object-fit: contain; }
+    .nav-badge-sm {
+      position: absolute; top: 4px; right: 6px;
+      background: var(--color-primary); color: #fff;
+      border-radius: var(--radius-pill);
+      font-size: 9px; font-weight: var(--font-weight-bold);
+      min-width: 16px; height: 16px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 3px;
+    }
+    .nav-spacer { flex: 1; }
+
+    /* Main Content */
+    .main-content {
+      overflow-y: auto; padding: var(--space-6);
+      /* background: var(--color-bg); */
+      background: #ffffff;
+      display: flex; flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    /* ---------------------------------------------------------------
+       Page Header
+    ---------------------------------------------------------------- */
+    .page-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: var(--space-4);
+    }
+    .page-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: var(--line-height-heading);
+    }
+    .page-subtitle {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+
+    /* ---------------------------------------------------------------
+       Metric Tiles
+    ---------------------------------------------------------------- */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+    }
+    .metric-tile {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      border: var(--border-default);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-5);
+      cursor: pointer;
+      transition: border-color var(--duration-standard) var(--easing-enter);
+      text-align: center;
+      min-height: 88px;
+      height: 88px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .metric-tile:hover { border-color: var(--color-primary); }
+    .metric-tile.active-tile { border-color: var(--color-primary); background: var(--color-primary-25); }
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-2);
+    }
+    .metric-value {
+      font-size: 20px;
+      font-weight: var(--font-weight-bold);
+      line-height: 1.6;
+      margin-bottom: var(--space-1);
+    }
+    .metric-sub {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .mv-total   { color: var(--color-primary); }
+    .mv-inside  { color: var(--color-success); }
+    .mv-approaching { color: var(--color-warning-dark); }
+    .mv-overdue { color: var(--color-error); }
+    .refresh-text {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      margin-top: var(--space-3);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+
+    /* ---------------------------------------------------------------
+       Tab Bar
+    ---------------------------------------------------------------- */
+    .tab-bar {
+      display: flex;
+      border-bottom: var(--border-default);
+      background: var(--color-card);
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+    }
+    .tab-btn {
+      padding: var(--space-4) var(--space-7);
+      border: none; background: none; cursor: pointer;
+      font-size: var(--font-size-body);
+      font-family: var(--font-family);
+      color: var(--text-secondary);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px; min-height: 42px;
+      font-weight: var(--font-weight-regular);
+      transition: all var(--duration-micro) var(--easing-enter);
+    }
+    .tab-btn[aria-selected="true"] {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+    .tab-btn:hover:not([aria-selected="true"]) { background: var(--grey-50); }
+
+    /* ---------------------------------------------------------------
+       Toolbar / Search / Filters
+    ---------------------------------------------------------------- */
+    .toolbar {
+      display: flex; align-items: center; gap: var(--space-4);
+      /* padding: var(--space-4) var(--space-5); */
+      padding: var(--space-4) 0;
+      background: var(--color-card);
+      /* border-bottom: var(--border-divider); */
+      flex-wrap: wrap;
+    }
+    .search-wrap {
+      position: relative; flex: 1; min-width: 200px;
+    }
+    .search-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-3) var(--space-3) 36px;
+      border: var(--border-default);
+      border-radius: var(--radius-input);
+      font-size: var(--font-size-body);
+      font-family: var(--font-family);
+      background: var(--grey-50);
+      min-height: 40px;
+    }
+    .search-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.15); }
+    .search-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-56%);
+      color: var(--text-secondary); pointer-events: none; font-size: 16px;
+    }
+    .filter-chips {
+      display: flex; gap: var(--space-2); flex-wrap: wrap;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: var(--grey-100); border: var(--border-default);
+      border-radius: var(--radius-pill);
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--font-size-chip); color: var(--text-primary);
+      cursor: pointer; min-height: 32px;
+      font-family: var(--font-family);
+      transition: all var(--duration-micro) var(--easing-enter);
+    }
+    .chip:hover:not(.chip-active) { background: var(--grey-200); }
+    .chip-active {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* ---------------------------------------------------------------
+       Task Cards (Linear List)
+    ---------------------------------------------------------------- */
+    .task-list { list-style: none; border: 0; }
+
+    .task-card {
+      background: var(--color-card);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      margin-bottom: 0;
+      box-shadow: none;
+      overflow: hidden;
+      transition: background var(--duration-standard);
+      border-bottom: var(--border-divider);
+      border-top: var(--border-divider);
+      border-right: var(--border-divider);
+      border-left: 4px solid transparent;
+      margin-bottom: 16px;
+    }
+    .task-card.tc-overdue    { border-left-color: var(--color-error); }
+    .task-card.tc-low    { border-left-color: var(--color-primary-600); }
+    .task-card.tc-approaching { border-left-color: var(--color-warning-dark); }
+    .task-card.tc-inside     { border-left-color: transparent; }
+    .task-card.tc-critical   { border-left-color: var(--color-error); background: #FFF5F5; }
+    .task-card.tc-completed  { border-left-color: var(--color-success-dark); }
+
+    .task-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-5);
+      cursor: pointer;
+      min-height: 65px;
+      height: 65px;
+    }
+    .task-card-header:hover { background: var(--grey-50); }
+
+    .tc-id {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+    }
+    .tc-title {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      font-size: var(--font-size-body);
+    }
+    .tc-assignee {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* Expanded card body */
+    .task-card-body {
+      border-top: var(--border-divider);
+      padding: var(--space-6);
+      display: none;
+    }
+    .task-card-body.open { display: block; }
+
+    .task-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--space-6);
+    }
+
+    /* ---------------------------------------------------------------
+       Badge System
+    ---------------------------------------------------------------- */
+    .badge {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      border-radius: var(--radius-pill);
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap; line-height: 1.4;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .b-critical  { background: var(--color-error-bg); color: var(--color-error); }
+    .b-critical .badge-dot { background: var(--color-error); }
+    .b-high      { background: var(--orange-50); color: var(--orange-700); }
+    .b-high .badge-dot { background: var(--orange-700); }
+    .b-medium    { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .b-medium .badge-dot { background: var(--color-warning-dark); }
+    .b-low       { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .b-low .badge-dot { background: var(--color-success-dark); }
+    .b-assigned  { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .b-inprogress { background: var(--orange-50); color: var(--orange-700); }
+    .b-completed { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .b-cancelled { background: var(--grey-100); color: var(--grey-700); }
+    .b-overdue   { background: var(--color-error-bg); color: var(--color-error); }
+    .b-escalated { background: var(--orange-50); color: var(--orange-600); }
+    .b-reassigned { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .b-reprioritised { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+
+    /* Chip: assigned (small grey outlined) */
+    .chip-assigned {
+      display: inline-flex; align-items: center;
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+      background: var(--grey-100); color: var(--grey-700);
+      white-space: nowrap;
+    }
+    /* Chip: priority (filled colored) */
+    .chip-priority {
+      display: inline-flex; align-items: center;
+      padding: 4px var(--space-4);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      white-space: nowrap; color: #fff;
+    }
+    .chip-priority.cp-critical { background: var(--color-error); }
+    .chip-priority.cp-high     { background: #C62828; }
+    .chip-priority.cp-medium   { background: #D86302; }
+    .chip-priority.cp-low      { background: var(--color-primary-600); }
+    .chip-priority.cp-hpriority { background: #E65100; }
+    /* Chip: status (outlined) */
+    .chip-status {
+      display: inline-flex; align-items: center; gap: var(--space-1);
+      padding: 4px var(--space-4);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+      background: transparent; border: 1px solid var(--grey-400); color: var(--text-primary);
+    }
+    .chip-status.cs-critical{background-color: #FECDD2; color: #D32F2F; border-color: #FECDD2;}
+    .chip-status.cs-inprogress { border-color: #FB8C00; color: #E65100; }
+    .chip-status.cs-completed  { border-color: var(--color-success-dark); color: var(--color-success-dark); }
+    /* Critical indicator */
+    .critical-indicator {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--color-error); white-space: nowrap;
+    }
+    .critical-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--color-error); flex-shrink: 0;
+    }
+
+    /* SLA Pill */
+    .sla-pill {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      border-radius: var(--radius-pill);
+      padding: 3px var(--space-4);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+    }
+    .sla-inside    { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .sla-approaching { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .sla-overdue   { background: var(--color-error-bg); color: var(--color-error); }
+    .sla-icon { font-size: 12px; }
+
+    /* ---------------------------------------------------------------
+       Task Detail Sections (expanded card & detail screen)
+    ---------------------------------------------------------------- */
+    .detail-header {
+      display: flex; align-items: flex-start; gap: var(--space-5); flex-wrap: wrap;
+      margin-bottom: var(--space-5);
+    }
+    .detail-header-info { flex: 1; }
+    .detail-task-id {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+    .detail-task-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+      line-height: var(--line-height-heading);
+    }
+    .detail-badges {
+      display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
+      padding: var(--space-5) 0;
+      border-top: var(--border-divider);
+      border-bottom: var(--border-divider);
+    }
+    .meta-item-label {
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-1);
+    }
+    .meta-item-value {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+    }
+
+    .task-desc {
+      padding: var(--space-5);
+      background: var(--grey-50);
+      border-radius: var(--radius-card);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      line-height: var(--line-height-body);
+      margin-top: var(--space-5);
+    }
+
+    /* SLA Info Banner */
+    .sla-info-banner {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-card);
+      font-size: var(--font-size-caption);
+      margin-top: var(--space-4);
+    }
+    .sla-info-banner.sla-ib-approaching {
+      background: var(--color-warning-bg);
+      border: 1px solid var(--color-warning);
+      color: var(--orange-800);
+    }
+    .sla-info-banner.sla-ib-inside {
+      background: var(--color-success-bg);
+      border: 1px solid var(--color-success);
+      color: var(--color-success-darker);
+    }
+    .sla-info-banner.sla-ib-overdue {
+      background: var(--color-error-bg);
+      border: 1px solid var(--color-error);
+      color: var(--color-error-deeper);
+    }
+
+    /* ---------------------------------------------------------------
+       History Timeline
+    ---------------------------------------------------------------- */
+    .history-section { margin-top: var(--space-5); }
+    .history-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+    }
+    .history-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .history-item {
+      background: var(--grey-50);
+      border-radius: var(--radius-card);
+      border: var(--border-divider);
+      padding: var(--space-4) var(--space-5);
+    }
+    .history-meta {
+      display: flex; gap: var(--space-4); align-items: center;
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+      margin-bottom: var(--space-2);
+    }
+    .history-action {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      font-size: var(--font-size-body);
+    }
+    .history-comment {
+      font-size: var(--font-size-body);
+      color: var(--text-secondary);
+      margin-top: var(--space-2);
+      font-style: italic;
+    }
+
+    /* ---------------------------------------------------------------
+       Action Panel (Right Side)
+    ---------------------------------------------------------------- */
+    .action-panel {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+      position: sticky; top: 80px;
+    }
+    .action-panel-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-5);
+    }
+
+    /* ---------------------------------------------------------------
+       Task Detail V2 — Figma-Matched (Screen 2)
+    ---------------------------------------------------------------- */
+    .td2-header {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; background: #182A48;
+      padding: 16px 24px;
+    }
+    .td2-header-left {
+      display: flex; align-items: center; gap: 16px; flex: 1;
+    }
+    .td2-back-btn {
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer; flex-shrink: 0;
+    }
+    .td2-back-btn svg { display: block; }
+    .td2-header-title {
+      font-size: 20px; line-height: 1.6; letter-spacing: 0.15px; color: #fff; margin: 0;
+    }
+    .td2-header-title .td2-title-id { font-weight: 500; }
+    .td2-header-title .td2-title-sep { color: #275798; font-weight: 500; }
+    .td2-header-title .td2-title-name { font-weight: 400; }
+    .td2-header-right {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .td2-chip-critical {
+      display: inline-flex; align-items: center; gap: 0;
+      background: #FECDD2; border-radius: 100px; padding: 4px; white-space: nowrap;
+    }
+    .td2-chip-critical .td2-chip-dot {
+      width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+    }
+    .td2-chip-critical .td2-chip-dot svg { display: block; }
+    .td2-chip-critical .td2-chip-text {
+      padding: 3px 6px; font-size: 13px; font-weight: 400;
+      line-height: 18px; letter-spacing: 0.16px; color: #D32F2F;
+    }
+    .td2-chip-highpri {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #C62828; border-radius: 100px; padding: 4px; width: 125px; white-space: nowrap;
+    }
+    .td2-chip-highpri .td2-chip-text {
+      padding: 3px 6px; font-size: 14px; font-weight: 500;
+      line-height: 18px; letter-spacing: 0.16px; color: #FFE0E0;
+    }
+    .td2-timestamp {
+      font-size: 14px; font-weight: 400; line-height: 1.43;
+      letter-spacing: 0.17px; color: #FAFAFA; white-space: nowrap;
+    }
+    .td2-content {
+      display: flex; gap: 10px; padding: 0 16px;
+      background: var(--color-bg);
+      min-height: 595px;
+    }
+    .td2-left { width: 772px; flex-shrink: 0; padding: 16px 0; }
+    .td2-right { flex: 1; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; }
+
+    /* Info Card */
+    .td2-info-card {
+      background: #fff; border: 1px solid var(--grey-400); border-radius: 8px;
+      padding: 16px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .td2-info-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .td2-info-field.td2-full-width { grid-column: 1 / -1; }
+    .td2-field-label {
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.15px; color: #424242; width: 125px;
+    }
+    .td2-field-value {
+      font-size: 14px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.15px; color: #212121; margin-top: 4px;
+    }
+    .td2-divider {
+      width: 100%; height: 1px;
+      background: rgba(22, 43, 72, 0.12);
+    }
+
+    /* Task History */
+    .td2-history-title {
+      font-size: 20px; font-weight: 500; line-height: 1.6;
+      letter-spacing: 0.15px; color: #212121;
+    }
+    .td2-timeline { padding: 0 16px; }
+    .td2-timeline-item {
+      display: flex; gap: 8px; position: relative;
+    }
+    .td2-tl-opposing {
+      width: 45px; flex-shrink: 0; text-align: right;
+      padding-top: 0;
+    }
+    .td2-tl-date {
+      font-size: 14px; font-weight: 400; line-height: 1.43;
+      letter-spacing: 0.17px; color: #757575; margin-bottom: 0;
+    }
+    .td2-tl-time {
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.15px; color: #757575;
+    }
+    .td2-tl-connector {
+      width: 12px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center;
+      position: relative;
+    }
+    .td2-tl-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--grey-400); flex-shrink: 0;
+    }
+    .td2-tl-line {
+      width: 2px; flex: 1; background: var(--grey-300); min-height: 20px;
+    }
+    .td2-timeline-item:last-child .td2-tl-line { display: none; }
+    .td2-tl-main {
+      flex: 1; padding: 0 0 0 12px; padding-bottom: 16px;
+    }
+    .td2-tl-main-inner { display: flex; gap: 8px; align-items: flex-start; }
+    .td2-tl-avatar {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #6599DE; color: #fff; font-size: 10px; font-weight: 400;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; letter-spacing: 0.4px; overflow: hidden;
+    }
+    .td2-tl-body { flex: 1; min-width: 0; }
+    .td2-tl-primary {
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.15px; color: #212121;
+    }
+    .td2-tl-primary .td2-tl-action {
+      font-size: 14px; line-height: 1.43; letter-spacing: 0.17px; color: #757575;
+    }
+    .td2-tl-comment {
+      font-size: 14px; font-weight: 400; line-height: 1.43;
+      letter-spacing: 0.17px; color: #8E9092; margin-top: 4px;
+    }
+    .td2-tl-comment .td2-tl-comment-text { color: #212121; }
+
+    /* Right Panel Card */
+    .td2-form-card {
+      background: #fff; border: 1px solid var(--grey-400); border-radius: 8px;
+      padding: 16px; display: flex; flex-direction: column; gap: 16px;
+      width: 100%; align-items: flex-end;
+    }
+    .td2-form-title {
+      font-size: 16px; font-weight: 500; line-height: 1.5;
+      letter-spacing: 0.15px; color: #212121; width: 100%;
+    }
+    .td2-form-group { width: 100%; }
+    .td2-form-field-label {
+      font-size: 14px; font-weight: 400; line-height: 14px;
+      letter-spacing: 0.15px; color: #212121; margin-bottom: 10px;
+    }
+    .td2-select-wrapper {
+      position: relative; width: 100%;
+    }
+    .td2-select {
+      width: 100%; height: 42px;
+      border: 1px solid var(--grey-400); border-radius: 8px;
+      padding: 8px 40px 8px 12px;
+      font-family: var(--font-family); font-size: 16px; font-weight: 400;
+      line-height: 24px; letter-spacing: 0.15px; color: #212121;
+      background: #fff; appearance: none; cursor: pointer;
+    }
+    .td2-select:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(50,118,207,0.15); }
+    .td2-select-label {
+      position: absolute; top: -7px; left: 12px; padding: 0 4px;
+      background: #fff; font-size: 14px; font-weight: 400;
+      line-height: 14px; letter-spacing: 0.15px; color: #212121;
+    }
+    .td2-select-arrow {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .td2-textarea-wrapper { width: 100%; }
+    .td2-textarea {
+      width: 100%; min-height: 80px; resize: vertical;
+      border: 1px solid var(--grey-400); border-radius: 8px;
+      padding: 16px 12px;
+      font-family: var(--font-family); font-size: 16px; font-weight: 400;
+      line-height: 24px; letter-spacing: 0.15px; color: #212121;
+    }
+    .td2-textarea::placeholder { color: #757575; }
+    .td2-textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(50,118,207,0.15); }
+    .td2-helper-text {
+      font-size: 12px; font-weight: 400; line-height: 1.66;
+      letter-spacing: 0.4px; color: #212121; text-align: right;
+      margin-top: 3px;
+    }
+    /* Action Buttons */
+    .td2-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 24px; min-height: 44px; min-width: 110px;
+      border-radius: 8px; font-family: var(--font-family);
+      font-size: 14px; font-weight: 500; letter-spacing: 0.4px;
+      cursor: pointer; border: none; transition: background 150ms ease-out;
+    }
+    .td2-btn-cancel {
+      background: #fff; color: var(--color-primary);
+      border: 1px solid var(--grey-300);
+    }
+    .td2-btn-cancel:hover { background: var(--grey-50); }
+    .td2-btn-action {
+      background: var(--color-primary); color: #fff;
+    }
+    .td2-btn-action:hover { background: var(--color-primary-hover); }
+
+    /* Confirmation Dialog Overlay */
+    .td2-confirm-overlay {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.45);
+      align-items: center; justify-content: center;
+    }
+    .td2-confirm-overlay.visible { display: flex; }
+    .td2-confirm-dialog {
+      width: 460px; background: #fff; border-radius: 12px;
+      padding: 20px; display: flex; flex-direction: column; gap: 24px;
+    }
+    .td2-confirm-header {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .td2-confirm-icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .td2-confirm-title {
+      flex: 1; font-size: 20px; font-weight: 500; line-height: 20px;
+      letter-spacing: 0.14px; color: #ED6C02; margin: 0;
+    }
+    .td2-confirm-body {
+      font-size: 18px; font-weight: 400; line-height: 1.5;
+      letter-spacing: 0.15px; color: #212121;
+    }
+    .td2-confirm-body strong { font-weight: 500; }
+    .td2-confirm-actions {
+      display: flex; gap: 24px;
+    }
+    .td2-confirm-actions button {
+      flex: 1; min-height: 48px; min-width: 120px;
+      font-family: var(--font-family); font-size: 15px; font-weight: 500;
+      letter-spacing: 0.46px; text-transform: uppercase;
+      cursor: pointer; border: none; white-space: nowrap;
+    }
+    .td2-confirm-cancel {
+      background: #fff; color: var(--color-primary);
+      border: 1px solid #A2C1EA !important; border-radius: 10px;
+    }
+    .td2-confirm-cancel:hover { background: var(--grey-50); }
+    .td2-confirm-submit {
+      background: var(--color-primary); color: #fff; border-radius: 8px;
+    }
+    .td2-confirm-submit:hover { background: var(--color-primary-hover); }
+    .td2-confirm-alert {
+      display: flex; align-items: flex-start; gap: 0;
+      background: #FFF3E0; border-radius: 8px; padding: 6px 16px;
+      width: 100%;
+    }
+    .td2-confirm-alert-icon {
+      width: 52px; flex-shrink: 0; display: flex; align-items: center;
+      justify-content: center; padding: 7px 12px 7px 0;
+    }
+    .td2-confirm-alert-text { flex: 1; padding: 8px 0; color: #CC630C; }
+    .td2-confirm-alert-title {
+      font-size: 16px; font-weight: 500; line-height: 1.5;
+      letter-spacing: 0.15px; margin: 0 0 4px 0;
+    }
+    .td2-confirm-alert-desc {
+      font-size: 14px; font-weight: 400; line-height: 1.43;
+      letter-spacing: 0.17px; margin: 0;
+    }
+
+    /* Reminder Banner */
+    .reminder-banner {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      background: var(--color-primary-50);
+      border: 1px solid var(--color-primary-200);
+      border-radius: var(--radius-card);
+      padding: var(--space-4) var(--space-5);
+      margin-bottom: var(--space-5);
+      font-size: var(--font-size-caption);
+      color: var(--color-primary-700);
+      font-weight: var(--font-weight-semibold);
+    }
+    .reminder-icon { font-size: 16px; flex-shrink: 0; }
+
+    /* Form Elements */
+    .form-group { margin-bottom: var(--space-5); }
+    .form-label {
+      display: block;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .required-star { color: var(--color-error); margin-left: 2px; }
+
+    select.form-control,
+    textarea.form-control,
+    input.form-control {
+      display: block; width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-default);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+      min-height: 44px;
+      transition: border-color var(--duration-micro);
+    }
+    select.form-control:focus,
+    textarea.form-control:focus,
+    input.form-control:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.15);
+    }
+    textarea.form-control { resize: vertical; min-height: 88px; }
+    .char-counter {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: var(--space-2);
+    }
+    .char-hint { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .char-count { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .char-count.near-limit { color: var(--color-warning-dark); }
+    .char-count.at-limit { color: var(--color-error); font-weight: var(--font-weight-semibold); }
+    .form-error-msg {
+      display: flex; align-items: center; gap: var(--space-2);
+      color: var(--color-error); font-size: var(--font-size-caption);
+      margin-top: var(--space-2);
+    }
+
+    /* ---------------------------------------------------------------
+       Buttons
+    ---------------------------------------------------------------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-7);
+      border-radius: var(--radius-button);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer; border: none;
+      min-height: 44px; min-width: 44px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: var(--color-primary-hover); }
+    .btn-primary:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .btn-primary:disabled { background: var(--color-disabled); color: #fff; cursor: not-allowed; }
+    .btn-secondary {
+      background: var(--color-card); color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+    .btn-secondary:hover:not(:disabled) { background: var(--color-primary-25); }
+    .btn-secondary:focus-visible { box-shadow: var(--shadow-focus); outline: none; }
+    .btn-ghost { background: transparent; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); }
+    .btn-danger { background: var(--color-error); color: #fff; }
+    .btn-danger:hover:not(:disabled) { background: var(--color-error-dark); }
+    .btn-sm { padding: var(--space-2) var(--space-4); font-size: var(--font-size-caption); min-height: 32px; }
+
+    /* ---------------------------------------------------------------
+       Modals
+    ---------------------------------------------------------------- */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 500;
+    }
+    .modal-backdrop[hidden] { display: none; }
+    .modal-dialog {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal);
+      padding: var(--space-8);
+      max-width: 480px;
+      width: calc(100% - var(--space-8));
+    }
+    .modal-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-4);
+    }
+    .modal-body {
+      font-size: var(--font-size-body);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-7);
+      line-height: var(--line-height-body);
+    }
+    .modal-actions { display: flex; gap: var(--space-4); justify-content: flex-end; }
+    .modal-alert {
+      display: flex; align-items: center; gap: var(--space-3);
+      border-radius: var(--radius-card);
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--font-size-caption);
+      margin-top: var(--space-4);
+    }
+    .modal-alert-warning {
+      background: var(--color-warning-bg);
+      color: var(--color-warning-dark);
+    }
+
+    /* Critical Task Popup */
+    .critical-dialog {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal);
+      padding: var(--space-7);
+      max-width: 440px;
+      width: calc(100% - var(--space-8));
+      border-top: 4px solid var(--color-error);
+    }
+    .critical-header {
+      display: flex; align-items: center; gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    .critical-icon { font-size: 28px; color: var(--color-error); }
+    .critical-title-text {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-error);
+    }
+
+    /* ---------------------------------------------------------------
+       User Picker
+    ---------------------------------------------------------------- */
+    .picker-dialog {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      border: var(--border-default);
+      max-width: 440px; width: calc(100% - var(--space-8));
+      box-shadow: var(--shadow-modal);
+      overflow: hidden;
+    }
+    .picker-header {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: var(--border-divider);
+    }
+    .picker-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+    .picker-subtitle {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .picker-search {
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+    }
+    .picker-list { padding: var(--space-3); max-height: 260px; overflow-y: auto; }
+    .picker-item {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-card);
+      cursor: pointer;
+      transition: background var(--duration-micro);
+      min-height: 44px;
+    }
+    .picker-item:hover { background: var(--grey-50); }
+    .picker-item.selected { background: var(--color-primary-25); border: 1px solid var(--color-primary); }
+    .user-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary-100);
+      color: var(--color-primary-700);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-caption);
+      flex-shrink: 0;
+    }
+    .user-name { font-weight: var(--font-weight-semibold); font-size: var(--font-size-body); }
+    .user-meta-text { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .picker-footer {
+      padding: var(--space-4) var(--space-6);
+      border-top: var(--border-divider);
+      display: flex; gap: var(--space-4); justify-content: flex-end;
+    }
+    .workload-badge {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+    }
+    .wl-low { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .wl-med { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .wl-high { background: var(--color-error-bg); color: var(--color-error); }
+
+    /* ---------------------------------------------------------------
+       Create Task Form
+    ---------------------------------------------------------------- */
+    .create-form-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-7);
+      max-width: 680px;
+    }
+    .create-form-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-6);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+
+    /* ---------------------------------------------------------------
+       Toast Notification
+    ---------------------------------------------------------------- */
+    .toast-container {
+      position: fixed; bottom: var(--space-7); left: var(--space-7);
+      z-index: 700;
+      display: flex; flex-direction: column; gap: var(--space-3);
+    }
+    .toast {
+      background: var(--grey-900); color: #fff;
+      padding: var(--space-4) var(--space-6);
+      border-radius: var(--radius-card);
+      font-size: var(--font-size-body);
+      display: flex; align-items: center; gap: var(--space-4);
+      box-shadow: var(--shadow-modal);
+      max-width: 400px;
+      min-height: 44px;
+    }
+    .toast-success { border-left: 4px solid var(--color-success); }
+    .toast-error { border-left: 4px solid var(--color-error); }
+    .toast-warning { border-left: 4px solid var(--color-warning); }
+    .toast a { color: var(--color-primary-200); text-decoration: underline; }
+    .toast-close {
+      background: none; border: none; color: rgba(255,255,255,0.6);
+      cursor: pointer; font-size: 16px; min-width: 44px; min-height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      margin-left: auto;
+    }
+    .toast-close:hover { color: #fff; }
+
+    /* ---------------------------------------------------------------
+       Push Notification Banner (Incoming from Web App)
+    ---------------------------------------------------------------- */
+    .push-notif-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 8000;
+      pointer-events: none;
+    }
+    .push-notif-banner {
+      pointer-events: auto;
+      position: fixed;
+      top: var(--space-5);
+      left: 50%;
+      transform: translateX(-50%) translateY(-120px);
+      opacity: 0;
+      z-index: 8001;
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      padding: var(--space-5) var(--space-6);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      max-width: 480px;
+      width: calc(100% - 48px);
+      border-top: 4px solid var(--color-primary);
+      transition: transform var(--duration-complex) var(--easing-enter),
+                  opacity var(--duration-complex) var(--easing-enter);
+      overflow: hidden;
+    }
+    .push-notif-banner.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .push-notif-banner.dismissing {
+      transform: translateX(-50%) translateY(-120px);
+      opacity: 0;
+    }
+    .push-notif-app-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .push-notif-app-icon svg {
+      width: 28px; height: 28px;
+    }
+    .push-notif-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .push-notif-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-1);
+    }
+    .push-notif-app-name {
+      font-size: 11px;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .push-notif-time {
+      font-size: 11px;
+      color: var(--grey-400);
+    }
+    .push-notif-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+    .push-notif-msg {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      line-height: var(--line-height-body);
+    }
+    .push-notif-msg strong { color: var(--text-primary); }
+    .push-notif-actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .push-notif-actions button {
+      font-family: var(--font-family);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-bold);
+      border: none;
+      border-radius: var(--radius-button);
+      padding: var(--space-2) var(--space-5);
+      cursor: pointer;
+      min-height: 32px;
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .push-notif-open {
+      background: var(--color-primary);
+      color: #fff;
+    }
+    .push-notif-open:hover { background: var(--color-primary-hover); }
+    .push-notif-later {
+      background: var(--grey-100);
+      color: var(--text-secondary);
+    }
+    .push-notif-later:hover { background: var(--grey-200); }
+    .push-notif-close {
+      background: none;
+      border: none;
+      color: var(--grey-400);
+      font-size: 18px;
+      cursor: pointer;
+      padding: var(--space-1);
+      min-width: 28px; min-height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .push-notif-close:hover { color: var(--text-primary); }
+    .push-notif-progress {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--color-primary);
+      transform-origin: left;
+      animation: push-notif-timer 8s linear forwards;
+    }
+    @keyframes push-notif-timer {
+      from { transform: scaleX(1); }
+      to   { transform: scaleX(0); }
+    }
+
+    /* Notification badge pulse */
+    @keyframes badge-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.5); }
+      70% { box-shadow: 0 0 0 8px rgba(229, 57, 53, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+    }
+    .notif-count.pulse {
+      animation: badge-pulse 1s ease-out 3;
+    }
+
+    /* ---------------------------------------------------------------
+       Annotation Callout
+    ---------------------------------------------------------------- */
+    .annotation {
+      background: #FFFDE7;
+      border-left: 4px solid #F9A825;
+      border-radius: 0 var(--radius-card) var(--radius-card) 0;
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--font-size-caption);
+      color: #5D4037;
+      margin: var(--space-4) 0;
+    }
+    .annotation strong { color: #3E2723; }
+
+    /* Screen label */
+    .screen-label {
+      background: var(--grey-900);
+      color: #fff;
+      padding: var(--space-3) var(--space-6);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ---------------------------------------------------------------
+       Screen Visibility
+    ---------------------------------------------------------------- */
+    .screen-section { display: none; }
+    .screen-section.visible { display: block; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      list-style: none; display: flex;
+      gap: var(--space-3);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-5);
+    }
+    .breadcrumb a { color: var(--text-hyperlink); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* Divider */
+    .divider {
+      border: none; border-top: var(--border-divider);
+      margin: var(--space-5) 0;
+    }
+
+    /* SLA Config table */
+    .sla-table {
+      width: 100%; border-collapse: collapse; font-size: var(--font-size-body);
+    }
+    .sla-table th {
+      background: var(--table-header);
+      text-align: left;
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: var(--border-default);
+    }
+    .sla-table td {
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      vertical-align: middle;
+    }
+    .sla-table tr:hover td { background: var(--table-row-hover); }
+
+    /* Responsive for tablet portrait */
+    @media (max-width: 900px) {
+      .task-card-header {
+        grid-template-columns: 80px 1fr auto;
+      }
+      .tc-assignee { display: none; }
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .task-detail-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ---------------------------------------------------------------
+       Prototype Navigation — Screen Switcher
+  ---------------------------------------------------------------- -->
+  <nav class="proto-nav" aria-label="Prototype screen navigation">
+    <strong>FieldSync — Task Module</strong>
+    <span class="proto-nav-pill">Tablet Prototype</span>
+    <span class="proto-nav-pill">MET-DS-V2</span>
+    <span class="proto-nav-pill">WCAG 2.1 AA</span>
+    <div style="margin-left: auto; display: flex; gap: var(--space-2); flex-wrap: wrap;">
+      <button class="screen-btn active" data-screen="screen-dashboard" type="button">Dashboard</button>
+      <button class="screen-btn" data-screen="screen-detail" type="button">Task Detail</button>
+      <!-- <button class="screen-btn" data-screen="screen-create" type="button">Create Task</button>
+      <button class="screen-btn" data-screen="screen-confirm" type="button">Confirm Modal</button>
+      <button class="screen-btn" data-screen="screen-critical" type="button">Critical Popup</button>
+      <button class="screen-btn" data-screen="screen-picker" type="button">User Picker</button>
+      <button class="screen-btn" data-screen="screen-sla" type="button">SLA Config</button> -->
+    </div>
+  </nav>
+
+  <!-- -------------------------------------------------------------------
+       SCREEN 1: TASK DASHBOARD — Manager View (Priya)
+  -------------------------------------------------------------------- -->
+  <section class="screen-section visible" id="screen-dashboard" aria-label="Task Dashboard screen">
+    <div class="tablet-frame">
+      <div class="screen-label">Screen 1 — Task Dashboard (Manager View — Motor Business Area)</div>
+      <div class="app-shell">
+        <!-- Top Nav -->
+        <header class="top-nav" role="banner">
+          <h1 class="page-title" style="margin:0;">Tasks</h1>
+          <span class="top-nav-spacer"></span>
+          <div class="chip " style="gap:var(--space-2);cursor:default;">
+            <span style="font-size:var(--font-size-chip);">Status: Shift Started</span>
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--color-success);display:inline-block;"></span>
+          </div>
+          <button class="top-nav-btn" id="tabletNotifBtn" aria-label="Notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.6281 13.9622C18.7811 12.0992 18.8031 11.3982 18.8421 10.1242C18.8521 9.82317 18.8621 9.49617 18.8621 9.12117C18.8621 6.14417 16.7331 1.95117 12.0011 1.95117C7.26909 1.95117 5.14009 6.14417 5.14009 9.12117C5.14009 9.49517 5.15009 9.82317 5.16009 10.1242C5.19909 11.3982 5.22009 12.0992 4.36409 13.9872C3.99809 14.9312 4.04209 15.7462 4.49709 16.4102C5.58909 18.0082 8.74909 18.2282 12.0011 18.2282C15.2531 18.2282 18.4131 18.0082 19.5051 16.4102C19.9611 15.7462 20.0051 14.9312 19.6281 13.9622Z" fill="currentColor"/><path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M14.6991 19.2407C13.0681 19.4217 11.3001 19.4207 9.29009 19.2387C8.98909 19.2147 8.69109 19.3737 8.55309 19.6487C8.41409 19.9247 8.45809 20.2557 8.66309 20.4857C9.56309 21.4927 10.7471 22.0487 11.9971 22.0487H11.9991C13.2521 22.0487 14.4391 21.4937 15.3411 20.4857C15.5481 20.2547 15.5911 19.9187 15.4491 19.6417C15.3061 19.3667 15.0121 19.2127 14.6991 19.2407Z" fill="currentColor"/></svg><span class="notif-count" id="tabletNotifCount" style="display:none;">0</span></button>
+        </header>
+
+        <!-- Left Nav -->
+        <nav class="left-nav" aria-label="Primary navigation">
+          <div class="nav-logo" aria-label="Engage logo">
+            <svg width="50" height="51" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M25.0175 12.7411C22.9996 12.7402 21.0118 13.24 19.2255 14.1974C17.4393 15.1549 15.9082 16.5412 14.7644 18.2368C13.6205 19.9324 12.8983 21.8864 12.6599 23.9302C12.4216 25.974 12.6743 28.0463 13.3962 29.9683C14.1181 31.8903 15.2876 33.6042 16.8038 34.9624C18.32 36.3205 20.1374 37.282 22.0992 37.764C24.061 38.2459 26.1082 38.2338 28.0644 37.7288C30.0206 37.2237 31.8269 36.2408 33.3276 34.8648C33.6274 34.5134 33.9945 34.2283 34.4065 34.0271C34.8184 33.8259 35.2664 33.7129 35.7228 33.695C36.1791 33.6771 36.6343 33.7547 37.0601 33.9231C37.486 34.0915 37.8735 34.3471 38.1988 34.674C38.5241 35.001 38.7804 35.3925 38.9517 35.8243C39.1231 36.2561 39.2059 36.7192 39.1951 37.1849C39.1843 37.6506 39.0802 38.1091 38.889 38.5322C38.6979 38.9553 38.4238 39.334 38.0837 39.645C34.5487 43.0478 29.8781 44.9534 25.0175 44.976C24.232 44.976 23.4787 45.2942 22.9232 45.8608C22.3678 46.4273 22.0558 47.1957 22.0558 47.9969C22.0604 48.795 22.3745 49.5588 22.9294 50.1215C23.4843 50.6842 24.235 51 25.0175 51C29.9583 50.9965 34.7873 49.4997 38.8947 46.6987C43.0021 43.8977 46.2038 39.9182 48.0953 35.2625C49.9869 30.6068 50.4835 25.4838 49.5226 20.5404C48.5616 15.597 46.1861 11.0549 42.6961 7.48761C39.206 3.92034 34.7579 1.48787 29.9135 0.497374C25.069 -0.493122 20.0455 0.00277059 15.4771 1.92243C10.9088 3.8421 7.00052 7.09944 4.24589 11.2831C1.49126 15.4669 0.0137736 20.3893 0 25.4289C0 26.2301 0.312033 26.9985 0.867455 27.565C1.42288 28.1316 2.17619 28.4498 2.96168 28.4498C3.74414 28.4451 4.49299 28.1248 5.04465 27.5588C5.59631 26.9927 5.90595 26.227 5.90593 25.4289C6.25102 20.5258 8.39462 15.9353 11.9096 12.5722C15.4245 9.20903 20.0528 7.32022 24.872 7.28212C29.6912 7.24401 34.3476 9.0594 37.9132 12.3665C41.4789 15.6737 43.692 20.2297 44.1116 25.1268C44.1116 27.3481 43.3799 28.823 40.6272 28.823H22.6481C21.7656 28.823 20.9192 28.4654 20.2952 27.8289C19.6712 27.1924 19.3206 26.3291 19.3206 25.4289C19.3206 24.5288 19.6712 23.6655 20.2952 23.0289C20.9192 22.3924 21.7656 22.0348 22.6481 22.0348H37.0558C36.3233 19.3654 34.756 17.013 32.5925 15.3354C30.4289 13.6579 27.7874 12.7469 25.0697 12.7411" fill="#3276CF"/>
+            </svg>
+          </div>
+          <div class="nav-items">
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true"><img src="image/my%20jobs.png" alt=""></span>My Jobs</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true"><img src="image/Documents.png" alt=""></span>Documents</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true"><img src="image/Profile.png" alt=""></span>Profile</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true"><img src="image/vechile.png" alt=""></span>Vehicle Check</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true"><img src="image/Stock.png" alt=""></span>Stocks</a>
+            <a href="#" class="nav-item active" aria-current="page">
+              <span class="nav-icon" aria-hidden="true"><img src="image/Tasks.png" alt=""></span>Tasks
+              <span class="nav-badge-sm" aria-label="18 active tasks">18</span>
+            </a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true"><img src="image/ForceSync.png" alt=""></span>Force Sync</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span>Chat</a>
+            <span class="nav-spacer"></span>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span>End Shift</a>
+          </div>
+        </nav>
+
+        <!-- Main -->
+        <main id="main-content" class="main-content" tabindex="-1">
+
+          <!-- Metric Tiles -->
+          <section aria-label="Task summary metrics">
+            <div class="metric-grid" role="group">
+              <button class="metric-tile" aria-label="18 total tasks — click to view all">
+                <div class="metric-label">Total Tasks</div>
+                <div class="metric-value mv-total">18</div>
+                <div class="metric-sub">All statuses</div>
+              </button>
+              <button class="metric-tile" aria-label="5 assigned tasks — click to filter">
+                <div class="metric-label">Assigned</div>
+                <div class="metric-value mv-inside">5</div>
+                <div class="metric-sub">Pending start</div>
+              </button>
+              <button class="metric-tile" aria-label="Approaching SLA count — click to filter">
+                <div class="metric-label">Approaching SLA</div>
+                <div class="metric-value mv-approaching">4</div>
+                <div class="metric-sub">Behind schedule</div>
+              </button>
+              <button class="metric-tile" aria-label="2 tasks overdue — click to filter">
+                <div class="metric-label">Overdue</div>
+                <div class="metric-value mv-overdue">2</div>
+                <div class="metric-sub">SLA expired</div>
+              </button>
+            </div>
+            <p class="refresh-text">
+              <span aria-hidden="true">??</span> Last updated: 30 seconds ago · Auto-refreshing every 60 seconds
+            </p>
+          </section>
+
+          <!-- Tabs -->
+          <div>
+            <div role="tablist" aria-label="Task views" class="tab-bar">
+              <button role="tab" id="tab-all" aria-selected="true" aria-controls="panel-active" class="tab-btn">All (18)</button>
+              <button role="tab" id="tab-critical" aria-selected="false" class="tab-btn">Critical</button>
+              <button role="tab" id="tab-high" aria-selected="false" class="tab-btn">High Priority</button>
+              <button role="tab" id="tab-medium" aria-selected="false" class="tab-btn">Medium Priority</button>
+              <button role="tab" id="tab-low" aria-selected="false" class="tab-btn">Low Priority</button>
+              <button role="tab" id="tab-completed" aria-selected="false" aria-controls="panel-completed" class="tab-btn">Completed</button>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="toolbar" role="search" aria-label="Task search and filters">
+              <div class="search-wrap" style="max-width:360px;">
+                <span class="search-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.7559 14.2559H14.9659L14.6859 13.9859C15.6659 12.8459 16.2559 11.3659 16.2559 9.75586C16.2559 6.16586 13.3459 3.25586 9.75586 3.25586C6.16586 3.25586 3.25586 6.16586 3.25586 9.75586C3.25586 13.3459 6.16586 16.2559 9.75586 16.2559C11.3659 16.2559 12.8459 15.6659 13.9859 14.6859L14.2559 14.9659V15.7559L19.2559 20.7459L20.7459 19.2559L15.7559 14.2559ZM9.75586 14.2559C7.26586 14.2559 5.25586 12.2459 5.25586 9.75586C5.25586 7.26586 7.26586 5.25586 9.75586 5.25586C12.2459 5.25586 14.2559 7.26586 14.2559 9.75586C14.2559 12.2459 12.2459 14.2559 9.75586 14.2559Z" fill="#757575"/></svg></span>
+                <input type="search" class="search-input" placeholder="Search tasks…" aria-label="Search tasks" />
+              </div>
+              <div style="margin-left:auto;display:flex;gap:var(--space-2);">
+                <button class="btn btn-ghost btn-sm" aria-label="Sort tasks" style="min-width:36px;min-height:36px;padding:var(--space-2);border:1px solid var(--grey-300);border-radius:var(--radius-button);display:flex;align-items:center;justify-content:center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z" fill="currentColor"/></svg>
+                </button>
+                <!-- <button class="btn btn-ghost btn-sm" aria-label="Row density" style="min-width:36px;min-height:36px;padding:var(--space-2);border:1px solid var(--grey-300);border-radius:var(--radius-button);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--text-secondary);">
+                  1.5
+                </button> -->
+                <button class="btn btn-ghost btn-sm" aria-label="List view options" style="min-width:36px;min-height:36px;padding:var(--space-2);border:1px solid var(--grey-300);border-radius:var(--radius-button);display:flex;align-items:center;justify-content:center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Task List -->
+            <section role="tabpanel" id="panel-active" aria-labelledby="tab-active">
+              <!-- <div class="annotation">
+                <strong>Annotation 1.A:</strong> Flat task row layout matching Figma design. Each row is 65px high with bottom divider (no card borders). Row contains: Task ID, title, priority badge, timer info, status chips, and time ago. Rows are full-width touch targets. Task list container has 4px border radius and elevation/1 shadow per Figma specs.
+              </div> -->
+
+              <ul class="task-list" aria-label="Active tasks — filtered view" role="list" style="background:var(--color-card);overflow:hidden;">
+
+                <!-- Task Row 1: Late on site -->
+                <li class="task-card tc-overdue" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 001 — Late on site — Click to expand">
+                    <span class="tc-id">Task ID: 001</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Late on site</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-caption);color:var(--color-error);font-weight:var(--font-weight-semibold);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="currentColor"/></svg>
+                      Overdue
+                    </span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-priority cp-medium">Medium Priority</span>
+                    <span class="chip-status">Not Started</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+                <!-- Task Row 2: Daily vehicle check failures (Critical) -->
+                <li class="task-card tc-critical" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 002 — Daily vehicle check failures — Click to expand"
+                       onclick="showScreen('screen-detail')">
+                    <span class="tc-id">Task ID: 002</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Daily vehicle check failures</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-caption);color:var(--text-secondary);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="currentColor"/></svg>
+                      01:00 hrs
+                    </span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-status cs-critical critical-indicator"><span class="critical-dot"></span> Critical</span>
+                    <span class="chip-priority cp-high">High Priority</span>
+                    <span class="chip-status">Not Started</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+                <!-- Task Row 3: Daily vehicle check failures -->
+                <li class="task-card tc-approaching" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 003 — Daily vehicle check failures — Click to expand">
+                    <span class="tc-id">Task ID: 003</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Daily vehicle check failures</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-caption);color:var(--text-secondary);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="currentColor"/></svg>
+                      00:24 hrs
+                    </span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-priority cp-medium">Medium Priority</span>
+                    <span class="chip-status cs-inprogress">In-Progress</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+                <!-- Task Row 4: Generator Safety Check -->
+                <li class="task-card tc-approaching" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 003 — Generator Safety Check — Click to expand">
+                    <span class="tc-id">Task ID: 003</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Generator Safety Check</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-caption);color:var(--text-secondary);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="currentColor"/></svg>
+                      01:00 hrs
+                    </span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-priority cp-high">H.Priority</span>
+                    <span class="chip-status">Not Started</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+                <!-- Task Row 5: Travel time exceeded (Completed) -->
+                <li class="task-card tc-completed" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 003 — Travel time exceeded — Click to expand">
+                    <span class="tc-id">Task ID: 003</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Travel time exceeded</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-priority cp-high">H.Priority</span>
+                    <span class="chip-status cs-completed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg> Completed</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+                <!-- Task Row 6: Generator Safety Check -->
+                <li class="task-card tc-low" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 003 — Generator Safety Check — Click to expand">
+                    <span class="tc-id">Task ID: 003</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Generator Safety Check</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-priority cp-low">Low Priority</span>
+                    <span class="chip-status">Not Started</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+                <!-- Task Row 7: Generator Safety Check -->
+                <li class="task-card tc-low" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 003 — Generator Safety Check — Click to expand">
+                    <span class="tc-id">Task ID: 003</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Generator Safety Check</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-priority cp-low">Low Priority</span>
+                    <span class="chip-status">Not Started</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+                <!-- Task Row 8: Generator Safety Check -->
+                <li class="task-card tc-low" role="listitem">
+                  <div class="task-card-header" role="button" tabindex="0" aria-expanded="false"
+                       aria-label="Task ID 003 — Generator Safety Check — Click to expand">
+                    <span class="tc-id">Task ID: 003</span>
+                    <span class="tc-title" style="font-size:var(--font-size-body1);font-weight:var(--font-weight-bold);">Generator Safety Check</span>
+                    <span class="chip-assigned">Assigned</span>
+                    <span style="flex:1;"></span>
+                    <span class="chip-priority cp-low">Low Priority</span>
+                    <span class="chip-status">Not Started</span>
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary);">5 mins ago</span>
+                  </div>
+                </li>
+
+              </ul>
+
+              <!-- <div class="annotation">
+                <strong>Annotation 1.B:</strong> 6 tab categories: All Tasks, Assigned, In Progress, Late on Start, Behind on SLA, Completed. Shift info banner shows vehicle and shift status matching Figma layout. Stats cards are 88px fixed height, 4 across. Typography uses Roboto 400/500 weights. Border radius 4px throughout. Dividers use semi-transparent dark blue (#162B481F).
+              </div> -->
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------
+       SCREEN 2: TASK DETAIL + ACTION PANEL — Agent View (Ravi)
+  -------------------------------------------------------------------- -->
+  <section class="screen-section" id="screen-detail" aria-label="Task Detail screen">
+    <div class="tablet-frame">
+      <div class="screen-label">Screen 2 — Task Detail with Action Panel (Agent View — Ravi Krishnan)</div>
+      <div class="app-shell" style="display:flex;flex-direction:column;">
+
+        <div style="display:flex;flex-direction:column;overflow:hidden;flex:1;">
+          <!-- Dark Header Bar -->
+          <header class="td2-header" role="banner">
+            <div class="td2-header-left">
+              <button class="td2-back-btn" aria-label="Go back to task list" onclick="showScreen('screen-dashboard');return false;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <h1 class="td2-header-title">
+                <span class="td2-title-id">Task ID: 002 </span><span class="td2-title-sep">|</span><span class="td2-title-name"> Daily vehicle check failures</span>
+              </h1>
+            </div>
+            <div class="td2-header-right">
+              <span class="td2-chip-critical">
+                <span class="td2-chip-dot"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#D32F2F"/></svg></span>
+                <span class="td2-chip-text">Critical</span>
+              </span>
+              <span class="td2-chip-highpri">
+                <span class="td2-chip-text">High Priority</span>
+              </span>
+              <span class="td2-timestamp">5 mins ago</span>
+            </div>
+          </header>
+
+          <!-- Two-Column Content -->
+          <div class="td2-content" style="flex:1;overflow-y:auto;">
+            <!-- Left Panel: Task Info + History -->
+            <div class="td2-left">
+              <div class="td2-info-card">
+                <!-- Info Fields Grid -->
+                <div class="td2-info-grid">
+                  <!-- Row 1 -->
+                  <div class="td2-info-field">
+                    <div class="td2-field-label">Agent ID / Name</div>
+                    <div class="td2-field-value">123456 - Templeton Peck</div>
+                  </div>
+                  <div class="td2-info-field">
+                    <div class="td2-field-label">Module</div>
+                    <div class="td2-field-value">Vehicle Check</div>
+                  </div>
+                  <!-- Row 2 -->
+                  <div class="td2-info-field">
+                    <div class="td2-field-label">Created</div>
+                    <div class="td2-field-value"><time datetime="2026-03-10T08:15">10 Mar 2026, 08:15</time></div>
+                  </div>
+                  <div class="td2-info-field">
+                    <div class="td2-field-label">SLA Deadline</div>
+                    <div class="td2-field-value"><time datetime="2026-03-10T09:15">10 Mar 2026, 09:15</time></div>
+                  </div>
+                  <!-- Row 3: Description (full width) -->
+                  <div class="td2-info-field td2-full-width">
+                    <div class="td2-field-label">Description</div>
+                    <div class="td2-field-value">The assigned field agent is currently unavailable. The task needs to be reassigned to another available agent to avoid delays in workflow execution.</div>
+                  </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="td2-divider" role="separator"></div>
+
+                <!-- Task History -->
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <h2 class="td2-history-title">Task History</h2>
+                  <div class="td2-timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="td2-timeline-item">
+                      <div class="td2-tl-opposing">
+                        <div class="td2-tl-date">10 Mar</div>
+                        <div class="td2-tl-time">19:30</div>
+                      </div>
+                      <div class="td2-tl-connector">
+                        <div class="td2-tl-dot"></div>
+                        <div class="td2-tl-line"></div>
+                      </div>
+                      <div class="td2-tl-main">
+                        <div class="td2-tl-main-inner">
+                          <div class="td2-tl-avatar" title="Templeton Peck">TP</div>
+                          <div class="td2-tl-body">
+                            <p class="td2-tl-primary">
+                              <span class="td2-tl-name">Templeton Peck </span>
+                              <span class="td2-tl-action">| The Action in-progressed by 123456 - John Doe.</span>
+                            </p>
+                            <p class="td2-tl-comment">
+                              <span>Commented: </span><span class="td2-tl-comment-text">Our agent is on the way and will reach your location within 30 minutes.</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="td2-timeline-item">
+                      <div class="td2-tl-opposing">
+                        <div class="td2-tl-date">10 Mar</div>
+                        <div class="td2-tl-time">08:20</div>
+                      </div>
+                      <div class="td2-tl-connector">
+                        <div class="td2-tl-dot"></div>
+                        <div class="td2-tl-line"></div>
+                      </div>
+                      <div class="td2-tl-main">
+                        <div class="td2-tl-main-inner">
+                          <div class="td2-tl-avatar" style="background:#C2D7F2;color:#275798;" title="John Doe">JD</div>
+                          <div class="td2-tl-body">
+                            <p class="td2-tl-primary">
+                              <span class="td2-tl-name">John Doe </span>
+                              <span class="td2-tl-action">| The Escalated to 123456 - John Doe.</span>
+                            </p>
+                            <p class="td2-tl-comment">
+                              <span>Commented: </span><span class="td2-tl-comment-text">Our agent is on the way and will reach your location within 30 minutes.</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="td2-timeline-item">
+                      <div class="td2-tl-opposing">
+                        <div class="td2-tl-date">10 Mar</div>
+                        <div class="td2-tl-time">08:15</div>
+                      </div>
+                      <div class="td2-tl-connector">
+                        <div class="td2-tl-dot"></div>
+                        <div class="td2-tl-line"></div>
+                      </div>
+                      <div class="td2-tl-main">
+                        <div class="td2-tl-main-inner">
+                          <div class="td2-tl-avatar" title="Templeton Peck">TP</div>
+                          <div class="td2-tl-body">
+                            <p class="td2-tl-primary">
+                              <span class="td2-tl-name">Templeton Peck </span>
+                              <span class="td2-tl-action"> | The Daily vehicle check failures</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel: Update Task Status -->
+            <aside class="td2-right" aria-label="Task actions">
+              <div class="td2-form-card">
+                <h2 class="td2-form-title">Update Task Status</h2>
+
+                <form class="td2-form-group" aria-label="Task status form" novalidate style="display:flex;flex-direction:column;gap:16px;width:100%;">
+                  <!-- Status Dropdown -->
+                  <div class="td2-select-wrapper">
+                    <label class="td2-select-label" for="td2-status-select">Status</label>
+                    <select class="td2-select" id="td2-status-select" aria-required="true" onchange="td2StatusChange(this)">
+                      <option value="">Select a status</option>
+                      <option value="in-progress">In Progress</option>
+                      <option value="escalate">Escalation</option>
+                      <option value="complete">Action Completed</option>
+                      <option value="reassign" selected>Reassigned</option>
+                    </select>
+                    <span class="td2-select-arrow" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M7 10L12 15L17 10" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </div>
+
+                  <!-- Select Agent/User or Manager (visible for Escalate & Reassign) -->
+                  <div class="td2-select-wrapper" id="td2-agent-field">
+                    <label class="td2-select-label" for="td2-agent-select" id="td2-agent-label">Select Manager</label>
+                    <select class="td2-select" id="td2-agent-select">
+                      <option value="">Select an agent</option>
+                      <option value="123456" selected>123456 - John Doe</option>
+                      <option value="789012">789012 - Jane Smith</option>
+                      <option value="345678">345678 - Templeton Peck</option>
+                    </select>
+                    <span class="td2-select-arrow" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M7 10L12 15L17 10" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </div>
+
+                  <!-- Comments -->
+                  <div>
+                    <div class="td2-form-field-label">Comments (Required)</div>
+                    <div class="td2-textarea-wrapper">
+                      <textarea class="td2-textarea" id="td2-comments" rows="4"
+                        aria-required="true"
+                        aria-describedby="td2-char-counter"
+                        maxlength="100"
+                        placeholder="Enter your comments...">Allow change of priority</textarea>
+                    </div>
+                    <div class="td2-helper-text" id="td2-char-counter" aria-live="polite" aria-atomic="true">Min 10 and max 100 characters (22/100).</div>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div id="td2-buttons-bar" style="display:flex;gap:12px;justify-content:flex-end;padding-top:8px;">
+                    <button type="button" class="td2-btn td2-btn-cancel" onclick="td2ResetForm()">CANCEL</button>
+                    <button type="button" class="td2-btn td2-btn-action" id="td2-action-btn" onclick="td2ShowConfirm()">REASSIGN</button>
+                  </div>
+                </form>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- Confirmation Dialog Overlay -->
+        <div class="td2-confirm-overlay" id="td2-confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="td2-confirm-heading">
+          <div class="td2-confirm-dialog">
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div class="td2-confirm-header">
+                <span id="td2-confirm-icon-wrap" class="td2-confirm-icon"></span>
+                <h2 class="td2-confirm-title" id="td2-confirm-heading"></h2>
+              </div>
+              <div class="td2-confirm-body" id="td2-confirm-body"></div>
+              <div id="td2-confirm-alert" style="display:none;"></div>
+            </div>
+            <div class="td2-confirm-actions">
+              <button class="td2-confirm-cancel" onclick="td2HideConfirm()">Cancel</button>
+              <button class="td2-confirm-submit" id="td2-confirm-submit-btn" onclick="td2ConfirmAction()"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------
+       SCREEN 3: CREATE TASK — Manager View (Priya)
+  -------------------------------------------------------------------- -->
+  <section class="screen-section" id="screen-create" aria-label="Create Task screen">
+    <div class="tablet-frame">
+      <div class="screen-label">Screen 3 — Create Task (Manager / Admin Only)</div>
+      <div class="app-shell">
+        <header class="top-nav" role="banner">
+          <span class="top-nav-brand">FieldSync</span>
+          <span class="top-nav-spacer"></span>
+          <button class="top-nav-btn" aria-label="Notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.6281 13.9622C18.7811 12.0992 18.8031 11.3982 18.8421 10.1242C18.8521 9.82317 18.8621 9.49617 18.8621 9.12117C18.8621 6.14417 16.7331 1.95117 12.0011 1.95117C7.26909 1.95117 5.14009 6.14417 5.14009 9.12117C5.14009 9.49517 5.15009 9.82317 5.16009 10.1242C5.19909 11.3982 5.22009 12.0992 4.36409 13.9872C3.99809 14.9312 4.04209 15.7462 4.49709 16.4102C5.58909 18.0082 8.74909 18.2282 12.0011 18.2282C15.2531 18.2282 18.4131 18.0082 19.5051 16.4102C19.9611 15.7462 20.0051 14.9312 19.6281 13.9622Z" fill="currentColor"/><path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M14.6991 19.2407C13.0681 19.4217 11.3001 19.4207 9.29009 19.2387C8.98909 19.2147 8.69109 19.3737 8.55309 19.6487C8.41409 19.9247 8.45809 20.2557 8.66309 20.4857C9.56309 21.4927 10.7471 22.0487 11.9971 22.0487H11.9991C13.2521 22.0487 14.4391 21.4937 15.3411 20.4857C15.5481 20.2547 15.5911 19.9187 15.4491 19.6417C15.3061 19.3667 15.0121 19.2127 14.6991 19.2407Z" fill="currentColor"/></svg></button>
+          <button class="top-nav-btn" aria-label="User menu"><img src="image/Profile.png" alt="" style="width:24px;height:24px;"></button>
+        </header>
+        <nav class="left-nav" aria-label="Primary navigation">
+          <div class="nav-logo" aria-label="Engage logo">
+            <svg width="50" height="51" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M25.0175 12.7411C22.9996 12.7402 21.0118 13.24 19.2255 14.1974C17.4393 15.1549 15.9082 16.5412 14.7644 18.2368C13.6205 19.9324 12.8983 21.8864 12.6599 23.9302C12.4216 25.974 12.6743 28.0463 13.3962 29.9683C14.1181 31.8903 15.2876 33.6042 16.8038 34.9624C18.32 36.3205 20.1374 37.282 22.0992 37.764C24.061 38.2459 26.1082 38.2338 28.0644 37.7288C30.0206 37.2237 31.8269 36.2408 33.3276 34.8648C33.6274 34.5134 33.9945 34.2283 34.4065 34.0271C34.8184 33.8259 35.2664 33.7129 35.7228 33.695C36.1791 33.6771 36.6343 33.7547 37.0601 33.9231C37.486 34.0915 37.8735 34.3471 38.1988 34.674C38.5241 35.001 38.7804 35.3925 38.9517 35.8243C39.1231 36.2561 39.2059 36.7192 39.1951 37.1849C39.1843 37.6506 39.0802 38.1091 38.889 38.5322C38.6979 38.9553 38.4238 39.334 38.0837 39.645C34.5487 43.0478 29.8781 44.9534 25.0175 44.976C24.232 44.976 23.4787 45.2942 22.9232 45.8608C22.3678 46.4273 22.0558 47.1957 22.0558 47.9969C22.0604 48.795 22.3745 49.5588 22.9294 50.1215C23.4843 50.6842 24.235 51 25.0175 51C29.9583 50.9965 34.7873 49.4997 38.8947 46.6987C43.0021 43.8977 46.2038 39.9182 48.0953 35.2625C49.9869 30.6068 50.4835 25.4838 49.5226 20.5404C48.5616 15.597 46.1861 11.0549 42.6961 7.48761C39.206 3.92034 34.7579 1.48787 29.9135 0.497374C25.069 -0.493122 20.0455 0.00277059 15.4771 1.92243C10.9088 3.8421 7.00052 7.09944 4.24589 11.2831C1.49126 15.4669 0.0137736 20.3893 0 25.4289C0 26.2301 0.312033 26.9985 0.867455 27.565C1.42288 28.1316 2.17619 28.4498 2.96168 28.4498C3.74414 28.4451 4.49299 28.1248 5.04465 27.5588C5.59631 26.9927 5.90595 26.227 5.90593 25.4289C6.25102 20.5258 8.39462 15.9353 11.9096 12.5722C15.4245 9.20903 20.0528 7.32022 24.872 7.28212C29.6912 7.24401 34.3476 9.0594 37.9132 12.3665C41.4789 15.6737 43.692 20.2297 44.1116 25.1268C44.1116 27.3481 43.3799 28.823 40.6272 28.823H22.6481C21.7656 28.823 20.9192 28.4654 20.2952 27.8289C19.6712 27.1924 19.3206 26.3291 19.3206 25.4289C19.3206 24.5288 19.6712 23.6655 20.2952 23.0289C20.9192 22.3924 21.7656 22.0348 22.6481 22.0348H37.0558C36.3233 19.3654 34.756 17.013 32.5925 15.3354C30.4289 13.6579 27.7874 12.7469 25.0697 12.7411" fill="#3276CF"/>
+            </svg>
+          </div>
+          <div class="nav-items">
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span>Home</a>
+            <a href="#" class="nav-item active" aria-current="page"><span class="nav-icon" aria-hidden="true"><img src="image/Tasks.png" alt=""></span>Tasks</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span>Schedule</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span>Messages</a>
+          </div>
+        </nav>
+
+        <main class="main-content" tabindex="-1">
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb">
+              <li><a href="#" onclick="showScreen('screen-dashboard');return false;">Tasks</a></li>
+              <li aria-hidden="true">›</li>
+              <li aria-current="page" style="color:var(--text-primary);">Create New Task</li>
+            </ol>
+          </nav>
+
+          <div class="create-form-card">
+            <h1 class="create-form-title">Create New Task</h1>
+
+            <form aria-label="Create task form" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="task-title">
+                  Task Title <span class="required-star" aria-hidden="true">*</span>
+                </label>
+                <input class="form-control" id="task-title" type="text"
+                       placeholder="Enter a clear, descriptive task title"
+                       aria-required="true" value="Generator Check — Block B Annex" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="task-desc">
+                  Description <span class="required-star" aria-hidden="true">*</span>
+                </label>
+                <textarea class="form-control" id="task-desc" rows="4"
+                          aria-required="true"
+                          placeholder="Describe the task objectives, location, and any special instructions…">Inspect backup generator at Block B annex following reported fault during weekend test run. Check fuel levels, battery condition, and run diagnostic. Report findings before 14:00.</textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="task-priority">
+                    Priority <span class="required-star" aria-hidden="true">*</span>
+                  </label>
+                  <select class="form-control" id="task-priority" aria-required="true">
+                    <option value="">— Select priority —</option>
+                    <option value="critical">Critical (SLA: 30 min)</option>
+                    <option value="high" selected>High (SLA: 60 min)</option>
+                    <option value="medium">Medium (SLA: 4 hours)</option>
+                    <option value="low">Low (SLA: 8 hours)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="task-area">
+                    Business Area
+                  </label>
+                  <input class="form-control" id="task-area" type="text" value="Motor"
+                         readonly aria-describedby="area-hint"
+                         style="background:var(--grey-100);color:var(--text-secondary);" />
+                  <p id="area-hint" style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-top:var(--space-2);">
+                    Auto-populated from your profile.
+                  </p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="task-assignee">
+                  Assign To <span class="required-star" aria-hidden="true">*</span>
+                </label>
+                <select class="form-control" id="task-assignee" aria-required="true">
+                  <option value="">— Select an agent —</option>
+                  <option value="ravi" selected>Ravi Krishnan — 3 open tasks</option>
+                  <option value="kavitha">Kavitha Ramachandran — 1 open task</option>
+                  <option value="murali">Murali Selvam — 3 open tasks</option>
+                  <option value="vijaya">Vijaya Prakash — 0 open tasks</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="create-comment">
+                  Initial Comment <span class="required-star" aria-hidden="true">*</span>
+                </label>
+                <textarea class="form-control" id="create-comment" rows="3"
+                          aria-required="true"
+                          maxlength="100"
+                          placeholder="Add context for the assigned agent…">Please prioritise this before afternoon shift. Report from weekend test attached via email.</textarea>
+                <div class="char-counter">
+                  <span class="char-hint">Min 10, max 100 characters.</span>
+                  <span class="char-count" aria-live="polite">82 / 100</span>
+                </div>
+              </div>
+
+              <hr class="divider" />
+
+              <div style="display:flex;gap:var(--space-4);justify-content:flex-end;">
+                <button type="button" class="btn btn-ghost" onclick="showScreen('screen-dashboard')">Cancel</button>
+                <button type="button" class="btn btn-primary">
+                  Create Task
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="annotation">
+            <strong>Annotation 3.A:</strong> Create Task available to Manager and Admin roles only. Business Area auto-populated and read-only. Assignee dropdown shows agents in the same area with workload count. Priority dropdown shows SLA duration per level for clarity. Comment mandatory (10–100 chars). On submit: confirmation modal ? toast ? task appears in active list with "Assigned" status. For Critical priority: immediate popup notification sent to assignee, manager, and admin.
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------
+       SCREEN 4: CONFIRMATION MODAL (Dynamic — Mark as Complete)
+  -------------------------------------------------------------------- -->
+  <section class="screen-section" id="screen-confirm" aria-label="Confirmation Modal screen">
+    <div class="tablet-frame">
+      <div class="screen-label">Screen 4 — Confirmation Modal (Dynamic Content — Mark as Complete Example)</div>
+      <div style="padding:var(--space-8);background:rgba(0,0,0,0.35);min-height:820px;display:flex;align-items:center;justify-content:center;">
+        <div role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc" class="modal-dialog">
+          <h2 class="modal-title" id="confirm-title" style="color:var(--color-success-darker);">
+            <span aria-hidden="true">?</span> Confirm: Mark as Complete
+          </h2>
+          <div class="modal-body" id="confirm-desc">
+            <p>You are about to mark <strong>TASK-00056 — Motor Fan Belt Replacement</strong> as <strong>Complete</strong>.</p>
+            <ul style="margin-top:var(--space-4);padding-left:var(--space-6);color:var(--text-primary);">
+              <li>Task will be moved to the <strong>Completed</strong> tab</li>
+              <li>SLA status will be recorded as <strong>Inside SLA</strong></li>
+              <li>This action will be logged in the task history</li>
+            </ul>
+            <div class="modal-alert modal-alert-warning" style="margin-top:var(--space-5);">
+              <span aria-hidden="true">??</span>
+              <span><strong>Your comment:</strong> "Fan belt replaced successfully. Alignment verified. Photos uploaded."</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-ghost" onclick="showScreen('screen-detail')">Cancel</button>
+            <button class="btn btn-primary" style="background:var(--color-success);"><span aria-hidden="true">?</span> Confirm Complete</button>
+          </div>
+        </div>
+      </div>
+      <div style="padding:var(--space-5);">
+        <div class="annotation">
+          <strong>Annotation 4.A:</strong> Confirmation modal is dynamically populated (BR-TASK-036/037). Content changes per action type:
+          <br/>• <strong>Mark Complete</strong> ? Green header, shows SLA outcome, moves to Completed tab.
+          <br/>• <strong>Cancel Task</strong> ? Red header, warns action cannot be undone, task status becomes Cancelled.
+          <br/>• <strong>Reassign</strong> ? Blue header, shows new owner name, states "SLA timer continues."
+          <br/>• <strong>Reprioritise</strong> ? Amber header, shows old?new priority, explicitly states "SLA timer will reset. New deadline: [calculated]."
+          <br/>• <strong>Escalate</strong> ? Amber header, shows escalation target.
+          <br/><br/>ARIA: <code>role="dialog"</code>, <code>aria-modal="true"</code>, focus trap, Escape key dismisses (non-destructive actions), Cancel comes before Confirm in tab order.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------
+       SCREEN 5: CRITICAL TASK POPUP
+  -------------------------------------------------------------------- -->
+  <section class="screen-section" id="screen-critical" aria-label="Critical Task Popup screen">
+    <div class="tablet-frame">
+      <div class="screen-label">Screen 5 — Critical Task Popup Notification</div>
+      <div style="padding:var(--space-8);background:rgba(0,0,0,0.55);min-height:820px;display:flex;align-items:center;justify-content:center;">
+        <div role="alertdialog" aria-modal="true" aria-labelledby="crit-title" aria-describedby="crit-desc" class="critical-dialog">
+          <div class="critical-header">
+            <span class="critical-icon" aria-hidden="true">??</span>
+            <p class="critical-title-text" id="crit-title">Critical Task Assigned</p>
+          </div>
+          <div id="crit-desc">
+            <p style="font-size:var(--font-size-body);color:var(--text-primary);margin-bottom:var(--space-4);">
+              <strong>TASK-00087 — Motor Fault — Zone 3, Pump Station 4</strong><br />
+              <span style="color:var(--text-secondary);">Assigned to: Ravi Krishnan · Motor Business Area</span>
+            </p>
+            <div style="background:var(--color-error-bg);border-radius:var(--radius-card);padding:var(--space-4) var(--space-5);margin-bottom:var(--space-5);">
+              <p style="font-size:var(--font-size-body);font-weight:700;color:var(--color-error);">
+                <span aria-hidden="true">?</span> SLA: 30 minutes — Immediate action required
+              </p>
+              <p style="font-size:var(--font-size-caption);color:var(--color-error-dark);margin-top:var(--space-2);">
+                SLA started at 11:30 — expires at 12:00 (within business hours)
+              </p>
+            </div>
+            <p style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-bottom:var(--space-5);background:var(--grey-50);padding:var(--space-4);border-radius:var(--radius-card);">
+              <span aria-hidden="true">??</span> You are currently working on <strong>TASK-00081</strong>. Switching to this task will not cancel your current work — it will remain In Progress.
+            </p>
+          </div>
+          <div style="display:flex;gap:var(--space-4);">
+            <button class="btn btn-danger" style="flex:1;" onclick="showScreen('screen-detail')">
+              <span aria-hidden="true">?</span> Acknowledge &amp; Start
+            </button>
+            <button class="btn btn-secondary">View Full Details</button>
+          </div>
+        </div>
+      </div>
+      <div style="padding:var(--space-5);">
+        <div class="annotation">
+          <strong>Annotation 5.A:</strong> Critical task popup fires immediately on Critical priority creation. Visible to: Assigned User, Manager, Admin. Uses <code>role="alertdialog"</code> + <code>aria-modal="true"</code> for assertive announcement. Does NOT auto-dismiss — requires deliberate acknowledgement. Acknowledgement logged in task history. Escape does NOT close (critical tasks require explicit action). Current task context shown to prevent confusion. SLA countdown shown in real-time. Field app: push notification delivered; auto-escalate if not acknowledged within 10 minutes.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------
+       SCREEN 6: USER PICKER (Reassignment)
+  -------------------------------------------------------------------- -->
+  <section class="screen-section" id="screen-picker" aria-label="User Picker screen">
+    <div class="tablet-frame">
+      <div class="screen-label">Screen 6 — User Picker (Reassignment — Same Business Area)</div>
+      <div style="padding:var(--space-8);background:rgba(0,0,0,0.35);min-height:820px;display:flex;align-items:center;justify-content:center;">
+        <div class="picker-dialog" role="dialog" aria-modal="true" aria-labelledby="pick-title" aria-describedby="pick-desc">
+          <div class="picker-header">
+            <h2 class="picker-title" id="pick-title">Reassign Task</h2>
+            <p class="picker-subtitle" id="pick-desc">Select a colleague from <strong>Motor</strong> business area to reassign <strong>TASK-00056</strong>.</p>
+          </div>
+          <div class="picker-search">
+            <div class="search-wrap">
+              <span class="search-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.7559 14.2559H14.9659L14.6859 13.9859C15.6659 12.8459 16.2559 11.3659 16.2559 9.75586C16.2559 6.16586 13.3459 3.25586 9.75586 3.25586C6.16586 3.25586 3.25586 6.16586 3.25586 9.75586C3.25586 13.3459 6.16586 16.2559 9.75586 16.2559C11.3659 16.2559 12.8459 15.6659 13.9859 14.6859L14.2559 14.9659V15.7559L19.2559 20.7459L20.7459 19.2559L15.7559 14.2559ZM9.75586 14.2559C7.26586 14.2559 5.25586 12.2459 5.25586 9.75586C5.25586 7.26586 7.26586 5.25586 9.75586 5.25586C12.2459 5.25586 14.2559 7.26586 14.2559 9.75586C14.2559 12.2459 12.2459 14.2559 9.75586 14.2559Z" fill="#757575"/></svg></span>
+              <input type="search" class="search-input" placeholder="Search by name…" aria-label="Search agents" />
+            </div>
+          </div>
+          <div class="picker-list" role="listbox" aria-label="Available agents in Motor area">
+            <div class="picker-item" role="option" aria-selected="false" tabindex="0">
+              <div class="user-avatar" aria-hidden="true">KR</div>
+              <div style="flex:1;">
+                <p class="user-name">Kavitha Ramachandran</p>
+                <p class="user-meta-text">Motor · Active 8 min ago</p>
+              </div>
+              <span class="workload-badge wl-low"><span aria-hidden="true">?</span> 1 task</span>
+            </div>
+            <div class="picker-item selected" role="option" aria-selected="true" tabindex="0">
+              <div class="user-avatar" aria-hidden="true">MS</div>
+              <div style="flex:1;">
+                <p class="user-name">Murali Selvam</p>
+                <p class="user-meta-text">Motor · Active 2 min ago</p>
+              </div>
+              <span class="workload-badge wl-low"><span aria-hidden="true">?</span> 3 tasks</span>
+              <span style="color:var(--color-primary);font-size:18px;margin-left:var(--space-2);" aria-hidden="true">?</span>
+            </div>
+            <div class="picker-item" role="option" aria-selected="false" tabindex="0">
+              <div class="user-avatar" aria-hidden="true">VP</div>
+              <div style="flex:1;">
+                <p class="user-name">Vijaya Prakash</p>
+                <p class="user-meta-text">Motor · Active 45 min ago</p>
+              </div>
+              <span class="workload-badge wl-low"><span aria-hidden="true">?</span> 0 tasks</span>
+            </div>
+            <div class="picker-item" role="option" aria-selected="false" tabindex="0">
+              <div class="user-avatar" aria-hidden="true">DK</div>
+              <div style="flex:1;">
+                <p class="user-name">Deepa Kumari</p>
+                <p class="user-meta-text">Motor · Active 1h ago</p>
+              </div>
+              <span class="workload-badge wl-med"><span aria-hidden="true">?</span> 6 tasks</span>
+            </div>
+          </div>
+          <div class="picker-footer">
+            <button class="btn btn-ghost">Cancel</button>
+            <button class="btn btn-primary">Confirm Reassignment</button>
+          </div>
+        </div>
+      </div>
+      <div style="padding:var(--space-5);">
+        <div class="annotation">
+          <strong>Annotation 6.A:</strong> User picker auto-filtered to same Business Area (BR-TASK-024). Shows: Name, area label, workload badge (colour-coded: =4 green, 5–7 amber, =8 red — never colour alone, includes task count text), last active timestamp. Keyboard navigable: arrow keys, Enter/Space to select (role="listbox"/role="option"). For Escalation: same UI, different header text. Focus trapped in dialog.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------
+       SCREEN 7: SLA CONFIGURATION (Admin — Anitha)
+  -------------------------------------------------------------------- -->
+  <section class="screen-section" id="screen-sla" aria-label="SLA Configuration screen">
+    <div class="tablet-frame">
+      <div class="screen-label">Screen 7 — SLA Configuration (Admin View — Anitha Subramaniam)</div>
+      <div class="app-shell">
+        <header class="top-nav" role="banner">
+          <span class="top-nav-brand">FieldSync</span>
+          <span class="top-nav-spacer"></span>
+          <div class="area-switcher" role="group" aria-label="Business area selector">
+            <button class="area-btn active" aria-pressed="true">All Areas</button>
+            <button class="area-btn" aria-pressed="false">Motor</button>
+            <button class="area-btn" aria-pressed="false">Metering</button>
+            <button class="area-btn" aria-pressed="false">Field</button>
+          </div>
+          <button class="top-nav-btn" aria-label="Notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.6281 13.9622C18.7811 12.0992 18.8031 11.3982 18.8421 10.1242C18.8521 9.82317 18.8621 9.49617 18.8621 9.12117C18.8621 6.14417 16.7331 1.95117 12.0011 1.95117C7.26909 1.95117 5.14009 6.14417 5.14009 9.12117C5.14009 9.49517 5.15009 9.82317 5.16009 10.1242C5.19909 11.3982 5.22009 12.0992 4.36409 13.9872C3.99809 14.9312 4.04209 15.7462 4.49709 16.4102C5.58909 18.0082 8.74909 18.2282 12.0011 18.2282C15.2531 18.2282 18.4131 18.0082 19.5051 16.4102C19.9611 15.7462 20.0051 14.9312 19.6281 13.9622Z" fill="currentColor"/><path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M14.6991 19.2407C13.0681 19.4217 11.3001 19.4207 9.29009 19.2387C8.98909 19.2147 8.69109 19.3737 8.55309 19.6487C8.41409 19.9247 8.45809 20.2557 8.66309 20.4857C9.56309 21.4927 10.7471 22.0487 11.9971 22.0487H11.9991C13.2521 22.0487 14.4391 21.4937 15.3411 20.4857C15.5481 20.2547 15.5911 19.9187 15.4491 19.6417C15.3061 19.3667 15.0121 19.2127 14.6991 19.2407Z" fill="currentColor"/></svg></button>
+          <button class="top-nav-btn" aria-label="Anitha — Admin menu"><img src="image/Profile.png" alt="" style="width:24px;height:24px;"></button>
+        </header>
+
+        <nav class="left-nav" aria-label="Primary navigation">
+          <div class="nav-logo" aria-label="Engage logo">
+            <svg width="50" height="51" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M25.0175 12.7411C22.9996 12.7402 21.0118 13.24 19.2255 14.1974C17.4393 15.1549 15.9082 16.5412 14.7644 18.2368C13.6205 19.9324 12.8983 21.8864 12.6599 23.9302C12.4216 25.974 12.6743 28.0463 13.3962 29.9683C14.1181 31.8903 15.2876 33.6042 16.8038 34.9624C18.32 36.3205 20.1374 37.282 22.0992 37.764C24.061 38.2459 26.1082 38.2338 28.0644 37.7288C30.0206 37.2237 31.8269 36.2408 33.3276 34.8648C33.6274 34.5134 33.9945 34.2283 34.4065 34.0271C34.8184 33.8259 35.2664 33.7129 35.7228 33.695C36.1791 33.6771 36.6343 33.7547 37.0601 33.9231C37.486 34.0915 37.8735 34.3471 38.1988 34.674C38.5241 35.001 38.7804 35.3925 38.9517 35.8243C39.1231 36.2561 39.2059 36.7192 39.1951 37.1849C39.1843 37.6506 39.0802 38.1091 38.889 38.5322C38.6979 38.9553 38.4238 39.334 38.0837 39.645C34.5487 43.0478 29.8781 44.9534 25.0175 44.976C24.232 44.976 23.4787 45.2942 22.9232 45.8608C22.3678 46.4273 22.0558 47.1957 22.0558 47.9969C22.0604 48.795 22.3745 49.5588 22.9294 50.1215C23.4843 50.6842 24.235 51 25.0175 51C29.9583 50.9965 34.7873 49.4997 38.8947 46.6987C43.0021 43.8977 46.2038 39.9182 48.0953 35.2625C49.9869 30.6068 50.4835 25.4838 49.5226 20.5404C48.5616 15.597 46.1861 11.0549 42.6961 7.48761C39.206 3.92034 34.7579 1.48787 29.9135 0.497374C25.069 -0.493122 20.0455 0.00277059 15.4771 1.92243C10.9088 3.8421 7.00052 7.09944 4.24589 11.2831C1.49126 15.4669 0.0137736 20.3893 0 25.4289C0 26.2301 0.312033 26.9985 0.867455 27.565C1.42288 28.1316 2.17619 28.4498 2.96168 28.4498C3.74414 28.4451 4.49299 28.1248 5.04465 27.5588C5.59631 26.9927 5.90595 26.227 5.90593 25.4289C6.25102 20.5258 8.39462 15.9353 11.9096 12.5722C15.4245 9.20903 20.0528 7.32022 24.872 7.28212C29.6912 7.24401 34.3476 9.0594 37.9132 12.3665C41.4789 15.6737 43.692 20.2297 44.1116 25.1268C44.1116 27.3481 43.3799 28.823 40.6272 28.823H22.6481C21.7656 28.823 20.9192 28.4654 20.2952 27.8289C19.6712 27.1924 19.3206 26.3291 19.3206 25.4289C19.3206 24.5288 19.6712 23.6655 20.2952 23.0289C20.9192 22.3924 21.7656 22.0348 22.6481 22.0348H37.0558C36.3233 19.3654 34.756 17.013 32.5925 15.3354C30.4289 13.6579 27.7874 12.7469 25.0697 12.7411" fill="#3276CF"/>
+            </svg>
+          </div>
+          <div class="nav-items">
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span>Home</a>
+            <a href="#" class="nav-item" onclick="showScreen('screen-dashboard');return false;"><span class="nav-icon" aria-hidden="true"><img src="image/Tasks.png" alt=""></span>Tasks</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span>Schedule</a>
+            <span class="nav-spacer"></span>
+            <a href="#" class="nav-item active" aria-current="page"><span class="nav-icon" aria-hidden="true">??</span>Admin</a>
+            <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true"><img src="image/Profile.png" alt=""></span>Profile</a>
+          </div>
+        </nav>
+
+        <main class="main-content" tabindex="-1">
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb">
+              <li><a href="#">Admin</a></li>
+              <li aria-hidden="true">›</li>
+              <li><a href="#">Business Configuration</a></li>
+              <li aria-hidden="true">›</li>
+              <li aria-current="page" style="color:var(--text-primary);">SLA Configuration</li>
+            </ol>
+          </nav>
+
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">SLA Configuration</h1>
+              <p class="page-subtitle">Manage SLA durations per priority level · All changes are audited</p>
+            </div>
+            <button class="btn btn-secondary btn-sm">
+              <span aria-hidden="true">??</span> View Audit Trail
+            </button>
+          </div>
+
+          <!-- SLA Table -->
+          <div style="background:var(--color-card);border-radius:var(--radius-card);border:var(--border-default);box-shadow:var(--shadow-card);overflow:hidden;">
+            <div style="overflow-x:auto;" role="region" aria-label="SLA configuration table" tabindex="0">
+              <table class="sla-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Priority</th>
+                    <th scope="col">SLA Duration</th>
+                    <th scope="col">Last Modified</th>
+                    <th scope="col">Modified By</th>
+                    <th scope="col">Last Change Reason</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge b-critical"><span class="badge-dot" aria-hidden="true"></span> Critical</span></td>
+                    <td><strong>30 minutes</strong></td>
+                    <td><time datetime="2026-01-12">12 Jan 2026</time></td>
+                    <td>Anitha S.</td>
+                    <td style="font-size:var(--font-size-caption);">Initial configuration setup</td>
+                    <td><button class="btn btn-secondary btn-sm">Edit</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge b-high"><span class="badge-dot" aria-hidden="true"></span> High</span></td>
+                    <td><strong>60 minutes</strong></td>
+                    <td><time datetime="2026-01-12">12 Jan 2026</time></td>
+                    <td>Anitha S.</td>
+                    <td style="font-size:var(--font-size-caption);">Initial configuration setup</td>
+                    <td><button class="btn btn-secondary btn-sm">Edit</button></td>
+                  </tr>
+                  <tr style="background:var(--color-primary-25);">
+                    <td><span class="badge b-medium"><span class="badge-dot" aria-hidden="true"></span> Medium</span></td>
+                    <td><strong>4 hours</strong></td>
+                    <td><time datetime="2026-03-10">10 Mar 2026</time></td>
+                    <td>Anitha S.</td>
+                    <td style="font-size:var(--font-size-caption);">Adjusted for seasonal volume increase</td>
+                    <td><button class="btn btn-secondary btn-sm">Edit</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge b-low"><span class="badge-dot" aria-hidden="true"></span> Low</span></td>
+                    <td><strong>8 hours</strong></td>
+                    <td><time datetime="2026-01-12">12 Jan 2026</time></td>
+                    <td>Anitha S.</td>
+                    <td style="font-size:var(--font-size-caption);">Initial configuration setup</td>
+                    <td><button class="btn btn-secondary btn-sm">Edit</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Inline Edit Panel (shown for Medium priority) -->
+            <div style="border-top:2px solid var(--color-primary);padding:var(--space-6);background:var(--color-primary-25);"
+                 role="region" aria-label="Edit SLA for Medium priority">
+              <h3 style="font-size:var(--font-size-h3);font-weight:var(--font-weight-bold);margin-bottom:var(--space-5);">
+                Edit Medium Priority SLA
+              </h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="sla-duration">
+                    New Duration (minutes) <span class="required-star" aria-hidden="true">*</span>
+                  </label>
+                  <input class="form-control" id="sla-duration" type="number" value="240"
+                         min="1" max="480" aria-required="true"
+                         aria-describedby="sla-dur-hint" />
+                  <p id="sla-dur-hint" style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-top:var(--space-2);">
+                    Min 1, Max 480 minutes. Current: 240 minutes (4 hours).
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="sla-reason">
+                    Reason for Change <span class="required-star" aria-hidden="true">*</span>
+                  </label>
+                  <textarea class="form-control" id="sla-reason" rows="3"
+                            aria-required="true" maxlength="100"
+                            placeholder="Explain why this SLA change is needed…">Adjusted for seasonal volume increase per Operations Manager instruction ref OPS-2026-003</textarea>
+                  <div class="char-counter">
+                    <span class="char-hint">Required (min 10 chars). This will be recorded in the audit trail.</span>
+                    <span class="char-count">86 / 100</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;gap:var(--space-4);justify-content:flex-end;margin-top:var(--space-4);">
+                <button class="btn btn-ghost">Cancel</button>
+                <button class="btn btn-primary">Save Changes</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="annotation">
+            <strong>Annotation 7.A:</strong> SLA Configuration is Admin-only. Table shows all priority levels with current duration, last modified metadata, and last change reason. Edit opens inline panel below the row. Reason field is mandatory (10+ chars) — Save disabled until valid. Confirmation modal on Save shows old?new value comparison. All changes logged in audit trail with who/when/why. Impact warning shown if change would reclassify active in-flight tasks. Export buttons (CSV/PDF) available on Audit Trail view for compliance.
+          </div>
+
+          <!-- Audit Trail Preview -->
+          <div style="background:var(--color-card);border-radius:var(--radius-card);border:var(--border-default);box-shadow:var(--shadow-card);overflow:hidden;margin-top:var(--space-5);">
+            <div style="padding:var(--space-5) var(--space-6);border-bottom:var(--border-divider);display:flex;align-items:center;justify-content:space-between;">
+              <h2 style="font-size:var(--font-size-h3);font-weight:var(--font-weight-semibold);">SLA Audit Trail</h2>
+              <div style="display:flex;gap:var(--space-3);">
+                <button class="btn btn-secondary btn-sm">Export CSV</button>
+                <button class="btn btn-secondary btn-sm">Export PDF</button>
+              </div>
+            </div>
+            <div style="overflow-x:auto;" role="region" aria-label="SLA audit trail" tabindex="0">
+              <table class="sla-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Reason</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><time datetime="2026-03-10T09:12">10 Mar 2026, 09:12</time></td>
+                    <td>Anitha Subramaniam</td>
+                    <td><span class="badge b-medium"><span class="badge-dot" aria-hidden="true"></span> Medium</span></td>
+                    <td>240 min ? 240 min (no change)</td>
+                    <td style="font-size:var(--font-size-caption);">Adjusted for seasonal volume…</td>
+                  </tr>
+                  <tr>
+                    <td><time datetime="2026-01-12T14:30">12 Jan 2026, 14:30</time></td>
+                    <td>Anitha Subramaniam</td>
+                    <td><span class="badge b-critical"><span class="badge-dot" aria-hidden="true"></span> Critical</span></td>
+                    <td>— ? 30 min (initial setup)</td>
+                    <td style="font-size:var(--font-size-caption);">Initial configuration setup</td>
+                  </tr>
+                  <tr>
+                    <td><time datetime="2026-01-12T14:30">12 Jan 2026, 14:30</time></td>
+                    <td>Anitha Subramaniam</td>
+                    <td><span class="badge b-high"><span class="badge-dot" aria-hidden="true"></span> High</span></td>
+                    <td>— ? 60 min (initial setup)</td>
+                    <td style="font-size:var(--font-size-caption);">Initial configuration setup</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- -------------------------------------------------------------------
+       Toast Notification (persistent — overlaid on all screens)
+  -------------------------------------------------------------------- -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="false">
+    <div class="toast toast-success" role="status">
+      <span aria-hidden="true">?</span>
+      <span>TASK-00056 marked as <strong>Complete</strong>. <a href="#">View in Completed tab ?</a></span>
+      <button class="toast-close" aria-label="Dismiss notification">×</button>
+    </div>
+  </div>
+
+
+  <!-- -------------------------------------------------------------------
+       Screen Navigation Logic (Prototype Only)
+  -------------------------------------------------------------------- -->
+  <script>
+    /* -- Screen 2: Status-dependent field visibility -- */
+    function td2StatusChange(sel) {
+      var agentField = document.getElementById('td2-agent-field');
+      var agentLabel = document.getElementById('td2-agent-label');
+      var actionBtn = document.getElementById('td2-action-btn');
+      var buttonsBar = document.getElementById('td2-buttons-bar');
+      var val = sel.value;
+      // Show agent/user picker for escalate & reassign
+      if (val === 'escalate' || val === 'reassign') {
+        agentField.style.display = '';
+        agentLabel.textContent = val === 'reassign' ? 'Select Manager' : 'Select Agent/User';
+      } else {
+        agentField.style.display = 'none';
+      }
+      // Hide buttons when no status selected
+      buttonsBar.style.display = val ? 'flex' : 'none';
+      // Update action button label
+      var labels = {'escalate':'ESCALATE','reassign':'REASSIGN','complete':'COMPLETE','in-progress':'SUBMIT'};
+      actionBtn.textContent = labels[val] || 'SUBMIT';
+    }
+    function td2ResetForm() {
+      var sel = document.getElementById('td2-status-select');
+      sel.value = '';
+      td2StatusChange(sel);
+      document.getElementById('td2-comments').value = '';
+      var agentSel = document.getElementById('td2-agent-select');
+      if (agentSel) agentSel.value = '';
+    }
+    function td2ShowConfirm() {
+      var status = document.getElementById('td2-status-select').value;
+      var agentSel = document.getElementById('td2-agent-select');
+      var agent = agentSel.options[agentSel.selectedIndex] ? agentSel.options[agentSel.selectedIndex].text : '';
+      var iconWrap = document.getElementById('td2-confirm-icon-wrap');
+      var heading = document.getElementById('td2-confirm-heading');
+      var body = document.getElementById('td2-confirm-body');
+      var alertBox = document.getElementById('td2-confirm-alert');
+      var submitBtn = document.getElementById('td2-confirm-submit-btn');
+      // Warning triangle SVG (orange)
+      var warnSvg = '<svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M3.375 31.5H32.625L18 6L3.375 31.5ZM19.125 27H16.875V24.75H19.125V27ZM19.125 22.5H16.875V18H19.125V22.5Z" fill="#ED6C02"/></svg>';
+      // Checkmark SVG (green)
+      var checkSvg = '<svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M3.375 18.375L8.625 13.125L14.625 19.125L27.375 6.375L32.625 11.625L14.625 29.625L3.375 18.375Z" fill="#43A047"/></svg>';
+
+      alertBox.style.display = 'none';
+      alertBox.innerHTML = '';
+
+      if (status === 'complete') {
+        iconWrap.innerHTML = checkSvg;
+        heading.textContent = 'Confirm: Mark as Complete';
+        heading.style.color = '#43A047';
+        body.innerHTML = '<p>You are about to mark <strong>Task ID: 003 | Daily vehicle check failures</strong> as <strong>Complete</strong>.</p>';
+        alertBox.style.display = 'block';
+        alertBox.innerHTML = '<div class="td2-confirm-alert"><div class="td2-confirm-alert-icon"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M4.5 42H43.5L24 8L4.5 42ZM25.5 36H22.5V33H25.5V36ZM25.5 30H22.5V24H25.5V30Z" fill="#ED6C02"/></svg></div><div class="td2-confirm-alert-text"><p class="td2-confirm-alert-title">Note</p><p class="td2-confirm-alert-desc">Task will be moved to the Completed tab, SLA status will be recorded as Inside SLA &amp; This action will be logged in the task history.</p></div></div>';
+        submitBtn.textContent = 'Confirm';
+      } else if (status === 'reassign') {
+        iconWrap.innerHTML = warnSvg;
+        heading.textContent = 'Critical : Reassigned';
+        heading.style.color = '#ED6C02';
+        body.innerHTML = '<p>You are about to mark <strong>Task ID: 003 | Daily vehicle check failures.</strong><br>Assigned to: <strong>' + agent + '</strong></p>';
+        submitBtn.textContent = 'Confirm Reassign';
+      } else if (status === 'escalate') {
+        iconWrap.innerHTML = warnSvg;
+        heading.textContent = 'Critical : Escalated';
+        heading.style.color = '#ED6C02';
+        body.innerHTML = '<p>You are about to mark <strong>Task ID: 003 | Daily vehicle check failures.</strong><br>Escalation to: <strong>' + agent + '</strong></p>';
+        submitBtn.textContent = 'Confirm Escalation';
+      } else {
+        iconWrap.innerHTML = checkSvg;
+        heading.textContent = 'Confirm Action';
+        heading.style.color = '#43A047';
+        body.innerHTML = '<p>You are about to submit this action.</p>';
+        submitBtn.textContent = 'Confirm';
+      }
+      document.getElementById('td2-confirm-overlay').classList.add('visible');
+    }
+    function td2HideConfirm() {
+      document.getElementById('td2-confirm-overlay').classList.remove('visible');
+    }
+    function td2ConfirmAction() {
+      td2HideConfirm();
+      showScreen('screen-dashboard');
+    }
+
+    function showScreen(screenId) {
+      // Hide all screens
+      document.querySelectorAll('.screen-section').forEach(function(s) {
+        s.classList.remove('visible');
+      });
+      // Show target
+      var target = document.getElementById(screenId);
+      if (target) {
+        target.classList.add('visible');
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      // Update nav buttons
+      document.querySelectorAll('.screen-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-screen') === screenId) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    // Wire up screen nav buttons
+    document.querySelectorAll('.screen-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        showScreen(this.getAttribute('data-screen'));
+      });
+    });
+
+    // Toast auto-dismiss (prototype)
+    var toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+      toastContainer.style.display = 'none';
+      // Show toast briefly when navigating to dashboard
+      var origShow = showScreen;
+      // Show toast on confirm ? dashboard flow
+    }
+
+    // Close toast
+    document.querySelectorAll('.toast-close').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        this.closest('.toast').style.display = 'none';
+      });
+    });
+
+    // Task card expand toggle (dashboard)
+    document.querySelectorAll('.task-card-header[aria-expanded]').forEach(function(header) {
+      header.addEventListener('click', function(e) {
+        // If it has an onclick for screen nav, skip expand
+        if (this.getAttribute('onclick')) return;
+
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        var bodyId = this.getAttribute('aria-controls');
+        if (bodyId) {
+          var body = document.getElementById(bodyId);
+          if (body) {
+            body.classList.toggle('open', !expanded);
+          }
+        }
+      });
+
+      header.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+  </script>
+
+  <!-- -------------------------------------------------------------------
+       Push Notification System — Incoming New Task from Web App
+  -------------------------------------------------------------------- -->
+  <div class="push-notif-overlay" id="pushNotifOverlay" aria-live="assertive"></div>
+
+  <script>
+    (function() {
+      var overlay = document.getElementById('pushNotifOverlay');
+      var notifCountEl = document.getElementById('tabletNotifCount');
+      var notifBtn = document.getElementById('tabletNotifBtn');
+      var taskBadge = document.querySelector('.nav-badge-sm');
+      var notifCount = 0;
+
+      function updateTabletBadge() {
+        if (notifCountEl) {
+          notifCountEl.textContent = notifCount;
+          notifCountEl.style.display = notifCount > 0 ? '' : 'none';
+          notifCountEl.classList.remove('pulse');
+          // Re-trigger pulse animation
+          void notifCountEl.offsetWidth;
+          if (notifCount > 0) notifCountEl.classList.add('pulse');
+        }
+      }
+
+      function showPushNotifBanner(taskId, taskTitle, assignedAgent, priority) {
+        notifCount++;
+        updateTabletBadge();
+
+        // Update the task count in left nav
+        if (taskBadge) {
+          var currentCount = parseInt(taskBadge.textContent) || 18;
+          taskBadge.textContent = currentCount + 1;
+          taskBadge.setAttribute('aria-label', (currentCount + 1) + ' active tasks');
+        }
+
+        var banner = document.createElement('div');
+        banner.className = 'push-notif-banner';
+        banner.setAttribute('role', 'alertdialog');
+        banner.setAttribute('aria-modal', 'false');
+        banner.setAttribute('aria-label', 'New task notification');
+
+        var priorityColor = priority === 'Critical' ? 'var(--color-error)' :
+                            priority === 'High' ? 'var(--orange-600)' :
+                            priority === 'Medium' ? 'var(--color-primary)' :
+                            'var(--color-success)';
+
+        banner.innerHTML =
+          '<div class="push-notif-app-icon">' +
+            '<svg width="28" height="28" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+              '<path d="M25.0175 12.7411C22.9996 12.7402 21.0118 13.24 19.2255 14.1974C17.4393 15.1549 15.9082 16.5412 14.7644 18.2368C13.6205 19.9324 12.8983 21.8864 12.6599 23.9302C12.4216 25.974 12.6743 28.0463 13.3962 29.9683C14.1181 31.8903 15.2876 33.6042 16.8038 34.9624C18.32 36.3205 20.1374 37.282 22.0992 37.764C24.061 38.2459 26.1082 38.2338 28.0644 37.7288C30.0206 37.2237 31.8269 36.2408 33.3276 34.8648C33.6274 34.5134 33.9945 34.2283 34.4065 34.0271C34.8184 33.8259 35.2664 33.7129 35.7228 33.695C36.1791 33.6771 36.6343 33.7547 37.0601 33.9231C37.486 34.0915 37.8735 34.3471 38.1988 34.674C38.5241 35.001 38.7804 35.3925 38.9517 35.8243C39.1231 36.2561 39.2059 36.7192 39.1951 37.1849C39.1843 37.6506 39.0802 38.1091 38.889 38.5322C38.6979 38.9553 38.4238 39.334 38.0837 39.645C34.5487 43.0478 29.8781 44.9534 25.0175 44.976C24.232 44.976 23.4787 45.2942 22.9232 45.8608C22.3678 46.4273 22.0558 47.1957 22.0558 47.9969C22.0604 48.795 22.3745 49.5588 22.9294 50.1215C23.4843 50.6842 24.235 51 25.0175 51C29.9583 50.9965 34.7873 49.4997 38.8947 46.6987C43.0021 43.8977 46.2038 39.9182 48.0953 35.2625C49.9869 30.6068 50.4835 25.4838 49.5226 20.5404C48.5616 15.597 46.1861 11.0549 42.6961 7.48761C39.206 3.92034 34.7579 1.48787 29.9135 0.497374C25.069 -0.493122 20.0455 0.00277059 15.4771 1.92243C10.9088 3.8421 7.00052 7.09944 4.24589 11.2831C1.49126 15.4669 0.0137736 20.3893 0 25.4289C0 26.2301 0.312033 26.9985 0.867455 27.565C1.42288 28.1316 2.17619 28.4498 2.96168 28.4498C3.74414 28.4451 4.49299 28.1248 5.04465 27.5588C5.59631 26.9927 5.90595 26.227 5.90593 25.4289C6.25102 20.5258 8.39462 15.9353 11.9096 12.5722C15.4245 9.20903 20.0528 7.32022 24.872 7.28212C29.6912 7.24401 34.3476 9.0594 37.9132 12.3665C41.4789 15.6737 43.692 20.2297 44.1116 25.1268C44.1116 27.3481 43.3799 28.823 40.6272 28.823H22.6481C21.7656 28.823 20.9192 28.4654 20.2952 27.8289C19.6712 27.1924 19.3206 26.3291 19.3206 25.4289C19.3206 24.5288 19.6712 23.6655 20.2952 23.0289C20.9192 22.3924 21.7656 22.0348 22.6481 22.0348H37.0558C36.3233 19.3654 34.756 17.013 32.5925 15.3354C30.4289 13.6579 27.7874 12.7469 25.0697 12.7411" fill="#FFFFFF"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="push-notif-body">' +
+            '<div class="push-notif-header">' +
+              '<span class="push-notif-app-name">FieldSync</span>' +
+              '<span class="push-notif-time">now</span>' +
+            '</div>' +
+            '<div class="push-notif-title">New Task Assigned</div>' +
+            '<div class="push-notif-msg">' +
+              '<strong>' + taskId + '</strong> — ' + taskTitle + '<br/>' +
+              'Assigned to <strong>' + assignedAgent + '</strong>' +
+              ' · <span style="color:' + priorityColor + ';font-weight:500;">' + priority + ' Priority</span>' +
+            '</div>' +
+            // '<div class="push-notif-actions">' +
+            //   '<button class="push-notif-open" type="button">Open Task</button>' +
+            //   '<button class="push-notif-later" type="button">Later</button>' +
+            // '</div>' +
+          '</div>' +
+          '<button class="push-notif-close" aria-label="Dismiss notification">&times;</button>' +
+          '<div class="push-notif-progress"></div>';
+
+        overlay.appendChild(banner);
+
+        // Slide in from top
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            banner.classList.add('visible');
+          });
+        });
+
+        // Auto-dismiss after 8s
+        var autoDismiss = setTimeout(function() { dismissBanner(banner); }, 8000);
+
+        // Close button
+        banner.querySelector('.push-notif-close').addEventListener('click', function() {
+          clearTimeout(autoDismiss);
+          dismissBanner(banner);
+        });
+
+        // Later button
+        banner.querySelector('.push-notif-later').addEventListener('click', function() {
+          clearTimeout(autoDismiss);
+          dismissBanner(banner);
+        });
+
+        // Open Task button — navigate to detail screen
+        banner.querySelector('.push-notif-open').addEventListener('click', function() {
+          clearTimeout(autoDismiss);
+          dismissBanner(banner);
+          // Show the task detail screen
+          if (typeof showScreen === 'function') {
+            showScreen('screen-detail');
+          }
+        });
+
+        // Pause timer on hover
+        banner.addEventListener('mouseenter', function() {
+          clearTimeout(autoDismiss);
+          var bar = banner.querySelector('.push-notif-progress');
+          if (bar) bar.style.animationPlayState = 'paused';
+        });
+        banner.addEventListener('mouseleave', function() {
+          autoDismiss = setTimeout(function() { dismissBanner(banner); }, 4000);
+          var bar = banner.querySelector('.push-notif-progress');
+          if (bar) bar.style.animationPlayState = 'running';
+        });
+      }
+
+      function dismissBanner(banner) {
+        if (!banner || !banner.parentNode) return;
+        banner.classList.remove('visible');
+        banner.classList.add('dismissing');
+        setTimeout(function() {
+          if (banner.parentNode) banner.parentNode.removeChild(banner);
+        }, 400);
+      }
+
+      // Clear badge on bell click
+      if (notifBtn) {
+        notifBtn.addEventListener('click', function() {
+          notifCount = 0;
+          updateTabletBadge();
+        });
+      }
+
+      // Demo: Trigger a push notification after 3 seconds to simulate incoming task from web app
+      setTimeout(function() {
+        showPushNotifBanner(
+          'TSK-1043',
+          'Emergency HVAC repair — Building C',
+          '123456 - Templeton Peck',
+          'High'
+        );
+      }, 3000);
+
+      // Expose for cross-window messaging or manual demo
+      window.showPushNotifBanner = showPushNotifBanner;
+
+      // Listen for cross-tab messages via BroadcastChannel (if both prototypes open)
+      if (typeof BroadcastChannel !== 'undefined') {
+        var channel = new BroadcastChannel('engage-task-notifications');
+        channel.addEventListener('message', function(e) {
+          if (e.data && e.data.type === 'new-task') {
+            showPushNotifBanner(
+              e.data.taskId || 'TSK-NEW',
+              e.data.title || 'New Task',
+              e.data.agent || 'Unassigned',
+              e.data.priority || 'Medium'
+            );
+          }
+        });
+      }
+    })();
+  </script>
+
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

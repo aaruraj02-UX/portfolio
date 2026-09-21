@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Acme Recovery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..24,300..500,0,0"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="stages.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="app">
+
+    <!-- ============ TOP HEADER ============ -->
+    <header class="topbar" role="banner">
+      <div class="topbar__left">
+        <button class="icon-btn" aria-label="Toggle navigation menu" aria-expanded="true" aria-controls="sidebar">
+          <span class="mi" aria-hidden="true">menu</span>
+        </button>
+        <a class="brand" href="LandingPage.html" aria-label="Acme Recovery — Home">
+          <img class="brand__logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 32'%3E%3Crect width='132' height='32' rx='4' fill='%231e3a5f'/%3E%3Cpath d='M8 24V8l8 8-8 8z' fill='%2360a5fa'/%3E%3Ctext x='22' y='21' font-family='system-ui,sans-serif' font-size='12' font-weight='600' fill='white'%3EAcme Recovery%3C/text%3E%3C/svg%3E" alt="Acme Recovery" width="132" height="32" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 32'%3E%3Crect width='132' height='32' rx='4' fill='%231e3a5f'/%3E%3Cpath d='M8 24V8l8 8-8 8z' fill='%2360a5fa'/%3E%3Ctext x='22' y='21' font-family='system-ui,sans-serif' font-size='12' font-weight='600' fill='white'%3EAcme Recovery%3C/text%3E%3C/svg%3E';" />
+        </a>
+      </div>
+      <div class="topbar__right">
+        <button type="button" class="btn btn--pill btn--outline">Generate click to pay</button>
+        <span class="topbar__divider" aria-hidden="true"></span>
+        <button class="icon-btn" aria-label="Notifications"><span class="mi" aria-hidden="true">notifications</span></button>
+        <button class="avatar" aria-label="User menu — James Whitaker">JW</button>
+      </div>
+    </header>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside id="sidebar" class="sidebar" aria-label="Primary">
+      <nav>
+        <ul class="nav">
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">phone_callback</span> Callback Request</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">call</span> Call Log</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">request_quote</span> Income Expenditure</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">fact_check</span> Income Expenditure Review</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">payments</span> Payment Plan</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">receipt_long</span> Payment Plan Review</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">settings</span> Settings</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">task_alt</span> Approved Payment Plan</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">dashboard</span> LandingPage Dashboard</a></li>
+          <li><a href="LandingPage.html" class="nav__item--active" aria-current="page"><span class="mi nav__icon" aria-hidden="true">explore</span> Landing Page</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">download</span> Call Status Report</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">person</span> Customer Profile</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">upload</span> File Upload</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">report</span> QuickBlox Exception</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">swap_horiz</span> Logs</a></li>
+          <li><a href="#"><span class="mi nav__icon" aria-hidden="true">history</span> Chat History</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main id="main" class="main" role="main">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="LandingPage.html">Landing page settings</a></li>
+          <li aria-current="page">Support</li>
+        </ol>
+      </nav>
+
+      <header class="page-head page-head--stack">
+        <div class="page-head__row">
+          <h1 class="page-title" id="tpl-title">Support</h1>
+          <div class="page-actions">
+            <button type="button" class="btn btn--outline" id="btn-audit">
+              <span class="mi" aria-hidden="true">receipt_long</span> View audit log
+            </button>
+            <button type="button" class="btn btn--primary" id="btn-save-all" hidden>
+              <span class="mi" aria-hidden="true">publish</span> Publish
+            </button>
+          </div>
+        </div>
+
+        <dl class="meta-grid" aria-label="Template metadata">
+          <div class="meta-grid__item">
+            <dt>Created date</dt><dd>15/05/2026 16:05</dd>
+          </div>
+          <div class="meta-grid__item">
+            <dt>Created by</dt>
+            <dd><span class="mi meta-grid__icon" aria-hidden="true">person</span> Oliver Hartley</dd>
+          </div>
+          <div class="meta-grid__item">
+            <dt>Last update date</dt><dd>20/05/2026 09:35</dd>
+          </div>
+          <div class="meta-grid__item">
+            <dt>Updated by</dt>
+            <dd><span class="mi meta-grid__icon" aria-hidden="true">person</span> Charlotte Pemberton</dd>
+          </div>
+        </dl>
+      </header>
+
+      <!-- Template preview pane -->
+      <section class="template-pane" aria-labelledby="tpl-title">
+        <div class="template-pane__bar">
+          <span class="tag-muted">Template preview · click any section to edit</span>
+          <span class="template-pane__hint"><span class="mi" aria-hidden="true">edit</span> Editable</span>
+        </div>
+
+        <article class="doc">
+          <header class="doc__head editable" data-section="intro">
+            <h2 class="doc__title">Support</h2>
+            <p class="doc__lede">If you've received a penalty, you have options. You can pay, dispute the penalty, or ask for support if you're struggling. This page explains what you can do and how to get help.</p>
+            <p class="doc__lede"><strong>Total amount due in Court today: <span class="var-token" data-var="total_amount_due_today" title="Dynamic value: total_amount_due_today" contenteditable="false">{{total_amount_due_today}}</span></strong></p>
+          </header>
+
+          <div class="doc__grid">
+
+            <aside class="doc__toc" aria-label="On this page">
+              <h3 class="doc__toc-title">Contents</h3>
+              <ol>
+                <li><a href="#sup-1">1. Pay your bill</a></li>
+                <li><a href="#sup-2">2. Dispute a penalty</a></li>
+                <li><a href="#sup-3">3. Payment plans</a></li>
+                <li><a href="#sup-4">4. Support if you're vulnerable</a></li>
+                <li><a href="#sup-5">5. Contact us</a></li>
+              </ol>
+            </aside>
+
+            <div class="doc__body">
+
+              <!-- -- 1. Pay your bill -------------------- -->
+              <section id="sup-1" class="stage editable" data-section="sup-1" tabindex="0">
+                <h3 class="stage__title">1. Pay your bill</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec blandit facilisis mauris sit amet pharetra.</p>
+
+                <div class="callout callout--warning">
+                  <span class="mi callout__icon" aria-hidden="true">warning</span>
+                  <p><strong>Pay by <span class="var-token" data-var="date" title="Dynamic value: date" contenteditable="false">{{date}}</span> to avoid a late payment of <span class="var-token" data-var="late_fee" title="Dynamic value: late_fee" contenteditable="false">{{late_fee}}</span></strong> <span class="callout__sub">(<span class="var-token var-token--muted" data-var="date" title="Time remaining" contenteditable="false">{{date}}</span> remaining)</span></p>
+                </div>
+
+                <div class="cta-row">
+                  <button type="button" class="btn btn--primary">Make payment now <span class="mi" aria-hidden="true">open_in_new</span></button>
+                  <span class="cta-row__hint">You will be redirected to a secure site to complete your payment.</span>
+                </div>
+              </section>
+
+              <hr class="doc__divider" />
+
+              <!-- -- 2. Dispute a penalty ---------------- -->
+              <section id="sup-2" class="stage editable" data-section="sup-2" tabindex="0">
+                <h3 class="stage__title">2. Dispute a penalty</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec blandit facilisis mauris sit amet pharetra.</p>
+
+                <h4 class="stage__subtitle">How to dispute</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <div class="cta-row">
+                  <button type="button" class="btn btn--primary">Make a dispute <span class="mi" aria-hidden="true">open_in_new</span></button>
+                  <span class="cta-row__hint">You will be redirected to xxxxxxxxx to xxxx.</span>
+                </div>
+
+                <h4 class="stage__subtitle">What happens next</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+              </section>
+
+              <hr class="doc__divider" />
+
+              <!-- -- 3. Payment plans -------------------- -->
+              <section id="sup-3" class="stage editable" data-section="sup-3" tabindex="0">
+                <h3 class="stage__title">3. Payment plans</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <h4 class="stage__subtitle">When we can help</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <h4 class="stage__subtitle">How payment plans work</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <h4 class="stage__subtitle">How to set up a plan</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <div class="cta-row">
+                  <button type="button" class="btn btn--primary">Pay or set a payment plan <span class="mi" aria-hidden="true">open_in_new</span></button>
+                  <span class="cta-row__hint">You will be redirected to xxxxxxxxx to xxxx.</span>
+                </div>
+              </section>
+
+              <hr class="doc__divider" />
+
+              <!-- -- 4. Support if you're vulnerable ----- -->
+              <section id="sup-4" class="stage editable" data-section="sup-4" tabindex="0">
+                <h3 class="stage__title">4. Support if you're vulnerable</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <p class="stage__lead-in"><strong>You may be considered vulnerable if you are facing:</strong></p>
+                <ul class="bullet-list">
+                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante.</li>
+                  <li>Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li>
+                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante.</li>
+                  <li>Donec blandit facilisis mauris sit amet pharetra. Phasellus rutrum tempor leo eget posuere. Mauris cursus a, ut elementum sagittis.</li>
+                </ul>
+
+                <h4 class="stage__subtitle">How we can help</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <h4 class="stage__subtitle">How to request support</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in risus purus. Nunc sed lectus metus. Cras vitae dapibus est, eu accumsan ante. Nunc vitae turpis vitae ex bibendum congue vivamus dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+                <div class="cta-row">
+                  <button type="button" class="btn btn--primary">Request support <span class="mi" aria-hidden="true">open_in_new</span></button>
+                  <span class="cta-row__hint">You will be redirected to a secure form.</span>
+                </div>
+              </section>
+
+              <hr class="doc__divider" />
+
+              <!-- -- 5. Contact us ----------------------- -->
+              <section id="sup-5" class="stage editable" data-section="sup-5" tabindex="0">
+                <h3 class="stage__title">5. Contact us</h3>
+                <dl class="contact-list">
+                  <div class="contact-list__row">
+                    <dt>Service</dt>
+                    <dd><span class="var-token" data-var="service_name" title="Dynamic value: service_name" contenteditable="false">{{service_name}}</span></dd>
+                  </div>
+                  <div class="contact-list__row">
+                    <dt>Phone</dt>
+                    <dd><a href="tel:+44"><span class="var-token" data-var="contact_phone" title="Dynamic value: contact_phone" contenteditable="false">{{contact_phone}}</span></a></dd>
+                  </div>
+                  <div class="contact-list__row">
+                    <dt>Email</dt>
+                    <dd><a href="mailto:"><span class="var-token" data-var="contact_email" title="Dynamic value: contact_email" contenteditable="false">{{contact_email}}</span></a></dd>
+                  </div>
+                </dl>
+
+                <div class="cta-row">
+                  <button type="button" class="btn btn--primary">Submit</button>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <!-- ============ AUDIT LOG DRAWER ============ -->
+    <div class="drawer" id="audit-drawer" role="dialog" aria-modal="true" aria-labelledby="audit-title" hidden>
+      <div class="drawer__backdrop" data-close-drawer></div>
+      <aside class="drawer__panel" tabindex="-1">
+        <header class="drawer__head">
+          <h2 id="audit-title">Audit log — Support</h2>
+          <button class="icon-btn" data-close-drawer aria-label="Close audit log"><span class="mi" aria-hidden="true">close</span></button>
+        </header>
+        <ol class="timeline" aria-label="Audit timeline">
+          <li class="timeline__item">
+            <div class="timeline__separator">
+              <span class="timeline__dot timeline__dot--primary" aria-hidden="true"><span class="mi">edit</span></span>
+              <span class="timeline__connector" aria-hidden="true"></span>
+            </div>
+            <div class="timeline__content">
+              <time class="timeline__time">20/05/2026 09:35</time>
+              <p class="timeline__title"><strong>Charlotte Pemberton</strong> updated <em>Section 4: Support if you're vulnerable</em></p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__separator">
+              <span class="timeline__dot timeline__dot--primary" aria-hidden="true"><span class="mi">edit</span></span>
+              <span class="timeline__connector" aria-hidden="true"></span>
+            </div>
+            <div class="timeline__content">
+              <time class="timeline__time">17/05/2026 14:12</time>
+              <p class="timeline__title"><strong>Oliver Hartley</strong> updated <em>Section 3: Payment plans</em></p>
+            </div>
+          </li>
+          <li class="timeline__item">
+            <div class="timeline__separator">
+              <span class="timeline__dot timeline__dot--muted" aria-hidden="true"><span class="mi">flag</span></span>
+            </div>
+            <div class="timeline__content">
+              <time class="timeline__time">15/05/2026 16:05</time>
+              <p class="timeline__title"><strong>Oliver Hartley</strong> created template</p>
+            </div>
+          </li>
+        </ol>
+      </aside>
+    </div>
+
+    <!-- ============ INLINE EDIT TOOLBAR ============ -->
+    <div class="edit-toolbar" id="edit-toolbar" role="toolbar" aria-label="Edit section" hidden>
+      <span class="edit-toolbar__label" id="edit-toolbar-label">Editing</span>
+
+      <div class="edit-toolbar__group" role="group" aria-label="Text formatting">
+        <button type="button" class="edit-toolbar__btn" data-cmd="bold" aria-label="Bold" title="Bold (Ctrl+B)"><span class="mi" aria-hidden="true">format_bold</span></button>
+        <button type="button" class="edit-toolbar__btn" data-cmd="italic" aria-label="Italic" title="Italic (Ctrl+I)"><span class="mi" aria-hidden="true">format_italic</span></button>
+        <button type="button" class="edit-toolbar__btn" data-cmd="underline" aria-label="Underline" title="Underline (Ctrl+U)"><span class="mi" aria-hidden="true">format_underlined</span></button>
+        <button type="button" class="edit-toolbar__btn" data-cmd="code" aria-label="Inline code" title="Inline code"><span class="mi" aria-hidden="true">code</span></button>
+      </div>
+
+      <span class="edit-toolbar__sep" aria-hidden="true"></span>
+
+      <div class="edit-toolbar__group" role="group" aria-label="Link">
+        <button type="button" class="edit-toolbar__btn" data-cmd="link" aria-label="Insert or edit link" title="Insert / edit link"><span class="mi" aria-hidden="true">link</span></button>
+        <button type="button" class="edit-toolbar__btn" data-cmd="unlink" aria-label="Remove link" title="Remove link"><span class="mi" aria-hidden="true">link_off</span></button>
+      </div>
+
+      <span class="edit-toolbar__sep" aria-hidden="true"></span>
+
+      <div class="edit-toolbar__group" role="group" aria-label="Media">
+        <button type="button" class="edit-toolbar__btn" data-cmd="image" aria-label="Insert image" title="Insert image"><span class="mi" aria-hidden="true">image</span></button>
+        <button type="button" class="edit-toolbar__btn" data-cmd="video" aria-label="Insert video" title="Insert video"><span class="mi" aria-hidden="true">movie</span></button>
+      </div>
+
+      <span class="edit-toolbar__sep" aria-hidden="true"></span>
+
+      <button class="btn btn--outline btn--sm" data-edit-cancel><span class="mi" aria-hidden="true">close</span> Cancel</button>
+      <button class="btn btn--primary btn--sm" data-edit-save><span class="mi" aria-hidden="true">check</span> Save</button>
+    </div>
+
+    <!-- ============ LINK INPUT POPOVER ============ -->
+    <div class="mini-pop" id="link-pop" role="dialog" aria-label="Insert link" hidden>
+      <label class="mini-pop__label" for="link-url">URL</label>
+      <input id="link-url" type="url" class="mini-pop__input" placeholder="https://example.com" />
+      <div class="mini-pop__actions">
+        <button type="button" class="btn btn--outline btn--sm" data-link-cancel>Cancel</button>
+        <button type="button" class="btn btn--primary btn--sm" data-link-apply>Apply</button>
+      </div>
+    </div>
+
+    <!-- ============ BUTTON EDITOR POPOVER ============ -->
+    <div class="btn-editor" id="btn-editor" role="dialog" aria-modal="false" aria-labelledby="btn-editor-title" hidden>
+      <header class="btn-editor__head">
+        <h3 id="btn-editor-title" class="btn-editor__title"><span class="mi" aria-hidden="true">smart_button</span> Edit button</h3>
+        <button class="icon-btn" data-btn-close aria-label="Close button editor"><span class="mi" aria-hidden="true">close</span></button>
+      </header>
+
+      <div class="btn-editor__body">
+        <div class="field">
+          <label class="field__label" for="btn-label">Button label</label>
+          <input id="btn-label" type="text" class="field__input" maxlength="60" />
+          <p class="field__hint">Shown on the button. Keep it short and action-oriented.</p>
+        </div>
+
+        <fieldset class="field field--group">
+          <legend class="field__label">Action</legend>
+          <label class="radio">
+            <input type="radio" name="btn-action" value="redirect" checked />
+            <span><strong>Redirect</strong> — open a URL</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="btn-action" value="trigger" />
+            <span><strong>Trigger</strong> — run an internal action</span>
+          </label>
+        </fieldset>
+
+        <div class="field" data-action-field="redirect">
+          <label class="field__label" for="btn-url">Redirect URL</label>
+          <input id="btn-url" type="url" class="field__input" placeholder="https://pay.example.com/secure" />
+          <label class="checkbox">
+            <input type="checkbox" id="btn-newtab" checked />
+            <span>Open in a new tab</span>
+          </label>
+        </div>
+
+        <div class="field" data-action-field="trigger" hidden>
+          <label class="field__label" for="btn-trigger">Trigger</label>
+          <select id="btn-trigger" class="field__input">
+            <option value="open_payment_modal">Open payment modal</option>
+            <option value="open_dispute_form">Open dispute form</option>
+            <option value="request_callback">Request callback</option>
+            <option value="contact_agent">Contact agent</option>
+            <option value="download_statement">Download statement</option>
+          </select>
+        </div>
+      </div>
+
+      <footer class="btn-editor__foot">
+        <button type="button" class="btn btn--outline btn--sm" data-btn-remove><span class="mi" aria-hidden="true">delete</span> Remove button</button>
+        <div class="btn-editor__foot-right">
+          <button type="button" class="btn btn--outline btn--sm" data-btn-cancel>Cancel</button>
+          <button type="button" class="btn btn--primary btn--sm" data-btn-apply><span class="mi" aria-hidden="true">check</span> Apply</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ============ MEDIA EDITOR POPOVER ============ -->
+    <div class="btn-editor media-editor" id="media-editor" role="dialog" aria-modal="false" aria-labelledby="media-editor-title" hidden>
+      <header class="btn-editor__head">
+        <h3 id="media-editor-title" class="btn-editor__title"><span class="mi" aria-hidden="true">perm_media</span> Edit media</h3>
+        <button class="icon-btn" data-media-close aria-label="Close media editor"><span class="mi" aria-hidden="true">close</span></button>
+      </header>
+
+      <div class="btn-editor__body">
+        <fieldset class="field field--group">
+          <legend class="field__label">Media type</legend>
+          <label class="radio">
+            <input type="radio" name="media-type" value="image" checked />
+            <span><strong>Image</strong> — photo, illustration, or diagram</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="media-type" value="video" />
+            <span><strong>Video</strong> — MP4 or hosted clip</span>
+          </label>
+        </fieldset>
+
+        <div class="field">
+          <label class="field__label" for="media-url">Source URL</label>
+          <input id="media-url" type="url" class="field__input" placeholder="https://cdn.example.com/asset.jpg" />
+          <p class="field__hint">Paste a URL, or upload a file below.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="media-file">Upload file</label>
+          <input id="media-file" type="file" class="field__input" accept="image/*,video/*" />
+        </div>
+
+        <div class="field" data-media-field="image">
+          <label class="field__label" for="media-alt">Alt text (accessibility)</label>
+          <input id="media-alt" type="text" class="field__input" maxlength="160" placeholder="Describe the image for screen readers" />
+        </div>
+
+        <div class="field" data-media-field="video" hidden>
+          <label class="field__label" for="media-poster">Poster image URL (optional)</label>
+          <input id="media-poster" type="url" class="field__input" placeholder="https://cdn.example.com/poster.jpg" />
+          <label class="checkbox">
+            <input type="checkbox" id="media-controls" checked />
+            <span>Show playback controls</span>
+          </label>
+        </div>
+
+        <div class="media-preview" id="media-preview" aria-live="polite" hidden></div>
+      </div>
+
+      <footer class="btn-editor__foot">
+        <button type="button" class="btn btn--outline btn--sm" data-media-remove><span class="mi" aria-hidden="true">delete</span> Remove media</button>
+        <div class="btn-editor__foot-right">
+          <button type="button" class="btn btn--outline btn--sm" data-media-cancel>Cancel</button>
+          <button type="button" class="btn btn--primary btn--sm" data-media-apply><span class="mi" aria-hidden="true">check</span> Apply</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ============ SCRIPT (shared behaviour) ============ -->
+    <script>
+      (function () {
+        var app = document.querySelector('.app');
+        var btn = document.querySelector('[aria-controls="sidebar"]');
+        var sidebar = document.getElementById('sidebar');
+        if (!app || !btn || !sidebar) return;
+        btn.addEventListener('click', function () {
+          var collapsed = app.classList.toggle('is-collapsed');
+          btn.setAttribute('aria-expanded', String(!collapsed));
+          sidebar.setAttribute('aria-hidden', String(collapsed));
+        });
+      })();
+
+      (function () {
+        var drawer = document.getElementById('audit-drawer');
+        var openBtn = document.getElementById('btn-audit');
+        if (!drawer || !openBtn) return;
+        function open() { drawer.hidden = false; requestAnimationFrame(function () { drawer.classList.add('is-open'); }); drawer.querySelector('.drawer__panel').focus(); }
+        function close() { drawer.classList.remove('is-open'); setTimeout(function () { drawer.hidden = true; openBtn.focus(); }, 200); }
+        openBtn.addEventListener('click', open);
+        drawer.querySelectorAll('[data-close-drawer]').forEach(function (el) { el.addEventListener('click', close); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !drawer.hidden) close(); });
+      })();
+
+      (function () {
+        var toolbar = document.getElementById('edit-toolbar');
+        var label   = document.getElementById('edit-toolbar-label');
+        var saveAll = document.getElementById('btn-save-all');
+        var linkPop = document.getElementById('link-pop');
+        var linkUrl = document.getElementById('link-url');
+        var btnEditor = document.getElementById('btn-editor');
+        var currentSection = null;
+        var snapshot = '';
+        var savedRange = null;
+        var editingButton = null;
+
+        function getEditables(section) { return section.querySelectorAll('h2, h3, h4, p, li, strong, span.amount, dt, dd'); }
+        function saveSelection() { var sel = window.getSelection(); if (sel && sel.rangeCount > 0) savedRange = sel.getRangeAt(0).cloneRange(); }
+        function restoreSelection() { if (!savedRange) return; var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedRange); }
+
+        function enterEdit(section) {
+          if (currentSection === section) return;
+          exitEdit(true);
+          currentSection = section;
+          snapshot = section.innerHTML;
+          section.classList.add('is-editing');
+          getEditables(section).forEach(function (el) { el.setAttribute('contenteditable', 'true'); });
+          var first = section.querySelector('[contenteditable="true"]');
+          if (first) first.focus();
+          var titleEl = section.querySelector('h2, h3');
+          label.textContent = 'Editing: ' + (titleEl ? titleEl.textContent.trim() : (section.getAttribute('data-section') || 'Section'));
+          toolbar.hidden = false;
+          requestAnimationFrame(function () { toolbar.classList.add('is-visible'); });
+          if (saveAll) { saveAll.hidden = false; saveAll.disabled = false; saveAll.removeAttribute('aria-disabled'); }
+        }
+        function exitEdit(revert) {
+          closeLinkPop();
+          if (!currentSection) return;
+          if (revert) currentSection.innerHTML = snapshot;
+          currentSection.classList.remove('is-editing');
+          getEditables(currentSection).forEach(function (el) { el.removeAttribute('contenteditable'); });
+          currentSection = null;
+          toolbar.classList.remove('is-visible');
+          setTimeout(function () { toolbar.hidden = true; }, 200);
+        }
+
+        function runCmd(cmd) {
+          restoreSelection();
+          if (cmd === 'code')      document.execCommand('insertHTML', false, '<code>' + (window.getSelection().toString() || 'code') + '</code>');
+          else if (cmd === 'unlink') document.execCommand('unlink', false, null);
+          else if (cmd === 'link')   openLinkPop();
+          else if (cmd === 'image' || cmd === 'video') openMediaEditor(null, cmd);
+          else document.execCommand(cmd, false, null);
+          saveSelection();
+        }
+        toolbar.querySelectorAll('[data-cmd]').forEach(function (b) {
+          b.addEventListener('mousedown', function (e) { e.preventDefault(); saveSelection(); });
+          b.addEventListener('click', function () { runCmd(b.getAttribute('data-cmd')); });
+        });
+        document.addEventListener('keydown', function (e) {
+          if (!currentSection) return;
+          if ((e.ctrlKey || e.metaKey) && !e.shiftKey) {
+            var key = e.key.toLowerCase();
+            if (key === 'b' || key === 'i' || key === 'u') { e.preventDefault(); runCmd(key === 'b' ? 'bold' : key === 'i' ? 'italic' : 'underline'); }
+            else if (key === 'k') { e.preventDefault(); saveSelection(); openLinkPop(); }
+          }
+        });
+        document.addEventListener('selectionchange', function () {
+          if (!currentSection) return;
+          var sel = window.getSelection();
+          if (sel && sel.rangeCount > 0 && currentSection.contains(sel.anchorNode)) savedRange = sel.getRangeAt(0).cloneRange();
+        });
+
+        function openLinkPop() {
+          if (!currentSection) return;
+          var anchor = null;
+          if (savedRange) {
+            var node = savedRange.startContainer;
+            while (node && node !== currentSection) { if (node.nodeType === 1 && node.tagName === 'A') { anchor = node; break; } node = node.parentNode; }
+          }
+          linkUrl.value = anchor ? anchor.getAttribute('href') || '' : '';
+          linkPop.hidden = false;
+          var tRect = toolbar.getBoundingClientRect();
+          linkPop.style.left = Math.max(12, tRect.left) + 'px';
+          linkPop.style.top  = (tRect.top - linkPop.offsetHeight - 8) + 'px';
+          requestAnimationFrame(function () { linkPop.classList.add('is-visible'); linkUrl.focus(); linkUrl.select(); });
+        }
+        function closeLinkPop() { linkPop.classList.remove('is-visible'); setTimeout(function () { linkPop.hidden = true; }, 150); }
+        linkPop.querySelector('[data-link-cancel]').addEventListener('click', closeLinkPop);
+        linkPop.querySelector('[data-link-apply]').addEventListener('click', function () {
+          var url = linkUrl.value.trim();
+          if (!url) { closeLinkPop(); return; }
+          restoreSelection();
+          if (window.getSelection().toString()) document.execCommand('createLink', false, url);
+          else document.execCommand('insertHTML', false, '<a href="' + url.replace(/"/g, '&quot;') + '">' + url + '</a>');
+          if (currentSection) {
+            currentSection.querySelectorAll('a[href]').forEach(function (a) {
+              if (/^https?:/i.test(a.getAttribute('href'))) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener'); }
+            });
+          }
+          closeLinkPop();
+        });
+        linkUrl.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') { e.preventDefault(); linkPop.querySelector('[data-link-apply]').click(); }
+          if (e.key === 'Escape') { e.preventDefault(); closeLinkPop(); }
+        });
+
+        function openButtonEditor(btnEl) {
+          editingButton = btnEl;
+          var labelText = btnEl.childNodes[0] ? btnEl.childNodes[0].textContent.trim() : btnEl.textContent.trim();
+          document.getElementById('btn-label').value = labelText;
+          var action = btnEl.getAttribute('data-action') || (btnEl.getAttribute('data-trigger') ? 'trigger' : 'redirect');
+          document.querySelectorAll('input[name="btn-action"]').forEach(function (r) { r.checked = (r.value === action); });
+          document.getElementById('btn-url').value = btnEl.getAttribute('data-href') || '';
+          document.getElementById('btn-newtab').checked = btnEl.getAttribute('data-target') !== '_self';
+          var trigSel = document.getElementById('btn-trigger');
+          var trig = btnEl.getAttribute('data-trigger');
+          if (trig) for (var i = 0; i < trigSel.options.length; i++) if (trigSel.options[i].value === trig) { trigSel.selectedIndex = i; break; }
+          toggleActionFields(action);
+          btnEditor.hidden = false;
+          var r = btnEl.getBoundingClientRect();
+          btnEditor.style.top  = (window.scrollY + r.bottom + 8) + 'px';
+          btnEditor.style.left = (window.scrollX + r.left) + 'px';
+          requestAnimationFrame(function () {
+            btnEditor.classList.add('is-visible');
+            var er = btnEditor.getBoundingClientRect();
+            if (er.right > window.innerWidth - 12) btnEditor.style.left = (window.innerWidth - er.width - 12 + window.scrollX) + 'px';
+            if (er.bottom > window.innerHeight - 12) btnEditor.style.top = (window.scrollY + r.top - er.height - 8) + 'px';
+            document.getElementById('btn-label').focus();
+            document.getElementById('btn-label').select();
+          });
+        }
+        function closeButtonEditor() { editingButton = null; btnEditor.classList.remove('is-visible'); setTimeout(function () { btnEditor.hidden = true; }, 180); }
+        function toggleActionFields(action) { btnEditor.querySelectorAll('[data-action-field]').forEach(function (f) { f.hidden = f.getAttribute('data-action-field') !== action; }); }
+        document.querySelectorAll('input[name="btn-action"]').forEach(function (r) { r.addEventListener('change', function () { toggleActionFields(r.value); }); });
+        btnEditor.querySelector('[data-btn-close]').addEventListener('click', closeButtonEditor);
+        btnEditor.querySelector('[data-btn-cancel]').addEventListener('click', closeButtonEditor);
+        btnEditor.querySelector('[data-btn-remove]').addEventListener('click', function () {
+          if (!editingButton) return;
+          if (confirm('Remove this button from the section?')) { editingButton.remove(); closeButtonEditor(); }
+        });
+        btnEditor.querySelector('[data-btn-apply]').addEventListener('click', function () {
+          if (!editingButton) return;
+          var newLabel = document.getElementById('btn-label').value.trim() || 'Button';
+          var action = btnEditor.querySelector('input[name="btn-action"]:checked').value;
+          var iconEl = editingButton.querySelector('.mi');
+          editingButton.textContent = newLabel + ' ';
+          if (iconEl) editingButton.appendChild(iconEl);
+          editingButton.setAttribute('data-action', action);
+          if (action === 'redirect') {
+            var url = document.getElementById('btn-url').value.trim();
+            var newTab = document.getElementById('btn-newtab').checked;
+            editingButton.setAttribute('data-href', url);
+            editingButton.setAttribute('data-target', newTab ? '_blank' : '_self');
+            editingButton.removeAttribute('data-trigger');
+            editingButton.setAttribute('title', url ? 'Redirects to ' + url : 'No URL set');
+          } else {
+            var trig = document.getElementById('btn-trigger').value;
+            editingButton.setAttribute('data-trigger', trig);
+            editingButton.removeAttribute('data-href');
+            editingButton.removeAttribute('data-target');
+            editingButton.setAttribute('title', 'Triggers: ' + trig.replace(/_/g, ' '));
+          }
+          closeButtonEditor();
+        });
+
+        var mediaEditor   = document.getElementById('media-editor');
+        var mediaUrl      = document.getElementById('media-url');
+        var mediaFile     = document.getElementById('media-file');
+        var mediaAlt      = document.getElementById('media-alt');
+        var mediaPoster   = document.getElementById('media-poster');
+        var mediaControls = document.getElementById('media-controls');
+        var mediaPreview  = document.getElementById('media-preview');
+        var editingMedia  = null;
+        var mediaObjectUrl = null;
+
+        function setMediaTypeUI(type) {
+          mediaEditor.querySelectorAll('[data-media-field]').forEach(function (f) { f.hidden = f.getAttribute('data-media-field') !== type; });
+          mediaEditor.querySelectorAll('input[name="media-type"]').forEach(function (r) { r.checked = (r.value === type); });
+          mediaFile.setAttribute('accept', type === 'video' ? 'video/*' : 'image/*');
+        }
+        function renderMediaPreview() {
+          var type = mediaEditor.querySelector('input[name="media-type"]:checked').value;
+          var src  = mediaUrl.value.trim();
+          if (!src) { mediaPreview.hidden = true; mediaPreview.innerHTML = ''; return; }
+          mediaPreview.hidden = false;
+          if (type === 'image') mediaPreview.innerHTML = '<img src="' + src.replace(/"/g, '&quot;') + '" alt="" />';
+          else { var poster = mediaPoster.value.trim(); mediaPreview.innerHTML = '<video src="' + src.replace(/"/g, '&quot;') + '"' + (poster ? ' poster="' + poster.replace(/"/g, '&quot;') + '"' : '') + (mediaControls.checked ? ' controls' : '') + ' preload="metadata"></video>'; }
+        }
+        function openMediaEditor(figureEl, forcedType) {
+          editingMedia = figureEl;
+          var type = forcedType || 'image';
+          mediaUrl.value = ''; mediaAlt.value = ''; mediaPoster.value = ''; mediaControls.checked = true; mediaFile.value = '';
+          if (figureEl) {
+            var img = figureEl.querySelector('img'); var vid = figureEl.querySelector('video');
+            if (vid) { type = 'video'; mediaUrl.value = vid.getAttribute('src') || ''; mediaPoster.value = vid.getAttribute('poster') || ''; mediaControls.checked = vid.hasAttribute('controls'); }
+            else if (img) { type = 'image'; mediaUrl.value = img.getAttribute('src') || ''; mediaAlt.value = img.getAttribute('alt') || ''; }
+          }
+          setMediaTypeUI(type); renderMediaPreview();
+          mediaEditor.hidden = false;
+          var anchorRect = (figureEl || toolbar).getBoundingClientRect();
+          mediaEditor.style.top  = (window.scrollY + (figureEl ? anchorRect.bottom + 8 : anchorRect.top - 20)) + 'px';
+          mediaEditor.style.left = (window.scrollX + Math.max(12, anchorRect.left)) + 'px';
+          requestAnimationFrame(function () {
+            mediaEditor.classList.add('is-visible');
+            var er = mediaEditor.getBoundingClientRect();
+            if (er.right > window.innerWidth - 12) mediaEditor.style.left = (window.innerWidth - er.width - 12 + window.scrollX) + 'px';
+            if (er.bottom > window.innerHeight - 12) mediaEditor.style.top = (window.scrollY + anchorRect.top - er.height - 8) + 'px';
+            mediaUrl.focus();
+          });
+        }
+        function closeMediaEditor() {
+          editingMedia = null;
+          if (mediaObjectUrl) { URL.revokeObjectURL(mediaObjectUrl); mediaObjectUrl = null; }
+          mediaEditor.classList.remove('is-visible');
+          setTimeout(function () { mediaEditor.hidden = true; mediaPreview.innerHTML = ''; mediaPreview.hidden = true; }, 180);
+        }
+        mediaEditor.querySelectorAll('input[name="media-type"]').forEach(function (r) { r.addEventListener('change', function () { setMediaTypeUI(r.value); renderMediaPreview(); }); });
+        [mediaUrl, mediaPoster].forEach(function (el) { el.addEventListener('input', renderMediaPreview); });
+        mediaControls.addEventListener('change', renderMediaPreview);
+        mediaFile.addEventListener('change', function () {
+          var f = mediaFile.files && mediaFile.files[0]; if (!f) return;
+          if (mediaObjectUrl) URL.revokeObjectURL(mediaObjectUrl);
+          mediaObjectUrl = URL.createObjectURL(f); mediaUrl.value = mediaObjectUrl;
+          setMediaTypeUI(f.type.indexOf('video') === 0 ? 'video' : 'image'); renderMediaPreview();
+        });
+        mediaEditor.querySelector('[data-media-close]').addEventListener('click', closeMediaEditor);
+        mediaEditor.querySelector('[data-media-cancel]').addEventListener('click', closeMediaEditor);
+        mediaEditor.querySelector('[data-media-remove]').addEventListener('click', function () {
+          if (!editingMedia) { closeMediaEditor(); return; }
+          if (confirm('Remove this media from the section?')) { editingMedia.remove(); closeMediaEditor(); }
+        });
+        mediaEditor.querySelector('[data-media-apply]').addEventListener('click', function () {
+          var type = mediaEditor.querySelector('input[name="media-type"]:checked').value;
+          var src  = mediaUrl.value.trim();
+          if (!src) { mediaUrl.focus(); return; }
+          var mediaHTML;
+          if (type === 'image') { var alt = mediaAlt.value.trim(); mediaHTML = '<img src="' + src.replace(/"/g, '&quot;') + '" alt="' + alt.replace(/"/g, '&quot;') + '" />'; }
+          else { var poster = mediaPoster.value.trim(); mediaHTML = '<video src="' + src.replace(/"/g, '&quot;') + '"' + (poster ? ' poster="' + poster.replace(/"/g, '&quot;') + '"' : '') + (mediaControls.checked ? ' controls' : '') + ' preload="metadata"></video>'; }
+          if (editingMedia) { editingMedia.innerHTML = mediaHTML; editingMedia.classList.add('stage__media--filled'); }
+          else if (currentSection) {
+            var fig = document.createElement('figure');
+            fig.className = 'stage__media stage__media--filled editable-media';
+            fig.setAttribute('tabindex', '0'); fig.innerHTML = mediaHTML;
+            var titleEl = currentSection.querySelector('h2, h3');
+            if (titleEl && titleEl.nextSibling) currentSection.insertBefore(fig, titleEl.nextSibling);
+            else currentSection.appendChild(fig);
+            attachMediaClick(fig);
+          }
+          closeMediaEditor();
+        });
+        function attachMediaClick(fig) {
+          fig.classList.add('editable-media');
+          if (!fig.hasAttribute('tabindex')) fig.setAttribute('tabindex', '0');
+          fig.addEventListener('click', function (e) { e.stopPropagation(); var sec = fig.closest('.editable'); if (sec) enterEdit(sec); openMediaEditor(fig); });
+          fig.addEventListener('keydown', function (e) {
+            if ((e.key === 'Enter' || e.key === ' ') && document.activeElement === fig) { e.preventDefault(); var sec = fig.closest('.editable'); if (sec) enterEdit(sec); openMediaEditor(fig); }
+          });
+        }
+        document.querySelectorAll('.stage__media').forEach(attachMediaClick);
+
+        document.querySelectorAll('.editable').forEach(function (sec) {
+          sec.addEventListener('click', function (e) {
+            var btn = e.target.closest('button');
+            if (btn && !btn.closest('.edit-toolbar') && !btn.closest('.btn-editor') && !btn.closest('.mini-pop') && sec.contains(btn)) {
+              e.preventDefault(); e.stopPropagation(); enterEdit(sec); openButtonEditor(btn); return;
+            }
+            enterEdit(sec);
+          });
+          sec.addEventListener('keydown', function (e) {
+            if ((e.key === 'Enter' || e.key === ' ') && document.activeElement === sec) { e.preventDefault(); enterEdit(sec); }
+          });
+        });
+
+        toolbar.querySelector('[data-edit-cancel]').addEventListener('click', function () { exitEdit(true); });
+        toolbar.querySelector('[data-edit-save]').addEventListener('click', function () { exitEdit(false); });
+
+        // Publish ? toast + disable button until next edit
+        if (saveAll) {
+          function getRegion() {
+            var r = document.getElementById('toast-region');
+            if (!r) {
+              r = document.createElement('div');
+              r.className = 'toast-region';
+              r.id = 'toast-region';
+              r.setAttribute('aria-live', 'polite');
+              r.setAttribute('aria-atomic', 'false');
+              document.body.appendChild(r);
+            }
+            return r;
+          }
+          saveAll.addEventListener('click', function () {
+            if (saveAll.disabled) return;
+            var region = getRegion();
+            var t = document.createElement('div');
+            t.className = 'toast toast--success';
+            t.setAttribute('role', 'status');
+            t.innerHTML = '<span class="mi toast__icon" aria-hidden="true">check_circle</span>' +
+                          '<span class="toast__msg">Successfully published.</span>' +
+                          '<button type="button" class="toast__close" aria-label="Dismiss"><span class="mi" aria-hidden="true">close</span></button>';
+            region.appendChild(t);
+            requestAnimationFrame(function () { t.classList.add('is-visible'); });
+            var dismiss = function () {
+              t.classList.remove('is-visible');
+              setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 220);
+            };
+            t.querySelector('.toast__close').addEventListener('click', dismiss);
+            setTimeout(dismiss, 4000);
+            saveAll.disabled = true;
+            saveAll.setAttribute('aria-disabled', 'true');
+          });
+        }
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            if (!mediaEditor.hidden) { closeMediaEditor(); return; }
+            if (!btnEditor.hidden)   { closeButtonEditor(); return; }
+            if (!linkPop.hidden)     { closeLinkPop(); return; }
+            if (currentSection)      { exitEdit(true); }
+          }
+        });
+      })();
+    </script>
+
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

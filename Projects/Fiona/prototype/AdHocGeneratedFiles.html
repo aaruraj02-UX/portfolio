@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Ad-hoc Payments · Generated Files</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* ----------------------------------------------------------------
+       MET-DS-V2 — Token Block (Light)
+       ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-75:  #C2D7F2;
+      --color-primary-100: #A2C1EA;
+      --color-primary-200: #84ADE4;
+      --color-primary-300: #6599DE;
+      --color-primary-400: #4B87D6;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-800: #22497D;
+      --color-primary-900: #1C3A62;
+
+      --color-primary:        var(--color-primary-500);
+      --color-primary-hover:  var(--color-primary-600);
+      --color-bg:             var(--color-primary-25);
+      --color-card:           #FFFFFF;
+
+      --text-primary:   #212121;
+      --text-secondary: #757575;
+      --text-tertiary:  #9E9E9E;
+      --text-hyperlink: #3276CF;
+      --text-hyperlink-hover: #2C66B4;
+
+      --grey-50:  #FAFAFA; --grey-100: #F5F5F5; --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0; --grey-400: #BDBDBD; --grey-500: #9E9E9E;
+      --grey-600: #757575; --grey-700: #616161; --grey-800: #424242; --grey-900: #212121;
+
+      --color-success: #43A047; --color-success-dark: #388E3C; --color-success-bg: #E8F5E9;
+      --color-error:   #E53935; --color-error-dark:   #D32F2F; --color-error-bg:   #FEEBEE;
+      --color-warning: #EF6C00; --color-warning-dark: #F57C00; --color-warning-bg: #FFF3E0;
+      --color-info:    #1976D2; --color-info-bg:     #E3F2FD;
+
+      --topnav-icon:       #757575;
+      --topnav-icon-hover: #616161;
+
+      --radius-card:    16px;
+      --radius-button:  8px;
+      --radius-input:   8px;
+      --radius-pill:    100px;
+
+      --space-1: 2px;  --space-2: 4px;  --space-3: 8px;  --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-caption: 12px;
+      --font-weight-regular: 400; --font-weight-medium: 500;
+      --font-weight-semibold: 600; --font-weight-bold: 700;
+
+      --duration-micro: 150ms; --duration-standard: 250ms; --easing-enter: ease-out;
+
+      --shadow-card:  0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.18);
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); background: var(--color-bg); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .skip-link { position: absolute; top: -100px; left: var(--space-5); background: var(--color-primary); color: #FFFFFF; padding: var(--space-3) var(--space-5); border-radius: var(--radius-button); font-weight: var(--font-weight-medium); z-index: 1000; transition: top var(--duration-micro) var(--easing-enter); }
+    .skip-link:focus { top: var(--space-3); color: #FFFFFF; }
+
+    /* Shell */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .topnav { display: flex; align-items: center; padding: var(--space-3); gap: var(--space-3); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; min-width: 0; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .topnav-logo { height: 28px; width: auto; }
+    .topnav-tagline { display: none; font-size: var(--font-size-caption); color: var(--text-secondary); letter-spacing: 0.15px; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn { position: relative; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--topnav-icon); padding: var(--space-3); transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge { position: absolute; top: 0; right: 0; min-width: 20px; height: 20px; background: var(--color-warning); color: #FFFFFF; font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; padding: 0 6.5px; line-height: 1; }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+    @media (min-width: 1280px) { .topnav-tagline { display: block; } }
+
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    .sidebar { width: 56px; flex-shrink: 0; background: var(--color-card); border-right: 1px solid var(--divider-color); display: flex; flex-direction: column; padding: var(--space-5) 0; overflow-x: hidden; overflow-y: hidden; transition: width var(--duration-standard) var(--easing-enter); z-index: 10; }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius-button); color: var(--text-secondary); flex-shrink: 0; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading { font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5); white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3); color: var(--text-secondary); text-decoration: none; white-space: nowrap; min-height: 40px; margin: 0 var(--space-3); border-radius: 8px; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-5); }
+
+    .breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .breadcrumb a { color: var(--text-hyperlink); font-weight: var(--font-weight-medium); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); font-size: 16px; line-height: 1; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+    .page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .page-subtitle { font-size: var(--font-size-body); color: var(--text-secondary); }
+    .page-header-actions { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+
+    .btn { display: inline-flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-5); border-radius: var(--radius-button); font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); min-height: 40px; white-space: nowrap; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); border: 1.5px solid transparent; }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border-color: var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-danger { background: var(--color-error); color: #FFFFFF; }
+    .btn-danger:hover { background: var(--color-error-dark); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+    /* Status cards */
+    .status-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4); }
+    .status-card { background: var(--color-card); border-radius: var(--radius-card); padding: var(--space-5) var(--space-6); display: flex; align-items: center; gap: var(--space-5); }
+    .status-card-icon { width: 40px; height: 40px; border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .status-card-icon .material-symbols-outlined { font-size: 22px; }
+    .status-card-info { display: flex; flex-direction: column; }
+    .status-card-number { font-size: var(--font-size-h1); font-weight: var(--font-weight-bold); color: var(--text-primary); line-height: 1.2; }
+    .status-card-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+    .status-card.is-attention { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+
+    /* Treasury queue (approved · ready to generate) */
+    .ready-banner { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-5) var(--space-6); background: var(--color-primary-25); border: 1px solid var(--color-primary-50); border-radius: var(--radius-card); }
+    .ready-banner-icon { width: 44px; height: 44px; border-radius: var(--radius-pill); background: var(--color-primary); color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ready-banner-body { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .ready-banner-title { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--color-primary-700); }
+    .ready-banner-meta { font-size: var(--font-size-caption); color: var(--color-primary-700); opacity: 0.85; }
+
+    /* Toolbar */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); padding: var(--space-5); flex-wrap: wrap; border-bottom: 1px solid var(--grey-200); }
+    .toolbar-left, .toolbar-right { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+    .search-box { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); min-width: 260px; }
+    .search-box:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.15); }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .search-box input::placeholder { color: var(--grey-400); }
+
+    .filter-chip { display: inline-flex; align-items: center; gap: var(--space-2); height: 36px; padding: 0 var(--space-4); border-radius: var(--radius-pill); background: var(--color-card); border: 1px solid var(--grey-300); color: var(--text-secondary); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); transition: border-color var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter), background var(--duration-micro) var(--easing-enter); }
+    button.filter-chip { display: none; }
+    .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip.is-active { background: var(--color-primary-25); border-color: var(--color-primary); color: var(--color-primary); }
+    .filter-chip .material-symbols-outlined { font-size: 16px; }
+    .filter-chip .chip-count { display: inline-flex; min-width: 18px; padding: 0 6px; align-items: center; justify-content: center; background: var(--grey-200); color: var(--text-secondary); border-radius: var(--radius-pill); font-size: 11px; font-weight: var(--font-weight-semibold); }
+    .filter-chip.is-active .chip-count { background: var(--color-primary); color: #FFFFFF; }
+
+    /* Table */
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); min-width: 1100px; }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th { padding: var(--space-4); text-align: left; font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; border-bottom: 1px solid var(--grey-300); position: relative; }
+    .data-table th + th::before { content: ""; position: absolute; left: 0; top: 25%; bottom: 25%; width: 1px; background: var(--grey-200); }
+    .data-table td { padding: var(--space-4); border-bottom: 1px solid var(--grey-200); color: var(--text-primary); vertical-align: middle; }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+    .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    .row-action-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius-button); color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .row-action-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .row-action-btn.success:hover { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .row-action-btn.danger:hover { background: var(--color-error-bg); color: var(--color-error-dark); }
+    .row-action-btn .material-symbols-outlined { font-size: 18px; }
+    .row-actions { display: flex; gap: var(--space-1); justify-content: flex-end; }
+
+    /* Method chips */
+    .method-chip { display: inline-flex; align-items: center; gap: var(--space-1); padding: 2px var(--space-3); border-radius: var(--radius-pill); font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); }
+    .method-chip.fp    { background: #E1F5FE; color: #01579B; }
+    .method-chip.chaps { background: #EDE7F6; color: #4527A0; }
+    .method-chip.bacs  { background: #FFF3E0; color: #E65100; }
+
+    /* Badges (file lifecycle) */
+    .badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); line-height: 1.5; white-space: nowrap; }
+    .badge .material-symbols-outlined { font-size: 14px; }
+    .badge--generated { background: var(--color-primary-50);  color: var(--color-primary-700); }
+    .badge--sent      { background: var(--color-info-bg);     color: var(--color-primary-700); }
+    .badge--settled   { background: var(--color-success-bg);  color: var(--color-success-dark); }
+    .badge--failed    { background: var(--color-error-bg);    color: var(--color-error-dark); }
+    .badge--pending   { background: var(--color-warning-bg);  color: var(--color-warning-dark); }
+    .badge--approved  { background: var(--color-info-bg);     color: var(--color-primary-700); }
+    .badge--int       { background: #E3F2FD;                  color: #1565C0; }
+
+    /* Pagination */
+    .table-footer { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-5); border-top: 1px solid var(--grey-200); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-button); color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; background: none; }
+
+    /* ----- View Drawer (right pane) — file details with included payments ----- */
+    .view-backdrop { position: fixed; inset: 0; background: rgba(12, 26, 45, 0.35); z-index: 90; display: none; }
+    .view-backdrop[data-open="true"] { display: block; }
+    .view-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(640px, 100vw); background: var(--color-bg); box-shadow: var(--shadow-modal); z-index: 95; transform: translateX(100%); transition: transform var(--duration-standard) var(--easing-enter); display: flex; flex-direction: column; }
+    .view-drawer[data-open="true"] { transform: translateX(0); }
+    .view-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); padding: var(--space-5) var(--space-6); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .view-header-text { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; flex: 1; }
+    .view-subtitle { font-size: var(--font-size-caption); color: var(--text-secondary); font-weight: var(--font-weight-medium); letter-spacing: 0.5px; }
+    .view-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); line-height: 1.3; word-break: break-word; }
+    .drawer-close { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: background var(--duration-micro) var(--easing-enter); }
+    .drawer-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .drawer-close .material-symbols-outlined { font-size: 24px; }
+
+    .view-tabs { display: flex; gap: 0; padding: 0 var(--space-6); background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0; }
+    .view-tab { padding: var(--space-4); font-size: var(--font-size-body); font-weight: var(--font-weight-medium); color: var(--text-secondary); border-bottom: 2px solid transparent; transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter); margin-bottom: -1px; display: inline-flex; align-items: center; gap: var(--space-2); }
+    .view-tab:hover { color: var(--color-primary); }
+    .view-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .view-tab .tab-count { display: inline-flex; min-width: 18px; padding: 0 6px; align-items: center; justify-content: center; background: var(--grey-200); color: var(--text-secondary); border-radius: var(--radius-pill); font-size: 11px; font-weight: var(--font-weight-semibold); }
+    .view-tab.is-active .tab-count { background: var(--color-primary-25); color: var(--color-primary); }
+
+    .view-body { flex: 1; overflow-y: auto; padding: var(--space-6); }
+    .view-panel { display: none; flex-direction: column; gap: var(--space-5); }
+    .view-panel.is-active { display: flex; }
+
+    .view-section { background: var(--color-card); border-radius: var(--radius-card); padding: var(--space-5); border: 1px solid var(--divider-color); }
+    .view-section-title { font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2); }
+    .view-section-title .material-symbols-outlined { font-size: 16px; color: var(--color-primary); }
+
+    .view-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr 1fr; }
+    .view-cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .view-cell.full { grid-column: 1 / -1; }
+    .view-cell-label { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .view-cell-value { font-size: var(--font-size-body); color: var(--text-primary); font-weight: var(--font-weight-medium); word-break: break-word; }
+    .view-cell-value.num { font-variant-numeric: tabular-nums; }
+    .view-cell-value.big { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); }
+
+    /* Payments-in-file list */
+    .pmt-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .pmt-item { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-4); padding: var(--space-4); background: var(--color-card); border: 1px solid var(--divider-color); border-radius: var(--radius-button); align-items: center; }
+    .pmt-item-icon { width: 36px; height: 36px; border-radius: var(--radius-pill); background: var(--color-primary-25); color: var(--color-primary); display: inline-flex; align-items: center; justify-content: center; }
+    .pmt-item-icon .material-symbols-outlined { font-size: 18px; }
+    .pmt-item-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .pmt-item-ref { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .pmt-item-meta { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .pmt-item-amt { font-weight: var(--font-weight-semibold); font-variant-numeric: tabular-nums; text-align: right; }
+
+    /* Timeline (file lifecycle) */
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item { display: flex; gap: var(--space-4); padding-bottom: var(--space-5); position: relative; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--grey-200); }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary-25); color: var(--color-primary); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; border: 2px solid var(--color-card); }
+    .timeline-dot.success { background: var(--color-success-bg); color: var(--color-success); }
+    .timeline-dot.warn    { background: var(--color-warning-bg); color: var(--color-warning); }
+    .timeline-dot.error   { background: var(--color-error-bg);   color: var(--color-error); }
+    .timeline-dot .material-symbols-outlined { font-size: 18px; }
+    .timeline-body { flex: 1; padding-top: 4px; min-width: 0; }
+    .timeline-text { font-size: var(--font-size-body); color: var(--text-primary); line-height: 1.45; }
+    .timeline-text strong { font-weight: var(--font-weight-semibold); }
+    .timeline-meta { font-size: var(--font-size-caption); color: var(--text-tertiary); margin-top: 2px; }
+
+    .view-empty { padding: var(--space-8) var(--space-5); text-align: center; color: var(--text-secondary); }
+    .view-empty .material-symbols-outlined { font-size: 40px; color: var(--grey-400); display: block; margin: 0 auto var(--space-3); }
+
+    .view-footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: var(--color-card); border-top: 1px solid var(--divider-color); flex-shrink: 0; flex-wrap: wrap; }
+    .view-footer-spacer { flex: 1; }
+
+    /* Generate / Fail modals */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(12, 26, 45, 0.55); z-index: 200; display: none; align-items: center; justify-content: center; padding: var(--space-5); }
+    .modal-backdrop[data-open="true"] { display: flex; }
+    .modal { background: var(--color-card); border-radius: var(--radius-card); box-shadow: var(--shadow-modal); width: 100%; max-width: 520px; display: flex; flex-direction: column; max-height: 90vh; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-5) var(--space-6); border-bottom: 1px solid var(--divider-color); }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .modal-body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); overflow-y: auto; }
+    .modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); padding: var(--space-4) var(--space-6); border-top: 1px solid var(--divider-color); }
+    .field-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-primary); }
+    .textarea, .select { width: 100%; min-height: 44px; padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300); border-radius: var(--radius-input); background: var(--color-card); font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); }
+    .textarea { min-height: 96px; resize: vertical; }
+    .textarea:focus, .select:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50, 118, 207, 0.18); }
+
+    /* Generate-modal candidate list */
+    .candidate-list { display: flex; flex-direction: column; gap: var(--space-2); max-height: 280px; overflow-y: auto; border: 1px solid var(--grey-200); border-radius: var(--radius-button); padding: var(--space-3); }
+    .candidate-item { display: grid; grid-template-columns: 16px 1fr auto; gap: var(--space-3); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-button); }
+    .candidate-item:hover { background: var(--color-primary-25); }
+    .candidate-item input { accent-color: var(--color-primary); }
+    .candidate-item .ci-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .candidate-item .ci-ref { font-weight: var(--font-weight-medium); }
+    .candidate-item .ci-sub { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .candidate-item .ci-amt { font-variant-numeric: tabular-nums; font-weight: var(--font-weight-medium); }
+    .totals-summary { display: flex; justify-content: space-between; padding: var(--space-3) var(--space-4); background: var(--color-primary-25); border-radius: var(--radius-button); font-weight: var(--font-weight-medium); color: var(--color-primary-700); }
+    .totals-summary .num { font-variant-numeric: tabular-nums; }
+
+    .data-table a[href="#"] { cursor: pointer; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: var(--space-7); left: 50%; transform: translateX(-50%) translateY(20px); background: var(--color-success-dark); color: #FFFFFF; padding: var(--space-4) var(--space-6); border-radius: var(--radius-button); box-shadow: var(--shadow-modal); display: flex; align-items: center; gap: var(--space-3); font-weight: var(--font-weight-medium); opacity: 0; pointer-events: none; z-index: 300; transition: opacity var(--duration-standard) var(--easing-enter), transform var(--duration-standard) var(--easing-enter); }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast .material-symbols-outlined { font-size: 20px; }
+
+    @media (max-width: 768px) {
+      .content-area { padding: var(--space-5); }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .view-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .view-drawer { width: 100vw; }
+      .view-header, .view-tabs, .view-body, .view-footer { padding-left: var(--space-5); padding-right: var(--space-5); }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-shell">
+
+    <!-- Top Nav -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Ad-hoc Payments · Generated Files</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 2 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">2</span>
+        </button>
+        <button aria-label="User profile menu — Mark T. (Treasury)">
+          <img src="https://i.pravatar.cc/64?img=33" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+
+      <!-- Sidebar -->
+      <nav class="sidebar" id="sidebar" aria-label="Ad-hoc Payments navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Ad-hoc Payments</span>
+          <a href="AdHocPayments.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Requests</span>
+          </a>
+          <a href="AdHocApprovals.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">approval</span>
+            <span class="sidebar-link-text">Approvals</span>
+          </a>
+          <a href="AdHocGeneratedFiles.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">folder_zip</span>
+            <span class="sidebar-link-text">Generated Files</span>
+          </a>
+          <a href="AdHocExportedFiles.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">outbox</span>
+            <span class="sidebar-link-text">Exported Files</span>
+          </a>
+          <a href="AdHocPaymentTypeLookup.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_search</span>
+            <span class="sidebar-link-text">Payment Reason</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <main class="content-area" id="main-content" tabindex="-1">
+        <div class="content-inner">
+
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="LandingPage.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <a href="AdHocPayments.html">Ad-hoc Payments</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">Generated Files</span>
+          </nav>
+
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title">Generated Files</h1>
+              <p class="page-subtitle">Lloyds payment files generated from approved ad-hoc requests. Mark complete to produce the journal; mark failed to notify the requester.</p>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-secondary" type="button" id="downloadAllBtn">
+                <span class="material-symbols-outlined" aria-hidden="true">archive</span>
+                Download today's files
+              </button>
+              <button class="btn btn-primary" type="button" id="generateBtn">
+                <span class="material-symbols-outlined" aria-hidden="true">description</span>
+                Generate Lloyds file
+              </button>
+            </div>
+          </div>
+
+          <!-- Ready-to-generate banner -->
+          <div class="ready-banner" role="region" aria-label="Approved requests ready to generate">
+            <div class="ready-banner-icon"><span class="material-symbols-outlined" aria-hidden="true">verified</span></div>
+            <div class="ready-banner-body">
+              <span class="ready-banner-title">3 approved requests are ready to be generated into a Lloyds file</span>
+              <span class="ready-banner-meta">Total £ 17,330.00 GBP · 2 Faster Payments · 1 CHAPS · oldest waiting since 23/06/2026 14:10</span>
+            </div>
+            <button class="btn btn-primary" type="button" id="generateBtn2">
+              <span class="material-symbols-outlined" aria-hidden="true">description</span>
+              Review &amp; generate
+            </button>
+          </div>
+
+          <!-- Status cards -->
+          <div class="status-row" role="list" aria-label="Generated file summary">
+            <div class="status-card is-attention" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-primary-50);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);" aria-hidden="true">verified</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">3</span>
+                <span class="status-card-label">Approved · ready to generate</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-info-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-info);" aria-hidden="true">send</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">3</span>
+                <span class="status-card-label">Sent · awaiting settlement</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-success-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-success);" aria-hidden="true">task_alt</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">1</span>
+                <span class="status-card-label">Settled today</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-error-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-error);" aria-hidden="true">error</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">1</span>
+                <span class="status-card-label">Failed (last 7 days)</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem">
+              <div class="status-card-icon" style="background: var(--color-primary-50);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);" aria-hidden="true">payments</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">£ 47.6k</span>
+                <span class="status-card-label">Generated today (GBP eq.)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Toolbar + Table (files) -->
+          <div class="card-container">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="search-box">
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                  <input type="search" placeholder="Search by file ID, request reference or operator…" aria-label="Search generated files" />
+                </div>
+                <button class="filter-chip is-active" type="button" aria-pressed="true">All <span class="chip-count">7</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false">Generated <span class="chip-count">3</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false">Settled <span class="chip-count">3</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false">Failed <span class="chip-count">1</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false">
+                  <span class="material-symbols-outlined" aria-hidden="true">tune</span>
+                  More filters
+                </button>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn btn-text-primary" type="button" aria-label="Export to CSV">
+                  <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                  Export
+                </button>
+              </div>
+            </div>
+
+            <div class="table-scroll">
+              <table class="data-table" aria-label="Generated Lloyds payment files">
+                <thead>
+                  <tr>
+                    <th scope="col">File ID</th>
+                    <th scope="col">Generated</th>
+                    <th scope="col">Method</th>
+                    <th scope="col" class="num">Payments</th>
+                    <th scope="col" class="num">Total value</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col">Operator</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="fileRows">
+                  <tr>
+                    <td><a href="#" style="font-weight:var(--font-weight-medium);">FGEN-2026-0091</a></td>
+                    <td>24/06/2026 09:02</td>
+                    <td><span class="method-chip fp">FP</span></td>
+                    <td class="num">2</td>
+                    <td class="num">2,200.00</td>
+                    <td>GBP</td>
+                    <td>Mark T.</td>
+                    <td><span class="badge badge--generated"><span class="material-symbols-outlined" aria-hidden="true">description</span>Generated</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View file FGEN-2026-0091"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Download FGEN-2026-0091" data-act="download"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>
+                        <button class="row-action-btn danger" type="button" aria-label="Mark FGEN-2026-0091 failed" data-act="fail"><span class="material-symbols-outlined" aria-hidden="true">error</span></button>
+                        <button class="row-action-btn success" type="button" aria-label="Mark FGEN-2026-0091 complete" data-act="complete"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">FGEN-2026-0090</a></td>
+                    <td>23/06/2026 14:18</td>
+                    <td><span class="method-chip chaps">CHAPS</span></td>
+                    <td class="num">1</td>
+                    <td class="num">12,400.00</td>
+                    <td>EUR</td>
+                    <td>Mark T.</td>
+                    <td><span class="badge badge--generated"><span class="material-symbols-outlined" aria-hidden="true">description</span>Generated</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View file FGEN-2026-0090"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Download FGEN-2026-0090" data-act="download"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>
+                        <button class="row-action-btn danger" type="button" aria-label="Mark FGEN-2026-0090 failed" data-act="fail"><span class="material-symbols-outlined" aria-hidden="true">error</span></button>
+                        <button class="row-action-btn success" type="button" aria-label="Mark FGEN-2026-0090 complete" data-act="complete"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">FGEN-2026-0089</a></td>
+                    <td>23/06/2026 09:02</td>
+                    <td><span class="method-chip fp">FP</span></td>
+                    <td class="num">1</td>
+                    <td class="num">380.00</td>
+                    <td>GBP</td>
+                    <td>Anna L.</td>
+                    <td><span class="badge badge--generated"><span class="material-symbols-outlined" aria-hidden="true">description</span>Generated</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View file FGEN-2026-0089"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Download FGEN-2026-0089" data-act="download"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>
+                        <button class="row-action-btn danger" type="button" aria-label="Mark FGEN-2026-0089 failed" data-act="fail"><span class="material-symbols-outlined" aria-hidden="true">error</span></button>
+                        <button class="row-action-btn success" type="button" aria-label="Mark FGEN-2026-0089 complete" data-act="complete"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">FGEN-2026-0088</a></td>
+                    <td>21/06/2026 10:00</td>
+                    <td><span class="method-chip chaps">CHAPS</span></td>
+                    <td class="num">1</td>
+                    <td class="num">6,000.00</td>
+                    <td>USD</td>
+                    <td>Mark T.</td>
+                    <td><span class="badge badge--failed"><span class="material-symbols-outlined" aria-hidden="true">error</span>Failed — bank rejected</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View file FGEN-2026-0088"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Download FGEN-2026-0088" data-act="download"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Retry FGEN-2026-0088" data-act="retry"><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">FGEN-2026-0087</a></td>
+                    <td>17/06/2026 11:30</td>
+                    <td><span class="method-chip bacs">BACS</span></td>
+                    <td class="num">1</td>
+                    <td class="num">2,100.00</td>
+                    <td>GBP</td>
+                    <td>Anna L.</td>
+                    <td><span class="badge badge--settled"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span>Settled</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View file FGEN-2026-0087"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Download FGEN-2026-0087" data-act="download"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>
+                        <button class="row-action-btn" type="button" aria-label="View journal FGEN-2026-0087" data-act="journal"><span class="material-symbols-outlined" aria-hidden="true">receipt</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">FGEN-2026-0086</a></td>
+                    <td>16/06/2026 11:30</td>
+                    <td><span class="method-chip bacs">BACS</span></td>
+                    <td class="num">4</td>
+                    <td class="num">18,420.00</td>
+                    <td>GBP</td>
+                    <td>Mark T.</td>
+                    <td><span class="badge badge--settled"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span>Settled</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View file FGEN-2026-0086"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Download FGEN-2026-0086" data-act="download"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>
+                        <button class="row-action-btn" type="button" aria-label="View journal FGEN-2026-0086" data-act="journal"><span class="material-symbols-outlined" aria-hidden="true">receipt</span></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><a href="#">FGEN-2026-0085</a></td>
+                    <td>15/06/2026 09:30</td>
+                    <td><span class="method-chip chaps">CHAPS</span></td>
+                    <td class="num">2</td>
+                    <td class="num">9,800.00</td>
+                    <td>GBP</td>
+                    <td>Anna L.</td>
+                    <td><span class="badge badge--settled"><span class="material-symbols-outlined" aria-hidden="true">task_alt</span>Settled</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="row-action-btn" type="button" aria-label="View file FGEN-2026-0085"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                        <button class="row-action-btn" type="button" aria-label="Download FGEN-2026-0085" data-act="download"><span class="material-symbols-outlined" aria-hidden="true">download</span></button>
+                        <button class="row-action-btn" type="button" aria-label="View journal FGEN-2026-0085" data-act="journal"><span class="material-symbols-outlined" aria-hidden="true">receipt</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-footer">
+              <span>Showing 7 of 7 files</span>
+              <nav class="pagination" aria-label="Pagination">
+                <button class="pagination-btn" type="button" aria-label="Previous page" disabled><span class="material-symbols-outlined">chevron_left</span></button>
+                <span>1 / 1</span>
+                <button class="pagination-btn" type="button" aria-label="Next page" disabled><span class="material-symbols-outlined">chevron_right</span></button>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- View Drawer -->
+  <div class="view-backdrop" id="viewBackdrop" data-open="false"></div>
+  <aside class="view-drawer" id="viewDrawer" role="dialog" aria-modal="true" aria-labelledby="viewTitle" data-open="false">
+    <header class="view-header">
+      <div class="view-header-text">
+        <span class="view-subtitle" id="viewSubtitle">—</span>
+        <h2 class="view-title" id="viewTitle">—</h2>
+        <span id="viewStatusBadge"></span>
+      </div>
+      <button class="drawer-close" id="viewClose" type="button" aria-label="Close details">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+
+    <nav class="view-tabs" role="tablist" aria-label="File sections">
+      <button class="view-tab is-active" role="tab" aria-selected="true" type="button" data-tab="summary" id="tab-summary">Summary</button>
+      <button class="view-tab" role="tab" aria-selected="false" type="button" data-tab="payments" id="tab-payments">Payments <span class="tab-count" id="pmtCount">0</span></button>
+      <button class="view-tab" role="tab" aria-selected="false" type="button" data-tab="activity" id="tab-activity">Activity <span class="tab-count" id="activityCount">0</span></button>
+    </nav>
+
+    <div class="view-body">
+      <div class="view-panel is-active" data-panel="summary" role="tabpanel" aria-labelledby="tab-summary">
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">folder_zip</span> File</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">File ID</span><span class="view-cell-value" id="vw-fileId">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Method</span><span class="view-cell-value" id="vw-method">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Generated</span><span class="view-cell-value" id="vw-generated">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Operator</span><span class="view-cell-value" id="vw-operator">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Format</span><span class="view-cell-value" id="vw-format">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section">
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">payments</span> Totals</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Payment count</span><span class="view-cell-value num" id="vw-pmtCount">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Currency</span><span class="view-cell-value" id="vw-ccy">—</span></div>
+            <div class="view-cell full"><span class="view-cell-label">Total value</span><span class="view-cell-value num big" id="vw-total">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section" id="vw-failSection" hidden>
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">error</span> Failure</h3>
+          <div class="view-grid">
+            <div class="view-cell full"><span class="view-cell-label">Reason returned by bank</span><span class="view-cell-value" id="vw-failReason">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Reported at</span><span class="view-cell-value" id="vw-failTime">—</span></div>
+          </div>
+        </section>
+
+        <section class="view-section" id="vw-journalSection" hidden>
+          <h3 class="view-section-title"><span class="material-symbols-outlined" aria-hidden="true">receipt</span> Journal</h3>
+          <div class="view-grid">
+            <div class="view-cell"><span class="view-cell-label">Journal ID</span><span class="view-cell-value" id="vw-journalId">—</span></div>
+            <div class="view-cell"><span class="view-cell-label">Generated</span><span class="view-cell-value" id="vw-journalGen">—</span></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="view-panel" data-panel="payments" role="tabpanel" aria-labelledby="tab-payments" hidden>
+        <div class="pmt-list" id="vw-payments"></div>
+      </div>
+
+      <div class="view-panel" data-panel="activity" role="tabpanel" aria-labelledby="tab-activity" hidden>
+        <ol class="timeline" id="vw-timeline"></ol>
+      </div>
+    </div>
+
+    <footer class="view-footer" id="viewFooter"></footer>
+  </aside>
+
+  <!-- Generate modal -->
+  <div class="modal-backdrop" id="genBackdrop" data-open="false">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="genTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="genTitle">Generate Lloyds payment file</h3>
+        <button class="drawer-close" id="genClose" type="button" aria-label="Close">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-secondary);">Select approved requests to include in this file. Per Treasury policy, the journal will be created when each payment is marked complete.</p>
+        <div>
+          <label class="field-label" for="genMethod">Payment method</label>
+          <select id="genMethod" class="select">
+            <option value="FP">Faster Payments (FP)</option>
+            <option value="CHAPS">CHAPS</option>
+            <option value="BACS">BACS</option>
+          </select>
+        </div>
+        <div>
+          <span class="field-label">Approved requests ready</span>
+          <div class="candidate-list" id="candidateList">
+            <label class="candidate-item">
+              <input type="checkbox" checked data-amt="1250.00" />
+              <div class="ci-meta"><span class="ci-ref">AHP-2026-0148 · Bramble &amp; Co.</span><span class="ci-sub">FP · Refund — overpayment · approved 23/06</span></div>
+              <span class="ci-amt">£ 1,250.00</span>
+            </label>
+            <label class="candidate-item">
+              <input type="checkbox" checked data-amt="6250.00" />
+              <div class="ci-meta"><span class="ci-ref">AHP-2026-0149 · Westside Council</span><span class="ci-sub">FP · Council fund refund · approved 24/06</span></div>
+              <span class="ci-amt">£ 6,250.00</span>
+            </label>
+            <label class="candidate-item">
+              <input type="checkbox" checked data-amt="9830.00" />
+              <div class="ci-meta"><span class="ci-ref">AHP-2026-0152 · Foster Logistics</span><span class="ci-sub">CHAPS · Supplier — services · approved 23/06</span></div>
+              <span class="ci-amt">£ 9,830.00</span>
+            </label>
+          </div>
+        </div>
+        <div class="totals-summary">
+          <span><span id="genTotalCount">3</span> selected</span>
+          <span class="num">£ <span id="genTotalValue">17,330.00</span> GBP</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" type="button" id="genCancel">Cancel</button>
+        <button class="btn btn-primary" type="button" id="genConfirm">
+          <span class="material-symbols-outlined" aria-hidden="true">description</span>
+          Generate file
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fail-reason modal -->
+  <div class="modal-backdrop" id="failBackdrop" data-open="false">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="failTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="failTitle">Mark file as failed</h3>
+        <button class="drawer-close" id="failClose" type="button" aria-label="Close">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-secondary);">Marking <strong id="failFile">—</strong> as failed will notify the requester(s) of each payment with your reason. The journal will not be generated.</p>
+        <div>
+          <label class="field-label" for="failReason">Reason returned by bank <span style="color: var(--color-error);">*</span></label>
+          <textarea id="failReason" class="textarea" placeholder="e.g. Invalid BIC for receiving institution — please update beneficiary bank details"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" type="button" id="failCancel">Cancel</button>
+        <button class="btn btn-danger" type="button" id="failConfirm">
+          <span class="material-symbols-outlined" aria-hidden="true">error</span>
+          Confirm failure
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script>
+    /* -- Sidebar toggle -- */
+    (function () {
+      const sidebar = document.getElementById('sidebar');
+      const toggle  = document.getElementById('sidebarToggle');
+      toggle.addEventListener('click', () => {
+        const expanded = sidebar.classList.toggle('is-expanded');
+        toggle.setAttribute('aria-expanded', String(expanded));
+      });
+    })();
+
+    /* -- Toast -- */
+    (function () {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      let t;
+      window.__fionaToast = function (msg, isError) {
+        toastMsg.textContent = msg;
+        toast.style.background = isError ? 'var(--color-error-dark)' : 'var(--color-success-dark)';
+        toast.classList.add('is-visible');
+        clearTimeout(t);
+        t = setTimeout(() => toast.classList.remove('is-visible'), 2800);
+      };
+    })();
+
+    /* ----------------------------------------------------------------
+       Generated-Files page logic
+       ---------------------------------------------------------------- */
+    (function () {
+      const toast = (m, e) => window.__fionaToast(m, e);
+      const tbody = document.getElementById('fileRows');
+
+      /* Records — generated-file records only (one entry per Lloyds batch) */
+      const files = {
+        'FGEN-2026-0091': {
+          method:'Faster Payments (FP)', methodCls:'fp',
+          generated:'24/06/2026 09:02', operator:'Mark T.',
+          format:'Lloyds Bulk Credit (CSV)',
+          pmtCount:2, ccy:'GBP', sym:'£', total:2200.00,
+          status:'generated',
+          payments:[
+            { ref:'AHP-2026-0145', beneficiary:'R. Patel',          reason:'Goodwill payment', amount:380.00 },
+            { ref:'AHP-2026-0148', beneficiary:'Bramble & Co.',     reason:'Refund — overpayment', amount:1820.00 }
+          ],
+          timeline:[
+            { kind:'success', icon:'verified',    text:'<strong>2</strong> requests approved and queued', meta:'24/06/2026 08:55' },
+            { kind:'primary', icon:'description', text:'<strong>Mark T.</strong> generated the Lloyds file', meta:'24/06/2026 09:02' }
+          ]
+        },
+        'FGEN-2026-0090': {
+          method:'CHAPS', methodCls:'chaps',
+          generated:'23/06/2026 14:18', operator:'Mark T.',
+          format:'Lloyds CHAPS (SWIFT MT103)',
+          pmtCount:1, ccy:'EUR', sym:'€', total:12400.00,
+          status:'generated',
+          payments:[
+            { ref:'AHP-2026-0146', beneficiary:'NorthBridge Ltd', reason:'Supplier — services', amount:12400.00 }
+          ],
+          timeline:[
+            { kind:'success', icon:'verified',    text:'Request <strong>AHP-2026-0146</strong> approved', meta:'22/06/2026 09:42' },
+            { kind:'primary', icon:'description', text:'<strong>Mark T.</strong> generated the Lloyds file', meta:'23/06/2026 14:18' }
+          ]
+        },
+        'FGEN-2026-0089': {
+          method:'Faster Payments (FP)', methodCls:'fp',
+          generated:'23/06/2026 09:02', operator:'Anna L.',
+          format:'Lloyds Bulk Credit (CSV)',
+          pmtCount:1, ccy:'GBP', sym:'£', total:380.00,
+          status:'generated',
+          payments:[
+            { ref:'AHP-2026-0145', beneficiary:'R. Patel', reason:'Goodwill payment', amount:380.00 }
+          ],
+          timeline:[
+            { kind:'success', icon:'verified',    text:'Request <strong>AHP-2026-0145</strong> approved', meta:'20/06/2026 14:08' },
+            { kind:'primary', icon:'description', text:'<strong>Anna L.</strong> generated the Lloyds file', meta:'23/06/2026 09:02' }
+          ]
+        },
+        'FGEN-2026-0088': {
+          method:'CHAPS', methodCls:'chaps',
+          generated:'21/06/2026 10:00', operator:'Mark T.',
+          format:'Lloyds CHAPS (SWIFT MT103)',
+          pmtCount:1, ccy:'USD', sym:'$', total:6000.00,
+          status:'failed',
+          failReason:'Invalid BIC for receiving institution — please update beneficiary bank details and resubmit.',
+          failTime:'21/06/2026 13:14',
+          payments:[
+            { ref:'AHP-2026-0143', beneficiary:'Walden Holdings', reason:'Vendor — software', amount:6000.00 }
+          ],
+          timeline:[
+            { kind:'success', icon:'verified',    text:'Request <strong>AHP-2026-0143</strong> approved', meta:'19/06/2026 11:00' },
+            { kind:'primary', icon:'description', text:'<strong>Mark T.</strong> generated the Lloyds file', meta:'21/06/2026 10:00' },
+            { kind:'error',   icon:'error',      text:'Bank <strong>rejected</strong> the payment — see failure reason', meta:'21/06/2026 13:14' },
+            { kind:'warn',    icon:'mail',       text:'Notification sent to requester <strong>Priya M.</strong>', meta:'21/06/2026 13:15' }
+          ]
+        },
+        'FGEN-2026-0087': {
+          method:'BACS', methodCls:'bacs',
+          generated:'17/06/2026 11:30', operator:'Anna L.',
+          format:'Lloyds BACS Standard 18',
+          pmtCount:1, ccy:'GBP', sym:'£', total:2100.00,
+          status:'settled',
+          journalId:'JNL-2026-0142', journalGen:'22/06/2026 16:20',
+          payments:[
+            { ref:'AHP-2026-0144', beneficiary:'Severn Trent Water', reason:'Utilities — refund', amount:2100.00 }
+          ],
+          timeline:[
+            { kind:'success', icon:'verified',    text:'Request <strong>AHP-2026-0144</strong> approved', meta:'15/06/2026 15:30' },
+            { kind:'primary', icon:'description', text:'<strong>Anna L.</strong> generated the Lloyds file', meta:'17/06/2026 11:30' },
+            { kind:'success', icon:'task_alt',    text:'<strong>Anna L.</strong> marked the file complete — journal generated', meta:'22/06/2026 16:20' }
+          ]
+        },
+        'FGEN-2026-0086': {
+          method:'BACS', methodCls:'bacs',
+          generated:'16/06/2026 11:30', operator:'Mark T.',
+          format:'Lloyds BACS Standard 18',
+          pmtCount:4, ccy:'GBP', sym:'£', total:18420.00,
+          status:'settled',
+          journalId:'JNL-2026-0136', journalGen:'21/06/2026 09:00',
+          payments:[
+            { ref:'AHP-2026-0139', beneficiary:'Cotswold DC',            reason:'Court fee',         amount:920.00 },
+            { ref:'AHP-2026-0140', beneficiary:'Bridgewater Holdings',   reason:'Supplier — services', amount:6450.00 },
+            { ref:'AHP-2026-0141', beneficiary:'Henley Building Society', reason:'Refund — overpayment', amount:2750.00 },
+            { ref:'AHP-2026-0142b', beneficiary:'Wessex Trustees',       reason:'Legal disbursement', amount:8300.00 }
+          ],
+          timeline:[
+            { kind:'success', icon:'verified',    text:'<strong>4</strong> requests approved and queued', meta:'15/06/2026 17:40' },
+            { kind:'primary', icon:'description', text:'<strong>Mark T.</strong> generated the Lloyds file', meta:'16/06/2026 11:30' },
+            { kind:'success', icon:'task_alt',    text:'<strong>Mark T.</strong> marked the file complete — journal generated', meta:'21/06/2026 09:00' }
+          ]
+        },
+        'FGEN-2026-0085': {
+          method:'CHAPS', methodCls:'chaps',
+          generated:'15/06/2026 09:30', operator:'Anna L.',
+          format:'Lloyds CHAPS (SWIFT MT103)',
+          pmtCount:2, ccy:'GBP', sym:'£', total:9800.00,
+          status:'settled',
+          journalId:'JNL-2026-0131', journalGen:'18/06/2026 14:00',
+          payments:[
+            { ref:'AHP-2026-0137', beneficiary:'Pinewood Surveying',  reason:'Supplier — services', amount:4200.00 },
+            { ref:'AHP-2026-0138', beneficiary:'Mayfair Counsel LLP', reason:'Legal disbursement', amount:5600.00 }
+          ],
+          timeline:[
+            { kind:'success', icon:'verified',    text:'<strong>2</strong> requests approved and queued', meta:'14/06/2026 16:10' },
+            { kind:'primary', icon:'description', text:'<strong>Anna L.</strong> generated the Lloyds file', meta:'15/06/2026 09:30' },
+            { kind:'success', icon:'task_alt',    text:'<strong>Anna L.</strong> marked the file complete — journal generated', meta:'18/06/2026 14:00' }
+          ]
+        }
+      };
+
+      const badges = {
+        generated:{ cls:'badge--generated', icon:'description', label:'Generated · awaiting bank' },
+        settled:  { cls:'badge--settled',   icon:'task_alt',    label:'Settled · journal generated' },
+        failed:   { cls:'badge--failed',    icon:'error',       label:'Failed — bank rejected' }
+      };
+      const actionByStatus = {
+        generated:[
+          ['download','Download Lloyds file','download','secondary'],
+          ['fail','Mark failed','error','ghost'],
+          ['complete','Mark complete','task_alt','primary']
+        ],
+        settled:[
+          ['journal','View journal','receipt','secondary'],
+          ['download','Download Lloyds file','download','secondary']
+        ],
+        failed:[
+          ['download','Download Lloyds file','download','ghost'],
+          ['retry','Retry payment','refresh','primary']
+        ]
+      };
+      const actionMsg = {
+        download:'Lloyds file download started',
+        complete:'File marked complete — journal generated',
+        fail:'Marked failed — requesters notified',
+        retry:'Retry initiated — new file will be queued',
+        journal:'Journal opened'
+      };
+
+      /* ---- View drawer ---- */
+      const drawer   = document.getElementById('viewDrawer');
+      const backdrop = document.getElementById('viewBackdrop');
+      const closeBtn = document.getElementById('viewClose');
+      const subtitle = document.getElementById('viewSubtitle');
+      const title    = document.getElementById('viewTitle');
+      const statusEl = document.getElementById('viewStatusBadge');
+      const footer   = document.getElementById('viewFooter');
+      const tabs     = Array.from(document.querySelectorAll('.view-tab'));
+      const panels   = Array.from(document.querySelectorAll('.view-panel'));
+      let lastFocus = null;
+
+      function openView(id) {
+        const d = files[id];
+        if (!d) { toast('File ' + id + ' not found', true); return; }
+        lastFocus = document.activeElement;
+        render(id, d);
+        backdrop.dataset.open = 'true';
+        drawer.dataset.open = 'true';
+        setTimeout(() => closeBtn.focus(), 250);
+        document.addEventListener('keydown', onKey);
+      }
+      function closeView() {
+        backdrop.dataset.open = 'false';
+        drawer.dataset.open = 'false';
+        document.removeEventListener('keydown', onKey);
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      function onKey(e) { if (e.key === 'Escape') closeView(); }
+      closeBtn.addEventListener('click', closeView);
+      backdrop.addEventListener('click', closeView);
+
+      tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
+      function switchTab(name) {
+        tabs.forEach(t => {
+          const on = t.dataset.tab === name;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', String(on));
+        });
+        panels.forEach(p => {
+          const on = p.dataset.panel === name;
+          p.classList.toggle('is-active', on);
+          p.hidden = !on;
+        });
+      }
+
+      function render(id, d) {
+        switchTab('summary');
+        subtitle.textContent = id;
+        title.textContent = d.method + ' · ' + d.sym + ' ' + fmt(d.total) + ' ' + d.ccy;
+        const b = badges[d.status];
+        statusEl.innerHTML = b ? '<span class="badge ' + b.cls + '"><span class="material-symbols-outlined" aria-hidden="true">' + b.icon + '</span>' + b.label + '</span>' : '';
+
+        set('vw-fileId', id);
+        set('vw-method', d.method);
+        set('vw-generated', d.generated);
+        set('vw-operator', d.operator);
+        set('vw-format', d.format);
+        set('vw-pmtCount', d.pmtCount);
+        set('vw-ccy', d.ccy);
+        set('vw-total', d.sym + ' ' + fmt(d.total));
+
+        /* Conditional sections */
+        const failSec = document.getElementById('vw-failSection');
+        if (d.status === 'failed') {
+          failSec.hidden = false;
+          set('vw-failReason', d.failReason);
+          set('vw-failTime', d.failTime);
+        } else { failSec.hidden = true; }
+
+        const jSec = document.getElementById('vw-journalSection');
+        if (d.status === 'settled' && d.journalId) {
+          jSec.hidden = false;
+          set('vw-journalId', d.journalId);
+          set('vw-journalGen', d.journalGen);
+        } else { jSec.hidden = true; }
+
+        /* Payments */
+        const list = document.getElementById('vw-payments');
+        list.innerHTML = (d.payments || []).map(p => (
+          '<div class="pmt-item">' +
+            '<span class="pmt-item-icon" aria-hidden="true"><span class="material-symbols-outlined">receipt_long</span></span>' +
+            '<div class="pmt-item-text">' +
+              '<span class="pmt-item-ref">' + esc(p.ref) + ' · ' + esc(p.beneficiary) + '</span>' +
+              '<span class="pmt-item-meta">' + esc(p.reason) + '</span>' +
+            '</div>' +
+            '<span class="pmt-item-amt">' + d.sym + ' ' + fmt(p.amount) + '</span>' +
+          '</div>'
+        )).join('') || emptyHtml('inbox', 'No payments in this file');
+        document.getElementById('pmtCount').textContent = (d.payments || []).length;
+
+        /* Activity */
+        const tl = document.getElementById('vw-timeline');
+        tl.innerHTML = (d.timeline || []).map(i => (
+          '<li class="timeline-item">' +
+            '<span class="timeline-dot ' + (i.kind || '') + '" aria-hidden="true"><span class="material-symbols-outlined">' + i.icon + '</span></span>' +
+            '<div class="timeline-body"><p class="timeline-text">' + i.text + '</p><p class="timeline-meta">' + i.meta + '</p></div>' +
+          '</li>'
+        )).join('') || emptyHtml('history', 'No activity yet');
+        document.getElementById('activityCount').textContent = (d.timeline || []).length;
+
+        /* Footer actions per status */
+        const list2 = actionByStatus[d.status] || [];
+        footer.innerHTML =
+          '<span class="view-footer-spacer"></span>' +
+          list2.map(([k, l, ic, kind]) => (
+            '<button class="btn btn-' + kind + '" type="button" data-action="' + k + '">' +
+              '<span class="material-symbols-outlined" aria-hidden="true">' + ic + '</span>' + l + '</button>'
+          )).join('');
+        footer.querySelectorAll('[data-action]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const k = btn.dataset.action;
+            if (k === 'fail') { closeView(); setTimeout(() => openFail(id), 220); return; }
+            toast(actionMsg[k] || (k + ' done'));
+            if (k === 'complete') {
+              /* Visually swap status on the row */
+              swapStatus(id, 'settled');
+              closeView();
+            } else if (k === 'retry') {
+              swapStatus(id, 'generated');
+              closeView();
+            } else {
+              /* download / journal — keep drawer open */
+            }
+          });
+        });
+      }
+      function set(id, v) { const el = document.getElementById(id); if (el) el.textContent = (v === null || v === undefined || v === '') ? '—' : v; }
+      function fmt(n) { return typeof n === 'number' ? n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00'; }
+      function emptyHtml(i, m) { return '<div class="view-empty"><span class="material-symbols-outlined" aria-hidden="true">' + i + '</span>' + m + '</div>'; }
+      function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+      function swapStatus(id, newStatus) {
+        const a = Array.from(tbody.querySelectorAll('td a')).find(x => x.textContent.trim() === id);
+        if (!a) return;
+        const tr = a.closest('tr');
+        const cell = tr.children[7];
+        const b = badges[newStatus];
+        if (b && cell) {
+          cell.innerHTML = '<span class="badge ' + b.cls + '"><span class="material-symbols-outlined" aria-hidden="true">' + b.icon + '</span>' + b.label.split(' ·')[0] + '</span>';
+        }
+        if (files[id]) files[id].status = newStatus;
+      }
+
+      /* -- Row click delegation -- */
+      tbody.addEventListener('click', e => {
+        const link = e.target.closest('a[href="#"]');
+        const btn  = e.target.closest('button[aria-label]');
+        const tr   = e.target.closest('tr');
+        if (!tr) return;
+        const id = tr.querySelector('td a')?.textContent.trim();
+        if (!id) return;
+        if (link) { e.preventDefault(); openView(id); return; }
+        if (!btn) return;
+        const label = (btn.getAttribute('aria-label') || '').toLowerCase();
+        if (label.startsWith('view file')) { openView(id); return; }
+        const act = btn.dataset.act;
+        if (act === 'fail') { openFail(id); return; }
+        if (act === 'complete') { swapStatus(id, 'settled'); toast(actionMsg.complete); return; }
+        if (act === 'retry')    { swapStatus(id, 'generated'); toast(actionMsg.retry); return; }
+        if (act === 'download') { toast(actionMsg.download); return; }
+        if (act === 'journal')  { toast(actionMsg.journal); return; }
+      });
+
+      /* ---- Generate modal ---- */
+      const gen = document.getElementById('genBackdrop');
+      function openGen() {
+        gen.dataset.open = 'true';
+        updateGenTotals();
+      }
+      function closeGen() { gen.dataset.open = 'false'; }
+      function updateGenTotals() {
+        const boxes = gen.querySelectorAll('.candidate-item input[type="checkbox"]');
+        let n = 0, sum = 0;
+        boxes.forEach(b => { if (b.checked) { n++; sum += parseFloat(b.dataset.amt || '0'); } });
+        document.getElementById('genTotalCount').textContent = n;
+        document.getElementById('genTotalValue').textContent = sum.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      gen.addEventListener('change', updateGenTotals);
+      document.getElementById('generateBtn').addEventListener('click', openGen);
+      document.getElementById('generateBtn2').addEventListener('click', openGen);
+      document.getElementById('genClose').addEventListener('click', closeGen);
+      document.getElementById('genCancel').addEventListener('click', closeGen);
+      gen.addEventListener('click', e => { if (e.target === gen) closeGen(); });
+      document.getElementById('genConfirm').addEventListener('click', () => {
+        const n = document.getElementById('genTotalCount').textContent;
+        if (n === '0') { toast('Select at least one approved request', true); return; }
+        toast('Lloyds file generated with ' + n + ' payment' + (n === '1' ? '' : 's'));
+        closeGen();
+      });
+
+      document.getElementById('downloadAllBtn').addEventListener('click', () => toast('Bundle download started — 3 files'));
+
+      /* ---- Fail-reason modal ---- */
+      const failBd = document.getElementById('failBackdrop');
+      const failFile = document.getElementById('failFile');
+      const failReason = document.getElementById('failReason');
+      let failCurrent = null;
+      function openFail(id) {
+        failCurrent = id;
+        failFile.textContent = id;
+        failReason.value = '';
+        failBd.dataset.open = 'true';
+        setTimeout(() => failReason.focus(), 100);
+      }
+      function closeFail() { failBd.dataset.open = 'false'; failCurrent = null; }
+      document.getElementById('failClose').addEventListener('click', closeFail);
+      document.getElementById('failCancel').addEventListener('click', closeFail);
+      failBd.addEventListener('click', e => { if (e.target === failBd) closeFail(); });
+      document.getElementById('failConfirm').addEventListener('click', () => {
+        const reason = failReason.value.trim();
+        if (!reason) { failReason.focus(); toast('Please provide a reason returned by the bank', true); return; }
+        if (failCurrent) {
+          swapStatus(failCurrent, 'failed');
+          toast('File ' + failCurrent + ' marked failed — requesters notified');
+        }
+        closeFail();
+      });
+    })();
+  </script>
+
+  <!-- ----- Column Header Menu (3-dot) ----- -->
+  <style>
+    .data-table th { position: relative; }
+    .th-menu-btn {
+      position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 4px; padding: 0;
+      border: none; background: transparent; color: var(--text-secondary, #616161);
+      cursor: pointer; opacity: 0; transition: opacity 120ms ease, background 120ms ease;
+    }
+    .th-menu-btn .material-symbols-outlined { font-size: 18px; }
+    .data-table th:hover .th-menu-btn,
+    .th-menu-btn.is-open,
+    .th-menu-btn:focus-visible { opacity: 1; }
+    .th-menu-btn:hover { background: var(--grey-100, #f0f0f0); }
+
+    .col-menu {
+      position: absolute; z-index: 1000; min-width: 210px;
+      background: #FFFFFF; border: 1px solid var(--grey-200, #E0E0E0);
+      border-radius: 8px; box-shadow: 0 6px 20px rgba(12, 26, 45, 0.14);
+      padding: 6px 0; display: none; font-size: 13px;
+    }
+    .col-menu.is-open { display: block; }
+    .col-menu button {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 8px 16px; background: transparent; border: none;
+      text-align: left; cursor: pointer; color: var(--text-primary, #212121);
+      font-size: 13px; text-transform: none; letter-spacing: 0;
+    }
+    .col-menu button:hover,
+    .col-menu button:focus-visible { background: var(--color-primary-25, #F0F5FC); outline: none; }
+    .col-menu button.is-selected { background: var(--color-primary-25, #F0F5FC); font-weight: 600; }
+    .col-menu .material-symbols-outlined { font-size: 18px; color: var(--text-secondary, #616161); }
+    .col-menu hr { border: none; border-top: 1px solid var(--grey-200, #E0E0E0); margin: 4px 0; }
+  </style>
+  <script>
+    (function () {
+      function initColumnMenus(root) {
+        var scope = root || document;
+        var tables = scope.querySelectorAll('table.data-table');
+        tables.forEach(function (table) {
+          table.querySelectorAll('thead th').forEach(function (th) {
+            if (th.classList.contains('col-check')) return;
+            var label = (th.textContent || '').trim().toLowerCase();
+            if (!label || label === 'actions') return;
+            if (th.querySelector('.th-menu-btn')) return;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'th-menu-btn';
+            btn.setAttribute('aria-label', 'Column options');
+            btn.setAttribute('aria-haspopup', 'menu');
+            btn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">more_vert</span>';
+            th.appendChild(btn);
+          });
+        });
+      }
+
+      function ensureMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) return menu;
+        menu = document.createElement('div');
+        menu.id = 'columnMenuPopup';
+        menu.className = 'col-menu';
+        menu.setAttribute('role', 'menu');
+        menu.innerHTML = [
+          '<button type="button" data-act="sort-asc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>Sort by ASC</button>',
+          '<button type="button" data-act="sort-desc" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span>Sort by DESC</button>',
+          '<hr>',
+          '<button type="button" data-act="pin-left" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to left</button>',
+          '<button type="button" data-act="pin-right" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">push_pin</span>Pin to right</button>',
+          '<hr>',
+          '<button type="button" data-act="filter" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">filter_alt</span>Filter</button>',
+          '<button type="button" data-act="hide" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>Hide Column</button>',
+          '<button type="button" data-act="manage" role="menuitem" class="is-selected"><span class="material-symbols-outlined" aria-hidden="true">view_column</span>Manage Column</button>'
+        ].join('');
+        document.body.appendChild(menu);
+        return menu;
+      }
+
+      var currentBtn = null;
+      var currentTh = null;
+
+      function openMenuFor(btn) {
+        var menu = ensureMenu();
+        closeMenu();
+        currentBtn = btn;
+        currentTh = btn.closest('th');
+        btn.classList.add('is-open');
+        var rect = btn.getBoundingClientRect();
+        menu.style.top = (window.scrollY + rect.bottom + 4) + 'px';
+        menu.style.left = (window.scrollX + rect.left) + 'px';
+        menu.classList.add('is-open');
+      }
+
+      function closeMenu() {
+        var menu = document.getElementById('columnMenuPopup');
+        if (menu) menu.classList.remove('is-open');
+        if (currentBtn) currentBtn.classList.remove('is-open');
+        currentBtn = null;
+        currentTh = null;
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('.th-menu-btn');
+        if (btn) {
+          e.stopPropagation();
+          if (btn === currentBtn) { closeMenu(); return; }
+          openMenuFor(btn);
+          return;
+        }
+        var item = e.target.closest && e.target.closest('#columnMenuPopup button');
+        if (item) {
+          e.stopPropagation();
+          handleMenuAction(item.getAttribute('data-act'));
+          closeMenu();
+          return;
+        }
+        if (e.target.closest && e.target.closest('#columnMenuPopup')) return;
+        closeMenu();
+      });
+
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+      window.addEventListener('scroll', closeMenu, true);
+      window.addEventListener('resize', closeMenu);
+
+      function handleMenuAction(act) {
+        if (!currentTh || act !== 'hide') return;
+        var table = currentTh.closest('table');
+        var headerRow = currentTh.parentElement;
+        var colIndex = Array.prototype.indexOf.call(headerRow.children, currentTh);
+        currentTh.style.display = 'none';
+        table.querySelectorAll('tbody tr').forEach(function (tr) {
+          var cell = tr.children[colIndex];
+          if (cell) cell.style.display = 'none';
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { initColumnMenus(); });
+      } else {
+        initColumnMenus();
+      }
+      window.reinitColumnMenus = initColumnMenus;
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

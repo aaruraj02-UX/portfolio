@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Journeys — Acme Customer App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .journey-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;box-shadow:var(--shadow)}
+    .journey-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+    .journey-card-header h3{font-size:1rem;font-weight:700}
+    .journey-card-header .journey-meta{font-size:.75rem;color:var(--text-muted)}
+    .journey-visual{background:linear-gradient(180deg,#fefce8 0%,#fff 100%);border:1px solid #fde68a;border-radius:10px;padding:1.5rem 1rem;overflow-x:auto}
+    .j-stages{display:flex;align-items:flex-start;gap:0;min-width:max-content}
+    .j-stage{display:flex;flex-direction:column;align-items:center;width:120px;position:relative}
+    .j-stage:not(:last-child)::after{content:'';position:absolute;top:22px;left:50%;width:100%;height:2px;background:linear-gradient(90deg,#fbbf24,#f59e0b);z-index:0}
+    .j-num{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;color:#fff;z-index:1;margin-bottom:.4rem;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+    .j-num--happy{background:linear-gradient(135deg,#10b981,#34d399)}
+    .j-num--neutral{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+    .j-num--stress{background:linear-gradient(135deg,#ef4444,#f87171)}
+    .j-num--focused{background:linear-gradient(135deg,#3b82f6,#60a5fa)}
+    .j-name{font-size:.68rem;font-weight:600;text-align:center;color:var(--text-primary);margin-bottom:.25rem;line-height:1.3}
+    .j-feel{font-size:1.1rem;margin-bottom:.2rem}
+    .j-note{font-size:.58rem;color:var(--text-muted);text-align:center;line-height:1.3;max-width:100px}
+    .emotion-line{margin-top:1.5rem;padding:1rem;background:#fff;border:1px solid var(--border);border-radius:8px}
+    .emotion-line h4{font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:.5rem}
+    .emotion-svg{width:100%;height:60px}
+    .ac-list{margin-top:1rem;padding:.75rem 1rem;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0}
+    .ac-list h4{font-size:.75rem;font-weight:600;color:#166534;margin-bottom:.4rem}
+    .ac-list li{font-size:.72rem;color:var(--text-secondary);margin-bottom:.2rem}
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">Customer App</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html" class="active">User Journeys</a>
+    <a href="../prototype/Landing-Page.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>User Journey Maps</h1>
+      <div class="doc-meta"><span>🗺️ Acme Customer App Landing Page</span><span>📅 21 May 2026</span></div>
+    </header>
+
+    <!-- Journey 1 -->
+    <div class="journey-card">
+      <div class="journey-card-header">
+        <div><h3>Journey 1 — SMS → Pay Now (Happy Path)</h3><div class="journey-meta">Persona: Emma — Citizen/Debtor &nbsp;|&nbsp; Mobile web, 4G &nbsp;|&nbsp; Goal: Pay outstanding amount</div></div>
+        <span class="badge badge--green">10 Stages</span>
+      </div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--stress">1</div><div class="j-feel">😟</div><div class="j-name">Receive SMS</div><div class="j-note">"Is this a scam?"</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">2</div><div class="j-feel">😐</div><div class="j-name">Sign-In</div><div class="j-note">Enter postcode + input</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">3</div><div class="j-feel">😌</div><div class="j-name">Auth Success</div><div class="j-note">"Looks real"</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">4</div><div class="j-feel">😐</div><div class="j-name">Home / Timeline</div><div class="j-note">Case + stage + CTA</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">5</div><div class="j-feel">🤨</div><div class="j-name">Review Fees</div><div class="j-note">"Are these right?"</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">6</div><div class="j-feel">💪</div><div class="j-name">Tap Pay Now</div><div class="j-note">Determined</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">7</div><div class="j-feel">😐</div><div class="j-name">Confirm Amount</div><div class="j-note">Double-check</div></div>
+          <div class="j-stage"><div class="j-num j-num--stress">8</div><div class="j-feel">😬</div><div class="j-name">Payment Gateway</div><div class="j-note">Tense, brand lost</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">9</div><div class="j-feel">😊</div><div class="j-name">Success!</div><div class="j-note">"Done. Done. Done."</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">10</div><div class="j-feel">😌</div><div class="j-name">Exit</div><div class="j-note">Calm, resolved</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 500 60" preserveAspectRatio="none">
+          <path d="M15,50 L60,35 L110,15 L165,30 L215,35 L265,25 L315,30 L365,48 L415,10 L465,15" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="15" cy="50" r="4" fill="#ef4444"/><circle cx="60" cy="35" r="4" fill="#f59e0b"/><circle cx="110" cy="15" r="4" fill="#10b981"/><circle cx="165" cy="30" r="4" fill="#3b82f6"/><circle cx="215" cy="35" r="4" fill="#f59e0b"/><circle cx="265" cy="25" r="4" fill="#3b82f6"/><circle cx="315" cy="30" r="4" fill="#f59e0b"/><circle cx="365" cy="48" r="4" fill="#ef4444"/><circle cx="415" cy="10" r="4" fill="#10b981"/><circle cx="465" cy="15" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+      <div class="ac-list"><h4>Acceptance Criteria</h4><ul><li>Median time SMS → payment ≤ 4 min on mid-range Android / 4G</li><li>Pay Now CTA reachable with one thumb on ≥ 360 px</li><li>All stage copy uses runtime-resolved variables</li><li>Sign-in retries indicator meets WCAG 2.2 AA</li></ul></div>
+    </div>
+
+    <!-- Journey 2 -->
+    <div class="journey-card">
+      <div class="journey-card-header">
+        <div><h3>Journey 2 — Stuck at Sign-In → Support</h3><div class="journey-meta">Persona: Derek — older citizen, low digital confidence &nbsp;|&nbsp; Goal: Find way to pay without website</div></div>
+        <span class="badge badge--red">6 Stages</span>
+      </div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--neutral">1</div><div class="j-feel">😟</div><div class="j-name">Open Link</div><div class="j-note">Hesitant, tiny text</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">2</div><div class="j-feel">😰</div><div class="j-name">Enter Postcode</div><div class="j-note">Typo on attempt 2</div></div>
+          <div class="j-stage"><div class="j-num j-num--stress">3</div><div class="j-feel">😫</div><div class="j-name">Retry</div><div class="j-note">"I'll never get this right"</div></div>
+          <div class="j-stage"><div class="j-num j-num--stress">4</div><div class="j-feel">😞</div><div class="j-name">Locked Out</div><div class="j-note">Resigned</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">5</div><div class="j-feel">😓</div><div class="j-name">Call Support</div><div class="j-note">Wait time unknown</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">6</div><div class="j-feel">😌</div><div class="j-name">Agent Assists</div><div class="j-note">"Finally" — relieved</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 320 60" preserveAspectRatio="none">
+          <path d="M20,35 L70,40 L130,55 L190,55 L250,45 L300,15" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="35" r="4" fill="#f59e0b"/><circle cx="70" cy="40" r="4" fill="#f59e0b"/><circle cx="130" cy="55" r="4" fill="#ef4444"/><circle cx="190" cy="55" r="4" fill="#ef4444"/><circle cx="250" cy="45" r="4" fill="#f59e0b"/><circle cx="300" cy="15" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+      <div class="ac-list"><h4>Acceptance Criteria</h4><ul><li>Lock-out screen presents ≥ 2 contact channels with WCAG link styling</li><li>Inline help link appears from 2nd failed attempt</li><li>Locked state does not expose any case data</li></ul></div>
+    </div>
+
+    <!-- Journey 3 -->
+    <div class="journey-card">
+      <div class="journey-card-header">
+        <div><h3>Journey 3 — Author: Edit & Publish Landing Page Content</h3><div class="journey-meta">Persona: Internal Author &nbsp;|&nbsp; Goal: Update enforcement stage copy and get it published</div></div>
+        <span class="badge badge--purple">7 Stages</span>
+      </div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--focused">1</div><div class="j-feel">🙂</div><div class="j-name">Open Settings</div><div class="j-note">Navigate to tab</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">2</div><div class="j-feel">🙂</div><div class="j-name">Click-to-Edit</div><div class="j-note">WYSIWYE panel</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">3</div><div class="j-feel">😊</div><div class="j-name">Make Changes</div><div class="j-note">Inline edit, preview</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">4</div><div class="j-feel">🙂</div><div class="j-name">Save Draft</div><div class="j-note">Local save first</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">5</div><div class="j-feel">😐</div><div class="j-name">Submit for Review</div><div class="j-note">Status → In Review</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">6</div><div class="j-feel">😐</div><div class="j-name">Await Decision</div><div class="j-note">Reviewer approves</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">7</div><div class="j-feel">🎉</div><div class="j-name">Published!</div><div class="j-note">Live for customers</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 380 60" preserveAspectRatio="none">
+          <path d="M20,20 L65,18 L115,10 L170,20 L225,30 L280,30 L340,8" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="4" fill="#3b82f6"/><circle cx="65" cy="18" r="4" fill="#10b981"/><circle cx="115" cy="10" r="4" fill="#10b981"/><circle cx="170" cy="20" r="4" fill="#3b82f6"/><circle cx="225" cy="30" r="4" fill="#f59e0b"/><circle cx="280" cy="30" r="4" fill="#f59e0b"/><circle cx="340" cy="8" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

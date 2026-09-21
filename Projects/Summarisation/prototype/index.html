@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocProcessor Tool — Prototype Index</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--color-bg, #F2F5FA);
+      color: var(--text-primary, #212121);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .idx-header {
+      background: #fff;
+      border-bottom: 1px solid #E0E0E0;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .idx-logo {
+      height: 36px;
+      width: auto;
+    }
+    .idx-brand {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary, #212121);
+    }
+
+    /* Main */
+    .idx-main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 56px 40px;
+    }
+    .idx-page-title {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-primary, #212121);
+      margin: 0 0 8px;
+    }
+    .idx-page-subtitle {
+      font-size: 15px;
+      color: var(--text-secondary, #757575);
+      margin: 0 0 40px;
+    }
+
+    /* Card grid */
+    .idx-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    /* Section heading between flow groups */
+    .idx-section {
+      margin-top: 48px;
+    }
+    .idx-section:first-of-type {
+      margin-top: 0;
+    }
+    .idx-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary, #212121);
+      margin: 0 0 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .idx-section-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #3276CF;
+      background: #EFF6FF;
+      border-radius: 100px;
+      padding: 3px 10px;
+    }
+    .idx-section-pill.green {
+      color: #166534;
+      background: #DCFCE7;
+    }
+    .idx-section-desc {
+      font-size: 13px;
+      color: var(--text-secondary, #757575);
+      margin: 0 0 20px;
+    }
+
+    .idx-card {
+      display: flex;
+      flex-direction: column;
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 1px 4px rgba(50, 118, 207, 0.10);
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out;
+    }
+    .idx-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(50, 118, 207, 0.18);
+      border-color: #3276CF;
+    }
+    .idx-card:focus-visible {
+      outline: 2px solid #3276CF;
+      outline-offset: 2px;
+    }
+
+    .idx-card-badge {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #3276CF;
+      background: #EFF6FF;
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+    .idx-card-badge.amber {
+      color: #92400E;
+      background: #FEF3C7;
+    }
+    .idx-card-badge.green {
+      color: #166534;
+      background: #DCFCE7;
+    }
+
+    .idx-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #EFF6FF;
+      color: #3276CF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .idx-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary, #212121);
+      margin: 0 0 8px;
+      line-height: 1.3;
+    }
+    .idx-card-desc {
+      font-size: 14px;
+      color: var(--text-secondary, #757575);
+      line-height: 1.55;
+      margin: 0 0 24px;
+      flex: 1;
+    }
+
+    .idx-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #3276CF;
+    }
+    .idx-card-cta svg {
+      transition: transform 150ms ease-out;
+    }
+    .idx-card:hover .idx-card-cta svg {
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    .idx-footer {
+      padding: 20px 40px;
+      font-size: 12px;
+      color: var(--text-secondary, #757575);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="idx-header">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 32'%3E%3Crect width='160' height='32' rx='4' fill='%23374151'/%3E%3Crect x='8' y='6' width='12' height='16' rx='2' fill='none' stroke='%2393c5fd' stroke-width='1.5'/%3E%3Cline x1='11' y1='10' x2='17' y2='10' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='13' x2='17' y2='13' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='16' x2='15' y2='16' stroke='%2393c5fd' stroke-width='1'/%3E%3Ctext x='26' y='20' font-family='system-ui,sans-serif' font-size='11' font-weight='600' fill='white'%3EAcme NPS%3C/text%3E%3C/svg%3E" alt="Acme Notice Processing System" class="idx-logo" />
+    <span class="idx-brand">Challenge DocProcessor — Prototype Index</span>
+  </header>
+
+  <main class="idx-main">
+    <h1 class="idx-page-title">Prototype scenarios</h1>
+    <p class="idx-page-subtitle">Select a scenario to open the corresponding Challenge DocProcessor prototype.</p>
+
+    <!-- -- Stage 3 flow section -- -->
+    <section class="idx-section">
+      <h2 class="idx-section-title">Stage 3 flow <span class="idx-section-pill">ANPS · Informal Rep</span></h2>
+      <p class="idx-section-desc">Stage 3 informal representation handling within the Acme Notice Processing System.</p>
+
+      <div class="idx-grid">
+
+        <!-- Card — Stage 3: ANPS -->
+        <a class="idx-card" href="my-workflow.html">
+          <span class="idx-card-badge">Stage 3</span>
+          <div class="idx-card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">Stage 3: ANPS</h2>
+          <p class="idx-card-desc">Acme Notice Processing System stage 3 — informal representation handling within the ANPS workflow with full validation and correspondence generation.</p>
+          <span class="idx-card-cta">
+            Open prototype
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <!-- Card — All Validation Results are fine -->
+        <a class="idx-card" href="all-validation-fine.html">
+          <span class="idx-card-badge green">All checks pass</span>
+          <div class="idx-card-icon" aria-hidden="true" style="background:#DCFCE7;color:#16a34a;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="8 12.5 11 15.5 16 9.5"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">All Validation Results are fine</h2>
+          <p class="idx-card-desc">Happy-path scenario where the AI generated letter covers everything (green RAG). The agent reviews, clicks Complete and follows the current Notice IQ process.</p>
+          <span class="idx-card-cta">
+            Open prototype
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <!-- Card — Mitigation Not Identified -->
+        <a class="idx-card" href="mitigation%20not%20identified.html">
+          <span class="idx-card-badge amber">Edge case</span>
+          <div class="idx-card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">Mitigation Not Identified</h2>
+          <p class="idx-card-desc">Scenario where no valid mitigation is detected on the challenge. The Send action is disabled until the user manually validates mitigation.</p>
+          <span class="idx-card-cta">
+            Open prototype
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <!-- Card — Stage 3: QA Review -->
+        <a class="idx-card" href="approval-queue.html">
+          <span class="idx-card-badge green">Stage 3 · QA</span>
+          <div class="idx-card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">Stage 3: QA Review</h2>
+          <p class="idx-card-desc">QA reviewer view for stage 3 correspondence. Approve to dispatch the letter to the recipient, or reject to return it to the agent for revision.</p>
+          <span class="idx-card-cta">
+            Open prototype
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- -- Stage 5 flow section -- -->
+    <section class="idx-section">
+      <h2 class="idx-section-title">Stage 5 flow <span class="idx-section-pill green">Non-ANPS · Formal Rep</span></h2>
+      <p class="idx-section-desc">Stage 5 formal representations and notice-to-owner challenges via the third-party (Non-ANPS) path.</p>
+
+      <div class="idx-grid">
+
+        <!-- Card — Stage 5: Non-ANPS -->
+        <a class="idx-card" href="stage5_challenge_docprocessor.html">
+          <span class="idx-card-badge green">Stage 5</span>
+          <div class="idx-card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">Stage 5: Non-ANPS</h2>
+          <p class="idx-card-desc">Non-ANPS stage 5 flow covering formal representations and notice-to-owner challenges, with QA review queue and correspondence preview.</p>
+          <span class="idx-card-cta">
+            Open prototype
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <!-- Card — All Validation Results are fine (Stage 5) -->
+        <a class="idx-card" href="all-validation-fine.html">
+          <span class="idx-card-badge green">All checks pass</span>
+          <div class="idx-card-icon" aria-hidden="true" style="background:#DCFCE7;color:#16a34a;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="8 12.5 11 15.5 16 9.5"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">All Validation Results are fine</h2>
+          <p class="idx-card-desc">Happy-path scenario where the AI generated letter covers everything (green RAG). The agent reviews, clicks Complete and follows the current Notice IQ process.</p>
+          <span class="idx-card-cta">
+            Open prototype
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- -- Reporting & dashboards section -- -->
+    <section class="idx-section">
+      <h2 class="idx-section-title">Reporting & dashboards <span class="idx-section-pill">Notice IQ · DocProcess</span></h2>
+      <p class="idx-section-desc">Operational and business visibility for Stage 3 and Stage 5 — case volume, mitigation coverage, bot decisions, letter amendments and custom mitigation governance.</p>
+
+      <div class="idx-grid">
+
+        <!-- Card — Stage 3 Dashboard -->
+        <a class="idx-card" href="stage3-dashboard.html">
+          <span class="idx-card-badge">Stage 3 · Dashboard</span>
+          <div class="idx-card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9"/>
+              <rect x="14" y="3" width="7" height="5"/>
+              <rect x="14" y="12" width="7" height="9"/>
+              <rect x="3" y="16" width="7" height="5"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">Stage 3 Dashboard</h2>
+          <p class="idx-card-desc">Semi-auto response performance for ANPS informal reps — total reviewed, mitigation coverage, RAG bot decisions, Amber reasons, letter amendments and custom mitigation activity.</p>
+          <span class="idx-card-cta">
+            Open dashboard
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <!-- Card — Stage 5 Dashboard -->
+        <a class="idx-card" href="stage5-dashboard.html">
+          <span class="idx-card-badge green">Stage 5 · Dashboard</span>
+          <div class="idx-card-icon" aria-hidden="true" style="background:#DCFCE7;color:#16a34a;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"/>
+              <path d="M7 14l4-4 4 4 5-6"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">Stage 5 Dashboard</h2>
+          <p class="idx-card-desc">Auto-response performance for Non-ANPS formal reps — case volume, template coverage, RAG bot decisions, Amber reason mix, letter amendments and custom mitigation governance.</p>
+          <span class="idx-card-cta">
+            Open dashboard
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <!-- Card — Combined Stage 3 & 5 Dashboard -->
+        <a class="idx-card" href="stage3-5-dashboard.html">
+          <span class="idx-card-badge" style="background:#EDE9FE;color:#5B21B6;">Combined · Stage 3 + 5</span>
+          <div class="idx-card-icon" aria-hidden="true" style="background:#EDE9FE;color:#5B21B6;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="12" r="6"/>
+              <circle cx="15" cy="12" r="6"/>
+            </svg>
+          </div>
+          <h2 class="idx-card-title">Stage 3 &amp; 5 Combined Dashboard</h2>
+          <p class="idx-card-desc">Single combined view across Stage 3 and Stage 5 — total volume, side-by-side stage comparison, combined RAG outcomes, letter quality and custom mitigation governance.</p>
+          <span class="idx-card-cta">
+            Open dashboard
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="idx-footer">
+    Challenge DocProcessor prototype · Acme · v0.5
+  </footer>
+
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

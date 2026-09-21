@@ -1,0 +1,4131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    /* --- MET-DS-V2 Token Block (Light Theme) ------------------ */
+    :root {
+      /* Brand & Primary Scale */
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+
+      /* Semantic Colour Aliases */
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+
+      /* Text */
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      /* Grey Scale */
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      /* State — Success */
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-darker:  #2E7D32;
+      --color-success-bg:      #E8F5E9;
+
+      /* State — Error */
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-deeper:    #C62828;
+      --color-error-bg:        #FEEBEE;
+
+      /* State — Warning */
+      --color-warning:         #EF6C00;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+
+      /* Navigation */
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --leftnav-icon:          #212121;
+      --leftnav-icon-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-text-active:    #3276CF;
+      --topnav-icon:           #757575;
+      --topnav-icon-active:    #3276CF;
+      --topnav-icon-hover:     #616161;
+
+      /* Borders & Radius */
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           16px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      /* Spacing */
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+
+      /* Typography */
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:    700;
+      --font-weight-semibold: 600;
+      --font-weight-medium:  500;
+      --font-weight-regular: 400;
+
+      /* Motion */
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter:      ease-out;
+      --easing-exit:       ease-in;
+
+      /* Shadows */
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+
+      /* Figma Divider */
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* --- Reset ------------------------------------------------ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--text-hyperlink);
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--text-hyperlink-hover);
+    }
+
+    button {
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* --- Focus Styles (Accessibility) ------------------------- */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* --- App Shell -------------------------------------------- */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* --- Top Navigation --------------------------------------- */
+    .topnav {
+      display: flex;
+      align-items: center;
+      padding: var(--space-3) var(--space-3);
+      gap: var(--space-3);
+      background: var(--color-card);
+      border-bottom: 1px solid var(--divider-color);
+      flex-shrink: 0;
+    }
+
+    .topnav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex: 1;
+    }
+
+    .topnav-brand-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .topnav-logo {
+      height: 28px;
+      width: fit-content;
+    }
+
+    .topnav-tagline {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+      letter-spacing: 0.15px;
+      line-height: 1.4;
+    }
+
+    .topnav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      /* padding-right: var(--space-5); */
+    }
+
+    .topnav-icon-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--topnav-icon);
+      padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover {
+      background: var(--color-primary-25);
+      color: var(--topnav-icon-hover);
+    }
+    .topnav-icon-btn .material-symbols-outlined {
+      font-size: 24px;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 20px;
+      height: 20px;
+      background: var(--color-warning);
+      color: #FFFFFF;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6.5px;
+      line-height: 1;
+      letter-spacing: 0.14px;
+    }
+
+    .topnav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    /* --- Main Layout ------------------------------------------ */
+    .main-layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* --- Sidebar (revamped — slim icon rail) ------------------- */
+    .sidebar {
+      width: 56px;
+      flex-shrink: 0;
+      background: var(--color-card);
+      border-right: 1px solid var(--divider-color);
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-5) 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      transition: width var(--duration-standard) var(--easing-enter);
+      z-index: 10;
+    }
+    .sidebar:hover {
+      overflow-y: auto;
+    }
+    .sidebar.is-expanded {
+      width: 260px;
+    }
+
+    /* Sidebar toggle button */
+    .sidebar-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-button);
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-toggle:hover {
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+    }
+    .sidebar-toggle .material-symbols-outlined {
+      font-size: 24px;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .sidebar-section + .sidebar-section {
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--divider-color);
+    }
+
+    .sidebar-heading {
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: var(--space-2) var(--space-5);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar.is-expanded .sidebar-heading {
+      opacity: 1;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-3);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 8px;
+      white-space: nowrap;
+      margin: 0 var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+      min-height: 40px;
+    }
+    .sidebar-link:hover {
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+    }
+    .sidebar-link:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
+    }
+    .sidebar-link.is-active {
+      background: var(--color-primary-50);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .sidebar-link .material-symbols-outlined {
+      font-size: 22px;
+      flex-shrink: 0;
+      width: 22px;
+    }
+
+    .sidebar-link-text {
+      font-size: var(--font-size-body);
+      opacity: 0;
+      transition: opacity var(--duration-micro) var(--easing-enter);
+      overflow: hidden;
+    }
+    .sidebar.is-expanded .sidebar-link-text {
+      opacity: 1;
+    }
+
+    /* --- Content Area ----------------------------------------- */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      /* padding: var(--space-7) var(--space-9); */
+      padding: var(--space-7);
+    }
+
+    .content-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-7);
+    }
+
+    /* Greeting */
+    .greeting-section {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-3);
+    }
+
+    .greeting-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      line-height: 1.334;
+    }
+
+    .greeting-text {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-secondary);
+    }
+
+    /* --- Breadcrumb ------------------------------------------- */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-3);
+    }
+    .breadcrumb a {
+      color: var(--text-hyperlink);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+    }
+    .breadcrumb a:hover {
+      color: var(--text-hyperlink-hover);
+      text-decoration: underline;
+    }
+    .breadcrumb-separator {
+      color: var(--grey-400);
+      font-size: 16px;
+      line-height: 1;
+    }
+    .breadcrumb-current {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+
+
+    /* --- KPI Dashboard ---------------------------------------- */
+    .kpi-dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .kpi-dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-5);
+    }
+
+    /* Sticky wrapper around breadcrumb + dashboard header — freezes both
+       to the top of the scrollable content area on scroll. */
+    .kpi-dashboard-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding: var(--space-5) 0 var(--space-4);
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    /* Bleed the sticky band across the content-area padding so the pinned
+       region reads as a full-width bar instead of a floating island. */
+    .kpi-dashboard-sticky::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(-1 * var(--space-7));
+      right: calc(-1 * var(--space-7));
+      background: var(--color-bg);
+      z-index: -1;
+    }
+    .kpi-dashboard-sticky.is-pinned,
+    .kpi-dashboard-sticky.is-pinned::before {
+      box-shadow: 0 1px 0 var(--grey-200), 0 4px 12px rgba(33,33,33,0.06);
+      top:-15px;
+    }
+
+    /* Hide kpi-target captions inside OAP / IEM overview rows */
+    #oap-overview-row .kpi-target,
+    #iem-overview-row .kpi-target {
+      display: none;
+    }
+
+    .kpi-dashboard-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+
+    .kpi-filters {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-end;
+    }
+
+    .kpi-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .kpi-filter-label {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+
+    .kpi-filter-select {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      padding: var(--space-3) var(--space-5);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      color: var(--text-primary);
+      min-height: 40px;
+      cursor: pointer;
+    }
+    .kpi-filter-select:focus-visible {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(50,118,207,0.15);
+    }
+
+    /* --- Date Range Picker ------------------------------------ */
+    .drp {
+      display: none;
+      position: absolute;
+      top: calc(100% + var(--space-3));
+      right: 0;
+      z-index: 1200;
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal);
+      flex-direction: row;
+      overflow: hidden;
+      min-width: 580px;
+    }
+    .drp.is-open { display: flex; }
+
+    /* Preset sidebar */
+    .drp-presets {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: var(--space-5);
+      border-right: 1px solid var(--grey-200);
+      min-width: 130px;
+    }
+    .drp-preset {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-button);
+      border: 1px solid var(--grey-300);
+      background: var(--color-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      white-space: nowrap;
+      transition: background var(--duration-micro) var(--easing-enter),
+                  border-color var(--duration-micro) var(--easing-enter);
+    }
+    .drp-preset:hover {
+      background: var(--grey-100);
+    }
+    .drp-preset.is-active {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* Body (calendars + footer) */
+    .drp-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .drp-calendars {
+      display: flex;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-5) 0;
+    }
+
+    /* Month column */
+    .drp-month { flex: 1; min-width: 200px; }
+    .drp-month-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+    .drp-month-label {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .drp-nav-btn {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      color: var(--text-secondary);
+      transition: background var(--duration-micro);
+    }
+    .drp-nav-btn:hover { background: var(--grey-100); }
+
+    /* Weekday header */
+    .drp-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    /* Day grid */
+    .drp-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px 0;
+    }
+    .drp-day {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      border-radius: 50%;
+      position: relative;
+      transition: background var(--duration-micro),
+                  color var(--duration-micro);
+    }
+    .drp-day:hover:not(.is-disabled):not(.is-outside) {
+      background: var(--grey-100);
+    }
+    .drp-day.is-outside {
+      color: var(--grey-400);
+    }
+    .drp-day.is-disabled {
+      color: var(--grey-300);
+      cursor: default;
+    }
+    .drp-day.is-today {
+      font-weight: var(--font-weight-semibold);
+      border: 2px solid var(--color-primary);
+    }
+    .drp-day.is-selected {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      font-weight: var(--font-weight-medium);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .drp-day.is-in-range {
+      background: var(--color-primary-50);
+      border-radius: 0;
+      color: var(--color-primary-800);
+    }
+    .drp-day.is-range-start {
+      border-radius: 50% 0 0 50%;
+    }
+    .drp-day.is-range-end {
+      border-radius: 0 50% 50% 0;
+    }
+    .drp-day.is-range-start.is-range-end {
+      border-radius: 50%;
+    }
+
+    /* Footer */
+    .drp-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      border-top: 1px solid var(--grey-200);
+    }
+    .drp-btn {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-button);
+      cursor: pointer;
+      border: none;
+      transition: background var(--duration-micro);
+    }
+    .drp-btn--cancel {
+      background: none;
+      color: var(--text-secondary);
+    }
+    .drp-btn--cancel:hover { background: var(--grey-100); }
+    .drp-btn--ok {
+      background: var(--color-primary);
+      color: #FFFFFF;
+    }
+    .drp-btn--ok:hover { background: var(--color-primary-hover); }
+    .drp-btn--ok:disabled {
+      background: var(--grey-300);
+      color: var(--grey-500);
+      cursor: default;
+    }
+
+    /* Overlay for click-away close */
+    .drp-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1199;
+    }
+    .drp-overlay.is-open { display: block; }
+
+    /* KPI Section */
+    .kpi-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-section-title {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      /* grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); */
+      grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+      gap: var(--space-5);
+    }
+
+    .kpi-grid--2col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* KPI Card — enhanced */
+    .kpi-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      border-left: 4px solid var(--grey-300);
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+      position: relative;
+    }
+    .kpi-card:hover { box-shadow: var(--shadow-card); }
+    .kpi-card--success { border-left-color: var(--color-success); }
+    .kpi-card--warning { border-left-color: var(--color-warning); }
+    .kpi-card--critical { border-left-color: var(--color-error); }
+
+    /* Pulse dot for SLA-critical cards */
+    .kpi-card--critical::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-error);
+      animation: kpi-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes kpi-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    .kpi-card-header {
+      /* display: flex; */
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    .kpi-card-name {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Status Badge */
+    .kpi-status-badge {
+      display: none; /* hidden for now */
+      /* display: inline-flex; */
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 11px;
+      font-weight: var(--font-weight-medium);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .kpi-status-badge .material-symbols-outlined { font-size: 14px; }
+    .kpi-status-badge--success { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .kpi-status-badge--warning { background: var(--color-warning-bg); color: var(--color-warning); }
+    .kpi-status-badge--critical { background: var(--color-error-bg); color: var(--color-error-deeper); }
+
+    /* Card Body */
+    .kpi-card-body {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-4);
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .kpi-value--text {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Trend Indicator */
+    .kpi-trend {
+      display: none; /* hidden for now */
+      /* display: inline-flex; */
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+    }
+    .kpi-trend .material-symbols-outlined { font-size: 16px; }
+    .kpi-trend--positive { color: var(--color-success-darker); }
+    .kpi-trend--negative { color: var(--color-error); }
+    .kpi-trend--neutral { color: var(--text-secondary); }
+
+    /* Overview row — six-column grid */
+    .kpi-overview-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--space-5);
+      align-items: stretch;
+    }
+    .kpi-overview-row > .kpi-overview-card,
+    .kpi-overview-row > .kpi-section {
+      grid-column: span 2;
+    }
+    .kpi-overview-row .kpi-section {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+    .kpi-overview-row .kpi-section > .kpi-overview-card,
+    .kpi-overview-row .kpi-section > .kpi-delay-donut-card {
+      flex: 1;
+    }
+
+    /* Combined Overview card */
+    .kpi-overview-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-overview-card:hover { box-shadow: var(--shadow-card); }
+
+    .kpi-overview-card-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .kpi-overview-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    .kpi-overview-chart {
+      position: relative;
+      height: 160px;
+      border-top: 1px solid var(--grey-200);
+      padding-top: var(--space-4);
+    }
+    .kpi-overview-chart canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .kpi-overview-metric {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: 0 var(--space-3);
+    }
+    .kpi-overview-metric + .kpi-overview-metric {
+      border-left: 1px solid var(--grey-200);
+    }
+    .kpi-overview-metric .kpi-card-header {
+      gap: var(--space-2);
+    }
+    .kpi-overview-metric .kpi-card-name {
+      font-size: var(--font-size-caption);
+    }
+    .kpi-overview-metric .kpi-value {
+      font-size: var(--font-size-h3);
+    }
+    .kpi-overview-metric .kpi-card-footer {
+      padding-top: var(--space-2);
+      border-top: none;
+    }
+
+    .kpi-overview-legend {
+      display: flex;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1279px) {
+      .kpi-overview-row {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .kpi-overview-row > .kpi-overview-card,
+      .kpi-overview-row > .kpi-section {
+        grid-column: span 2;
+      }
+    }
+    @media (max-width: 767px) {
+      .kpi-overview-row {
+        grid-template-columns: 1fr;
+      }
+      .kpi-overview-row > .kpi-overview-card,
+      .kpi-overview-row > .kpi-section {
+        grid-column: span 1;
+      }
+    }
+    @media (max-width: 767px) {
+      .kpi-overview-metrics {
+        grid-template-columns: 1fr;
+      }
+      .kpi-overview-metric + .kpi-overview-metric {
+        border-left: none;
+        border-top: 1px solid var(--grey-200);
+        padding-top: var(--space-3);
+      }
+      .kpi-overview-chart { height: 160px; }
+    }
+
+    /* Card Footer */
+    .kpi-card-footer {
+      display: none; /* hidden for now */
+      /* display: flex; */
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--grey-200);
+    }
+
+    .kpi-target {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+
+    .kpi-refresh {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 11px;
+      color: var(--grey-400);
+    }
+    .kpi-refresh .material-symbols-outlined { font-size: 12px; }
+
+    /* Drill-down link */
+    .kpi-drilldown {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-hyperlink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .kpi-drilldown:hover { color: var(--text-hyperlink-hover); }
+    .kpi-drilldown .material-symbols-outlined { font-size: 14px; }
+
+    /* --- Progress Ring (donut) --------------------------------- */
+    .kpi-ring-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-7);
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-ring-card:hover { box-shadow: var(--shadow-card); }
+
+    .kpi-ring-wrap {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .kpi-ring-wrap canvas { width: 80px !important; height: 80px !important; }
+    .kpi-ring-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      pointer-events: none;
+    }
+
+    .kpi-ring-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+    .kpi-ring-label {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+    .kpi-ring-meta {
+      font-size: var(--font-size-caption);
+      color: var(--grey-500);
+    }
+
+    /* --- Chart Panel ------------------------------------------ */
+    .kpi-chart-panel {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-chart-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .kpi-chart-title .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--text-secondary);
+    }
+
+    .kpi-chart-body {
+      position: relative;
+      height: 220px;
+    }
+    .kpi-chart-body canvas { width: 100% !important; height: 100% !important; }
+
+    .kpi-chart-body--tall { height: 260px; }
+
+    /* Threshold line label */
+    .kpi-threshold-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .kpi-threshold-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .kpi-threshold-dot--error { background: var(--color-error); }
+    .kpi-threshold-dot--warning { background: var(--color-warning); }
+    .kpi-threshold-dot--target { background: var(--color-primary); border: 1px dashed var(--color-primary-700); }
+
+    .kpi-chart-legend {
+      display: flex;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+    }
+
+    /* Breakdown Bar Chart */
+    .kpi-breakdown {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-breakdown-title {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+
+    .kpi-breakdown-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .kpi-breakdown-item {
+      display: grid;
+      grid-template-columns: 120px 1fr 48px;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .kpi-breakdown-label {
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+    }
+
+    .kpi-bar-track {
+      height: 8px;
+      background: var(--grey-200);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .kpi-bar-fill {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: var(--radius-pill);
+      transition: width var(--duration-standard) var(--easing-enter);
+    }
+
+    .kpi-breakdown-value {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      text-align: right;
+    }
+
+    /* Approval Delay — Donut + Legends Card */
+    .kpi-delay-donut-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      transition: box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-delay-donut-card:hover { box-shadow: var(--shadow-card); }
+
+    .kpi-delay-donut-wrap {
+      width: 160px;
+      height: 160px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .kpi-delay-donut-wrap canvas { width: 160px !important; height: 160px !important; }
+    .kpi-delay-donut-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+    .kpi-delay-donut-total {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      display: block;
+      line-height: 1.2;
+    }
+    .kpi-delay-donut-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+
+    .kpi-delay-legends {
+      display: flex;
+      flex-direction: column;
+      /* gap: var(--space-4); */
+      flex: 1;
+      min-width: 0;
+    }
+
+    .kpi-delay-legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-input);
+      cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter);
+      border: 1px solid transparent;
+    }
+    .kpi-delay-legend-item:hover {
+      background: var(--color-primary-25);
+    }
+    .kpi-delay-legend-item.is-active {
+      background: var(--color-primary-25);
+      border-color: var(--color-primary);
+    }
+    .kpi-delay-legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .kpi-delay-legend-info {
+      /* display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      flex: 1;
+      min-width: 0; */
+          display: flex;
+    flex-direction: row;
+    gap: var(--space-1);
+    flex: 1;
+    min-width: 0;
+    justify-content: space-between;
+    }
+    .kpi-delay-legend-name {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+    }
+    .kpi-delay-legend-meta {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .kpi-delay-legend-count {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+    .kpi-delay-legend-arrow {
+      color: var(--grey-400);
+      flex-shrink: 0;
+      font-size: 20px;
+      transition: color var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-delay-legend-item:hover .kpi-delay-legend-arrow {
+      color: var(--color-primary);
+    }
+
+    /* --- Right Side Panel (Slide-in Drawer) --- */
+    .kpi-side-panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration-standard) var(--easing-enter);
+    }
+    .kpi-side-panel-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .kpi-side-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      /* width: 520px; */
+      width: 800px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--color-card);
+      box-shadow: var(--shadow-modal);
+      z-index: 101;
+      transform: translateX(100%);
+      transition: transform var(--duration-standard) var(--easing-enter);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .kpi-side-panel.is-visible {
+      transform: translateX(0);
+    }
+
+    .kpi-side-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--grey-200);
+      flex-shrink: 0;
+    }
+    .kpi-side-panel-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .kpi-side-panel-title .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--text-secondary);
+    }
+    .kpi-side-panel-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+    .kpi-side-panel-close:hover {
+      background: var(--grey-100);
+      color: var(--text-primary);
+    }
+    .kpi-side-panel-close .material-symbols-outlined { font-size: 22px; }
+
+    .kpi-side-panel-summary {
+      padding: var(--space-4) var(--space-6);
+      background: var(--color-primary-25);
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      display: none;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .kpi-side-panel-summary .kpi-status-badge { font-size: 11px; }
+
+    .kpi-side-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-5) var(--space-6);
+    }
+    .kpi-side-panel-body .kpi-table td:first-child {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-hyperlink);
+    }
+    /* IEM Pending panel: Record ID column should render as plain data, not a link */
+    #iem-pending-side-panel .kpi-side-panel-body .kpi-table td:first-child {
+      font-weight: var(--font-weight-regular);
+      color: var(--text-primary);
+    }
+
+    .kpi-side-panel-footer {
+      padding: var(--space-4) var(--space-6);
+      border-top: 1px solid var(--grey-200);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* --- Pagination ------------------------------------------- */
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      width: 100%;
+      justify-content: space-between;
+    }
+    .pagination-info {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .pagination-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-button);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter),
+                  color var(--duration-micro) var(--easing-enter);
+    }
+    .pagination-btn:hover:not(:disabled) {
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+    }
+    .pagination-btn:disabled {
+      color: var(--grey-400);
+      cursor: default;
+    }
+    .pagination-btn.is-active {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      border-radius: var(--radius-button);
+    }
+    .pagination-btn .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    @media (max-width: 767px) {
+      .kpi-delay-donut-card > div { flex-direction: column; text-align: center; }
+      .kpi-side-panel { width: 100vw; max-width: 100vw; }
+    }
+
+    /* --- Heatmap ---------------------------------------------- */
+    .kpi-heatmap {
+      display: grid;
+      grid-template-columns: 80px repeat(7, 1fr);
+      gap: 2px;
+      font-size: 11px;
+    }
+    .kpi-heatmap-header {
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      text-align: center;
+      padding: var(--space-2);
+    }
+    .kpi-heatmap-label {
+      display: flex;
+      align-items: center;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      padding: var(--space-2);
+    }
+    .kpi-heatmap-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3);
+      border-radius: 4px;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      min-height: 36px;
+      cursor: default;
+    }
+    .kpi-heat-0 { background: var(--color-success-bg); color: var(--color-success-darker); }
+    .kpi-heat-1 { background: #C8E6C9; color: var(--color-success-darker); }
+    .kpi-heat-2 { background: var(--color-warning-bg); color: var(--color-warning); }
+    .kpi-heat-3 { background: #FFE0B2; color: var(--color-warning); }
+    .kpi-heat-4 { background: #FFCCBC; color: var(--color-error); }
+    .kpi-heat-5 { background: var(--color-error-bg); color: var(--color-error-deeper); }
+
+    /* Insights Section */
+    .kpi-insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: var(--space-5);
+    }
+
+    .kpi-insights-card {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .kpi-insights-title {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .kpi-insights-title .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--color-warning);
+    }
+
+    /* Simple Table */
+    .kpi-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body);
+    }
+    .kpi-table th {
+      text-align: left;
+      font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--grey-200);
+      font-size: var(--font-size-caption);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--grey-100);
+      color: var(--text-primary);
+    }
+    .kpi-table tr:last-child td { border-bottom: none; }
+    .text-critical { color: var(--color-error); font-weight: var(--font-weight-medium); }
+    .text-warning { color: var(--color-warning); font-weight: var(--font-weight-medium); }
+    .text-success { color: var(--color-success-darker); font-weight: var(--font-weight-medium); }
+
+    /* --- Tooltip ----------------------------------------------- */
+    .kpi-tooltip {
+      position: fixed;
+      z-index: 1000;
+      background: var(--grey-900);
+      color: #fff;
+      font-size: var(--font-size-caption);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-input);
+      max-width: 260px;
+      line-height: 1.5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .kpi-tooltip.is-visible { opacity: 1; }
+    .kpi-tooltip-title {
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    /* --- Expandable User Row (sign-in history) -------------- */
+    .users-expand-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: transform var(--duration-micro) var(--easing-enter), background var(--duration-micro);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .users-expand-btn:hover { background: var(--grey-100); }
+    .users-expand-btn .material-symbols-outlined { font-size: 18px; }
+    .users-expand-btn.is-open { transform: rotate(180deg); }
+
+    .users-history-row td {
+      background: var(--color-primary-25);
+      padding-top: var(--space-2) !important;
+      padding-bottom: var(--space-2) !important;
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+    }
+    .users-history-row td:first-child { border-left: 3px solid var(--color-primary-50); }
+    .users-parent-row { cursor: pointer; }
+    .users-parent-row:hover td { background: var(--grey-50); }
+
+    /* --- KPI Responsive --------------------------------------- */
+    @media (max-width: 1279px) {
+      .kpi-delay-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .kpi-grid--2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-delay-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .kpi-insights-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .kpi-breakdown-item {
+        grid-template-columns: 90px 1fr 40px;
+      }
+      .kpi-ring-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .kpi-heatmap {
+        grid-template-columns: 60px repeat(7, 1fr);
+        font-size: 10px;
+      }
+      .kpi-chart-body { height: 180px; }
+    }
+
+    /* --- Responsive ------------------------------------------- */
+    @media (max-width: 1279px) {
+      .sidebar.is-expanded {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        box-shadow: var(--shadow-modal);
+      }
+      .content-area {
+        padding: var(--space-5) var(--space-7);
+      }
+      .topnav-tagline {
+        display: none;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .sidebar {
+        display: none;
+      }
+      .content-area {
+        padding: var(--space-5);
+      }
+      .greeting-title {
+        font-size: 18px;
+      }
+      .greeting-section {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- --- Top Navigation --- -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E"
+            alt="FinOps — Enterprise Finance Automation Platform"
+            class="topnav-logo"
+          />
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 1 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">1</span>
+        </button>
+        <button aria-label="User profile menu">
+          <img
+            src="https://i.pravatar.cc/64?img=12"
+            alt=""
+            class="topnav-avatar"
+          />
+        </button>
+      </div>
+    </header>
+
+    <!-- --- Main Layout --- -->
+    <div class="main-layout">
+      <!-- --- Sidebar (slim icon-rail) --- -->
+      <nav class="sidebar is-expanded" id="sidebar" aria-label="Module navigation">
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Treasury</span>
+          <a href="#" class="sidebar-link" aria-label="Ad-hoc Payments">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Ad-hoc Payments</span>
+          </a>
+          <a href="#" class="sidebar-link" aria-label="Bank Statement Transactions">
+            <span class="material-symbols-outlined" aria-hidden="true">account_balance</span>
+            <span class="sidebar-link-text">Bank Statement Transactions</span>
+          </a>
+          <a href="#" class="sidebar-link" aria-label="Vehicle Release Payments">
+            <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+            <span class="sidebar-link-text">Vehicle Release Payments</span>
+          </a>
+          <a href="OAP_CurrentTransactions.html" class="sidebar-link" aria-label="Office Account Postings">
+            <span class="material-symbols-outlined" aria-hidden="true">post_add</span>
+            <span class="sidebar-link-text">Office Account Postings</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Finance System</span>
+          <a href="IFM.html" class="sidebar-link" aria-label="Integration Exception Management">
+            <span class="material-symbols-outlined" aria-hidden="true">sync_problem</span>
+            <span class="sidebar-link-text">Integration Exception Management</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Client Funds</span>
+          <a href="#" class="sidebar-link" aria-label="All Pay">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt</span>
+            <span class="sidebar-link-text">All Pay</span>
+          </a>
+          <a href="#" class="sidebar-link" aria-label="KEYIVR Payments">
+            <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+            <span class="sidebar-link-text">KEYIVR Payments</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Payroll</span>
+          <a href="#" class="sidebar-link" aria-label="Variable Pay">
+            <span class="material-symbols-outlined" aria-hidden="true">money_bag</span>
+            <span class="sidebar-link-text">Variable Pay</span>
+          </a>
+          <a href="#" class="sidebar-link" aria-label="Pension Analysis">
+            <span class="material-symbols-outlined" aria-hidden="true">savings</span>
+            <span class="sidebar-link-text">Pension Analysis</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Settings</span>
+          <a href="#" class="sidebar-link" aria-label="Configuration">
+            <span class="material-symbols-outlined" aria-hidden="true">settings</span>
+            <span class="sidebar-link-text">Configuration</span>
+          </a>
+          <a href="#" class="sidebar-link" aria-label="Users">
+            <span class="material-symbols-outlined" aria-hidden="true">group</span>
+            <span class="sidebar-link-text">Users</span>
+          </a>
+          <a href="Dashboard.html" class="sidebar-link is-active" aria-label="Dashboard" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">dashboard</span>
+            <span class="sidebar-link-text">Dashboard</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- --- Content Area --- -->
+      <main class="content-area">
+       <div class="content-inner">
+        <!-- --- KPI Dashboard --- -->
+        <div class="kpi-dashboard" role="region" aria-label="Admin Dashboard KPI Metrics">
+
+          <!-- Sticky region — breadcrumb + dashboard header pinned together on scroll -->
+          <div class="kpi-dashboard-sticky">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <a href="LandingPage.html">Home</a>
+              <span class="material-symbols-outlined breadcrumb-separator" aria-hidden="true">chevron_right</span>
+              <span class="breadcrumb-current" aria-current="page">Dashboard</span>
+            </nav>
+
+            <!-- Dashboard Header & Filters -->
+            <div class="kpi-dashboard-header">
+            <div class="greeting-section" aria-label="Welcome message">
+              <h2 class="greeting-title">Dashboard</h2>
+              <!-- <span class="greeting-text">Good Morning, John Doe &middot; Tuesday, 13/01/26</span> -->
+            </div>
+            <div class="kpi-filters">
+              <div class="kpi-filter-group" style="position:relative">
+                <!-- <label class="kpi-filter-label" for="filter-date">Period</label> -->
+                <select class="kpi-filter-select" id="filter-date">
+                  <option>Select Period</option>
+                  <option selected>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Custom</option>
+                </select>
+
+                <!-- --- Custom Date Range Picker --- -->
+                <div class="drp" id="dateRangePicker" role="dialog" aria-modal="true" aria-label="Select custom date range">
+                  <!-- Preset sidebar -->
+                  <div class="drp-presets">
+                    <button class="drp-preset" data-preset="prevday">Previous Day</button>
+                    <button class="drp-preset" data-preset="7d">Last 7 Days</button>
+                    <button class="drp-preset" data-preset="30d">Last 30 Days</button>
+                    <button class="drp-preset" data-preset="month">This Month</button>
+                    <button class="drp-preset" data-preset="week">This Week</button>
+                  </div>
+                  <!-- Calendars -->
+                  <div class="drp-body">
+                    <div class="drp-calendars">
+                      <!-- Left month -->
+                      <div class="drp-month" id="drpLeft">
+                        <div class="drp-month-nav">
+                          <button class="drp-nav-btn" id="drpPrev" aria-label="Previous month">
+                            <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                          </button>
+                          <span class="drp-month-label" id="drpLeftLabel"></span>
+                        </div>
+                        <div class="drp-weekdays">
+                          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                        </div>
+                        <div class="drp-days" id="drpLeftDays"></div>
+                      </div>
+                      <!-- Right month -->
+                      <div class="drp-month" id="drpRight">
+                        <div class="drp-month-nav">
+                          <span class="drp-month-label" id="drpRightLabel"></span>
+                          <button class="drp-nav-btn" id="drpNext" aria-label="Next month">
+                            <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                          </button>
+                        </div>
+                        <div class="drp-weekdays">
+                          <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                        </div>
+                        <div class="drp-days" id="drpRightDays"></div>
+                      </div>
+                    </div>
+                    <!-- Footer actions -->
+                    <div class="drp-footer">
+                      <button class="drp-btn drp-btn--cancel" id="drpCancel">CANCEL</button>
+                      <button class="drp-btn drp-btn--ok" id="drpOk">OK</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Date Range Picker -->
+
+              </div>
+              <!-- <div class="kpi-filter-group">
+                <label class="kpi-filter-label" for="filter-module">Module</label>
+                <select class="kpi-filter-select" id="filter-module">
+                  <option selected>All Modules</option>
+                  <option>Ad-hoc Payments</option>
+                  <option>Bank Statement</option>
+                  <option>Vehicle Release Payments</option>
+                  <option>All Pay</option>
+                  <option>KEYIVR</option>
+                  <option>Variable Pay</option>
+                  <option>Pension Analysis</option>
+                </select>
+              </div> -->
+            </div>
+          </div>
+          <!-- /kpi-dashboard-sticky -->
+          </div>
+
+          <!-- --- System Overview KPI Cards --- -->
+          <div class="kpi-overview-row" role="group" aria-label="System overview summary">
+            <div class="kpi-overview-card" id="card-active-users" role="button" tabindex="0" aria-label="View active users list" style="flex-direction:row;align-items:center;gap:var(--space-5);cursor:pointer">
+              <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-primary-50);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-primary)">group</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+                <span class="kpi-card-name">Total Active Users</span>
+                <span class="kpi-value" style="font-size:var(--font-size-h2)">342</span>
+              </div>
+              <span class="material-symbols-outlined" aria-hidden="true" style="margin-left:auto;font-size:20px;color:var(--grey-400)">chevron_right</span>
+            </div>
+            <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+              <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-success-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-success)">insights</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+                <span class="kpi-card-name">Highest Activity</span>
+                <span class="kpi-value kpi-value--text" style="font-size:var(--font-size-h2)">Ad-hoc Pay</span>
+              </div>
+            </div>
+            <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+              <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-warning-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-warning)">schedule</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+                <span class="kpi-card-name">Peak Usage</span>
+                <span class="kpi-value kpi-value--text" style="font-size:var(--font-size-h2)">09–11:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- --- Workflow Activity + Approval Delays + Rejection Rate --- -->
+          <div class="kpi-overview-row">
+
+            <!-- System Overview (hidden — KPIs promoted to top cards) -->
+            <section class="kpi-section" aria-label="System Overview KPIs" style="display:none">
+              <div class="kpi-overview-card" role="group" aria-label="System overview metrics">
+                <h3 class="kpi-overview-card-title">System Overview</h3>
+                <div class="kpi-overview-metrics">
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Total Active Users</span>
+                      <span class="kpi-status-badge kpi-status-badge--warning"><span class="material-symbols-outlined" aria-hidden="true">warning</span> At Risk</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">342</span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Up 12%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +12%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">Target: 400</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Highest Activity</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value kpi-value--text">Ad-hoc Pay</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">1,245 interactions</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Peak Usage</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value kpi-value--text">09–11:00</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">Peak window</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="kpi-overview-chart">
+                  <canvas id="chart-users-module"></canvas>
+                </div>
+              </div>
+            </section>
+
+            <!-- Workflow Activity -->
+            <section class="kpi-section" aria-label="Workflow Activity Monitoring">
+              <div class="kpi-overview-card" role="group" aria-label="Workflow activity metrics">
+                <h3 class="kpi-overview-card-title">Workflow Activity</h3>
+                <div class="kpi-overview-metrics">
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Requests Raised</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">1,463</span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Up 12%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +12%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">vs prev. period</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Approvals</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">1,244</span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Up 8%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +8%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">85% approval rate</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Rejected</span>
+                      <span class="kpi-status-badge kpi-status-badge--warning"><span class="material-symbols-outlined" aria-hidden="true">warning</span> At Risk</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">167</span>
+                      <span class="kpi-trend kpi-trend--negative" aria-label="Up 5%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +5%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">11.4% rejection rate</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="kpi-overview-chart" style="height:160px">
+                  <canvas id="chart-workflow-stack"></canvas>
+                </div>
+                <div class="kpi-overview-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-primary)"></span> Approved</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-warning)"></span> Rejected</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--grey-400)"></span> Pending</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- --- Approval Delay Monitoring --- -->
+            <section class="kpi-section" aria-label="Approval Delay Monitoring">
+              <div class="kpi-delay-donut-card">
+                <div style="display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--grey-200);
+    padding-bottom: var(--space-3);">
+                  <h3 class="kpi-overview-card-title" style="border-bottom:none;padding-bottom:0">Approval Delays</h3>
+                  <a href="#" class="kpi-drilldown" id="delay-view-more" aria-label="View all approval delays">View More <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                </div>
+                <div style="display:flex;align-items:center;gap:var(--space-5)">
+              <div class="kpi-delay-donut-wrap">
+                <canvas id="delay-donut-all"></canvas>
+                <div class="kpi-delay-donut-center">
+                  <span class="kpi-delay-donut-total">43</span>
+                  <span class="kpi-delay-donut-label">Total</span>
+                </div>
+              </div>
+              <div class="kpi-delay-legends">
+                <div class="kpi-delay-legend-item" role="button" tabindex="0" data-delay="lt1">
+                  <span class="kpi-delay-legend-dot" style="background:var(--color-success)"></span>
+                  <div class="kpi-delay-legend-info">
+                    <span class="kpi-delay-legend-name">&lt; 1 Day</span>
+                    <span class="kpi-delay-legend-meta">53%</span>
+                  </div>
+                  <span class="kpi-delay-legend-count">23</span>
+                  <span class="material-symbols-outlined kpi-delay-legend-arrow" aria-hidden="true">chevron_right</span>
+                </div>
+                <div class="kpi-delay-legend-item" role="button" tabindex="0" data-delay="1to3">
+                  <span class="kpi-delay-legend-dot" style="background:var(--color-warning)"></span>
+                  <div class="kpi-delay-legend-info">
+                    <span class="kpi-delay-legend-name">1 – 3 Days</span>
+                    <span class="kpi-delay-legend-meta">28%</span>
+                  </div>
+                  <span class="kpi-delay-legend-count">12</span>
+                  <span class="material-symbols-outlined kpi-delay-legend-arrow" aria-hidden="true">chevron_right</span>
+                </div>
+                <div class="kpi-delay-legend-item" role="button" tabindex="0" data-delay="3to5">
+                  <span class="kpi-delay-legend-dot" style="background:#EF6C00"></span>
+                  <div class="kpi-delay-legend-info">
+                    <span class="kpi-delay-legend-name">3 – 5 Days</span>
+                    <span class="kpi-delay-legend-meta">12%</span>
+                  </div>
+                  <span class="kpi-delay-legend-count">5</span>
+                  <span class="material-symbols-outlined kpi-delay-legend-arrow" aria-hidden="true">chevron_right</span>
+                </div>
+                <div class="kpi-delay-legend-item" role="button" tabindex="0" data-delay="gt5">
+                  <span class="kpi-delay-legend-dot" style="background:var(--color-error)"></span>
+                  <div class="kpi-delay-legend-info">
+                    <span class="kpi-delay-legend-name">&gt; 5 Days</span>
+                    <span class="kpi-delay-legend-meta">7%</span>
+                  </div>
+                  <span class="kpi-delay-legend-count">3</span>
+                  <span class="material-symbols-outlined kpi-delay-legend-arrow" aria-hidden="true">chevron_right</span>
+                </div>
+                </div>
+              </div>
+              </div>
+            </section>
+
+            <!-- Modules — Highest Rejection Rate -->
+            <section class="kpi-section" aria-label="Highest Rejection Rate">
+              <div class="kpi-overview-card">
+                <h3 class="kpi-overview-card-title">
+                  <span class="material-symbols-outlined" aria-hidden="true" style="font-size:20px;vertical-align:middle;margin-right:var(--space-2)">do_not_disturb</span>
+                  Modules — Highest Rejection Rate
+                </h3>
+                <div class="kpi-overview-metrics">
+                  <div class="kpi-overview-metric">
+                    <span class="kpi-card-name">Vehicle Release</span>
+                    <span class="kpi-value" style="color:var(--color-error)">18.2%</span>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <span class="kpi-card-name">Ad-hoc Payments</span>
+                    <span class="kpi-value" style="color:var(--color-warning)">12.4%</span>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <span class="kpi-card-name">Variable Pay</span>
+                    <span class="kpi-value" style="color:var(--color-success)">6.1%</span>
+                  </div>
+                </div>
+                <div class="kpi-chart-body"><canvas id="chart-rejection-trend"></canvas></div>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-error)"></span> Vehicle Release</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-warning)"></span> Ad-hoc Payments</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-success)"></span> Variable Pay</span>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- Side Panel (right drawer) for Approval Delay Details -->
+          <div class="kpi-side-panel-overlay" id="delay-panel-overlay"></div>
+          <aside class="kpi-side-panel" id="delay-side-panel" role="dialog" aria-modal="true" aria-label="Approval delay details">
+            <div class="kpi-side-panel-header">
+              <h4 class="kpi-side-panel-title">
+                <span class="material-symbols-outlined" aria-hidden="true">list_alt</span>
+                <span id="side-panel-title">Pending Approvals</span>
+              </h4>
+              <button class="kpi-side-panel-close" aria-label="Close panel" id="side-panel-close">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <div class="kpi-side-panel-summary" id="side-panel-summary"></div>
+            <div style="display:flex;gap:var(--space-4);padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--grey-200);flex-shrink:0" id="side-panel-toolbar">
+              <div style="flex:1;position:relative">
+                <span class="material-symbols-outlined" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--grey-400);pointer-events:none">search</span>
+                <input type="text" id="side-panel-search" placeholder="Search by ID, module or name…" style="width:100%;font-family:var(--font-family);font-size:var(--font-size-body);padding:var(--space-3) var(--space-4) var(--space-3) 38px;border:1px solid var(--grey-300);border-radius:var(--radius-input);background:var(--color-card);color:var(--text-primary);min-height:40px" />
+              </div>
+              <select id="side-panel-filter" style="font-family:var(--font-family);font-size:var(--font-size-body);padding:var(--space-3) var(--space-5);border:1px solid var(--grey-300);border-radius:var(--radius-input);background:var(--color-card);color:var(--text-primary);min-height:40px;cursor:pointer;min-width:140px">
+                <option value="all" selected>All Delays</option>
+                <option value="lt1">&lt; 1 Day</option>
+                <option value="1to3">1 – 3 Days</option>
+                <option value="3to5">3 – 5 Days</option>
+                <option value="gt5">&gt; 5 Days</option>
+              </select>
+            </div>
+            <div class="kpi-side-panel-body">
+              <table class="kpi-table" aria-label="Pending approval requests">
+                <thead>
+                  <tr>
+                    <th scope="col">Request ID</th>
+                    <th scope="col">Module</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Created On</th>
+                    <th scope="col">Delay</th>
+                  </tr>
+                </thead>
+                <tbody id="side-panel-body"></tbody>
+              </table>
+            </div>
+            <div class="kpi-side-panel-footer" id="delay-panel-footer">
+              <div class="pagination">
+                <span class="pagination-info" id="delay-page-info"></span>
+                <div class="pagination-controls" id="delay-page-controls"></div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- --- Users Side Panel (right drawer) --- -->
+          <div class="kpi-side-panel-overlay" id="users-panel-overlay"></div>
+          <aside class="kpi-side-panel" id="users-side-panel" role="dialog" aria-modal="true" aria-label="Active users list">
+            <div class="kpi-side-panel-header">
+              <h4 class="kpi-side-panel-title">
+                <span class="material-symbols-outlined" aria-hidden="true">group</span>
+                <span id="users-panel-title">Active Users</span>
+              </h4>
+              <button class="kpi-side-panel-close" aria-label="Close panel" id="users-panel-close">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <div class="kpi-side-panel-summary" id="users-panel-summary">342 active users this period</div>
+            <div style="display:flex;gap:var(--space-4);padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--grey-200);flex-shrink:0">
+              <div style="flex:1;position:relative">
+                <span class="material-symbols-outlined" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--grey-400);pointer-events:none">search</span>
+                <input type="text" id="users-panel-search" placeholder="Search by ID, username or email…" style="width:100%;font-family:var(--font-family);font-size:var(--font-size-body);padding:var(--space-3) var(--space-4) var(--space-3) 38px;border:1px solid var(--grey-300);border-radius:var(--radius-input);background:var(--color-card);color:var(--text-primary);min-height:40px" />
+              </div>
+              <input type="date" id="users-panel-date-filter" style="font-family:var(--font-family);font-size:var(--font-size-body);padding:var(--space-3) var(--space-4);border:1px solid var(--grey-300);border-radius:var(--radius-input);background:var(--color-card);color:var(--text-primary);min-height:40px;cursor:pointer" aria-label="Filter by sign-in date" />
+            </div>
+            <div class="kpi-side-panel-body">
+              <table class="kpi-table" aria-label="Active users">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width:28px"></th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Signed In</th>
+                  </tr>
+                </thead>
+                <tbody id="users-panel-body"></tbody>
+              </table>
+            </div>
+            <div class="kpi-side-panel-footer" id="users-panel-footer">
+              <div class="pagination">
+                <span class="pagination-info" id="users-page-info"></span>
+                <div class="pagination-controls" id="users-page-controls"></div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- --- Automation Modules (3-column row) --- -->
+          <div class="kpi-overview-row">
+
+            <!-- 5.4.1 Automation — All Pay -->
+            <section class="kpi-section" aria-label="All Pay Automation Efficiency">
+              <div class="kpi-overview-card" role="group" aria-label="All Pay automation metrics">
+                <div style="display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--grey-200);
+    padding-bottom: var(--space-3);">
+                  <h3 class="kpi-overview-card-title" style="border-bottom:none;padding-bottom:0">Automation — All Pay</h3>
+                  <a href="#" class="kpi-drilldown" aria-label="View more All Pay details">View More <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                </div>
+                <div class="kpi-overview-metrics">
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Avg Bot Completion</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">2.4<small style="font-size:14px;font-weight:400"> min</small></span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Down 15%"><span class="material-symbols-outlined" aria-hidden="true">trending_down</span> -15%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">Target: &lt; 5 min</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Files Received</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">847</span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Up 15%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +15%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">vs prev. period</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Last Bot Run</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value kpi-value--text">07 Apr, 08:32</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">Today</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Status donut + interactive legends -->
+                <div style="display:flex;align-items:center;gap:var(--space-5);border-top:1px solid var(--grey-200);padding-top:var(--space-4)">
+                  <div class="kpi-delay-donut-wrap" style="width:120px;height:120px">
+                    <canvas id="ring-allpay" style="width:120px!important;height:120px!important"></canvas>
+                    <div class="kpi-delay-donut-center">
+                      <span class="kpi-delay-donut-total" style="font-size:var(--font-size-h2)">847</span>
+                      <span class="kpi-delay-donut-label">Files</span>
+                    </div>
+                  </div>
+                  <div class="kpi-delay-legends">
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-success)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Completed</span>
+                        <span class="kpi-delay-legend-meta">82.1% · 695 files</span>
+                      </div>
+                    </div>
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-warning)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Partially Completed</span>
+                        <span class="kpi-delay-legend-meta">8.4% · 71 files</span>
+                      </div>
+                    </div>
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--grey-400)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Pending</span>
+                        <span class="kpi-delay-legend-meta">3.8% · 32 files</span>
+                      </div>
+                    </div>
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-error)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Failed</span>
+                        <span class="kpi-delay-legend-meta">5.8% · 49 files</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          <!-- --- 5.4.2 Automation — KEYIVR --- -->
+            <section class="kpi-section" aria-label="KEYIVR Automation Efficiency">
+              <div class="kpi-overview-card" role="group" aria-label="KEYIVR automation metrics">
+                <div style="display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--grey-200);
+    padding-bottom: var(--space-3);">
+                  <h3 class="kpi-overview-card-title" style="border-bottom:none;padding-bottom:0">Automation — KEYIVR</h3>
+                  <a href="#" class="kpi-drilldown" aria-label="View more KEYIVR details">View More <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                </div>
+                <div class="kpi-overview-metrics" style="display:grid;grid-template-columns:repeat(4,1fr)">
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Avg Bot Completion</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">3.1<small style="font-size:14px;font-weight:400"> min</small></span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Down 10%"><span class="material-symbols-outlined" aria-hidden="true">trending_down</span> -10%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">Target: &lt; 5 min</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Files Received</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">623</span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Up 10%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +10%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">vs prev. period</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric" >
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Last Bot Run</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value kpi-value--text">07 Apr, 07:45</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">Today</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Manually Resolved</span>
+                      <span class="kpi-status-badge kpi-status-badge--warning"><span class="material-symbols-outlined" aria-hidden="true">warning</span> At Risk</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">35</span>
+                      <span class="kpi-trend kpi-trend--negative" aria-label="Up 4%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +4%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">5.6% of total files</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- KEYIVR status donut + legends -->
+                <div style="display:flex;align-items:center;gap:var(--space-5);border-top:1px solid var(--grey-200);padding-top:var(--space-4)">
+                  <div class="kpi-delay-donut-wrap" style="width:120px;height:120px">
+                    <canvas id="ring-keyivr" style="width:120px!important;height:120px!important"></canvas>
+                    <div class="kpi-delay-donut-center">
+                      <span class="kpi-delay-donut-total" style="font-size:var(--font-size-h2)">623</span>
+                      <span class="kpi-delay-donut-label">Files</span>
+                    </div>
+                  </div>
+                  <div class="kpi-delay-legends">
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-success)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Completed</span>
+                        <span class="kpi-delay-legend-meta">88.8% · 553 files</span>
+                      </div>
+                    </div>
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-warning)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Partially Completed</span>
+                        <span class="kpi-delay-legend-meta">5.6% · 35 files</span>
+                      </div>
+                    </div>
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--grey-400)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Pending</span>
+                        <span class="kpi-delay-legend-meta">4.8% · 30 files</span>
+                      </div>
+                    </div>
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-error)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Failed</span>
+                        <span class="kpi-delay-legend-meta">0.8% · 5 files</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- --- 5.4.3 Automation — Bank Statement --- -->
+            <section class="kpi-section" aria-label="Bank Statement Automation Efficiency">
+              <div class="kpi-overview-card" role="group" aria-label="Bank Statement automation metrics">
+                <div style="display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--grey-200);
+    padding-bottom: var(--space-3);">
+                  <h3 class="kpi-overview-card-title" style="border-bottom:none;padding-bottom:0">Automation — Bank Statement</h3>
+                  <a href="#" class="kpi-drilldown" aria-label="View more Bank Statement details">View More <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                </div>
+                <div class="kpi-overview-metrics" >
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Files Uploaded</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">156</span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Up 8%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +8%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">vs prev. period</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Transaction Count</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                      <span class="kpi-value">4,832</span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Up 6%"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span> +6%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">vs prev. period</span>
+                    </div>
+                  </div>
+                  <div class="kpi-overview-metric">
+                    <div class="kpi-card-header">
+                      <span class="kpi-card-name">Avg Transaction Count</span>
+                      <span class="kpi-status-badge kpi-status-badge--success"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> On Track</span>
+                    </div>
+                    <div class="kpi-card-body">
+                       <span class="kpi-value">31<!-- <small style="font-size:14px;font-weight:400"> / record</small> --></span>
+                      <span class="kpi-trend kpi-trend--positive" aria-label="Down 2%"><span class="material-symbols-outlined" aria-hidden="true">trending_down</span> -2%</span>
+                    </div>
+                    <div class="kpi-card-footer">
+                      <span class="kpi-target">Avg per uploaded file</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Bank Statement donut + info -->
+                <div style="display:flex;align-items:center;gap:var(--space-5);border-top:1px solid var(--grey-200);padding-top:var(--space-4)">
+                  <div class="kpi-delay-donut-wrap" style="width:120px;height:120px">
+                    <canvas id="ring-bank" style="width:120px!important;height:120px!important"></canvas>
+                    <div class="kpi-delay-donut-center">
+                      <span class="kpi-delay-donut-total" style="font-size:var(--font-size-h2)">156</span>
+                      <span class="kpi-delay-donut-label">Files</span>
+                    </div>
+                  </div>
+                  <div class="kpi-delay-legends">
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-success)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Transaction</span>
+                        <span class="kpi-delay-legend-meta">120 files</span>
+                      </div>
+                    </div>
+                    <div class="kpi-delay-legend-item">
+                      <span class="kpi-delay-legend-dot" style="background:var(--color-warning)"></span>
+                      <div class="kpi-delay-legend-info">
+                        <span class="kpi-delay-legend-name">Excluded</span>
+                        <span class="kpi-delay-legend-meta">36 files</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- --------------------------------------------------- -->
+          <!-- --- OAP Dashboard — KPI (Calendar-wise records) --- -->
+          <!-- --------------------------------------------------- -->
+          <div style="margin-top:var(--space-6);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)">
+            <h3 class="kpi-section-title" style="margin:0;border-bottom:none;padding-bottom:0">
+              <span class="material-symbols-outlined" aria-hidden="true" style="font-size:22px;vertical-align:middle;margin-right:var(--space-2);color:var(--color-primary)">account_balance</span>
+              Office Account Postings
+            </h3>
+            <a href="OAP_CurrentTransactions.html" class="kpi-drilldown" aria-label="Open OAP module">Open OAP <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+
+          <!-- OAP — Score cards (left column) + Coding chart (right column) -->
+          <div class="kpi-overview-row" id="oap-overview-row" role="group" aria-label="OAP record counts and coding trend for selected period">
+
+            <!-- Score cards stacked in a single column (span 2 of 6) -->
+            <section class="kpi-section" style="grid-column:span 2" aria-label="OAP score cards">
+              <!-- Total Records -->
+              <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+                <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-primary-50);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-primary)">receipt_long</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:var(--space-1);flex:1">
+                  <span class="kpi-card-name">Total Records</span>
+                  <span class="kpi-value" style="font-size:var(--font-size-h2)">12,847</span>
+                  <span class="kpi-target" style="font-size:var(--font-size-caption);color:var(--text-secondary)">This week</span>
+                </div>
+              </div>
+
+              <!-- Auto-coded Records -->
+              <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+                <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-success-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-success)">smart_toy</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:var(--space-1);flex:1">
+                  <span class="kpi-card-name">Auto-coded Records</span>
+                  <span class="kpi-value" style="font-size:var(--font-size-h2)">10,962</span>
+                  <span class="kpi-target" style="font-size:var(--font-size-caption);color:var(--text-secondary)">85.3% of total</span>
+                </div>
+              </div>
+
+              <!-- Manually-coded Records -->
+              <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+                <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-warning-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-warning)">edit_note</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:var(--space-1);flex:1">
+                  <span class="kpi-card-name">Manually-coded Records</span>
+                  <span class="kpi-value" style="font-size:var(--font-size-h2)">1,885</span>
+                  <span class="kpi-target" style="font-size:var(--font-size-caption);color:var(--text-secondary)">14.7% of total</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- OAP — Auto vs Manual coding trend (right column, span 4 of 6) -->
+            <section class="kpi-section" style="grid-column:span 4" aria-label="OAP auto vs manual coding trend">
+              <div class="kpi-overview-card" role="group" aria-label="OAP coding trend chart" style="height:100%;padding:var(--space-4) var(--space-5);gap:var(--space-3)">
+                <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--grey-200);padding-bottom:var(--space-3)">
+                  <h3 class="kpi-overview-card-title" style="border-bottom:none;padding-bottom:0">OAP — Auto vs Manual Coding</h3>
+                  <!-- <a href="#" class="kpi-drilldown" aria-label="View OAP coding details">View More <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a> -->
+                </div>
+                <div class="kpi-chart-body" style="flex:1;height:200px;min-height:0"><canvas id="chart-oap-coding" height="150"></canvas></div>
+                <div class="kpi-chart-legend">
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-primary)"></span> Auto-coded</span>
+                  <span class="kpi-threshold-label"><span class="kpi-threshold-dot" style="background:var(--color-primary-200, #B5CFEC)"></span> Manually-coded</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- --------------------------------------------------- -->
+          <!-- --- IEM Dashboard — KPI (Calendar-wise) ------------ -->
+          <!-- --------------------------------------------------- -->
+          <div style="margin-top:var(--space-6);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)">
+            <h3 class="kpi-section-title" style="margin:0;border-bottom:none;padding-bottom:0">
+              <span class="material-symbols-outlined" aria-hidden="true" style="font-size:22px;vertical-align:middle;margin-right:var(--space-2);color:var(--color-primary)">report</span>
+              Integration Exception Management
+            </h3>
+            <a href="#" class="kpi-drilldown" aria-label="Open IEM module">Open IEM <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+
+          <!-- IEM — Exception record counts -->
+          <div class="kpi-overview-row" id="iem-overview-row" role="group" aria-label="IEM exception record counts for selected period">
+            <!-- Total Exceptions -->
+            <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+              <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-error-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-error)">error</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-1);flex:1">
+                <span class="kpi-card-name">Total Exception Records</span>
+                <span class="kpi-value" style="font-size:var(--font-size-h2)">486</span>
+                <span class="kpi-target" style="font-size:var(--font-size-caption);color:var(--text-secondary)">This week</span>
+              </div>
+            </div>
+
+            <!-- Resolved Exceptions -->
+            <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+              <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-success-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-success)">task_alt</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-1);flex:1">
+                <span class="kpi-card-name">Resolved Exception Records</span>
+                <span class="kpi-value" style="font-size:var(--font-size-h2)">358</span>
+                <span class="kpi-target" style="font-size:var(--font-size-caption);color:var(--text-secondary)">73.7% resolution rate</span>
+              </div>
+            </div>
+
+            <!-- Master Data Review -->
+            <div class="kpi-overview-card" style="flex-direction:row;align-items:center;gap:var(--space-5)">
+              <div style="width:48px;height:48px;border-radius:var(--radius-card);background:var(--color-primary-50);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-size:24px;color:var(--color-primary)">fact_check</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-1);flex:1">
+                <span class="kpi-card-name">Master Data Review Records</span>
+                <span class="kpi-value" style="font-size:var(--font-size-h2)">94</span>
+                <span class="kpi-target" style="font-size:var(--font-size-caption);color:var(--text-secondary)">Awaiting MDR action</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- IEM — Avg Resolution Time + Pending Ageing -->
+          <div class="kpi-overview-row">
+
+            <!-- Average Resolution Time (Full & Short Path) -->
+            <section class="kpi-section" style="grid-column:span 3" aria-label="IEM Average Resolution Time">
+              <div class="kpi-overview-card" role="group" aria-label="IEM resolution time metrics">
+                <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--grey-200);padding-bottom:var(--space-3)">
+                  <h3 class="kpi-overview-card-title" style="border-bottom:none;padding-bottom:0">
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:20px;vertical-align:middle;margin-right:var(--space-2)">timer</span>
+                    Average Resolution Time
+                  </h3>
+                  <!-- <a href="#" class="kpi-drilldown" aria-label="View resolution time details">View More <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a> -->
+                </div>
+
+                <!-- Full Path -->
+                <div style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--grey-200)">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3)">
+                    <span class="kpi-card-name" style="font-weight:var(--font-weight-semibold);color:var(--text-primary)">Full Path</span>
+                    <span style="display:inline-flex;align-items:baseline;gap:var(--space-3)">
+                      <span style="display:inline-flex;flex-direction:column;align-items:flex-end;line-height:1.1">
+                        <span style="font-size:var(--font-size-caption);color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em">Avg Min</span>
+                        <span class="kpi-value" style="font-size:var(--font-size-h3)">96<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> h</small> 30<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> m</small></span>
+                      </span>
+                      <span aria-hidden="true" style="color:var(--grey-400);font-size:18px">–</span>
+                      <span style="display:inline-flex;flex-direction:column;align-items:flex-end;line-height:1.1">
+                        <span style="font-size:var(--font-size-caption);color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em">Avg Max</span>
+                        <span class="kpi-value" style="font-size:var(--font-size-h3)">134<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> h</small> 45<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> m</small></span>
+                      </span>
+                    </span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;font-size:var(--font-size-caption);color:var(--text-secondary)">
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-error-bg);color:var(--color-error-deeper)">Open</span>
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px;color:var(--grey-400)">arrow_forward</span>
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-primary-50);color:var(--color-primary-700)">Master Data Review</span>
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px;color:var(--grey-400)">arrow_forward</span>
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-warning-bg);color:var(--color-warning)">Finance System Review</span>
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px;color:var(--grey-400)">arrow_forward</span>
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-success-bg);color:var(--color-success-darker)">Resolved</span>
+                  </div>
+                </div>
+
+                <!-- Short Path -->
+                <div style="display:flex;flex-direction:column;gap:var(--space-3);padding-top:var(--space-3)">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3)">
+                    <span class="kpi-card-name" style="font-weight:var(--font-weight-semibold);color:var(--text-primary)">Short Path</span>
+                    <span style="display:inline-flex;align-items:baseline;gap:var(--space-3)">
+                      <span style="display:inline-flex;flex-direction:column;align-items:flex-end;line-height:1.1">
+                        <span style="font-size:var(--font-size-caption);color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em">Avg Min</span>
+                        <span class="kpi-value" style="font-size:var(--font-size-h3);color:var(--color-success-darker)">38<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> h</small> 15<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> m</small></span>
+                      </span>
+                      <span aria-hidden="true" style="color:var(--grey-400);font-size:18px">–</span>
+                      <span style="display:inline-flex;flex-direction:column;align-items:flex-end;line-height:1.1">
+                        <span style="font-size:var(--font-size-caption);color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em">Avg Max</span>
+                        <span class="kpi-value" style="font-size:var(--font-size-h3);color:var(--color-success-darker)">62<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> h</small> 50<small style="font-size:12px;font-weight:400;color:var(--text-secondary)"> m</small></span>
+                      </span>
+                    </span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;font-size:var(--font-size-caption);color:var(--text-secondary)">
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-error-bg);color:var(--color-error-deeper)">Open</span>
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px;color:var(--grey-400)">arrow_forward</span>
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-warning-bg);color:var(--color-warning)">Finance System Review</span>
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:14px;color:var(--grey-400)">arrow_forward</span>
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-success-bg);color:var(--color-success-darker)">Resolved</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Records Pending > 10 Days -->
+            <section class="kpi-section" style="grid-column:span 3" aria-label="IEM records pending greater than 10 days">
+              <div class="kpi-overview-card" role="group" aria-label="IEM pending ageing greater than 10 days">
+                <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--grey-200);padding-bottom:var(--space-3)">
+                  <h3 class="kpi-overview-card-title" style="border-bottom:none;padding-bottom:0">
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:20px;vertical-align:middle;margin-right:var(--space-2)">hourglass_top</span>
+                    Records Pending &gt; 10 Days
+                  </h3>
+                  <a href="#" class="kpi-drilldown" id="iem-pending-view-more" aria-label="View ageing details">View More <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+                </div>
+
+                <!-- Headline total + trend -->
+                <div style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--grey-200)">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3)">
+                    <span class="kpi-card-name" style="font-weight:var(--font-weight-semibold);color:var(--text-primary)">Total pending</span>
+                    <span style="display:inline-flex;align-items:baseline;gap:var(--space-3)">
+                      <span class="kpi-value" style="font-size:36px;line-height:1;color:var(--color-error-deeper)">29<small style="font-size:14px;font-weight:400;color:var(--text-secondary)"> records</small></span>
+                      <!-- <span class="kpi-trend kpi-trend--negative" style="display:inline-flex" aria-label="Up 4 vs previous period">
+                        <span class="material-symbols-outlined" aria-hidden="true" style="font-size:20px;">trending_up</span> +4
+                      </span> -->
+                    </span>
+                  </div>
+
+                  <!-- Stacked ageing bar -->
+                  <div role="img" aria-label="Ageing distribution: 11 to 15 days 12 records, 16 to 30 days 11 records, over 30 days 6 records." style="display:flex;height:12px;border-radius:100px;overflow:hidden;background:var(--grey-100)">
+                    <div title="11 – 15 days · 12 records" style="width:41.4%;background:var(--color-warning)"></div>
+                    <div title="16 – 30 days · 11 records" style="width:37.9%;background:var(--color-error)"></div>
+                    <div title="30+ days · 6 records" style="width:20.7%;background:var(--color-error-deeper)"></div>
+                  </div>
+                </div>
+
+                <!-- Bucket tiles -->
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-5);padding:var(--space-5) 0;border-bottom:0px solid var(--grey-200)">
+                  <div style="display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-2) var(--space-3);background:var(--color-warning-bg);border-radius:8px;border-left:3px solid var(--color-warning)">
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary)">11 – 15 days</span>
+                    <span style="display:inline-flex;align-items:baseline;gap:var(--space-2)">
+                      <span style="font-size:24px;font-weight:var(--font-weight-semibold);color:var(--color-warning-dark);line-height:1">12</span>
+                      <span style="font-size:var(--font-size-caption);color:var(--text-secondary)">41%</span>
+                    </span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-2) var(--space-3);background:var(--color-error-bg);border-radius:8px;border-left:3px solid var(--color-error)">
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary)">16 – 30 days</span>
+                    <span style="display:inline-flex;align-items:baseline;gap:var(--space-2)">
+                      <span style="font-size:24px;font-weight:var(--font-weight-semibold);color:var(--color-error);line-height:1">11</span>
+                      <span style="font-size:var(--font-size-caption);color:var(--text-secondary)">38%</span>
+                    </span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-2) var(--space-3);background:var(--color-error-bg);border-radius:8px;border-left:3px solid var(--color-error-deeper)">
+                    <span style="font-size:var(--font-size-caption);color:var(--text-secondary)">30+ days</span>
+                    <span style="display:inline-flex;align-items:baseline;gap:var(--space-2)">
+                      <span style="font-size:24px;font-weight:var(--font-weight-semibold);color:var(--color-error-deeper);line-height:1">6</span>
+                      <span style="font-size:var(--font-size-caption);color:var(--text-secondary)">21%</span>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Critical record callout -->
+                <div hidden style="display:none;align-items:center;justify-content:space-between;gap:var(--space-3);padding-top:var(--space-3);font-size:var(--font-size-caption)">
+                  <span style="display:inline-flex;align-items:center;gap:var(--space-2);color:var(--text-secondary)">
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;color:var(--color-error-deeper)">warning</span>
+                    Oldest record
+                    <strong style="color:var(--text-primary);font-weight:var(--font-weight-semibold)">IEM-2026-0298</strong>
+                    <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-error-bg);color:var(--color-error-deeper)">38 days</span>
+                  </span>
+                  <span style="color:var(--text-secondary)">Action within <strong style="color:var(--text-primary);font-weight:var(--font-weight-semibold)">48 hrs</strong></span>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- --- IEM Pending > 10 Days Side Panel (right drawer) --- -->
+          <div class="kpi-side-panel-overlay" id="iem-pending-panel-overlay"></div>
+          <aside class="kpi-side-panel" id="iem-pending-side-panel" role="dialog" aria-modal="true" aria-label="IEM records pending more than 10 days">
+            <div class="kpi-side-panel-header">
+              <h4 class="kpi-side-panel-title">
+                <span class="material-symbols-outlined" aria-hidden="true">hourglass_top</span>
+                <span>Records Pending &gt; 10 Days</span>
+              </h4>
+              <button class="kpi-side-panel-close" aria-label="Close panel" id="iem-pending-panel-close">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+              </button>
+            </div>
+            <div class="kpi-side-panel-summary" id="iem-pending-panel-summary">
+              <span class="kpi-status-badge" style="display:inline-flex;background:var(--color-error-bg);color:var(--color-error-deeper)">SLA breach risk</span>
+              <span id="iem-pending-summary-text">29 records pending &middot; Action required within 48 hrs</span>
+            </div>
+            <div style="display:flex;gap:var(--space-4);padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--grey-200);flex-shrink:0">
+              <div style="flex:1;position:relative">
+                <span class="material-symbols-outlined" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--grey-400);pointer-events:none">search</span>
+                <input type="text" id="iem-pending-search" placeholder="Search by record ID, type or owner…" style="width:100%;font-family:var(--font-family);font-size:var(--font-size-body);padding:var(--space-3) var(--space-4) var(--space-3) 38px;border:1px solid var(--grey-300);border-radius:var(--radius-input);background:var(--color-card);color:var(--text-primary);min-height:40px" />
+              </div>
+              <select id="iem-pending-filter" style="font-family:var(--font-family);font-size:var(--font-size-body);padding:var(--space-3) var(--space-5);border:1px solid var(--grey-300);border-radius:var(--radius-input);background:var(--color-card);color:var(--text-primary);min-height:40px;cursor:pointer;min-width:160px" aria-label="Filter by ageing bucket">
+                <option value="all" selected>All Ageing Buckets</option>
+                <option value="11to15">11 – 15 Days</option>
+                <option value="16to30">16 – 30 Days</option>
+                <option value="gt30">30+ Days</option>
+              </select>
+            </div>
+            <div class="kpi-side-panel-body">
+              <table class="kpi-table" aria-label="IEM records pending more than 10 days">
+                <thead>
+                  <tr>
+                    <th scope="col">Record ID</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Created On</th>
+                    <th scope="col">Ageing</th>
+                  </tr>
+                </thead>
+                <tbody id="iem-pending-body"></tbody>
+              </table>
+            </div>
+            <div class="kpi-side-panel-footer">
+              <div class="pagination">
+                <span class="pagination-info" id="iem-pending-page-info"></span>
+                <div class="pagination-controls" id="iem-pending-page-controls"></div>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+        <!-- /KPI Dashboard -->
+
+       </div>
+       <!-- /content-inner -->
+      </main>
+    </div>
+  </div>
+
+  <!-- KPI Tooltip element -->
+  <div class="kpi-tooltip" id="kpiTooltip" role="tooltip" aria-hidden="true"></div>
+  <!-- Click-away overlay for date range picker -->
+  <div class="drp-overlay" id="drpOverlay"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // ----------------------------------------------------------
+      // Sidebar Collapse / Expand Toggle
+      // ----------------------------------------------------------
+      var sidebar = document.getElementById('sidebar');
+      var sidebarToggle = document.getElementById('sidebarToggle');
+      var toggleIcon = sidebarToggle.querySelector('.material-symbols-outlined');
+
+      sidebarToggle.addEventListener('click', function() {
+        var isExpanded = sidebar.classList.toggle('is-expanded');
+        sidebarToggle.setAttribute('aria-expanded', String(isExpanded));
+        sidebarToggle.setAttribute('aria-label', isExpanded ? 'Collapse sidebar' : 'Expand sidebar');
+      });
+
+      // ----------------------------------------------------------
+      // Design tokens for Chart.js
+      // ----------------------------------------------------------
+      var C = {
+        primary:   '#3276CF',
+        primary25: '#F2F5FA',
+        primary50: '#DEE8F7',
+        success:   '#43A047',
+        successBg: '#E8F5E9',
+        warning:   '#EF6C00',
+        warningBg: '#FFF3E0',
+        error:     '#E53935',
+        errorBg:   '#FEEBEE',
+        grey200:   '#EEEEEE',
+        grey300:   '#E0E0E0',
+        grey400:   '#BDBDBD',
+        textSec:   '#757575',
+        text:      '#212121'
+      };
+
+      // Chart.js global defaults
+      Chart.defaults.font.family = "'Roboto', system-ui, sans-serif";
+      Chart.defaults.font.size = 12;
+      Chart.defaults.color = C.textSec;
+      Chart.defaults.plugins.legend.display = false;
+      Chart.defaults.plugins.tooltip.backgroundColor = C.text;
+      Chart.defaults.plugins.tooltip.titleFont = { weight: '600', size: 12 };
+      Chart.defaults.plugins.tooltip.bodyFont = { size: 11 };
+      Chart.defaults.plugins.tooltip.cornerRadius = 8;
+      Chart.defaults.plugins.tooltip.padding = 10;
+      Chart.defaults.animation = { duration: 600, easing: 'easeOutQuart' };
+
+      var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+      // ----------------------------------------------------------
+      // Helper: sparkline (tiny line, no axes)
+      // ----------------------------------------------------------
+      function sparkline(id, data, color) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: data.map(function(_, i) { return ''; }),
+            datasets: [{
+              data: data,
+              borderColor: color,
+              borderWidth: 1.5,
+              fill: true,
+              backgroundColor: color + '18',
+              pointRadius: 0,
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { x: { display: false }, y: { display: false } },
+            plugins: { tooltip: { enabled: false }, legend: { display: false } },
+            interaction: { mode: 'none' }
+          }
+        });
+      }
+
+      // ----------------------------------------------------------
+      // Helper: donut / progress ring
+      // ----------------------------------------------------------
+      function donut(id, segments, size) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var cutout = size === 'sm' ? '70%' : '65%';
+        new Chart(el, {
+          type: 'doughnut',
+          data: {
+            labels: segments.map(function(s) { return s.label; }),
+            datasets: [{
+              data: segments.map(function(s) { return s.value; }),
+              backgroundColor: segments.map(function(s) { return s.color; }),
+              borderWidth: 0,
+              hoverOffset: 4
+            }]
+          },
+          options: {
+            responsive: false,
+            cutout: cutout,
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) { return ctx.label + ': ' + ctx.parsed + '%'; }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // ----------------------------------------------------------
+      // Helper: threshold line plugin
+      // ----------------------------------------------------------
+      var thresholdPlugin = {
+        id: 'thresholdLine',
+        afterDraw: function(chart) {
+          var opts = chart.options.plugins.thresholdLine;
+          if (!opts || !opts.value) return;
+          var yAxis = chart.scales.y;
+          var ctx = chart.ctx;
+          var y = yAxis.getPixelForValue(opts.value);
+          ctx.save();
+          ctx.setLineDash([6, 4]);
+          ctx.strokeStyle = opts.color || C.error;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(chart.chartArea.left, y);
+          ctx.lineTo(chart.chartArea.right, y);
+          ctx.stroke();
+          ctx.restore();
+        }
+      };
+      Chart.register(thresholdPlugin);
+
+      // ----------------------------------------------------------
+      // SPARKLINES — KPI cards
+      // ----------------------------------------------------------
+      // Sparklines removed — data shown via bar charts instead
+
+      // ----------------------------------------------------------
+      // HORIZONTAL BAR — Active Users by Module
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-users-module');
+        if (!el) return;
+        new Chart(el, {
+          type: 'bar',
+          data: {
+            labels: ['Ad-hoc Payments', 'Variable Pay', 'All Pay', 'KEYIVR', 'Bank Statement', 'Pension', 'Vehicle Release'],
+            datasets: [{
+              data: [156, 98, 88, 59, 50, 38, 30],
+              backgroundColor: [C.primary, C.primary + 'CC', C.primary + 'AA', C.primary + '88', C.primary + '66', C.primary + '55', C.primary + '44'],
+              borderRadius: 4,
+              barThickness: 20
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false }, ticks: { stepSize: 50 } },
+              y: { grid: { display: false } }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) { return ctx.parsed.x + ' active users'; }
+                }
+              }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // HORIZONTAL STACKED BAR — Workflow Activity by Module
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-workflow-stack');
+        if (!el) return;
+        new Chart(el, {
+          type: 'bar',
+          data: {
+            labels: ['Vehicle Release', 'Ad-hoc Payments', 'Variable Pay'],
+            datasets: [
+              { label: 'Approved', data: [176, 195, 168], backgroundColor: C.primary, borderRadius: 4 },
+              { label: 'Rejected', data: [30, 24, 20],   backgroundColor: C.warning, borderRadius: 4 },
+              { label: 'Pending',  data: [12, 7, 5],     backgroundColor: C.grey400, borderRadius: 4 }
+            ]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, grid: { display: false } }
+            },
+            plugins: {
+              tooltip: {
+                mode: 'index',
+                intersect: false
+              }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // DONUT — Approval Delay Distribution (combined)
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('delay-donut-all');
+        if (!el) return;
+        new Chart(el, {
+          type: 'doughnut',
+          data: {
+            labels: ['< 1 Day', '1–3 Days', '3–5 Days', '> 5 Days'],
+            datasets: [{
+              data: [23, 12, 5, 3],
+              backgroundColor: [C.success, '#EF6C00', '#F57C00', C.error],
+              borderWidth: 0,
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: false,
+            cutout: '65%',
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    var total = ctx.dataset.data.reduce(function(a, b) { return a + b; }, 0);
+                    var pct = Math.round(ctx.parsed / total * 100);
+                    return ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                  }
+                }
+              }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // DONUT — All Pay Status (Pending/Completed/Partial/Failed)
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('ring-allpay');
+        if (!el) return;
+        new Chart(el, {
+          type: 'doughnut',
+          data: {
+            labels: ['Completed', 'Partially Completed', 'Pending', 'Failed'],
+            datasets: [{
+              data: [695, 71, 32, 49],
+              backgroundColor: [C.success, C.warning, C.grey400, C.error],
+              borderWidth: 0,
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: false,
+            cutout: '65%',
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    var total = ctx.dataset.data.reduce(function(a, b) { return a + b; }, 0);
+                    var pct = (ctx.parsed / total * 100).toFixed(1);
+                    return ctx.label + ': ' + ctx.parsed + ' files (' + pct + '%)';
+                  }
+                }
+              }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // DONUT — KEYIVR Status (Pending/Completed/Partial/Failed)
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('ring-keyivr');
+        if (!el) return;
+        new Chart(el, {
+          type: 'doughnut',
+          data: {
+            labels: ['Completed', 'Partially Completed', 'Pending', 'Failed'],
+            datasets: [{
+              data: [553, 35, 30, 5],
+              backgroundColor: [C.success, C.warning, C.grey400, C.error],
+              borderWidth: 0,
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: false,
+            cutout: '65%',
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    var total = ctx.dataset.data.reduce(function(a, b) { return a + b; }, 0);
+                    var pct = (ctx.parsed / total * 100).toFixed(1);
+                    return ctx.label + ': ' + ctx.parsed + ' files (' + pct + '%)';
+                  }
+                }
+              }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // DONUT — Bank Statement (Proceed / Un-Proceed)
+      // ----------------------------------------------------------
+      donut('ring-bank', [
+        { label: 'Transaction', value: 120, color: C.success },
+        { label: 'Excluded', value: 36, color: C.warning }
+      ]);
+
+      // ----------------------------------------------------------
+      // BAR — OAP Auto vs Manually-coded records (calendar-wise)
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-oap-coding');
+        if (!el) return;
+        new Chart(el, {
+          type: 'bar',
+          data: {
+            labels: DAYS,
+            datasets: [
+              { label: 'Auto-coded',     data: [1520, 1610, 1585, 1672, 1598, 1490, 1487], backgroundColor: C.primary,          borderRadius: 4, borderSkipped: false, stack: 's1' },
+              { label: 'Manually-coded', data: [ 275,  290,  255,  310,  268,  245,  242], backgroundColor: C.primary + '66',   borderRadius: 4, borderSkipped: false, stack: 's1' }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, grid: { color: C.grey200 }, ticks: { callback: function(v) { return v.toLocaleString(); } } }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: { mode: 'index', intersect: false }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // LINE — Rejection Trend by Module
+      // ----------------------------------------------------------
+      (function() {
+        var el = document.getElementById('chart-rejection-trend');
+        if (!el) return;
+        new Chart(el, {
+          type: 'line',
+          data: {
+            labels: DAYS,
+            datasets: [
+              { label: 'Vehicle Release', data: [15.1, 16.0, 16.8, 17.2, 17.5, 17.9, 18.2], borderColor: C.error, fill: false, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+              { label: 'Ad-hoc Payments', data: [11.2, 11.5, 11.8, 12.0, 12.1, 12.3, 12.4], borderColor: C.warning, fill: false, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+              { label: 'Variable Pay', data: [6.9, 6.7, 6.5, 6.4, 6.3, 6.2, 6.1], borderColor: C.success, fill: false, tension: 0.3, pointRadius: 3, borderWidth: 2 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 0, max: 25, grid: { color: C.grey200 }, ticks: { callback: function(v) { return v + '%'; } } }
+            },
+            plugins: {
+              tooltip: { mode: 'index', intersect: false, callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '%'; } } }
+            }
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // SIDE PANEL — Legend click / View More ? slide-in right panel
+      // ----------------------------------------------------------
+      (function() {
+        var panel = document.getElementById('delay-side-panel');
+        var overlay = document.getElementById('delay-panel-overlay');
+        var panelTitle = document.getElementById('side-panel-title');
+        var panelSummary = document.getElementById('side-panel-summary');
+        var panelBody = document.getElementById('side-panel-body');
+        var closeBtn = document.getElementById('side-panel-close');
+        var searchInput = document.getElementById('side-panel-search');
+        var filterSelect = document.getElementById('side-panel-filter');
+        var viewMoreBtn = document.getElementById('delay-view-more');
+        var legends = document.querySelectorAll('.kpi-delay-legend-item[data-delay]');
+
+        // All rows tagged with their bracket key
+        var allRows = [
+          { id: 'AHP-2026-1340', module: 'Ad-hoc Payments', createdBy: 'Sarah Johnson', createdOn: '09 Apr 2026', pending: '4 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VAR-2026-0589', module: 'Variable Pay', createdBy: 'Michael Chen', createdOn: '09 Apr 2026', pending: '6 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'AHP-2026-1341', module: 'Ad-hoc Payments', createdBy: 'Priya Naidoo', createdOn: '09 Apr 2026', pending: '8 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VRP-2026-0862', module: 'Vehicle Release', createdBy: 'James Wilson', createdOn: '08 Apr 2026', pending: '18 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'BST-2026-0234', module: 'Bank Statement', createdBy: 'Anika Patel', createdOn: '08 Apr 2026', pending: '22 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'AHP-2026-1345', module: 'Ad-hoc Payments', createdBy: 'Nomvula Khumalo', createdOn: '09 Apr 2026', pending: '3 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VAR-2026-0592', module: 'Variable Pay', createdBy: 'Chris Adams', createdOn: '09 Apr 2026', pending: '5 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VRP-2026-0865', module: 'Vehicle Release', createdBy: 'Linda Nkosi', createdOn: '09 Apr 2026', pending: '7 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'BST-2026-0238', module: 'Bank Statement', createdBy: 'Raj Govender', createdOn: '09 Apr 2026', pending: '9 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'AHP-2026-1348', module: 'Ad-hoc Payments', createdBy: 'Thabo Mabaso', createdOn: '08 Apr 2026', pending: '14 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VAR-2026-0595', module: 'Variable Pay', createdBy: 'Emma Joubert', createdOn: '08 Apr 2026', pending: '16 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VRP-2026-0868', module: 'Vehicle Release', createdBy: 'Samuel Motaung', createdOn: '08 Apr 2026', pending: '19 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'AHP-2026-1350', module: 'Ad-hoc Payments', createdBy: 'Zanele Dube', createdOn: '08 Apr 2026', pending: '20 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'BST-2026-0241', module: 'Bank Statement', createdBy: 'Pieter van Zyl', createdOn: '08 Apr 2026', pending: '21 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VAR-2026-0598', module: 'Variable Pay', createdBy: 'Ayanda Ndlovu', createdOn: '08 Apr 2026', pending: '23 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'AHP-2026-1352', module: 'Ad-hoc Payments', createdBy: 'Refilwe Maseko', createdOn: '09 Apr 2026', pending: '2 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VRP-2026-0870', module: 'Vehicle Release', createdBy: 'Bongani Sithole', createdOn: '09 Apr 2026', pending: '10 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'AHP-2026-1355', module: 'Ad-hoc Payments', createdBy: 'Lerato Mokoena', createdOn: '09 Apr 2026', pending: '11 hrs', status: 'success', statusText: 'On Track', bracket: 'lt1' },
+          { id: 'VRP-2026-0855', module: 'Vehicle Release', createdBy: 'David Mokoena', createdOn: '07 Apr 2026', pending: '1.5 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'AHP-2026-1320', module: 'Ad-hoc Payments', createdBy: 'Lisa van Wyk', createdOn: '07 Apr 2026', pending: '2 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'VAR-2026-0575', module: 'Variable Pay', createdBy: 'Themba Dlamini', createdOn: '06 Apr 2026', pending: '2.5 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'AHP-2026-1318', module: 'Ad-hoc Payments', createdBy: 'Rachel Green', createdOn: '06 Apr 2026', pending: '3 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'VRP-2026-0858', module: 'Vehicle Release', createdBy: 'Mandla Zulu', createdOn: '07 Apr 2026', pending: '1.2 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'BST-2026-0230', module: 'Bank Statement', createdBy: 'Grace Moloi', createdOn: '06 Apr 2026', pending: '2.8 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'AHP-2026-1315', module: 'Ad-hoc Payments', createdBy: 'Kagiso Phiri', createdOn: '07 Apr 2026', pending: '1.8 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'VAR-2026-0572', module: 'Variable Pay', createdBy: 'Helen Kruger', createdOn: '06 Apr 2026', pending: '2.2 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'VRP-2026-0860', module: 'Vehicle Release', createdBy: 'Tshego Langa', createdOn: '07 Apr 2026', pending: '1.6 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'AHP-2026-1312', module: 'Ad-hoc Payments', createdBy: 'Johan Venter', createdOn: '06 Apr 2026', pending: '2.9 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'BST-2026-0228', module: 'Bank Statement', createdBy: 'Siyabonga Mkhize', createdOn: '07 Apr 2026', pending: '1.4 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'VAR-2026-0570', module: 'Variable Pay', createdBy: 'Annette Botha', createdOn: '06 Apr 2026', pending: '2.6 days', status: 'warning', statusText: 'At Risk', bracket: '1to3' },
+          { id: 'VRP-2026-0849', module: 'Vehicle Release', createdBy: 'Sipho Mthembu', createdOn: '05 Apr 2026', pending: '4 days', status: 'warning', statusText: 'At Risk', bracket: '3to5' },
+          { id: 'AHP-2026-1301', module: 'Ad-hoc Payments', createdBy: 'Karen Smith', createdOn: '05 Apr 2026', pending: '4 days', status: 'warning', statusText: 'At Risk', bracket: '3to5' },
+          { id: 'VAR-2026-0512', module: 'Variable Pay', createdBy: 'Ahmed Hassan', createdOn: '04 Apr 2026', pending: '5 days', status: 'warning', statusText: 'At Risk', bracket: '3to5' },
+          { id: 'AHP-2026-1298', module: 'Ad-hoc Payments', createdBy: 'Ntombi Shabalala', createdOn: '05 Apr 2026', pending: '4.5 days', status: 'warning', statusText: 'At Risk', bracket: '3to5' },
+          { id: 'BST-2026-0220', module: 'Bank Statement', createdBy: 'Willem du Plessis', createdOn: '04 Apr 2026', pending: '5 days', status: 'warning', statusText: 'At Risk', bracket: '3to5' },
+          { id: 'VRP-2026-0847', module: 'Vehicle Release', createdBy: 'John Botha', createdOn: '01 Apr 2026', pending: '8 days', status: 'critical', statusText: 'Breached', bracket: 'gt5' },
+          { id: 'AHP-2026-1293', module: 'Ad-hoc Payments', createdBy: 'Fatima Essop', createdOn: '03 Apr 2026', pending: '6 days', status: 'critical', statusText: 'Breached', bracket: 'gt5' },
+          { id: 'VRP-2026-0843', module: 'Vehicle Release', createdBy: 'Peter Molefe', createdOn: '03 Apr 2026', pending: '6 days', status: 'critical', statusText: 'Breached', bracket: 'gt5' }
+        ];
+
+        var bracketLabels = {
+          lt1:  { title: 'Pending < 1 Day',   summary: '23 requests \u00b7 53% of total pending', badge: 'success', badgeText: 'On Track' },
+          '1to3': { title: 'Pending 1 \u2013 3 Days', summary: '12 requests \u00b7 28% of total pending', badge: 'warning', badgeText: 'At Risk' },
+          '3to5': { title: 'Pending 3 \u2013 5 Days', summary: '5 requests \u00b7 12% of total pending', badge: 'warning', badgeText: 'Escalation Recommended' },
+          gt5:  { title: 'Pending > 5 Days',  summary: '3 requests \u00b7 7% of total pending',  badge: 'critical', badgeText: 'SLA Breached' }
+        };
+
+        var currentBracket = 'all';
+
+        var bracketDelayLabel = { lt1: '< 1 Day', '1to3': '1 – 3 Days', '3to5': '3 – 5 Days', gt5: '> 5 Days' };
+
+        var delayPage = 1;
+        var DELAY_PAGE_SIZE = 10;
+        var delayPageInfo = document.getElementById('delay-page-info');
+        var delayPageControls = document.getElementById('delay-page-controls');
+
+        function renderRows(rows) {
+          var totalPages = Math.max(1, Math.ceil(rows.length / DELAY_PAGE_SIZE));
+          if (delayPage > totalPages) delayPage = totalPages;
+          var start = (delayPage - 1) * DELAY_PAGE_SIZE;
+          var pageRows = rows.slice(start, start + DELAY_PAGE_SIZE);
+          var html = '';
+          if (rows.length === 0) {
+            html = '<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);padding:var(--space-6)">No matching records found</td></tr>';
+          } else {
+            pageRows.forEach(function(r) {
+              html += '<tr>';
+              html += '<td>' + r.id + '</td>';
+              html += '<td>' + r.module + '</td>';
+              html += '<td>' + r.createdBy + '</td>';
+              html += '<td>' + r.createdOn + '</td>';
+              html += '<td>' + (bracketDelayLabel[r.bracket] || '') + '</td>';
+              html += '</tr>';
+            });
+          }
+          panelBody.innerHTML = html;
+          renderDelayPagination(rows.length, totalPages);
+        }
+
+        function renderDelayPagination(total, totalPages) {
+          var from = total === 0 ? 0 : (delayPage - 1) * DELAY_PAGE_SIZE + 1;
+          var to = Math.min(delayPage * DELAY_PAGE_SIZE, total);
+          delayPageInfo.textContent = from + '–' + to + ' of ' + total;
+          var btns = '';
+          btns += '<button class="pagination-btn" aria-label="Previous page"' + (delayPage <= 1 ? ' disabled' : '') + ' data-page="prev"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>';
+          for (var p = 1; p <= totalPages; p++) {
+            btns += '<button class="pagination-btn' + (p === delayPage ? ' is-active' : '') + '" data-page="' + p + '">' + p + '</button>';
+          }
+          btns += '<button class="pagination-btn" aria-label="Next page"' + (delayPage >= totalPages ? ' disabled' : '') + ' data-page="next"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>';
+          delayPageControls.innerHTML = btns;
+          delayPageControls.querySelectorAll('.pagination-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              var val = btn.getAttribute('data-page');
+              if (val === 'prev') delayPage--;
+              else if (val === 'next') delayPage++;
+              else delayPage = parseInt(val, 10);
+              refreshPanel();
+            });
+          });
+        }
+
+        function getFilteredRows() {
+          var bracket = filterSelect.value;
+          var query = searchInput.value.trim().toLowerCase();
+          return allRows.filter(function(r) {
+            if (bracket !== 'all' && r.bracket !== bracket) return false;
+            if (query) {
+              var haystack = (r.id + ' ' + r.module + ' ' + r.createdBy).toLowerCase();
+              if (haystack.indexOf(query) === -1) return false;
+            }
+            return true;
+          });
+        }
+
+        function refreshPanel() {
+          var rows = getFilteredRows();
+          var bracket = filterSelect.value;
+          if (bracket !== 'all' && bracketLabels[bracket]) {
+            var b = bracketLabels[bracket];
+            panelTitle.textContent = b.title;
+            panelSummary.innerHTML = rows.length + ' of ' + allRows.filter(function(r) { return r.bracket === bracket; }).length + ' shown &nbsp;<span class="kpi-status-badge kpi-status-badge--' + b.badge + '" style="display:inline-flex">' + b.badgeText + '</span>';
+          } else {
+            panelTitle.textContent = 'All Pending Approvals';
+            panelSummary.innerHTML = rows.length + ' of ' + allRows.length + ' total requests';
+          }
+          renderRows(rows);
+        }
+
+        function openPanel(key) {
+          currentBracket = key || 'all';
+          filterSelect.value = currentBracket;
+          searchInput.value = '';
+          delayPage = 1;
+          refreshPanel();
+          panel.classList.add('is-visible');
+          overlay.classList.add('is-visible');
+          document.body.style.overflow = 'hidden';
+          legends.forEach(function(l) { l.classList.remove('is-active'); });
+          if (key !== 'all') {
+            var active = document.querySelector('.kpi-delay-legend-item[data-delay="' + key + '"]');
+            if (active) active.classList.add('is-active');
+          }
+        }
+
+        function closePanel() {
+          panel.classList.remove('is-visible');
+          overlay.classList.remove('is-visible');
+          document.body.style.overflow = '';
+          legends.forEach(function(l) { l.classList.remove('is-active'); });
+        }
+
+        // Search + filter live updates
+        searchInput.addEventListener('input', function() { delayPage = 1; refreshPanel(); });
+        filterSelect.addEventListener('change', function() {
+          currentBracket = filterSelect.value;
+          delayPage = 1;
+          legends.forEach(function(l) { l.classList.remove('is-active'); });
+          if (currentBracket !== 'all') {
+            var active = document.querySelector('.kpi-delay-legend-item[data-delay="' + currentBracket + '"]');
+            if (active) active.classList.add('is-active');
+          }
+          refreshPanel();
+        });
+
+        // View More button — opens all data
+        if (viewMoreBtn) {
+          viewMoreBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openPanel('all');
+          });
+        }
+
+        // Legend clicks — filter to specific bracket
+        legends.forEach(function(item) {
+          item.addEventListener('click', function() {
+            var key = item.getAttribute('data-delay');
+            if (item.classList.contains('is-active')) {
+              closePanel();
+            } else {
+              openPanel(key);
+            }
+          });
+          item.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              item.click();
+            }
+          });
+        });
+
+        if (closeBtn) closeBtn.addEventListener('click', closePanel);
+        if (overlay) overlay.addEventListener('click', closePanel);
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && panel.classList.contains('is-visible')) closePanel();
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // USERS SIDE PANEL — Active users grid + sign-in history
+      // ----------------------------------------------------------
+      (function() {
+        var usersPanel = document.getElementById('users-side-panel');
+        var usersOverlay = document.getElementById('users-panel-overlay');
+        var usersTitle = document.getElementById('users-panel-title');
+        var usersSummary = document.getElementById('users-panel-summary');
+        var usersBody = document.getElementById('users-panel-body');
+        var usersCloseBtn = document.getElementById('users-panel-close');
+        var usersSearch = document.getElementById('users-panel-search');
+        var usersDateFilter = document.getElementById('users-panel-date-filter');
+        var cardActiveUsers = document.getElementById('card-active-users');
+
+        // Sample users data (342 mentioned, showing representative set)
+        var allUsers = [
+          { id: 'USR-001', name: 'Sarah Johnson', email: 'sarah.johnson@met.co.za', signIns: ['2026-04-13 08:15','2026-04-12 09:02','2026-04-11 08:45','2026-04-10 07:58','2026-04-09 08:30'] },
+          { id: 'USR-002', name: 'Michael Chen', email: 'michael.chen@met.co.za', signIns: ['2026-04-13 07:50','2026-04-12 08:10','2026-04-11 07:55','2026-04-10 08:22','2026-04-09 07:40'] },
+          { id: 'USR-003', name: 'Priya Naidoo', email: 'priya.naidoo@met.co.za', signIns: ['2026-04-13 09:05','2026-04-11 08:50','2026-04-10 09:15','2026-04-08 08:40','2026-04-07 09:00'] },
+          { id: 'USR-004', name: 'James Wilson', email: 'james.wilson@met.co.za', signIns: ['2026-04-13 08:30','2026-04-12 08:45','2026-04-11 09:10','2026-04-10 08:55','2026-04-09 08:20'] },
+          { id: 'USR-005', name: 'Anika Patel', email: 'anika.patel@met.co.za', signIns: ['2026-04-13 10:00','2026-04-12 09:30','2026-04-11 10:15','2026-04-10 09:45','2026-04-09 10:05'] },
+          { id: 'USR-006', name: 'Nomvula Khumalo', email: 'nomvula.khumalo@met.co.za', signIns: ['2026-04-13 07:30','2026-04-12 07:45','2026-04-10 07:20','2026-04-09 07:50','2026-04-08 07:35'] },
+          { id: 'USR-007', name: 'Chris Adams', email: 'chris.adams@met.co.za', signIns: ['2026-04-12 11:20','2026-04-11 10:45','2026-04-10 11:05','2026-04-09 11:30','2026-04-08 10:50'] },
+          { id: 'USR-008', name: 'Linda Nkosi', email: 'linda.nkosi@met.co.za', signIns: ['2026-04-13 08:55','2026-04-12 09:15','2026-04-11 08:40','2026-04-09 09:00','2026-04-08 08:50'] },
+          { id: 'USR-009', name: 'Raj Govender', email: 'raj.govender@met.co.za', signIns: ['2026-04-13 09:20','2026-04-12 08:50','2026-04-11 09:35','2026-04-10 09:10','2026-04-09 09:25'] },
+          { id: 'USR-010', name: 'Thabo Mabaso', email: 'thabo.mabaso@met.co.za', signIns: ['2026-04-13 07:40','2026-04-11 07:55','2026-04-10 08:10','2026-04-09 07:30','2026-04-07 08:00'] },
+          { id: 'USR-011', name: 'Emma Joubert', email: 'emma.joubert@met.co.za', signIns: ['2026-04-12 10:10','2026-04-11 09:50','2026-04-10 10:30','2026-04-09 10:00','2026-04-08 09:45'] },
+          { id: 'USR-012', name: 'Samuel Motaung', email: 'samuel.motaung@met.co.za', signIns: ['2026-04-13 08:05','2026-04-12 08:20','2026-04-11 08:00','2026-04-10 07:50','2026-04-09 08:15'] },
+          { id: 'USR-013', name: 'Zanele Dube', email: 'zanele.dube@met.co.za', signIns: ['2026-04-13 09:45','2026-04-12 10:00','2026-04-11 09:30','2026-04-10 09:55','2026-04-08 09:40'] },
+          { id: 'USR-014', name: 'Pieter van Zyl', email: 'pieter.vanzyl@met.co.za', signIns: ['2026-04-13 11:00','2026-04-12 10:45','2026-04-11 11:15','2026-04-10 10:30','2026-04-09 11:05'] },
+          { id: 'USR-015', name: 'Ayanda Ndlovu', email: 'ayanda.ndlovu@met.co.za', signIns: ['2026-04-12 08:35','2026-04-11 08:20','2026-04-10 08:50','2026-04-09 08:40','2026-04-08 08:25'] },
+          { id: 'USR-016', name: 'Refilwe Maseko', email: 'refilwe.maseko@met.co.za', signIns: ['2026-04-13 07:55','2026-04-12 07:40','2026-04-11 08:10','2026-04-10 07:45','2026-04-09 07:35'] },
+          { id: 'USR-017', name: 'Bongani Sithole', email: 'bongani.sithole@met.co.za', signIns: ['2026-04-13 10:30','2026-04-12 10:15','2026-04-10 10:40','2026-04-09 10:20','2026-04-08 10:10'] },
+          { id: 'USR-018', name: 'Lerato Mokoena', email: 'lerato.mokoena@met.co.za', signIns: ['2026-04-13 08:20','2026-04-12 08:35','2026-04-11 08:25','2026-04-10 08:15','2026-04-09 08:45'] },
+          { id: 'USR-019', name: 'David Mokoena', email: 'david.mokoena@met.co.za', signIns: ['2026-04-12 09:05','2026-04-11 09:20','2026-04-10 09:00','2026-04-09 09:15','2026-04-07 09:10'] },
+          { id: 'USR-020', name: 'Lisa van Wyk', email: 'lisa.vanwyk@met.co.za', signIns: ['2026-04-13 09:40','2026-04-12 09:55','2026-04-11 09:45','2026-04-10 09:30','2026-04-09 09:50'] },
+          { id: 'USR-021', name: 'Themba Dlamini', email: 'themba.dlamini@met.co.za', signIns: ['2026-04-13 08:00','2026-04-12 07:50','2026-04-10 08:05','2026-04-09 07:55','2026-04-08 08:15'] },
+          { id: 'USR-022', name: 'Rachel Green', email: 'rachel.green@met.co.za', signIns: ['2026-04-11 10:20','2026-04-10 10:10','2026-04-09 10:35','2026-04-08 10:25','2026-04-07 10:15'] },
+          { id: 'USR-023', name: 'Mandla Zulu', email: 'mandla.zulu@met.co.za', signIns: ['2026-04-13 07:25','2026-04-12 07:35','2026-04-11 07:30','2026-04-10 07:40','2026-04-09 07:20'] },
+          { id: 'USR-024', name: 'Grace Moloi', email: 'grace.moloi@met.co.za', signIns: ['2026-04-13 09:10','2026-04-12 09:25','2026-04-11 09:00','2026-04-10 09:20','2026-04-08 09:15'] },
+          { id: 'USR-025', name: 'Kagiso Phiri', email: 'kagiso.phiri@met.co.za', signIns: ['2026-04-13 10:50','2026-04-12 11:00','2026-04-11 10:45','2026-04-10 10:55','2026-04-09 10:40'] },
+          { id: 'USR-026', name: 'Helen Kruger', email: 'helen.kruger@met.co.za', signIns: ['2026-04-12 08:15','2026-04-11 08:30','2026-04-10 08:00','2026-04-09 08:10','2026-04-08 08:20'] },
+          { id: 'USR-027', name: 'Tshego Langa', email: 'tshego.langa@met.co.za', signIns: ['2026-04-13 08:45','2026-04-12 08:55','2026-04-11 08:35','2026-04-10 08:40','2026-04-09 08:50'] },
+          { id: 'USR-028', name: 'Johan Venter', email: 'johan.venter@met.co.za', signIns: ['2026-04-13 11:10','2026-04-11 11:05','2026-04-10 11:20','2026-04-09 11:00','2026-04-08 11:15'] },
+          { id: 'USR-029', name: 'Sipho Mthembu', email: 'sipho.mthembu@met.co.za', signIns: ['2026-04-12 09:40','2026-04-11 09:50','2026-04-10 09:35','2026-04-08 09:55','2026-04-07 09:30'] },
+          { id: 'USR-030', name: 'Fatima Essop', email: 'fatima.essop@met.co.za', signIns: ['2026-04-13 07:15','2026-04-12 07:25','2026-04-11 07:10','2026-04-10 07:20','2026-04-09 07:05'] }
+        ];
+
+        var expandedUserId = null;
+        var usersPage = 1;
+        var USERS_PAGE_SIZE = 10;
+        var usersPageInfo = document.getElementById('users-page-info');
+        var usersPageControls = document.getElementById('users-page-controls');
+
+        function fmtDateTime(str) {
+          // "2026-04-13 08:15" ? "13 Apr 2026, 08:15"
+          var parts = str.split(' ');
+          var d = parts[0].split('-');
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          return d[2] + ' ' + months[parseInt(d[1],10)-1] + ' ' + d[0] + ', ' + parts[1];
+        }
+
+        function fmtDate(str) {
+          return str.split(' ')[0]; // "2026-04-13"
+        }
+
+        function getFilteredUsers() {
+          var query = usersSearch.value.trim().toLowerCase();
+          var dateVal = usersDateFilter.value; // "2026-04-13" or ""
+          return allUsers.filter(function(u) {
+            if (query) {
+              var haystack = (u.id + ' ' + u.name + ' ' + u.email).toLowerCase();
+              if (haystack.indexOf(query) === -1) return false;
+            }
+            if (dateVal) {
+              // At least one sign-in on that date
+              var hasDate = u.signIns.some(function(s) { return s.indexOf(dateVal) === 0; });
+              if (!hasDate) return false;
+            }
+            return true;
+          });
+        }
+
+        function renderUsers() {
+          var users = getFilteredUsers();
+          var totalPages = Math.max(1, Math.ceil(users.length / USERS_PAGE_SIZE));
+          if (usersPage > totalPages) usersPage = totalPages;
+          var start = (usersPage - 1) * USERS_PAGE_SIZE;
+          var pageUsers = users.slice(start, start + USERS_PAGE_SIZE);
+          usersSummary.textContent = users.length + ' of ' + allUsers.length + ' active users';
+          var html = '';
+          if (users.length === 0) {
+            html = '<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);padding:var(--space-6)">No matching users found</td></tr>';
+          } else {
+            pageUsers.forEach(function(u) {
+              var isOpen = expandedUserId === u.id;
+              var lastSignIn = fmtDateTime(u.signIns[0]);
+              html += '<tr class="users-parent-row" data-user-id="' + u.id + '">';
+              html += '<td style="width:28px;text-align:center"><button class="users-expand-btn' + (isOpen ? ' is-open' : '') + '" aria-label="' + (isOpen ? 'Collapse' : 'Expand') + ' sign-in history" aria-expanded="' + isOpen + '"><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></td>';
+              html += '<td>' + u.id + '</td>';
+              html += '<td>' + u.name + '</td>';
+              html += '<td>' + u.email + '</td>';
+              html += '<td>' + lastSignIn + '</td>';
+              html += '</tr>';
+              if (isOpen) {
+                html += '<tr class="users-history-row"><td colspan="5" style="padding-left:var(--space-9)">';
+                html += '<div style="display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-3) 0">';
+                html += '<strong style="font-size:var(--font-size-caption);color:var(--text-primary);margin-bottom:var(--space-1)">Last 5 Sign-ins</strong>';
+                u.signIns.forEach(function(s, idx) {
+                  html += '<div style="display:flex;align-items:center;gap:var(--space-3)">';
+                  html += '<span class="material-symbols-outlined" style="font-size:14px;color:var(--color-primary)" aria-hidden="true">schedule</span>';
+                  html += '<span>' + fmtDateTime(s) + '</span>';
+                  if (idx === 0) html += '<span class="kpi-status-badge kpi-status-badge--success" style="font-size:10px;margin-left:var(--space-2)">Latest</span>';
+                  html += '</div>';
+                });
+                html += '</div></td></tr>';
+              }
+            });
+          }
+          usersBody.innerHTML = html;
+          bindRowClicks();
+          renderUsersPagination(users.length, totalPages);
+        }
+
+        function renderUsersPagination(total, totalPages) {
+          var from = total === 0 ? 0 : (usersPage - 1) * USERS_PAGE_SIZE + 1;
+          var to = Math.min(usersPage * USERS_PAGE_SIZE, total);
+          usersPageInfo.textContent = from + '–' + to + ' of ' + total;
+          var btns = '';
+          btns += '<button class="pagination-btn" aria-label="Previous page"' + (usersPage <= 1 ? ' disabled' : '') + ' data-page="prev"><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>';
+          for (var p = 1; p <= totalPages; p++) {
+            btns += '<button class="pagination-btn' + (p === usersPage ? ' is-active' : '') + '" data-page="' + p + '">' + p + '</button>';
+          }
+          btns += '<button class="pagination-btn" aria-label="Next page"' + (usersPage >= totalPages ? ' disabled' : '') + ' data-page="next"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>';
+          usersPageControls.innerHTML = btns;
+          usersPageControls.querySelectorAll('.pagination-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              var val = btn.getAttribute('data-page');
+              if (val === 'prev') usersPage--;
+              else if (val === 'next') usersPage++;
+              else usersPage = parseInt(val, 10);
+              expandedUserId = null;
+              renderUsers();
+            });
+          });
+        }
+
+        function bindRowClicks() {
+          usersBody.querySelectorAll('.users-parent-row').forEach(function(row) {
+            row.addEventListener('click', function() {
+              var uid = row.getAttribute('data-user-id');
+              expandedUserId = expandedUserId === uid ? null : uid;
+              renderUsers();
+            });
+          });
+        }
+
+        function openUsersPanel() {
+          expandedUserId = null;
+          usersSearch.value = '';
+          usersDateFilter.value = '';
+          usersPage = 1;
+          renderUsers();
+          usersPanel.classList.add('is-visible');
+          usersOverlay.classList.add('is-visible');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeUsersPanel() {
+          usersPanel.classList.remove('is-visible');
+          usersOverlay.classList.remove('is-visible');
+          document.body.style.overflow = '';
+        }
+
+        // Card click ? open panel
+        if (cardActiveUsers) {
+          cardActiveUsers.addEventListener('click', function(e) {
+            e.preventDefault();
+            openUsersPanel();
+          });
+          cardActiveUsers.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openUsersPanel(); }
+          });
+        }
+
+        // Search & filter
+        usersSearch.addEventListener('input', function() { expandedUserId = null; usersPage = 1; renderUsers(); });
+        usersDateFilter.addEventListener('change', function() { expandedUserId = null; usersPage = 1; renderUsers(); });
+
+        // Close
+        if (usersCloseBtn) usersCloseBtn.addEventListener('click', closeUsersPanel);
+        if (usersOverlay) usersOverlay.addEventListener('click', closeUsersPanel);
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && usersPanel.classList.contains('is-visible')) closeUsersPanel();
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // SIDE PANEL — All Pay Success/Failure file lists
+      // ----------------------------------------------------------
+      // ----------------------------------------------------------
+      // KPI TOOLTIP — hover on cards with data-kpi-tip
+      // ----------------------------------------------------------
+      var tip = document.getElementById('kpiTooltip');
+      document.querySelectorAll('[data-kpi-tip]').forEach(function(card) {
+        card.addEventListener('mouseenter', function(e) {
+          var parts = card.getAttribute('data-kpi-tip').split('|');
+          var html = '<div class="kpi-tooltip-title">' + (card.querySelector('.kpi-card-name, .kpi-delay-bracket')?.textContent || '') + '</div>';
+          parts.forEach(function(p) { html += '<div>' + p.trim() + '</div>'; });
+          tip.innerHTML = html;
+          tip.classList.add('is-visible');
+          tip.setAttribute('aria-hidden', 'false');
+        });
+        card.addEventListener('mousemove', function(e) {
+          var x = e.clientX + 12;
+          var y = e.clientY + 12;
+          if (x + 270 > window.innerWidth) x = e.clientX - 270;
+          if (y + 120 > window.innerHeight) y = e.clientY - 120;
+          tip.style.left = x + 'px';
+          tip.style.top = y + 'px';
+        });
+        card.addEventListener('mouseleave', function() {
+          tip.classList.remove('is-visible');
+          tip.setAttribute('aria-hidden', 'true');
+        });
+      });
+
+      // ----------------------------------------------------------
+      // CUSTOM DATE RANGE PICKER
+      // ----------------------------------------------------------
+      (function() {
+        var picker      = document.getElementById('dateRangePicker');
+        var overlay     = document.getElementById('drpOverlay');
+        var filterSel   = document.getElementById('filter-date');
+        var btnPrev     = document.getElementById('drpPrev');
+        var btnNext     = document.getElementById('drpNext');
+        var btnCancel   = document.getElementById('drpCancel');
+        var btnOk       = document.getElementById('drpOk');
+        var leftLabel   = document.getElementById('drpLeftLabel');
+        var rightLabel  = document.getElementById('drpRightLabel');
+        var leftDays    = document.getElementById('drpLeftDays');
+        var rightDays   = document.getElementById('drpRightDays');
+        var presetBtns  = picker.querySelectorAll('.drp-preset');
+
+        var MONTHS = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+
+        var viewYear, viewMonth; // left calendar month
+        var rangeStart = null, rangeEnd = null;
+        var hoverDate  = null;
+        var prevSelection = ''; // to restore select on cancel
+
+        function today() { var d = new Date(); d.setHours(0,0,0,0); return d; }
+
+        function sameDay(a, b) {
+          return a && b && a.getFullYear() === b.getFullYear() &&
+                 a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+        }
+
+        function inRange(d) {
+          if (!rangeStart || !rangeEnd) return false;
+          return d >= rangeStart && d <= rangeEnd;
+        }
+
+        function inHoverRange(d) {
+          if (!rangeStart || rangeEnd || !hoverDate) return false;
+          var lo = rangeStart < hoverDate ? rangeStart : hoverDate;
+          var hi = rangeStart < hoverDate ? hoverDate : rangeStart;
+          return d >= lo && d <= hi;
+        }
+
+        // -- Open / close --
+        function openPicker() {
+          var now = today();
+          viewYear = now.getFullYear();
+          viewMonth = now.getMonth();
+          rangeStart = null;
+          rangeEnd = null;
+          hoverDate = null;
+          clearActivePresets();
+          render();
+          picker.classList.add('is-open');
+          overlay.classList.add('is-open');
+          btnOk.disabled = true;
+        }
+
+        function closePicker() {
+          picker.classList.remove('is-open');
+          overlay.classList.remove('is-open');
+        }
+
+        // -- Render calendars --
+        function render() {
+          leftLabel.textContent  = MONTHS[viewMonth] + ' ' + viewYear;
+          var rm = (viewMonth + 1) % 12;
+          var ry = viewMonth === 11 ? viewYear + 1 : viewYear;
+          rightLabel.textContent = MONTHS[rm] + ' ' + ry;
+          renderMonth(leftDays,  viewYear, viewMonth);
+          renderMonth(rightDays, ry, rm);
+        }
+
+        function renderMonth(container, year, month) {
+          container.innerHTML = '';
+          var firstDow = new Date(year, month, 1).getDay(); // 0=Sun
+          var daysInMonth = new Date(year, month + 1, 0).getDate();
+          var daysInPrev  = new Date(year, month, 0).getDate();
+          var t = today();
+
+          // Leading blanks from previous month
+          for (var i = firstDow - 1; i >= 0; i--) {
+            var d = new Date(year, month - 1, daysInPrev - i);
+            container.appendChild(makeDay(d, true, t));
+          }
+          // Current month days
+          for (var day = 1; day <= daysInMonth; day++) {
+            var d = new Date(year, month, day);
+            container.appendChild(makeDay(d, false, t));
+          }
+          // Trailing blanks
+          var total = container.children.length;
+          var rows = Math.ceil(total / 7) * 7;
+          for (var j = total; j < rows; j++) {
+            var extra = j - total + 1;
+            var d = new Date(year, month + 1, extra);
+            container.appendChild(makeDay(d, true, t));
+          }
+        }
+
+        function makeDay(d, outside, t) {
+          var btn = document.createElement('button');
+          btn.className = 'drp-day';
+          btn.textContent = d.getDate();
+          btn.setAttribute('data-date', d.toISOString());
+          if (outside) btn.classList.add('is-outside');
+          if (sameDay(d, t)) btn.classList.add('is-today');
+
+          var isStart = sameDay(d, rangeStart);
+          var isEnd   = sameDay(d, rangeEnd);
+          if (isStart || isEnd) btn.classList.add('is-selected');
+          if (isStart && rangeEnd) btn.classList.add('is-range-start');
+          if (isEnd && rangeStart) btn.classList.add('is-range-end');
+          if (inRange(d) && !isStart && !isEnd) btn.classList.add('is-in-range');
+          if (inHoverRange(d)) btn.classList.add('is-in-range');
+          if (inHoverRange(d) && sameDay(d, rangeStart)) btn.classList.add('is-range-start');
+          if (inHoverRange(d) && sameDay(d, hoverDate)) btn.classList.add('is-range-end');
+
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            onDayClick(d);
+          });
+          btn.addEventListener('mouseenter', function() {
+            if (rangeStart && !rangeEnd) {
+              hoverDate = d;
+              render();
+            }
+          });
+          return btn;
+        }
+
+        function onDayClick(d) {
+          clearActivePresets();
+          if (!rangeStart || rangeEnd) {
+            rangeStart = d;
+            rangeEnd = null;
+            hoverDate = null;
+            btnOk.disabled = true;
+          } else {
+            if (d < rangeStart) {
+              rangeEnd = rangeStart;
+              rangeStart = d;
+            } else {
+              rangeEnd = d;
+            }
+            hoverDate = null;
+            btnOk.disabled = false;
+          }
+          render();
+        }
+
+        // -- Navigation --
+        btnPrev.addEventListener('click', function(e) { e.stopPropagation(); viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } render(); });
+        btnNext.addEventListener('click', function(e) { e.stopPropagation(); viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } render(); });
+
+        // -- Presets --
+        function clearActivePresets() {
+          presetBtns.forEach(function(b) { b.classList.remove('is-active'); });
+        }
+
+        function applyPreset(key) {
+          var t = today();
+          clearActivePresets();
+          picker.querySelector('[data-preset="' + key + '"]').classList.add('is-active');
+          switch (key) {
+            case 'prevday':
+              rangeStart = new Date(t); rangeStart.setDate(rangeStart.getDate() - 1);
+              rangeEnd = new Date(rangeStart);
+              break;
+            case '7d':
+              rangeEnd = new Date(t);
+              rangeStart = new Date(t); rangeStart.setDate(rangeStart.getDate() - 6);
+              break;
+            case '30d':
+              rangeEnd = new Date(t);
+              rangeStart = new Date(t); rangeStart.setDate(rangeStart.getDate() - 29);
+              break;
+            case 'month':
+              rangeStart = new Date(t.getFullYear(), t.getMonth(), 1);
+              rangeEnd = new Date(t.getFullYear(), t.getMonth() + 1, 0);
+              break;
+            case 'week':
+              var dow = t.getDay(); // 0=Sun
+              rangeStart = new Date(t); rangeStart.setDate(t.getDate() - dow);
+              rangeEnd = new Date(rangeStart); rangeEnd.setDate(rangeStart.getDate() + 6);
+              break;
+          }
+          viewYear  = rangeStart.getFullYear();
+          viewMonth = rangeStart.getMonth();
+          hoverDate = null;
+          btnOk.disabled = false;
+          render();
+        }
+
+        presetBtns.forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            applyPreset(btn.getAttribute('data-preset'));
+          });
+        });
+
+        // -- OK / Cancel --
+        btnOk.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (rangeStart && rangeEnd) {
+            var fmt = function(d) {
+              return (d.getDate() < 10 ? '0' : '') + d.getDate() + '/' +
+                     ((d.getMonth() + 1) < 10 ? '0' : '') + (d.getMonth() + 1) + '/' +
+                     d.getFullYear();
+            };
+            // Update the select to show the custom range text
+            var customOpt = filterSel.querySelector('option[value="Custom"], option:last-child');
+            if (customOpt) {
+              customOpt.textContent = fmt(rangeStart) + ' – ' + fmt(rangeEnd);
+              customOpt.value = 'Custom';
+              customOpt.selected = true;
+            }
+            closePicker();
+          }
+        });
+
+        btnCancel.addEventListener('click', function(e) {
+          e.stopPropagation();
+          // Revert select if nothing was confirmed
+          if (prevSelection && prevSelection !== 'Custom') {
+            for (var i = 0; i < filterSel.options.length; i++) {
+              if (filterSel.options[i].textContent.trim() === prevSelection) {
+                filterSel.selectedIndex = i;
+                break;
+              }
+            }
+          }
+          closePicker();
+        });
+
+        overlay.addEventListener('click', function() {
+          btnCancel.click();
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && picker.classList.contains('is-open')) btnCancel.click();
+        });
+
+        // -- Trigger from select --
+        filterSel.addEventListener('change', function() {
+          if (filterSel.value === 'Custom') {
+            prevSelection = 'Custom';
+            // Reset the Custom option text
+            var customOpt = filterSel.querySelector('option:last-child');
+            if (customOpt) customOpt.textContent = 'Custom';
+            openPicker();
+          }
+        });
+      })();
+
+      // ----------------------------------------------------------
+      // Sticky dashboard header — toggle pinned shadow on scroll
+      // ----------------------------------------------------------
+      (function() {
+        var contentArea = document.querySelector('.content-area');
+        var sticky = document.querySelector('.kpi-dashboard-sticky');
+        if (!contentArea || !sticky) return;
+        contentArea.addEventListener('scroll', function() {
+          if (contentArea.scrollTop > 8) {
+            sticky.classList.add('is-pinned');
+          } else {
+            sticky.classList.remove('is-pinned');
+          }
+        }, { passive: true });
+      })();
+
+      // ----------------------------------------------------------
+      // IEM Pending > 10 Days — View More side panel
+      // ----------------------------------------------------------
+      (function() {
+        var panel = document.getElementById('iem-pending-side-panel');
+        var overlay = document.getElementById('iem-pending-panel-overlay');
+        var closeBtn = document.getElementById('iem-pending-panel-close');
+        var viewMoreBtn = document.getElementById('iem-pending-view-more');
+        var searchInput = document.getElementById('iem-pending-search');
+        var filterSelect = document.getElementById('iem-pending-filter');
+        var summaryText = document.getElementById('iem-pending-summary-text');
+        var tbody = document.getElementById('iem-pending-body');
+        var pageInfo = document.getElementById('iem-pending-page-info');
+        var pageControls = document.getElementById('iem-pending-page-controls');
+        if (!panel || !viewMoreBtn) return;
+
+        var allRows = [
+          { id: 'IEM-2026-0421', type: 'Exception',   owner: 'Sarah Johnson',   status: 'Open',                  createdOn: '02 Jun 2026', days: 20, bucket: '16to30' },
+          { id: 'IEM-2026-0418', type: 'Exception',   owner: 'Michael Chen',    status: 'Master Data Review',    createdOn: '04 Jun 2026', days: 18, bucket: '16to30' },
+          { id: 'IEM-2026-0415', type: 'Amend',       owner: 'Priya Naidoo',    status: 'Finance System Review', createdOn: '06 Jun 2026', days: 16, bucket: '16to30' },
+          { id: 'IEM-2026-0411', type: 'Amend',       owner: 'James Wilson',    status: 'Open',                  createdOn: '07 Jun 2026', days: 15, bucket: '11to15' },
+          { id: 'IEM-2026-0408', type: 'Exception',   owner: 'Anika Patel',     status: 'Master Data Review',    createdOn: '08 Jun 2026', days: 14, bucket: '11to15' },
+          { id: 'IEM-2026-0405', type: 'Amend',       owner: 'Nomvula Khumalo', status: 'Finance System Review', createdOn: '08 Jun 2026', days: 14, bucket: '11to15' },
+          { id: 'IEM-2026-0402', type: 'Exception',   owner: 'Chris Adams',     status: 'Open',                  createdOn: '09 Jun 2026', days: 13, bucket: '11to15' },
+          { id: 'IEM-2026-0398', type: 'Amend',       owner: 'Linda Nkosi',     status: 'Master Data Review',    createdOn: '09 Jun 2026', days: 13, bucket: '11to15' },
+          { id: 'IEM-2026-0395', type: 'Exception',   owner: 'Raj Govender',    status: 'Finance System Review', createdOn: '10 Jun 2026', days: 12, bucket: '11to15' },
+          { id: 'IEM-2026-0392', type: 'Amend',       owner: 'Thabo Mabaso',    status: 'Open',                  createdOn: '10 Jun 2026', days: 12, bucket: '11to15' },
+          { id: 'IEM-2026-0388', type: 'Exception',   owner: 'Emma Joubert',    status: 'Master Data Review',    createdOn: '11 Jun 2026', days: 11, bucket: '11to15' },
+          { id: 'IEM-2026-0385', type: 'Amend',       owner: 'Samuel Motaung',  status: 'Finance System Review', createdOn: '11 Jun 2026', days: 11, bucket: '11to15' },
+          { id: 'IEM-2026-0382', type: 'Amend',       owner: 'Zanele Dube',     status: 'Open',                  createdOn: '11 Jun 2026', days: 11, bucket: '11to15' },
+          { id: 'IEM-2026-0378', type: 'Exception',   owner: 'Pieter van Zyl',  status: 'Master Data Review',    createdOn: '01 Jun 2026', days: 21, bucket: '16to30' },
+          { id: 'IEM-2026-0375', type: 'Amend',       owner: 'Ayanda Ndlovu',   status: 'Finance System Review', createdOn: '03 Jun 2026', days: 19, bucket: '16to30' },
+          { id: 'IEM-2026-0372', type: 'Amend',       owner: 'Refilwe Maseko',  status: 'Open',                  createdOn: '05 Jun 2026', days: 17, bucket: '16to30' },
+          { id: 'IEM-2026-0368', type: 'Exception',   owner: 'Bongani Sithole', status: 'Master Data Review',    createdOn: '07 Jun 2026', days: 15, bucket: '11to15' },
+          { id: 'IEM-2026-0365', type: 'Amend',       owner: 'Lerato Mokoena',  status: 'Finance System Review', createdOn: '08 Jun 2026', days: 14, bucket: '11to15' },
+          { id: 'IEM-2026-0362', type: 'Amend',       owner: 'David Mokoena',   status: 'Open',                  createdOn: '08 Jun 2026', days: 14, bucket: '11to15' },
+          { id: 'IEM-2026-0358', type: 'Amend',       owner: 'Lisa van Wyk',    status: 'Master Data Review',    createdOn: '09 Jun 2026', days: 13, bucket: '11to15' },
+          { id: 'IEM-2026-0355', type: 'Exception',   owner: 'Themba Dlamini',  status: 'Finance System Review', createdOn: '10 Jun 2026', days: 12, bucket: '11to15' },
+          { id: 'IEM-2026-0352', type: 'Amend',       owner: 'Rachel Green',    status: 'Open',                  createdOn: '11 Jun 2026', days: 11, bucket: '11to15' },
+          { id: 'IEM-2026-0348', type: 'Amend',       owner: 'Mandla Zulu',     status: 'Master Data Review',    createdOn: '11 Jun 2026', days: 11, bucket: '11to15' },
+          { id: 'IEM-2026-0298', type: 'Exception',   owner: 'Grace Moloi',     status: 'Open',                  createdOn: '15 May 2026', days: 38, bucket: 'gt30' },
+          { id: 'IEM-2026-0295', type: 'Amend',       owner: 'Kagiso Phiri',    status: 'Master Data Review',    createdOn: '18 May 2026', days: 35, bucket: 'gt30' },
+          { id: 'IEM-2026-0291', type: 'Amend',       owner: 'Helen Kruger',    status: 'Finance System Review', createdOn: '20 May 2026', days: 33, bucket: 'gt30' },
+          { id: 'IEM-2026-0288', type: 'Exception',   owner: 'Tshego Langa',    status: 'Open',                  createdOn: '21 May 2026', days: 32, bucket: 'gt30' },
+          { id: 'IEM-2026-0285', type: 'Amend',       owner: 'Johan Venter',    status: 'Master Data Review',    createdOn: '22 May 2026', days: 31, bucket: 'gt30' },
+          { id: 'IEM-2026-0282', type: 'Amend',       owner: 'Siyabonga Mkhize',status: 'Open',                  createdOn: '23 May 2026', days: 30, bucket: 'gt30' }
+        ];
+
+        var statusStyle = {
+          'Open':                  'background:var(--color-error-bg);color:var(--color-error-deeper)',
+          'Master Data Review':    'background:var(--color-primary-50);color:var(--color-primary-700)',
+          'Finance System Review': 'background:var(--color-warning-bg);color:var(--color-warning)',
+          'Resolved':              'background:var(--color-success-bg);color:var(--color-success-darker)'
+        };
+
+        var pageSize = 10;
+        var page = 1;
+        var currentBucket = 'all';
+
+        function ageingBadge(days) {
+          var bg, color;
+          if (days >= 30) { bg = 'var(--color-error-bg)'; color = 'var(--color-error-deeper)'; }
+          else if (days >= 16) { bg = 'var(--color-error-bg)'; color = 'var(--color-error)'; }
+          else { bg = 'var(--color-warning-bg)'; color = 'var(--color-warning-dark)'; }
+          return '<span class="kpi-status-badge" style="display:inline-flex;background:' + bg + ';color:' + color + '">' + days + ' days</span>';
+        }
+
+        function getFilteredRows() {
+          var q = (searchInput.value || '').trim().toLowerCase();
+          return allRows.filter(function(r) {
+            if (currentBucket !== 'all' && r.bucket !== currentBucket) return false;
+            if (!q) return true;
+            return r.id.toLowerCase().indexOf(q) > -1
+                || r.type.toLowerCase().indexOf(q) > -1
+                || r.owner.toLowerCase().indexOf(q) > -1
+                || r.status.toLowerCase().indexOf(q) > -1;
+          });
+        }
+
+        function renderPageControls(total) {
+          var totalPages = Math.max(1, Math.ceil(total / pageSize));
+          if (page > totalPages) page = totalPages;
+          var start = total === 0 ? 0 : (page - 1) * pageSize + 1;
+          var end = Math.min(page * pageSize, total);
+          pageInfo.textContent = total === 0
+            ? 'No records'
+            : 'Showing ' + start + '–' + end + ' of ' + total;
+
+          pageControls.innerHTML = '';
+          var prev = document.createElement('button');
+          prev.className = 'pagination-btn';
+          prev.setAttribute('aria-label', 'Previous page');
+          prev.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>';
+          prev.disabled = page <= 1;
+          prev.addEventListener('click', function() { if (page > 1) { page--; render(); } });
+          pageControls.appendChild(prev);
+
+          var maxBtns = 5;
+          var startP = Math.max(1, page - 2);
+          var endP = Math.min(totalPages, startP + maxBtns - 1);
+          startP = Math.max(1, endP - maxBtns + 1);
+          for (var p = startP; p <= endP; p++) {
+            (function(num) {
+              var b = document.createElement('button');
+              b.className = 'pagination-btn' + (num === page ? ' is-active' : '');
+              b.textContent = String(num);
+              b.addEventListener('click', function() { page = num; render(); });
+              pageControls.appendChild(b);
+            })(p);
+          }
+
+          var next = document.createElement('button');
+          next.className = 'pagination-btn';
+          next.setAttribute('aria-label', 'Next page');
+          next.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>';
+          next.disabled = page >= totalPages;
+          next.addEventListener('click', function() { if (page < totalPages) { page++; render(); } });
+          pageControls.appendChild(next);
+        }
+
+        function render() {
+          var rows = getFilteredRows();
+          var slice = rows.slice((page - 1) * pageSize, page * pageSize);
+          tbody.innerHTML = slice.map(function(r) {
+            return '<tr>'
+              + '<td>' + r.id + '</td>'
+              + '<td>' + r.owner + '</td>'
+              + '<td><span class="kpi-status-badge" style="display:inline-flex;' + (statusStyle[r.status] || '') + '">' + r.status + '</span></td>'
+              + '<td>' + r.createdOn + '</td>'
+              + '<td>' + r.days + ' days</td>'
+              + '</tr>';
+          }).join('');
+          if (!slice.length) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-secondary);padding:var(--space-6)">No records match the current filter.</td></tr>';
+          }
+          var totalForBucket = allRows.filter(function(r) { return currentBucket === 'all' || r.bucket === currentBucket; }).length;
+          summaryText.textContent = rows.length + ' of ' + totalForBucket + ' records · Action required within 48 hrs';
+          renderPageControls(rows.length);
+        }
+
+        function openPanel() {
+          page = 1;
+          currentBucket = 'all';
+          filterSelect.value = 'all';
+          searchInput.value = '';
+          render();
+          panel.classList.add('is-visible');
+          overlay.classList.add('is-visible');
+          document.body.style.overflow = 'hidden';
+        }
+        function closePanel() {
+          panel.classList.remove('is-visible');
+          overlay.classList.remove('is-visible');
+          document.body.style.overflow = '';
+        }
+
+        viewMoreBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          openPanel();
+        });
+        closeBtn.addEventListener('click', closePanel);
+        overlay.addEventListener('click', closePanel);
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && panel.classList.contains('is-visible')) closePanel();
+        });
+        searchInput.addEventListener('input', function() { page = 1; render(); });
+        filterSelect.addEventListener('change', function() {
+          currentBucket = filterSelect.value;
+          page = 1;
+          render();
+        });
+      })();
+
+    });
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

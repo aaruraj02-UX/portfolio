@@ -1,0 +1,71 @@
+Stage 3 - Semi-Auto Response Generation Notice IQ - Product Backlog Document (PBD)
+Document Details
+Version No.Change SummaryPrepared/Modified By & DateReviewed By & DateApproved By & Date1.0Initial Draft - Case Validation Tool Business SpecAmaad.Ali - 22-Oct-2025 1.1Updated Business Objectives, Future State, Scope, High Level Requirements, Assumptions, Dependencies and Success CriteriaAmaad.Ali 27 Feb 20261.2Updated the Scope and Requirements.Amaad.Ali 08 Jun 2026Amaad.Ali Shelley Stones Craig Scott angela.fleming 09 Jun 2026Amaad.Ali Shelley Stones Craig Scott angela.fleming 10 Jun 2026* 1. Executive Summary
+* 2. Business Objectives
+* 3. Background & Business Context
+* 4. Scope 
+o In Scope
+o Out of Scope
+* 5. High-Level Business Requirements
+* 6. As-Is
+* 7. Assumptions
+* 8. Constraints
+* 9. Risks
+* 10. Dependencies
+* 11. Success Criteria
+* 12. Key Milestones
+1. Executive Summary
+The Semi-Auto Response Generation will extract the relevant information from the case details to pre-fill the relevant sections in the correspondence letter for Notice IQ clients and then once checked, will get sent out.
+2. Business Objectives
+* Reduce the time taken to write up the correspondence.
+* Ensure that the key information is captured from the summarisation and link it to the correct and accurate correspondence templates and then add these into the letter.
+* Enable seamless integration with Notice IQ portal.
+* We want to see an automated complete letter and an action required letter.
+* In the agent workflow we want to show a column with the title 'letter generation' that highlights the cases that are completed by the AI and cases that the AI cannot complete.
+* Want the cases that need manual changes from an agent to be identified so the QA's can perform quality checks on these cases.
+* Maintain complete audit logs for compliance.
+3. Background & Business Context
+Current State (As-Is):
+* Agent must fill out the reason, sub reason and answer questions for each sub reason manually.
+* Agent must downloads the letter template from the CRM.
+* Agent must manually copy the relevant template paragraphs from AIRA into the downloaded letter and then upload the letter.
+Future State (To-Be):
+* Information from case validation, citizen evidence, previous letter history, permit/Ringo check, council rules, stage of PCN and amount outstanding is automatically captured and pre fills the answers to the questions to form a suggested letter to the customer.
+* The agent checks the suggested letter and if necessary makes any changes to form the final letter.
+* Once the letter is checked the agent the clicks send.
+4. Scope
+In Scope
+* Pre fill the details from the PCN case validation (Stage 2 output) into the correspondence letter per council.
+* Notice IQ Councils - Bracknell Forest, Hertfordshire, Surrey, Wokingham.
+Out of Scope
+* PCN challenges outside Notice IQ systems.
+* Third-party CRMs.
+5. High-Level Business Requirements
+IDRequirementsBR-01The tool should pre fill the details from the PCN case validation (Stage 2 output), the contravention location and previous history of all the PCNs that have been cancelled into the correspondence letter per council.BR-02Information from Stage 2 (Validation) should be used to prefill the letter automatically based on the reasons for the challenge and mitigations from the customer.BR-03The tool should identify and highlight the cases where the AI cannot complete the letter.BR-04The agent should be able to make changes to a case before completing the letter.BR-05The agent should be able to edit the content within the letter template.BR-06If the AI generated letter covers everything (Green) then the agent reviews it and clicks complete and follows the current process in Notice IQ.BR-07The tool needs to identify if an agent has made an amendment (Amber and Red) to the letter templates and these are automatically added to a queue for the QAs to check based on the current settings held in Notice IQ that dictates, by agent, the percentage of letters to be checked by the QA.BR-08If content is added or deleted to a letter template by the agent, the amendments needs to be highlighted for the QA to review.BR-09When a QA sends the letter back with the notes attached on the case, the agent should be able to make the changes before sending the letter to the queue for the QA to review as is the current process in Notice IQ.BR-10To create a dashboard covering all of the analysis of the data from the tool and we want this delivered at the same time as the solution.BR-11The business to be able to make any changes to the Knowledge Source + document and LV to upload the updated knowledge source + document to live within 24 hours.BR-12The solution shall deliver a streamlined and user-friendly agent experience, minimising interaction effort and ensuring clarity of task expectations.BR-13A QR code printed on the letter for the customer to be able to scan.6. As-Is
+
+7. Assumptions
+* Council policy documents are accessible and up to date.
+* Agents trained on reviewing the letter before it gets sent out.
+* The current processes and progressions after a letter is completed remain the same as the processes we do today.
+8. Constraints
+* Limited to Notice IQ contracts.
+* Dependent on council documentation accuracy.
+* GDPR compliance required.
+9. Risks
+* Poor policy document quality may impact accuracy.
+* Potential agent resistance to automation.
+10. Dependencies
+* Stage 3 Tool Integration -The bot depends on the stage 3 tool being available for retrieving the PCN case validation (Stage 2 output) into the correspondence letter.
+* Council Policy Documents-Validation accuracy depends on each council maintaining and providing their up-to-date policy documents.
+* MNPS Portal Access-Agents must access the tool only through the Notice IQ back-office portal, any downtime impacts adoption.
+* User Training-Processing agents must be trained on reviewing flagged mismatches and summaries.
+11. Success Criteria
+* The tool can complete the majority of letters automatically (either fully or partially), with little adaption from the agents.
+* Positive agent feedback on usability.
+* 100% audit trail of validation outcomes.
+12. Key Milestones
+* Business requirements sign-off.
+* Prototype delivery.
+* UAT completion.
+* Go-live.
+* Post-implementation review.

@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProServe — Documents Upload</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E">
+  <style>
+    /* --------- MET-DS-V2 Design Tokens --------- */
+    :root {
+      --color-primary-25:#F2F5FA; --color-primary-50:#DEE8F7; --color-primary-75:#C2D7F2;
+      --color-primary-100:#A2C1EA; --color-primary-500:#3276CF; --color-primary-600:#2C66B4;
+      --color-primary-700:#275798; --color-primary-800:#22497D;
+      --color-primary:var(--color-primary-500); --color-bg:var(--color-primary-25); --color-card:#FFFFFF;
+      --text-primary:#212121; --text-secondary:#757575;
+      --text-hyperlink:#3276CF; --text-hyperlink-hover:#2C66B4;
+      --grey-50:#FAFAFA; --grey-100:#F5F5F5; --grey-200:#EEEEEE; --grey-300:#E0E0E0;
+      --grey-400:#BDBDBD; --grey-500:#9E9E9E; --grey-600:#757575; --grey-700:#616161; --grey-900:#212121;
+      --color-success:#43A047; --color-success-bg:#E8F5E9;
+      --color-error:#E53935; --color-error-bg:#FEEBEE;
+      --color-warning:#FF9800; --color-warning-bg:#FFF3E0;
+      --color-info:#1E88E5; --color-info-bg:#E3F2FD;
+      --leftnav-text:#212121; --leftnav-text-active:#3276CF;
+      --topnav-icon:#757575; --topnav-icon-hover:#616161;
+      --border-default:1px solid #E0E0E0; --border-divider:1px solid #EEEEEE;
+      --radius-card:12px; --radius-button:8px; --radius-input:8px; --radius-pill:100px;
+      --space-1:2px; --space-2:4px; --space-3:8px; --space-4:12px; --space-5:16px;
+      --space-6:20px; --space-7:24px; --space-8:32px; --space-9:40px; --space-10:48px;
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1:24px; --font-size-h2:20px; --font-size-h3:16px;
+      --font-size-body:14px; --font-size-caption:12px;
+      --duration-micro:150ms; --duration-standard:250ms;
+      --shadow-card:0 1px 4px rgba(50,118,207,.10);
+      --shadow-popover:0 8px 24px rgba(0,0,0,.14);
+      --shadow-focus:0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html,body { height:100%; font-family:var(--font-family); font-size:var(--font-size-body); line-height:1.5; color:var(--text-primary); background:var(--color-bg); }
+    a { color:var(--text-hyperlink); text-decoration:none; }
+    a:hover { color:var(--text-hyperlink-hover); text-decoration:underline; }
+    ul { list-style:none; }
+    button { font-family:inherit; }
+    .skip-link { position:absolute; top:-999px; left:16px; background:var(--color-primary); color:#FFF; padding:8px 16px; border-radius:8px; z-index:9999; font-weight:600; }
+    .skip-link:focus { top:8px; color:#FFF; text-decoration:none; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    /* App shell */
+    .app-shell { display:grid; grid-template-columns:220px 1fr; height:100vh; overflow:hidden; }
+    .main-column { display:flex; flex-direction:column; min-width:0; overflow:hidden; }
+
+    /* Leftnav */
+    .leftnav { background:var(--color-card); border-right:var(--border-default); display:flex; flex-direction:column; overflow-y:auto; height:100vh; }
+    .leftnav-brand { display:flex; align-items:center; padding:var(--space-4) var(--space-5); border-bottom:var(--border-divider); flex-shrink:0; }
+    .leftnav-brand img { height:32px; width:auto; display:block; }
+    .leftnav-list { padding:var(--space-3) 0; flex:1; }
+    .leftnav-item {
+      display:flex; align-items:center; gap:var(--space-4);
+      padding:var(--space-4) var(--space-5); color:var(--leftnav-text); font-size:var(--font-size-body);
+      cursor:pointer; min-height:44px; border-left:3px solid transparent; text-decoration:none;
+      transition: color var(--duration-micro), background var(--duration-micro);
+    }
+    .leftnav-item:hover { color:var(--color-primary); background:var(--color-primary-25); text-decoration:none; }
+    .leftnav-item.active, .leftnav-item[aria-current="page"] {
+      color:var(--leftnav-text-active); font-weight:600;
+      border-left-color:var(--color-primary); background:var(--color-primary-25);
+    }
+    .leftnav-item:focus-visible { box-shadow:var(--shadow-focus); outline:none; border-radius:var(--radius-button); }
+    .leftnav-icon { width:20px; height:20px; flex-shrink:0; }
+    .leftnav-caret { margin-left:auto; width:14px; height:14px; transition: transform var(--duration-micro); flex-shrink:0; }
+    .leftnav-group.is-open > .leftnav-item .leftnav-caret { transform: rotate(180deg); }
+    .leftnav-sub { display:none; padding: var(--space-2) 0 var(--space-3); background: var(--grey-50); }
+    .leftnav-group.is-open .leftnav-sub { display:block; }
+    .leftnav-sub-item {
+      display:flex; align-items:center;
+      padding: var(--space-3) var(--space-5) var(--space-3) calc(var(--space-5) + 36px);
+      color: var(--text-primary); font-size: var(--font-size-body);
+      text-decoration: underline; text-decoration-color: transparent;
+      min-height: 36px; border-left: 3px solid transparent;
+      transition: color var(--duration-micro), background var(--duration-micro), text-decoration-color var(--duration-micro);
+    }
+    .leftnav-sub-item:hover { color: var(--color-primary); background: var(--color-primary-25); text-decoration-color: var(--color-primary); }
+    .leftnav-sub-item[aria-current="page"], .leftnav-sub-item.active {
+      color: var(--color-primary-700); font-weight: 600;
+      border-left-color: var(--color-primary); background: var(--color-primary-25);
+      text-decoration-color: var(--color-primary-700);
+    }
+
+    /* Topnav */
+    .topnav { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-7); background:var(--color-card); border-bottom:var(--border-default); flex-shrink:0; }
+    .topnav-search { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-5); border-radius:var(--radius-input); color:var(--text-secondary); cursor:pointer; min-height:40px; min-width:280px; transition:background var(--duration-micro); }
+    .topnav-search:hover { background:var(--grey-100); }
+    .topnav-search svg { width:16px; height:16px; }
+    .topnav-right { display:flex; align-items:center; gap:var(--space-5); }
+    .icon-btn { width:40px; height:40px; border-radius:50%; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center; color:var(--topnav-icon); cursor:pointer; position:relative; transition:background var(--duration-micro); }
+    .icon-btn:hover { background:var(--color-primary-25); color:var(--topnav-icon-hover); }
+    .icon-btn:focus-visible { box-shadow:var(--shadow-focus); outline:none; }
+    .icon-btn svg { width:20px; height:20px; }
+    .badge-count { position:absolute; top:2px; right:0; min-width:22px; height:18px; padding:0 5px; border-radius:var(--radius-pill); background:var(--color-warning); color:#FFF; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; line-height:1; }
+    .user-dropdown { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-2); border-radius:var(--radius-button); cursor:pointer; transition:background var(--duration-micro); }
+    .user-dropdown:hover { background:var(--grey-100); }
+    .avatar { width:36px; height:36px; border-radius:50%; background:var(--color-primary); color:#FFF; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .topnav-greeting { font-size:var(--font-size-caption); color:var(--text-secondary); line-height:1.3; }
+    .topnav-greeting strong { display:block; font-size:var(--font-size-body); color:var(--text-primary); font-weight:600; }
+    .user-dropdown svg { width:12px; height:12px; color:var(--text-secondary); }
+
+    .main-content { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+    .main-body { flex:1; overflow-y:auto; min-height:0; }
+
+    /* Hero */
+    .page-hero { background: linear-gradient(135deg,#006494 0%,#3276CF 55%,#8EC0E2 100%); box-shadow: 0 4px 12px rgba(0,0,0,.10); padding: var(--space-5); color:#FFF; position:relative; }
+    .page-hero::after { content:""; position:absolute; right:-40px; top:-40px; width:240px; height:240px; border-radius:50%; background: radial-gradient(circle at center, rgba(255,255,255,.18), transparent 60%); pointer-events:none; }
+    .crumbs { display:flex; align-items:center; gap:var(--space-2); font-size:var(--font-size-caption); color:rgba(255,255,255,.85); margin-bottom:var(--space-3); }
+    .crumbs a { color:rgba(255,255,255,.85); }
+    .crumbs a:hover { color:#FFF; }
+    .crumbs svg { width:12px; height:12px; opacity:.7; }
+    .hero-row { display:flex; align-items:center; justify-content:space-between; gap:var(--space-7); flex-wrap:wrap; position:relative; z-index:1; }
+    .hero-title { font-size:var(--font-size-h1); font-weight:700; letter-spacing:-.4px; margin-bottom:var(--space-2); }
+    .hero-sub { display:none; }
+    .btn-on-hero { display:inline-flex; align-items:center; gap:var(--space-3); background:#FFF; color:var(--color-primary-700); border:0; border-radius:var(--radius-button); padding:10px 18px; font-weight:600; font-size:var(--font-size-body); cursor:pointer; transition:background var(--duration-micro), transform var(--duration-micro); }
+    .btn-on-hero:hover { background:var(--color-primary-25); }
+    .btn-on-hero:focus-visible { outline:none; box-shadow:var(--shadow-focus); }
+    .btn-on-hero svg { width:16px; height:16px; }
+
+    /* Surface */
+    .lc-surface { margin: var(--space-7) var(--space-8) var(--space-8); background: var(--color-card); border-radius: var(--radius-card); box-shadow: var(--shadow-card); overflow: hidden; }
+    .lc-panel { padding: var(--space-6); }
+
+    /* Dropzone */
+    .du-drop {
+      border: 2px dashed var(--color-primary-100);
+      border-radius: var(--radius-card);
+      padding: var(--space-8) var(--space-6);
+      text-align: center;
+      background: var(--color-primary-25);
+      transition: background var(--duration-micro), border-color var(--duration-micro);
+      cursor: pointer;
+      margin-bottom: var(--space-6);
+    }
+    .du-drop:hover { border-color: var(--color-primary); }
+    .du-drop.is-dragging { background: var(--color-primary-50); border-color: var(--color-primary); }
+    .du-drop-icon { width:48px; height:48px; color: var(--color-primary); margin: 0 auto var(--space-4); display:block; }
+    .du-drop h3 { font-size: var(--font-size-h3); color: var(--text-primary); margin-bottom: var(--space-2); }
+    .du-drop p { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .du-drop-hint { display:inline-block; margin-top: var(--space-3); padding: var(--space-2) var(--space-4); background:#FFF; border-radius: var(--radius-pill); font-size: var(--font-size-caption); color: var(--grey-700); border: var(--border-default); }
+
+    /* Toolbar */
+    .du-toolbar { display:flex; align-items:center; justify-content:space-between; gap:var(--space-5); margin-bottom: var(--space-5); flex-wrap:wrap; }
+    .du-show { display:inline-flex; align-items:center; gap:var(--space-3); color: var(--text-secondary); font-size: var(--font-size-body); }
+    .du-show select, .du-cat select {
+      padding: 6px 28px 6px 10px; border:1px solid var(--grey-300); border-radius: var(--radius-input);
+      background:#FFF; color: var(--text-primary); font: 400 var(--font-size-body)/1.4 var(--font-family);
+      appearance:none; -webkit-appearance:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23616161' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat:no-repeat; background-position:right 8px center; background-size:12px;
+    }
+    .du-right { display:flex; align-items:center; gap: var(--space-3); flex-wrap:wrap; }
+    .du-search-wrap { position:relative; }
+    .du-search-wrap input {
+      padding: 8px 12px 8px 34px; border:1px solid var(--grey-300); border-radius: var(--radius-pill); min-width: 240px;
+      font: 400 var(--font-size-body)/1.4 var(--font-family); color: var(--text-primary); outline:none;
+    }
+    .du-search-wrap input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,.15); }
+    .du-search-icon { position:absolute; left: 12px; top: 50%; transform: translateY(-50%); width:14px; height:14px; color: var(--grey-600); }
+
+    /* Table */
+    .du-table-wrap { overflow-x:auto; }
+    .du-table { width:100%; border-collapse: collapse; font-size: var(--font-size-body); }
+    .du-table thead th {
+      text-align:left; padding: var(--space-3) var(--space-4);
+      background: var(--color-primary-50); color: var(--color-primary-800);
+      font-weight:600; font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: .04em;
+      border-bottom: 2px solid var(--color-primary-100);
+      cursor:pointer; user-select:none;
+      white-space: nowrap;
+    }
+    .du-table th .sort-icon { width:12px; height:12px; margin-left: 4px; opacity:.6; vertical-align:-2px; }
+    .du-table th[aria-sort="ascending"] .sort-icon,
+    .du-table th[aria-sort="descending"] .sort-icon { opacity:1; color: var(--color-primary); }
+    .du-table tbody td { padding: var(--space-3) var(--space-4); border-bottom: var(--border-divider); vertical-align: middle; }
+    .du-table tbody tr:hover { background: var(--grey-50); }
+    .du-empty { text-align:center; color: var(--text-secondary); padding: var(--space-8) var(--space-4); }
+
+    /* Type badge */
+    .du-type {
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width: 44px; padding: 2px 8px; border-radius: var(--radius-input);
+      font-weight:700; font-size: 11px; letter-spacing: .04em;
+    }
+    .du-type--pdf  { background: var(--color-error-bg);   color: var(--color-error); }
+    .du-type--docx { background: var(--color-info-bg);    color: var(--color-info); }
+    .du-type--xlsx { background: var(--color-success-bg); color: var(--color-success); }
+    .du-type--img  { background: var(--color-warning-bg); color: var(--color-warning); }
+
+    /* Row actions */
+    .du-actions { display:inline-flex; gap: 4px; }
+    .du-act {
+      width:32px; height:32px; border:0; background:transparent; border-radius: 6px;
+      display:inline-flex; align-items:center; justify-content:center; color: var(--grey-700); cursor:pointer;
+    }
+    .du-act:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .du-act:focus-visible { outline:none; box-shadow: var(--shadow-focus); }
+    .du-act svg { width:16px; height:16px; }
+    .du-act--danger:hover { background: var(--color-error-bg); color: var(--color-error); }
+
+    /* Footer */
+    .du-foot { display:flex; align-items:center; justify-content: space-between; margin-top: var(--space-5); padding-top: var(--space-4); border-top: var(--border-divider); color: var(--grey-700); font-size: var(--font-size-body); }
+    .du-pager { display:inline-flex; gap: 4px; }
+    .du-pager button { border:0; background:transparent; color: var(--color-primary); cursor:pointer; padding: 6px 10px; border-radius:6px; font: 500 var(--font-size-body)/1 var(--font-family); }
+    .du-pager button:disabled { color: var(--grey-400); cursor:default; }
+    .du-pager button:not(:disabled):hover { background: var(--color-primary-25); }
+
+    /* Drawer */
+    .du-drawer-backdrop { position:fixed; inset:0; background:rgba(15,30,55,.35); z-index:1200; opacity:0; transition:opacity var(--duration-standard); }
+    .du-drawer-backdrop.is-open { opacity:1; }
+    .du-drawer { position:fixed; top:0; right:0; height:100vh; width:min(520px, 96vw); background:#FFF; z-index:1300; display:flex; flex-direction:column; box-shadow:-8px 0 24px rgba(0,0,0,.12); transform: translateX(100%); transition: transform var(--duration-standard); }
+    .du-drawer.is-open { transform: translateX(0); }
+    .du-drawer-head { display:flex; align-items:center; justify-content:space-between; padding: var(--space-5); border-bottom: var(--border-divider); }
+    .du-drawer-title { font-size: var(--font-size-h3); font-weight:700; }
+    .du-drawer-close { width:36px; height:36px; border:0; background:transparent; border-radius:50%; cursor:pointer; color: var(--grey-700); display:inline-flex; align-items:center; justify-content:center; }
+    .du-drawer-close:hover { background: var(--grey-100); }
+    .du-drawer-body { flex:1; overflow-y:auto; padding: var(--space-5); }
+    .du-drawer-body label { display:block; font-weight:600; color: var(--text-primary); font-size: var(--font-size-caption); margin-bottom: var(--space-2); }
+    .du-drawer-body input[type="text"], .du-drawer-body select, .du-drawer-body textarea {
+      width:100%; padding: 8px 12px; border:1px solid var(--grey-300); border-radius: var(--radius-input);
+      font: 400 var(--font-size-body)/1.4 var(--font-family); color: var(--text-primary); outline:none;
+      margin-bottom: var(--space-5);
+    }
+    .du-drawer-body textarea { min-height: 80px; resize: vertical; }
+    .du-drawer-body input:focus, .du-drawer-body select:focus, .du-drawer-body textarea:focus {
+      border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,.15);
+    }
+    .du-vis { display:flex; gap:var(--space-4); margin-bottom: var(--space-5); }
+    .du-vis label { display:inline-flex; align-items:center; gap: 6px; font-weight:400; margin:0; cursor:pointer; }
+    .du-drawer-foot { padding: var(--space-4) var(--space-5); border-top: var(--border-divider); display:flex; justify-content:flex-end; gap: var(--space-4); }
+    .btn-link { background:transparent; border:0; color: var(--color-primary); font-weight:600; cursor:pointer; padding: 8px 10px; }
+    .btn-link:hover { text-decoration:underline; }
+    .btn-primary { background: var(--color-primary-700); color:#FFF; border:0; border-radius: var(--radius-button); padding: 10px 20px; font-weight:600; cursor:pointer; }
+    .btn-primary:hover { background: var(--color-primary-800); }
+    .btn-primary:focus-visible { outline:none; box-shadow: var(--shadow-focus); }
+
+    /* Preview modal */
+    .du-preview-backdrop {
+      position:fixed; inset:0; background:rgba(15,30,55,.55); z-index:1400;
+      display:flex; align-items:center; justify-content:center; padding: var(--space-6);
+      opacity:0; transition:opacity var(--duration-standard);
+    }
+    .du-preview-backdrop[hidden] { display:none !important; }
+    .du-preview-backdrop.is-open { opacity:1; }
+    .du-preview-modal {
+      background:#FFF; border-radius: var(--radius-card);
+      width:min(960px, 100%); height:min(720px, 90vh);
+      display:flex; flex-direction:column;
+      box-shadow: 0 12px 40px rgba(0,0,0,.24);
+      overflow:hidden;
+    }
+    .du-preview-head {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--space-4) var(--space-5); border-bottom: var(--border-divider); gap: var(--space-4);
+    }
+    .du-preview-title { display:flex; align-items:center; gap: var(--space-3); font-weight:700; font-size: var(--font-size-h3); min-width:0; }
+    .du-preview-title-text { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .du-preview-close {
+      width:36px; height:36px; border:0; background:transparent; border-radius:50%;
+      display:inline-flex; align-items:center; justify-content:center; color:var(--grey-700); cursor:pointer; flex-shrink:0;
+    }
+    .du-preview-close:hover { background: var(--grey-100); }
+    .du-preview-close svg { width:18px; height:18px; }
+    .du-preview-body { flex:1; display:flex; align-items:center; justify-content:center; background: var(--grey-100); overflow:auto; padding: var(--space-4); }
+    .du-preview-iframe { width:100%; height:100%; border:0; background:#FFF; border-radius: var(--radius-input); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .du-preview-img { max-width:100%; max-height:100%; object-fit:contain; background:#FFF; padding: var(--space-4); border-radius: var(--radius-input); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .du-preview-placeholder { text-align:center; color: var(--grey-700); padding: var(--space-9); max-width: 460px; background:#FFF; border-radius: var(--radius-card); border: 1px dashed var(--grey-300); }
+    .du-preview-placeholder svg { width:64px; height:64px; color: var(--grey-500); margin-bottom: var(--space-4); display:block; margin-left:auto; margin-right:auto; }
+    .du-preview-placeholder h3 { font-size: var(--font-size-h3); margin-bottom: var(--space-2); color: var(--text-primary); }
+    .du-preview-placeholder p { font-size: 13px; color: var(--text-secondary); }
+    .du-preview-foot { padding: var(--space-4) var(--space-5); border-top: var(--border-divider); display:flex; justify-content:space-between; gap: var(--space-3); align-items:center; }
+    .du-preview-meta { color: var(--text-secondary); font-size: 12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+    /* Drawer file picker */
+    .du-drawer-picker {
+      border: 2px dashed var(--color-primary-100);
+      border-radius: var(--radius-input);
+      padding: var(--space-5) var(--space-4);
+      background: var(--color-primary-25);
+      text-align: center;
+      cursor: pointer;
+      transition: background var(--duration-micro), border-color var(--duration-micro);
+      margin-bottom: var(--space-5);
+    }
+    .du-drawer-picker[hidden] { display:none !important; }
+    .du-drawer-picker:hover, .du-drawer-picker.is-dragging {
+      border-color: var(--color-primary); background: var(--color-primary-50);
+    }
+    .du-drawer-picker:focus-visible { outline:none; box-shadow: var(--shadow-focus); }
+    .du-drawer-picker svg { width:28px; height:28px; color: var(--color-primary); margin: 0 auto var(--space-2); display:block; }
+    .du-drawer-picker-primary { font-weight:600; color: var(--color-primary-700); font-size:13px; margin-bottom:2px; }
+    .du-drawer-picker-hint { font-size:12px; color: var(--text-secondary); }
+
+    .du-picked {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--grey-200); border-radius: var(--radius-input);
+      background: #FFF; margin-bottom: var(--space-5);
+    }
+    .du-picked[hidden] { display:none !important; }
+    .du-picked-icon { width:44px; height:44px; border-radius: var(--radius-input); display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .du-picked-icon .du-type { padding: 4px 8px; font-size: 11px; }
+    .du-picked-info { flex:1; min-width:0; }
+    .du-picked-name { font-weight:600; color: var(--text-primary); font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .du-picked-meta { color: var(--grey-700); font-size:12px; }
+    .du-picked-actions { display:inline-flex; gap: 4px; flex-shrink:0; }
+    .du-picked-btn { border:0; background:transparent; border-radius:6px; padding: 6px 10px; font: 600 12px/1 var(--font-family); color: var(--color-primary); cursor:pointer; }
+    .du-picked-btn:hover { background: var(--color-primary-25); }
+    .du-picked-btn:focus-visible { outline:none; box-shadow: var(--shadow-focus); }
+    .du-picked-btn--danger { color: var(--color-error); }
+    .du-picked-btn--danger:hover { background: var(--color-error-bg); }
+
+    /* Footer */
+    .page-footer { display:flex; align-items:center; justify-content:space-between; padding:var(--space-4) var(--space-7); background:var(--color-card); border-top:var(--border-default); min-height:48px; flex-shrink:0; }
+    .footer-links { display:flex; gap:var(--space-5); }
+    .footer-links a { color:var(--text-hyperlink); font-weight:600; text-decoration:underline; }
+    .footer-branding { display:flex; align-items:center; gap:var(--space-3); font-size:var(--font-size-caption); color:var(--text-secondary); }
+
+    @media (max-width: 1024px) {
+      .app-shell { grid-template-columns: 72px 1fr; }
+      .leftnav-item span:not(.leftnav-icon), .leftnav-caret { display:none; }
+      .leftnav-item { justify-content:center; padding: var(--space-4) var(--space-3); gap:0; }
+      .leftnav-sub { display:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-shell">
+    <!-- --- LEFT SIDEBAR --- -->
+    <nav class="leftnav" aria-label="Side navigation">
+      <a class="leftnav-brand" href="landing.html" aria-label="ProServe home">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 32'%3E%3Crect width='140' height='32' rx='4' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3Ctext x='28' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EProServe%3C/text%3E%3C/svg%3E" alt="ProServe" />
+      </a>
+      <ul class="leftnav-list" role="list">
+        <li>
+          <a class="leftnav-item" href="#" onclick="return false;">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span>Navigation</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="quick_list.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span>QuickList</span>
+          </a>
+        </li>
+        <li>
+          <a class="leftnav-item" href="advance_contact_service.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-3-3.87"/><path d="M4 21v-2a4 4 0 013-3.87"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Records</span>
+            <svg class="leftnav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+        </li>
+        <li class="leftnav-group is-open" id="nav-settings">
+          <a class="leftnav-item active" href="#" aria-expanded="true" aria-controls="settings-sub" onclick="toggleSettings(event)">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            <span>Settings</span>
+            <svg class="leftnav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="leftnav-sub" id="settings-sub" role="list">
+            <li><a class="leftnav-sub-item" href="user_details.html">User Details</a></li>
+            <li><a class="leftnav-sub-item" href="roles_details.html">Roles Details</a></li>
+            <li><a class="leftnav-sub-item" href="list_configuration.html">List Configuration</a></li>
+            <li><a class="leftnav-sub-item" href="dynamic_fields.html">Dynamic Fields</a></li>
+            <li><a class="leftnav-sub-item" href="email_template.html">Email Template</a></li>
+            <li><a class="leftnav-sub-item" href="email_queue.html">Email Queue</a></li>
+            <li><a class="leftnav-sub-item active" href="documents_upload.html" aria-current="page">Documents Upload</a></li>
+            <li><a class="leftnav-sub-item" href="notification.html">Notification</a></li>
+            <li><a class="leftnav-sub-item" href="#" onclick="return false;">Query Builder</a></li>
+            <li><a class="leftnav-sub-item" href="asset_details.html">Asset Details</a></li>
+            <li><a class="leftnav-sub-item" href="engage_bwv_log.html">FieldSync BWV Log Screen</a></li>
+            <li><a class="leftnav-sub-item" href="talos_log.html">Talos Log</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="leftnav-item" href="reports.html">
+            <svg class="leftnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span>Reports</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="main-column">
+      <header class="topnav" role="banner">
+        <div class="topnav-search" role="search" tabindex="0" aria-label="Global search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search...</span>
+        </div>
+        <div class="topnav-right">
+          <button class="icon-btn" aria-label="Notifications (2536 new)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <span class="badge-count" aria-hidden="true">2536</span>
+          </button>
+          <div class="user-dropdown" role="button" tabindex="0" aria-haspopup="true" aria-label="User profile: Arumugam">
+            <div class="avatar" aria-hidden="true">A</div>
+            <div class="topnav-greeting"><span>Good Morning</span><strong>Arumugam</strong></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content" id="main-content">
+        <div class="page-hero">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="landing.html">Home</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            <a href="#" onclick="return false;">Settings</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            <span aria-current="page">Documents Upload</span>
+          </nav>
+          <div class="hero-row">
+            <div>
+              <h1 class="hero-title">Documents Upload</h1>
+              <p class="hero-sub">Upload, categorise and manage reference documents used across the platform.</p>
+            </div>
+            <div>
+              <button type="button" class="btn-on-hero" onclick="duOpenDrawer('add')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Upload Document
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-body">
+          <section class="lc-surface" aria-labelledby="du-heading">
+            <h2 id="du-heading" class="sr-only">Documents</h2>
+            <div class="lc-panel">
+              <!-- Dropzone -->
+              <div id="du-drop" class="du-drop" role="button" tabindex="0" aria-label="Drag files here or click to browse">
+                <svg class="du-drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <h3>Drag files here or click to browse</h3>
+                <p>Files are added to the table below and available across the platform.</p>
+                <span class="du-drop-hint">Accepted: PDF, DOCX, XLSX, JPG, PNG · Max 25 MB</span>
+                <input type="file" id="du-file-input" multiple hidden accept=".pdf,.docx,.xlsx,.jpg,.jpeg,.png" />
+              </div>
+
+              <!-- Toolbar -->
+              <div class="du-toolbar">
+                <div class="du-show">
+                  <label for="du-size">Show</label>
+                  <select id="du-size" aria-label="Rows per page">
+                    <option>10</option><option>25</option><option>50</option><option>100</option>
+                  </select>
+                  <span>entries</span>
+                </div>
+                <div class="du-right">
+                  <div class="du-cat">
+                    <select id="du-cat" aria-label="Filter by category">
+                      <option value="">All Categories</option>
+                      <option>Contract</option><option>Certificate</option>
+                      <option>Compliance</option><option>ID</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div class="du-search-wrap">
+                    <svg class="du-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="search" id="du-search" placeholder="Search documents..." aria-label="Search documents" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Table -->
+              <div class="du-table-wrap">
+                <table class="du-table" id="du-table">
+                  <thead>
+                    <tr>
+                      <th data-sort="title" aria-sort="ascending">Title<svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th data-sort="name">File Name<svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th data-sort="type">Type<svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th data-sort="category">Category<svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th data-sort="size">Size<svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th data-sort="uploadedBy">Uploaded By<svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th data-sort="uploadedAt">Upload Date<svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg></th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="du-body"></tbody>
+                </table>
+              </div>
+
+              <div class="du-foot">
+                <span id="du-summary">Showing 0 to 0 of 0 entries</span>
+                <div class="du-pager">
+                  <button type="button" id="du-prev">Previous</button>
+                  <button type="button" id="du-next">Next</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <footer class="page-footer">
+          <div class="footer-links"><a href="#" onclick="return false;">ProServe Learn</a></div>
+          <div class="footer-branding">Powered by <strong>acme</strong></div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- --- UPLOAD DRAWER --- -->
+  <div class="du-drawer-backdrop" id="du-drawer-backdrop" hidden onclick="duCloseDrawer()"></div>
+  <aside class="du-drawer" id="du-drawer" role="dialog" aria-modal="true" aria-labelledby="du-drawer-title" hidden>
+    <header class="du-drawer-head">
+      <h2 class="du-drawer-title" id="du-drawer-title">Upload Document</h2>
+      <button type="button" class="du-drawer-close" aria-label="Close panel" onclick="duCloseDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+    <div class="du-drawer-body">
+      <label for="du-in-title">Document Title</label>
+      <input type="text" id="du-in-title" autocomplete="off" placeholder="e.g. Q1 Compliance Register" />
+
+      <label>File</label>
+      <div class="du-drawer-picker" id="du-drawer-picker" role="button" tabindex="0" aria-label="Choose file to upload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <div class="du-drawer-picker-primary">Click to choose file or drag &amp; drop</div>
+        <div class="du-drawer-picker-hint">PDF, DOCX, XLSX, JPG, PNG · Max 25 MB</div>
+      </div>
+      <div class="du-picked" id="du-picked" hidden>
+        <span class="du-picked-icon" id="du-picked-icon" aria-hidden="true"></span>
+        <div class="du-picked-info">
+          <div class="du-picked-name" id="du-picked-name"></div>
+          <div class="du-picked-meta" id="du-picked-meta"></div>
+        </div>
+        <div class="du-picked-actions">
+          <button type="button" class="du-picked-btn" id="du-picked-change">Change</button>
+          <button type="button" class="du-picked-btn du-picked-btn--danger" id="du-picked-remove">Remove</button>
+        </div>
+      </div>
+      <input type="file" id="du-drawer-file" hidden accept=".pdf,.docx,.xlsx,.jpg,.jpeg,.png" />
+
+      <label for="du-in-cat">Category</label>
+      <select id="du-in-cat">
+        <option>Contract</option><option>Certificate</option>
+        <option>Compliance</option><option>ID</option><option>Other</option>
+      </select>
+      <label for="du-in-desc">Description</label>
+      <textarea id="du-in-desc" rows="3"></textarea>
+      <label for="du-in-tags">Tags (comma-separated)</label>
+      <input type="text" id="du-in-tags" placeholder="e.g. onboarding, 2026" />
+      <label>Visibility</label>
+      <div class="du-vis">
+        <label><input type="radio" name="du-vis" value="team" checked> Public to team</label>
+        <label><input type="radio" name="du-vis" value="restricted"> Restricted</label>
+      </div>
+    </div>
+    <footer class="du-drawer-foot">
+      <button type="button" class="btn-link" onclick="duCloseDrawer()">Cancel</button>
+      <button type="button" class="btn-primary" onclick="duSaveDrawer()">Upload</button>
+    </footer>
+  </aside>
+
+  <!-- --- PREVIEW MODAL --- -->
+  <div class="du-preview-backdrop" id="du-preview-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="du-preview-title-text">
+    <div class="du-preview-modal">
+      <header class="du-preview-head">
+        <div class="du-preview-title">
+          <span id="du-preview-type-badge" aria-hidden="true"></span>
+          <span class="du-preview-title-text" id="du-preview-title-text">Preview</span>
+        </div>
+        <button type="button" class="du-preview-close" aria-label="Close preview" onclick="duClosePreview()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </header>
+      <div class="du-preview-body" id="du-preview-body"></div>
+      <footer class="du-preview-foot">
+        <span class="du-preview-meta" id="du-preview-meta"></span>
+        <button type="button" class="btn-primary" id="du-preview-download">Download</button>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    function toggleSettings(e){
+  e.preventDefault();
+  var g = document.getElementById('nav-settings');
+  if (!g) return;
+  var i = g.querySelector('.leftnav-item');
+  var open = g.classList.toggle('is-open');
+  if (i) i.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+(function initHoverExpandLeftnav(){
+  var DESKTOP_MEDIA = '(min-width: 1025px)';
+  var COLLAPSED_CLASS = 'leftnav-collapsed';
+  var COLLAPSED_BRAND_SRC = 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E';
+
+  function isDesktop() {
+    return window.matchMedia(DESKTOP_MEDIA).matches;
+  }
+
+  function injectCollapsedStyle() {
+    if (document.getElementById('leftnav-collapsible-style')) return;
+    var style = document.createElement('style');
+    style.id = 'leftnav-collapsible-style';
+    style.textContent = [
+      '.app-shell.leftnav-collapsed{grid-template-columns:72px 1fr;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand{padding:var(--space-5, 12px);justify-content:center;}',
+      '.app-shell.leftnav-collapsed .leftnav-brand img{height:24px;width:24px;object-fit:contain;}',
+      '.app-shell.leftnav-collapsed .leftnav-item span:not(.leftnav-icon),',
+      '.app-shell.leftnav-collapsed .leftnav-caret,',
+      '.app-shell.leftnav-collapsed .leftnav-chevron,',
+      '.app-shell.leftnav-collapsed .leftnav-sub,',
+      '.app-shell.leftnav-collapsed .leftnav-submenu{display:none !important;}',
+      '.app-shell.leftnav-collapsed .leftnav-item{justify-content:center;padding:var(--space-4,12px) var(--space-3,8px);gap:0;}'
+    ].join('');
+    document.head.appendChild(style);
+  }
+
+  function init() {
+    var shell = document.querySelector('.app-shell');
+    var leftnav = document.querySelector('.leftnav');
+    var brandImg = document.querySelector('.leftnav-brand img');
+    if (!shell || !leftnav) return;
+
+    injectCollapsedStyle();
+
+    var expandedBrandSrc = brandImg ? brandImg.getAttribute('src') : '';
+
+    function syncBrandImage() {
+      if (!brandImg) return;
+      if (shell.classList.contains(COLLAPSED_CLASS) && isDesktop()) {
+        brandImg.setAttribute('src', COLLAPSED_BRAND_SRC);
+      } else if (expandedBrandSrc) {
+        brandImg.setAttribute('src', expandedBrandSrc);
+      }
+    }
+
+    leftnav.addEventListener('click', function(event) {
+      var item = event.target.closest('.leftnav-item, .leftnav-sub-item, .leftnav-submenu-item');
+      if (!item || !isDesktop()) return;
+
+      var clickedIcon = !!event.target.closest('.leftnav-icon');
+      if (shell.classList.contains(COLLAPSED_CLASS) && clickedIcon) {
+        event.preventDefault();
+        shell.classList.remove(COLLAPSED_CLASS);
+        syncBrandImage();
+        return;
+      }
+
+      var isSettingsToggle = item.matches('.leftnav-item[aria-controls="settings-sub"]');
+      if (isSettingsToggle) return;
+      shell.classList.add(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    window.addEventListener('resize', function() {
+      if (isDesktop()) {
+        syncBrandImage();
+        return;
+      }
+      shell.classList.remove(COLLAPSED_CLASS);
+      syncBrandImage();
+    });
+
+    syncBrandImage();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+    /* ----- Sample data ----- */
+    const TYPE_OF = ext => ({pdf:'pdf',docx:'docx',doc:'docx',xlsx:'xlsx',xls:'xlsx',jpg:'img',jpeg:'img',png:'img'}[ext.toLowerCase()] || 'pdf');
+    const SAMPLE_PDF = 'Certificate_Abisogun_2022.pdf';
+    const SAMPLE_IMG = 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23334155'/%3E%3Cpath d='M10 8h4l3 8-3 8h-4l3-8z' fill='%2338bdf8'/%3E%3C/svg%3E';
+    const DOCS = [
+      { title:'Service Level Contract 2026',   name:'Contract_ServiceLevel_2026.pdf',      type:'pdf',  category:'Contract',    size:'1.2 MB', uploadedBy:'Umamaheswari', uploadedAt:'12/03/2026' },
+      { title:'Abisogun Certificate (2022)',   name:'Certificate_Abisogun_2022.pdf',        type:'pdf',  category:'Certificate', size:'842 KB', uploadedBy:'Mercy',        uploadedAt:'08/02/2026' },
+      { title:'Officer ID Template',           name:'Officer_ID_Template.docx',             type:'docx', category:'ID',          size:'218 KB', uploadedBy:'Daniel',       uploadedAt:'22/01/2026' },
+      { title:'Compliance Register — Q1',      name:'Compliance_Register_Q1.xlsx',          type:'xlsx', category:'Compliance',  size:'640 KB', uploadedBy:'Tracey Harrold', uploadedAt:'15/01/2026' },
+      { title:'Site Map — Bristol',            name:'Site_Map_Bristol.png',                 type:'img',  category:'Other',       size:'2.4 MB', uploadedBy:'Pradeep',      uploadedAt:'10/12/2025' },
+      { title:'Bond Agreement UK v3',          name:'BondAgreement_UK_v3.pdf',              type:'pdf',  category:'Contract',    size:'980 KB', uploadedBy:'Admin',        uploadedAt:'02/12/2025' },
+      { title:'Vehicle Inspection Form',       name:'Vehicle_InspectionForm.docx',          type:'docx', category:'Compliance',  size:'156 KB', uploadedBy:'Daniel',       uploadedAt:'20/11/2025' },
+      { title:'Incident Report 2025',          name:'IncidentReport_2025.xlsx',             type:'xlsx', category:'Compliance',  size:'1.8 MB', uploadedBy:'Mercy',        uploadedAt:'12/11/2025' },
+      { title:'Officer Handbook v2',           name:'Handbook_Officer_v2.pdf',              type:'pdf',  category:'Other',       size:'3.1 MB', uploadedBy:'Umamaheswari', uploadedAt:'01/10/2025' },
+      { title:'Warrant Card Design',           name:'Warrant_Card_Design.png',              type:'img',  category:'ID',          size:'420 KB', uploadedBy:'Admin',        uploadedAt:'15/09/2025' },
+      { title:'Compliance Awarding Body',      name:'Compliance_Awarding_Body.pdf',         type:'pdf',  category:'Certificate', size:'720 KB', uploadedBy:'Tracey Harrold', uploadedAt:'22/08/2025' },
+      { title:'Service Contract Sample',       name:'Service_Contract_Sample.docx',         type:'docx', category:'Contract',    size:'340 KB', uploadedBy:'Pradeep',      uploadedAt:'02/08/2025' },
+    ];
+
+    /* ----- Controller ----- */
+    let sortKey = 'title', sortDir = 'asc', page = 1, size = 10;
+
+    const body = document.getElementById('du-body');
+    const search = document.getElementById('du-search');
+    const catSel = document.getElementById('du-cat');
+    const sizeSel = document.getElementById('du-size');
+    const summary = document.getElementById('du-summary');
+    const prevBtn = document.getElementById('du-prev');
+    const nextBtn = document.getElementById('du-next');
+    const drop = document.getElementById('du-drop');
+    const fileIn = document.getElementById('du-file-input');
+    const backdrop = document.getElementById('du-drawer-backdrop');
+    const drawer = document.getElementById('du-drawer');
+    let lastFocus = null;
+
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function typeLabel(t){ return {pdf:'PDF',docx:'DOCX',xlsx:'XLSX',img:'IMG'}[t] || t.toUpperCase(); }
+    function todayDMY(){ const d=new Date(); return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; }
+    function humanSize(bytes){
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024*1024) return (bytes/1024).toFixed(0) + ' KB';
+      return (bytes/1024/1024).toFixed(1) + ' MB';
+    }
+    function parseSize(s){
+      const m = /([\d.]+)\s*(KB|MB|GB|B)/i.exec(s);
+      if (!m) return 0;
+      const v = parseFloat(m[1]); const u = m[2].toUpperCase();
+      return v * ({B:1, KB:1024, MB:1024*1024, GB:1024*1024*1024}[u] || 1);
+    }
+    function parseDMY(s){
+      const m = /^(\d{2})\/(\d{2})\/(\d{4})/.exec(s || '');
+      return m ? `${m[3]}-${m[2]}-${m[1]}` : '';
+    }
+
+    function render(){
+      const q = search.value.trim().toLowerCase();
+      const cat = catSel.value;
+      let rows = DOCS.filter(d =>
+        (!q || (d.title||'').toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.uploadedBy.toLowerCase().includes(q)) &&
+        (!cat || d.category === cat)
+      );
+      rows.sort((a,b) => {
+        let av = a[sortKey], bv = b[sortKey];
+        if (sortKey === 'size') { av = parseSize(av); bv = parseSize(bv); }
+        else if (sortKey === 'uploadedAt') { av = parseDMY(av); bv = parseDMY(bv); }
+        else { av = String(av).toLowerCase(); bv = String(bv).toLowerCase(); }
+        if (av < bv) return sortDir === 'asc' ? -1 : 1;
+        if (av > bv) return sortDir === 'asc' ? 1 : -1;
+        return 0;
+      });
+      size = parseInt(sizeSel.value, 10) || 10;
+      const total = rows.length;
+      const pages = Math.max(1, Math.ceil(total / size));
+      if (page > pages) page = pages;
+      const start = (page - 1) * size;
+      const slice = rows.slice(start, start + size);
+
+      if (!slice.length) {
+        body.innerHTML = `<tr><td colspan="8" class="du-empty">No documents match your filter</td></tr>`;
+      } else {
+        body.innerHTML = slice.map((d,i) => `
+          <tr data-idx="${DOCS.indexOf(d)}">
+            <td><a href="#" data-act="view" onclick="return false;">${esc(d.title || d.name)}</a></td>
+            <td style="color:var(--grey-700)">${esc(d.name)}</td>
+            <td><span class="du-type du-type--${d.type}">${esc(typeLabel(d.type))}</span></td>
+            <td>${esc(d.category)}</td>
+            <td>${esc(d.size)}</td>
+            <td>${esc(d.uploadedBy)}</td>
+            <td>${esc(d.uploadedAt)}</td>
+            <td>
+              <span class="du-actions">
+                <button class="du-act" data-act="view"     aria-label="Preview ${esc(d.name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                <button class="du-act" data-act="download" aria-label="Download ${esc(d.name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+                <button class="du-act" data-act="replace"  aria-label="Replace ${esc(d.name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
+                <button class="du-act du-act--danger" data-act="delete" aria-label="Delete ${esc(d.name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button>
+              </span>
+            </td>
+          </tr>`).join('');
+      }
+
+      summary.textContent = total
+        ? `Showing ${start+1} to ${Math.min(start+size,total)} of ${total} entries`
+        : 'Showing 0 to 0 of 0 entries';
+      prevBtn.disabled = page <= 1;
+      nextBtn.disabled = page >= pages;
+
+      document.querySelectorAll('#du-table thead th[data-sort]').forEach(th => {
+        th.setAttribute('aria-sort', th.dataset.sort === sortKey ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none');
+      });
+    }
+
+    document.querySelectorAll('#du-table thead th[data-sort]').forEach(th => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.sort;
+        if (sortKey === key) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        else { sortKey = key; sortDir = 'asc'; }
+        render();
+      });
+    });
+    search.addEventListener('input', () => { page = 1; render(); });
+    catSel.addEventListener('change', () => { page = 1; render(); });
+    sizeSel.addEventListener('change', () => { page = 1; render(); });
+    prevBtn.addEventListener('click', () => { page = Math.max(1, page-1); render(); });
+    nextBtn.addEventListener('click', () => { page = page+1; render(); });
+
+    body.addEventListener('click', e => {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      const tr = btn.closest('tr[data-idx]');
+      const idx = parseInt(tr.dataset.idx, 10);
+      const doc = DOCS[idx];
+      const act = btn.dataset.act;
+      if (act === 'delete') {
+        if (confirm(`Delete "${doc.name}"?`)) { DOCS.splice(idx, 1); render(); }
+      } else if (act === 'download') {
+        const blob = new Blob([`Document: ${doc.name}\nCategory: ${doc.category}\nSize: ${doc.size}\nUploaded by: ${doc.uploadedBy} on ${doc.uploadedAt}`], {type:'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = doc.name.replace(/\.[^.]+$/, '') + '.txt';
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      } else if (act === 'view') {
+        duPreview(doc);
+      } else if (act === 'replace') {
+        alert(`Replace flow for ${doc.name} — not implemented in prototype.`);
+      }
+    });
+
+    /* Drag-and-drop */
+    drop.addEventListener('click', () => fileIn.click());
+    drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileIn.click(); } });
+    ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('is-dragging'); }));
+    ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('is-dragging'); }));
+    drop.addEventListener('drop', e => { addFiles(e.dataTransfer.files); });
+    fileIn.addEventListener('change', () => { addFiles(fileIn.files); fileIn.value = ''; });
+
+    function addFiles(files){
+      Array.from(files || []).forEach(f => {
+        const ext = (f.name.split('.').pop() || 'pdf');
+        const baseTitle = f.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ');
+        DOCS.unshift({
+          title: baseTitle,
+          name: f.name,
+          type: TYPE_OF(ext),
+          category: 'Other',
+          size: humanSize(f.size),
+          uploadedBy: 'Arumugam',
+          uploadedAt: todayDMY()
+        });
+      });
+      page = 1; render();
+    }
+
+    /* Drawer */
+    let pickedFile = null;
+    const drawerPicker = document.getElementById('du-drawer-picker');
+    const drawerFileIn = document.getElementById('du-drawer-file');
+    const pickedEl = document.getElementById('du-picked');
+
+    function updatePickedUI(file){
+      pickedFile = file || null;
+      if (!file) {
+        pickedEl.hidden = true;
+        drawerPicker.hidden = false;
+        return;
+      }
+      const ext = (file.name.split('.').pop() || 'pdf');
+      const type = TYPE_OF(ext);
+      document.getElementById('du-picked-icon').innerHTML = `<span class="du-type du-type--${type}">${esc(typeLabel(type))}</span>`;
+      document.getElementById('du-picked-name').textContent = file.name;
+      document.getElementById('du-picked-meta').textContent = `${humanSize(file.size)} · ${typeLabel(type)}`;
+      pickedEl.hidden = false;
+      drawerPicker.hidden = true;
+      const titleEl = document.getElementById('du-in-title');
+      if (!titleEl.value.trim()) {
+        titleEl.value = file.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ');
+      }
+    }
+
+    drawerPicker.addEventListener('click', () => drawerFileIn.click());
+    drawerPicker.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); drawerFileIn.click(); } });
+    ['dragenter','dragover'].forEach(ev => drawerPicker.addEventListener(ev, e => { e.preventDefault(); drawerPicker.classList.add('is-dragging'); }));
+    ['dragleave','drop'].forEach(ev => drawerPicker.addEventListener(ev, e => { e.preventDefault(); drawerPicker.classList.remove('is-dragging'); }));
+    drawerPicker.addEventListener('drop', e => {
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f) updatePickedUI(f);
+    });
+    drawerFileIn.addEventListener('change', () => {
+      const f = drawerFileIn.files && drawerFileIn.files[0];
+      if (f) updatePickedUI(f);
+      drawerFileIn.value = '';
+    });
+    document.getElementById('du-picked-change').addEventListener('click', () => drawerFileIn.click());
+    document.getElementById('du-picked-remove').addEventListener('click', () => updatePickedUI(null));
+
+    function duOpenDrawer(mode){
+      lastFocus = document.activeElement;
+      document.getElementById('du-in-title').value = '';
+      document.getElementById('du-in-desc').value = '';
+      document.getElementById('du-in-tags').value = '';
+      document.getElementById('du-in-cat').value = 'Contract';
+      updatePickedUI(null);
+      backdrop.hidden = false; drawer.hidden = false;
+      requestAnimationFrame(() => { backdrop.classList.add('is-open'); drawer.classList.add('is-open'); });
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('du-in-title').focus(), 60);
+    }
+    function duCloseDrawer(){
+      backdrop.classList.remove('is-open'); drawer.classList.remove('is-open');
+      setTimeout(() => { backdrop.hidden = true; drawer.hidden = true; }, 240);
+      document.body.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function duSaveDrawer(){
+      const title = document.getElementById('du-in-title').value.trim();
+      if (!title) { document.getElementById('du-in-title').focus(); return; }
+      const cat = document.getElementById('du-in-cat').value;
+      let name, sizeStr, type;
+      if (pickedFile) {
+        name = pickedFile.name;
+        sizeStr = humanSize(pickedFile.size);
+        type = TYPE_OF(pickedFile.name.split('.').pop() || 'pdf');
+      } else {
+        name = title.toLowerCase().replace(/\s+/g, '_') + '.pdf';
+        sizeStr = '—';
+        type = 'pdf';
+      }
+      DOCS.unshift({
+        title,
+        name,
+        type,
+        category: cat,
+        size: sizeStr,
+        uploadedBy: 'Arumugam',
+        uploadedAt: todayDMY()
+      });
+      duCloseDrawer(); page = 1; render();
+    }
+    window.duOpenDrawer = duOpenDrawer;
+    window.duCloseDrawer = duCloseDrawer;
+    window.duSaveDrawer = duSaveDrawer;
+
+    /* Preview modal */
+    const previewBackdrop = document.getElementById('du-preview-backdrop');
+    let previewLastFocus = null;
+
+    function sampleSrcFor(doc){
+      return doc.previewSrc || (doc.type === 'pdf' ? SAMPLE_PDF : (doc.type === 'img' ? SAMPLE_IMG : null));
+    }
+
+    function duPreview(doc){
+      previewLastFocus = document.activeElement;
+      const src = sampleSrcFor(doc);
+      document.getElementById('du-preview-title-text').textContent = doc.title || doc.name;
+      document.getElementById('du-preview-type-badge').innerHTML = `<span class="du-type du-type--${doc.type}">${esc(typeLabel(doc.type))}</span>`;
+      document.getElementById('du-preview-meta').textContent = `${doc.name} · ${doc.size} · ${doc.category} · Uploaded by ${doc.uploadedBy} on ${doc.uploadedAt}`;
+
+      const bodyEl = document.getElementById('du-preview-body');
+      if (doc.type === 'pdf' && src) {
+        bodyEl.innerHTML = `<iframe class="du-preview-iframe" src="${esc(src)}" title="${esc(doc.title || doc.name)} preview"></iframe>`;
+      } else if (doc.type === 'img' && src) {
+        bodyEl.innerHTML = `<img class="du-preview-img" src="${esc(src)}" alt="${esc(doc.title || doc.name)}"/>`;
+      } else {
+        bodyEl.innerHTML = `
+          <div class="du-preview-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <h3>Preview not available</h3>
+            <p>Inline preview isn’t supported for ${esc(typeLabel(doc.type))} files in the browser. Download the document to open it in a native app.</p>
+          </div>`;
+      }
+
+      const dl = document.getElementById('du-preview-download');
+      dl.onclick = () => {
+        if (src) {
+          const a = document.createElement('a'); a.href = src; a.download = doc.name;
+          document.body.appendChild(a); a.click(); a.remove();
+        } else {
+          const blob = new Blob([`Document: ${doc.title || doc.name}\nFile: ${doc.name}\nCategory: ${doc.category}\nSize: ${doc.size}\nUploaded by: ${doc.uploadedBy} on ${doc.uploadedAt}`], {type:'text/plain'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a'); a.href = url; a.download = doc.name.replace(/\.[^.]+$/, '') + '.txt';
+          document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        }
+      };
+
+      previewBackdrop.hidden = false;
+      requestAnimationFrame(() => previewBackdrop.classList.add('is-open'));
+      document.body.style.overflow = 'hidden';
+    }
+    function duClosePreview(){
+      previewBackdrop.classList.remove('is-open');
+      setTimeout(() => {
+        previewBackdrop.hidden = true;
+        document.getElementById('du-preview-body').innerHTML = '';
+      }, 240);
+      document.body.style.overflow = '';
+      if (previewLastFocus && previewLastFocus.focus) previewLastFocus.focus();
+    }
+    previewBackdrop.addEventListener('click', e => { if (e.target === previewBackdrop) duClosePreview(); });
+    window.duPreview = duPreview;
+    window.duClosePreview = duClosePreview;
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !previewBackdrop.hidden) { e.preventDefault(); duClosePreview(); return; }
+      if (e.key === 'Escape' && !drawer.hidden) { e.preventDefault(); duCloseDrawer(); }
+      if (e.key === 'Tab' && !drawer.hidden) {
+        const f = drawer.querySelectorAll('input,select,textarea,button,[tabindex]:not([tabindex="-1"])');
+        const v = Array.from(f).filter(el => el.offsetParent !== null && !el.disabled);
+        if (!v.length) return;
+        const first = v[0], last = v[v.length-1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    render();
+  </script>
+  <script src="notification-panel.js"></script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

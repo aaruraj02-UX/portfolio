@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Westminster — Challenge DocProcessor</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    /* body { background:#ffffff; }
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 16px solid #F2F5FA;
+      background: #F2F5FA;
+    }
+    .sidebar { border-right: 0 solid #e5e7eb; }
+    .m-header { border-bottom: 0 solid #e5e7eb; } */
+
+    /* Page title above the card */
+    .cs-page-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111827;
+      margin: 0;
+      padding: 18px 24px 14px;
+      flex-shrink: 0;
+    }
+
+    /* Card containing the table */
+    .cs-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin: 0 24px 24px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(17,24,39,0.06);
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    /* Card toolbar — search + view controls */
+    .cs-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      flex-shrink: 0;
+    }
+    .cs-search {
+      position: relative;
+      flex: 0 1 320px;
+      max-width: 320px;
+    }
+    .cs-search svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      pointer-events: none;
+    }
+    .cs-search input {
+      width: 100%;
+      box-sizing: border-box;
+      height: 34px;
+      padding: 0 12px 0 34px;
+      border: none;
+      border-bottom: 1px solid #e5e7eb;
+      background: transparent;
+      font-size: 13.5px;
+      color: #111827;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 120ms;
+    }
+    .cs-search input::placeholder { color: #9ca3af; }
+    .cs-search input:focus { border-color: #3276CF; }
+
+    .cs-view-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cs-icon-btn {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #3276CF;
+      transition: background 120ms, color 120ms;
+    }
+    .cs-icon-btn:hover { background: #eff6ff; color: #2C66B4; }
+    .cs-icon-btn:focus-visible { outline: 2px solid #3276CF; outline-offset: 2px; }
+
+    /* Table */
+    .cs-table-wrap {
+      flex: 1;
+      overflow: auto;
+      min-height: 0;
+    }
+    .cs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .cs-table thead th {
+      text-align: left;
+      font-weight: 600;
+      color: #111827;
+      padding: 10px 16px;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .cs-table thead th + th {
+      border-left: 1px solid #e5e7eb;
+    }
+    .cs-table tbody td {
+      padding: 16px;
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .cs-table tbody tr:hover td { background: #fafbfd; }
+    .cs-table tbody tr:last-child td { border-bottom: none; }
+    .cs-case-link {
+      color: #3276CF;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    .cs-case-link:hover { color: #2C66B4; }
+    .cs-muted { color: #9ca3af; }
+
+    /* Pagination footer */
+    .cs-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+      padding: 12px 20px 14px;
+      font-size: 13px;
+      color: #374151;
+      flex-shrink: 0;
+      border-top: 1px solid #f3f4f6;
+    }
+    .cs-rpp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cs-rpp-select {
+      appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      background: transparent
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>")
+        no-repeat right 0 center;
+      padding: 4px 18px 4px 4px;
+      font-size: 13px;
+      color: #111827;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .cs-pager {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cs-pager-label { color: #374151; margin-right: 6px; }
+    .cs-pager-btn {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 120ms, color 120ms;
+    }
+    .cs-pager-btn:hover:not([disabled]) { background: #f3f4f6; color: #111827; }
+    .cs-pager-btn[disabled] { color: #d1d5db; cursor: default; }
+
+    /* Sidebar tweaks for collapsed icon-only Home + active item */
+    .cs-side-nav { padding-top: 14px; display: flex; flex-direction: column; gap: 2px; }
+    .cs-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      font-size: 13.5px;
+      color: #374151;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+      line-height: 1.35;
+    }
+    .cs-nav-item:hover { background: #f3f4f6; color: #111827; }
+    .cs-nav-item.active {
+      background: #eef2f7;
+      color: #3276CF;
+      font-weight: 600;
+      border-left-color: #3276CF;
+    }
+    .cs-nav-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* AI Letter Status pills */
+    .cs-ai-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 22px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .cs-ai-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+    .cs-ai-yet         { background: #F3F4F6; color: #4B5563; border-color: #D1D5DB; }
+    .cs-ai-generated   { background: #E8F0FE; color: #1A56DB; border-color: #C6D8FA; }
+    .cs-ai-in-progress { background: #FFF8E1; color: #B45309; border-color: #FBD9A6; }
+  </style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- Header (full width) -->
+  <header class="m-header">
+    <div class="m-brand">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 32'%3E%3Crect width='160' height='32' rx='4' fill='%23374151'/%3E%3Crect x='8' y='6' width='12' height='16' rx='2' fill='none' stroke='%2393c5fd' stroke-width='1.5'/%3E%3Cline x1='11' y1='10' x2='17' y2='10' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='13' x2='17' y2='13' stroke='%2393c5fd' stroke-width='1'/%3E%3Cline x1='11' y1='16' x2='15' y2='16' stroke='%2393c5fd' stroke-width='1'/%3E%3Ctext x='26' y='20' font-family='system-ui,sans-serif' font-size='11' font-weight='600' fill='white'%3EAcme NPS%3C/text%3E%3C/svg%3E" alt="Acme Notice Processing System" class="m-logo" />
+    </div>
+    <div class="m-search">
+      <input type="text" placeholder="Search with PCN number or VRM" />
+      <button class="m-search-btn" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+    <div class="m-header-right">
+      <div class="m-notif-btn" role="button" tabindex="0" aria-label="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+        <span class="m-notif-badge">1</span>
+      </div>
+      <div class="m-user">
+        <div class="m-avatar">JS</div>
+        <span class="m-username">John William</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Body: sidebar + main -->
+  <div class="app-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-back">
+        <button class="sidebar-back-btn" aria-label="Collapse sidebar">&#171;</button>
+      </div>
+
+      <nav class="cs-side-nav" aria-label="Primary">
+        <a class="cs-nav-item" href="index.html">
+          <svg class="cs-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Home
+        </a>
+        <a class="cs-nav-item active" href="stage5_challenge_docprocessor.html" aria-current="page">
+          <svg class="cs-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/>
+          </svg>
+          Westminster -<br>Challenge DocProcessor
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+
+      <h1 class="cs-page-title">Challenge DocProcessor</h1>
+
+      <section class="cs-card" aria-labelledby="cs-table-title">
+        <span id="cs-table-title" class="sr-only" style="position:absolute;left:-9999px;">PCN cases pending challenge summarisation</span>
+
+        <!-- Toolbar -->
+        <div class="cs-toolbar">
+          <div class="cs-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" placeholder="Search PCN" aria-label="Search PCN" />
+          </div>
+          <div class="cs-view-actions">
+            <button class="cs-icon-btn" type="button" aria-label="Filters" title="Filters">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            </button>
+            <button class="cs-icon-btn" type="button" aria-label="Manage columns" title="Manage columns">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18" rx="1"/><rect x="10" y="3" width="4" height="18" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="cs-table-wrap">
+          <table class="cs-table">
+            <thead>
+              <tr>
+                <th scope="col">PCN</th>
+                <th scope="col">Stage</th>
+                <th scope="col">Status</th>
+                <th scope="col">AI Letter Status</th>
+                <th scope="col">Challenge received on</th>
+                <th scope="col">Last outDoc on</th>
+                <th scope="col">Last outDoc by</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a class="cs-case-link" href="stage5.html">CW00004041</a></td>
+                <td>Pre NTO</td>
+                <td>Active</td>
+                <td><span class="cs-ai-pill cs-ai-generated">Generated</span></td>
+                <td>08/09/2025 15:53</td>
+                <td><span class="cs-muted">-</span></td>
+                <td><span class="cs-muted">-</span></td>
+              </tr>
+              <tr>
+                <td><a class="cs-case-link" href="stage5.html">75994954</a></td>
+                <td>14 days letter</td>
+                <td>Active</td>
+                <td><span class="cs-ai-pill cs-ai-in-progress">In-progress</span></td>
+                <td>08/09/2025 15:53</td>
+                <td>05/09/2025 19:27</td>
+                <td>Liam Brown</td>
+              </tr>
+              <tr>
+                <td><a class="cs-case-link" href="stage5.html">12345678</a></td>
+                <td>14 days letter</td>
+                <td>Active</td>
+                <td><span class="cs-ai-pill cs-ai-yet">Yet to start</span></td>
+                <td>09/09/2025 10:12</td>
+                <td>05/09/2025 19:27</td>
+                <td>Oliver Smith</td>
+              </tr>
+              <tr>
+                <td><a class="cs-case-link" href="stage5.html">98765432</a></td>
+                <td>14 days letter</td>
+                <td>Active</td>
+                <td><span class="cs-ai-pill cs-ai-generated">Generated</span></td>
+                <td>07/09/2025 11:45</td>
+                <td>05/09/2025 19:27</td>
+                <td>Emily Johnson</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination footer -->
+        <div class="cs-pagination">
+          <div class="cs-rpp">
+            <label for="cs-rpp">Rows per page:</label>
+            <select id="cs-rpp" class="cs-rpp-select" aria-label="Rows per page">
+              <option>15</option>
+              <option>25</option>
+              <option>50</option>
+            </select>
+          </div>
+          <div class="cs-pager">
+            <span class="cs-pager-label">1-4 of 4</span>
+            <button class="cs-pager-btn" type="button" aria-label="Previous page" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="cs-pager-btn" type="button" aria-label="Next page" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /.main-wrapper -->
+
+  </div><!-- /.app-body -->
+
+</div><!-- /.app-layout -->
+
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

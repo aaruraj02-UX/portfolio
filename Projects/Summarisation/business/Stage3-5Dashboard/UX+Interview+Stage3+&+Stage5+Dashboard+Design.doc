@@ -1,0 +1,1173 @@
+Date: Wed, 1 Jul 2026 06:32:55 +0000 (UTC)
+Message-ID: <392558762.5.1782887575730@7cac54ea2942>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_4_1300968596.1782887575730"
+
+------=_Part_4_1300968596.1782887575730
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>UX Interview Stage3 &amp; Stage5 Dashboard Design</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font: var(--ds-font-body-small, Arial, Helvetica, FreeSans, sans-se=
+rif);
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        font: var(--ds-font-code, Monaco, "Courier New", monospace);
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>UX Interview Stage3 &amp; Stage5 Dashboard Design</h1>
+    <div class=3D"Section1">
+        <h2 local-id=3D"2ba1766d94ed" id=3D"UXInterviewStage3&amp;Stage5Das=
+hboardDesign-1.Overview"><strong>1. Overview</strong></h2>
+<p local-id=3D"64213f53a910">This document outlines the UX interview framew=
+ork and discussion approach for designing the <strong>Agent Performance &am=
+p; Case Review Dashboard (Stage 3 &amp; Stage 5)</strong>.</p>
+<p local-id=3D"890cd458fbf7">The dashboard aims to help stakeholders:</p>
+<ul local-id=3D"e00810f5-8d52-4573-b902-b64b81dc3dbd">
+<li local-id=3D"d6736cc9-2748-4c3e-bb69-e5ac865952af">
+<p local-id=3D"eef0129c432d">Monitor agent performance</p></li>
+<li local-id=3D"f63aca64-db06-49de-b52c-b8bf3de806e6">
+<p local-id=3D"3c96de1beb07">Track case outcomes and mitigation coverage</p=
+></li>
+<li local-id=3D"1afefc8c-15c1-475a-8799-0852bf0fdb7b">
+<p local-id=3D"f7b6288141a4">Analyse bot decisions (Green, Amber, Red)</p><=
+/li>
+<li local-id=3D"dd75835e-1b2b-4559-91a3-8ce044d20571">
+<p local-id=3D"45be6a9bf838">Improve templates, governance, and QA processe=
+s</p></li>
+</ul>
+<hr local-id=3D"fddb3070-a75e-45ba-b768-b835e9b0e7fd">
+<h2 local-id=3D"30cc176ec08d" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-2.ObjectivesoftheDashboard"><strong>2. Objectives of the Dashboard</st=
+rong></h2>
+<p local-id=3D"5184e9511d54">The primary goals of this dashboard are:</p>
+<ul local-id=3D"2be66079-fd46-4578-a866-901f4ebc437f">
+<li local-id=3D"ba11a659-59d6-454f-9799-9e2b98e45a82">
+<p local-id=3D"d9802c6fdeb3"><strong>Performance Monitoring</strong>: Track=
+ agent-level productivity and outcomes</p></li>
+<li local-id=3D"427f5418-3556-4e90-b885-e8d9393b10f8">
+<p local-id=3D"20d511a64578"><strong>Decision Visibility</strong>: Understa=
+nd bot decision classifications (Green, Amber, Red)</p></li>
+<li local-id=3D"ba0e87c7-281a-4af9-958d-e653d7c65c95">
+<p local-id=3D"92a6fd7a6512"><strong>Mitigation Tracking</strong>: Identify=
+ gaps in mitigation handling</p></li>
+<li local-id=3D"dcb5c77f-1443-4bd5-9eb7-3223c8f4c032">
+<p local-id=3D"3d261e5da604"><strong>Quality Improvement</strong>: Analyse =
+amendments (minor/major) and missed mitigations</p></li>
+<li local-id=3D"52274bd4-6d29-4f62-88eb-cb075484e2bf">
+<p local-id=3D"63e6fbf719d8"><strong>Operational Insights</strong>: Enable =
+quick identification of issues and root causes</p></li>
+</ul>
+<hr local-id=3D"f750173c-3357-4bd7-a568-5bae4c2a877d">
+<h2 local-id=3D"8f13b6d45ccd" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-3.KeyFeatures(BasedonRequirements)"><strong>3. Key Features (Based on =
+Requirements)</strong></h2>
+<h3 local-id=3D"5c19cd05587d" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-3.1TableView"><strong>3.1 Table View</strong></h3>
+<p local-id=3D"2bed9dc74e79">Displays:</p>
+<ul local-id=3D"d18e18e6-ce5e-49bd-aeea-3cc843247be6">
+<li local-id=3D"979986fb-331a-4cc1-b2e5-925fdb5c0145">
+<p local-id=3D"76e1fe594642">Agent Name</p></li>
+<li local-id=3D"0605cecb-5190-4451-ba65-b958833bca0f">
+<p local-id=3D"545f71a344ee">PCN Number</p></li>
+<li local-id=3D"a7eebb36-4430-40bf-9b64-99dc3d87f8b6">
+<p local-id=3D"d67a7bd8c557">Number of Cases Reviewed</p></li>
+<li local-id=3D"8315f626-c756-4726-8973-9ca6f27d70a2">
+<p local-id=3D"1e5fb14bd076">Contravention Codes</p></li>
+<li local-id=3D"525bd801-8c8a-4147-a8d3-7d47d8dc9816">
+<p local-id=3D"6c15dccfd383">Mitigation Status</p></li>
+</ul>
+<h3 local-id=3D"6955332c3b53" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-3.2Widgets(5Total)"><strong>3.2 Widgets (5 Total)</strong></h3>
+<ol start=3D"1" local-id=3D"3dcd0000-d879-459c-b2ed-fd797402fb32">
+<li local-id=3D"9449bf79-906b-4999-9d02-9c96597d500a">
+<p local-id=3D"8f6221b54ff1"><strong>Green Cases (Positive outcomes)</stron=
+g></p></li>
+<li local-id=3D"dd23ca15-a3b5-4e26-9125-94d54d1d39ec">
+<p local-id=3D"ace740342764"><strong>Amber Cases (Partial / Needs attention=
+)</strong></p></li>
+<li local-id=3D"a0e2264c-2829-4326-8b38-1c80b7200f7f">
+<p local-id=3D"b359c12bbbb3"><strong>Red Cases (Failures / Issues)</strong>=
+</p></li>
+<li local-id=3D"0843c465-046c-4ee2-99fe-6890a2eeb515">
+<p local-id=3D"b4da6a56a738"><strong>Agent Amendments</strong></p>
+<ul local-id=3D"15379cbf-eb92-43cd-a191-8b408b25c276">
+<li local-id=3D"40794bd3-f767-4498-8c48-e0f0bee5430f">
+<p local-id=3D"49e38e7cdaf6">Minor / Major changes made per letter</p></li>
+</ul></li>
+<li local-id=3D"2bd4aec9-deb6-4bf7-a612-b2eb0a30a77c">
+<p local-id=3D"7ea27e1162f8"><strong>No Amendment Cases</strong></p>
+<ul local-id=3D"0ecab9d6-ba97-4470-8415-c45ac47f1bcb">
+<li local-id=3D"c0fa4b40-ea61-4166-a34a-02655c5088c9">
+<p local-id=3D"5ddf65fd5c37">Letters sent directly without changes</p></li>
+</ul></li>
+</ol>
+<hr local-id=3D"d638f8d6-24d9-4516-9870-47840d22d547">
+<h2 local-id=3D"dcf5641f95c0" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-4.UXResearchGoals"><strong>4. UX Research Goals</strong></h2>
+<p local-id=3D"e623ca5d5582">The interview aims to:</p>
+<ul local-id=3D"8a694aee-bd2b-4706-8d26-00307935d72f">
+<li local-id=3D"b33b3176-a157-4d05-b73b-9a54348eb87b">
+<p local-id=3D"8665bb56cadb">Validate how users interpret and use metrics</=
+p></li>
+<li local-id=3D"5c6b713a-284c-457d-a838-9da7fa2b44b8">
+<p local-id=3D"f9144c195df4">Identify gaps in current workflows</p></li>
+<li local-id=3D"d7e2dc4d-85aa-4a52-b148-cf1e445f73e9">
+<p local-id=3D"ff1439ede025">Define drill-down and filtering needs</p></li>
+<li local-id=3D"c1e2536b-c089-4a9c-93f6-cee93f031812">
+<p local-id=3D"4b16b72b630d">Clarify decision-making requirements</p></li>
+<li local-id=3D"9ca8444b-95a4-4b17-8890-9129286be488">
+<p local-id=3D"52d4c231e0ad">Improve dashboard usability and hierarchy</p><=
+/li>
+</ul>
+<hr local-id=3D"ca7ec2f7-c440-45c8-a0a2-4969fad89e8b">
+<h2 local-id=3D"ce30a60ada01" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.InterviewQuestions&amp;Intent"><strong>5. Interview Questions &amp; =
+Intent</strong></h2>
+<h3 local-id=3D"ff60e96421c1" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.1Decision-MakingContext"><strong>5.1 Decision-Making Context</strong=
+></h3>
+<p local-id=3D"5ad0137fcf1a"><strong>Question:</strong><br>
+What are the key decisions you expect to make using this dashboard on a dai=
+ly or weekly basis?</p>
+<p local-id=3D"bb8c7120ba55"><strong>Purpose:</strong></p>
+<ul local-id=3D"19e6cdeb-b2db-4b26-b79e-7f76c0697abd">
+<li local-id=3D"dc13e572-cf44-42df-b4db-1461c0c6cdcb">
+<p local-id=3D"9d8ddaac3a00">Understand user goals</p></li>
+<li local-id=3D"8fe66952-85b9-42bc-ba31-4eefc5407244">
+<p local-id=3D"37ba7af9294d">Identify critical actions (monitoring, escalat=
+ion, QA checks)</p></li>
+</ul>
+<hr local-id=3D"0c56d8d0-e76a-4b35-8857-75b6ae353f14">
+<h3 local-id=3D"5b15c9798685" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.2CurrentChallenges"><strong>5.2 Current Challenges</strong></h3>
+<p local-id=3D"46b9ad47cb4e"><strong>Question:</strong><br>
+What challenges do you usually face in tracking case outcomes, mitigation c=
+overage, or bot decisions?</p>
+<p local-id=3D"1eddd1088961"><strong>Purpose:</strong></p>
+<ul local-id=3D"a8cdef45-09a7-437d-8dd6-273beaa0a835">
+<li local-id=3D"132dc420-c1c6-4fce-ac7b-9254ccc2ef11">
+<p local-id=3D"152afb8adda5">Identify pain points such as:</p>
+<ul local-id=3D"e2af4718-b7aa-4bf8-96ec-d3043be01abc">
+<li local-id=3D"02298f74-c879-4708-857f-e050a6bec410">
+<p local-id=3D"c725f7ff52d4">Lack of visibility</p></li>
+<li local-id=3D"d4a41610-c6b4-4a4e-b706-aadf7651cf4c">
+<p local-id=3D"8177b9318ebb">Difficulty tracing decisions</p></li>
+<li local-id=3D"5302ccf2-3253-4f0d-a59e-c5f93f2a02a3">
+<p local-id=3D"95cc093ccef9">Data fragmentation</p></li>
+</ul></li>
+</ul>
+<hr local-id=3D"7c7ece10-ff13-4d14-a755-dcd5a1b498f0">
+<h3 local-id=3D"264c328a8e04" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.3CriticalMetrics"><strong>5.3 Critical Metrics</strong></h3>
+<p local-id=3D"7d75cebedb9c"><strong>Question:</strong><br>
+Which metrics are most critical for you (e.g., mitigation missing, Amber re=
+asons, Red cases, amendments), and why?</p>
+<p local-id=3D"d4e2e049b95f"><strong>Purpose:</strong></p>
+<ul local-id=3D"d7ece5f9-ffa4-4485-a24c-98bae9979e6c">
+<li local-id=3D"9dd61d86-53cd-472b-8522-0fbdaf8531b3">
+<p local-id=3D"35225e08cf9b">Prioritize widgets and KPIs</p></li>
+<li local-id=3D"94556f37-8f66-4017-a5c3-f4c9b22107fe">
+<p local-id=3D"b35a2c54a548">Decide visual hierarchy</p></li>
+<li local-id=3D"a3b8f271-9992-4d7e-91c5-988a7e2e5d58">
+<p local-id=3D"405f9b921528">Avoid overloading dashboard</p></li>
+</ul>
+<hr local-id=3D"906463cc-44c5-4bbd-855a-3676ea8e81ab">
+<h3 local-id=3D"3a7c73e09e0c" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.4DecisionInterpretation"><strong>5.4 Decision Interpretation</strong=
+></h3>
+<p local-id=3D"c6d6be7fd7c7"><strong>Question:</strong><br>
+How do you want to interpret Green, Amber, and Red decisions, and what addi=
+tional context would help you analyse them?</p>
+<p local-id=3D"983eb8d0cb6a"><strong>Purpose:</strong></p>
+<ul local-id=3D"9e17c98d-2d57-44c9-83ca-230e72375de4">
+<li local-id=3D"5ad065db-8518-4ba4-8fad-072fc91270dc">
+<p local-id=3D"f9ecd259d37d">Align meaning of decision categories</p></li>
+<li local-id=3D"d6647bac-81c0-4a9b-9087-7a7c714eb17f">
+<p local-id=3D"20ffaba1d62e">Identify need for supporting context such as:<=
+/p>
+<ul local-id=3D"1f691a2d-2094-4bb0-a2e3-c95269b12ce0">
+<li local-id=3D"029368bf-a798-49b7-9901-c26d8b89e691">
+<p local-id=3D"9f1d476c63d3">Reasons for Amber/Red</p></li>
+<li local-id=3D"768ea56e-7fb6-4076-841e-b1907bd68d16">
+<p local-id=3D"5f36ae76b7c7">Agent actions</p></li>
+<li local-id=3D"57184503-f5e4-446b-bbed-3fac4d31d67c">
+<p local-id=3D"5603b2560b47">Case details</p></li>
+</ul></li>
+</ul>
+<hr local-id=3D"54362b28-451e-4b5c-80da-2b848908423c">
+<h3 local-id=3D"24d748eea9a2" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.5Drill-DownExpectations"><strong>5.5 Drill-Down Expectations</strong=
+></h3>
+<p local-id=3D"a424a1afc345"><strong>Question:</strong><br>
+When you see a summary metric (e.g., high Amber count), what level of detai=
+l do you need to investigate further?</p>
+<p local-id=3D"b958ff249026"><strong>Purpose:</strong></p>
+<ul local-id=3D"467f59b0-c6d9-4d44-88ac-e3aa96242fbd">
+<li local-id=3D"fdec1860-4fef-4614-a4bd-6a8c83751e73">
+<p local-id=3D"5635f32559db">Define drill-down layers:</p>
+<ul local-id=3D"87352236-0b70-4057-8425-d8675d04a924">
+<li local-id=3D"29c17970-531b-4cb6-ba1a-7cf7670211ea">
+<p local-id=3D"b318b6ea5ca0">Widget =E2=86=92 Table =E2=86=92 Case details<=
+/p></li>
+</ul></li>
+<li local-id=3D"db650b63-f596-4919-9163-dc539afb2e0e">
+<p local-id=3D"261ca4045751">Understand depth of analysis required</p></li>
+</ul>
+<hr local-id=3D"2706a67b-36c6-45b7-98bb-b8a726de044c">
+<h3 local-id=3D"2fe5a5bb545e" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.6Filtering&amp;Segmentation"><strong>5.6 Filtering &amp; Segmentatio=
+n</strong></h3>
+<p local-id=3D"5dba75f47eb8"><strong>Question:</strong><br>
+What filters or segmentation (e.g., agent, stage, PCN, contravention code) =
+do you use most often?</p>
+<p local-id=3D"6400149ffaf2"><strong>Purpose:</strong></p>
+<ul local-id=3D"2cc2809e-3ffc-4646-8762-6a8103b5a834">
+<li local-id=3D"7ad396b5-3a95-49d9-aaa4-8462882fc955">
+<p local-id=3D"30364d7e3b74">Design filtering system</p></li>
+<li local-id=3D"22cb6a19-5d40-4717-a8b5-9e5acdf242ae">
+<p local-id=3D"f505303d6077">Support quick slicing of data</p></li>
+<li local-id=3D"3030a021-626f-4bdb-88f7-2a7c05eae554">
+<p local-id=3D"e120d67c978f">Enable targeted insights</p></li>
+</ul>
+<hr local-id=3D"44efb745-2e7e-483e-9612-ac287adcfe98">
+<h3 local-id=3D"cbac354e0b8c" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-5.7InsightUtilisation"><strong>5.7 Insight Utilisation</strong></h3>
+<p local-id=3D"fc4733131981"><strong>Question:</strong><br>
+How would you use insights from missing mitigations or custom inputs to imp=
+rove templates or policies?</p>
+<p local-id=3D"eba40daaed43"><strong>Purpose:</strong></p>
+<ul local-id=3D"5b5c7b9a-433d-4aeb-b9a9-af68ae7ee81c">
+<li local-id=3D"c9c31639-d8e5-4194-bec3-cd627ed7adc5">
+<p local-id=3D"8c89fa2428c8">Connect dashboard insights to action</p></li>
+<li local-id=3D"1da766a3-66b9-4d0e-874e-0a16dddecd8b">
+<p local-id=3D"ab941bf8c828">Support:</p>
+<ul local-id=3D"0af60827-a161-4558-b033-d0a6cd8e1c8f">
+<li local-id=3D"cd65e8e0-b489-415d-a39b-aa0312a46e9b">
+<p local-id=3D"dde414efef82">Template improvement</p></li>
+<li local-id=3D"03d34176-876c-4e50-9906-afa9609fa616">
+<p local-id=3D"12996005578e">Policy updates</p></li>
+<li local-id=3D"92d6185b-51d3-47d0-bc7c-da04c993d0bd">
+<p local-id=3D"d999727472ac">Training needs</p></li>
+</ul></li>
+</ul>
+<hr local-id=3D"a7487a6e-2ff0-4f64-aa5d-7ffa06e0c9cf">
+<h2 local-id=3D"b34e96280903" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-6.DiscussionFlow(Recommended)"><strong>6. Discussion Flow (Recommended=
+)</strong></h2>
+<ol start=3D"1" local-id=3D"dd89afff-1644-4666-8383-55dd0545504a">
+<li local-id=3D"11d6962c-f93f-4d6f-98e0-253e4ff828a8">
+<p local-id=3D"51e73eb29700"><strong>Introduction</strong></p>
+<ul local-id=3D"9f378cff-651a-436a-80a6-81d4fad9c8c1">
+<li local-id=3D"35f457b2-a880-4e6a-bb95-57f5d6bd2a17">
+<p local-id=3D"d43d54c8a9a4">Brief overview of dashboard purpose</p></li>
+<li local-id=3D"c5b624fc-dfe1-4bde-b2e4-1796c747b90d">
+<p local-id=3D"30787c909583">Set expectations</p></li>
+</ul></li>
+<li local-id=3D"b009e00d-8a68-4174-8201-fbd59be716c8">
+<p local-id=3D"f9db2d71a83a"><strong>Context Understanding</strong></p>
+<ul local-id=3D"187c54fd-66ca-428c-89eb-e712fed8bf1f">
+<li local-id=3D"41f81e02-88e7-4fe2-9fcf-c447c7b375f9">
+<p local-id=3D"8673dbd8a070">User roles and responsibilities</p></li>
+<li local-id=3D"dd9effd9-ae49-462a-a93e-54cda6454270">
+<p local-id=3D"48ced5684a93">Current workflow</p></li>
+</ul></li>
+<li local-id=3D"298023ee-613a-47dc-b82f-be0936856790">
+<p local-id=3D"d9eed2328d45"><strong>Walkthrough of Requirements</strong></=
+p>
+<ul local-id=3D"a4dcd7e2-83c5-4863-9f70-7540f4572e60">
+<li local-id=3D"f4827619-8898-4ca5-9f2e-9ab1c069d724">
+<p local-id=3D"3744ce505dba">Table + Widgets explanation</p></li>
+</ul></li>
+<li local-id=3D"0c110be6-98c1-4bb1-a490-646812a94eb3">
+<p local-id=3D"3ec4b744e05d"><strong>Questionnaire Discussion</strong></p>
+<ul local-id=3D"693b8a55-d00a-4144-ab58-1fb6567659e8">
+<li local-id=3D"f5761c79-5ad1-4084-9006-63b3f518f10e">
+<p local-id=3D"d7c885a9fa91">Use structured questions (above)</p></li>
+</ul></li>
+<li local-id=3D"6da8abd6-ad48-4324-ae44-579127da8109">
+<p local-id=3D"b65c89ce8120"><strong>Concept Validation</strong></p>
+<ul local-id=3D"2d917559-e990-468a-a627-ccd0f8685b7b">
+<li local-id=3D"9bd7bf4a-be6d-4e5d-aca2-14b58be955d0">
+<p local-id=3D"60ad1641bce3">Discuss initial UX ideas (if available)</p></l=
+i>
+</ul></li>
+<li local-id=3D"ccc5f418-5596-4e28-8694-2922c7966300">
+<p local-id=3D"39b42817c65a"><strong>Wrap-Up</strong></p>
+<ul local-id=3D"de1fe86e-9688-48fb-ba0c-63fde581292c">
+<li local-id=3D"7cb22dfe-a35c-4e91-a900-9d1ba8c5665f">
+<p local-id=3D"f75861e2e76c">Capture open questions</p></li>
+<li local-id=3D"d546af89-c997-466d-9611-cc0362ca7de2">
+<p local-id=3D"1295f315ea9a">Confirm next steps</p></li>
+</ul></li>
+</ol>
+<hr local-id=3D"3f644c15-68ca-4952-92f9-aaf1c4705886">
+<h2 local-id=3D"21d769e1ad07" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-7.ExpectedInsights"><strong>7. Expected Insights</strong></h2>
+<p local-id=3D"b6fe58477373">From the interviews, we aim to derive:</p>
+<ul local-id=3D"1aa8bc47-54b4-4a83-9729-5f617c759e65">
+<li local-id=3D"a33c3adc-5489-4359-9b65-df10e2d84dd9">
+<p local-id=3D"30e043acffbe">Most important KPIs (priority metrics)</p></li=
+>
+<li local-id=3D"07ad0d63-07cd-4c0e-b39e-9b1f542a4b6a">
+<p local-id=3D"045aecb189a0">Required level of detail (summary vs. deep div=
+e)</p></li>
+<li local-id=3D"a5f7fac1-72ba-43f7-ac47-51dacf03a52f">
+<p local-id=3D"c0aa32db6b23">Common user workflows</p></li>
+<li local-id=3D"56ec27a7-c1d0-4e98-8f3a-ba6c8e5021f4">
+<p local-id=3D"5f221697a469">Interpretation gaps in decision categories</p>=
+</li>
+<li local-id=3D"5459f3f8-e29a-4f49-aad2-d251e81ca2f1">
+<p local-id=3D"2e6847fb3402">Filtering patterns and usage behavior</p></li>
+<li local-id=3D"21497413-e45f-42df-8273-09f09a44b7d8">
+<p local-id=3D"b8eb9e12681a">Improvement opportunities in mitigation and te=
+mplates</p></li>
+</ul>
+<hr local-id=3D"e1afe9ad-e7fa-4f8a-881e-8c9856dfc83f">
+<h2 local-id=3D"bf7f4e737933" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-8.UXDesignConsiderations"><strong>8. UX Design Considerations</strong>=
+</h2>
+<h3 local-id=3D"c95cf7e3349e" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-8.1InformationHierarchy"><strong>8.1 Information Hierarchy</strong></h=
+3>
+<ul local-id=3D"a02c983f-8f63-41fc-8876-16994dce1544">
+<li local-id=3D"ab25964f-e733-47f7-a2af-08217de0f49c">
+<p local-id=3D"5e0a910d275d">High-level metrics (widgets) first</p></li>
+<li local-id=3D"3616cfd0-3c3a-4d8c-be97-37758eb257e6">
+<p local-id=3D"e21bb7fb814a">Detailed analysis (table view) second</p></li>
+</ul>
+<h3 local-id=3D"515bd9f4355c" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-8.2Drill-DownDesign"><strong>8.2 Drill-Down Design</strong></h3>
+<ul local-id=3D"49449167-5926-4d55-bb3b-c6a6b1d016ab">
+<li local-id=3D"35a5971c-46f7-4514-802f-dea4c296adc4">
+<p local-id=3D"ec3fb0263e80">Clickable widgets =E2=86=92 filtered table</p>=
+</li>
+<li local-id=3D"5ad6dbcf-239d-450b-85dd-77ea7a4a9f64">
+<p local-id=3D"7bb2912bb51b">Expandable rows =E2=86=92 deeper insights</p><=
+/li>
+</ul>
+<h3 local-id=3D"741efd4496b1" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-8.3VisualIndicators"><strong>8.3 Visual Indicators</strong></h3>
+<ul local-id=3D"55f8ec55-ce6c-49ba-b0e9-1a7bfade9d36">
+<li local-id=3D"8ec41ff1-0c78-447f-aeac-5eda94e219b9">
+<p local-id=3D"e5b1aade86d9">Clear color coding:</p>
+<ul local-id=3D"1ded6915-e179-4a78-8802-244fa7edf849">
+<li local-id=3D"125a87b6-1803-4837-b363-573b66d98c7d">
+<p local-id=3D"759a82835f0b">Green =E2=86=92 Success</p></li>
+<li local-id=3D"a925c4e5-c998-4374-889d-77c2f88b6ac9">
+<p local-id=3D"023ecdc23ef6">Amber =E2=86=92 Warning/Review</p></li>
+<li local-id=3D"8dd2d779-67e5-4ab7-8f54-6d8af31c4b6f">
+<p local-id=3D"cdde0fc3cec3">Red =E2=86=92 Action Required</p></li>
+</ul></li>
+</ul>
+<h3 local-id=3D"ecb9d7f969ff" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-8.4DataContext"><strong>8.4 Data Context</strong></h3>
+<ul local-id=3D"e3c9caee-a17b-4b58-9b77-5a2a6eeae6a1">
+<li local-id=3D"594d6363-efab-4946-bc7a-0d1a8b1ca646">
+<p local-id=3D"fbc2e12a89a1">Provide:</p>
+<ul local-id=3D"7d917ff4-42a2-45d2-aa07-6f4a59d8043b">
+<li local-id=3D"ba357b37-8aaa-4da6-a36e-78b0cdd05a85">
+<p local-id=3D"77ab652b60db">Tooltips</p></li>
+<li local-id=3D"8a94fd17-b308-47db-b335-eab37b79d2af">
+<p local-id=3D"4a808b1eb903">Definitions</p></li>
+<li local-id=3D"846b9640-6bf3-44d5-a7a1-d7a7c041dca5">
+<p local-id=3D"df7d52e18e5f">Reason codes</p></li>
+</ul></li>
+</ul>
+<hr local-id=3D"020562ba-6fd2-441d-a24e-98fc59f47c08">
+<h2 local-id=3D"aaaab6dfeebd" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-9.KeyRisks/OpenQuestions"><strong>9. Key Risks / Open Questions</stron=
+g></h2>
+<ul local-id=3D"661d522e-2207-4b98-9161-938482f2f720">
+<li local-id=3D"97ffa210-6d95-4b0f-9861-2c3458eb935f">
+<p local-id=3D"a6d461d10b50">Ambiguity in Green/Amber/Red classification</p=
+></li>
+<li local-id=3D"389104cd-d912-46fa-9cce-0ae5a13ee18b">
+<p local-id=3D"669697563db1">Overloading widgets with too much data</p></li=
+>
+<li local-id=3D"04726515-aba7-431f-9f77-386eb1fec07b">
+<p local-id=3D"da12ecbdacd5">Lack of clarity on mitigation definitions</p><=
+/li>
+<li local-id=3D"2423650a-490b-428b-82c5-75a8b860a261">
+<p local-id=3D"7794f3c290e2">Insufficient drill-down capabilities</p></li>
+</ul>
+<hr local-id=3D"1a9455d0-1500-4ae8-973b-87b87b2e9278">
+<h2 local-id=3D"1cdd1ae154fa" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-10.NextSteps"><strong>10. Next Steps</strong></h2>
+<ul local-id=3D"cfbe9a1f-65da-4667-93ef-c5fa034c5910">
+<li local-id=3D"0e3d926b-43ff-45eb-9006-a5c1fa57f810">
+<p local-id=3D"3dfb4a1ac379">Conduct stakeholder interviews</p></li>
+<li local-id=3D"ada5199f-e045-4385-b13a-98c8f4ab5951">
+<p local-id=3D"70774ed1a216">Consolidate findings</p></li>
+<li local-id=3D"1fc3d0c4-6772-4ecf-ba32-ab92961dadcd">
+<p local-id=3D"75c98021659d">Create prototypes</p></li>
+<li local-id=3D"eccc16ef-3586-4e45-977a-65056bfb8c26">
+<p local-id=3D"2188c23f319f">Validate with users</p></li>
+<li local-id=3D"809ba842-f7d9-4e18-9222-c13422c414ac">
+<p local-id=3D"ce64c8bd9c0d">Iterate based on feedback</p></li>
+</ul>
+<p local-id=3D"96b8fef66ee3"></p>
+<hr local-id=3D"09e909643608">
+<h1 local-id=3D"649943987027" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-UXInterview&amp;DiscussionDocument">UX Interview &amp; Discussion Docu=
+ment</h1>
+<p local-id=3D"18c74070cac0"><strong>Project:</strong> Agent Mitigation &am=
+p; Case Review Dashboard<br><strong>Prepared by:</strong> UX Team<br><stron=
+g>Context:</strong> Stage 3 &amp; 5 Dashboard Requirements (5 widgets + det=
+ailed table)<br><br><strong>Initial Questions</strong><br>
+ 1. What are the key decisions you expect to make using this dashboard on a=
+ daily or weekly basis?<br>
+(Aligns with the objective of monitoring performance, coverage, and decisio=
+ns)</p>
+<ol start=3D"2" local-id=3D"443a1c4af8c4">
+<li local-id=3D"85da49193ea7">
+<p local-id=3D"35ff1af21d79">What challenges do you usually face in trackin=
+g case outcomes, mitigation coverage, or bot decisions?<br>
+(Helps identify gaps the dashboard aims to solve=E2=80=94visibility, tracea=
+bility, etc.)</p></li>
+<li local-id=3D"e13d3cb31f08">
+<p local-id=3D"338510d53828">Which metrics are most critical for you (e.g.,=
+ mitigation missing, Amber reasons, Red cases, amendments), and why?<br>
+(Relates to widgets and reporting priorities)</p></li>
+<li local-id=3D"2ab1fb4e79ff">
+<p local-id=3D"aa0c882ddb6b">How do you want to interpret Green, Amber, and=
+ Red decisions, and what additional context would help you analyse them?<br=
+>
+(Tied to bot decision tracking and improvement needs)</p></li>
+<li local-id=3D"f023076f3583">
+<p local-id=3D"a10f763d73a2">When you see a summary metric (e.g., high Ambe=
+r count), what level of detail do you need to investigate the issue further=
+?<br>
+(Linked to table view and drill-down requirements)</p></li>
+<li local-id=3D"bbb3b44e0aca">
+<p local-id=3D"a89f649d2cdd">What filters or segmentation (e.g., agent, sta=
+ge, PCN, contravention code) do you use most often to analyse data?<br>
+(Directly aligned to dashboard filter requirements)</p></li>
+<li local-id=3D"c68734c4efc7">
+<p local-id=3D"79a2d8b9f33b">How would you use insights from missing mitiga=
+tions or custom inputs to improve templates or policies?<br>
+(Supports template governance use case)</p></li>
+</ol>
+<hr local-id=3D"a13c4ea8-fc82-4e97-999e-b3697fdfc5fd">
+<h2 local-id=3D"0f6e2f8c6106" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=F0=9F=8E=AF1.ObjectiveoftheDashboard">=F0=9F=8E=AF 1. Objective of th=
+e Dashboard</h2>
+<p local-id=3D"30fd65dc85e9">Enable stakeholders to:</p>
+<ul local-id=3D"464af98b-1976-4d28-a44e-d98be81f728e">
+<li local-id=3D"0f811f19-84b4-4c65-b8b9-798515e4e034">
+<p local-id=3D"34e5801b9539">Monitor <strong>agent performance</strong></p>=
+</li>
+<li local-id=3D"13507832-73a3-49aa-b875-50f81d7eee0a">
+<p local-id=3D"a27d88d21ec1">Track <strong>case outcomes (Green / Amber / R=
+ed)</strong></p></li>
+<li local-id=3D"a5550128-1260-4ef2-96ca-e460e6a1e44a">
+<p local-id=3D"362fc8319a0e">Identify <strong>missing mitigations and decis=
+ion gaps</strong></p></li>
+<li local-id=3D"095e919f-5cb7-4c1b-bb55-073bbd1a4b7f">
+<p local-id=3D"a66f15fb6cad">Improve <strong>bot accuracy, templates, and p=
+olicies</strong></p></li>
+</ul>
+<hr local-id=3D"177e25f3-a04c-4ea7-9d9d-0e436eac31e6">
+<h2 local-id=3D"ed303d016940" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=F0=9F=97=A3=EF=B8=8F2.InterviewQuestions,Insights&amp;UXActions">=F0=
+=9F=97=A3=EF=B8=8F 2. Interview Questions, Insights &amp; UX Actions</h2>
+<hr local-id=3D"ef38ccef-2aac-4a47-aa70-c334e2c089a0">
+<h3 local-id=3D"ece30ecd5f0a" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9D=93Q1:Keydecisionsyoumakedaily/weekly?">=E2=9D=93 Q1: Key decisi=
+ons you make daily/weekly?</h3>
+<p local-id=3D"f8c3c6f91106"><strong>User Insights (Consolidated):</strong>=
+</p>
+<ul local-id=3D"2966e4a5-9266-4692-aaf1-c5ca815a7141">
+<li local-id=3D"4d8f1fbc-4176-461a-aaa0-fdb7a903ee84">
+<p local-id=3D"6fbd46edf6f6">Identify <strong>underperforming agents</stron=
+g></p></li>
+<li local-id=3D"6ae409f6-b481-42b3-a7d3-c5a27cdd57cc">
+<p local-id=3D"ac938aa1dd7b">Track <strong>quality of decisions (Green/Ambe=
+r/Red)</strong></p></li>
+<li local-id=3D"b454940e-49ac-43df-87cd-3d1465909498">
+<p local-id=3D"3902a0402290">Review <strong>case coverage and mitigation co=
+mpleteness</strong></p></li>
+<li local-id=3D"1da9702e-ab40-4e1e-8e17-efde4e074b40">
+<p local-id=3D"91ce7cc90115">Decide <strong>training or process improvement=
+s</strong></p></li>
+<li local-id=3D"b7164e34-35db-4189-9853-e7888900a85b">
+<p local-id=3D"3f671b71bd85">Evaluate <strong>bot vs agent performance</str=
+ong></p></li>
+</ul>
+<p local-id=3D"29c214717ffa">=E2=9C=85 <strong>UX Implications</strong></p>
+<ul local-id=3D"cae8b618-108b-4488-b1d3-bae437838ec0">
+<li local-id=3D"51e06d7e-3e9e-44b7-9dd7-f7ad7bc75110">
+<p local-id=3D"b077e500d87f">Dashboard must support <strong>quick decision-=
+making at a glance</strong></p></li>
+<li local-id=3D"c595e4a0-a3e0-4f4c-9441-1f255658c2f2">
+<p local-id=3D"d488ac733143">Provide both <strong>summary + drill-down view=
+s</strong></p></li>
+</ul>
+<p local-id=3D"381d29452a98">=F0=9F=8E=A8 <strong>UX Actions</strong></p>
+<ul local-id=3D"941a9160-f6b8-433d-861c-1c6f67595a29">
+<li local-id=3D"ae14180e-9fd4-406d-977a-74c9882e84b1">
+<p local-id=3D"34f37e15603c">Add <strong>Top KPI summary strip</strong></p>
+<ul local-id=3D"558cf0ea-355b-43ab-ab48-b655db8ed071">
+<li local-id=3D"6ab95bb1-eda6-431c-ac9c-8d87af067bdb">
+<p local-id=3D"50ec00982b3f">Total Cases</p></li>
+<li local-id=3D"055d7a69-2afa-4aea-872a-d9a31c40b55a">
+<p local-id=3D"cd0310e5bc8f">% Green / Amber / Red</p></li>
+<li local-id=3D"e97433b2-4878-44c6-a625-8899e15dd41a">
+<p local-id=3D"986d1b3d5f94">Missing Mitigation %</p></li>
+</ul></li>
+<li local-id=3D"38d02976-c74f-4bdc-bb49-a801448f92f5">
+<p local-id=3D"b286f32c2850">Provide <strong>Agent Performance Ranking (sor=
+table table)</strong></p></li>
+<li local-id=3D"bacd79d9-7f13-4c96-87fe-5939f17d92c7">
+<p local-id=3D"ec81df33bbb6">Enable <strong>quick drill-down from widgets t=
+o detailed table</strong></p></li>
+</ul>
+<hr local-id=3D"3fceea0d-1354-4057-9ff5-5d023c5ad653">
+<h3 local-id=3D"79e11d9c7c72" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9D=93Q2:Challengesintrackingoutcomes&amp;mitigations?">=E2=9D=93 Q=
+2: Challenges in tracking outcomes &amp; mitigations?</h3>
+<p local-id=3D"f44137235f48"><strong>User Insights:</strong></p>
+<ul local-id=3D"3b6e9f9e-98cc-497e-8aac-d1d443ae61ed">
+<li local-id=3D"801d1fd3-9533-4c63-a098-3d0c8b89e2be">
+<p local-id=3D"7beb623df9ce">Lack of <strong>visibility on missing mitigati=
+on</strong></p></li>
+<li local-id=3D"2114a6e3-1c13-4e24-a947-5b42983a1b62">
+<p local-id=3D"f92bb653df07">Hard to track <strong>why Amber/Red occurred</=
+strong></p></li>
+<li local-id=3D"f9085995-ab46-4fe1-b610-8b46ce6d27ee">
+<p local-id=3D"ade67d8801a8">Poor <strong>traceability across agents and ca=
+ses</strong></p></li>
+<li local-id=3D"aadb1cf4-95bb-4b7f-91f7-99eb3e9762c5">
+<p local-id=3D"e11799e2aab5">Difficulty linking <strong>decisions to root c=
+auses</strong></p></li>
+</ul>
+<p local-id=3D"469680c33206">=E2=9C=85 <strong>UX Implications</strong></p>
+<ul local-id=3D"39517334-192b-4f29-8493-7f210b1caf2d">
+<li local-id=3D"0d0cd6ae-2789-449d-adef-d8b69b1abac8">
+<p local-id=3D"ffd5d52334da">Need for <strong>clear categorisation + contex=
+t</strong></p></li>
+<li local-id=3D"9ff7c89c-aab0-4829-80db-89fe7c547ebc">
+<p local-id=3D"bbb170aa25f2">Avoid raw data overload =E2=86=92 show <strong=
+>meaningful visual cues</strong></p></li>
+</ul>
+<p local-id=3D"0792dfedb07b">=F0=9F=8E=A8 <strong>UX Actions</strong></p>
+<ul local-id=3D"5593a5f6-409f-439a-af6e-47aa5bf6f681">
+<li local-id=3D"c86cf520-74cc-41c7-846a-31b330566a6a">
+<p local-id=3D"d4ee6dc12567">Add <strong>reason tagging for Amber/Red</stro=
+ng></p></li>
+<li local-id=3D"344b7225-ceb3-43c7-a8e5-a6910eabac7c">
+<p local-id=3D"edf3347e8f49">Include <strong>=E2=80=9CMissing vs Identified=
+ Mitigation=E2=80=9D comparison widget</strong></p></li>
+<li local-id=3D"babb5230-c16d-47f2-9df8-b5664609df13">
+<p local-id=3D"8d8a368260aa">Use:</p>
+<ul local-id=3D"60cb14e1-142b-429f-b8c2-2074350f96b2">
+<li local-id=3D"ffe15e79-68a5-4a16-988e-856115e876b5">
+<p local-id=3D"42b42a999c98">Color coding</p></li>
+<li local-id=3D"e2df1b6a-0314-4320-b41c-60e7ef91eaf0">
+<p local-id=3D"9996e57f87f8">Icons</p></li>
+<li local-id=3D"440a59fb-0474-49c5-becf-6f88aa50e7a7">
+<p local-id=3D"090d8f909251">Tooltips with explanations</p></li>
+</ul></li>
+<li local-id=3D"b91dceee-7985-49e3-a2dc-fdb976a373da">
+<p local-id=3D"0ebf8dcd9911">Provide <strong>case-level drill-down (expanda=
+ble table rows)</strong></p></li>
+</ul>
+<hr local-id=3D"c6bd6a12-ffcf-4b4f-a3bd-152e6ae06752">
+<h3 local-id=3D"3a97cca9bd1a" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9D=93Q3:Mostcriticalmetrics?">=E2=9D=93 Q3: Most critical metrics?=
+</h3>
+<p local-id=3D"2f23702750f4"><strong>User Insights:</strong></p>
+<ul local-id=3D"6a7a151f-81f4-4311-a9ba-ea6e457e453f">
+<li local-id=3D"7ed0cd65-db81-43cf-a895-57c2067924fd">
+<p local-id=3D"db7bf5b9a5cc">Missing Mitigation (top priority)</p></li>
+<li local-id=3D"20d2ae12-f4d8-41b1-b480-a94e1a928ddf">
+<p local-id=3D"107d3212e57b">Amber reasons (decision ambiguity)</p></li>
+<li local-id=3D"ecdf82a5-874c-4bf3-8feb-5e0f2db29ab2">
+<p local-id=3D"1cb6156e6436">Red cases (failures)</p></li>
+<li local-id=3D"94f638b5-0c54-4acb-afee-a652d2b12e7b">
+<p local-id=3D"237b14fc34a7">Amendments (minor vs major)</p></li>
+<li local-id=3D"b7c0721e-6b99-4682-83b4-929530b7597e">
+<p local-id=3D"044410438b09">Cases with no edits (efficiency indicator)</p>=
+</li>
+</ul>
+<p local-id=3D"e55ebd41c1f5">=E2=9C=85 <strong>UX Implications</strong></p>
+<ul local-id=3D"5c7a25ca-93a1-4b7e-943f-328223944249">
+<li local-id=3D"63478320-e708-4a12-8666-06c3a757143d">
+<p local-id=3D"bdd4a989ad1b">Widgets must reflect <strong>priority hierarch=
+y</strong></p></li>
+<li local-id=3D"ecfaf93a-e273-474e-9790-3f73ab7ebdf7">
+<p local-id=3D"f733bb4f2ad5">Avoid equal visual weight for all metrics</p><=
+/li>
+</ul>
+<p local-id=3D"dd37dbbec8f4">=F0=9F=8E=A8 <strong>UX Actions</strong></p>
+<ul local-id=3D"09c76c0a-7609-4bcc-9cbd-e6e82d70b75d">
+<li local-id=3D"b0c44a0c-d301-400c-80b9-cc138a9081f6">
+<p local-id=3D"9299843d717b">Design <strong>5 focused widgets:</strong></p>
+<ol start=3D"1" local-id=3D"eb44f9b1-4396-4311-b226-406a128e0265">
+<li local-id=3D"43dde63e-9f10-4570-8e77-1fe3b0588751">
+<p local-id=3D"070060b77828">=E2=9C=85 Green Cases (Success)</p></li>
+<li local-id=3D"72e8c168-734c-45fe-b63b-fad8f0066337">
+<p local-id=3D"2b8ceff7099f">=E2=9A=A0=EF=B8=8F Amber Cases (Needs Review)<=
+/p></li>
+<li local-id=3D"0a8f03e9-7379-4ea7-9783-1febb5b5635f">
+<p local-id=3D"8b63aea739b5">=E2=9D=8C Red Cases (Failures)</p></li>
+<li local-id=3D"c7e7d5de-c144-40ce-9d4f-c68fd4bb705e">
+<p local-id=3D"c68da92df79f">=E2=9C=8F=EF=B8=8F Amendments Breakdown</p></l=
+i>
+<li local-id=3D"091fcb70-9e0e-4c83-b7ca-70de27ef93b2">
+<p local-id=3D"dbb0c3644733">=F0=9F=93=89 Missing Mitigations</p></li>
+</ol></li>
+<li local-id=3D"6ae2c3b7-35b4-4511-a35c-2493518a265a">
+<p local-id=3D"2afe4e77a2da">Highlight:</p>
+<ul local-id=3D"8c863593-12d0-492e-94fe-69bff35649ea">
+<li local-id=3D"c4b83bcf-8698-4e8c-b623-af08ca7b03f7">
+<p local-id=3D"db55decbcfc6">Critical metrics using <strong>stronger colors=
+ &amp; size</strong></p></li>
+</ul></li>
+<li local-id=3D"05ede6d2-0c49-4834-b1ed-b4e4ba9750ab">
+<p local-id=3D"4f3f059399a3">Add <strong>trend indicators</strong> (=E2=86=
+=91 =E2=86=93)</p></li>
+</ul>
+<hr local-id=3D"63afb506-7472-4064-8ea6-571da6fc3aed">
+<h3 local-id=3D"6efa8fa9d0ad" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9D=93Q4:InterpretationofGreen/Amber/Red?">=E2=9D=93 Q4: Interpreta=
+tion of Green / Amber / Red?</h3>
+<p local-id=3D"418f4e7d1baf"><strong>User Insights:</strong></p>
+<ul local-id=3D"d7ac0141-3e27-4efa-a9a0-55c7b2436b1c">
+<li local-id=3D"ca25b262-ea46-4ea7-8192-c44fb927a3a1">
+<p local-id=3D"57012a5a50b4">=F0=9F=9F=A2 Green =E2=86=92 Correct decision,=
+ no issue</p></li>
+<li local-id=3D"e1091f8a-479d-4606-a066-b6dfdfaed658">
+<p local-id=3D"3bcaf3d18db2">=F0=9F=9F=A1 Amber =E2=86=92 Partial correctne=
+ss / missing logic</p></li>
+<li local-id=3D"71626a76-1676-41d7-9bc2-ad62270856c4">
+<p local-id=3D"479721a1627d">=F0=9F=94=B4 Red =E2=86=92 Incorrect or critic=
+al failure</p></li>
+</ul>
+<p local-id=3D"c857ae9f686c">Additional Needs:</p>
+<ul local-id=3D"a41d7678-d08a-4532-94a2-227e46510cad">
+<li local-id=3D"dfd52d6b-c8ef-46ac-8af9-a29b709293cb">
+<p local-id=3D"6701a0d903d2">=E2=80=9CWhy did this happen?=E2=80=9D</p></li=
+>
+<li local-id=3D"0a6f5c14-5c2e-4191-a8bd-394f6cff7c11">
+<p local-id=3D"5783261b081f">=E2=80=9CWhich agent/case caused it?=E2=80=9D<=
+/p></li>
+</ul>
+<p local-id=3D"61d0ca9ae06e">=E2=9C=85 <strong>UX Implications</strong></p>
+<ul local-id=3D"9dad076b-9bdd-415e-a8f0-c17d3b2198ca">
+<li local-id=3D"5198c0ce-4688-424d-b251-3795d1e9bc59">
+<p local-id=3D"80224d6b8e33">Colors alone are not enough</p></li>
+<li local-id=3D"3d68508e-9de5-4f74-b8cb-0fe6a0caf07b">
+<p local-id=3D"26c108002e2c">Need <strong>context &amp; explanation layers<=
+/strong></p></li>
+</ul>
+<p local-id=3D"c3e4af8987af">=F0=9F=8E=A8 <strong>UX Actions</strong></p>
+<ul local-id=3D"6763c76e-1b95-4017-bd62-4a8805341f04">
+<li local-id=3D"4a3b5c24-cdbb-4da5-8a7c-385428c7fb8f">
+<p local-id=3D"df73e443ac39">Add <strong>hover tooltip definitions</strong>=
+</p></li>
+<li local-id=3D"ca90e0f4-74d3-46e5-a2ef-aff7d2b1508e">
+<p local-id=3D"05b127976b16">Provide <strong>reason codes for Amber/Red</st=
+rong></p></li>
+<li local-id=3D"8c466323-7922-4d7a-9c58-8219c37860fd">
+<p local-id=3D"ace9db1d7729">Show:</p>
+<ul local-id=3D"d307adf9-cdad-40a8-9f39-b06d9a3748fd">
+<li local-id=3D"c6ef2c5f-0279-4f65-bbd9-2eff91ca4350">
+<p local-id=3D"abd6f752e68c">Agent name</p></li>
+<li local-id=3D"47023eaa-02a3-4079-8665-b5f126672149">
+<p local-id=3D"ea784840a5ff">PCN</p></li>
+<li local-id=3D"38ddbf6e-54fc-4929-b455-1c5135695ba1">
+<p local-id=3D"421525a39077">Contravention code</p></li>
+</ul></li>
+<li local-id=3D"3730c264-75a0-4794-8b5f-0c6fbfd2854a">
+<p local-id=3D"98239af81db2">Add <strong>filter by decision type</strong></=
+p></li>
+</ul>
+<hr local-id=3D"7823890a-b405-483b-b195-1db324a67495">
+<h3 local-id=3D"12c2d5704a7b" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9D=93Q5:Drill-downexpectations?">=E2=9D=93 Q5: Drill-down expectat=
+ions?</h3>
+<p local-id=3D"d8732d6ce333"><strong>User Insights:</strong></p>
+<ul local-id=3D"20b11d11-2629-44d1-bde0-6c96f0ca6ee9">
+<li local-id=3D"b8623654-cd3a-418d-a44f-dc680f665d2c">
+<p local-id=3D"c1cee1486bec">From summary =E2=86=92 need <strong>case-level=
+ visibility</strong></p></li>
+<li local-id=3D"8cc5fdd9-e73a-46a8-9dba-b46433e4e85f">
+<p local-id=3D"e0b3b597be72">Want to see:</p>
+<ul local-id=3D"7c12794f-3867-41c2-bc36-0d49b3f0b1c4">
+<li local-id=3D"648c8d03-eb46-49f1-899c-edf70fff0642">
+<p local-id=3D"72e6826bb0f8">Agent details</p></li>
+<li local-id=3D"9051a82a-2e58-42ed-921c-12e6efd588ab">
+<p local-id=3D"39e6b4b0191c">Case details</p></li>
+<li local-id=3D"e36a30ad-18f1-4f6f-8ab7-9edde72195db">
+<p local-id=3D"964f481a233c">Mitigation presence</p></li>
+</ul></li>
+<li local-id=3D"7f04e0ba-301b-46e6-99dc-1816579988c4">
+<p local-id=3D"8e4d2a88f0e5">Ability to <strong>trace issues quickly</stron=
+g></p></li>
+</ul>
+<p local-id=3D"75abb65fa118">=E2=9C=85 <strong>UX Implications</strong></p>
+<ul local-id=3D"a35fa5e1-c7c1-4c36-9605-0f92f8e949fe">
+<li local-id=3D"eac927fd-c7e0-44ff-a9ce-cf5f07a25e9a">
+<p local-id=3D"9bb8ee7f91b7">Strong need for <strong>hierarchical navigatio=
+n</strong></p></li>
+</ul>
+<p local-id=3D"2bb66b05052f">=F0=9F=8E=A8 <strong>UX Actions</strong></p>
+<ul local-id=3D"f8f272ac-468d-4184-b03a-54a7fae8323a">
+<li local-id=3D"3c67ae68-70a3-4b6d-97c0-01bf4caef24b">
+<p local-id=3D"f6193afaff79">Enable:</p>
+<ul local-id=3D"49ebe8df-453d-45c7-82d2-837bb69db80e">
+<li local-id=3D"ff3e6689-46fa-4147-8030-e56f0b31b9c9">
+<p local-id=3D"47db8597b687">Click widget =E2=86=92 filtered table view</p>=
+</li>
+</ul></li>
+<li local-id=3D"6e8b99cc-2149-40b0-a615-42a1c4104bab">
+<p local-id=3D"9e775f32887d">Table should include:</p>
+<ul local-id=3D"86e0c193-d690-488f-bba1-a7d80b2fc5a0">
+<li local-id=3D"7ba4ccab-2b3c-4e6b-a710-9fefbb3f5899">
+<p local-id=3D"797b1729f930">Agent Name</p></li>
+<li local-id=3D"3ec29feb-6819-4be3-8f29-6897552e66d5">
+<p local-id=3D"6bc9589c4616">PCN</p></li>
+<li local-id=3D"7163c895-14da-451f-adf4-69a67f40f680">
+<p local-id=3D"4ff79372a90b">Case count</p></li>
+<li local-id=3D"af5c9bb0-5fb4-4ab6-bb4b-bc5559e18c98">
+<p local-id=3D"0f17b549bb89">Mitigation status</p></li>
+<li local-id=3D"9d85203d-e6ca-4ddd-bba1-ed7aa3d89cb3">
+<p local-id=3D"7b0a773b9da6">Decision outcome</p></li>
+</ul></li>
+<li local-id=3D"0105d897-fba6-47cc-9249-97a87396c152">
+<p local-id=3D"230d1e796703">Add <strong>expand row for detailed case view<=
+/strong></p></li>
+</ul>
+<hr local-id=3D"de3621d4-869f-4a74-a3a4-3a1ceda4dd93">
+<h3 local-id=3D"990006b7d521" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9D=93Q6:Importantfilters&amp;segmentation?">=E2=9D=93 Q6: Importan=
+t filters &amp; segmentation?</h3>
+<p local-id=3D"52599924f86e"><strong>User Insights:</strong> Users frequent=
+ly filter by:</p>
+<ul local-id=3D"e32d1968-77ef-4637-b93b-fc4b43a6faeb">
+<li local-id=3D"7ec2322f-e92f-40ea-ac61-98ba771eab1e">
+<p local-id=3D"df5089d1114c">Agent</p></li>
+<li local-id=3D"9bb5b31a-75b4-4f63-8e44-d6b5ccbc9cf9">
+<p local-id=3D"bdd60a0ac61a">PCN</p></li>
+<li local-id=3D"e8bfe56c-072c-4cd7-9590-69a82fd47557">
+<p local-id=3D"fc631a699c2f">Stage</p></li>
+<li local-id=3D"d288c9e5-6c86-4f79-b884-f04e810a62ca">
+<p local-id=3D"8a6ac3b09e8e">Contravention Code</p></li>
+<li local-id=3D"8fb7a2f6-0599-4c2a-881c-e964290641de">
+<p local-id=3D"1c50810ae55a">Decision Type</p></li>
+</ul>
+<p local-id=3D"20d9b1eedcfa">=E2=9C=85 <strong>UX Implications</strong></p>
+<ul local-id=3D"92673f45-51e5-48c2-8ebd-508a13780654">
+<li local-id=3D"bcadbe1e-bffd-4550-bf95-c4c6ad73dd7d">
+<p local-id=3D"89f92ca8a095">Filters must be <strong>easy, fast, and persis=
+tent</strong></p></li>
+</ul>
+<p local-id=3D"d3739eb5f18f">=F0=9F=8E=A8 <strong>UX Actions</strong></p>
+<ul local-id=3D"b7890296-8686-4f86-8d23-330a1d59d58f">
+<li local-id=3D"022b6c04-0faa-4270-b2e2-5c205017271d">
+<p local-id=3D"bd7370d342dc">Add <strong>global filter bar</strong></p>
+<ul local-id=3D"60a04b77-9072-4e5d-a0cc-d806c537acc0">
+<li local-id=3D"2c0b6105-be4a-43df-bf54-58d4cc0d91bf">
+<p local-id=3D"d575650f105d">Multi-select dropdowns</p></li>
+<li local-id=3D"2ab4431a-de80-487e-94d6-8627ff2d42f5">
+<p local-id=3D"f4170ab7e97d">Searchable inputs</p></li>
+</ul></li>
+<li local-id=3D"dcc29a5e-305b-4618-89c0-65e8845ff018">
+<p local-id=3D"760d3b04fd94">Show <strong>active filters as chips</strong><=
+/p></li>
+<li local-id=3D"1acfe2f4-901f-4138-8a09-8b83c691ea48">
+<p local-id=3D"e338c1cd0892">Enable:</p>
+<ul local-id=3D"c422ca96-9c22-4738-a25d-6ef3bfe48890">
+<li local-id=3D"e2f9cdeb-15cf-4167-a93f-af769aa54128">
+<p local-id=3D"026ec7869ddb">Save filter presets</p></li>
+<li local-id=3D"978122a1-3e48-4c0c-9c52-68b287d02e43">
+<p local-id=3D"af10a5d70954">Reset filters quickly</p></li>
+</ul></li>
+</ul>
+<hr local-id=3D"23d771a1-f795-4b14-b7f9-ff0b50345c3a">
+<h3 local-id=3D"c51eb84d5c6a" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9D=93Q7:Useofmissingmitigationinsights?">=E2=9D=93 Q7: Use of miss=
+ing mitigation insights?</h3>
+<p local-id=3D"e0fda0c795dc"><strong>User Insights:</strong></p>
+<ul local-id=3D"b9a97474-2864-429d-848d-e70c86b9ab2c">
+<li local-id=3D"5e488ed4-a7a2-480e-9c93-085309a86f19">
+<p local-id=3D"08369a40e49d">Improve <strong>templates</strong></p></li>
+<li local-id=3D"0dc84e24-7554-42c1-9778-3a1d40c6acde">
+<p local-id=3D"f6f53b15d36f">Refine <strong>policy rules</strong></p></li>
+<li local-id=3D"4c7dace6-8bc7-47cb-9f93-f644aa6e4a6e">
+<p local-id=3D"684072d97ffe">Identify <strong>training needs</strong></p></=
+li>
+<li local-id=3D"2c932cfe-888a-4ac0-a01d-be33a932ee38">
+<p local-id=3D"417934a386a0">Enhance <strong>bot logic</strong></p></li>
+</ul>
+<p local-id=3D"d26d53e44322">=E2=9C=85 <strong>UX Implications</strong></p>
+<ul local-id=3D"c4824c54-b303-4fa8-9e7b-553ec2c18800">
+<li local-id=3D"5a679b72-c454-4105-816e-bc68e733d7c2">
+<p local-id=3D"5d2c9ec5f45e">Dashboard should drive <strong>actionable outc=
+omes</strong></p></li>
+<li local-id=3D"50c8de4d-936d-424d-b48d-9e0e5eb60600">
+<p local-id=3D"27fb83771424">Not just reporting =E2=86=92 but <strong>impro=
+vement system</strong></p></li>
+</ul>
+<p local-id=3D"83c6b93f2fbe">=F0=9F=8E=A8 <strong>UX Actions</strong></p>
+<ul local-id=3D"11286a10-47f9-4c1a-add7-9afb9827af0b">
+<li local-id=3D"6071af88-565c-48d2-846d-b7568b67ba5b">
+<p local-id=3D"f19423b496b2">Add <strong>=E2=80=9CInsights Panel=E2=80=9D o=
+r Recommendations</strong></p></li>
+<li local-id=3D"346e4d5d-59c8-45b0-a69a-8c135c911fce">
+<p local-id=3D"33e660322c2b">Show:</p>
+<ul local-id=3D"c520c1eb-29b1-4ba2-8e90-8871f2dceaf6">
+<li local-id=3D"e23a6c89-cddf-4b04-95ab-68af7e30ca61">
+<p local-id=3D"5baf7a9fb819">Top missing mitigation types</p></li>
+<li local-id=3D"ac18b66c-5116-47ba-af87-da2de9845c89">
+<p local-id=3D"55cbd7ec57c9">Frequent gaps</p></li>
+</ul></li>
+<li local-id=3D"92d6d146-f10f-4674-9559-97ed5f1aaa84">
+<p local-id=3D"ce3995c785c7">Provide:</p>
+<ul local-id=3D"d9d4c43c-c375-411b-b2d4-b7488abd9d21">
+<li local-id=3D"b0335041-31cf-450d-9b9e-354dc70cf941">
+<p local-id=3D"00d5c8add353">Export feature</p></li>
+<li local-id=3D"11fc0c19-8875-4625-a725-11088268e8b1">
+<p local-id=3D"189d1515d033">Integration with QA review workflows</p></li>
+</ul></li>
+</ul>
+<hr local-id=3D"a3f6681b-10b5-44b7-afea-6e9a34a63136">
+<h2 local-id=3D"47ac9c4c2aaa" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=F0=9F=A7=A93.InformationArchitecture(Proposed)">=F0=9F=A7=A9 3. Infor=
+mation Architecture (Proposed)</h2>
+<h3 local-id=3D"573823aa1df8" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=F0=9F=94=B9TopSection=E2=80=93SummaryKPIs">=F0=9F=94=B9 Top Section =
+=E2=80=93 Summary KPIs</h3>
+<ul local-id=3D"cb149345-27de-452c-8788-2e205d4702a3">
+<li local-id=3D"e9be0c84-ac18-4aa5-9d84-b46798fc98ed">
+<p local-id=3D"0672a8b02576">Total Cases</p></li>
+<li local-id=3D"fcac613c-0574-45f8-a36e-5d45512aaa93">
+<p local-id=3D"0afc05009817">Green %</p></li>
+<li local-id=3D"7091a927-0cae-4662-98ad-daa76c4e6cf1">
+<p local-id=3D"1564ae9ebc90">Amber %</p></li>
+<li local-id=3D"29145a20-13da-4ef9-a626-6b65bc86b746">
+<p local-id=3D"e36f1f39624a">Red %</p></li>
+<li local-id=3D"0e9afae2-3049-4262-8fae-1afe1ca5a4f7">
+<p local-id=3D"79bca4c2cfcb">Missing Mitigation %</p></li>
+</ul>
+<hr local-id=3D"e070a989-9eb5-405e-9bad-8d7bfe37f27b">
+<h3 local-id=3D"a436eadec43e" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=F0=9F=94=B9MiddleSection=E2=80=935Widgets">=F0=9F=94=B9 Middle Sectio=
+n =E2=80=93 5 Widgets</h3>
+<ol start=3D"1" local-id=3D"d9994138-991d-4582-aaa8-8c81bbf8b4c5">
+<li local-id=3D"d99f0e3a-278e-4355-9091-ba61cf9a9194">
+<p local-id=3D"325c46f90341">Green Cases (Success)</p></li>
+<li local-id=3D"95916823-5d5b-418c-9ef9-f4f3c5a8b9d2">
+<p local-id=3D"39747af60949">Amber Cases (With reasons)</p></li>
+<li local-id=3D"b03fca6b-966f-450d-b353-952485690a41">
+<p local-id=3D"99f6dffd5807">Red Cases (Failures)</p></li>
+<li local-id=3D"87aaaa32-327b-4885-b578-1f7480317caa">
+<p local-id=3D"0b7b62f495ea">Amendments (Minor vs Major)</p></li>
+<li local-id=3D"b0474e1c-c81e-4763-9c1d-55639275ac1f">
+<p local-id=3D"83ba6d640374">Missing Mitigation</p></li>
+</ol>
+<hr local-id=3D"7f296f3c-f592-4fb8-9a91-e49e0089c2ec">
+<h3 local-id=3D"a8df0f348950" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=F0=9F=94=B9BottomSection=E2=80=93DetailedTable">=F0=9F=94=B9 Bottom S=
+ection =E2=80=93 Detailed Table</h3>
+<p local-id=3D"6e9dfa4b4d36">Columns:</p>
+<ul local-id=3D"151ca2fd-27d8-4931-94ee-cf52f6d918fd">
+<li local-id=3D"b58d2783-75d8-44b1-b2b9-4b0202a8580f">
+<p local-id=3D"9584f468899d">Agent Name</p></li>
+<li local-id=3D"e990038b-2fab-47a1-91ce-7d8992e2a13a">
+<p local-id=3D"45c1f497f36d">PCN</p></li>
+<li local-id=3D"8529c88e-ac7c-430c-8c84-e3d867a0a808">
+<p local-id=3D"937ac35435aa">Case Count</p></li>
+<li local-id=3D"b4f64b1c-c2f8-49dd-83b6-4ae99388c7ef">
+<p local-id=3D"0cfc5291fbfc">Decision (G/A/R)</p></li>
+<li local-id=3D"d3dd3416-7ac2-4ae5-8dd2-b331b1ed26ba">
+<p local-id=3D"088f7f0d67f9">Mitigation Status</p></li>
+<li local-id=3D"154b4618-5b63-454c-ad5d-6a5ed04d4d69">
+<p local-id=3D"336958c8b259">Contravention Code</p></li>
+<li local-id=3D"b6c5a511-45cc-4ce9-a30c-10e47c99c667">
+<p local-id=3D"08d37f5c9466">Amendments</p></li>
+</ul>
+<p local-id=3D"5e8d7a2a2387">=E2=9C=85 Features:</p>
+<ul local-id=3D"33f7dcf9-5efe-44d3-bfc0-1180f498bbd2">
+<li local-id=3D"5db4c33a-adde-42e0-a9a2-b1acb65af8cf">
+<p local-id=3D"48c2474687ed">Sort / Filter / Search</p></li>
+<li local-id=3D"d286e62f-be62-44ce-8351-36cd4dbe78ad">
+<p local-id=3D"34b7ea681dc3">Expand rows</p></li>
+<li local-id=3D"93164d09-585d-4655-8754-e29ddf351ccf">
+<p local-id=3D"5659253fe2c4">Drill-down from widgets</p></li>
+</ul>
+<hr local-id=3D"32f796b3-7379-4a74-88da-9a32951a3d2b">
+<h2 local-id=3D"0cb8fbb9a7fb" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=F0=9F=9A=804.KeyUXPrinciplesApplied">=F0=9F=9A=80 4. Key UX Principle=
+s Applied</h2>
+<ul local-id=3D"2027ba8c-f0cb-419c-923f-1748d715162e">
+<li local-id=3D"0a0d51e9-5c3b-45f7-981c-9baff5924122">
+<p local-id=3D"16c6f883dd56"><strong>Progressive Disclosure</strong> =E2=86=
+=92 Summary =E2=86=92 Detail</p></li>
+<li local-id=3D"0c8e3143-114d-46e2-a022-18a77758e184">
+<p local-id=3D"f727ad7ce41f"><strong>Visual Hierarchy</strong> =E2=86=92 Cr=
+itical metrics stand out</p></li>
+<li local-id=3D"1f00e0d5-084e-4c59-a848-6cbe76b8ebd0">
+<p local-id=3D"aa99a43c1d1c"><strong>Actionable Insights</strong> =E2=86=92=
+ Not just data</p></li>
+<li local-id=3D"bff68463-e591-446b-af1a-39bb0e493649">
+<p local-id=3D"12254f8a7850"><strong>Traceability</strong> =E2=86=92 From K=
+PI to case-level</p></li>
+<li local-id=3D"0e87e092-65c4-4f96-8734-30102ff44f22">
+<p local-id=3D"009cdebbecae"><strong>Consistency</strong> =E2=86=92 Same fi=
+lters across all views</p></li>
+</ul>
+<hr local-id=3D"7968b78a-3709-4c69-8006-395a536330db">
+<h2 local-id=3D"8fec8d90de32" id=3D"UXInterviewStage3&amp;Stage5DashboardDe=
+sign-=E2=9C=855.FinalConsolidatedUXActions">=E2=9C=85 5. Final Consolidated=
+ UX Actions</h2>
+<ol start=3D"1" local-id=3D"5df7e833-055b-4529-ac80-431319486658">
+<li local-id=3D"8884636a-b4b8-408e-ac54-aa5ada33ee76">
+<p local-id=3D"1789760a0d73">Add <strong>KPI summary strip</strong></p></li=
+>
+<li local-id=3D"72113627-73f6-4666-a3cd-8a829dddaf83">
+<p local-id=3D"1bba4cf84879">Design <strong>5 priority-based widgets</stron=
+g></p></li>
+<li local-id=3D"85328fb3-fca1-461e-bc3f-a48b1174580f">
+<p local-id=3D"70f33c2469aa">Provide <strong>drill-down interactions</stron=
+g></p></li>
+<li local-id=3D"ec4b684d-f61e-4378-bf43-0adf9771b674">
+<p local-id=3D"bb600d81a9a0">Implement <strong>global filtering system</str=
+ong></p></li>
+<li local-id=3D"3732681f-4e19-4e7b-b5af-09ab58e1d866">
+<p local-id=3D"e6af8eb4df33">Create <strong>detailed, expandable table</str=
+ong></p></li>
+<li local-id=3D"432518af-3c99-447e-8b37-524677264302">
+<p local-id=3D"2d6d74aeb0e0">Add <strong>reason codes for decision clarity<=
+/strong></p></li>
+<li local-id=3D"577ab95d-ef6b-4909-a252-a9274e5322db">
+<p local-id=3D"d539786e0be5">Use <strong>color + text + icons (multi-layer =
+communication)</strong></p></li>
+<li local-id=3D"631a0031-79be-45ce-a75d-c08078f9e256">
+<p local-id=3D"da613473c23e">Include <strong>insight/recommendation section=
+</strong></p></li>
+<li local-id=3D"664496a7-6898-4613-adce-e6e13f9b5e90">
+<p local-id=3D"42c690240f2c">Support <strong>agent-level performance tracki=
+ng</strong></p></li>
+<li local-id=3D"3d49a86d-02ef-457c-960f-3927ebd887e5">
+<p local-id=3D"eed77984229e">Ensure <strong>quick scan + deep analysis mode=
+s</strong></p></li>
+</ol>
+    </div>
+</body>
+</html>
+------=_Part_4_1300968596.1782887575730--

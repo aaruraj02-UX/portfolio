@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Penalty Payment Portal — Acme Holdings</title>
+  <meta name="description" content="Access your penalty details and make a secure payment in just a few steps." />
+
+  <!-- Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..24,300..500,0,0"
+    rel="stylesheet" />
+
+  <!-- MET-DS-V2 tokens + shared component styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!--
+    Public login page — split-screen layout.
+    Left  : form panel on --color-card, brand + intro + postcode/case reference + primary CTA
+    Right : hero panel on --color-primary, portrait image + reassurance copy
+    All colours reference MET-DS-V2 tokens in styles.css :root — no naked hex.
+  -->
+  <style>
+    /* -- Page shell ------------------------------------------------------- */
+    body.login-body {
+      background: var(--color-card);
+      min-height: 100vh;
+    }
+
+    .login {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    @media (max-width: 960px) {
+      .login { grid-template-columns: 1fr; }
+    }
+
+    /* -- LEFT: form panel ------------------------------------------------- */
+    .login__form-panel {
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-7) var(--space-8);
+      background: var(--color-card);
+    }
+    .login__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+      margin-bottom: var(--space-10);
+    }
+    .login__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .login__brand-logo {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+    .lang-switch {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .lang-switch__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: transparent;
+      border: 0;
+      padding: var(--space-2);
+      color: var(--text-primary);
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: var(--radius-button);
+    }
+    .lang-switch__btn:hover { background: var(--grey-100); }
+    .lang-switch__btn .mi { font-size: 20px; }
+    .lang-switch__caption { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+    .login__body {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      flex: 1;
+      align-self: stretch;
+      /* Full-width content with 10% inset on left and right */
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+    @media (max-width: 640px) {
+      .login__form-panel { padding: var(--space-6) var(--space-5); }
+      .login__body { padding-left: var(--space-4); padding-right: var(--space-4); }
+    }
+
+    .login__title {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin: 0 0 var(--space-6);
+    }
+    .login__subtitle {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 var(--space-3);
+    }
+    .login__lede {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      margin: 0 0 var(--space-7);
+      max-width: none;
+    }
+
+    /* -- Form ------------------------------------------------------------- */
+    .login__form { display: grid; gap: var(--space-6); }
+    .field { display: grid; gap: var(--space-3); }
+    .field__row {
+      display: grid;
+      grid-template-columns: minmax(0, 220px) 1fr;
+      align-items: center;
+      gap: var(--space-5);
+    }
+    @media (max-width: 560px) {
+      .field__row { grid-template-columns: 1fr; }
+      .field__hint { padding-left: 0; }
+    }
+    .field__label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .field__input {
+      height: 40px;
+      padding: 0 var(--space-4);
+      border: 1px solid var(--grey-500);
+      border-radius: var(--radius-input);
+      background: var(--color-card);
+      font: inherit;
+      color: var(--text-primary);
+      width: 100%;
+      transition: border-color var(--duration-micro) var(--easing-enter),
+                  box-shadow var(--duration-micro) var(--easing-enter);
+    }
+    .field__input:hover { border-color: var(--grey-700); }
+    .field__input:focus-visible {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-25);
+    }
+    .field__input[aria-invalid="true"] {
+      border-color: var(--color-error);
+    }
+    .field__hint {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+    .field__error {
+      display: none;
+      font-size: 13px;
+      color: var(--color-error);
+    }
+    .field__input[aria-invalid="true"] + .field__error { display: block; }
+
+    /* Case reference field: wider input, no inline hint */
+    .field--case-ref .field__input { max-width: 380px; }
+
+    .login__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      margin-top: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .btn--primary.btn--login {
+      min-width: 168px;
+    }
+    .login__help-link {
+      color: var(--color-primary);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .login__help-link:hover { color: var(--color-primary-hover); }
+
+    /* -- Inline error alert (shown after failed / blocked "Find my penalty") -- */
+    .login__alert {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+      width: 100%;
+      padding: var(--space-4) var(--space-5);
+      margin: 0 0 var(--space-6);
+      /* Soft pink tint derived from the error token so no naked hex is introduced */
+      background: color-mix(in srgb, var(--color-error) 10%, var(--color-card));
+      border: 2px solid var(--color-error);
+      border-radius: var(--radius-card);
+      color: var(--text-primary);
+    }
+    .login__alert[hidden] { display: none; }
+    .login__alert__icon {
+      flex: 0 0 auto;
+      color: var(--color-error);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .login__alert__icon .mi {
+      font-size: 24px;
+      /* Outlined triangle glyph — matches the pasted image */
+      font-variation-settings: 'FILL' 0, 'wght' 500;
+    }
+    .login__alert__body { font-size: 15px; line-height: 1.5; }
+    .login__alert__title {
+      font-weight: 700;
+      color: var(--color-error);
+      /* Inline with the following text — matches "2 attempts remaining. Some fields…" pattern */
+      margin-right: var(--space-2);
+    }
+    .login__alert__text { margin: 0; color: var(--text-primary); display: inline; }
+    .login__alert:focus-visible { outline: var(--border-focus); outline-offset: 2px; }
+
+    .login__footer-note {
+      margin-top: auto;
+      padding-top: var(--space-7);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* -- RIGHT: hero panel ------------------------------------------------ */
+    .login__hero-panel {
+      position: relative;
+      background: var(--color-primary);
+      color: var(--color-card);
+      /* No horizontal padding — hero image is full-bleed edge-to-edge. */
+      padding:0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    @media (max-width: 960px) {
+      .login__hero-panel {
+        order: -1;
+        padding: var(--space-7) 0;
+        min-height: 320px;
+      }
+    }
+
+    /* Decorative Acme Holdings watermark (aligned right, 32px gap above hero image) */
+    .login__watermark {
+      align-self: flex-end;         /* right-align inside the flex column panel */
+      width: 110px;
+      height: auto;
+      margin: 0 0 var(--space-8) 0; /* top | right | 32px bottom gap | 0 */
+      opacity: 0.35;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+    }
+    .login__watermark img { width: 100%; height: auto; display: block; }
+    @media (max-width: 960px) {
+      .login__watermark {
+        width: 84px;
+        margin: var(--space-5) var(--space-5) var(--space-8) 0;
+      }
+    }
+
+    .login__hero-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--grey-500);
+      /* margin-top removed — 32px gap is provided by the watermark's margin-bottom */
+    }
+    .login__hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+    .login__hero-media__placeholder {
+      /* Fallback only — hidden until <img> onerror flips display:flex */
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-card);
+      background:
+        radial-gradient(120% 80% at 50% 100%, rgba(0, 0, 0, 0.30), transparent 60%),
+        linear-gradient(180deg, var(--grey-400), var(--grey-600));
+    }
+    .login__hero-media__placeholder .mi { font-size: 96px; opacity: 0.85; }
+
+    .login__hero-copy {
+      max-width: 480px;
+      margin: var(--space-7) auto 0;
+      padding: 0 var(--space-8);
+      text-align: center;
+    }
+    @media (max-width: 640px) {
+      .login__hero-copy { padding: 0 var(--space-6); }
+    }
+    .login__hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--color-card);
+      margin: 0 0 var(--space-4);
+    }
+    .login__hero-lede {
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.88);
+      margin: 0;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .field__input { transition: none; }
+    }
+  </style>
+</head>
+<body class="login-body">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="login">
+
+    <!-- ============ LEFT: FORM PANEL ============ -->
+    <section class="login__form-panel" aria-labelledby="login-title">
+
+      <header class="login__header">
+        <a class="login__brand" href="penalty-login.html" aria-label="Acme Holdings — Home">
+          <img class="login__brand-logo" src="image/MH-Logo.svg" alt="Acme Holdings"
+               width="200" height="40"
+               onerror="this.onerror=null;this.src='image/acme-logo.png';" />
+        </a>
+
+        <div class="lang-switch" aria-label="Language">
+          <button type="button" class="lang-switch__btn" aria-haspopup="listbox" aria-expanded="false">
+            <span class="mi" aria-hidden="true">language</span>
+            English
+            <span class="mi" aria-hidden="true">expand_more</span>
+          </button>
+          <span class="lang-switch__caption">Google Translate</span>
+        </div>
+      </header>
+
+      <div id="main" class="login__body" role="main">
+
+        <h1 class="login__title" id="login-title">Penalty Payment Portal</h1>
+
+        <!-- Error alert — hidden until "Find my penalty" is submitted with a blocked / invalid case. -->
+        <div
+          id="login-alert"
+          class="login__alert"
+          role="alert"
+          aria-live="assertive"
+          tabindex="-1"
+          hidden>
+          <span class="login__alert__icon" aria-hidden="true">
+            <span class="mi">warning</span>
+          </span>
+          <div class="login__alert__body">
+            <strong class="login__alert__title">This case cannot be accessed online.</strong>
+            <span class="login__alert__text">
+              <br>This case is not available to view or manage through the online portal at this time.
+              If you require further information or need assistance, please contact us using the details
+              provided in your correspondence.
+            </span>
+          </div>
+        </div>
+
+        <h2 class="login__subtitle">Paying a penalty notice</h2>
+        <p class="login__lede">
+          Access your penalty details and make a secure payment in just a few
+          steps &mdash; simply fill in the details below to get started.
+        </p>
+
+        <form class="login__form" id="login-form" method="post" action="penalty-home.html" novalidate>
+
+          <div class="field">
+            <div class="field__row">
+              <div>
+                <label class="field__label" for="postcode">Postcode</label>
+                <input
+                  class="field__input"
+                  id="postcode"
+                  name="postcode"
+                  type="text"
+                  autocomplete="postal-code"
+                  inputmode="text"
+                  spellcheck="false"
+                  required
+                  aria-describedby="postcode-hint postcode-error" />
+                <span id="postcode-error" class="field__error" role="alert">Enter a valid UK postcode.</span>
+              </div>
+              <p id="postcode-hint" class="field__hint">For example BS27 3UD</p>
+            </div>
+          </div>
+
+          <div class="field field--case-ref">
+            <label class="field__label" for="case-ref">Case reference number</label>
+            <input
+              class="field__input"
+              id="case-ref"
+              name="case-ref"
+              type="text"
+              autocomplete="off"
+              inputmode="text"
+              spellcheck="false"
+              required
+              aria-describedby="case-ref-hint case-ref-error" />
+            <span id="case-ref-hint" class="field__hint">Shown on your penalty notice, e.g. MR-2026-058231</span>
+            <span id="case-ref-error" class="field__error" role="alert">Enter the case reference number from your penalty notice.</span>
+          </div>
+
+          <div class="login__actions">
+            <button type="submit" class="btn btn--primary btn--login">Find my penalty</button>
+          </div>
+
+          <p>
+            <a href="support.html" class="login__help-link">Can't find your penalty?</a>
+          </p>
+
+        </form>
+
+        <p class="login__footer-note">
+          &copy; 2026 Acme Holdings. Your details are transmitted over a secure connection.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ RIGHT: HERO PANEL ============ -->
+    <aside class="login__hero-panel" aria-labelledby="hero-title">
+
+      <!-- Decorative Acme Holdings watermark -->
+      <span class="login__watermark" aria-hidden="true">
+        <img src="image/mh_watermark.svg" alt="" />
+      </span>
+
+      <!-- Hero image (enforcement agent portrait) — full-bleed edge-to-edge.
+           Falls back to icon placeholder if the asset fails to load. -->
+      <img
+          src="image/page%205%2023.jpg"
+          alt="Acme enforcement agent standing outdoors, smiling and holding a handheld device."
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        
+
+      <div class="login__hero-copy">
+        <h2 id="hero-title" class="login__hero-title">
+          Received a penalty fine?<br />
+          Don't delay your payment!
+        </h2>
+        <p class="login__hero-lede">
+          Paying your penalty promptly may help you avoid additional charges or further action.
+        </p>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ============ Form submit handler ============
+       Intercepts "Find my penalty" and surfaces the blocked-case alert.
+       Replace with real API integration when wiring the backend. -->
+  <script>
+    (function () {
+      var form  = document.getElementById('login-form');
+      var alertEl = document.getElementById('login-alert');
+      if (!form || !alertEl) return;
+
+      form.addEventListener('submit', function (evt) {
+        evt.preventDefault();
+        alertEl.hidden = false;
+        // Move focus so screen readers announce it and keyboard users see it
+        alertEl.focus({ preventScroll: false });
+        alertEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

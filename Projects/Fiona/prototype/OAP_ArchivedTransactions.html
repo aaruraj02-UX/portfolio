@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Office Account Postings · Archived Transactions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* --- MET-DS-V2 Token Block (Light Theme) ------------------ */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #EF6C00;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --leftnav-icon:          #212121;
+      --leftnav-icon-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-text-active:    #3276CF;
+      --topnav-icon:           #757575;
+      --topnav-icon-active:    #3276CF;
+      --topnav-icon-hover:     #616161;
+
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           16px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:    700;
+      --font-weight-semibold: 600;
+      --font-weight-medium:  500;
+      --font-weight-regular: 400;
+
+      --duration-micro:    150ms;
+      --duration-standard: 250ms;
+      --duration-complex:  350ms;
+      --easing-enter:      ease-out;
+      --easing-exit:       ease-in;
+
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-bg);
+      line-height: 1.5; -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: var(--font-family); cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* --- Top Navigation --------------------------------------- */
+    .topnav {
+      display: flex; align-items: center;
+      padding: var(--space-3) var(--space-3); gap: var(--space-3);
+      background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0;
+    }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; }
+    .topnav-logo { height: 28px; width: fit-content; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: 16px; font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-tagline { display: none; font-size: var(--font-size-caption); font-weight: var(--font-weight-regular); color: var(--text-secondary); letter-spacing: 0.15px; line-height: 1.4; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); margin-left: auto; }
+    .topnav-icon-btn {
+      position: relative; width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--topnav-icon); padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge {
+      position: absolute; top: 0; right: 0; min-width: 20px; height: 20px;
+      background: var(--color-warning); color: #FFFFFF;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center;
+      padding: 0 6.5px; line-height: 1; letter-spacing: 0.14px;
+    }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* --- Sidebar ----------------------------------------------- */
+    .sidebar {
+      width: 56px; flex-shrink: 0; background: var(--color-card);
+      border-right: 1px solid var(--divider-color); display: flex; flex-direction: column;
+      padding: var(--space-5) 0; overflow-x: hidden; overflow-y: hidden;
+      transition: width var(--duration-standard) var(--easing-enter); z-index: 10;
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: var(--radius-button);
+      color: var(--text-secondary); flex-shrink: 0;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading {
+      font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5);
+      white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-3); color: var(--text-secondary);
+      text-decoration: none; white-space: nowrap; min-height: 40px; margin: 0 var(--space-3);
+      border-radius: 8px;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+
+    /* --- Content ----------------------------------------------- */
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+
+    .breadcrumb { display: none; align-items: center; gap: var(--space-2); font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .breadcrumb a { color: var(--text-hyperlink); text-decoration: none; font-weight: var(--font-weight-medium); }
+    .breadcrumb a:hover { color: var(--text-hyperlink-hover); text-decoration: underline; }
+    .breadcrumb-separator { color: var(--grey-400); font-size: 16px; line-height: 1; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+
+    .page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .page-subtitle { display: none; font-size: var(--font-size-body); color: var(--text-secondary); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5); border-radius: var(--radius-button);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      min-height: 40px; white-space: nowrap;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+
+    /* Toolbar */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; }
+    .toolbar-left { display: flex; align-items: flex-end; gap: var(--space-4); flex-wrap: wrap; }
+    .toolbar-right { display: flex; align-items: center; gap: var(--space-4); }
+    .filter-group { display: flex; flex-direction: column; gap: var(--space-1); }
+    .filter-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+    .filter-select {
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card);
+      color: var(--text-primary); min-height: 36px; min-width: 140px;
+    }
+    .filter-select:focus-visible { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(50,118,207,0.15); }
+    .search-box {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card); min-width: 200px;
+    }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .search-box input::placeholder { color: var(--grey-400); }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); line-height: 1.5; }
+    .badge--team-ap  { background: #E3F2FD; color: #1565C0; }
+    .badge--team-ar  { background: #FFF3E0; color: #E65100; }
+    .badge--team-cb  { background: #E8F5E9; color: #2E7D32; }
+    .badge--coded    { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge--pending  { background: var(--color-warning-bg); color: var(--color-warning); }
+    .badge--exported { background: var(--color-primary-50); color: var(--color-primary-700); }
+
+    /* --- Data Table ------------------------------------------- */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; }
+    .card-container > .toolbar { padding: var(--space-5); }
+    .table-container { overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); table-layout: auto; min-width: 1400px; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); table-layout: fixed; }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th {
+      padding: var(--space-4) var(--space-4); text-align: left;
+      font-weight: var(--font-weight-semibold); color: var(--text-primary);
+      font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: 0.5px;
+      white-space: nowrap; border-bottom: 1px solid var(--grey-300); user-select: none; cursor: pointer;
+      overflow: hidden; text-overflow: ellipsis;
+      position: relative;
+    }
+    .data-table th::after {
+      content: ''; position: absolute; right: 0; top: 25%; height: 50%;
+      width: 2px; background: var(--grey-300);
+    }
+    .data-table th:last-child::after { display: none; }
+    .data-table th:hover { color: var(--color-primary); }
+    .data-table th .sort-icon { font-size: 16px; vertical-align: middle; margin-left: 2px; opacity: 0.4; display: none; }
+    .data-table th.sorted .sort-icon { opacity: 1; color: var(--color-primary); }
+    .data-table td {
+      padding: var(--space-4) var(--space-4); border-bottom: 1px solid var(--grey-200);
+      color: var(--text-primary); vertical-align: middle;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+
+    .table-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) var(--space-5); border-top: 1px solid var(--grey-200);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-button); color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; }
+    .pagination-btn .material-symbols-outlined { font-size: 20px; }
+
+    @media (max-width: 767px) {
+      .sidebar { display: none; }
+      .page-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* --- View Transaction Pane -------------------------------- */
+    .view-btn { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:var(--radius-button); color:var(--text-secondary); background:none; border:none; cursor:pointer; transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter); }
+    .view-btn:hover { background:var(--color-primary-25); color:var(--color-primary); }
+    .view-btn .material-symbols-outlined { font-size:18px; }
+    .edit-panel-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.3); z-index:100; }
+    .edit-panel-overlay.is-open { display:block; }
+    .edit-panel { position:fixed; top:0; right:-700px; bottom:0; width:700px; max-width:90vw; background:var(--color-card); box-shadow:var(--shadow-modal); z-index:101; display:flex; flex-direction:column; transition: right var(--duration-standard) var(--easing-enter); }
+    .edit-panel.is-open { right:0; }
+    .edit-panel-header { display:flex; align-items:center; justify-content:space-between; padding:var(--space-6) var(--space-7); border-bottom:1px solid var(--grey-200); flex-shrink:0; }
+    .edit-panel-title { font-size:var(--font-size-h2); font-weight:var(--font-weight-semibold); color:var(--text-primary); }
+    .edit-panel-close { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:var(--radius-button); color:var(--text-secondary); background:none; border:none; cursor:pointer; }
+    .edit-panel-close:hover { background:var(--grey-100); color:var(--text-primary); }
+    .edit-panel-close .material-symbols-outlined { font-size:22px; }
+    .edit-panel-body { flex:1; overflow-y:auto; padding:var(--space-7); display:flex; flex-direction:column; gap:var(--space-5); }
+    .edit-panel-section-title { font-size:var(--font-size-caption); font-weight:var(--font-weight-semibold); color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; padding-bottom:var(--space-2); border-bottom:1px solid var(--grey-200); }
+    .edit-field { display:flex; flex-direction:column; gap:var(--space-1); }
+    .edit-field-label { font-size:var(--font-size-caption); font-weight:var(--font-weight-medium); color:var(--text-secondary); }
+    .edit-field-value { font-size:var(--font-size-body); color:var(--text-primary); padding:var(--space-3) 0; }
+    .edit-field-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-5); }
+    .edit-panel-footer { display:flex; align-items:center; justify-content:flex-end; gap:var(--space-4); padding:var(--space-5) var(--space-7); border-top:1px solid var(--grey-200); flex-shrink:0; }
+    @media (max-width: 767px) {
+      .edit-panel { width:100%; max-width:100%; }
+      .edit-field-row { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- --- Top Navigation --- -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" aria-label="Toggle sidebar" id="sidebarToggle">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+          <span class="topnav-tagline">Enterprise Finance Automation Platform</span>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Office Account Postings</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 1 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">1</span>
+        </button>
+        <button aria-label="User profile menu">
+          <img src="https://i.pravatar.cc/64?img=12" alt="" class="topnav-avatar" />
+        </button>
+      </div>
+    </header>
+
+    <div class="main-layout">
+      <!-- --- Sidebar --- -->
+      <nav class="sidebar" id="sidebar" aria-label="Office Account Postings navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <span class="sidebar-heading">Office Account Postings</span>
+          <a href="OAP_CurrentTransactions.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span class="sidebar-link-text">Current Open Transactions</span>
+          </a>
+          <a href="OAP_ArchivedTransactions.html" class="sidebar-link is-active" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
+            <span class="sidebar-link-text">Archived Transactions</span>
+          </a>
+          <a href="OAP_LookupTable.html" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_search</span>
+            <span class="sidebar-link-text">Lookup Table</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- --- Content --- -->
+      <main class="content-area" id="main-content">
+        <div class="content-inner">
+
+          <!-- Breadcrumb -->
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="LandingPage.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <a href="OAP_CurrentTransactions.html">Office Account Postings</a>
+            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-current" aria-current="page">Archived Transactions</span>
+          </nav>
+
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title">Archived Transactions</h1>
+              <p class="page-subtitle">Read-only view of previously processed office bank account postings</p>
+            </div>
+          </div>
+
+          <!-- Filters / Toolbar + Data Table Card -->
+          <div class="card-container">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <div class="search-box">
+                <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                <input type="search" placeholder="Search archived transactions…" aria-label="Search archived transactions" />
+              </div>
+            </div>
+            <div class="toolbar-right">
+              <button class="btn btn-text-primary" aria-label="Choose visible columns">
+                <span class="material-symbols-outlined" aria-hidden="true" style="font-variation-settings: 'FILL' 1">view_column</span>
+                Column
+              </button>
+              <button class="btn btn-text-primary" aria-label="Export table to CSV">
+                <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                Export
+              </button>
+            </div>
+          </div>
+
+          <!-- Data Table -->
+          <div class="table-container">
+            <div class="table-scroll">
+              <table class="data-table" aria-label="Archived transactions">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width:9%;">Filename <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:5%;">Team <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:7%;" class="sorted">Date <span class="sort-icon material-symbols-outlined" aria-hidden="true">expand_more</span></th>
+                    <th scope="col" style="width:5%;">Description <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:5%;">Entry Ref <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:5%;">Trans Code <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:7%; text-align:right;">Debit <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:8%; text-align:right;">Credit <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:6%;">Legal Entity <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:7%;">Bank Acct <span class="sort-icon material-symbols-outlined" aria-hidden="true">unfold_more</span></th>
+                    <th scope="col" style="width:9%;">Nominal</th>
+                    <th scope="col" style="width:7%;">Cost Centre</th>
+                    <th scope="col" style="width:9%;">Journal Desc</th>
+                    <th scope="col" style="width:7%;">Status</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Archived Row 1 -->
+                  <tr data-row="a1">
+                    <td>BST_20260412</td>
+                    <td><span class="badge badge--team-ap">AP</span></td>
+                    <td>07/04/2026</td>
+                    <td>LYRECO UK LIMITED61390259 02</td>
+                    <td></td>
+                    <td>466</td>
+                    <td style="text-align:right;">£1,245.60</td>
+                    <td style="text-align:right;">—</td>
+                    <td>MMGH</td>
+                    <td>57128568</td>
+                    <td>V007602MMGH</td>
+                    <td>—</td>
+                    <td>Lyreco stationery</td>
+                    <td><span class="badge badge--exported">Journalled</span></td>
+                  </tr>
+                  <!-- Archived Row 2 -->
+                  <tr data-row="a2">
+                    <td>BST_20260412</td>
+                    <td><span class="badge badge--team-ar">AR</span></td>
+                    <td>07/04/2026</td>
+                    <td>BRISTOL C COUNCIL0</td>
+                    <td></td>
+                    <td>174</td>
+                    <td style="text-align:right;">—</td>
+                    <td style="text-align:right;">£4,520.00</td>
+                    <td>MMGH</td>
+                    <td>57128568</td>
+                    <td>C000048MMGH</td>
+                    <td>—</td>
+                    <td>Bristol Council receipt</td>
+                    <td><span class="badge badge--exported">Journalled</span></td>
+                  </tr>
+                  <!-- Archived Row 3 -->
+                  <tr data-row="a3">
+                    <td>BST_20260412</td>
+                    <td><span class="badge badge--team-cb">C&amp;B</span></td>
+                    <td>07/04/2026</td>
+                    <td>SECURITY INDUSTRYDD</td>
+                    <td></td>
+                    <td>466</td>
+                    <td style="text-align:right;">£41.30</td>
+                    <td style="text-align:right;">—</td>
+                    <td>MNSL</td>
+                    <td>NSL Ltd</td>
+                    <td>40715</td>
+                    <td>PLG068</td>
+                    <td>Security industry levy</td>
+                    <td><span class="badge badge--coded">Coded</span></td>
+                  </tr>
+                  <!-- Archived Row 4 -->
+                  <tr data-row="a4">
+                    <td>BST_20260412</td>
+                    <td><span class="badge badge--team-ar">AR</span></td>
+                    <td>06/04/2026</td>
+                    <td>ORBIT PROPERTY MANRENT REFUND</td>
+                    <td></td>
+                    <td>174</td>
+                    <td style="text-align:right;">—</td>
+                    <td style="text-align:right;">£2,025.00</td>
+                    <td>MNSL</td>
+                    <td>NSL Ltd</td>
+                    <td>C000215MNSL</td>
+                    <td>—</td>
+                    <td>Orbit Property rent refund</td>
+                    <td><span class="badge badge--pending">Pending</span></td>
+                  </tr>
+                  <!-- Archived Row 5 -->
+                  <tr data-row="a5">
+                    <td>BST_20260412</td>
+                    <td><span class="badge badge--team-ap">AP</span></td>
+                    <td>06/04/2026</td>
+                    <td>MAN TRUCKS14000296</td>
+                    <td></td>
+                    <td>466</td>
+                    <td style="text-align:right;">£1,062.00</td>
+                    <td style="text-align:right;">—</td>
+                    <td>MNSL</td>
+                    <td>NSL Ltd</td>
+                    <td>V003105MNSL</td>
+                    <td>—</td>
+                    <td>MAN Trucks payment</td>
+                    <td><span class="badge badge--coded">Coded</span></td>
+                  </tr>
+                  <!-- Archived Row 6 -->
+                  <tr data-row="a6">
+                    <td>BST_20260411</td>
+                    <td><span class="badge badge--team-cb">C&amp;B</span></td>
+                    <td>05/04/2026</td>
+                    <td>INT (GROSS) T/FERFROM 801214510268</td>
+                    <td></td>
+                    <td>244</td>
+                    <td style="text-align:right;">—</td>
+                    <td style="text-align:right;">£64.90</td>
+                    <td>MMGH</td>
+                    <td>57128568</td>
+                    <td>40715</td>
+                    <td>PLG068</td>
+                    <td>Interest received</td>
+                    <td><span class="badge badge--pending">Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span>Showing 1–6 of 1,842 transactions</span>
+              <div class="pagination">
+                <button class="pagination-btn" disabled aria-label="Previous page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                </button>
+                <span>Page 1 of 231</span>
+                <button class="pagination-btn" aria-label="Next page">
+                  <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          </div><!-- /card-container -->
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const sb = document.getElementById('sidebar');
+      const btn = document.getElementById('sidebarToggle');
+      btn.addEventListener('click', function() {
+        sb.classList.toggle('is-expanded');
+        const expanded = sb.classList.contains('is-expanded');
+        btn.setAttribute('aria-label', expanded ? 'Collapse sidebar' : 'Expand sidebar');
+
+      });
+    })();
+  </script>
+
+  <!-- --- View Transaction Pane (read-only) --- -->
+  <div class="edit-panel-overlay" id="viewOverlay"></div>
+  <aside class="edit-panel" id="viewPanel" role="dialog" aria-modal="true" aria-labelledby="viewPanelTitle">
+    <div class="edit-panel-header">
+      <h2 class="edit-panel-title" id="viewPanelTitle">View Transaction</h2>
+      <button class="edit-panel-close" id="viewPanelClose" aria-label="Close view panel">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div class="edit-panel-body">
+      <span class="edit-panel-section-title">Transaction Details</span>
+      <div class="edit-field-row" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="edit-field">
+          <span class="edit-field-label">Filename</span>
+          <span class="edit-field-value" id="vp-filename">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Team</span>
+          <span class="edit-field-value" id="vp-team">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Status</span>
+          <span class="edit-field-value" id="vp-status">—</span>
+        </div>
+      </div>
+      <div class="edit-field">
+        <span class="edit-field-label">Description</span>
+        <span class="edit-field-value" id="vp-description">—</span>
+      </div>
+      <div class="edit-field-row" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="edit-field">
+          <span class="edit-field-label">Booking Date</span>
+          <span class="edit-field-value" id="vp-date">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Entry Reference</span>
+          <span class="edit-field-value" id="vp-entryRef">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Trans Code</span>
+          <span class="edit-field-value" id="vp-transCode">—</span>
+        </div>
+      </div>
+      <div class="edit-field-row" style="grid-template-columns: 1fr 1fr;">
+        <div class="edit-field">
+          <span class="edit-field-label">Debit</span>
+          <span class="edit-field-value" id="vp-debit">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Credit</span>
+          <span class="edit-field-value" id="vp-credit">—</span>
+        </div>
+      </div>
+      <div class="edit-field-row" style="grid-template-columns: 1fr 1fr;">
+        <div class="edit-field">
+          <span class="edit-field-label">Legal Entity</span>
+          <span class="edit-field-value" id="vp-legalEntity">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Bank Account</span>
+          <span class="edit-field-value" id="vp-bankAcct">—</span>
+        </div>
+      </div>
+
+      <span class="edit-panel-section-title">Coding &amp; Posting</span>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <span class="edit-field-label">Nominal Code</span>
+          <span class="edit-field-value" id="vp-nominalCode">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Cost Centre</span>
+          <span class="edit-field-value" id="vp-costCentre">—</span>
+        </div>
+      </div>
+      <div class="edit-field">
+        <span class="edit-field-label">Journal Description</span>
+        <span class="edit-field-value" id="vp-journalDesc">—</span>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <span class="edit-field-label">Account Type</span>
+          <span class="edit-field-value" id="vp-acctType">—</span>
+        </div>
+        <div class="edit-field">
+          <span class="edit-field-label">Payment Method</span>
+          <span class="edit-field-value" id="vp-paymentMethod">—</span>
+        </div>
+      </div>
+    </div>
+    <div class="edit-panel-footer">
+      <button class="btn btn-primary" id="viewPanelClose2">Close</button>
+    </div>
+  </aside>
+
+  <script>
+    /* -- Archived Transactions: View pane wiring -- */
+    (function() {
+      var rowData = {
+        a1: { filename:'BST_20260412', team:'AP', teamClass:'badge--team-ap', date:'07/04/2026', desc:'LYRECO UK LIMITED61390259 02', ref:'\u2014', code:'466', debit:'\u00A31,245.60', credit:'\u2014', le:'MMGH', bank:'57128568', acctType:'Supplier', nominal:'V007602MMGH', cc:'\u2014', journal:'Lyreco stationery', status:'Journalled', statusClass:'badge--exported', paymentMethod:'BACS' },
+        a2: { filename:'BST_20260412', team:'AR', teamClass:'badge--team-ar', date:'07/04/2026', desc:'BRISTOL C COUNCIL0', ref:'\u2014', code:'174', debit:'\u2014', credit:'\u00A34,520.00', le:'MMGH', bank:'57128568', acctType:'Customer', nominal:'C000048MMGH', cc:'\u2014', journal:'Bristol Council receipt', status:'Journalled', statusClass:'badge--exported', paymentMethod:'BACS' },
+        a3: { filename:'BST_20260412', team:'C&B', teamClass:'badge--team-cb', date:'07/04/2026', desc:'SECURITY INDUSTRYDD', ref:'\u2014', code:'466', debit:'\u00A341.30', credit:'\u2014', le:'MNSL', bank:'NSL Ltd', acctType:'Ledger', nominal:'40715', cc:'PLG068', journal:'Security industry levy', status:'Coded', statusClass:'badge--coded', paymentMethod:'Direct Debit' },
+        a4: { filename:'BST_20260412', team:'AR', teamClass:'badge--team-ar', date:'06/04/2026', desc:'ORBIT PROPERTY MANRENT REFUND', ref:'\u2014', code:'174', debit:'\u2014', credit:'\u00A32,025.00', le:'MNSL', bank:'NSL Ltd', acctType:'Customer', nominal:'C000215MNSL', cc:'\u2014', journal:'Orbit Property rent refund', status:'Pending', statusClass:'badge--pending', paymentMethod:'\u2014' },
+        a5: { filename:'BST_20260412', team:'AP', teamClass:'badge--team-ap', date:'06/04/2026', desc:'MAN TRUCKS14000296', ref:'\u2014', code:'466', debit:'\u00A31,062.00', credit:'\u2014', le:'MNSL', bank:'NSL Ltd', acctType:'Supplier', nominal:'V003105MNSL', cc:'\u2014', journal:'MAN Trucks payment', status:'Coded', statusClass:'badge--coded', paymentMethod:'BACS' },
+        a6: { filename:'BST_20260411', team:'C&B', teamClass:'badge--team-cb', date:'05/04/2026', desc:'INT (GROSS) T/FERFROM 801214510268', ref:'\u2014', code:'244', debit:'\u2014', credit:'\u00A364.90', le:'MMGH', bank:'57128568', acctType:'Ledger', nominal:'40715', cc:'PLG068', journal:'Interest received', status:'Pending', statusClass:'badge--pending', paymentMethod:'\u2014' }
+      };
+
+      var overlay = document.getElementById('viewOverlay');
+      var panel = document.getElementById('viewPanel');
+
+      function openPanel(rowId) {
+        var d = rowData[rowId];
+        if (!d) return;
+        document.getElementById('vp-filename').textContent = d.filename;
+        document.getElementById('vp-team').innerHTML = '<span class="badge ' + d.teamClass + '">' + d.team + '</span>';
+        document.getElementById('vp-status').innerHTML = '<span class="badge ' + d.statusClass + '">' + d.status + '</span>';
+        document.getElementById('vp-description').textContent = d.desc;
+        document.getElementById('vp-date').textContent = d.date;
+        document.getElementById('vp-entryRef').textContent = d.ref;
+        document.getElementById('vp-transCode').textContent = d.code;
+        document.getElementById('vp-debit').textContent = d.debit;
+        document.getElementById('vp-credit').textContent = d.credit;
+        document.getElementById('vp-legalEntity').textContent = d.le;
+        document.getElementById('vp-bankAcct').textContent = d.bank;
+        document.getElementById('vp-nominalCode').textContent = d.nominal || '\u2014';
+        document.getElementById('vp-costCentre').textContent = d.cc || '\u2014';
+        document.getElementById('vp-journalDesc').textContent = d.journal || '\u2014';
+        document.getElementById('vp-acctType').textContent = d.acctType || '\u2014';
+        document.getElementById('vp-paymentMethod').textContent = d.paymentMethod || '\u2014';
+        overlay.classList.add('is-open');
+        panel.classList.add('is-open');
+      }
+
+      function closePanel() {
+        overlay.classList.remove('is-open');
+        panel.classList.remove('is-open');
+      }
+
+      /* Inject a View button into each row of the archived data table.
+         Runs BEFORE the shared audit-log script so that script wraps both buttons together. */
+      var table = document.querySelector('.data-table');
+      if (table) {
+        var headers = table.querySelectorAll('thead th');
+        var lastTh = headers[headers.length - 1];
+        var lastLabel = (lastTh.textContent || '').trim().toLowerCase();
+        var hasActionsCol = lastLabel === 'actions' || lastLabel === '' || /\d+px/.test(lastTh.style.width);
+        if (!hasActionsCol) {
+          var newTh = document.createElement('th');
+          newTh.setAttribute('scope', 'col');
+          newTh.style.width = '60px';
+          newTh.textContent = 'Actions';
+          lastTh.parentNode.appendChild(newTh);
+          table.querySelectorAll('tbody tr').forEach(function(tr) {
+            var td = document.createElement('td');
+            var rowId = tr.getAttribute('data-row') || '';
+            td.innerHTML = '<button class="view-btn" aria-label="View transaction" title="View transaction" data-view="' + rowId + '"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>';
+            tr.appendChild(td);
+          });
+        }
+      }
+
+      document.addEventListener('click', function(e) {
+        var btn = e.target.closest && e.target.closest('.view-btn');
+        if (!btn) return;
+        e.stopPropagation();
+        var rowId = btn.getAttribute('data-view');
+        if (!rowId) {
+          var tr = btn.closest('tr');
+          rowId = tr && tr.getAttribute('data-row');
+        }
+        if (rowId) openPanel(rowId);
+      });
+
+      document.getElementById('viewPanelClose').addEventListener('click', closePanel);
+      document.getElementById('viewPanelClose2').addEventListener('click', closePanel);
+      overlay.addEventListener('click', closePanel);
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && panel.classList.contains('is-open')) closePanel();
+      });
+    })();
+  </script>
+
+  <!-- --- Audit Log (shared) --- -->
+  <style>
+    .audit-log-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: var(--radius-button);
+      color: var(--text-secondary); background: none; border: none; cursor: pointer;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .audit-log-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .audit-log-btn .material-symbols-outlined { font-size: 18px; }
+    .audit-pane-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.3); z-index:150; }
+    .audit-pane-overlay.is-open { display:block; }
+    .audit-pane {
+      position:fixed; top:0; right:-480px; bottom:0;
+      width:480px; max-width:90vw; background:var(--color-card);
+      box-shadow: var(--shadow-modal); z-index:151;
+      display:flex; flex-direction:column;
+      transition: right var(--duration-standard) var(--easing-enter);
+    }
+    .audit-pane.is-open { right:0; }
+    .audit-pane-header { display:flex; align-items:center; justify-content:space-between; padding: var(--space-6) var(--space-7); border-bottom:1px solid var(--grey-200); flex-shrink:0; }
+    .audit-pane-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .audit-pane-subtitle { font-size: var(--font-size-caption); color: var(--text-secondary); margin-top: 2px; }
+    .audit-pane-close { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius: var(--radius-button); color: var(--text-secondary); }
+    .audit-pane-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .audit-pane-close .material-symbols-outlined { font-size: 22px; }
+    .audit-pane-body { flex:1; overflow-y:auto; padding: var(--space-7); }
+    .audit-timeline { position:relative; padding-left: var(--space-7); }
+    .audit-timeline::before { content:''; position:absolute; left:11px; top:6px; bottom:6px; width:2px; background: var(--grey-200); }
+    .audit-item { position:relative; padding-bottom: var(--space-6); }
+    .audit-item:last-child { padding-bottom: 0; }
+    .audit-item::before { content:''; position:absolute; left:-23px; top:6px; width:12px; height:12px; border-radius:50%; background: var(--color-primary); border:2px solid var(--color-card); box-shadow: 0 0 0 2px var(--color-primary-50); }
+    .audit-item-time { font-size: var(--font-size-caption); color: var(--text-secondary); margin-bottom: 2px; }
+    .audit-item-action { font-size: var(--font-size-body); color: var(--text-primary); font-weight: var(--font-weight-medium); }
+    .audit-item-meta { font-size: var(--font-size-caption); color: var(--text-secondary); margin-top: 2px; }
+    .audit-item-meta strong { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+  </style>
+
+  <div class="audit-pane-overlay" id="auditOverlay"></div>
+  <aside class="audit-pane" id="auditPane" role="dialog" aria-modal="true" aria-labelledby="auditPaneTitle">
+    <div class="audit-pane-header">
+      <div>
+        <h2 class="audit-pane-title" id="auditPaneTitle">Audit Log</h2>
+        <div class="audit-pane-subtitle" id="auditPaneSubtitle">Activity history</div>
+      </div>
+      <button class="audit-pane-close" id="auditPaneClose" aria-label="Close audit log">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div class="audit-pane-body">
+      <div class="audit-timeline" id="auditTimeline"></div>
+    </div>
+  </aside>
+
+  <script>
+    (function(){
+      var sample = [
+        { time:'30 Apr 2026, 14:32', action:'Status changed', meta:'<strong>Pending</strong> ? <strong>Coded</strong> · by John Smith' },
+        { time:'29 Apr 2026, 11:08', action:'Description updated', meta:'by Sarah Lee' },
+        { time:'28 Apr 2026, 09:15', action:'Record imported', meta:'Source: BST_20260412.xlsx · by System' },
+        { time:'28 Apr 2026, 09:14', action:'Record created', meta:'Auto-generated · by System' }
+      ];
+      document.querySelectorAll('.data-table').forEach(function(table){
+        var headers = table.querySelectorAll('thead th');
+        if (!headers.length) return;
+        var lastTh = headers[headers.length - 1];
+        var lastLabel = (lastTh.textContent || '').trim().toLowerCase();
+        var hasActionsCol = lastLabel === 'actions' || lastLabel === '' || /\d+px/.test(lastTh.style.width);
+        if (!hasActionsCol) {
+          var newTh = document.createElement('th');
+          newTh.setAttribute('scope', 'col');
+          newTh.style.width = '60px';
+          newTh.textContent = 'Actions';
+          lastTh.parentNode.appendChild(newTh);
+          table.querySelectorAll('tbody tr').forEach(function(tr){
+            var td = document.createElement('td');
+            td.innerHTML = '<button class="audit-log-btn" aria-label="View audit log" title="Audit log"><span class="material-symbols-outlined" aria-hidden="true">history</span></button>';
+            tr.appendChild(td);
+          });
+        } else {
+          if (lastTh.style.width === '40px') lastTh.style.width = '80px';
+          table.querySelectorAll('tbody tr').forEach(function(tr){
+            if (!tr.cells.length) return;
+            var lastTd = tr.cells[tr.cells.length - 1];
+            var auditBtn = document.createElement('button');
+            auditBtn.className = 'audit-log-btn';
+            auditBtn.setAttribute('aria-label', 'View audit log');
+            auditBtn.setAttribute('title', 'Audit log');
+            auditBtn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">history</span>';
+            var existingActions = lastTd.querySelector('.row-actions');
+            if (existingActions) {
+              existingActions.appendChild(auditBtn);
+            } else {
+              var existingBtns = lastTd.querySelectorAll('button');
+              if (existingBtns.length) {
+                var wrap = document.createElement('div');
+                wrap.style.display = 'flex'; wrap.style.gap = '4px'; wrap.style.alignItems = 'center';
+                existingBtns.forEach(function(b){ wrap.appendChild(b); });
+                wrap.appendChild(auditBtn);
+                lastTd.innerHTML = '';
+                lastTd.appendChild(wrap);
+              } else {
+                lastTd.appendChild(auditBtn);
+              }
+            }
+          });
+        }
+      });
+      var overlay = document.getElementById('auditOverlay');
+      var pane = document.getElementById('auditPane');
+      var subtitle = document.getElementById('auditPaneSubtitle');
+      var timeline = document.getElementById('auditTimeline');
+      function render(){
+        timeline.innerHTML = sample.map(function(i){
+          return '<div class="audit-item"><div class="audit-item-time">'+i.time+'</div><div class="audit-item-action">'+i.action+'</div><div class="audit-item-meta">'+i.meta+'</div></div>';
+        }).join('');
+      }
+      function openPane(label){
+        subtitle.textContent = label || 'Activity history';
+        render();
+        overlay.classList.add('is-open');
+        pane.classList.add('is-open');
+      }
+      function closePane(){
+        overlay.classList.remove('is-open');
+        pane.classList.remove('is-open');
+      }
+      document.addEventListener('click', function(e){
+        var btn = e.target.closest && e.target.closest('.audit-log-btn');
+        if (btn) {
+          e.stopPropagation();
+          var row = btn.closest('tr');
+          var firstCell = row && row.cells[0] ? row.cells[0].textContent.trim() : '';
+          openPane(firstCell ? 'Record: ' + firstCell : '');
+        }
+      });
+      document.getElementById('auditPaneClose').addEventListener('click', closePane);
+      overlay.addEventListener('click', closePane);
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && pane.classList.contains('is-open')) closePane();
+      });
+    })();
+  </script>
+
+  <script>
+    /* Add native tooltip on truncated table cells */
+    (function(){
+      function applyTooltips(){
+        document.querySelectorAll('.data-table td').forEach(function(td){
+          if (td.querySelector('button, .badge, .toggle-switch, input, select')) return;
+          var text = (td.textContent || '').trim();
+          if (!text || text === '—') return;
+          if (!td.hasAttribute('title')) td.setAttribute('title', text);
+        });
+      }
+      applyTooltips();
+      var obs = new MutationObserver(applyTooltips);
+      document.querySelectorAll('.data-table tbody').forEach(function(tb){
+        obs.observe(tb, { childList:true, subtree:true });
+      });
+    })();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

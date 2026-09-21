@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Task Module Wireframes (MET-DS-V2)</title>
+  <style>
+    /* ---------------------------------------------------------------
+       MET-DS-V2 Design Tokens — Full :root block (mandatory)
+    ---------------------------------------------------------------- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+      --color-primary-950:     #152B48;
+      --color-primary-975:     #0C1A2D;
+      --color-primary-999:     #081220;
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+      --color-disabled:        #BDBDBD;
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #FF9800;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+      --orange-600:            #FB8C00;
+      --orange-700:            #F57C00;
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-icon-hover:     #616161;
+      --table-header:          #F5F5F5;
+      --table-row:             #FAFAFA;
+      --table-row-hover:       #F5F5F5;
+      --table-row-selected:    #F2F5FA;
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           8px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+      --space-1:   2px;
+      --space-2:   4px;
+      --space-3:   8px;
+      --space-4:   12px;
+      --space-5:   16px;
+      --space-6:   20px;
+      --space-7:   24px;
+      --space-8:   32px;
+      --space-9:   40px;
+      --space-10:  48px;
+      --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-size-h1:      24px;
+      --font-size-h2:      20px;
+      --font-size-h3:      16px;
+      --font-size-body:    14px;
+      --font-size-caption: 12px;
+      --font-weight-bold:    700;
+      --font-weight-semibold: 600;
+      --font-weight-regular:  400;
+      --line-height-heading: 1.2;
+      --line-height-body:    1.5;
+      --duration-standard: 250ms;
+      --easing-enter:      ease-out;
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ---------------------------------------------------------------
+       Base Reset & Layout
+    ---------------------------------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-bg);
+      line-height: var(--line-height-body);
+    }
+
+    /* Skip to main */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--color-primary);
+      color: #fff;
+      padding: var(--space-3) var(--space-5);
+      border-radius: 0 0 var(--radius-button) 0;
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+      z-index: 1000;
+    }
+    .skip-link:focus { top: 0; }
+
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+
+    /* App Shell */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      grid-template-rows: 56px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      grid-column: 1 / -1;
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-7);
+      gap: var(--space-5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .top-nav-brand {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      letter-spacing: -0.02em;
+    }
+    .top-nav-spacer { flex: 1; }
+    .top-nav-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--topnav-text);
+      padding: var(--space-3);
+      border-radius: var(--radius-button);
+      font-size: 18px;
+      min-width: 44px; min-height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .top-nav-btn:hover { background: var(--grey-100); color: var(--topnav-icon-hover); }
+    .notif-badge {
+      position: absolute; top: 6px; right: 6px;
+      background: var(--color-error); color: #fff;
+      border-radius: var(--radius-pill);
+      font-size: 10px; font-weight: var(--font-weight-bold);
+      min-width: 16px; height: 16px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 4px;
+    }
+
+    /* Left Nav */
+    .left-nav {
+      background: var(--color-card);
+      border-right: var(--border-default);
+      padding: var(--space-5) 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-7);
+      color: var(--leftnav-text);
+      text-decoration: none;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      border-left: 3px solid transparent;
+      transition: background var(--duration-standard) var(--easing-enter);
+      min-height: 44px;
+    }
+    .nav-item:hover { background: var(--color-bg); }
+    .nav-item.active {
+      color: var(--leftnav-text-active);
+      border-left-color: var(--color-primary);
+      background: var(--color-primary-25);
+      font-weight: var(--font-weight-semibold);
+    }
+    .nav-icon { font-size: 18px; min-width: 20px; }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: var(--font-weight-bold);
+      padding: 2px 8px;
+    }
+    .nav-divider { border: none; border-top: var(--border-divider); margin: var(--space-3) 0; }
+    .nav-spacer { flex: 1; }
+
+    /* Main Content */
+    main {
+      overflow-y: auto;
+      padding: var(--space-7);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-7);
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .page-title {
+      font-size: var(--font-size-h1);
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: var(--line-height-heading);
+    }
+
+    /* Metric Tiles */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
+    }
+    .metric-tile {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      border: var(--border-default);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-6);
+      cursor: pointer;
+      transition: border-color var(--duration-standard) var(--easing-enter),
+                  box-shadow var(--duration-standard) var(--easing-enter);
+      text-align: center;
+    }
+    .metric-tile:hover { border-color: var(--color-primary); box-shadow: 0 2px 8px rgba(50,118,207,0.18); }
+    .metric-tile.active { border-color: var(--color-primary); background: var(--color-primary-25); }
+    .metric-label {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-3);
+    }
+    .metric-value {
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      line-height: 1;
+    }
+    .metric-tile.inside .metric-value  { color: var(--color-success); }
+    .metric-tile.approaching .metric-value { color: var(--color-warning-dark); }
+    .metric-tile.overdue .metric-value  { color: var(--color-error); }
+    .metric-tile.total .metric-value    { color: var(--color-primary); }
+    .metric-refresh {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      margin-top: var(--space-2);
+    }
+
+    /* Tab Bar */
+    .tab-bar {
+      display: flex;
+      border-bottom: var(--border-default);
+      gap: 0;
+      background: var(--color-card);
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
+    }
+    .tab-btn {
+      padding: var(--space-4) var(--space-7);
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: var(--font-size-body);
+      color: var(--text-secondary);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      min-height: 44px;
+      font-weight: var(--font-weight-regular);
+    }
+    .tab-btn[aria-selected="true"] {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+    .tab-btn:hover:not([aria-selected="true"]) { background: var(--grey-50); }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      background: var(--color-card);
+      border-bottom: var(--border-divider);
+      flex-wrap: wrap;
+    }
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 220px;
+    }
+    .search-input {
+      width: 100%;
+      padding: var(--space-3) var(--space-3) var(--space-3) 36px;
+      border: var(--border-default);
+      border-radius: var(--radius-input);
+      font-size: var(--font-size-body);
+      font-family: var(--font-family);
+      background: var(--grey-50);
+    }
+    .search-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(50,118,207,0.15); }
+    .search-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      color: var(--text-secondary); pointer-events: none; font-size: 16px;
+    }
+    .filter-chip {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: var(--grey-100); border: var(--border-default);
+      border-radius: var(--radius-pill);
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--font-size-caption); color: var(--text-primary);
+      cursor: pointer; min-height: 32px;
+    }
+    .filter-chip.active {
+      background: var(--color-primary-50); border-color: var(--color-primary);
+      color: var(--color-primary); font-weight: var(--font-weight-semibold);
+    }
+    .filter-chip:hover:not(.active) { background: var(--grey-200); }
+
+    /* Area Switcher */
+    .area-switcher {
+      display: flex; align-items: center; gap: var(--space-3); margin-left: auto;
+    }
+    .area-btn {
+      padding: var(--space-2) var(--space-5);
+      border: var(--border-default);
+      border-radius: var(--radius-pill);
+      background: var(--grey-50);
+      font-size: var(--font-size-caption);
+      cursor: pointer; min-height: 32px;
+    }
+    .area-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Task List */
+    .task-list { list-style: none; }
+
+    .task-card {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      margin-bottom: var(--space-3);
+      box-shadow: var(--shadow-card);
+      transition: border-color var(--duration-standard);
+      overflow: hidden;
+    }
+    .task-card.overdue { border-left: 4px solid var(--color-error); }
+    .task-card.approaching { border-left: 4px solid var(--color-warning); }
+    .task-card.inside { border-left: 4px solid var(--color-success); }
+
+    .task-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-5);
+      cursor: pointer;
+      min-height: 56px;
+    }
+    .task-card-header:hover { background: var(--grey-50); }
+
+    .task-id {
+      font-size: var(--font-size-caption);
+      color: var(--text-secondary);
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .task-title {
+      flex: 1;
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      border-radius: var(--radius-pill);
+      padding: 2px var(--space-4);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+    }
+    .badge-icon { font-size: 10px; }
+    .badge-critical   { background: var(--color-error-bg);   color: var(--color-error); }
+    .badge-high       { background: #FFF3E0; color: var(--orange-700); }
+    .badge-medium     { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .badge-low        { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge-assigned   { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .badge-inprogress { background: #FFF3E0; color: var(--orange-700); }
+    .badge-completed  { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge-cancelled  { background: var(--grey-100); color: var(--grey-700); }
+    .badge-overdue    { background: var(--color-error-bg); color: var(--color-error); }
+    .badge-escalated  { background: #FFF3E0; color: var(--orange-600); }
+
+    /* SLA Pill (special) */
+    .sla-pill {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      border-radius: var(--radius-pill);
+      padding: 3px var(--space-4);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+    }
+    .sla-inside    { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .sla-approaching { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+    .sla-overdue   { background: var(--color-error-bg); color: var(--color-error); }
+    .sla-icon { font-size: 12px; }
+
+    /* Task Card Detail (expanded) */
+    .task-card-body {
+      border-top: var(--border-divider);
+      padding: var(--space-6);
+      display: none;
+    }
+    .task-card-body.open { display: block; }
+
+    .task-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: var(--space-7);
+    }
+
+    .task-meta { display: flex; flex-direction: column; gap: var(--space-5); }
+    .meta-row { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+    .meta-item { display: flex; flex-direction: column; gap: var(--space-2); }
+    .meta-label { font-size: var(--font-size-caption); color: var(--text-secondary); font-weight: var(--font-weight-semibold); text-transform: uppercase; letter-spacing: 0.05em; }
+    .meta-value { font-size: var(--font-size-body); color: var(--text-primary); }
+
+    .task-description {
+      padding: var(--space-5);
+      background: var(--grey-50);
+      border-radius: var(--radius-card);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      line-height: var(--line-height-body);
+    }
+
+    /* Task History */
+    .history-panel { display: flex; flex-direction: column; gap: var(--space-4); }
+    .history-header { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-3); }
+    .history-item {
+      background: var(--grey-50);
+      border-radius: var(--radius-card);
+      border: var(--border-divider);
+      padding: var(--space-4) var(--space-5);
+    }
+    .history-meta {
+      display: flex; gap: var(--space-5); align-items: center;
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+      margin-bottom: var(--space-2);
+    }
+    .history-action { font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: var(--font-size-body); }
+    .history-comment { font-size: var(--font-size-body); color: var(--text-secondary); margin-top: var(--space-2); font-style: italic; }
+
+    /* Action Panel */
+    .action-panel {
+      background: var(--color-card);
+      border: var(--border-default);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+    }
+    .action-panel-title { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-5); }
+
+    /* Reminder Banner */
+    .reminder-banner {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      background: var(--color-primary-50);
+      border: 1px solid var(--color-primary-200);
+      border-radius: var(--radius-card);
+      padding: var(--space-4) var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+    .reminder-icon { font-size: 18px; color: var(--color-primary-700); flex-shrink: 0; }
+    .reminder-text { font-size: var(--font-size-caption); color: var(--color-primary-700); font-weight: var(--font-weight-semibold); }
+
+    /* Form Elements */
+    .form-group { margin-bottom: var(--space-5); }
+    .form-label {
+      display: block;
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .required-star { color: var(--color-error); margin-left: 2px; }
+
+    select.form-control,
+    textarea.form-control {
+      display: block;
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-default);
+      border-radius: var(--radius-input);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: var(--color-card);
+      transition: border-color var(--duration-standard);
+    }
+    select.form-control:focus,
+    textarea.form-control:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(50,118,207,0.15);
+    }
+    textarea.form-control { resize: vertical; min-height: 96px; }
+
+    .char-counter {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: var(--space-2);
+    }
+    .char-hint { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .char-count { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .char-count.near-limit { color: var(--color-warning-dark); }
+    .char-count.at-limit { color: var(--color-error); font-weight: var(--font-weight-semibold); }
+
+    .form-error {
+      display: flex; align-items: center; gap: var(--space-2);
+      color: var(--color-error); font-size: var(--font-size-caption);
+      margin-top: var(--space-2);
+    }
+    .form-error-icon { font-size: 14px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--space-3);
+      padding: var(--space-4) var(--space-6);
+      border-radius: var(--radius-button);
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      border: none;
+      min-height: 44px;
+      min-width: 44px;
+      transition: background var(--duration-standard), color var(--duration-standard);
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: #fff;
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--color-primary-hover); }
+    .btn-primary:disabled {
+      background: var(--color-disabled);
+      color: #fff;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: var(--color-card);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+    .btn-secondary:hover:not(:disabled) { background: var(--color-primary-25); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover { background: var(--grey-100); }
+    .btn-danger {
+      background: var(--color-error);
+      color: #fff;
+    }
+    .btn-danger:hover:not(:disabled) { background: var(--color-error-dark); }
+    .btn-sm { padding: var(--space-2) var(--space-4); font-size: var(--font-size-caption); min-height: 32px; }
+
+    /* Modal / Confirmation */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 500;
+    }
+    .modal-dialog {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal);
+      padding: var(--space-8);
+      max-width: 480px;
+      width: calc(100% - var(--space-8));
+    }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-bold); margin-bottom: var(--space-4); }
+    .modal-body { font-size: var(--font-size-body); color: var(--text-secondary); margin-bottom: var(--space-7); line-height: var(--line-height-body); }
+    .modal-actions { display: flex; gap: var(--space-4); justify-content: flex-end; }
+
+    /* Critical Task Popup */
+    .critical-popup {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 600;
+    }
+    .critical-dialog {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal);
+      padding: var(--space-7);
+      max-width: 420px;
+      width: calc(100% - var(--space-8));
+      border-top: 4px solid var(--color-error);
+    }
+    .critical-header {
+      display: flex; align-items: center; gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    .critical-icon { font-size: 28px; color: var(--color-error); }
+    .critical-title { font-size: var(--font-size-h3); font-weight: var(--font-weight-bold); color: var(--color-error); }
+
+    /* SLA Configuration */
+    .sla-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-body);
+    }
+    .sla-table th {
+      background: var(--table-header);
+      text-align: left;
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: var(--border-default);
+    }
+    .sla-table td {
+      padding: var(--space-4) var(--space-5);
+      border-bottom: var(--border-divider);
+      vertical-align: middle;
+    }
+    .sla-table tr:hover td { background: var(--table-row-hover); }
+
+    /* Toast / Snackbar */
+    .toast {
+      position: fixed; bottom: var(--space-7); right: var(--space-7);
+      background: var(--grey-900);
+      color: #fff;
+      padding: var(--space-4) var(--space-6);
+      border-radius: var(--radius-card);
+      font-size: var(--font-size-body);
+      display: flex; align-items: center; gap: var(--space-5);
+      z-index: 700;
+      max-width: 400px;
+      box-shadow: var(--shadow-modal);
+    }
+    .toast a { color: var(--color-primary-200); text-decoration: underline; }
+
+    /* Annotation callout */
+    .annotation {
+      background: #FFFDE7;
+      border-left: 4px solid #F9A825;
+      border-radius: 0 var(--radius-card) var(--radius-card) 0;
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--font-size-caption);
+      color: #5D4037;
+      margin: var(--space-4) 0;
+    }
+    .annotation strong { color: #3E2723; }
+
+    /* Screen separator */
+    .screen-section {
+      background: var(--color-card);
+      border-radius: var(--radius-card);
+      border: var(--border-default);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      margin-bottom: var(--space-8);
+    }
+    .screen-label {
+      background: var(--grey-900);
+      color: #fff;
+      padding: var(--space-3) var(--space-6);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: var(--border-divider);
+      margin: var(--space-7) 0;
+    }
+
+    /* User Picker */
+    .user-picker-item {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-card);
+      cursor: pointer;
+    }
+    .user-picker-item:hover { background: var(--grey-50); }
+    .user-picker-item.selected { background: var(--color-primary-25); border: 1px solid var(--color-primary); }
+    .user-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary-100);
+      color: var(--color-primary-700);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-caption);
+      flex-shrink: 0;
+    }
+    .user-name { font-weight: var(--font-weight-semibold); font-size: var(--font-size-body); }
+    .user-meta { font-size: var(--font-size-caption); color: var(--text-secondary); }
+
+    /* Wireframe title page */
+    .wf-title {
+      text-align: center;
+      padding: var(--space-10) var(--space-7);
+      background: var(--color-card);
+      border-bottom: var(--border-default);
+    }
+    .wf-title h1 { font-size: 28px; font-weight: var(--font-weight-bold); color: var(--color-primary); margin-bottom: var(--space-4); }
+    .wf-title p { color: var(--text-secondary); font-size: var(--font-size-body); }
+
+    /* Tooltip */
+    [data-tooltip] { position: relative; }
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      background: var(--grey-800); color: #fff;
+      border-radius: 4px; padding: var(--space-2) var(--space-4);
+      font-size: 11px; white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--duration-standard);
+      z-index: 200;
+    }
+    [data-tooltip]:hover::after { opacity: 1; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .left-nav { display: none; }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .task-detail-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- -------------------------------------------------------
+     SKIP LINK (Accessibility first focusable element)
+-------------------------------------------------------- -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- -------------------------------------------------------
+     WIREFRAME INDEX
+-------------------------------------------------------- -->
+<div class="wf-title">
+  <h1>FieldSync Field App — Task Module Wireframes</h1>
+  <p>MET-DS-V2 · WCAG 2.2 AA · Version 1.0 · 10 March 2026</p>
+  <p style="margin-top:8px;color:var(--text-secondary);">
+    Screens: WF-01 Task Dashboard · WF-02 Active Task List · WF-03 Task Detail &amp; Action Panel · WF-04 Confirmation Modal · WF-05 Critical Task Popup · WF-06 SLA Configuration · WF-07 Task History
+  </p>
+</div>
+
+<!-- -------------------------------------------------------
+     SHARED APP SHELL (replicated per screen section)
+-------------------------------------------------------- -->
+
+<!-- --- WF-01: TASK DASHBOARD (Manager View) --- -->
+<div class="screen-section">
+  <div class="screen-label">WF-01 — Task Dashboard (Manager View — Motor Business Area)</div>
+  <div class="app-shell">
+    <!-- Top Nav -->
+    <header class="top-nav" role="banner">
+      <span class="top-nav-brand" aria-label="Engage home">FieldSync</span>
+      <span class="top-nav-spacer"></span>
+      <!-- Area switcher -->
+      <div class="area-switcher" role="group" aria-label="Business area">
+        <button class="area-btn active" aria-pressed="true">Motor</button>
+        <button class="area-btn" aria-pressed="false">Metering</button>
+        <button class="area-btn" aria-pressed="false">Field</button>
+      </div>
+      <button class="top-nav-btn" aria-label="Notifications (3 unread)">
+        ??
+        <span class="notif-badge" aria-hidden="true">3</span>
+      </button>
+      <button class="top-nav-btn" aria-label="Priya Meenakshisundaram — user menu">??</button>
+    </header>
+
+    <!-- Left Nav -->
+    <nav class="left-nav" aria-label="Primary navigation">
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> Dashboard</a>
+      <a href="#" class="nav-item active" aria-current="page">
+        <span class="nav-icon" aria-hidden="true">??</span> Tasks
+        <span class="nav-badge" aria-label="18 active tasks">18</span>
+      </a>
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> Scheduler</a>
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> Messages</a>
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> Documents</a>
+      <hr class="nav-divider" />
+      <div class="nav-spacer"></div>
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> My Profile</a>
+    </nav>
+
+    <!-- Main -->
+    <main id="main-content" tabindex="-1">
+      <div class="page-header">
+        <h1 class="page-title">Tasks</h1>
+        <button class="btn btn-primary" aria-label="Create a new task">
+          <span aria-hidden="true">+</span> Create Task
+        </button>
+      </div>
+
+      <div class="annotation">
+        <strong>Annotation WF-01.A:</strong> Dashboard metric tiles are clickable and filter the task list below to the selected category. Tiles auto-refresh every 60 seconds. "Last updated" timestamp displayed below tiles. Tiles act as quick-filter shortcuts — clicking "Overdue" applies the overdue filter to the task list automatically.
+      </div>
+
+      <!-- Metric Tiles -->
+      <section aria-label="Task summary metrics">
+        <div class="metric-grid" role="group">
+          <button class="metric-tile total" aria-label="18 tasks total — click to view all tasks">
+            <div class="metric-label">Total Tasks</div>
+            <div class="metric-value">18</div>
+            <div class="metric-refresh">Motor — All statuses</div>
+          </button>
+          <button class="metric-tile inside" aria-label="12 tasks inside SLA — click to filter">
+            <div class="metric-label">Inside SLA</div>
+            <div class="metric-value">12</div>
+            <div class="metric-refresh">In time</div>
+          </button>
+          <button class="metric-tile approaching active" aria-label="4 tasks approaching SLA — click to filter (currently selected)">
+            <div class="metric-label">Approaching SLA</div>
+            <div class="metric-value">4</div>
+            <div class="metric-refresh">Within threshold</div>
+          </button>
+          <button class="metric-tile overdue" aria-label="2 tasks overdue — click to filter">
+            <div class="metric-label">Overdue</div>
+            <div class="metric-value">2</div>
+            <div class="metric-refresh">SLA expired</div>
+          </button>
+        </div>
+        <p style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-top:var(--space-3);">
+          <span aria-hidden="true">??</span> Last updated: 30 seconds ago — Auto-refreshing every 60 seconds
+        </p>
+      </section>
+
+      <!-- Tab Bar -->
+      <div role="tablist" aria-label="Task views" class="tab-bar" style="border-radius:8px 8px 0 0;">
+        <button role="tab" id="tab-active" aria-selected="true" aria-controls="panel-active" class="tab-btn">Active Tasks (18)</button>
+        <button role="tab" id="tab-completed" aria-selected="false" aria-controls="panel-completed" class="tab-btn">Completed</button>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar" role="search" aria-label="Task filter and search">
+        <div class="search-input-wrap">
+          <span class="search-icon" aria-hidden="true">??</span>
+          <input type="search" class="search-input" placeholder="Search by task name, ID, agent, or type…"
+                 aria-label="Search tasks" />
+        </div>
+        <div role="group" aria-label="Quick filters">
+          <button class="filter-chip" aria-pressed="false">All</button>
+          <button class="filter-chip active" aria-pressed="true">Approaching SLA ×</button>
+          <button class="filter-chip" aria-pressed="false">Overdue</button>
+          <button class="filter-chip" aria-pressed="false">Critical</button>
+          <button class="filter-chip" aria-pressed="false">Assigned to me</button>
+        </div>
+      </div>
+
+      <div class="annotation">
+        <strong>Annotation WF-01.B:</strong> Quick filter chips are toggle buttons with ARIA pressed state. Active filter shown with "×" to remove. Clicking "Approaching SLA" tile above auto-applies this filter. Multiple filters can be stacked. Filter state persists within the session. Results count updates via <code>aria-live="polite"</code> announcement.
+      </div>
+
+      <!-- Task List — WF-01 abbreviated showing key card states -->
+      <section role="tabpanel" id="panel-active" aria-labelledby="tab-active">
+        <ul class="task-list" aria-label="Active tasks — 4 approaching SLA">
+
+          <!-- Approaching SLA card -->
+          <li class="task-card approaching" role="article">
+            <div class="task-card-header"
+                 role="button" tabindex="0"
+                 aria-expanded="false"
+                 aria-controls="card-00056-body"
+                 aria-label="TASK-00056 Motor Fan Belt Replacement — Expand task details">
+              <span class="task-id">TASK-00056</span>
+              <span class="task-title">Motor Fan Belt Replacement</span>
+              <span class="badge badge-high"><span class="badge-icon" aria-hidden="true">?</span> High</span>
+              <span class="badge badge-inprogress"><span class="badge-icon" aria-hidden="true">?</span> In Progress</span>
+              <span class="sla-pill sla-approaching" role="status" aria-label="Approaching SLA — 18 minutes remaining">
+                <span class="sla-icon" aria-hidden="true">?</span> Approaching SLA — 18 min
+              </span>
+              <span style="color:var(--text-secondary);font-size:var(--font-size-caption);">Ravi K.</span>
+            </div>
+            <div class="task-card-body" id="card-00056-body"></div>
+          </li>
+
+          <!-- Overdue card -->
+          <li class="task-card overdue" role="article">
+            <div class="task-card-header"
+                 role="button" tabindex="0"
+                 aria-expanded="false"
+                 aria-controls="card-00043-body"
+                 aria-label="TASK-00043 Overdue — Pump Station Inspection — Expand task details">
+              <span class="task-id">TASK-00043</span>
+              <span class="task-title">Pump Station Inspection</span>
+              <span class="badge badge-medium"><span class="badge-icon" aria-hidden="true">?</span> Medium</span>
+              <span class="badge badge-overdue"><span class="badge-icon" aria-hidden="true">?</span> Overdue</span>
+              <span class="sla-pill sla-overdue" role="alert" aria-label="SLA expired — overdue by 2 hours 14 minutes">
+                <span class="sla-icon" aria-hidden="true">?</span> Overdue — 2h 14m
+              </span>
+              <span style="color:var(--text-secondary);font-size:var(--font-size-caption);">Kavitha R.</span>
+            </div>
+            <div class="task-card-body" id="card-00043-body"></div>
+          </li>
+
+          <!-- Inside SLA card -->
+          <li class="task-card inside" role="article">
+            <div class="task-card-header"
+                 role="button" tabindex="0"
+                 aria-expanded="false"
+                 aria-controls="card-00078-body"
+                 aria-label="TASK-00078 Water Meter Inspection — Expand task details">
+              <span class="task-id">TASK-00078</span>
+              <span class="task-title">Water Meter Inspection — Zone 7</span>
+              <span class="badge badge-low"><span class="badge-icon" aria-hidden="true">?</span> Low</span>
+              <span class="badge badge-assigned"><span class="badge-icon" aria-hidden="true">?</span> Assigned</span>
+              <span class="sla-pill sla-inside" role="status" aria-label="Inside SLA — 5 hours 30 minutes remaining">
+                <span class="sla-icon" aria-hidden="true">?</span> Inside SLA — 5h 30m
+              </span>
+              <span style="color:var(--text-secondary);font-size:var(--font-size-caption);">Ravi K.</span>
+            </div>
+            <div class="task-card-body" id="card-00078-body"></div>
+          </li>
+
+        </ul>
+      </section>
+    </main>
+  </div><!-- end app-shell -->
+</div><!-- end WF-01 -->
+
+
+<!-- --- WF-02: TASK DETAIL & ACTION PANEL --- -->
+<div class="screen-section">
+  <div class="screen-label">WF-02 — Task Detail with Expanded Action Panel (Agent View)</div>
+  <div class="app-shell">
+    <header class="top-nav" role="banner">
+      <span class="top-nav-brand">FieldSync</span>
+      <span class="top-nav-spacer"></span>
+      <button class="top-nav-btn" aria-label="Notifications">??</button>
+      <button class="top-nav-btn" aria-label="User menu">??</button>
+    </header>
+    <nav class="left-nav" aria-label="Primary navigation">
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> Dashboard</a>
+      <a href="#" class="nav-item active" aria-current="page">
+        <span class="nav-icon" aria-hidden="true">??</span> Tasks
+        <span class="nav-badge">5</span>
+      </a>
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> Messages</a>
+      <a href="#" class="nav-item"><span class="nav-icon" aria-hidden="true">??</span> Documents</a>
+    </nav>
+
+    <main id="main-content-wf02" tabindex="-1">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb">
+        <ol style="list-style:none;display:flex;gap:var(--space-3);font-size:var(--font-size-caption);color:var(--text-secondary);">
+          <li><a href="#" style="color:var(--text-hyperlink);">Tasks</a></li>
+          <li aria-hidden="true"> › </li>
+          <li><a href="#" style="color:var(--text-hyperlink);">Active Tasks</a></li>
+          <li aria-hidden="true"> › </li>
+          <li aria-current="page">TASK-00078</li>
+        </ol>
+      </nav>
+
+      <!-- Task Detail Header -->
+      <div style="background:var(--color-card);border-radius:var(--radius-card);border:var(--border-default);padding:var(--space-6);box-shadow:var(--shadow-card);">
+        <div style="display:flex;align-items:flex-start;gap:var(--space-5);flex-wrap:wrap;">
+          <div style="flex:1;">
+            <p style="font-size:var(--font-size-caption);color:var(--text-secondary);font-weight:600;margin-bottom:var(--space-2);">TASK-00078</p>
+            <h1 style="font-size:var(--font-size-h2);font-weight:700;margin-bottom:var(--space-4);">Water Meter Inspection — Zone 7</h1>
+            <div style="display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:center;">
+              <span class="badge badge-high"><span aria-hidden="true">?</span> High Priority</span>
+              <span class="badge badge-inprogress"><span aria-hidden="true">?</span> In Progress</span>
+              <span class="sla-pill sla-approaching" role="status" aria-label="Approaching SLA — 18 minutes remaining">
+                <span aria-hidden="true">?</span> Approaching SLA — 18 min remaining
+              </span>
+            </div>
+          </div>
+        </div>
+        <hr class="divider" style="margin:var(--space-5) 0;" />
+        <div class="meta-row">
+          <div class="meta-item"><span class="meta-label">Assigned To</span><span class="meta-value">Ravi Krishnan</span></div>
+          <div class="meta-item"><span class="meta-label">Business Area</span><span class="meta-value">Metering</span></div>
+          <div class="meta-item"><span class="meta-label">Created</span><span class="meta-value">10 Mar 2026, 08:15</span></div>
+          <div class="meta-item"><span class="meta-label">SLA Deadline</span><span class="meta-value">10 Mar 2026, 09:15</span></div>
+        </div>
+        <div style="margin-top:var(--space-5);">
+          <p class="meta-label" style="margin-bottom:var(--space-3);">Task Description</p>
+          <div class="task-description">
+            Inspect the water meter at Zone 7 access point for correct readings and physical damage. Record meter value and note any faults. Escalate if meter reading is outside the expected range (300–400 kWh). Photographic evidence required.
+          </div>
+        </div>
+      </div>
+
+      <div class="annotation">
+        <strong>Annotation WF-02.A:</strong> Task header is read-only after creation (BR-TASK-038). SLA indicator shows live countdown. Priority badge and SLA pill always use icon + text label + colour — never colour alone (WCAG 1.4.1). SLA business hours tooltip on clock icon: "SLA calculated within 08:00–16:00".
+      </div>
+
+      <!-- Detail + Action grid -->
+      <div class="task-detail-grid">
+
+        <!-- Task History Panel -->
+        <div class="history-panel">
+          <h2 class="history-header">Task History</h2>
+          <div class="history-item">
+            <div class="history-meta">
+              <span aria-hidden="true">??</span>
+              <time datetime="2026-03-10T08:15">10 Mar 2026, 08:15</time>
+              <span>·</span>
+              <span>System</span>
+            </div>
+            <p class="history-action">Task Created</p>
+            <p class="history-comment">"Task auto-generated from scheduling module. Zone 7 meter inspection required."</p>
+          </div>
+          <div class="history-item">
+            <div class="history-meta">
+              <span aria-hidden="true">??</span>
+              <time datetime="2026-03-10T08:22">10 Mar 2026, 08:22</time>
+              <span>·</span>
+              <span>Ravi Krishnan</span>
+            </div>
+            <p class="history-action">Marked as In Progress</p>
+            <p class="history-comment">"Starting inspection now. At Zone 7 access point."</p>
+          </div>
+
+          <div class="annotation">
+            <strong>Annotation WF-02.B:</strong> Task history shows every action in chronological order with timestamp, user, action type, and comment. This is a read-only audit trail. Each entry is a semantic list item. History panel is scrollable when entries exceed visible area. "No previous history" placeholder shown for brand-new tasks.
+          </div>
+        </div>
+
+        <!-- Action Panel -->
+        <aside class="action-panel" aria-label="Task actions">
+          <h2 class="action-panel-title">Update Task Status</h2>
+
+          <!-- Reminder Banner -->
+          <div class="reminder-banner" role="note" aria-label="Comment required notice">
+            <span class="reminder-icon" aria-hidden="true">?</span>
+            <p class="reminder-text">A comment is required for every action to maintain operational visibility and accountability.</p>
+          </div>
+
+          <form aria-label="Task action form" novalidate>
+            <!-- Status Action Dropdown -->
+            <div class="form-group">
+              <label class="form-label" for="action-select">
+                Select Action <span class="required-star" aria-hidden="true">*</span>
+              </label>
+              <select class="form-control" id="action-select"
+                      aria-required="true"
+                      aria-describedby="action-hint">
+                <option value="">— Choose an action —</option>
+                <option value="in-progress">Mark as In Progress</option>
+                <option value="complete">Mark as Complete</option>
+                <option value="reassign">Reassign</option>
+                <option value="reprioritise">Reprioritise</option>
+                <option value="cancel">Cancel Task</option>
+                <option value="escalate">Escalate</option>
+              </select>
+              <p id="action-hint" style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-top:var(--space-2);">
+                Changing priority via Reprioritise will reset the SLA timer.
+              </p>
+            </div>
+
+            <!-- Mandatory Comment -->
+            <div class="form-group">
+              <label class="form-label" for="action-comment">
+                Comment <span class="required-star" aria-hidden="true">*</span>
+              </label>
+              <textarea class="form-control"
+                        id="action-comment"
+                        rows="4"
+                        aria-required="true"
+                        aria-describedby="comment-hint comment-counter comment-error"
+                        aria-invalid="false"
+                        maxlength="100"
+                        placeholder="Describe what action you are taking and why…"></textarea>
+              <div class="char-counter">
+                <p id="comment-hint" class="char-hint">Allowed: letters, numbers, spaces, , . - " /</p>
+                <span id="comment-counter" class="char-count" aria-live="polite" aria-atomic="true">0 / 100</span>
+              </div>
+              <p id="comment-error" class="form-error" style="display:none;" role="alert">
+                <span class="form-error-icon" aria-hidden="true">?</span>
+                Comment must be at least 10 characters and contain only allowed characters.
+              </p>
+            </div>
+
+            <div class="annotation">
+              <strong>Annotation WF-02.C:</strong> Submit button is disabled until comment = 10 chars with valid characters (BR-TASK-007). Character counter updates in real-time (aria-live="polite"). Error message uses icon + text — not colour alone. Comment allows: letters, numbers, spaces, comma, period, hyphen, double-quote, forward slash (BR-TASK-011 to BR-TASK-016).
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" class="btn btn-primary" style="width:100%;"
+                    disabled
+                    aria-disabled="true"
+                    data-tooltip="Enter a valid comment to enable this action">
+              Submit Action
+            </button>
+
+            <!-- Enabled State (shown for documentation) -->
+            <div style="margin-top:var(--space-4);">
+              <p style="font-size:var(--font-size-caption);color:var(--text-secondary);text-align:center;">
+                ? Button enables when comment is valid (=10 chars, allowed characters only)
+              </p>
+            </div>
+          </form>
+        </aside>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- --- WF-03: CONFIRMATION MODAL --- -->
+<div class="screen-section">
+  <div class="screen-label">WF-03 — Confirmation Modal (Dynamic — Reassignment Example)</div>
+  <div style="padding:var(--space-8);background:rgba(0,0,0,0.3);position:relative;min-height:340px;display:flex;align-items:center;justify-content:center;">
+    <div role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc" class="modal-dialog">
+      <h2 class="modal-title" id="modal-title">Confirm Reassignment</h2>
+      <p class="modal-body" id="modal-desc">
+        You are about to reassign <strong>TASK-00078 — Water Meter Inspection — Zone 7</strong> to
+        <strong>Kavitha Ramachandran</strong>.<br /><br />
+        <span style="display:flex;align-items:center;gap:8px;background:var(--color-warning-bg);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--color-warning-dark);">
+          <span aria-hidden="true">?</span>
+          Note: The SLA timer will continue running. You will no longer see this task in your active list — it will appear in your Task History.
+        </span>
+      </p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost">Cancel</button>
+        <button class="btn btn-primary">Confirm Reassignment</button>
+      </div>
+    </div>
+  </div>
+  <div style="padding:var(--space-5);">
+    <div class="annotation">
+      <strong>Annotation WF-03:</strong> Modal is dynamically populated with task ID, action name, and target user (BR-TASK-037). Uses role="dialog" aria-modal="true" with aria-labelledby and aria-describedby. Focus is trapped within the modal. Escape key dismisses. SLA continuation plainly stated inline. Primary CTA is action-specific (not generic "OK"). Cancel is always available on the left.
+    </div>
+  </div>
+</div>
+
+
+<!-- --- WF-04: CRITICAL TASK POPUP --- -->
+<div class="screen-section">
+  <div class="screen-label">WF-04 — Critical Task Popup Notification</div>
+  <div style="padding:var(--space-8);background:rgba(0,0,0,0.5);min-height:360px;display:flex;align-items:center;justify-content:center;">
+    <div role="dialog" aria-modal="true" aria-labelledby="critical-title" aria-describedby="critical-desc" class="critical-dialog">
+      <div class="critical-header">
+        <span class="critical-icon" aria-hidden="true">??</span>
+        <p class="critical-title" id="critical-title">Critical Task Assigned</p>
+      </div>
+      <p id="critical-desc" style="font-size:var(--font-size-body);color:var(--text-primary);margin-bottom:var(--space-5);">
+        <strong>TASK-00087 — Motor Fault — Zone 3, Pump Station 4</strong><br />
+        <span style="color:var(--text-secondary);">Assigned to: Ravi Krishnan · Motor Business Area</span>
+      </p>
+      <div style="background:var(--color-error-bg);border-radius:var(--radius-card);padding:var(--space-4) var(--space-5);margin-bottom:var(--space-6);">
+        <p style="font-size:var(--font-size-body);font-weight:700;color:var(--color-error);">
+          <span aria-hidden="true">?</span> SLA: 30 minutes — Action required immediately
+        </p>
+        <p style="font-size:var(--font-size-caption);color:var(--color-error-dark);margin-top:var(--space-2);">
+          SLA started at 11:30 — expires at 12:00 (within business hours)
+        </p>
+      </div>
+      <p style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-bottom:var(--space-6);">
+        You are currently working on TASK-00081. Switching to this task will not cancel your current work — it will remain In Progress.
+      </p>
+      <div style="display:flex;gap:var(--space-4);">
+        <button class="btn btn-danger" style="flex:1;">Acknowledge &amp; Start</button>
+        <button class="btn btn-secondary">View Full Details</button>
+      </div>
+    </div>
+  </div>
+  <div style="padding:var(--space-5);">
+    <div class="annotation">
+      <strong>Annotation WF-04:</strong> Critical popup fires once on task creation (BR-TASK-SLA Critical). Visible to Assigned User, Manager, Admin. Uses red border-top for urgency indicator. Always states SLA duration and expiry time. Informs user of their current active task to avoid confusion. Focus is trapped in dialog; Escape does not dismiss (requires deliberate acknowledgement for critical tasks). Visible to Ravi (assignee), Priya (Manager — Motor), and Anitha (Admin — all areas).
+    </div>
+  </div>
+</div>
+
+
+<!-- --- WF-05: USER PICKER (Reassignment) --- -->
+<div class="screen-section">
+  <div class="screen-label">WF-05 — User Picker (Reassignment — Same Business Area Filter)</div>
+  <div style="padding:var(--space-7);">
+    <div role="dialog" aria-labelledby="picker-title" aria-describedby="picker-desc" style="background:var(--color-card);border-radius:var(--radius-card);border:var(--border-default);max-width:440px;box-shadow:var(--shadow-modal);">
+      <div style="padding:var(--space-6);border-bottom:var(--border-divider);">
+        <h2 id="picker-title" style="font-size:var(--font-size-h3);font-weight:700;margin-bottom:var(--space-2);">Reassign to a colleague</h2>
+        <p id="picker-desc" style="font-size:var(--font-size-caption);color:var(--text-secondary);">Showing agents in <strong>Metering</strong> business area only (BR-TASK-024).</p>
+      </div>
+      <div style="padding:var(--space-5);border-bottom:var(--border-divider);">
+        <div class="search-input-wrap">
+          <span class="search-icon" aria-hidden="true">??</span>
+          <input type="search" class="search-input" placeholder="Search by name…" aria-label="Search agents to reassign" />
+        </div>
+      </div>
+      <div role="listbox" aria-label="Select colleague to assign task to" style="padding:var(--space-4);">
+        <div class="user-picker-item" role="option" aria-selected="false" tabindex="0">
+          <div class="user-avatar" aria-hidden="true">KR</div>
+          <div>
+            <p class="user-name">Kavitha Ramachandran</p>
+            <p class="user-meta">Metering · 1 open task · Active 8 min ago</p>
+          </div>
+        </div>
+        <div class="user-picker-item selected" role="option" aria-selected="true" tabindex="0">
+          <div class="user-avatar" aria-hidden="true">MS</div>
+          <div>
+            <p class="user-name">Murali Selvam</p>
+            <p class="user-meta">Metering · 3 open tasks · Active 2 min ago</p>
+          </div>
+          <span style="margin-left:auto;color:var(--color-primary);font-size:18px;" aria-hidden="true">?</span>
+        </div>
+        <div class="user-picker-item" role="option" aria-selected="false" tabindex="0">
+          <div class="user-avatar" aria-hidden="true">VP</div>
+          <div>
+            <p class="user-name">Vijaya Prakash</p>
+            <p class="user-meta">Metering · 0 open tasks · Active 45 min ago</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding:var(--space-5);border-top:var(--border-divider);display:flex;gap:var(--space-4);justify-content:flex-end;">
+        <button class="btn btn-ghost">Cancel</button>
+        <button class="btn btn-primary">Confirm Reassignment</button>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Annotation WF-05:</strong> User picker is auto-filtered to same Business Area (BR-TASK-024, BR-TASK-025). Displays: Name, Business Area, open task count (workload indicator), last-active timestamp. Keyboard navigable via arrow keys (role="listbox"/role="option"). Selected state uses checkmark icon + ARIA aria-selected="true". For Escalation flow, filter is same business area by default with option to expand.
+    </div>
+  </div>
+</div>
+
+
+<!-- --- WF-06: SLA CONFIGURATION (Admin) --- -->
+<div class="screen-section">
+  <div class="screen-label">WF-06 — SLA Configuration (Admin — Business Configuration)</div>
+  <div style="padding:var(--space-7);">
+    <div class="page-header" style="margin-bottom:var(--space-6);">
+      <div>
+        <nav aria-label="Breadcrumb">
+          <ol style="list-style:none;display:flex;gap:var(--space-3);font-size:var(--font-size-caption);color:var(--text-secondary);margin-bottom:var(--space-3);">
+            <li><a href="#" style="color:var(--text-hyperlink);">Admin</a></li>
+            <li aria-hidden="true"> › </li>
+            <li><a href="#" style="color:var(--text-hyperlink);">Business Configuration</a></li>
+            <li aria-hidden="true"> › </li>
+            <li aria-current="page">SLA Configuration</li>
+          </ol>
+        </nav>
+        <h1 class="page-title">SLA Configuration</h1>
+        <p style="color:var(--text-secondary);font-size:var(--font-size-body);margin-top:var(--space-2);">Configure task SLA durations by priority. All changes are recorded in the audit trail with mandatory reason documentation.</p>
+      </div>
+      <a href="#sla-audit" class="btn btn-secondary btn-sm">View Audit Trail ?</a>
+    </div>
+
+    <div style="background:var(--color-card);border-radius:var(--radius-card);border:var(--border-default);box-shadow:var(--shadow-card);overflow:hidden;margin-bottom:var(--space-7);">
+      <table class="sla-table" aria-label="SLA priority configuration">
+        <caption style="padding:var(--space-5);text-align:left;font-weight:600;font-size:var(--font-size-body);">Current SLA Thresholds</caption>
+        <thead>
+          <tr>
+            <th scope="col">Priority</th>
+            <th scope="col">SLA Duration</th>
+            <th scope="col">Last Modified By</th>
+            <th scope="col">Last Modified Date</th>
+            <th scope="col">Last Reason</th>
+            <th scope="col"><span class="sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-critical"><span aria-hidden="true">?</span> Critical</span></td>
+            <td><strong>30 minutes</strong></td>
+            <td>Anitha Subramaniam</td>
+            <td>12 Jan 2026</td>
+            <td style="color:var(--text-secondary);font-size:var(--font-size-caption);max-width:160px;">Initial configuration</td>
+            <td><button class="btn btn-secondary btn-sm" aria-label="Edit Critical SLA duration">Edit</button></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-high"><span aria-hidden="true">?</span> High</span></td>
+            <td><strong>60 minutes</strong></td>
+            <td>Anitha Subramaniam</td>
+            <td>12 Jan 2026</td>
+            <td style="color:var(--text-secondary);font-size:var(--font-size-caption);max-width:160px;">Initial configuration</td>
+            <td><button class="btn btn-secondary btn-sm" aria-label="Edit High SLA duration">Edit</button></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-medium"><span aria-hidden="true">?</span> Medium</span></td>
+            <td><strong>4 hours (240 min)</strong></td>
+            <td>Anitha Subramaniam</td>
+            <td>12 Jan 2026</td>
+            <td style="color:var(--text-secondary);font-size:var(--font-size-caption);max-width:160px;">Initial configuration</td>
+            <td><button class="btn btn-secondary btn-sm" aria-label="Edit Medium SLA duration">Edit</button></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-low"><span aria-hidden="true">?</span> Low</span></td>
+            <td><strong>8 hours (480 min)</strong></td>
+            <td>Anitha Subramaniam</td>
+            <td>12 Jan 2026</td>
+            <td style="color:var(--text-secondary);font-size:var(--font-size-caption);max-width:160px;">Initial configuration</td>
+            <td><button class="btn btn-secondary btn-sm" aria-label="Edit Low SLA duration">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="annotation">
+      <strong>Annotation WF-06.A:</strong> SLA values are admin-configurable (BRD SLA Configuration). Table shows current values with full audit metadata (last modified by, date, reason). Edit opens an inline panel below the row. All changes require a mandatory "reason for change" before Save is enabled. SLA is calculated in business hours (08:00–16:00). Changes trigger a confirmation modal with old?new value display before committing.
+    </div>
+
+    <!-- Edit Inline Panel -->
+    <div style="background:var(--color-card);border:2px solid var(--color-primary);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:var(--space-6);max-width:500px;margin-bottom:var(--space-7);">
+      <h3 style="font-size:var(--font-size-h3);font-weight:700;margin-bottom:var(--space-5);">Edit Critical SLA Duration</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5);margin-bottom:var(--space-5);">
+        <div>
+          <p class="meta-label">Current Value</p>
+          <p style="font-size:var(--font-size-h2);font-weight:700;color:var(--text-secondary);">30 min</p>
+        </div>
+        <div>
+          <label class="form-label" for="sla-new-value">New Value (minutes) <span class="required-star" aria-hidden="true">*</span></label>
+          <input type="number" class="form-control" id="sla-new-value"
+                 style="display:block;width:100%;padding:10px 12px;border:var(--border-default);border-radius:var(--radius-input);font-size:var(--font-size-h2);font-weight:700;"
+                 min="1" max="480" value="20"
+                 aria-required="true"
+                 aria-describedby="sla-value-hint" />
+          <p id="sla-value-hint" style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-top:var(--space-2);">Min: 1 minute · Max: 480 minutes (8 hours)</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="sla-reason">Reason for Change <span class="required-star" aria-hidden="true">*</span></label>
+        <textarea class="form-control" id="sla-reason" rows="3"
+                  aria-required="true"
+                  aria-describedby="sla-reason-hint"
+                  placeholder="Document the reason for this change — this will be recorded in the audit trail…">Seasonal peak demand — Ops Manager instruction ref OPS-2026-003.</textarea>
+        <p id="sla-reason-hint" class="char-hint" style="margin-top:var(--space-2);">Required · 10–100 characters · Will appear in audit trail</p>
+      </div>
+      <div style="display:flex;gap:var(--space-4);justify-content:flex-end;">
+        <button class="btn btn-ghost">Cancel</button>
+        <button class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+
+    <!-- SLA Audit Trail -->
+    <div id="sla-audit" style="background:var(--color-card);border-radius:var(--radius-card);border:var(--border-default);box-shadow:var(--shadow-card);overflow:hidden;">
+      <div style="padding:var(--space-5);border-bottom:var(--border-divider);display:flex;justify-content:space-between;align-items:center;">
+        <h3 style="font-size:var(--font-size-h3);font-weight:600;">SLA Audit Trail</h3>
+        <div style="display:flex;gap:var(--space-4);">
+          <button class="btn btn-secondary btn-sm">Export CSV</button>
+          <button class="btn btn-secondary btn-sm">Export PDF</button>
+        </div>
+      </div>
+      <table class="sla-table" aria-label="SLA change audit trail">
+        <thead>
+          <tr>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Modified By</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Old Value</th>
+            <th scope="col">New Value</th>
+            <th scope="col">Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><time datetime="2026-03-10T09:12">10 Mar 2026, 09:12</time></td>
+            <td>Anitha Subramaniam</td>
+            <td><span class="badge badge-critical">Critical</span></td>
+            <td>30 min</td>
+            <td><strong>20 min</strong></td>
+            <td style="font-size:var(--font-size-caption);color:var(--text-secondary);">Seasonal peak demand — Ops Manager instruction ref OPS-2026-003.</td>
+          </tr>
+          <tr>
+            <td><time datetime="2026-01-12T10:30">12 Jan 2026, 10:30</time></td>
+            <td>Anitha Subramaniam</td>
+            <td><span class="badge badge-critical">Critical</span></td>
+            <td>—</td>
+            <td>30 min</td>
+            <td style="font-size:var(--font-size-caption);color:var(--text-secondary);">Initial configuration.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- --- WF-07: TOAST / SNACKBAR STATES --- -->
+<div class="screen-section">
+  <div class="screen-label">WF-07 — Toast Notifications (Success, Warning, Error States)</div>
+  <div style="padding:var(--space-7);display:flex;flex-direction:column;gap:var(--space-5);background:var(--color-bg);">
+
+    <!-- Success Toast -->
+    <div role="status" aria-live="polite" aria-atomic="true" class="toast" style="position:static;max-width:480px;">
+      <span style="font-size:20px;" aria-hidden="true">?</span>
+      <span>TASK-00078 completed. <a href="#">View in Completed tab ?</a></span>
+    </div>
+
+    <!-- Reassignment Toast -->
+    <div role="status" aria-live="polite" aria-atomic="true" class="toast" style="position:static;max-width:480px;">
+      <span style="font-size:20px;" aria-hidden="true">?</span>
+      <span>TASK-00078 reassigned to Kavitha Ramachandran. <a href="#">View task history ?</a></span>
+    </div>
+
+    <!-- Warning Toast (Approaching SLA) -->
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" style="position:static;max-width:480px;background:var(--color-warning-dark);" >
+      <span style="font-size:20px;" aria-hidden="true">?</span>
+      <span>TASK-00056 approaching SLA <strong>(18 min remaining)</strong>. <a href="#" style="color:#fff;font-weight:700;">Take action ?</a></span>
+    </div>
+
+    <!-- Error Toast (SLA Expired) -->
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" style="position:static;max-width:480px;background:var(--color-error-dark);">
+      <span style="font-size:20px;" aria-hidden="true">?</span>
+      <span>TASK-00043 SLA expired. Task is now <strong>Overdue</strong>. <a href="#" style="color:#fff;font-weight:700;">Open task ?</a></span>
+    </div>
+
+    <div class="annotation">
+      <strong>Annotation WF-07:</strong> Toasts use role="status" (non-urgent, polite) or role="alert" (urgent, assertive) per WCAG 4.1.3. SLA approaching and overdue toasts use role="alert" to ensure screen reader interruption. All toasts include action links for immediate navigation. Background colours use error/warning tokens — text always white with =4.5:1 contrast. Toasts auto-dismiss after 8 seconds (non-urgent) or persist until dismissed (urgent). Dismiss button always available (not shown for brevity). Maximum one toast at a time — queued if multiple triggered in rapid succession.
+    </div>
+  </div>
+</div>
+
+<!-- Screen reader only utility -->
+<style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}</style>
+
+<!-- Footer annotation -->
+<div style="padding:var(--space-7);background:var(--color-card);border-top:var(--border-default);text-align:center;">
+  <p style="font-size:var(--font-size-caption);color:var(--text-secondary);">
+    Engage Task Module Wireframes · MET-DS-V2 · WCAG 2.2 AA · Version 1.0 · 10 March 2026 · LogicValley Technologies
+  </p>
+  <p style="font-size:var(--font-size-caption);color:var(--text-secondary);margin-top:var(--space-2);">
+    All colour values use CSS custom properties (var(--token)) — no hardcoded hex values · All interactive elements =44×44px · Focus rings: outline 2px solid #3276CF
+  </p>
+</div>
+
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

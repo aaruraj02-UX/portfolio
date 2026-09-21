@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Brief — Acme Notice Processing System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">DocProcess</span>
+    <a href="ux-brief.html" class="active">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/index.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Brief — ANPS Stage 3 & 5 Response Generation</h1>
+      <div class="doc-meta"><span>📋 Acme Notice Processing System</span><span>🏢 Acme Holdings</span><span>📅 10 June 2026</span><span>🔖 PBD v1.2</span></div>
+    </header>
+    <section class="doc-section">
+      <h2>1. Background</h2>
+      <p>Acme processes Penalty Charge Notice (PCN) challenges on behalf of local authorities. Today the journey from "challenge received" to "letter sent" is highly manual:</p>
+      <ul>
+        <li><strong>Notice IQ councils</strong> — agent opens Notice IQ, picks reason/sub-reason, downloads template from CRM, copies paragraphs from AIRA, pastes into letter and re-uploads</li>
+        <li><strong>Third-party (Non-Notice IQ) councils</strong> — agent jumps across the council's own CRM, AIRA, evidence images and policy PDFs, manually assembling the letter</li>
+      </ul>
+      <p>Stage 3 and Stage 5 will take structured case validation output and <strong>pre-fill the correspondence letter end-to-end</strong>, leaving the agent to <em>review and send</em> rather than <em>assemble</em>. Where AI cannot complete a letter, the case is flagged for agent intervention and QA sample-check.</p>
+    </section>
+    <section class="doc-section">
+      <h2>2. Objectives</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th></tr></thead>
+        <tbody>
+          <tr><td>O1</td><td>Reduce average time to write and send a PCN response letter</td></tr>
+          <tr><td>O2</td><td>Capture Stage 2/4 summary and bind to correct council template paragraphs</td></tr>
+          <tr><td>O3</td><td>Two outcomes per case: <span class="badge badge--green">Automated Complete</span> and <span class="badge badge--amber">Action Required</span></td></tr>
+          <tr><td>O4</td><td>Surface Letter Generation column so AI-complete vs. agent-needed visible at a glance</td></tr>
+          <tr><td>O5</td><td>Route agent-amended letters into QA queue based on sampling % per agent</td></tr>
+          <tr><td>O6</td><td>Highlight every added/deleted passage so QA reviews the diff</td></tr>
+          <tr><td>O7</td><td>100% audit trail of validation, edits, QA decisions and send events</td></tr>
+          <tr><td>O8</td><td>Business updates Knowledge Source and publishes within 24 hours</td></tr>
+          <tr><td>O9</td><td>Print QR code on every outgoing letter</td></tr>
+          <tr><td>O10</td><td>Analytics dashboard delivered with the tool</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="doc-section">
+      <h2>3. Target Users</h2>
+      <table class="doc-table">
+        <thead><tr><th>User</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Processing Agent</strong></td><td>Reviews AI-generated letters; accepts or amends before sending</td></tr>
+          <tr><td><strong>QA Reviewer</strong></td><td>Samples letters per agent-level QA rules; approves or rejects with notes</td></tr>
+          <tr><td><strong>Workflow Manager</strong></td><td>Monitors throughput, backlog, exception cases and QA outcomes</td></tr>
+          <tr><td><strong>Business Knowledge Owner</strong></td><td>Owns Knowledge Source content and council policy paragraphs</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="doc-section">
+      <h2>4. Scope</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">2</div><div class="kpi-label">Stages (3 & 5)</div></div>
+        <div class="kpi-card"><div class="kpi-value">4</div><div class="kpi-label">User Roles</div></div>
+        <div class="kpi-card"><div class="kpi-value">AI</div><div class="kpi-label">Pre-fill Letters</div></div>
+        <div class="kpi-card"><div class="kpi-value">100%</div><div class="kpi-label">Audit Coverage</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

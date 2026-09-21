@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Journeys — FieldSync Task Module</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .journey-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;box-shadow:var(--shadow)}
+    .journey-card-header h3{font-size:1rem;font-weight:700}
+    .journey-card-header .journey-meta{font-size:.75rem;color:var(--text-muted);margin-top:.25rem}
+    .journey-visual{background:linear-gradient(180deg,#ecfdf5 0%,#fff 100%);border:1px solid #bbf7d0;border-radius:10px;padding:1.5rem 1rem;overflow-x:auto;margin-top:1rem}
+    .j-stages{display:flex;align-items:flex-start;gap:0;min-width:max-content}
+    .j-stage{display:flex;flex-direction:column;align-items:center;width:115px;position:relative}
+    .j-stage:not(:last-child)::after{content:'';position:absolute;top:22px;left:50%;width:100%;height:2px;background:linear-gradient(90deg,#6ee7b7,#10b981);z-index:0}
+    .j-num{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;color:#fff;z-index:1;margin-bottom:.4rem;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+    .j-num--happy{background:linear-gradient(135deg,#10b981,#34d399)}
+    .j-num--neutral{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+    .j-num--stress{background:linear-gradient(135deg,#ef4444,#f87171)}
+    .j-num--focused{background:linear-gradient(135deg,#3b82f6,#60a5fa)}
+    .j-name{font-size:.65rem;font-weight:600;text-align:center;color:var(--text-primary);margin-bottom:.2rem;line-height:1.3}
+    .j-feel{font-size:1.1rem;margin-bottom:.2rem}
+    .j-note{font-size:.56rem;color:var(--text-muted);text-align:center;line-height:1.3;max-width:95px}
+    .emotion-line{margin-top:1.5rem;padding:1rem;background:#fff;border:1px solid var(--border);border-radius:8px}
+    .emotion-line h4{font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:.5rem}
+    .emotion-svg{width:100%;height:60px}
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FieldSync</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html" class="active">User Journeys</a>
+    <a href="../prototype/index.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>User Journey Maps</h1>
+      <div class="doc-meta"><span>🗺️ FieldSync Task Module</span><span>📅 10 March 2026</span></div>
+    </header>
+
+    <!-- Journey 1 -->
+    <div class="journey-card">
+      <div class="journey-card-header"><h3>J-01 — Agent: Receive, Action & Complete a Task</h3><div class="journey-meta">Persona: Ravi Krishnan (Field Agent) &nbsp;|&nbsp; Trigger: Task TASK-00078 assigned at 08:15 &nbsp;|&nbsp; End: Task completed</div></div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--neutral">1</div><div class="j-feel">😐</div><div class="j-name">Awareness</div><div class="j-note">Notification received</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">2</div><div class="j-feel">😟</div><div class="j-name">Login & Nav</div><div class="j-note">4 tasks already</div></div>
+          <div class="j-stage"><div class="j-num j-num--stress">3</div><div class="j-feel">😮</div><div class="j-name">Discovery</div><div class="j-note">Amber SLA — 42 min left</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">4</div><div class="j-feel">🙂</div><div class="j-name">Context Review</div><div class="j-note">Read description</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">5</div><div class="j-feel">💪</div><div class="j-name">Mark In Progress</div><div class="j-note">Action dropdown</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">6</div><div class="j-feel">🤔</div><div class="j-name">Write Comment</div><div class="j-note">53/100 chars</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">7</div><div class="j-feel">😐</div><div class="j-name">Submit</div><div class="j-note">Spinner → toast</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">8</div><div class="j-feel">😌</div><div class="j-name">Confirmed</div><div class="j-note">Dynamic popup</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">9</div><div class="j-feel">😟</div><div class="j-name">Field Work</div><div class="j-note">SLA running, no view</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">10</div><div class="j-feel">🙂</div><div class="j-name">Mark Complete</div><div class="j-note">342 kWh recorded</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">11</div><div class="j-feel">😊</div><div class="j-name">Closed</div><div class="j-note">Moved to Completed</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 550 60" preserveAspectRatio="none">
+          <path d="M15,30 L55,35 L100,50 L150,20 L200,15 L250,30 L300,30 L350,15 L400,45 L450,20 L510,10" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="15" cy="30" r="3.5" fill="#f59e0b"/><circle cx="55" cy="35" r="3.5" fill="#f59e0b"/><circle cx="100" cy="50" r="3.5" fill="#ef4444"/><circle cx="150" cy="20" r="3.5" fill="#3b82f6"/><circle cx="200" cy="15" r="3.5" fill="#10b981"/><circle cx="250" cy="30" r="3.5" fill="#f59e0b"/><circle cx="300" cy="30" r="3.5" fill="#f59e0b"/><circle cx="350" cy="15" r="3.5" fill="#10b981"/><circle cx="400" cy="45" r="3.5" fill="#ef4444"/><circle cx="450" cy="20" r="3.5" fill="#3b82f6"/><circle cx="510" cy="10" r="3.5" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Journey 2 -->
+    <div class="journey-card">
+      <div class="journey-card-header"><h3>J-02 — Agent: Handle Critical Task Mid-Shift</h3><div class="journey-meta">Persona: Ravi Krishnan &nbsp;|&nbsp; Trigger: Critical SLA task arrives mid-field-work &nbsp;|&nbsp; 30 min deadline</div></div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--stress">1</div><div class="j-feel">😰</div><div class="j-name">Alert!</div><div class="j-note">Critical — 30 min SLA</div></div>
+          <div class="j-stage"><div class="j-num j-num--stress">2</div><div class="j-feel">😟</div><div class="j-name">Context Switch</div><div class="j-note">Stop current task</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">3</div><div class="j-feel">💪</div><div class="j-name">Accept & Act</div><div class="j-note">Mark In Progress</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">4</div><div class="j-feel">😐</div><div class="j-name">Execute</div><div class="j-note">Time-pressured work</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">5</div><div class="j-feel">😌</div><div class="j-name">Complete in SLA</div><div class="j-note">28 min — within SLA!</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">6</div><div class="j-feel">🙂</div><div class="j-name">Resume Previous</div><div class="j-note">Back to original task</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 320 60" preserveAspectRatio="none">
+          <path d="M20,55 L70,45 L130,20 L195,30 L255,10 L300,18" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="55" r="4" fill="#ef4444"/><circle cx="70" cy="45" r="4" fill="#ef4444"/><circle cx="130" cy="20" r="4" fill="#3b82f6"/><circle cx="195" cy="30" r="4" fill="#f59e0b"/><circle cx="255" cy="10" r="4" fill="#10b981"/><circle cx="300" cy="18" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Journey 3 -->
+    <div class="journey-card">
+      <div class="journey-card-header"><h3>J-03 — Manager: Morning SLA Review & Reassignment</h3><div class="journey-meta">Persona: Priya Sharma (Manager) &nbsp;|&nbsp; Trigger: Start of day SLA review &nbsp;|&nbsp; Goal: Identify and resolve at-risk tasks</div></div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--focused">1</div><div class="j-feel">☕</div><div class="j-name">Open Dashboard</div><div class="j-note">Morning check</div></div>
+          <div class="j-stage"><div class="j-num j-num--neutral">2</div><div class="j-feel">🧐</div><div class="j-name">Review Metrics</div><div class="j-note">3 overdue, 5 approaching</div></div>
+          <div class="j-stage"><div class="j-num j-num--stress">3</div><div class="j-feel">😟</div><div class="j-name">Identify Risk</div><div class="j-note">Critical task unactioned</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">4</div><div class="j-feel">🙂</div><div class="j-name">Reassign</div><div class="j-note">Pick available agent</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">5</div><div class="j-feel">😊</div><div class="j-name">Confirm</div><div class="j-note">Audit logged</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">6</div><div class="j-feel">✅</div><div class="j-name">Monitor</div><div class="j-note">Dashboard updated</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 320 60" preserveAspectRatio="none">
+          <path d="M20,20 L70,30 L130,48 L195,20 L255,12 L300,10" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="4" fill="#3b82f6"/><circle cx="70" cy="30" r="4" fill="#f59e0b"/><circle cx="130" cy="48" r="4" fill="#ef4444"/><circle cx="195" cy="20" r="4" fill="#3b82f6"/><circle cx="255" cy="12" r="4" fill="#10b981"/><circle cx="300" cy="10" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Journey 4 -->
+    <div class="journey-card">
+      <div class="journey-card-header"><h3>J-04 — Admin: Reconfigure SLA Thresholds</h3><div class="journey-meta">Persona: Anitha (Admin) &nbsp;|&nbsp; Trigger: Business requests SLA change &nbsp;|&nbsp; Goal: Update config with audit trail</div></div>
+      <div class="journey-visual">
+        <div class="j-stages">
+          <div class="j-stage"><div class="j-num j-num--focused">1</div><div class="j-feel">🙂</div><div class="j-name">Navigate to Config</div><div class="j-note">Admin → SLA</div></div>
+          <div class="j-stage"><div class="j-num j-num--focused">2</div><div class="j-feel">🙂</div><div class="j-name">Review Current</div><div class="j-note">Priority table</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">3</div><div class="j-feel">😊</div><div class="j-name">Edit Duration</div><div class="j-note">High: 60→90 min</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">4</div><div class="j-feel">✅</div><div class="j-name">Save & Confirm</div><div class="j-note">Change logged</div></div>
+          <div class="j-stage"><div class="j-num j-num--happy">5</div><div class="j-feel">😌</div><div class="j-name">Verify Audit</div><div class="j-note">Trail shows change</div></div>
+        </div>
+      </div>
+      <div class="emotion-line">
+        <h4>Emotional Arc</h4>
+        <svg class="emotion-svg" viewBox="0 0 280 60" preserveAspectRatio="none">
+          <path d="M20,20 L75,18 L140,12 L210,8 L260,10" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="4" fill="#3b82f6"/><circle cx="75" cy="18" r="4" fill="#3b82f6"/><circle cx="140" cy="12" r="4" fill="#10b981"/><circle cx="210" cy="8" r="4" fill="#10b981"/><circle cx="260" cy="10" r="4" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

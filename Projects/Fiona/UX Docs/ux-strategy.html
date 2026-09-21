@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Strategy — FinOps Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">FinOps</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html" class="active">UX Strategy</a>
+    <a href="flow-map.html">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/Dashboard.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>UX Strategy — FinOps Admin Dashboard</h1>
+      <div class="doc-meta"><span>📋 FinOps KPI Metrics</span><span>📅 10 April 2026</span><span>🔖 v1.0</span></div>
+    </header>
+    <section class="doc-section">
+      <h2>1. Vision</h2>
+      <blockquote style="border-left:4px solid var(--accent);padding:.75rem 1.25rem;background:var(--accent-light);border-radius:0 8px 8px 0;font-style:italic;font-size:1rem;">
+        Provide administrators with a single, intuitive monitoring surface that replaces fragmented processes — enabling real-time awareness, proactive exception handling, and data-driven decisions across all FinOps modules.<br><br>
+        <strong>Experience goal:</strong> Within 60 seconds, any admin can answer: "Is anything stuck, failing, or trending wrong?"
+      </blockquote>
+    </section>
+    <section class="doc-section">
+      <h2>2. UX Principles</h2>
+      <div class="principle-grid">
+        <div class="principle-card"><h4>Clarity</h4><p>KPI cards use plain language, trend arrows, and semantic colour badges (On Track / At Risk / Breached)</p></div>
+        <div class="principle-card"><h4>Reliability</h4><p>Shimmer loaders during refresh; error states with retry; no stale data without warning</p></div>
+        <div class="principle-card"><h4>Guidance</h4><p>SLA-breached approvals highlighted in red; actionable insights surface highest-impact first</p></div>
+        <div class="principle-card"><h4>Transparency</h4><p>Filter changes trigger loading states; timestamps show freshness; tooltips explain KPI definitions</p></div>
+        <div class="principle-card"><h4>Consistency</h4><p>MET-DS-V2 enforced; standardised card layouts; consistent donut centre format</p></div>
+        <div class="principle-card"><h4>Efficiency</h4><p>Drill-down in 2 clicks max; filters persist across sessions; export in 3 clicks</p></div>
+      </div>
+    </section>
+    <section class="doc-section">
+      <h2>3. Strategic Objectives & KPIs</h2>
+      <table class="doc-table">
+        <thead><tr><th>#</th><th>Objective</th><th>UX KPI</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>SO1</td><td>Reduce time to find bottlenecks</td><td>Time to find SLA-breached approvals</td><td>&lt; 15 seconds</td></tr>
+          <tr><td>SO2</td><td>Eliminate manual reporting</td><td>Export task completion rate</td><td>100%, &lt; 3 clicks</td></tr>
+          <tr><td>SO3</td><td>Improve drill-down discovery</td><td>First-click accuracy on legend</td><td>&gt; 80%</td></tr>
+          <tr><td>SO4</td><td>High perceived usability</td><td>SUS score</td><td>&gt; 75 (Good)</td></tr>
+          <tr><td>SO5</td><td>Inclusive access</td><td>WCAG 2.2 AA compliance</td><td>0 critical violations</td></tr>
+          <tr><td>SO6</td><td>Reduce context-switching</td><td>Admin monitoring in dashboard</td><td>&gt; 70%</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="doc-section">
+      <h2>4. Strategic Pillars</h2>
+      <h3>Pillar 1 — Simplify Workflows</h3>
+      <table class="doc-table">
+        <thead><tr><th>Aspect</th><th>Current</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>Monitoring</td><td>4+ screens across modules</td><td>Single dashboard surface</td></tr>
+          <tr><td>Escalation</td><td>Manual email to approvers</td><td>In-app "Nudge" notification</td></tr>
+          <tr><td>Reporting</td><td>Copy-paste to Excel</td><td>One-click export (CSV/PDF)</td></tr>
+          <tr><td>Trend analysis</td><td>No visual trends</td><td>Trend arrows + period charts</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="doc-section">
+      <h2>5. Expected Impact</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-value">75%</div><div class="kpi-label">Fewer Screens Needed</div></div>
+        <div class="kpi-card"><div class="kpi-value">&lt;60s</div><div class="kpi-label">Time-to-Insight</div></div>
+        <div class="kpi-card"><div class="kpi-value">&gt;75</div><div class="kpi-label">SUS Score Target</div></div>
+        <div class="kpi-card"><div class="kpi-value">3</div><div class="kpi-label">Clicks to Export</div></div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

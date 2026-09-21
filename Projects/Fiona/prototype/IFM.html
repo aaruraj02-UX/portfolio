@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinOps — Integration Exception Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    /* --- MET-DS-V2 Token Block (Light Theme) — aligned with OAP -- */
+    :root {
+      --color-primary-25:      #F2F5FA;
+      --color-primary-50:      #DEE8F7;
+      --color-primary-75:      #C2D7F2;
+      --color-primary-100:     #A2C1EA;
+      --color-primary-200:     #84ADE4;
+      --color-primary-300:     #6599DE;
+      --color-primary-400:     #4B87D6;
+      --color-primary-500:     #3276CF;
+      --color-primary-600:     #2C66B4;
+      --color-primary-700:     #275798;
+      --color-primary-800:     #22497D;
+      --color-primary-900:     #1C3A62;
+
+      --color-primary:         var(--color-primary-500);
+      --color-primary-hover:   var(--color-primary-600);
+      --color-bg:              var(--color-primary-25);
+      --color-card:            #FFFFFF;
+
+      --text-primary:          #212121;
+      --text-secondary:        #757575;
+      --text-hyperlink:        #3276CF;
+      --text-hyperlink-hover:  #2C66B4;
+      --text-disabled:         #BDBDBD;
+
+      --grey-50:   #FAFAFA;
+      --grey-100:  #F5F5F5;
+      --grey-200:  #EEEEEE;
+      --grey-300:  #E0E0E0;
+      --grey-400:  #BDBDBD;
+      --grey-500:  #9E9E9E;
+      --grey-600:  #757575;
+      --grey-700:  #616161;
+      --grey-800:  #424242;
+      --grey-900:  #212121;
+
+      --color-success:         #43A047;
+      --color-success-dark:    #388E3C;
+      --color-success-bg:      #E8F5E9;
+      --color-error:           #E53935;
+      --color-error-dark:      #D32F2F;
+      --color-error-bg:        #FEEBEE;
+      --color-warning:         #EF6C00;
+      --color-warning-dark:    #F57C00;
+      --color-warning-bg:      #FFF3E0;
+
+      --leftnav-text:          #212121;
+      --leftnav-text-active:   #3276CF;
+      --topnav-text:           #757575;
+      --topnav-icon:           #757575;
+      --topnav-icon-hover:     #616161;
+
+      --border-default:        1px solid #E0E0E0;
+      --border-divider:        1px solid #EEEEEE;
+      --border-focus:          2px solid #3276CF;
+      --radius-card:           16px;
+      --radius-button:         8px;
+      --radius-input:          8px;
+      --radius-pill:           100px;
+
+      --space-1: 2px; --space-2: 4px; --space-3: 8px; --space-4: 12px;
+      --space-5: 16px; --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px; --space-10: 48px;
+
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px; --font-size-h2: 20px; --font-size-h3: 16px;
+      --font-size-body: 14px; --font-size-caption: 12px;
+      --font-weight-bold: 700; --font-weight-semibold: 600;
+      --font-weight-medium: 500; --font-weight-regular: 400;
+
+      --duration-micro: 150ms; --duration-standard: 250ms;
+      --easing-enter: ease-out; --easing-exit: ease-in;
+
+      --shadow-card:   0 1px 4px rgba(50, 118, 207, 0.10);
+      --shadow-modal:  0 8px 32px rgba(0, 0, 0, 0.18);
+      --shadow-focus:  0 0 0 2px #FFFFFF, 0 0 0 4px #3276CF;
+      --divider-color: rgba(22, 43, 72, 0.12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      color: var(--text-primary); background: var(--color-bg);
+      line-height: 1.5; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text-hyperlink); text-decoration: none; }
+    a:hover { color: var(--text-hyperlink-hover); }
+    button { font-family: var(--font-family); cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    /* --- Shell -- */
+    .app-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* --- Top Nav -- */
+    .topnav {
+      display: flex; align-items: center; padding: var(--space-3); gap: var(--space-3);
+      background: var(--color-card); border-bottom: 1px solid var(--divider-color); flex-shrink: 0;
+    }
+    .topnav-brand { display: flex; align-items: center; gap: var(--space-5); flex: 1; }
+    .topnav-brand-content { display: flex; flex-direction: column; gap: 2px; }
+    .topnav-logo { height: 28px; width: fit-content; }
+    .topnav-divider { width: 1px; height: 32px; background: var(--divider-color); flex-shrink: 0; }
+    .topnav-module { font-size: 16px; font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+    .topnav-actions { display: flex; align-items: center; gap: var(--space-5); }
+    .topnav-icon-btn {
+      position: relative; width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--topnav-icon); padding: var(--space-3);
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .topnav-icon-btn:hover { background: var(--color-primary-25); color: var(--topnav-icon-hover); }
+    .topnav-icon-btn .material-symbols-outlined { font-size: 24px; }
+    .notification-badge {
+      position: absolute; top: 0; right: 0; min-width: 20px; height: 20px;
+      background: var(--color-warning); color: #FFFFFF;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      border-radius: var(--radius-pill);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 6.5px; line-height: 1;
+    }
+    .topnav-avatar { width: 32px; height: 32px; border-radius: var(--radius-pill); object-fit: cover; cursor: pointer; }
+
+    /* --- Role Switcher -- */
+    .role-switcher { position: relative; }
+    .role-switcher-trigger {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+      border: 1px solid var(--grey-300); border-radius: var(--radius-pill);
+      background: var(--color-card); color: var(--text-primary);
+      transition: background var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter);
+    }
+    .role-switcher-trigger:hover { background: var(--color-primary-25); border-color: var(--color-primary-100); }
+    .role-switcher-trigger .role-switcher-label {
+      display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;
+    }
+    .role-switcher-trigger .role-switcher-eyebrow {
+      font-size: 10px; font-weight: var(--font-weight-medium); letter-spacing: 0.6px;
+      text-transform: uppercase; color: var(--text-secondary);
+    }
+    .role-switcher-trigger .role-switcher-name {
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+    }
+    .role-switcher-trigger .material-symbols-outlined { font-size: 18px; color: var(--text-secondary); }
+    .role-switcher-menu {
+      position: absolute; top: calc(100% + 6px); right: 0; z-index: 60;
+      min-width: 280px; background: var(--color-card); border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card); box-shadow: var(--shadow-modal);
+      padding: var(--space-3); display: none;
+    }
+    .role-switcher.is-open .role-switcher-menu { display: block; }
+    .role-switcher-menu-heading {
+      font-size: 10px; font-weight: var(--font-weight-bold); letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--text-secondary);
+      padding: var(--space-2) var(--space-3) var(--space-3);
+    }
+    .role-option {
+      display: flex; gap: var(--space-3); align-items: flex-start; width: 100%;
+      padding: var(--space-3); border-radius: var(--radius-button);
+      text-align: left; transition: background var(--duration-micro) var(--easing-enter);
+    }
+    .role-option:hover { background: var(--color-primary-25); }
+    .role-option.is-current { background: var(--color-primary-25); }
+    .role-option .role-option-icon {
+      width: 32px; height: 32px; border-radius: var(--radius-pill); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-primary-50); color: var(--color-primary-700);
+    }
+    .role-option .role-option-icon .material-symbols-outlined { font-size: 18px; }
+    .role-option-body { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .role-option-name { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .role-option-desc { font-size: var(--font-size-caption); color: var(--text-secondary); line-height: 1.4; }
+    .role-option-check { color: var(--color-success); display: none; }
+    .role-option.is-current .role-option-check { display: inline-flex; }
+
+    /* --- Viewing-as banner -- */
+    .role-banner {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary-25); border: 1px solid var(--color-primary-75);
+      border-radius: var(--radius-button); color: var(--text-primary);
+      margin-bottom: var(--space-5);
+    }
+    .role-banner .material-symbols-outlined { color: var(--color-primary-700); font-size: 20px; }
+    .role-banner-text { flex: 1; font-size: var(--font-size-caption); line-height: 1.4; }
+    .role-banner-text strong { font-weight: var(--font-weight-semibold); }
+
+    /* Gating: hide elements not allowed for the active role */
+    [data-role-allow].is-role-hidden { display: none !important; }
+
+    /* --- Main Layout -- */
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* --- Sidebar -- */
+    .sidebar {
+      width: 56px; flex-shrink: 0; background: var(--color-card);
+      border-right: 1px solid var(--divider-color);
+      display: flex; flex-direction: column; padding: var(--space-5) 0;
+      overflow-x: hidden; overflow-y: hidden;
+      transition: width var(--duration-standard) var(--easing-enter); z-index: 10;
+    }
+    .sidebar:hover { overflow-y: auto; }
+    .sidebar.is-expanded { width: 260px; }
+    .sidebar-section { display: flex; flex-direction: column; gap: var(--space-1); }
+    .sidebar-section + .sidebar-section { margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--divider-color); }
+    .sidebar-heading {
+      font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.8px; padding: var(--space-2) var(--space-5);
+      white-space: nowrap; opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar.is-expanded .sidebar-heading { opacity: 1; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-3); color: var(--text-secondary); text-decoration: none;
+      white-space: nowrap; min-height: 40px; margin: 0 var(--space-3);
+      border-radius: 8px;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-link:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-link.is-active { background: var(--color-primary-50); color: var(--color-primary); font-weight: var(--font-weight-medium); }
+    .sidebar-back { color: var(--color-primary); font-weight: var(--font-weight-semibold); text-transform: uppercase; font-size: var(--font-size-caption); letter-spacing: 0.5px; border-radius: 0; margin: 0; padding: var(--space-3) var(--space-5); }
+    .sidebar-back .sidebar-link-text { font-size: var(--font-size-caption); }
+    .sidebar-link .material-symbols-outlined { font-size: 22px; flex-shrink: 0; width: 22px; }
+    .sidebar-link-text { font-size: var(--font-size-body); opacity: 0; transition: opacity var(--duration-micro) var(--easing-enter); overflow: hidden; }
+    .sidebar.is-expanded .sidebar-link-text { opacity: 1; }
+    .sidebar-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: var(--radius-button);
+      color: var(--text-secondary); flex-shrink: 0;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .sidebar-toggle:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .sidebar-toggle .material-symbols-outlined { font-size: 24px; }
+
+    /* --- Content -- */
+    .content-area { flex: 1; overflow-y: auto; padding: var(--space-7); }
+    .content-inner { max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+
+    .page-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-5); }
+    .page-header-left { display: flex; flex-direction: column; gap: var(--space-1); }
+    .page-title { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .page-subtitle { font-size: var(--font-size-body); color: var(--text-secondary); }
+    .page-header-actions { display: flex; gap: var(--space-3); }
+
+    /* --- Buttons -- */
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-5); border-radius: var(--radius-button);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      min-height: 40px; white-space: nowrap;
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .btn .material-symbols-outlined { font-size: 20px; }
+    .btn-primary { background: var(--color-primary); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-primary-25); }
+    .btn-ghost { background: none; color: var(--text-secondary); }
+    .btn-ghost:hover { background: var(--grey-100); color: var(--text-primary); }
+    .btn-text-primary { background: none; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-text-primary:hover { background: var(--color-primary-25); }
+    .btn:disabled, .btn[disabled] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+    .btn-danger { background: var(--color-error); color: #FFFFFF; }
+    .btn-danger:hover { background: var(--color-error-dark); }
+
+    /* --- Status Cards -- */
+    .status-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .status-card {
+      background: var(--color-card); border-radius: var(--radius-card);
+      padding: var(--space-5) var(--space-6); display: flex; align-items: center;
+      gap: var(--space-5); cursor: pointer;
+      transition: box-shadow var(--duration-micro) var(--easing-enter), transform var(--duration-micro) var(--easing-enter);
+      border: 2px solid transparent;
+    }
+    .status-card:hover { box-shadow: var(--shadow-card); transform: translateY(-1px); }
+    .status-card.is-active { border-color: var(--color-primary); }
+    .status-card-icon { width: 40px; height: 40px; border-radius: var(--radius-pill); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .status-card-icon .material-symbols-outlined { font-size: 22px; }
+    .status-card-info { display: flex; flex-direction: column; }
+    .status-card-number { font-size: var(--font-size-h1); font-weight: var(--font-weight-bold); color: var(--text-primary); line-height: 1.2; }
+    .status-card-label { font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+
+    /* --- Toolbar -- */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; }
+    .toolbar-left { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+    .toolbar-right { display: flex; align-items: center; gap: var(--space-3); }
+    .search-box {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card); min-width: 240px;
+    }
+    .search-box .material-symbols-outlined { font-size: 20px; color: var(--grey-500); }
+    .search-box input { border: none; outline: none; background: none; font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary); flex: 1; }
+    .filter-select {
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card);
+      font-family: var(--font-family); font-size: var(--font-size-body); color: var(--text-primary);
+      min-height: 40px;
+    }
+
+    /* --- Selection bar -- */
+    .selection-bar {
+      display: none; align-items: center; justify-content: space-between;
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-primary-50); border-radius: var(--radius-card);
+      color: var(--color-primary-800); font-weight: var(--font-weight-medium);
+    }
+    .selection-bar.is-active { display: flex; }
+    .selection-bar-actions { display: flex; gap: var(--space-3); }
+
+    /* --- Data Table -- */
+    .card-container { background: var(--color-card); border-radius: var(--radius-card); overflow: hidden; }
+    .card-container > .toolbar { padding: var(--space-5); }
+    .table-container { overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-body); table-layout: fixed; min-width: 1400px; }
+    .data-table thead { background: var(--color-card); position: sticky; top: 0; z-index: 2; }
+    .data-table th {
+      padding: var(--space-4) var(--space-3); text-align: left;
+      font-weight: var(--font-weight-semibold); color: var(--text-primary);
+      font-size: var(--font-size-caption); text-transform: uppercase;
+      letter-spacing: 0.5px; white-space: nowrap;
+      border-bottom: 1px solid var(--grey-300); user-select: none;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .data-table td {
+      padding: var(--space-3); border-bottom: 1px solid var(--grey-200);
+      color: var(--text-primary); vertical-align: middle;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .data-table td:last-child { overflow: visible; text-overflow: clip; }
+    .data-table tbody tr { transition: background var(--duration-micro) var(--easing-enter); cursor: pointer; }
+    .data-table tbody tr:hover { background: var(--color-primary-25); }
+    .data-table tbody tr.is-selected { background: var(--color-primary-50); }
+
+    .check-cell { width: 40px; text-align: center; }
+    .check-cell input { width: 16px; height: 16px; accent-color: var(--color-primary); cursor: pointer; }
+    body.hide-row-selection .check-cell { display: none; }
+    body.is-reopen-view:not([data-role="finance-systems"]) .col-status { display: none; }
+    .status-waiting { display: none; }
+    body.is-reopen-view[data-role="finance-systems"] .col-status .status-default { display: none; }
+    body.is-reopen-view[data-role="finance-systems"] .col-status .status-waiting { display: inline-flex; }
+    .row-action-approve,
+    .row-action-reject { display: none; }
+    body.is-reopen-view:not([data-role="finance-systems"]) .row-action-approve,
+    body.is-reopen-view:not([data-role="finance-systems"]) .row-action-reject {
+      display: inline-flex; align-items: center; gap: var(--space-1);
+      width: auto; height: 32px; padding: 0 var(--space-3);
+      border: 1px solid transparent; border-radius: var(--radius-pill);
+      font-family: var(--font-family); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold); white-space: nowrap;
+      cursor: pointer;
+    }
+    body.is-reopen-view .row-action-approve .material-symbols-outlined,
+    body.is-reopen-view .row-action-reject .material-symbols-outlined { font-size: 16px; }
+    .row-action-approve {
+      color: #FFFFFF;
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    .row-action-approve:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+    .row-action-reject {
+      color: #FFFFFF;
+      background: var(--color-error);
+      border-color: var(--color-error);
+    }
+    .row-action-reject:hover { background: var(--color-error-dark); border-color: var(--color-error-dark); }
+
+    .row-edit-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: var(--radius-button);
+      color: var(--text-secondary);
+      transition: background var(--duration-micro) var(--easing-enter), color var(--duration-micro) var(--easing-enter);
+    }
+    .row-edit-btn:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .row-edit-btn .material-symbols-outlined { font-size: 18px; }
+    .row-actions { display: inline-flex; align-items: center; gap: var(--space-1); }
+
+    /* --- Panel Tabs -- */
+    .panel-tabs {
+      display: flex; gap: var(--space-2); padding: 0 var(--space-7);
+      border-bottom: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .panel-tabs.is-hidden { display: none; }
+    .panel-tab {
+      padding: var(--space-4) var(--space-3); font-family: var(--font-family);
+      font-size: var(--font-size-body); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); border-bottom: 2px solid transparent;
+      margin-bottom: -1px; display: inline-flex; align-items: center; gap: var(--space-2);
+      transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter);
+    }
+    .panel-tab .material-symbols-outlined { font-size: 18px; }
+    .panel-tab:hover { color: var(--text-primary); }
+    .panel-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .panel-tabpanel { display: flex; flex-direction: column; gap: var(--space-5); }
+    .panel-tabpanel.is-hidden { display: none; }
+
+    /* --- Badges -- */
+    .badge {
+      display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill); font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium); line-height: 1.5;
+    }
+    .badge--open       { background: var(--color-warning-bg); color: var(--color-warning); }
+    .badge--draft      { background: #F3E5F5; color: #6A1B9A; }
+    .badge--with-md    { background: #FFF8E1; color: #8D6E00; }
+    .badge--with-fs    { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .badge--resolved   { background: var(--color-success-bg); color: var(--color-success-dark); }
+    .badge--ft         { background: var(--grey-100); color: var(--grey-700); }
+    .badge--bad-fail   { background: var(--color-error-bg); color: var(--color-error-dark); }
+    .badge--no-email   { background: var(--grey-100); color: var(--grey-700); }
+    .badge--needs-email{ background: #E3F2FD; color: #1565C0; }
+    .badge--waiting-approval { background: var(--color-warning-bg); color: var(--color-warning-dark); }
+
+    /* --- Table Footer / Pagination -- */
+    .table-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-4) var(--space-5); border-top: 1px solid var(--grey-200);
+      font-size: var(--font-size-caption); color: var(--text-secondary);
+    }
+    .pagination { display: flex; align-items: center; gap: var(--space-3); }
+    .pagination-btn {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-button); color: var(--text-secondary);
+    }
+    .pagination-btn:hover { background: var(--grey-100); }
+    .pagination-btn:disabled { color: var(--grey-300); cursor: default; }
+    .pagination-btn .material-symbols-outlined { font-size: 20px; }
+
+    /* --- Right-Side Panel -- */
+    .edit-panel-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 100;
+    }
+    .edit-panel-overlay.is-open { display: block; }
+    .edit-panel {
+      position: fixed; top: 0; right: -912px; bottom: 0;
+      width: 912px; max-width: 95vw; background: var(--color-card);
+      box-shadow: var(--shadow-modal); z-index: 101;
+      display: flex; flex-direction: column;
+      transition: right var(--duration-standard) var(--easing-enter);
+    }
+    .edit-panel.is-open { right: 0; }
+    .edit-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-6) var(--space-7); border-bottom: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .edit-panel-header-content { display: flex; flex-direction: column; gap: 2px; }
+    .edit-panel-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .edit-panel-subtitle { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .edit-panel-close {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: var(--radius-button); color: var(--text-secondary);
+    }
+    .edit-panel-close:hover { background: var(--grey-100); color: var(--text-primary); }
+    .edit-panel-close .material-symbols-outlined { font-size: 22px; }
+    .edit-panel-body {
+      flex: 1; overflow-y: auto; padding: var(--space-7);
+      display: flex; flex-direction: column; gap: var(--space-5);
+    }
+    .edit-panel-section-title {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+      color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;
+      padding-bottom: var(--space-2); border-bottom: 1px solid var(--grey-200);
+      margin-top: var(--space-4); margin-bottom: var(--space-3);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .edit-panel-section-title:first-child { margin-top: 0; }
+    .edit-panel-section-title .material-symbols-outlined { font-size: 18px; color: var(--color-primary); }
+    .edit-field { display: flex; flex-direction: column; gap: var(--space-1); }
+    .edit-field-label {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium); color: var(--text-secondary);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .edit-field-required { color: var(--color-error); }
+    .edit-field-value { font-size: var(--font-size-body); color: var(--text-primary); padding: var(--space-3) 0; }
+    .edit-field-input, .edit-field-select, .edit-field-textarea {
+      font-family: var(--font-family); font-size: var(--font-size-body);
+      padding: var(--space-3) var(--space-4); border: 1px solid var(--grey-300);
+      border-radius: var(--radius-input); background: var(--color-card);
+      color: var(--text-primary); min-height: 40px; width: 100%;
+    }
+    .edit-field-textarea { min-height: 80px; resize: vertical; font-family: var(--font-family); }
+    .edit-field-input:focus, .edit-field-select:focus, .edit-field-textarea:focus {
+      outline: none; border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px rgba(50,118,207,0.15);
+    }
+    .edit-field-input[readonly], .edit-field-input:disabled { background: var(--grey-50); color: var(--text-secondary); }
+    .edit-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: top; margin-block: var(--space-4); }
+    .edit-field-row--3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-5); align-items: top; margin-block: var(--space-4); }
+    .edit-field-hint { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* Read-only "View" panel summary block (All Records ? View) */
+    .vp-tabs {
+      display: flex; gap: var(--space-5); align-items: center;
+      padding: 0 var(--space-7); border-bottom: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .vp-tab {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-3) 0; border: none; background: none; cursor: pointer;
+      font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      color: var(--text-secondary); border-bottom: 2px solid transparent;
+    }
+    .vp-tab .material-symbols-outlined { font-size: 18px; }
+    .vp-tab:hover { color: var(--text-primary); }
+    .vp-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .vp-tabpanel { display: flex; flex-direction: column; gap: var(--space-5); }
+    .vp-tabpanel.is-hidden { display: none; }
+    .vp-summary-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-5) var(--space-6);
+    }
+    .vp-cell { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+    .vp-cell--full  { grid-column: 1 / -1; }
+    .vp-cell--span2 { grid-column: span 2; }
+    .vp-label {
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+      color: var(--text-secondary);
+    }
+    .vp-value { font-size: var(--font-size-body); color: var(--text-primary); word-break: break-word; }
+    .vp-value--muted { color: var(--text-secondary); }
+    .vp-badge {
+      display: inline-flex; align-items: center; align-self: flex-start;
+      padding: 2px var(--space-3); border-radius: 100px;
+      font-size: var(--font-size-caption); font-weight: var(--font-weight-medium);
+    }
+    .conditional-block {
+      margin-top: var(--space-4);
+      padding: var(--space-4); background: var(--color-primary-25);
+      border-radius: var(--radius-input); border-left: 3px solid var(--color-primary);
+    }
+    .edit-panel-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+      padding: var(--space-5) var(--space-7); border-top: 1px solid var(--grey-200); flex-shrink: 0;
+    }
+    .edit-panel-footer-right { display: flex; gap: var(--space-3); }
+
+    /* -- Notes thread (record collaboration) -- */
+    .notes-list { display: flex; flex-direction: column; gap: 0; }
+    .note-item { display: flex; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--divider-color); }
+    .note-item:last-child { border-bottom: none; }
+    .note-avatar {
+      width: 32px; height: 32px; border-radius: var(--radius-pill); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-primary-50); color: var(--color-primary-700);
+      font-size: 11px; font-weight: var(--font-weight-semibold);
+    }
+    .note-avatar.role-md { background: #FFF8E1; color: #8D6E00; }
+    .note-avatar.role-fs { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .note-body { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .note-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-size: 11px; color: var(--text-secondary); }
+    .note-author { font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: 12px; }
+    .note-role {
+      padding: 1px 8px; border-radius: var(--radius-pill);
+      background: var(--grey-100); color: var(--grey-700);
+      font-weight: var(--font-weight-medium); font-size: 10px;
+    }
+    .note-role.role-md { background: #FFF8E1; color: #8D6E00; }
+    .note-role.role-fs { background: var(--color-primary-50); color: var(--color-primary-700); }
+    .note-when { color: var(--text-secondary); }
+    .note-text { font-size: 13px; color: var(--text-primary); line-height: 1.5; white-space: pre-wrap; }
+    .notes-empty { font-size: 12px; color: var(--text-secondary); font-style: italic; padding: var(--space-3) 0; }
+    .notes-compose { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-3); }
+    .notes-compose-actions { display: flex; justify-content: flex-end; margin-top: var(--space-3); }
+
+    /* --- Notes / Audit timeline -- */
+    .audit-list {
+      position: relative;
+      display: flex; flex-direction: column;
+      padding: var(--space-2) 0;
+    }
+    /* Continuous vertical rail aligned to the centre of the dot column */
+    .audit-list::before {
+      content: '';
+      position: absolute;
+      left: 11px;          /* (24px dot column / 2) - (2px rail / 2) */
+      top: var(--space-5);
+      bottom: var(--space-5);
+      width: 2px;
+      background: var(--grey-200);
+      border-radius: 2px;
+    }
+    .audit-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 24px 32px 1fr;   /* dot | avatar | body */
+      align-items: start;
+      column-gap: var(--space-4);
+      padding: var(--space-4) 0;
+    }
+    .audit-item + .audit-item { border-top: 1px dashed var(--grey-200); }
+    .audit-dot {
+      grid-column: 1;
+      justify-self: center;
+      margin-top: 8px;                        /* aligns with avatar centre */
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--color-card);
+      border: 2px solid var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-card); /* masks the rail behind the dot */
+      flex-shrink: 0;
+    }
+    .audit-dot--open   { border-color: var(--color-warning); }
+    .audit-dot--md     { border-color: #C49000; }
+    .audit-dot--fs     { border-color: var(--color-primary); }
+    .audit-dot--resolved { border-color: var(--color-success); background: var(--color-success); }
+    .audit-dot--note   { border-color: var(--grey-400); }
+    .audit-avatar {
+      grid-column: 2;
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: var(--color-primary-100); color: var(--color-primary-700);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: var(--font-weight-semibold); font-size: 12px;
+    }
+    .audit-body {
+      grid-column: 3;
+      display: flex; flex-direction: column; gap: 2px;
+      min-width: 0;
+    }
+    .audit-row {
+      display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .audit-meta { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+    .audit-author { font-weight: var(--font-weight-semibold); color: var(--text-primary); font-size: var(--font-size-body); }
+    .audit-action { font-size: var(--font-size-caption); color: var(--text-secondary); }
+    .audit-text { font-size: var(--font-size-body); color: var(--text-primary); line-height: 1.45; margin-top: 2px; }
+
+    /* --- Modal -- */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4); z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.is-open { display: flex; }
+    .modal {
+      background: var(--color-card); border-radius: var(--radius-card);
+      box-shadow: var(--shadow-modal); width: 520px; max-width: 90vw;
+      padding: var(--space-7); display: flex; flex-direction: column; gap: var(--space-5);
+    }
+    .modal-title { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .modal-body { font-size: var(--font-size-body); color: var(--text-primary); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: var(--space-3); }
+
+    /* --- Toast -- */
+    .toast {
+      position: fixed; top: var(--space-7); left: 50%; transform: translateX(-50%) translateY(-20px);
+      background: var(--color-success); color: #fff; padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-button); font-size: var(--font-size-body); font-weight: var(--font-weight-medium);
+      display: flex; align-items: center; gap: var(--space-3);
+      box-shadow: 0 4px 12px rgba(0,0,0,.18); opacity: 0; pointer-events: none;
+      transition: opacity var(--duration-micro) var(--easing-enter), transform var(--duration-micro) var(--easing-enter);
+      z-index: 1100;
+    }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .toast .material-symbols-outlined { font-size: 20px; color: #fff; }
+
+    /* --- Helper / empty state -- */
+    .helper-banner {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-primary-25); border-radius: var(--radius-card);
+      color: var(--color-primary-900); font-size: var(--font-size-body);
+    }
+    .helper-banner .material-symbols-outlined { color: var(--color-primary); font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .helper-banner-body { display: flex; flex-direction: column; gap: 2px; }
+    .helper-banner-title { font-weight: var(--font-weight-semibold); }
+
+    /* --- View tabs (admin sub-views on Resolved) -- */
+    .view-tabs {
+      display: flex; gap: var(--space-1);
+      border-bottom: 1px solid var(--divider-color);
+      margin-bottom: var(--space-4);
+    }
+    .view-tabs[hidden] { display: none; }
+    .view-tab {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      background: transparent; border: none; border-bottom: 2px solid transparent;
+      color: var(--text-secondary); font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-body); cursor: pointer;
+      transition: color var(--duration-micro) var(--easing-enter), border-color var(--duration-micro) var(--easing-enter);
+      border-radius: 0;
+    }
+    .view-tab:hover { color: var(--color-primary); }
+    .view-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .view-tab .material-symbols-outlined { font-size: 18px; }
+    .view-tab-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 20px; padding: 0 6px; border-radius: var(--radius-pill);
+      background: var(--color-error-bg); color: var(--color-error-dark);
+      font-size: 12px; font-weight: var(--font-weight-semibold);
+    }
+
+    /* --- Responsive -- */
+    @media (max-width: 767px) {
+      .sidebar { display: none; }
+      .status-row { grid-template-columns: 1fr 1fr; }
+      .page-header { flex-direction: column; align-items: flex-start; }
+      .edit-panel { width: 100%; max-width: 100%; }
+      .edit-field-row, .edit-field-row--3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- --- Top Navigation --- -->
+    <header class="topnav" role="banner">
+      <button class="sidebar-toggle" aria-label="Toggle sidebar" id="sidebarToggle">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <div class="topnav-brand">
+        <div class="topnav-brand-content">
+          <a href="LandingPage.html" aria-label="Back to FinOps home">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32'%3E%3Crect width='120' height='32' rx='4' fill='%23312e81'/%3E%3Cpath d='M8 24l4-8 4 4 4-12 4 8' fill='none' stroke='%23a78bfa' stroke-width='2'/%3E%3Ctext x='30' y='21' font-family='system-ui,sans-serif' font-size='13' font-weight='600' fill='white'%3EFinOps%3C/text%3E%3C/svg%3E" alt="FinOps — Enterprise Finance Automation Platform" class="topnav-logo" />
+          </a>
+        </div>
+        <span class="topnav-divider" aria-hidden="true"></span>
+        <span class="topnav-module">Integration Exception Management</span>
+      </div>
+      <div class="topnav-actions">
+        <button class="topnav-icon-btn" aria-label="Notifications — 2 unread">
+          <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+          <span class="notification-badge" aria-hidden="true">2</span>
+        </button>
+
+        <!-- Role Switcher (RBAC: Masterdata User · Finance Systems User · Approver) -->
+        <div class="role-switcher" id="roleSwitcher">
+          <button type="button" class="role-switcher-trigger" id="roleSwitcherBtn"
+                  aria-haspopup="menu" aria-expanded="false" aria-controls="roleSwitcherMenu"
+                  aria-label="Change role — currently viewing as Finance Systems User">
+            <img src="https://i.pravatar.cc/64?img=15" alt="" class="topnav-avatar" />
+            <span class="role-switcher-label">
+              <span class="role-switcher-eyebrow">Viewing as</span>
+              <span class="role-switcher-name" id="roleSwitcherName">Finance Systems User</span>
+            </span>
+            <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+          </button>
+          <div class="role-switcher-menu" id="roleSwitcherMenu" role="menu" aria-labelledby="roleSwitcherBtn">
+            <div class="role-switcher-menu-heading">Change role</div>
+            <button type="button" class="role-option" role="menuitem" data-role="finance-systems">
+              <span class="role-option-icon"><span class="material-symbols-outlined" aria-hidden="true">account_balance</span></span>
+              <span class="role-option-body">
+                <span class="role-option-name">Finance Systems User</span>
+                <span class="role-option-desc">Create, edit, close, send to Masterdata. Resolved records require approval to reopen.</span>
+              </span>
+              <span class="role-option-check material-symbols-outlined" aria-hidden="true">check_circle</span>
+            </button>
+            <button type="button" class="role-option" role="menuitem" data-role="masterdata">
+              <span class="role-option-icon"><span class="material-symbols-outlined" aria-hidden="true">badge</span></span>
+              <span class="role-option-body">
+                <span class="role-option-name">Masterdata User</span>
+                <span class="role-option-desc">View records With Masterdata only — move them to Finance Systems when complete.</span>
+              </span>
+              <span class="role-option-check material-symbols-outlined" aria-hidden="true">check_circle</span>
+            </button>
+            <button type="button" class="role-option" role="menuitem" data-role="approver">
+              <span class="role-option-icon"><span class="material-symbols-outlined" aria-hidden="true">verified_user</span></span>
+              <span class="role-option-body">
+                <span class="role-option-name">Approver</span>
+                <span class="role-option-desc">Approve or reject reopen requests on resolved records.</span>
+              </span>
+              <span class="role-option-check material-symbols-outlined" aria-hidden="true">check_circle</span>
+            </button>
+            <button type="button" class="role-option" role="menuitem" data-role="admin">
+              <span class="role-option-icon"><span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span></span>
+              <span class="role-option-body">
+                <span class="role-option-name">Paul · Admin</span>
+                <span class="role-option-desc">All Finance Systems access plus approve / reject reopen requests.</span>
+              </span>
+              <span class="role-option-check material-symbols-outlined" aria-hidden="true">check_circle</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- --- Main Layout --- -->
+    <div class="main-layout">
+      <!-- --- Sidebar --- -->
+      <nav class="sidebar" id="sidebar" aria-label="IFM navigation">
+        <div class="sidebar-section">
+          <a href="LandingPage.html" class="sidebar-link sidebar-back">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="sidebar-link-text">BACK TO HOME</span>
+          </a>
+        </div>
+        <div class="sidebar-section" data-role-allow="finance-systems masterdata">
+          <span class="sidebar-heading">Records</span>
+          <a href="#filter=all" class="sidebar-link is-active" data-nav-filter="all" data-role-allow="finance-systems masterdata" aria-current="page">
+            <span class="material-symbols-outlined" aria-hidden="true">database</span>
+            <span class="sidebar-link-text">All Records</span>
+          </a>
+          <a href="#filter=all-open" class="sidebar-link" data-nav-filter="all-open" data-role-allow="finance-systems masterdata">
+            <span class="material-symbols-outlined" aria-hidden="true">sync_problem</span>
+            <span class="sidebar-link-text">Open Records</span>
+          </a>
+          <a href="#filter=resolved" class="sidebar-link" data-nav-filter="resolved" data-role-allow="finance-systems">
+            <span class="material-symbols-outlined" aria-hidden="true">task_alt</span>
+            <span class="sidebar-link-text">Resolved Records</span>
+          </a>
+        </div>
+        <div class="sidebar-section" data-role-allow="finance-systems">
+          <span class="sidebar-heading">Configuration</span>
+          <a href="IFM_FailureTypes.html" class="sidebar-link" data-role-allow="finance-systems">
+            <span class="material-symbols-outlined" aria-hidden="true">flag</span>
+            <span class="sidebar-link-text">Failure Types</span>
+          </a>
+        </div>
+        <!-- <div class="sidebar-section">
+          <span class="sidebar-heading">Look up</span>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">domain</span>
+            <span class="sidebar-link-text">Clients</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">corporate_fare</span>
+            <span class="sidebar-link-text">Parent Groups</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">local_shipping</span>
+            <span class="sidebar-link-text">Suppliers</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">person</span>
+            <span class="sidebar-link-text">Customers</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">description</span>
+            <span class="sidebar-link-text">File Types</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">confirmation_number</span>
+            <span class="sidebar-link-text">Halo Tickets</span>
+          </a>
+        </div>
+        <div class="sidebar-section" hidden>
+          <span class="sidebar-heading">Insights</span>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">monitoring</span>
+            <span class="sidebar-link-text">KPI Dashboard</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">assessment</span>
+            <span class="sidebar-link-text">Reports</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">history</span>
+            <span class="sidebar-link-text">Audit Trail</span>
+          </a>
+        </div>
+        <div class="sidebar-section" hidden>
+          <span class="sidebar-heading">Configuration</span>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <span class="sidebar-link-text">Email Recipients</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">tune</span>
+            <span class="sidebar-link-text">Failure Type Rules</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+            <span class="sidebar-link-text">Notifications</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">manage_accounts</span>
+            <span class="sidebar-link-text">User Permissions</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="material-symbols-outlined" aria-hidden="true">settings</span>
+            <span class="sidebar-link-text">Settings</span>
+          </a>
+        </div> -->
+      </nav>
+
+      <!-- --- Content --- -->
+      <main class="content-area" id="main-content">
+        <div class="content-inner">
+
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1 class="page-title" id="pageTitle">All Records</h1>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-secondary" id="sendEmailsBtn" aria-label="Send email for selected records"
+                      data-role-allow="finance-systems" disabled>
+                <span class="material-symbols-outlined" aria-hidden="true">forward_to_inbox</span>
+                Send Email
+              </button>
+              <button class="btn btn-primary" id="newFailureBtn" aria-label="New integration exception"
+                      data-role-allow="finance-systems">
+                <span class="material-symbols-outlined" aria-hidden="true">add</span>
+                New Exception
+              </button>
+            </div>
+          </div>
+
+          <!-- Role banner (updated by role-switcher script) -->
+          <div class="role-banner" id="roleBanner" role="status" aria-live="polite">
+            <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+            <span class="role-banner-text" id="roleBannerText">
+              Viewing as <strong>Finance Systems User</strong> — full access to log, action and resolve integration exceptions.
+            </span>
+          </div>
+
+          <!-- Helper banner -->
+          <div class="helper-banner" role="note" style="display:none;">
+            <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+            <div class="helper-banner-body">
+              <span class="helper-banner-title">Workflow tip</span>
+              <span>Capture a failure ? enter the Halo ticket number ? select records ? <strong>Send Email</strong> to notify recipients. Records with no email rule move straight to <em>With Finance Systems</em>.</span>
+            </div>
+          </div>
+
+          <!-- Status Summary (also acts as filter) -->
+          <div class="status-row" role="list" aria-label="Failure status summary">
+            <div class="status-card" role="listitem" data-filter="all" data-role-allow="finance-systems masterdata" tabindex="0">
+              <div class="status-card-icon" style="background: var(--color-primary-50);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);" aria-hidden="true">database</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">252</span>
+                <span class="status-card-label">All</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem" data-filter="all-open" data-role-allow="finance-systems masterdata" tabindex="0" hidden style="display:none;">
+              <div class="status-card-icon" style="background: var(--color-primary-50);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);" aria-hidden="true">list_alt</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">38</span>
+                <span class="status-card-label">All Open</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem" data-filter="open" data-role-allow="finance-systems" tabindex="0">
+              <div class="status-card-icon" style="background: var(--color-warning-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-warning);" aria-hidden="true">flag</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">12</span>
+                <span class="status-card-label">Open</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem" data-filter="with-md" data-role-allow="finance-systems masterdata" tabindex="0">
+              <div class="status-card-icon" style="background: #FFF8E1;">
+                <span class="material-symbols-outlined" style="color: #8D6E00;" aria-hidden="true">hourglass_top</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">17</span>
+                <span class="status-card-label">With Masterdata</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem" data-filter="with-fs" data-role-allow="finance-systems" tabindex="0">
+              <div class="status-card-icon" style="background: var(--color-primary-50);">
+                <span class="material-symbols-outlined" style="color: var(--color-primary);" aria-hidden="true">engineering</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">9</span>
+                <span class="status-card-label">With Finance Systems</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem" data-filter="resolved" data-role-allow="finance-systems" tabindex="0">
+              <div class="status-card-icon" style="background: var(--color-success-bg);">
+                <span class="material-symbols-outlined" style="color: var(--color-success);" aria-hidden="true">check_circle</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">214</span>
+                <span class="status-card-label">Resolved</span>
+              </div>
+            </div>
+            <div class="status-card" role="listitem" data-filter="draft" data-role-allow="finance-systems" tabindex="0">
+              <div class="status-card-icon" style="background: #F3E5F5;">
+                <span class="material-symbols-outlined" style="color: #6A1B9A;" aria-hidden="true">edit_note</span>
+              </div>
+              <div class="status-card-info">
+                <span class="status-card-number">2</span>
+                <span class="status-card-label">Draft</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selection bar -->
+          <div class="selection-bar" id="selectionBar" role="region" aria-live="polite">
+            <span><strong id="selectionCount">0</strong> record(s) selected</span>
+            <div class="selection-bar-actions">
+              <button class="btn btn-ghost" id="clearSelectionBtn">Clear</button>
+              <button class="btn btn-secondary" id="sendEmailsBtn2" data-role-allow="finance-systems">
+                <span class="material-symbols-outlined" aria-hidden="true">forward_to_inbox</span>
+                Send Email
+              </button>
+            </div>
+          </div>
+
+          <!-- Filters / Toolbar + Data Table Card -->
+          <div class="card-container">
+            <!-- Admin sub-views (only shown on Resolved Records) -->
+            <div class="view-tabs" id="resolvedSubTabs" role="tablist" aria-label="Resolved record views" hidden>
+              <button type="button" class="view-tab is-active" id="tab-resolved-list" role="tab" aria-selected="true" data-view="resolved">
+                <span class="material-symbols-outlined" aria-hidden="true">task_alt</span>
+                Resolved Records
+              </button>
+              <button type="button" class="view-tab" id="tab-reopen-requests" role="tab" aria-selected="false" data-view="reopen-requests">
+                <span class="material-symbols-outlined" aria-hidden="true">flag_circle</span>
+                Reopen Requests
+                <span class="view-tab-badge" id="reopenCount">0</span>
+              </button>
+            </div>
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <div class="search-box">
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                  <input type="search" id="searchInput" placeholder="Search filename, ticket, client…" aria-label="Search failure records" />
+                </div>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn btn-text-primary" aria-label="Choose visible columns">
+                  <span class="material-symbols-outlined" aria-hidden="true">view_column</span>
+                  Columns
+                </button>
+                <button class="btn btn-text-primary" aria-label="Export table to CSV">
+                  <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                  Export
+                </button>
+              </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-container">
+              <div class="table-scroll">
+                <table class="data-table" aria-label="Integration exception records">
+                  <thead>
+                    <tr>
+                      <th class="check-cell" style="text-align: center;"><input type="checkbox" id="selectAll" aria-label="Select all rows" /></th>
+                      <th style="width:8%;">Processed Date</th>
+                      <th style="width:7%;">Agent</th>
+                      <th style="width:8%;">Operating System</th>
+                      <th style="width:7%;">File Type</th>
+                      <th style="width:12%;">Failure Type</th>
+                      <th style="width:11%;">Filename</th>
+                      <th style="width:7%;">Client Code</th>
+                      <th style="width:9%;">Parent Group</th>
+                      <th style="width:8%;">Halo Ticket</th>
+                      <th class="col-status" style="width:10%;">Status</th>
+                      <th style="width:96px;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ifmTableBody">
+                    <!-- Rows injected by script -->
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <span id="tableCount">Showing 1–8 of 38 records</span>
+                <div class="pagination">
+                  <button class="pagination-btn" disabled aria-label="Previous page">
+                    <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                  </button>
+                  <span>Page 1 of 5</span>
+                  <button class="pagination-btn" aria-label="Next page">
+                    <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- --- Right-Side Panel — New / Edit Failure Record --- -->
+  <div class="edit-panel-overlay" id="editOverlay"></div>
+  <aside class="edit-panel" id="editPanel" role="dialog" aria-modal="true" aria-labelledby="editPanelTitle">
+    <div class="edit-panel-header">
+      <div class="edit-panel-header-content">
+        <h2 class="edit-panel-title" id="editPanelTitle">New Exception</h2>
+        <span class="edit-panel-subtitle" id="editPanelSubtitle">Capture an integration exception for resolution</span>
+      </div>
+      <button class="edit-panel-close" id="editPanelClose" aria-label="Close panel">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+
+    <!-- Tab strip (visible in edit mode) -->
+    <div class="panel-tabs is-hidden" id="panelTabs" role="tablist" aria-label="Record sections">
+      <button type="button" class="panel-tab is-active" id="tab-details" data-tab="details" role="tab" aria-selected="true" aria-controls="tabpanel-details">
+        <span class="material-symbols-outlined" aria-hidden="true">edit_note</span>
+        Details
+      </button>
+      <button type="button" class="panel-tab" id="tab-audit" data-tab="audit" role="tab" aria-selected="false" aria-controls="tabpanel-audit">
+        <span class="material-symbols-outlined" aria-hidden="true">history</span>
+        Audit Trail
+      </button>
+    </div>
+
+    <div class="edit-panel-body">
+
+      <!-- ===== Tab: Details ===== -->
+      <div class="panel-tabpanel" id="tabpanel-details" data-panel="details" role="tabpanel" aria-labelledby="tab-details">
+
+      <!-- Read-only summary (shown for Masterdata role) -->
+      <div id="detailsReadonly" hidden style="display:none;"></div>
+
+      <div id="detailsFormWrap">
+
+      <!-- Failure Context -->
+      <span class="edit-panel-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">flag</span>
+        Failure Context
+      </span>
+      <div class="edit-field-row--3">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-date">Processed Date <span class="edit-field-required">*</span></label>
+          <input class="edit-field-input" type="date" id="ip-date" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-os">Operating System <span class="edit-field-required">*</span></label>
+          <select class="edit-field-select" id="ip-os">
+            <option value="">Select…</option>
+            <option>Atlas</option>
+            <option>Onestep</option>
+            <option>Nexum</option>
+            <option>Fleet</option>
+            <option>Genesys Exodus</option>
+          </select>
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-fileType">File Type <span class="edit-field-required">*</span></label>
+          <select class="edit-field-select" id="ip-fileType">
+            <option value="">Select OS first…</option>
+          </select>
+          <span class="edit-field-hint" id="ip-fileTypeHint">Auto-filtered by Operating System</span>
+        </div>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-failure">Failure Type <span class="edit-field-required">*</span></label>
+          <select class="edit-field-select" id="ip-failure">
+            <option value="">Select…</option>
+            <option>Bad Fail</option>
+            <option>Missing Customer Translation</option>
+            <option>Missing Supplier Translation</option>
+            <option>Customer on Hold</option>
+            <option>Supplier on Hold</option>
+            <option>Missing Client Fund Code</option>
+            <option>Period closed</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-filename">Filename <span class="edit-field-required">*</span></label>
+          <input class="edit-field-input" type="text" id="ip-filename" placeholder="e.g. CIR_20260608_001" />
+        </div>
+      </div>
+
+      <!-- Conditional — Other reason -->
+      <div class="conditional-block" id="cond-other" style="display:none;">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-otherReason">Reason <span class="edit-field-required">*</span></label>
+          <input class="edit-field-input" type="text" id="ip-otherReason" placeholder="Describe the failure reason" />
+        </div>
+      </div>
+
+      <!-- Conditional — Supplier on Hold -->
+      <div class="conditional-block" id="cond-supplier" style="display:none;">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-suppNo">D365 Supplier Number <span class="edit-field-required">*</span></label>
+          <input class="edit-field-input" type="text" id="ip-suppNo" placeholder="e.g. V004821MNSL" />
+        </div>
+      </div>
+
+      <!-- Conditional — Customer on Hold -->
+      <div class="conditional-block" id="cond-customer" style="display:none;">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-custNo">D365 Customer Number <span class="edit-field-required">*</span></label>
+          <input class="edit-field-input" type="text" id="ip-custNo" placeholder="e.g. C000048MMGH" />
+        </div>
+      </div>
+
+      <!-- Client / Identification -->
+      <span class="edit-panel-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">domain</span>
+        Client Identification
+      </span>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-clientCode">Client Code <span class="edit-field-required">*</span></label>
+          <input class="edit-field-input" type="text" id="ip-clientCode" placeholder="e.g. C00123" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-parentGroup">Parent Group <span class="edit-field-required">*</span></label>
+          <select class="edit-field-select" id="ip-parentGroup">
+            <option value="">Select…</option>
+            <option>Burlington</option>
+            <option>Acme High Court</option>
+            <option>Rossendales DCA</option>
+            <option>Acme Holdings</option>
+            <option>Rossendales</option>
+            <option>Task</option>
+            <option>Acme TMA &amp; HMCTS</option>
+            <option>Acme DCA</option>
+            <option>Acme CTAX</option>
+            <option>Swift HMCTS</option>
+            <option>Swift TMA &amp; CTAX</option>
+            <option>Collectica</option>
+            <option>Acme Legal Aid</option>
+            <option>Swift DCA</option>
+          </select>
+        </div>
+      </div>
+      <div class="edit-field-row--3">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-clientName">Client Name</label>
+          <input class="edit-field-input" type="text" id="ip-clientName" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-x3bp">X3 BP Code</label>
+          <input class="edit-field-input" type="text" id="ip-x3bp" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-x3supp">X3 Supplier</label>
+          <input class="edit-field-input" type="text" id="ip-x3supp" />
+        </div>
+      </div>
+      <div class="edit-field-row">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-invoice">Invoice Number</label>
+          <input class="edit-field-input" type="text" id="ip-invoice" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-case">Case Number</label>
+          <input class="edit-field-input" type="text" id="ip-case" />
+        </div>
+      </div>
+
+      <!-- Conditional — Amounts -->
+      <div class="conditional-block" id="cond-cir" style="display:none;">
+        <span class="edit-panel-section-title" style="border:none; padding:0; margin-bottom: var(--space-3);">
+          <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+          CIR Amounts
+        </span>
+        <div class="edit-field-row">
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-fees">Fees Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-fees" />
+          </div>
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-comm">Commission Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-comm" />
+          </div>
+        </div>
+      </div>
+
+      <div class="conditional-block" id="cond-cpr" style="display:none;">
+        <span class="edit-panel-section-title" style="border:none; padding:0; margin-bottom: var(--space-3);">
+          <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+          CPR Amounts
+        </span>
+        <div class="edit-field-row--3" style="margin-bottom: var(--space-4);">
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-clientAmt">Client Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-clientAmt" />
+          </div>
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-feeAmt">Fee Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-feeAmt" />
+          </div>
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-costAmt">Cost Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-costAmt" />
+          </div>
+        </div>
+        <div class="edit-field-row">
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-vatAmt">VAT Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-vatAmt" />
+          </div>
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-defVatAmt">Defaulter VAT Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-defVatAmt" />
+          </div>
+        </div>
+      </div>
+
+      <div class="conditional-block" id="cond-dj" style="display:none;">
+        <span class="edit-panel-section-title" style="border:none; padding:0; margin-bottom: var(--space-3);">
+          <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+          Daily Journal Amounts
+        </span>
+        <div class="edit-field-row">
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-debit">Debit Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-debit" />
+          </div>
+          <div class="edit-field">
+            <label class="edit-field-label" for="ip-credit">Credit Amount <span class="edit-field-required">*</span></label>
+            <input class="edit-field-input" type="number" step="0.01" id="ip-credit" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Halo ticket -->
+      <span class="edit-panel-section-title" id="trackingSectionTitle">
+        <span class="material-symbols-outlined" aria-hidden="true">confirmation_number</span>
+        Tracking
+      </span>
+      <div class="edit-field-row" id="trackingFieldRow">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-halo">Halo Mapping Ticket No</label>
+          <input class="edit-field-input" type="text" id="ip-halo" placeholder="e.g. MHL-12345" />
+          <span class="edit-field-hint">Required before sending an email to Masterdata.</span>
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-redrop">Halo Redrop Ticket No</label>
+          <input class="edit-field-input" type="text" id="ip-redrop" placeholder="—" />
+        </div>
+      </div>
+      <div class="edit-field-row" id="redropDetailsRow">
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-redropUid">Redrop UID</label>
+          <input class="edit-field-input" type="text" id="ip-redropUid" placeholder="—" />
+        </div>
+        <div class="edit-field">
+          <label class="edit-field-label" for="ip-redropFilename">Redrop filename</label>
+          <input class="edit-field-input" type="text" id="ip-redropFilename" placeholder="—" />
+        </div>
+      </div>
+
+      <!-- Notes (always visible — collaboration field) -->
+      <span class="edit-panel-section-title">
+        <span class="material-symbols-outlined" aria-hidden="true">forum</span>
+        Notes &amp; Comments
+      </span>
+      <div class="edit-field">
+        <label class="edit-field-label" for="ip-notes">Add a note</label>
+        <textarea class="edit-field-textarea" id="ip-notes" placeholder="Visible to Finance Systems and Masterdata teams"></textarea>
+      </div>
+
+      </div><!-- /detailsFormWrap -->
+
+      </div><!-- /tabpanel-details -->
+
+      <!-- ===== Tab: Audit Trail ===== -->
+      <div class="panel-tabpanel is-hidden" id="tabpanel-audit" data-panel="audit" role="tabpanel" aria-labelledby="tab-audit">
+        <div class="audit-list" id="auditList"></div>
+      </div>
+
+    </div>
+    <div class="edit-panel-footer">
+      <div>
+        <button class="btn btn-danger" id="reopenBtn" data-role-allow="finance-systems masterdata" style="display:none;">
+          <span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>
+          Reopen
+        </button>
+        <button class="btn btn-secondary" id="returnMdBtn" data-role-allow="finance-systems" style="display:none;">
+          <span class="material-symbols-outlined" aria-hidden="true">outbox</span>
+          <span id="returnMdBtnLabel">Assign to Masterdata</span>
+        </button>
+        <button class="btn btn-secondary" id="returnFsBtn" data-role-allow="masterdata" style="display:none;">
+          <span class="material-symbols-outlined" aria-hidden="true">forward</span>
+          Assign to Finance Systems
+        </button>
+      </div>
+      <div class="edit-panel-footer-right">
+        <button class="btn btn-ghost" id="editPanelCancel">Cancel</button>
+        <button class="btn btn-secondary" id="saveDraftBtn" data-role-allow="finance-systems">
+          <span class="material-symbols-outlined" aria-hidden="true">save</span>
+          Save Draft
+        </button>
+        <button class="btn btn-primary" id="editPanelSubmit" data-role-allow="finance-systems">
+          <span class="material-symbols-outlined" aria-hidden="true">check</span>
+          <span id="editPanelSubmitLabel">Submit</span>
+        </button>
+        <button class="btn btn-primary" id="closeRecordBtn" data-role-allow="finance-systems" style="display:none;">
+          <span class="material-symbols-outlined" aria-hidden="true">task_alt</span>
+          Mark as Resolved
+        </button>
+        <button class="btn btn-danger" id="rejectReopenBtn" data-role-allow="approver admin" style="display:none;">
+          <span class="material-symbols-outlined" aria-hidden="true">cancel</span>
+          Reject
+        </button>
+        <button class="btn btn-primary" id="approveReopenBtn" data-role-allow="approver admin" style="display:none;">
+          <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+          Approve
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- --- Right-Side Panel — Read-only View (All Records ? View) --- -->
+  <div class="edit-panel-overlay" id="viewOverlay"></div>
+  <aside class="edit-panel" id="viewPanel" role="dialog" aria-modal="true" aria-labelledby="viewPanelTitle" aria-hidden="true">
+    <div class="edit-panel-header">
+      <div class="edit-panel-header-content">
+        <h2 class="edit-panel-title" id="viewPanelTitle">Record</h2>
+        <span class="edit-panel-subtitle" id="viewPanelSubtitle">Read-only view</span>
+      </div>
+      <button class="edit-panel-close" id="viewPanelClose" aria-label="Close panel">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div class="vp-tabs" role="tablist" aria-label="Record sections">
+      <button type="button" class="vp-tab is-active" id="vp-tab-summary" data-vp-tab="summary" role="tab" aria-selected="true" aria-controls="vp-panel-summary">
+        <span class="material-symbols-outlined" aria-hidden="true">description</span>
+        Summary
+      </button>
+      <button type="button" class="vp-tab" id="vp-tab-audit" data-vp-tab="audit" role="tab" aria-selected="false" aria-controls="vp-panel-audit">
+        <span class="material-symbols-outlined" aria-hidden="true">history</span>
+        Audit Trail
+      </button>
+    </div>
+    <div class="edit-panel-body">
+      <div class="vp-tabpanel" id="vp-panel-summary" data-vp-panel="summary" role="tabpanel" aria-labelledby="vp-tab-summary"></div>
+      <div class="vp-tabpanel is-hidden" id="vp-panel-audit" data-vp-panel="audit" role="tabpanel" aria-labelledby="vp-tab-audit">
+        <div class="audit-list" id="vpAuditList"></div>
+      </div>
+    </div>
+    <div class="edit-panel-footer">
+      <div></div>
+      <div class="edit-panel-footer-right">
+        <button class="btn btn-ghost" id="viewPanelDone">Close</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- --- Send Email Confirm Dialog --- -->
+  <div class="modal-overlay" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
+    <div class="modal">
+      <h2 class="modal-title" id="emailModalTitle">Send Email</h2>
+      <div class="modal-body">
+        <p>You are about to send an email for <strong id="emailCount">0</strong> selected record(s). Recipients will be notified based on the configured email rules.</p>
+        <p style="margin-top: var(--space-3); color: var(--text-secondary); font-size: var(--font-size-caption);">Do you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="emailCancel">Cancel</button>
+        <button class="btn btn-primary" id="emailConfirm">
+          <span class="material-symbols-outlined" aria-hidden="true">send</span>
+          Send Email
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- Reopen — Approval Dialog --- -->
+  <div class="modal-overlay" id="reopenModal" role="dialog" aria-modal="true" aria-labelledby="reopenModalTitle">
+    <div class="modal">
+      <h2 class="modal-title" id="reopenModalTitle">Reopen Record — Approval Required</h2>
+      <div class="modal-body">
+        <p>Reopening a resolved record requires approval before it can be moved back to an active state.</p>
+        <p style="margin-top: var(--space-3); color: var(--text-secondary); font-size: var(--font-size-caption);">An approval request will be sent to the approver team. You will be notified once the request is reviewed.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="reopenCancel">Cancel</button>
+        <button class="btn btn-primary" id="reopenConfirm">
+          <span class="material-symbols-outlined" aria-hidden="true">send</span>
+          Send for Approval
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- New Exception — Submit Confirmation Dialog --- -->
+  <div class="modal-overlay" id="submitConfirmModal" role="dialog" aria-modal="true" aria-labelledby="submitConfirmTitle">
+    <div class="modal">
+      <h2 class="modal-title" id="submitConfirmTitle">Submit Exception</h2>
+      <div class="modal-body">
+        <!-- <p>Send an email notification to the respective user (<strong id="submitConfirmRecipient">assigned team</strong>) about this new exception?</p> -->
+        <p>Do you want to submit this exception record and notify the Finance Systems team?</p>
+        <p style="margin-top: var(--space-3); color: var(--text-secondary); font-size: var(--font-size-caption);">Choose <strong>Yes, Send</strong> to submit and notify the Finance Systems team, or <strong>Save as Draft</strong> to keep the record without notifying anyone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="submitConfirmCancel">Cancel</button>
+        <button class="btn btn-secondary" id="submitConfirmDraft">
+          <span class="material-symbols-outlined" aria-hidden="true">save</span>
+          Save as Draft
+        </button>
+        <button class="btn btn-primary" id="submitConfirmSend">
+          <span class="material-symbols-outlined" aria-hidden="true">send</span>
+          Yes, Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- Toast --- -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script>
+    /* -- Sidebar toggle -- */
+    (function() {
+      var sb = document.getElementById('sidebar');
+      var btn = document.getElementById('sidebarToggle');
+      btn.addEventListener('click', function() {
+        sb.classList.toggle('is-expanded');
+        var expanded = sb.classList.contains('is-expanded');
+        btn.setAttribute('aria-label', expanded ? 'Collapse sidebar' : 'Expand sidebar');
+      });
+    })();
+
+    /* -- Role Switcher (IFM RBAC) --
+       Roles per business/IFM/IFM_RBAC.xls:
+         · finance-systems ? Finance Systems User (default)
+         · masterdata      ? Masterdata User
+         · approver        ? Approver (reopen approvals)
+         · admin           ? Paul · Admin (FS access + reopen approve/reject)
+       Persists selection in localStorage so it carries across IFM pages. */
+    (function() {
+      var ROLES = {
+        'finance-systems': {
+          name: 'Finance Systems User',
+          banner: 'Viewing as <strong>Finance Systems User</strong> — create, edit, close and send to Masterdata. Resolved records require approval to reopen.',
+          defaultFilter: 'all'
+        },
+        'masterdata': {
+          name: 'Masterdata User',
+          banner: 'Viewing as <strong>Masterdata User</strong> — read-only access to <em>All Records</em>; action items appear under <em>Open Records</em> assigned to Masterdata.',
+          defaultFilter: 'all-open'
+        },
+        'approver': {
+          name: 'Approver',
+          banner: 'Viewing as <strong>Approver</strong> — review reopen requests on resolved records (read-only otherwise).',
+          defaultFilter: 'resolved'
+        },
+        'admin': {
+          name: 'Paul · Admin',
+          banner: 'Viewing as <strong>Paul · Admin</strong> — full Finance Systems access plus the <em>Reopen Requests</em> queue on Resolved Records.',
+          defaultFilter: 'all'
+        }
+      };
+      var STORAGE_KEY = 'fionaIfmRole';
+
+      function getRole() {
+        var r = null;
+        try { r = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+        return (r && ROLES[r]) ? r : 'finance-systems';
+      }
+      function setRole(r) {
+        try { localStorage.setItem(STORAGE_KEY, r); } catch (e) {}
+      }
+
+      function applyRoleGates() {
+        var role = document.body.dataset.role || 'finance-systems';
+        document.querySelectorAll('[data-role-allow]').forEach(function(el) {
+          var allow = (el.getAttribute('data-role-allow') || '').split(/\s+/);
+          // Admin inherits every Finance-Systems permission.
+          var ok = allow.indexOf(role) !== -1 ||
+                   (role === 'admin' && allow.indexOf('finance-systems') !== -1);
+          el.classList.toggle('is-role-hidden', !ok);
+        });
+      }
+      window.__applyRoleGates = applyRoleGates;
+
+      function applyRole(role) {
+        if (!ROLES[role]) role = 'finance-systems';
+        document.body.dataset.role = role;
+        setRole(role);
+
+        var nameEl   = document.getElementById('roleSwitcherName');
+        var triggerEl= document.getElementById('roleSwitcherBtn');
+        var bannerEl = document.getElementById('roleBannerText');
+        if (nameEl)   nameEl.textContent = ROLES[role].name;
+        if (triggerEl) triggerEl.setAttribute('aria-label', 'Change role — currently viewing as ' + ROLES[role].name);
+        if (bannerEl) bannerEl.innerHTML = ROLES[role].banner;
+
+        document.querySelectorAll('.role-option').forEach(function(opt) {
+          opt.classList.toggle('is-current', opt.dataset.role === role);
+        });
+
+        applyRoleGates();
+
+        // Auto-apply the role's default status filter so the table shows only
+        // records this role is allowed to action.
+        if (typeof window.__applyNavFilter === 'function') {
+          window.__applyNavFilter(ROLES[role].defaultFilter);
+        }
+      }
+      window.__applyRole = applyRole;
+
+      function closeMenu() {
+        var sw = document.getElementById('roleSwitcher');
+        var btn = document.getElementById('roleSwitcherBtn');
+        if (sw) sw.classList.remove('is-open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var sw  = document.getElementById('roleSwitcher');
+        var btn = document.getElementById('roleSwitcherBtn');
+        if (!sw || !btn) return;
+
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = sw.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        document.querySelectorAll('.role-option').forEach(function(opt) {
+          opt.addEventListener('click', function() {
+            var role = opt.dataset.role;
+            applyRole(role);
+            closeMenu();
+            if (window.__showToast) window.__showToast('Switched to ' + ROLES[role].name);
+          });
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!sw.contains(e.target)) closeMenu();
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') closeMenu();
+        });
+
+        applyRole(getRole());
+      });
+    })();
+
+    /* -- Toast helper -- */
+    window.__showToast = function(msg) {
+      var t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('is-visible');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(function() { t.classList.remove('is-visible'); }, 2400);
+    };
+
+    /* -- Sample data -- */
+    var FAILURE_RULES = {
+      'Bad Fail':                     { email:false, badge:'badge--no-email',    label:'No email' },
+      'Missing Customer Translation': { email:true,  badge:'badge--needs-email', label:'? Masterdata' },
+      'Missing Supplier Translation': { email:true,  badge:'badge--needs-email', label:'? Masterdata' },
+      'Customer on Hold':             { email:true,  badge:'badge--needs-email', label:'? Masterdata' },
+      'Supplier on Hold':             { email:true,  badge:'badge--needs-email', label:'? Masterdata' },
+      'Missing Client Fund Code':     { email:false, badge:'badge--no-email',    label:'No email' },
+      'Period closed':                { email:false, badge:'badge--no-email',    label:'No email' },
+      'Other':                        { email:false, badge:'badge--no-email',    label:'No email' }
+    };
+
+    var STATUS_META = {
+      'Draft':                { cls:'badge--draft',   icon:'edit_note' },
+      'Open':                 { cls:'badge--open',    icon:'flag' },
+      'With Masterdata':      { cls:'badge--with-md', icon:'hourglass_top' },
+      'With Finance Systems': { cls:'badge--with-fs', icon:'engineering' },
+      'Resolved':             { cls:'badge--resolved', icon:'check_circle' }
+    };
+
+    var FILE_TYPE_MAP = {
+      'Atlas': ['CIR','CPR','Daily Journal','OPR'],
+      'Onestep':  ['BailiffSummary'],
+      'Nexum':    ['MAARINV'],
+      'Fleet':           ['Standard'],
+      'Genesys Exodus':  ['CIR']
+    };
+
+    var RECORDS = [
+      { id:'F-0042', date:'08/06/2026', agent:'S. Mathiyarasu', os:'Atlas', fileType:'CIR',          failure:'Missing Customer Translation', filename:'CIR_20260608_001', clientCode:'C00123', parentGroup:'Acme Holdings', halo:'MHL-12045', status:'With Masterdata',
+        notes:[
+          { author:'S. Mathiyarasu', role:'Finance Systems', when:'08/06/2026 09:24', text:'Halo ticket raised. Customer code C00123 not yet in D365 translation. Please add and confirm.' },
+          { author:'P. Sharma',      role:'Master Data',     when:'08/06/2026 11:02', text:'Looking into it — will need approval from compliance before adding the translation.' }
+        ] },
+      { id:'F-0041', date:'08/06/2026', agent:'J. Roberts',    os:'Atlas', fileType:'CPR',          failure:'Supplier on Hold',             filename:'CPR_20260608_004', clientCode:'C00089', parentGroup:'Burlington',       halo:'MHL-12044', status:'With Masterdata',
+        notes:[
+          { author:'J. Roberts', role:'Finance Systems', when:'08/06/2026 10:15', text:'Supplier V004821MNSL flagged on hold in D365. Please review and release if appropriate.' }
+        ] },
+      { id:'F-0040', date:'08/06/2026', agent:'S. Mathiyarasu', os:'Nexum',    fileType:'MAARINV',      failure:'Bad Fail',                     filename:'MAARINV_20260608',  clientCode:'C00211', parentGroup:'Rossendales',      halo:'MHL-12041', status:'With Finance Systems' },
+      { id:'F-0039', date:'07/06/2026', agent:'J. Roberts',    os:'Onestep',  fileType:'BailiffSummary', failure:'Missing Client Fund Code',   filename:'BAIL_20260607_002', clientCode:'C00050', parentGroup:'Acme CTAX',     halo:'MHL-12030', status:'Open' },
+      { id:'F-0038', date:'07/06/2026', agent:'A. Patel',      os:'Atlas', fileType:'Daily Journal',  failure:'Missing Supplier Translation', filename:'DJ_20260607_010',  clientCode:'C00177', parentGroup:'Swift HMCTS',      halo:'',           status:'Open' },
+      { id:'F-0037', date:'07/06/2026', agent:'S. Mathiyarasu', os:'Atlas', fileType:'OPR',          failure:'Customer on Hold',             filename:'OPR_20260607_003', clientCode:'C00099', parentGroup:'Collectica',       halo:'MHL-12015', status:'With Masterdata',
+        notes:[
+          { author:'S. Mathiyarasu', role:'Finance Systems', when:'07/06/2026 12:48', text:'Customer C00099 on hold — please confirm if release is possible for this batch.' },
+          { author:'P. Sharma',      role:'Master Data',     when:'07/06/2026 15:30', text:'Released the hold. Re-run the file when convenient.' }
+        ] },
+      { id:'F-0036', date:'06/06/2026', agent:'A. Patel',      os:'Fleet',    fileType:'Standard',     failure:'Period closed',                filename:'FLEET_20260606',    clientCode:'C00033', parentGroup:'Acme DCA',      halo:'MHL-12001', status:'With Finance Systems' },
+      { id:'F-0035', date:'06/06/2026', agent:'J. Roberts',    os:'Atlas', fileType:'CIR',          failure:'Other',                        filename:'CIR_20260606_007', clientCode:'C00144', parentGroup:'Acme TMA & HMCTS', halo:'MHL-11998', status:'Open' },
+      { id:'F-0028', date:'04/06/2026', agent:'S. Mathiyarasu', os:'Atlas', fileType:'CIR',          failure:'Missing Customer Translation', filename:'CIR_20260604_002', clientCode:'C00123', parentGroup:'Acme Holdings', halo:'MHL-11952', status:'Resolved', reopenRequested:true },
+      { id:'F-0026', date:'03/06/2026', agent:'A. Patel',      os:'Atlas', fileType:'CPR',          failure:'Supplier on Hold',             filename:'CPR_20260603_005', clientCode:'C00089', parentGroup:'Burlington',       halo:'MHL-11940', status:'Resolved', reopenRequested:true },
+      { id:'F-0021', date:'02/06/2026', agent:'J. Roberts',    os:'Nexum',    fileType:'MAARINV',      failure:'Bad Fail',                     filename:'MAARINV_20260602',  clientCode:'C00211', parentGroup:'Rossendales',      halo:'MHL-11910', status:'Resolved' },
+      { id:'F-0044', date:'09/06/2026', agent:'S. Mathiyarasu', os:'Atlas', fileType:'CIR',          failure:'Missing Customer Translation', filename:'CIR_20260609_002', clientCode:'C00123', parentGroup:'Acme Holdings', halo:'',           status:'Draft' },
+      { id:'F-0043', date:'09/06/2026', agent:'S. Mathiyarasu', os:'Onestep',  fileType:'BailiffSummary', failure:'Missing Client Fund Code',   filename:'BAIL_20260609_001', clientCode:'C00050', parentGroup:'Acme CTAX',     halo:'',           status:'Draft' }
+    ];
+
+    /* -- Render table -- */
+    function renderTable() {
+      var tbody = document.getElementById('ifmTableBody');
+      tbody.innerHTML = '';
+      RECORDS.forEach(function(r) {
+        var rule = FAILURE_RULES[r.failure] || { badge:'badge--ft', label:'' };
+        var st   = STATUS_META[r.status]   || { cls:'badge--ft' };
+        var tr = document.createElement('tr');
+        tr.dataset.id = r.id;
+        if (r.reopenRequested) tr.dataset.reopen = 'true';
+        tr.innerHTML =
+          '<td class="check-cell"><input type="checkbox" class="row-check" aria-label="Select row" data-id="'+r.id+'" /></td>' +
+          '<td>'+r.date+'</td>' +
+          '<td>'+r.agent+'</td>' +
+          '<td>'+r.os+'</td>' +
+          '<td>'+r.fileType+'</td>' +
+          '<td title="'+r.failure+'"><span class="badge '+rule.badge+'">'+r.failure+'</span></td>' +
+          '<td title="'+r.filename+'">'+r.filename+'</td>' +
+          '<td>'+r.clientCode+'</td>' +
+          '<td title="'+r.parentGroup+'">'+r.parentGroup+'</td>' +
+          '<td>'+(r.halo || '<span style="color:var(--text-secondary);">—</span>')+'</td>' +
+          '<td class="col-status">' +
+            '<span class="badge '+st.cls+' status-default">'+r.status+'</span>' +
+            (r.reopenRequested ? '<span class="badge badge--waiting-approval status-waiting">Waiting for Approval</span>' : '') +
+          '</td>' +
+          '<td>' +
+            '<div class="row-actions">' +
+              '<button class="row-edit-btn" aria-label="Open record '+r.id+'" data-edit="'+r.id+'" title="Edit record"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>' +
+              '<button class="row-edit-btn" aria-label="View audit trail for '+r.id+'" data-audit="'+r.id+'" title="Audit trail"><span class="material-symbols-outlined" aria-hidden="true">history</span></button>' +
+              (r.reopenRequested
+                ? '<button class="row-action-approve" aria-label="Approve reopen request for '+r.id+'" data-approve="'+r.id+'" title="Approve reopen"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span><span>Approve</span></button>'
+                + '<button class="row-action-reject" aria-label="Reject reopen request for '+r.id+'" data-reject="'+r.id+'" title="Reject reopen"><span class="material-symbols-outlined" aria-hidden="true">cancel</span><span>Reject</span></button>'
+                : '') +
+            '</div>' +
+          '</td>';
+        tbody.appendChild(tr);
+      });
+      bindRowEvents();
+      updateRowActionMode();
+    }
+
+    /* All Records is view-only: swap row pencil for an eye icon. */
+    function updateRowActionMode() {
+      var allView = (FILTER_STATE && FILTER_STATE.status === 'all');
+      var role    = (document.body.dataset.role) || 'finance-systems';
+      var fsReopenView = (role === 'finance-systems' && FILTER_STATE && FILTER_STATE.reopenView);
+      document.querySelectorAll('.row-edit-btn[data-edit]').forEach(function(btn) {
+        var icon = btn.querySelector('.material-symbols-outlined');
+        var rid  = btn.getAttribute('data-edit');
+        var tr   = btn.closest('tr');
+        var rowReopen = !!(tr && tr.dataset.reopen === 'true');
+        var viewOnly = allView || (fsReopenView && rowReopen);
+        if (icon) icon.textContent = viewOnly ? 'visibility' : 'edit';
+        btn.setAttribute('title',     viewOnly ? 'View record' : 'Edit record');
+        btn.setAttribute('aria-label', (viewOnly ? 'View record ' : 'Open record ') + rid);
+      });
+    }
+
+    /* -- Row events -- */
+    function bindRowEvents() {
+      document.querySelectorAll('.row-edit-btn[data-edit]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openPanel(btn.getAttribute('data-edit'), 'details');
+        });
+      });
+      document.querySelectorAll('.row-edit-btn[data-audit]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openPanel(btn.getAttribute('data-audit'), 'audit');
+        });
+      });
+      document.querySelectorAll('.row-edit-btn[data-approve]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var rec = RECORDS.find(function(r){ return r.id === btn.getAttribute('data-approve'); });
+          if (rec) {
+            rec.status = 'Open';
+            rec.reopenRequested = false;
+            renderTable();
+            applyFilters();
+            updateReopenCount();
+          }
+          window.__showToast('Reopen approved \u2014 record moved to Open');
+        });
+      });
+      document.querySelectorAll('.row-edit-btn[data-reject]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var rec = RECORDS.find(function(r){ return r.id === btn.getAttribute('data-reject'); });
+          if (rec) {
+            rec.reopenRequested = false;
+            renderTable();
+            applyFilters();
+            updateReopenCount();
+          }
+          window.__showToast('Reopen request rejected \u2014 record stays Resolved');
+        });
+      });
+      document.querySelectorAll('#ifmTableBody tr').forEach(function(tr) {
+        tr.addEventListener('click', function(e) {
+          if (e.target.closest('.row-check') || e.target.closest('.row-edit-btn')) return;
+          openPanel(tr.dataset.id, 'details');
+        });
+      });
+      document.querySelectorAll('.row-check').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          cb.closest('tr').classList.toggle('is-selected', cb.checked);
+          updateSelection();
+        });
+      });
+    }
+
+    /* -- Select-all + selection bar -- */
+    document.getElementById('selectAll').addEventListener('change', function(e) {
+      var checked = e.target.checked;
+      document.querySelectorAll('.row-check').forEach(function(cb) {
+        cb.checked = checked;
+        cb.closest('tr').classList.toggle('is-selected', checked);
+      });
+      updateSelection();
+    });
+
+    document.getElementById('clearSelectionBtn').addEventListener('click', function() {
+      document.querySelectorAll('.row-check').forEach(function(cb) {
+        cb.checked = false;
+        cb.closest('tr').classList.remove('is-selected');
+      });
+      document.getElementById('selectAll').checked = false;
+      updateSelection();
+    });
+
+    function updateSelection() {
+      var count = document.querySelectorAll('.row-check:checked').length;
+      var bar = document.getElementById('selectionBar');
+      document.getElementById('selectionCount').textContent = count;
+      bar.classList.toggle('is-active', count > 0);
+      document.getElementById('sendEmailsBtn').disabled = count === 0;
+    }
+
+    /* -- Combined filters: status card + OS + failure type + search -- */
+    var FILTER_STATE = { status: 'all', q: '', reopenView: false };
+    var STATUS_FILTER_MAP = {
+      'all':      '__NOT_DRAFT__',
+      'all-open': '__OPEN__',
+      'open':     'Open',
+      'draft':    'Draft',
+      'with-md':  'With Masterdata',
+      'with-fs':  'With Finance Systems',
+      'resolved': 'Resolved'
+    };
+
+    function applyFilters() {
+      var q = (FILTER_STATE.q || '').toLowerCase().trim();
+      var statusMatch = STATUS_FILTER_MAP[FILTER_STATE.status];
+      var role = (document.body.dataset.role) || 'finance-systems';
+      // Masterdata can only see 'With Masterdata' records regardless of the
+      // selected list view (e.g. Open Records narrows down to their queue),
+      // except in the read-only All Records view where every status is shown.
+      if (role === 'masterdata' && FILTER_STATE.status !== 'all') statusMatch = 'With Masterdata';
+      // Admin's Reopen Requests sub-tab on the Resolved view further narrows
+      // to records that have a pending reopen request.
+      var reopenOnly = !!FILTER_STATE.reopenView;
+      var visible = 0;
+      var total   = 0;
+
+      document.querySelectorAll('#ifmTableBody tr').forEach(function(tr) {
+        total++;
+        var statusBadge  = tr.querySelector('td:nth-child(11) .badge');
+        var osCell       = tr.children[3];
+        var failureCell  = tr.children[5];
+        var filenameCell = tr.children[6];
+        var clientCell   = tr.children[7];
+        var parentCell   = tr.children[8];
+        var haloCell     = tr.children[9];
+
+        var rowStatus  = statusBadge ? statusBadge.textContent.trim() : '';
+        var rowOs      = osCell ? osCell.textContent.trim() : '';
+        var rowFailure = failureCell ? failureCell.textContent.trim() : '';
+        var rowText    = [filenameCell, clientCell, parentCell, haloCell]
+          .map(function(c) { return c ? c.textContent.toLowerCase() : ''; })
+          .join(' ');
+
+        var match =
+          (!statusMatch
+            || (statusMatch === '__OPEN__'
+                  ? (rowStatus !== 'Resolved' && rowStatus !== 'Draft')
+                  : statusMatch === '__NOT_DRAFT__'
+                    ? rowStatus !== 'Draft'
+                    : rowStatus === statusMatch)) &&
+          (!reopenOnly           || tr.dataset.reopen === 'true') &&
+          (!q                    || rowText.indexOf(q) !== -1);
+
+        tr.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+
+      var counter = document.getElementById('tableCount');
+      if (counter) {
+        counter.textContent = visible === total
+          ? 'Showing ' + visible + ' of ' + total + ' records'
+          : 'Showing ' + visible + ' of ' + total + ' records (filtered)';
+      }
+      updateRowActionMode();
+    }
+
+    /* -- Status card filter -- */
+    document.querySelectorAll('.status-card').forEach(function(card) {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.status-card').forEach(function(c) { c.classList.remove('is-active'); });
+        card.classList.add('is-active');
+        FILTER_STATE.status = card.dataset.filter || 'all';
+        if (FILTER_STATE.status !== 'resolved') {
+          FILTER_STATE.reopenView = false;
+          resetResolvedSubTabs();
+        }
+        applyFilters();
+        updateResolvedSubTabsVisibility();
+        updateNewExceptionVisibility();
+        updateSendEmailVisibility();
+        updateResolvedCardVisibility();
+        updateResolvedViewCardsVisibility();
+      });
+    });
+
+    /* New Exception is hidden on the read-only All Records and Resolved Records views. */
+    function updateNewExceptionVisibility() {
+      var btn = document.getElementById('newFailureBtn');
+      if (!btn) return;
+      var hide = (FILTER_STATE.status === 'all' || FILTER_STATE.status === 'resolved');
+      btn.style.display = hide ? 'none' : '';
+    }
+
+    /* Resolved status card is hidden on the Open Records view. */
+    function updateResolvedCardVisibility() {
+      var card = document.querySelector('.status-card[data-filter="resolved"]');
+      if (!card) return;
+      card.style.display = (FILTER_STATE.status === 'all-open') ? 'none' : '';
+    }
+
+    /* On the Resolved Records view, hide the entire status summary row. */
+    function updateResolvedViewCardsVisibility() {
+      var hide = (FILTER_STATE.status === 'resolved');
+      var row = document.querySelector('.status-row');
+      if (row) row.style.display = hide ? 'none' : '';
+    }
+
+    /* Send Email header action is hidden on the read-only All Records view. */
+    function updateSendEmailVisibility() {
+      var btn = document.getElementById('sendEmailsBtn');
+      if (!btn) return;
+      var hide = (FILTER_STATE.status === 'all' || FILTER_STATE.status === 'resolved');
+      btn.style.display = hide ? 'none' : '';
+      document.body.classList.toggle('hide-row-selection', FILTER_STATE.status === 'resolved');
+      if (FILTER_STATE.status === 'resolved') {
+        document.querySelectorAll('.row-check:checked').forEach(function(cb) {
+          cb.checked = false;
+          var tr = cb.closest('tr');
+          if (tr) tr.classList.remove('is-selected');
+        });
+        var selectAll = document.getElementById('selectAll');
+        if (selectAll) selectAll.checked = false;
+        if (typeof updateSelection === 'function') updateSelection();
+      }
+    }
+
+    /* -- Admin Resolved sub-tabs (Resolved list / Reopen Requests) -- */
+    function updateReopenCount() {
+      var n = RECORDS.filter(function(r){ return r.reopenRequested && r.status === 'Resolved'; }).length;
+      var badge = document.getElementById('reopenCount');
+      if (!badge) return;
+      badge.textContent = n;
+      badge.style.display = n > 0 ? '' : 'none';
+    }
+    function updateResolvedSubTabsVisibility() {
+      var subTabs = document.getElementById('resolvedSubTabs');
+      if (!subTabs) return;
+      var role = (document.body.dataset.role) || 'finance-systems';
+      var show = ((role === 'admin' || role === 'finance-systems') && FILTER_STATE.status === 'resolved');
+      subTabs.hidden = !show;
+      if (!show) {
+        FILTER_STATE.reopenView = false;
+        resetResolvedSubTabs();
+      }
+      document.body.classList.toggle('is-reopen-view', !!FILTER_STATE.reopenView);
+      updateReopenCount();
+    }
+    function resetResolvedSubTabs() {
+      document.querySelectorAll('#resolvedSubTabs .view-tab').forEach(function(t) {
+        var isList = t.dataset.view !== 'reopen-requests';
+        t.classList.toggle('is-active', isList);
+        t.setAttribute('aria-selected', isList ? 'true' : 'false');
+      });
+    }
+    document.querySelectorAll('#resolvedSubTabs .view-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('#resolvedSubTabs .view-tab').forEach(function(t) {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        FILTER_STATE.reopenView = (tab.dataset.view === 'reopen-requests');
+        document.body.classList.toggle('is-reopen-view', FILTER_STATE.reopenView);
+        applyFilters();
+      });
+    });
+
+    /* -- Toolbar search -- */
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      FILTER_STATE.q = e.target.value;
+      applyFilters();
+    });
+
+    /* -- Panel: open/close + conditional fields -- */
+    var overlay  = document.getElementById('editOverlay');
+    var panel    = document.getElementById('editPanel');
+    var titleEl  = document.getElementById('editPanelTitle');
+    var subEl    = document.getElementById('editPanelSubtitle');
+    var panelTabs= document.getElementById('panelTabs');
+    var auditList= document.getElementById('auditList');
+
+    /* -- Tabs -- */
+    function setActiveTab(name) {
+      document.querySelectorAll('.panel-tab').forEach(function(t) {
+        var active = t.dataset.tab === name;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      document.querySelectorAll('.panel-tabpanel').forEach(function(p) {
+        p.classList.toggle('is-hidden', p.dataset.panel !== name);
+      });
+    }
+    document.querySelectorAll('.panel-tab').forEach(function(t) {
+      t.addEventListener('click', function() { setActiveTab(t.dataset.tab); });
+    });
+
+    function setMode(mode, record) {
+      // mode: 'new' | 'edit'
+      var submitBtn = document.getElementById('editPanelSubmit');
+      var closeBtn  = document.getElementById('closeRecordBtn');
+      var reopenBtn = document.getElementById('reopenBtn');
+      var returnMd  = document.getElementById('returnMdBtn');
+      var returnMdLbl = document.getElementById('returnMdBtnLabel');
+      var returnFs  = document.getElementById('returnFsBtn');
+      var approveBtn= document.getElementById('approveReopenBtn');
+      var rejectBtn = document.getElementById('rejectReopenBtn');
+      var saveDraftBtn = document.getElementById('saveDraftBtn');
+      var trackingTitle = document.getElementById('trackingSectionTitle');
+      var trackingRow   = document.getElementById('trackingFieldRow');
+      var redropRow     = document.getElementById('redropDetailsRow');
+      var role = (document.body.dataset.role) || 'finance-systems';
+
+      // Reset all action buttons before role/status-driven show
+      [submitBtn, closeBtn, reopenBtn, returnMd, returnFs, approveBtn, rejectBtn, saveDraftBtn].forEach(function(b) {
+        if (b) b.style.display = 'none';
+      });
+
+      if (mode === 'new') {
+        titleEl.textContent = 'New Exception';
+        subEl.textContent   = 'Capture an integration exception for resolution';
+        panelTabs.classList.add('is-hidden');
+        setActiveTab('details');
+        // Only Finance Systems can create; gating also enforced by data-role-allow
+        if (role === 'finance-systems') {
+          submitBtn.style.display = '';
+          saveDraftBtn.style.display = '';
+        }
+        if (trackingTitle) trackingTitle.style.display = 'none';
+        if (trackingRow)   trackingRow.style.display   = 'none';
+        if (redropRow)     redropRow.style.display     = 'none';
+      } else {
+        titleEl.textContent = 'Record ' + record.id + ' · ' + record.failure;
+        subEl.textContent   = record.os + ' · ' + record.fileType + ' · ' + record.filename;
+        renderAudit(record);
+        panelTabs.classList.remove('is-hidden');
+        if (trackingTitle) trackingTitle.style.display = '';
+        if (trackingRow)   trackingRow.style.display   = '';
+        if (redropRow)     redropRow.style.display     = '';
+
+        var st = record.status;
+        // All Records view is view-only for every role — no action buttons.
+        var viewOnly = (FILTER_STATE.status === 'all');
+        // Admin shares every Finance-Systems action; only the Resolved
+        // workflow differs (approve/reject instead of raise-reopen).
+        var effectiveRole = (role === 'admin') ? 'finance-systems' : role;
+        if (viewOnly) {
+          // nothing to show — panel acts as a read-only viewer
+        } else if (effectiveRole === 'finance-systems') {
+          if (st === 'Resolved') {
+            if (role === 'admin' && record.reopenRequested) {
+              // Admin actions the pending reopen request inline in the panel.
+              approveBtn.style.display = '';
+              rejectBtn.style.display  = '';
+            } else if (role !== 'admin') {
+              // FS: Resolved is read-only — must raise reopen request
+              reopenBtn.style.display = '';
+            }
+          } else {
+            // Editable for Open / With Masterdata / With Finance Systems / Draft
+            var submitLabel = document.getElementById('editPanelSubmitLabel');
+            if (st === 'Draft') {
+              // Draft records: only Submit (Cancel is always shown in footer)
+              submitBtn.style.display = '';
+              if (submitLabel) submitLabel.textContent = 'Submit';
+            } else if (st === 'Open') {
+              // Open records: Update + Assign to Masterdata
+              submitBtn.style.display = '';
+              if (submitLabel) submitLabel.textContent = 'Update';
+              returnMd.style.display = '';
+              if (returnMdLbl) returnMdLbl.textContent = 'Assign to Masterdata';
+            } else {
+              if (submitLabel) submitLabel.textContent = 'Submit';
+              closeBtn.style.display = '';
+              // Send/Return to Masterdata is available for With Finance Systems
+              if (st === 'With Finance Systems') {
+                returnMd.style.display = '';
+                if (returnMdLbl) returnMdLbl.textContent = 'Assign to Masterdata';
+              }
+            }
+          }
+        } else if (role === 'masterdata') {
+          // Masterdata can only view With Masterdata records and move them to Finance Systems
+          if (st === 'With Masterdata') {
+            returnFs.style.display = '';
+          }
+        } else if (role === 'approver') {
+          // Approver reviews reopen requests on resolved records
+          if (st === 'Resolved') {
+            approveBtn.style.display = '';
+            rejectBtn.style.display  = '';
+          }
+        }
+      }
+
+      // Lock form fields based on role + status
+      applyFormGating(mode, record);
+      // Re-apply role gating so role hides override the status-driven display above
+      if (window.__applyRoleGates) window.__applyRoleGates();
+    }
+
+    /* -- Lock / unlock panel form fields based on role + status --
+       FS  ? editable on Open / With Masterdata / With Finance Systems · readonly on Resolved
+       MD  ? readonly always (status update only via "Move to Finance Systems")
+       APR ? readonly always (approve/reject only)                                          */
+    var EDIT_PANEL_FIELD_IDS = [
+      'ip-date','ip-os','ip-fileType','ip-failure','ip-filename','ip-otherReason',
+      'ip-suppNo','ip-custNo','ip-clientCode','ip-parentGroup','ip-clientName',
+      'ip-x3bp','ip-x3supp','ip-invoice','ip-case','ip-fees','ip-comm',
+      'ip-clientAmt','ip-feeAmt','ip-costAmt','ip-vatAmt','ip-defVatAmt',
+      'ip-debit','ip-credit','ip-halo','ip-redrop','ip-redropUid','ip-redropFilename','ip-notes'
+    ];
+    function applyFormGating(mode, record) {
+      var role = (document.body.dataset.role) || 'finance-systems';
+      var lock = false;
+      if (mode === 'edit') {
+        // All Records list is view-only for every role.
+        if (FILTER_STATE.status === 'all') lock = true;
+        else if (role === 'finance-systems' || role === 'admin') lock = (record && record.status === 'Resolved');
+        else lock = true; // masterdata + approver are read-only on every record
+      } else {
+        // Only FS and Admin can create
+        lock = !(role === 'finance-systems' || role === 'admin');
+      }
+      EDIT_PANEL_FIELD_IDS.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.disabled = lock;
+      });
+    }
+
+    function renderAudit(r) {
+      renderAuditInto(auditList, r);
+    }
+    function renderAuditInto(target, r) {
+      if (!target) return;
+      var rule = FAILURE_RULES[r.failure] || {};
+      var events = [];
+
+      events.push({
+        dot:'open', author:r.agent, role:'Finance Systems',
+        when:r.date + ' 09:14', action:'Record created',
+        text:'Logged failure record. Halo ticket ' + (r.halo || 'pending') + '.'
+      });
+
+      if (rule.email) {
+        events.push({
+          dot:'md', author:'Finance Systems', role:'System',
+          when:r.date + ' 09:22', action:'Email sent',
+          text:'Email dispatched to <strong>masterdata@acmeholdings.co.uk</strong>. Status ? <strong>With Masterdata</strong>.'
+        });
+      }
+
+      if (r.status === 'With Finance Systems' || r.status === 'Resolved') {
+        events.push({
+          dot:'fs', author:'Masterdata', role:'Master Data Team',
+          when:r.date + ' 14:05', action:'Returned to FS',
+          text:'Translation added in D365. Returning to Finance Systems for redrop.'
+        });
+      }
+
+      if (r.status === 'Resolved') {
+        events.push({
+          dot:'resolved', author:r.agent, role:'Finance Systems',
+          when:r.date + ' 16:30', action:'Resolved',
+          text:'Redrop confirmed and record resolved.'
+        });
+      }
+
+      target.innerHTML = events.map(function(e) {
+        return '<div class="audit-item">' +
+          '<span class="audit-dot audit-dot--' + e.dot + '" aria-hidden="true"></span>' +
+          '<div class="audit-avatar">' + initials(e.author) + '</div>' +
+          '<div class="audit-body">' +
+            '<div class="audit-row">' +
+              '<span class="audit-author">' + e.author + '</span>' +
+              '<span class="audit-meta">' + e.when + '</span>' +
+            '</div>' +
+            '<span class="audit-action">' + e.role + ' · ' + e.action + '</span>' +
+            '<span class="audit-text">' + e.text + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function initials(name) {
+      return name.split(/\s+/).map(function(p){ return p[0]; }).slice(0,2).join('').toUpperCase();
+    }
+
+    function openPanel(recordId, initialTab) {
+      var record = RECORDS.find(function(r) { return r.id === recordId; });
+      // All Records is view-only — route to the dedicated read-only pane.
+      if (record && FILTER_STATE.status === 'all') {
+        openViewPanel(record, initialTab);
+        return;
+      }
+      // Finance Systems on Reopen Requests sub-tab: reopen-requested records are view-only.
+      var role = (document.body.dataset.role) || 'finance-systems';
+      if (record && role === 'finance-systems' && FILTER_STATE.reopenView && record.reopenRequested) {
+        openViewPanel(record, initialTab);
+        return;
+      }
+      CURRENT_RECORD_ID = record ? record.id : null;
+      if (record) {
+        setMode('edit', record);
+        // Populate basic fields
+        document.getElementById('ip-date').value      = toIsoDate(record.date);
+        document.getElementById('ip-os').value        = record.os;
+        refreshFileTypes(record.os, record.fileType);
+        document.getElementById('ip-failure').value   = record.failure;
+        document.getElementById('ip-filename').value  = record.filename;
+        document.getElementById('ip-clientCode').value= record.clientCode;
+        document.getElementById('ip-parentGroup').value = record.parentGroup;
+        document.getElementById('ip-halo').value      = record.halo;
+        toggleConditionals();
+        renderDetailsReadonly(record);
+        setActiveTab(initialTab === 'audit' ? 'audit' : 'details');
+      } else {
+        setMode('new');
+        resetForm();
+        renderDetailsReadonly(null);
+      }
+      overlay.classList.add('is-open');
+      panel.classList.add('is-open');
+    }
+
+    function closePanel() {
+      overlay.classList.remove('is-open');
+      panel.classList.remove('is-open');
+      CURRENT_RECORD_ID = null;
+    }
+
+    /* Render the Details tab as a read-only summary for Masterdata users;
+       otherwise show the editable form. */
+    function renderDetailsReadonly(record) {
+      var ro   = document.getElementById('detailsReadonly');
+      var form = document.getElementById('detailsFormWrap');
+      if (!ro || !form) return;
+      var role = (document.body.dataset.role) || 'finance-systems';
+      var showRo = (role === 'masterdata' && !!record);
+      if (showRo) {
+        ro.innerHTML = buildVpSummary(record) + buildNotesSection(record);
+        ro.hidden = false;
+        ro.style.display = '';
+        form.hidden = true;
+        form.style.display = 'none';
+        bindNotesCompose(record);
+      } else {
+        ro.innerHTML = '';
+        ro.hidden = true;
+        ro.style.display = 'none';
+        form.hidden = false;
+        form.style.display = '';
+      }
+    }
+
+    /* -- Notes thread (record collaboration) -- */
+    function noteRoleClass(role) {
+      if (role === 'Master Data' || role === 'Masterdata') return 'role-md';
+      if (role === 'Finance Systems') return 'role-fs';
+      return '';
+    }
+    function noteInitials(name) {
+      return String(name || '?').split(/\s+/).map(function(p){ return p[0] || ''; }).slice(0,2).join('').toUpperCase();
+    }
+    function buildNotesSection(r) {
+      var notes = (r && r.notes) || [];
+      var listHtml = notes.length
+        ? '<div class="notes-list">' + notes.map(function(n) {
+            var rc = noteRoleClass(n.role);
+            return ''
+              + '<div class="note-item">'
+              +   '<div class="note-avatar ' + rc + '">' + vpEsc(noteInitials(n.author)) + '</div>'
+              +   '<div class="note-body">'
+              +     '<div class="note-meta">'
+              +       '<span class="note-author">' + vpEsc(n.author) + '</span>'
+              +       '<span class="note-role ' + rc + '">' + vpEsc(n.role) + '</span>'
+              +       '<span class="note-when">' + vpEsc(n.when) + '</span>'
+              +     '</div>'
+              +     '<div class="note-text">' + vpEsc(n.text) + '</div>'
+              +   '</div>'
+              + '</div>';
+          }).join('') + '</div>'
+        : '<div class="notes-empty">No notes yet \u2014 add the first one below.</div>';
+      return ''
+        + '<span class="edit-panel-section-title">'
+        +   '<span class="material-symbols-outlined" aria-hidden="true">forum</span>'
+        +   'Notes &amp; Comments'
+        + '</span>'
+        + listHtml
+        + '<div class="notes-compose">'
+        +   '<label class="edit-field-label" for="md-noteInput">Add a note</label>'
+        +   '<textarea class="edit-field-textarea" id="md-noteInput" placeholder="Visible to Finance Systems and Masterdata teams"></textarea>'
+        +   '<div class="notes-compose-actions">'
+        +     '<button type="button" class="btn btn-secondary" id="md-noteAddBtn">'
+        +       '<span class="material-symbols-outlined" aria-hidden="true">add_comment</span>'
+        +       'Add Note'
+        +     '</button>'
+        +   '</div>'
+        + '</div>';
+    }
+    function currentNotePersona() {
+      var role = (document.body.dataset.role) || 'finance-systems';
+      if (role === 'masterdata') return { author:'P. Sharma',      role:'Master Data' };
+      if (role === 'approver')   return { author:'L. Andersson',   role:'Approver' };
+      if (role === 'admin')      return { author:'Paul \u00b7 Admin', role:'Admin' };
+      return                            { author:'S. Mathiyarasu', role:'Finance Systems' };
+    }
+    function nowStamp() {
+      var d = new Date();
+      var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+      return pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear()
+           + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+    function bindNotesCompose(record) {
+      var input = document.getElementById('md-noteInput');
+      var btn   = document.getElementById('md-noteAddBtn');
+      if (!input || !btn) return;
+      btn.addEventListener('click', function() {
+        var text = (input.value || '').trim();
+        if (!text) {
+          if (window.__showToast) window.__showToast('Note cannot be empty', true);
+          input.focus();
+          return;
+        }
+        if (!record.notes) record.notes = [];
+        var who = currentNotePersona();
+        record.notes.push({ author: who.author, role: who.role, when: nowStamp(), text: text });
+        if (window.__showToast) window.__showToast('Note added');
+        renderDetailsReadonly(record);
+      });
+    }
+
+    /* -- Read-only View pane (All Records ? View) -- */
+    var viewOverlay  = document.getElementById('viewOverlay');
+    var viewPanel    = document.getElementById('viewPanel');
+    var vpTitleEl    = document.getElementById('viewPanelTitle');
+    var vpSubEl      = document.getElementById('viewPanelSubtitle');
+    var vpSummaryEl  = document.getElementById('vp-panel-summary');
+    var vpAuditEl    = document.getElementById('vpAuditList');
+
+    function vpEsc(v) {
+      if (v == null || v === '') return '<span class="vp-value--muted">—</span>';
+      return String(v).replace(/[&<>"']/g, function(c) {
+        return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+      });
+    }
+    function buildVpSummary(r) {
+      var st   = STATUS_META[r.status]   || { cls:'badge--ft' };
+      var rule = FAILURE_RULES[r.failure] || { badge:'badge--ft', label:'' };
+      var routing = rule.label
+        ? '<span class="vp-badge ' + rule.badge + '">' + vpEsc(rule.label) + '</span>'
+        : '<span class="vp-value--muted">—</span>';
+      return ''
+        + '<span class="edit-panel-section-title">'
+        +   '<span class="material-symbols-outlined" aria-hidden="true">flag</span>'
+        +   'Failure Context'
+        + '</span>'
+        + '<div class="vp-summary-grid">'
+        +   '<div class="vp-cell"><span class="vp-label">Record ID</span><span class="vp-value">' + vpEsc(r.id) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">Processed Date</span><span class="vp-value">' + vpEsc(r.date) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">Status</span><span class="vp-badge ' + st.cls + '">' + vpEsc(r.status) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">Operating System</span><span class="vp-value">' + vpEsc(r.os) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">File Type</span><span class="vp-value">' + vpEsc(r.fileType) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">Raised By</span><span class="vp-value">' + vpEsc(r.agent) + '</span></div>'
+        +   '<div class="vp-cell vp-cell--span2"><span class="vp-label">Failure Type</span><span class="vp-value">' + vpEsc(r.failure) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">Routing</span>' + routing + '</div>'
+        +   '<div class="vp-cell vp-cell--full"><span class="vp-label">Filename</span><span class="vp-value">' + vpEsc(r.filename) + '</span></div>'
+        + '</div>'
+        + '<span class="edit-panel-section-title">'
+        +   '<span class="material-symbols-outlined" aria-hidden="true">domain</span>'
+        +   'Client Identification'
+        + '</span>'
+        + '<div class="vp-summary-grid">'
+        +   '<div class="vp-cell"><span class="vp-label">Client Code</span><span class="vp-value">' + vpEsc(r.clientCode) + '</span></div>'
+        +   '<div class="vp-cell vp-cell--span2"><span class="vp-label">Parent Group</span><span class="vp-value">' + vpEsc(r.parentGroup) + '</span></div>'
+        + '</div>'
+        + '<span class="edit-panel-section-title">'
+        +   '<span class="material-symbols-outlined" aria-hidden="true">confirmation_number</span>'
+        +   'Tracking'
+        + '</span>'
+        + '<div class="vp-summary-grid">'
+        +   '<div class="vp-cell"><span class="vp-label">Halo Mapping Ticket No</span><span class="vp-value">' + vpEsc(r.halo) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">Halo Redrop Ticket No</span><span class="vp-value">' + vpEsc(r.redrop) + '</span></div>'
+        +   '<div class="vp-cell"><span class="vp-label">Redrop UID</span><span class="vp-value">' + vpEsc(r.redropUid) + '</span></div>'
+        +   '<div class="vp-cell vp-cell--span2"><span class="vp-label">Redrop filename</span><span class="vp-value">' + vpEsc(r.redropFilename) + '</span></div>'
+        + '</div>';
+    }
+    function setActiveViewTab(name) {
+      document.querySelectorAll('#viewPanel .vp-tab').forEach(function(t) {
+        var active = t.dataset.vpTab === name;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      document.querySelectorAll('#viewPanel .vp-tabpanel').forEach(function(p) {
+        p.classList.toggle('is-hidden', p.dataset.vpPanel !== name);
+      });
+    }
+    function openViewPanel(record, initialTab) {
+      if (!record) return;
+      vpTitleEl.textContent = 'Record ' + record.id + ' · ' + record.failure;
+      vpSubEl.textContent   = record.os + ' · ' + record.fileType + ' · ' + record.filename;
+      vpSummaryEl.innerHTML = buildVpSummary(record);
+      renderAuditInto(vpAuditEl, record);
+      setActiveViewTab(initialTab === 'audit' ? 'audit' : 'summary');
+      viewPanel.setAttribute('aria-hidden', 'false');
+      viewOverlay.classList.add('is-open');
+      viewPanel.classList.add('is-open');
+    }
+    function closeViewPanel() {
+      viewOverlay.classList.remove('is-open');
+      viewPanel.classList.remove('is-open');
+      viewPanel.setAttribute('aria-hidden', 'true');
+    }
+    document.querySelectorAll('#viewPanel .vp-tab').forEach(function(t) {
+      t.addEventListener('click', function() { setActiveViewTab(t.dataset.vpTab); });
+    });
+    document.getElementById('viewPanelClose').addEventListener('click', closeViewPanel);
+    document.getElementById('viewPanelDone').addEventListener('click', closeViewPanel);
+    viewOverlay.addEventListener('click', closeViewPanel);
+
+    function resetForm() {
+      ['ip-date','ip-os','ip-fileType','ip-failure','ip-filename','ip-otherReason',
+       'ip-suppNo','ip-custNo','ip-clientCode','ip-parentGroup','ip-clientName',
+       'ip-x3bp','ip-x3supp','ip-invoice','ip-case','ip-fees','ip-comm',
+       'ip-clientAmt','ip-feeAmt','ip-costAmt','ip-vatAmt','ip-defVatAmt',
+       'ip-debit','ip-credit','ip-halo','ip-redrop','ip-redropUid','ip-redropFilename','ip-notes'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      var today = new Date();
+      document.getElementById('ip-date').value =
+        today.toISOString().slice(0,10);
+      toggleConditionals();
+    }
+
+    function toIsoDate(dmy) {
+      // dd/mm/yyyy ? yyyy-mm-dd
+      var p = dmy.split('/');
+      if (p.length !== 3) return '';
+      return p[2] + '-' + p[1] + '-' + p[0];
+    }
+
+    function refreshFileTypes(os, selected) {
+      var sel = document.getElementById('ip-fileType');
+      var hint = document.getElementById('ip-fileTypeHint');
+      sel.innerHTML = '';
+      var list = FILE_TYPE_MAP[os] || [];
+      if (!list.length) {
+        sel.innerHTML = '<option value="">Select OS first…</option>';
+        hint.textContent = 'Auto-filtered by Operating System';
+        return;
+      }
+      sel.appendChild(new Option('Select…',''));
+      list.forEach(function(ft) {
+        sel.appendChild(new Option(ft, ft));
+      });
+      if (selected) sel.value = selected;
+      else if (list.length === 1) sel.value = list[0];
+      hint.textContent = list.length === 1 ? 'Auto-filled for ' + os : 'Pick the file type for ' + os;
+    }
+
+    function toggleConditionals() {
+      var failure  = document.getElementById('ip-failure').value;
+      var fileType = document.getElementById('ip-fileType').value;
+      document.getElementById('cond-other').style.display    = failure === 'Other' ? '' : 'none';
+      document.getElementById('cond-supplier').style.display = failure === 'Supplier on Hold' ? '' : 'none';
+      document.getElementById('cond-customer').style.display = failure === 'Customer on Hold' ? '' : 'none';
+      document.getElementById('cond-cir').style.display      = fileType === 'CIR' ? '' : 'none';
+      document.getElementById('cond-cpr').style.display      = fileType === 'CPR' ? '' : 'none';
+      document.getElementById('cond-dj').style.display       = fileType === 'Daily Journal' ? '' : 'none';
+    }
+
+    document.getElementById('ip-os').addEventListener('change', function(e) {
+      refreshFileTypes(e.target.value);
+      toggleConditionals();
+    });
+    document.getElementById('ip-fileType').addEventListener('change', toggleConditionals);
+    document.getElementById('ip-failure').addEventListener('change', toggleConditionals);
+
+    document.getElementById('newFailureBtn').addEventListener('click', function() { openPanel(null); });
+    document.getElementById('editPanelClose').addEventListener('click', closePanel);
+    document.getElementById('editPanelCancel').addEventListener('click', closePanel);
+    document.getElementById('saveDraftBtn').addEventListener('click', function() {
+      closePanel(); window.__showToast('Draft saved');
+    });
+    document.getElementById('editPanelSubmit').addEventListener('click', function() {
+      // For a New Exception, ask whether to notify the respective user or save as a draft.
+      if (CURRENT_RECORD_ID === null) {
+        var failure = document.getElementById('ip-failure').value;
+        var recipient = 'Masterdata team';
+        if (failure === 'Supplier on Hold' || failure === 'Customer on Hold') {
+          recipient = 'Accounts Payable team';
+        } else if (failure === 'Other') {
+          recipient = 'Finance Systems team';
+        }
+        var recEl = document.getElementById('submitConfirmRecipient');
+        if (recEl) recEl.textContent = recipient;
+        document.getElementById('submitConfirmModal').classList.add('is-open');
+        return;
+      }
+      closePanel(); window.__showToast('Failure record created');
+    });
+    document.getElementById('submitConfirmCancel').addEventListener('click', function() {
+      document.getElementById('submitConfirmModal').classList.remove('is-open');
+    });
+    document.getElementById('submitConfirmDraft').addEventListener('click', function() {
+      document.getElementById('submitConfirmModal').classList.remove('is-open');
+      closePanel(); window.__showToast('Draft saved — no notification sent');
+    });
+    document.getElementById('submitConfirmSend').addEventListener('click', function() {
+      document.getElementById('submitConfirmModal').classList.remove('is-open');
+      closePanel(); window.__showToast('Exception submitted — notification sent');
+    });
+    document.getElementById('submitConfirmModal').addEventListener('click', function(e) {
+      if (e.target === e.currentTarget) e.currentTarget.classList.remove('is-open');
+    });
+    document.getElementById('closeRecordBtn').addEventListener('click', function() {
+      closePanel(); window.__showToast('Record marked as Resolved');
+    });
+    document.getElementById('reopenBtn').addEventListener('click', function() {
+      document.getElementById('reopenModal').classList.add('is-open');
+    });
+    document.getElementById('reopenCancel').addEventListener('click', function() {
+      document.getElementById('reopenModal').classList.remove('is-open');
+    });
+    document.getElementById('reopenConfirm').addEventListener('click', function() {
+      document.getElementById('reopenModal').classList.remove('is-open');
+      if (CURRENT_RECORD_ID) {
+        var rec = RECORDS.find(function(r){ return r.id === CURRENT_RECORD_ID; });
+        if (rec) { rec.reopenRequested = true; renderTable(); applyFilters(); updateReopenCount(); }
+      }
+      closePanel();
+      window.__showToast('Reopen request sent for approval');
+    });
+    document.getElementById('reopenModal').addEventListener('click', function(e) {
+      if (e.target === e.currentTarget) e.currentTarget.classList.remove('is-open');
+    });
+    document.getElementById('returnMdBtn').addEventListener('click', function() {
+      closePanel(); window.__showToast('Record sent to Masterdata');
+    });
+    document.getElementById('returnFsBtn').addEventListener('click', function() {
+      closePanel(); window.__showToast('Status updated to With Finance Systems');
+    });
+    document.getElementById('approveReopenBtn').addEventListener('click', function() {
+      if (CURRENT_RECORD_ID) {
+        var rec = RECORDS.find(function(r){ return r.id === CURRENT_RECORD_ID; });
+        if (rec) { rec.status = 'Open'; rec.reopenRequested = false; renderTable(); applyFilters(); updateReopenCount(); }
+      }
+      closePanel(); window.__showToast('Reopen approved — record moved to Open');
+    });
+    document.getElementById('rejectReopenBtn').addEventListener('click', function() {
+      if (CURRENT_RECORD_ID) {
+        var rec = RECORDS.find(function(r){ return r.id === CURRENT_RECORD_ID; });
+        if (rec) { rec.reopenRequested = false; renderTable(); applyFilters(); updateReopenCount(); }
+      }
+      closePanel(); window.__showToast('Reopen request rejected — record stays Resolved');
+    });
+    overlay.addEventListener('click', closePanel);
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      if (viewPanel.classList.contains('is-open')) closeViewPanel();
+      else if (panel.classList.contains('is-open')) closePanel();
+    });
+
+    /* -- Email modal -- */
+    function openEmailModal() {
+      var n = document.querySelectorAll('.row-check:checked').length;
+      if (!n) return;
+      document.getElementById('emailCount').textContent = n;
+      document.getElementById('emailModal').classList.add('is-open');
+    }
+    document.getElementById('sendEmailsBtn').addEventListener('click', openEmailModal);
+    document.getElementById('sendEmailsBtn2').addEventListener('click', openEmailModal);
+    document.getElementById('emailCancel').addEventListener('click', function() {
+      document.getElementById('emailModal').classList.remove('is-open');
+    });
+    document.getElementById('emailConfirm').addEventListener('click', function() {
+      document.getElementById('emailModal').classList.remove('is-open');
+      window.__showToast('Email sent successfully');
+    });
+    document.getElementById('emailModal').addEventListener('click', function(e) {
+      if (e.target === e.currentTarget) e.currentTarget.classList.remove('is-open');
+    });
+
+    /* -- Sidebar nav <-> status filter sync -- */
+    function applyNavFilter(filter, opts) {
+      var highlightCard = !(opts && opts.silent);
+      var card = document.querySelector('.status-card[data-filter="' + filter + '"]');
+      if (card && highlightCard) {
+        card.click();
+      } else {
+        // Apply filter state without highlighting any status card (e.g. on initial page load).
+        FILTER_STATE.status = filter || 'all';
+        if (FILTER_STATE.status !== 'resolved') {
+          FILTER_STATE.reopenView = false;
+          resetResolvedSubTabs();
+        }
+        applyFilters();
+        updateNewExceptionVisibility();
+        updateSendEmailVisibility();
+        updateResolvedCardVisibility();
+        updateResolvedViewCardsVisibility();
+      }
+      document.querySelectorAll('.sidebar-link[data-nav-filter]').forEach(function(l) {
+        var match = l.getAttribute('data-nav-filter') === filter;
+        l.classList.toggle('is-active', match);
+        if (match) l.setAttribute('aria-current', 'page'); else l.removeAttribute('aria-current');
+      });
+      var titleMap = { 'all': 'All Records', 'all-open': 'Open Records', 'resolved': 'Resolved Records' };
+      var titleEl = document.getElementById('pageTitle');
+      if (titleEl) titleEl.textContent = titleMap[filter] || 'All Records';
+      updateResolvedSubTabsVisibility();
+    }
+    window.__applyNavFilter = applyNavFilter;
+    function readHashFilter() {
+      var m = /filter=([a-z-]+)/i.exec(window.location.hash || '');
+      return (m && m[1]) || 'all';
+    }
+    document.querySelectorAll('.sidebar-link[data-nav-filter]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var f = link.getAttribute('data-nav-filter');
+        window.history.replaceState(null, '', '#filter=' + f);
+        applyNavFilter(f);
+      });
+    });
+    window.addEventListener('hashchange', function() { applyNavFilter(readHashFilter()); });
+
+    /* -- Init -- */
+    renderTable();
+    resetForm();
+    applyNavFilter(readHashFilter(), { silent: true });
+    updateReopenCount();
+    updateResolvedSubTabsVisibility();
+    updateNewExceptionVisibility();
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

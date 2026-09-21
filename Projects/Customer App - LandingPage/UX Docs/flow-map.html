@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flow Map — Acme Customer App Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../ux-docs.css" />
+  <style>
+    .ia-canvas{background:#f8fafc;border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;position:relative;overflow-x:auto}
+    .ia-canvas::before{content:'INFORMATION ARCHITECTURE';position:absolute;top:12px;left:16px;font-size:.6rem;letter-spacing:.1em;color:var(--text-muted);font-weight:600}
+    .ia-root{text-align:center;margin-bottom:1.5rem}
+    .ia-root-node{display:inline-block;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;padding:.75rem 2rem;border-radius:8px;font-weight:700;font-size:.9rem;box-shadow:0 4px 12px rgba(59,130,246,.3)}
+    .ia-vline{width:2px;height:24px;background:#93c5fd;margin:0 auto}
+    .ia-level{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin:.5rem 0}
+    .ia-card{background:#fff;border:2px solid #93c5fd;border-radius:8px;padding:.6rem 1rem;min-width:130px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+    .ia-card h4{font-size:.72rem;font-weight:700;color:#1e40af;margin-bottom:.25rem}
+    .ia-card p{font-size:.62rem;color:var(--text-muted);line-height:1.3}
+    .ia-card--active{border-color:#3b82f6;background:#eff6ff}
+    .ia-children{display:flex;flex-direction:column;gap:.2rem;margin-top:.4rem;padding-top:.4rem;border-top:1px dashed #cbd5e1}
+    .ia-child{font-size:.58rem;color:var(--text-secondary);padding:.1rem .3rem;background:#f1f5f9;border-radius:3px}
+    .flow-dual{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:1.5rem 0}
+    @media(max-width:768px){.flow-dual{grid-template-columns:1fr}}
+    .flow-section-label{font-size:.8rem;font-weight:700;color:var(--accent);margin-bottom:1rem;text-align:center;text-transform:uppercase;letter-spacing:.05em}
+  </style>
+</head>
+<body>
+  <nav class="doc-nav">
+    <span class="nav-brand">Customer App</span>
+    <a href="ux-brief.html">UX Brief</a>
+    <a href="ux-strategy.html">UX Strategy</a>
+    <a href="flow-map.html" class="active">Flow Map</a>
+    <a href="user-journeys.html">User Journeys</a>
+    <a href="../prototype/Landing-Page.html">Prototype</a>
+  </nav>
+  <div class="doc-page">
+    <header class="doc-header">
+      <h1>Information Architecture — Flow Map</h1>
+      <div class="doc-meta"><span>📐 Acme Customer App Landing Page</span><span>📅 21 May 2026</span></div>
+    </header>
+
+    <!-- Dual Surface Diagram -->
+    <section class="doc-section">
+      <h2>Dual Surface Architecture</h2>
+      <div class="flow-dual">
+        <!-- Customer-Facing -->
+        <div class="ia-canvas">
+          <div class="flow-section-label">External — Customer Portal</div>
+          <div class="ia-root"><div class="ia-root-node" style="font-size:.8rem;padding:.6rem 1.2rem">SMS Link → Sign-In</div></div>
+          <div class="ia-vline"></div>
+          <div class="ia-level">
+            <div class="ia-card ia-card--active">
+              <h4>Home / Timeline</h4>
+              <div class="ia-children">
+                <span class="ia-child">Case summary</span>
+                <span class="ia-child">Visual timeline</span>
+                <span class="ia-child">Pay Now CTA</span>
+                <span class="ia-child">Case switcher</span>
+              </div>
+            </div>
+          </div>
+          <div class="ia-vline"></div>
+          <div class="ia-level">
+            <div class="ia-card"><h4>Make a Payment</h4><div class="ia-children"><span class="ia-child">/pay/review</span><span class="ia-child">Gateway</span><span class="ia-child">Success/Failure</span></div></div>
+            <div class="ia-card"><h4>Enforcement</h4><div class="ia-children"><span class="ia-child">Stage detail</span><span class="ia-child">Consequences</span></div></div>
+            <div class="ia-card"><h4>Support</h4><div class="ia-children"><span class="ia-child">FAQs</span><span class="ia-child">Vulnerability</span><span class="ia-child">Complaints</span><span class="ia-child">Contact</span></div></div>
+          </div>
+        </div>
+
+        <!-- Internal Editor -->
+        <div class="ia-canvas">
+          <div class="flow-section-label">Internal — Landing Page Settings</div>
+          <div class="ia-root"><div class="ia-root-node" style="font-size:.8rem;padding:.6rem 1.2rem">Landing Page Settings</div></div>
+          <div class="ia-vline"></div>
+          <div class="ia-level">
+            <div class="ia-card"><h4>Enforcement Stages</h4><p>Tab 1</p></div>
+            <div class="ia-card"><h4>Make a Payment</h4><p>Tab 2</p></div>
+            <div class="ia-card"><h4>Support</h4><p>Tab 3</p></div>
+            <div class="ia-card"><h4>Alerts / Popups</h4><p>Tab 4</p></div>
+          </div>
+          <div class="ia-vline"></div>
+          <div class="ia-level">
+            <div class="ia-card ia-card--active">
+              <h4>Governance Workflow</h4>
+              <div class="ia-children">
+                <span class="ia-child">Draft → In Review</span>
+                <span class="ia-child">In Review → In Publish</span>
+                <span class="ia-child">In Publish → Published</span>
+                <span class="ia-child">Reject / Refuse paths</span>
+              </div>
+            </div>
+            <div class="ia-card">
+              <h4>Audit Drawer</h4>
+              <div class="ia-children">
+                <span class="ia-child">Timeline view</span>
+                <span class="ia-child">User + timestamp</span>
+                <span class="ia-child">Action + payload</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Governance Flow -->
+    <section class="doc-section">
+      <h2>Content Governance Workflow</h2>
+      <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;padding:1.5rem 0;">
+        <div style="background:#fef3c7;border:2px solid #f59e0b;border-radius:8px;padding:.5rem 1rem;font-size:.75rem;font-weight:600;text-align:center;">Draft<br><span style="font-size:.6rem;color:var(--text-muted)">Author edits</span></div>
+        <div style="width:40px;height:2px;background:#f59e0b;"></div>
+        <div style="background:#dbeafe;border:2px solid #3b82f6;border-radius:8px;padding:.5rem 1rem;font-size:.75rem;font-weight:600;text-align:center;">In Review<br><span style="font-size:.6rem;color:var(--text-muted)">Reviewer checks</span></div>
+        <div style="width:40px;height:2px;background:#3b82f6;"></div>
+        <div style="background:#ede9fe;border:2px solid #8b5cf6;border-radius:8px;padding:.5rem 1rem;font-size:.75rem;font-weight:600;text-align:center;">In Publish<br><span style="font-size:.6rem;color:var(--text-muted)">Publisher verifies</span></div>
+        <div style="width:40px;height:2px;background:#10b981;"></div>
+        <div style="background:#dcfce7;border:2px solid #10b981;border-radius:8px;padding:.5rem 1rem;font-size:.75rem;font-weight:600;text-align:center;">Published<br><span style="font-size:.6rem;color:var(--text-muted)">Live ✓</span></div>
+      </div>
+    </section>
+
+    <!-- Sign-In Flow -->
+    <section class="doc-section">
+      <h2>Sign-In / ID&V Flow</h2>
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:center;padding:1rem 0;">
+        <div style="background:var(--accent-light);border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem;font-size:.7rem;text-align:center;"><strong>SMS Link</strong></div>
+        <span style="color:var(--text-muted)">→</span>
+        <div style="background:var(--accent-light);border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem;font-size:.7rem;text-align:center;"><strong>Sign-In</strong><br>Postcode + secondary</div>
+        <span style="color:var(--text-muted)">→</span>
+        <div style="background:#dcfce7;border:1px solid #86efac;border-radius:8px;padding:.5rem .75rem;font-size:.7rem;text-align:center;"><strong>✓ Success</strong><br>→ Home</div>
+        <span style="color:var(--text-muted);margin-left:2rem;">or</span>
+        <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:.5rem .75rem;font-size:.7rem;text-align:center;"><strong>Retry</strong><br>2 attempts left</div>
+        <span style="color:var(--text-muted)">→</span>
+        <div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:.5rem .75rem;font-size:.7rem;text-align:center;"><strong>Locked</strong><br>Call support</div>
+      </div>
+    </section>
+  </div>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

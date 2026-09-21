@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FieldSync — Profile (Tablet) — MET-DS-V2</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* --------------- MET-DS-V2 Tokens --------------- */
+    :root {
+      --color-primary-25:  #F2F5FA;
+      --color-primary-50:  #DEE8F7;
+      --color-primary-100: #A2C1EA;
+      --color-primary-500: #3276CF;
+      --color-primary-600: #2C66B4;
+      --color-primary-700: #275798;
+      --color-primary-950: #152B48;
+      --color-primary-975: #0C1A2D;
+      --color-primary:        var(--color-primary-500);
+      --color-primary-hover:  var(--color-primary-600);
+      --color-bg:             #F2F5FA;
+      --color-card:           #FFFFFF;
+      --text-primary:         #212121;
+      --text-secondary:       #757575;
+      --grey-50:  #FAFAFA;
+      --grey-100: #F5F5F5;
+      --grey-200: #EEEEEE;
+      --grey-300: #E0E0E0;
+      --grey-400: #BDBDBD;
+      --grey-500: #9E9E9E;
+      --grey-600: #757575;
+      --grey-700: #616161;
+      --grey-900: #212121;
+      --color-success:    #43A047;
+      --color-success-bg: #E8F5E9;
+      --color-error:      #E53935;
+      --color-error-bg:   #FEEBEE;
+      --color-warning:    #FF9800;
+      --color-warning-bg: #FFF3E0;
+      --orange-600: #FB8C00;
+      --orange-700: #F57C00;
+      --red-600: #E53935;
+      --border-default: 1px solid #E0E0E0;
+      --border-divider: 1px solid #162B481F;
+      --divider-color: #162B481F;
+      --radius-card:   4px;
+      --radius-button: 4px;
+      --radius-input:  4px;
+      --radius-chip:   16px;
+      --radius-pill:   100px;
+      --space-1:  2px;  --space-2: 4px;  --space-3: 8px;  --space-4: 12px;
+      --space-5: 16px;  --space-6: 20px; --space-7: 24px; --space-8: 32px;
+      --space-9: 40px;  --space-10: 48px;
+      --font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-size-h1: 24px;
+      --font-size-h6: 20px;
+      --font-size-h2: 20px;
+      --font-size-h3: 16px;
+      --font-size-body: 14px;
+      --font-size-body1: 16px;
+      --font-size-caption: 12px;
+      --font-size-chip: 13px;
+      --font-weight-bold: 700;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 500;
+      --font-weight-regular: 400;
+      --shadow-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.20);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-body);
+      color: var(--text-primary);
+      background: #1E2330;
+      min-height: 100vh;
+      padding: var(--space-7);
+    }
+
+    /* --------- Tablet Frame (1280×800 landscape) --------- */
+    .tablet-frame {
+      width: 1280px;
+      max-width: 100%;
+      margin: 0 auto;
+      background: var(--color-card);
+      border-radius: 12px;
+      border: 2px solid var(--grey-300);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.32);
+      overflow: hidden;
+    }
+
+    /* --------- iPadOS Status Bar --------- */
+    .status-bar {
+      height: 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--space-7);
+      background: var(--color-card);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--grey-900);
+    }
+    .status-bar .right {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      color: var(--grey-700);
+    }
+    .status-bar .right .material-icons-outlined { font-size: 14px; }
+
+    /* --------- App Shell --------- */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      height: 764px;
+    }
+
+    /* --------- Left Rail Nav --------- */
+    .rail {
+      background: var(--color-card);
+      border-right: var(--border-default);
+      padding: var(--space-4) 0;
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      overflow-y: auto;
+    }
+    .rail-brand {
+      width: 44px; height: 44px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: var(--space-3);
+    }
+    .rail-brand img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .rail-item {
+      width: 84px;
+      padding: var(--space-3) var(--space-2);
+      border-radius: var(--radius-card);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 2px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      text-align: center;
+      line-height: 1.2;
+      cursor: pointer;
+    }
+    .rail-item .material-icons-outlined { font-size: 24px; }
+    .rail-item:hover { background: var(--color-primary-25); color: var(--color-primary); }
+    .rail-item.active {
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+    }
+    .rail-item.active .material-icons-outlined {
+      color: var(--color-primary);
+    }
+
+    /* --------- Content Area --------- */
+    .content {
+      background: #ffffff;
+      padding: var(--space-5);
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    /* Page header (Figma Task Module spec: h6 title, divider after) */
+    .page-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: var(--space-4);
+      min-height: 32px;
+    }
+    .page-header-actions {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+    }
+    .page-title {
+      margin: 0;
+      font-size: var(--font-size-h6);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      line-height: 1.6;
+      letter-spacing: 0.15px;
+    }
+    .page-divider {
+      height: 1px;
+      background: var(--divider-color);
+      margin: 0;
+      border: 0;
+    }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      height: 30px;
+      padding: 0 var(--space-4);
+      border-radius: var(--radius-chip);
+      border: var(--border-default);
+      background: var(--color-card);
+      font-size: var(--font-size-chip);
+      letter-spacing: 0.16px;
+      color: var(--grey-700);
+    }
+    .status-pill .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #3FAE5A;
+    }
+    .icon-btn {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-button);
+      background: transparent;
+      color: var(--text-secondary);
+      border: 0; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .icon-btn:hover { background: var(--grey-100); color: var(--text-primary); }
+    .icon-btn .material-icons-outlined { font-size: 24px; }
+
+    /* Profile card */
+    .profile-card {
+      background: var(--color-primary-25);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-card);
+      padding: var(--space-5) var(--space-6);
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .profile-row {
+      display: flex; align-items: center; gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .profile-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--color-primary-100);
+      color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: var(--font-weight-medium);
+      font-size: 20px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .profile-id-block {
+      display: flex; flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+      flex: 1;
+    }
+    .profile-name {
+      margin: 0;
+      font-size: 22px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .profile-subline {
+      display: inline-flex; align-items: center;
+      gap: var(--space-3);
+      color: var(--grey-600);
+      font-size: var(--font-size-body);
+      line-height: 1.4;
+      flex-wrap: wrap;
+    }
+    .profile-subline .profile-id { color: var(--grey-600); }
+    .profile-subline .profile-sep { color: var(--grey-400); }
+    .profile-subline .profile-email { color: var(--grey-600); }
+    .profile-tags {
+      display: inline-flex; gap: var(--space-3);
+      margin-left: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .tag {
+      padding: 6px var(--space-4);
+      border-radius: var(--radius-pill);
+      background: var(--color-primary);
+      color: #fff;
+      font-size: var(--font-size-chip);
+      font-weight: var(--font-weight-medium);
+      line-height: 1;
+      letter-spacing: 0.16px;
+    }
+    .profile-meta {
+      display: flex; align-items: center; gap: var(--space-7);
+      flex-wrap: wrap;
+      color: var(--text-primary);
+      font-size: var(--font-size-body);
+    }
+    .profile-meta .item {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+    }
+    .profile-meta .material-icons-outlined { font-size: 18px; color: var(--grey-700); }
+
+    /* Performance section */
+    .perf-header {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--space-4);
+    }
+    .perf-title {
+      margin: 0;
+      font-size: var(--font-size-h6);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      letter-spacing: 0.15px;
+    }
+    .range-toggle {
+      display: inline-flex;
+      background: var(--grey-100);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      gap: 2px;
+    }
+    .range-toggle button {
+      border: 0; cursor: pointer;
+      padding: 6px var(--space-4);
+      border-radius: var(--radius-pill);
+      background: transparent;
+      font: inherit;
+      font-size: var(--font-size-caption);
+      color: var(--grey-700);
+    }
+    .range-toggle button.active {
+      background: var(--color-card);
+      color: var(--grey-900);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* 3-column performance grid */
+    .perf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-5);
+    }
+    .perf-col {
+      padding: var(--space-3) var(--space-4);
+      border-right: var(--border-default);
+    }
+    .perf-col:last-child { border-right: 0; }
+    .perf-col:nth-child(3n) { border-right: 0; }
+    .perf-col:nth-child(n+4) {
+      /* border-top: var(--border-default); */
+      padding-top: var(--space-5);
+    }
+    .perf-col .col-title {
+      font-size: var(--font-size-h3);
+      color: var(--grey-700);
+      font-weight: var(--font-weight-regular);
+      margin: 0 0 var(--space-5);
+    }
+
+    /* Total Jobs */
+    .totaljobs-head {
+      display: flex; align-items: center; justify-content: space-between;
+      /* margin-bottom: var(--space-6); */
+    }
+    .totaljobs-head .col-title {
+      font-size: var(--font-size-h3);
+      color: var(--grey-600);
+      font-weight: var(--font-weight-regular);
+      margin: 0;
+    }
+    .totaljobs-head .num {
+      font-size: 36px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .priority-rows {
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .priority-row {
+      background: #FAFBFC;
+      border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card);
+      padding: var(--space-3) ;
+    }
+    .priority-row .top {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-size: var(--font-size-body);
+      margin-bottom: var(--space-3);
+    }
+    .priority-row .top .swatch {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .priority-row.high .swatch { background: #F44336; }
+    .priority-row.medium .swatch { background: #FFA726; }
+    .priority-row.low .swatch { background: #6599DE; }
+    .priority-row .lbl {
+      flex: 1; color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+    }
+    .priority-row .stats {
+      display: inline-flex; align-items: baseline; gap: var(--space-3);
+      color: var(--grey-600);
+      font-size: var(--font-size-body);
+    }
+    .priority-row .stats .v {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-body1);
+    }
+    .priority-row .stats .v .ok   { color: #2E7D32; font-weight: var(--font-weight-semibold); }
+    .priority-row .stats .v .info { color: #E56800; font-weight: var(--font-weight-semibold); }
+    .priority-row .stats .v .ko   { color: #C62828; font-weight: var(--font-weight-semibold); }
+    .priority-row .stats .v .sep { color: var(--grey-500); margin: 0 2px; }
+    .priority-bar {
+      display: flex;
+      height: 8px; background: var(--grey-200);
+      border-radius: var(--radius-pill); overflow: hidden;
+    }
+    .priority-bar > span {
+      display: block; height: 100%;
+    }
+    .priority-bar .seg-success { background: #43A047; }
+    .priority-bar .seg-info    { background: #FFA726; }
+    .priority-bar .seg-aborted { background: #F44336; }
+
+    /* Total Jobs legend */
+    .totaljobs-legend {
+      display: flex; align-items: center; gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+    .totaljobs-legend .legend-item {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-body);
+      color: var(--grey-700);
+    }
+    .totaljobs-legend .legend-swatch {
+      width: 10px; height: 10px; border-radius: 2px;
+      display: inline-block;
+    }
+    .totaljobs-legend .legend-swatch.success { background: #43A047; }
+    .totaljobs-legend .legend-swatch.info    { background: #FFA726; }
+    .totaljobs-legend .legend-swatch.aborted { background: #F44336; }
+
+    /* Utilization (semicircle gauge) */
+    .util-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: var(--space-4); padding-top: var(--space-3);
+    }
+    .util-gauge {
+      position: relative;
+      width: 220px; height: 130px;
+    }
+    .util-gauge svg { width: 100%; height: 100%; display: block; }
+    .util-gauge .center {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 8px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      color: var(--grey-900);
+    }
+    .util-gauge .center .total {
+      color: var(--grey-500);
+      font-weight: var(--font-weight-regular);
+      font-size: 22px;
+    }
+    .util-gauge .center .pct {
+      display: block;
+      margin-top: 2px;
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: var(--primary-blue, #3276CF);
+    }
+    .util-caption {
+      font-size: var(--font-size-h3);
+      color: var(--grey-900);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Skillset donut */
+    .skill-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: var(--space-4);
+    }
+    .skill-donut {
+      position: relative;
+      width: 180px; height: 180px;
+    }
+    .skill-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .skill-donut .center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+    }
+    .skill-donut .center .num {
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      color: var(--grey-900);
+      line-height: 1;
+    }
+    .skill-donut .center .lbl {
+      font-size: var(--font-size-body);
+      color: var(--grey-700);
+    }
+    .skill-numbers {
+      display: flex; align-items: flex-end; justify-content: center;
+      gap: var(--space-7);
+    }
+    .skill-numbers .n { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--grey-900); }
+    .skill-legend {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: var(--space-5);
+      font-size: var(--font-size-caption);
+      color: var(--grey-700);
+    }
+    .skill-legend .item { display: inline-flex; align-items: center; gap: 6px; }
+    .skill-legend .swatch {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .skill-legend .s1 { background: #2C66B4; }
+    .skill-legend .s2 { background: #3276CF; }
+    .skill-legend .s3 { background: #6599DE; }
+    .skill-legend .s4 { background: #C2D7F2; }
+
+    /* Field Performance (Success vs Aborted) */
+    .field-wrap {
+      display: flex; flex-direction: column; gap: var(--space-5);
+      padding-top: var(--space-2);
+    }
+    .field-summary {
+      display: flex; align-items: baseline; justify-content: space-between;
+    }
+    .field-summary .total {
+      font-size: 36px;
+      font-weight: var(--font-weight-bold);
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .field-summary .label {
+      font-size: var(--font-size-caption);
+      color: var(--grey-600);
+      letter-spacing: 0.4px;
+    }
+    .field-stack {
+      display: flex; height: 12px;
+      border-radius: var(--radius-pill); overflow: hidden;
+      background: var(--grey-200);
+    }
+    .field-stack .seg-success { background: #43A047; }
+    .field-stack .seg-aborted { background: #F44336; }
+    .field-legend {
+      display: flex; justify-content: space-between; gap: var(--space-4);
+    }
+    .field-legend .item {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-size: var(--font-size-body);
+      color: var(--grey-700);
+    }
+    .field-legend .swatch {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .field-legend .item.success .swatch { background: #43A047; }
+    .field-legend .item.aborted .swatch { background: #F44336; }
+    .field-legend .v {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+      margin-left: var(--space-2);
+    }
+
+    /* Compliance (Audit %) gauge */
+    .compliance-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: var(--space-4); padding-top: var(--space-3);
+    }
+    .compliance-gauge {
+      position: relative;
+      width: 180px; height: 180px;
+    }
+    .compliance-gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .compliance-gauge .center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+    }
+    .compliance-gauge .center .pct {
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      color: var(--grey-900);
+      line-height: 1;
+    }
+    .compliance-gauge .center .lbl {
+      font-size: var(--font-size-caption);
+      color: var(--grey-700);
+      letter-spacing: 0.4px;
+    }
+    .compliance-caption {
+      font-size: var(--font-size-body);
+      color: var(--grey-700);
+      text-align: center;
+    }
+    .compliance-caption .v {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Compliance line chart */
+    .compliance-headline {
+      display: flex; align-items: baseline; justify-content: space-between;
+      width: 100%;
+    }
+    .compliance-headline .pct {
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      color: var(--grey-900);
+      line-height: 1;
+    }
+    .compliance-headline .lbl {
+      font-size: var(--font-size-caption);
+      color: var(--grey-600);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .compliance-line {
+      width: 100%; height:150px;
+      display: block;
+    }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px var(--space-4);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+    }
+    .status-badge .material-icons-outlined { font-size: 16px; }
+    .status-badge.good {
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+    .status-badge.warn {
+      background: #FFF3E0;
+      color: #E65100;
+    }
+    .status-badge.bad {
+      background: #FFEBEE;
+      color: #C62828;
+    }
+
+    /* SLA Performance */
+    .sla-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: var(--space-4); padding-top: var(--space-3);
+    }
+    .sla-donut {
+      position: relative;
+      width: 180px; height: 180px;
+    }
+    .sla-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .sla-donut .center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+    }
+    .sla-donut .center .pct {
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      color: var(--grey-900);
+      line-height: 1;
+    }
+    .sla-donut .center .lbl {
+      font-size: var(--font-size-caption);
+      color: var(--grey-700);
+      letter-spacing: 0.4px;
+    }
+    .sla-legend {
+      display: flex; justify-content: center; gap: var(--space-6);
+      font-size: var(--font-size-caption);
+      color: var(--grey-700);
+    }
+    .sla-legend .item {
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .sla-legend .swatch {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .sla-legend .item.in .swatch { background: var(--color-primary); }
+    .sla-legend .item.past .swatch { background: var(--color-primary-700); }
+    .sla-legend .v {
+      color: var(--text-primary);
+      font-weight: var(--font-weight-semibold);
+      margin-left: var(--space-2);
+    }
+
+    /* SLA stacked vertical bar chart */
+    .sla-headline {
+      display: flex; align-items: baseline; justify-content: space-between;
+      width: 100%;
+    }
+    .sla-headline .pct {
+      font-size: 32px;
+      font-weight: var(--font-weight-bold);
+      color: var(--grey-900);
+      line-height: 1;
+    }
+    .sla-headline .lbl {
+      font-size: var(--font-size-caption);
+      color: var(--grey-600);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .sla-bars {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: var(--space-3);
+      align-items: end;
+      width: 100%; height: 150px;
+      padding-bottom: var(--space-4);
+      border-bottom: 1px dashed var(--grey-300);
+    }
+    .sla-bars .col {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px;
+      height: 100%;
+    }
+    .sla-bars .stack {
+      width: 18px;
+      flex: 1;
+      display: flex; flex-direction: column-reverse;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--grey-100);
+    }
+    .sla-bars .stack .seg-in { background: var(--color-primary); }
+    .sla-bars .stack .seg-past { background: var(--color-primary-700); }
+    .sla-bars .day {
+      font-size: 11px;
+      color: var(--grey-600);
+    }
+
+    /* Average stat cards */
+    .avg-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
+    }
+    .avg-card {
+      background: var(--color-card);
+      border: 1px solid var(--grey-200);
+      border-radius: var(--radius-card);
+      padding: var(--space-4) var(--space-5);
+      display: flex; align-items: center; gap: var(--space-4);
+    }
+    .avg-card .avg-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--color-primary-25);
+      color: var(--color-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .avg-card .avg-icon .material-icons-outlined { font-size: 22px; }
+    .avg-card .avg-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .avg-card .avg-label {
+      font-size: var(--font-size-caption);
+      color: var(--grey-600);
+      letter-spacing: 0.4px;
+      line-height: 1.4;
+    }
+    .avg-card .avg-value {
+      font-size: var(--font-size-h6);
+      font-weight: var(--font-weight-medium);
+      color: var(--text-primary);
+      line-height: 1.3;
+      letter-spacing: 0.15px;
+    }
+
+    /* Field Performance inline pill (in Performance header) */
+    .perf-header .header-actions {
+      display: inline-flex; align-items: center;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+    }
+    .perf-header .header-filters {
+      display: inline-flex; align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+    .perf-header .filter-select {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--font-size-caption);
+      color: var(--grey-700);
+    }
+    .perf-header .filter-select select {
+      font: inherit;
+      font-size: var(--font-size-caption);
+      color: var(--text-primary);
+      background: var(--color-card, #fff);
+      border: 1px solid var(--grey-300);
+      border-radius: var(--radius-pill);
+      padding: 6px 28px 6px var(--space-3);
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23616161' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      cursor: pointer;
+      min-width: 140px;
+    }
+    .perf-header .filter-select select:focus {
+      outline: 2px solid var(--color-primary, #3276CF);
+      outline-offset: 2px;
+    }
+    .perf-header .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .kpi-pill {
+      display: inline-flex; align-items: center;
+      gap: var(--space-3);
+      background: var(--color-card, #fff);
+      border: 1px solid var(--grey-200);
+      border-radius: var(--radius-pill);
+      padding: 6px var(--space-4) 6px 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .kpi-pill .kpi-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #E8F5E9;
+      color: #43A047;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .kpi-pill .kpi-icon .material-icons-outlined { font-size: 16px; }
+    .kpi-pill .kpi-stat {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: var(--font-size-body);
+      color: var(--grey-700);
+      white-space: nowrap;
+    }
+    .kpi-pill .kpi-stat .swatch {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .kpi-pill .kpi-stat.success .swatch { background: #43A047; }
+    .kpi-pill .kpi-stat.aborted .swatch { background: #F44336; }
+    .kpi-pill .kpi-stat .v {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .kpi-pill .kpi-stat.success .v { color: #2E7D32; }
+    .kpi-pill .kpi-stat.aborted .v { color: #C62828; }
+    .kpi-pill .kpi-sep {
+      width: 1px; height: 18px;
+      background: var(--grey-200);
+    }
+    .kpi-pill .kpi-donut {
+      position: relative;
+      width: 24px; height: 24px;
+      flex-shrink: 0;
+    }
+    .kpi-pill .kpi-donut svg {
+      width: 100%; height: 100%;
+      transform: rotate(-90deg);
+      border-radius: 50%;
+    }
+    .kpi-pill .kpi-pct {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-semibold);
+      color: #2E7D32;
+      min-width: 36px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="tablet-frame" role="application" aria-label="FieldSync Field App tablet prototype — Profile">
+
+    <!-- iPadOS status bar -->
+    <div class="status-bar" aria-hidden="true">
+      <span>9:41 &nbsp; Sat Jun 11</span>
+      <span class="right">
+        <span class="material-icons-outlined">signal_cellular_alt</span>
+        <span class="material-icons-outlined">wifi</span>
+        <span>100%</span>
+        <span class="material-icons-outlined">battery_full</span>
+      </span>
+    </div>
+
+    <div class="app-shell">
+
+      <!-- Left rail nav -->
+      <nav class="rail" aria-label="Primary">
+        <span class="rail-brand" aria-label="FieldSync"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23065f46'/%3E%3Ccircle cx='16' cy='14' r='4' fill='none' stroke='%2334d399' stroke-width='2'/%3E%3Cpath d='M16 10v-2M16 20v2M10 14H8M24 14h-2' stroke='%2334d399' stroke-width='2'/%3E%3C/svg%3E" alt="FieldSync" /></span>
+        <a href="#" class="rail-item" aria-label="My Jobs">
+          <span class="material-icons-outlined">work_outline</span>
+          <span>My Jobs</span>
+        </a>
+        <a href="#" class="rail-item" aria-label="Documents">
+          <span class="material-icons-outlined">description</span>
+          <span>Documents</span>
+        </a>
+        <a href="#" class="rail-item active" aria-current="page" aria-label="Profile">
+          <span class="material-icons-outlined">account_circle</span>
+          <span>Profile</span>
+        </a>
+        <a href="#" class="rail-item" aria-label="Vehicle Check">
+          <span class="material-icons-outlined">directions_car</span>
+          <span>Vehicle Check</span>
+        </a>
+        <a href="#" class="rail-item" aria-label="Stocks">
+          <span class="material-icons-outlined">inventory_2</span>
+          <span>Stocks</span>
+        </a>
+        <a href="#" class="rail-item" aria-label="Force Sync">
+          <span class="material-icons-outlined">sync</span>
+          <span>Force Sync</span>
+        </a>
+        <a href="#" class="rail-item" aria-label="Chat">
+          <span class="material-icons-outlined">chat_bubble_outline</span>
+          <span>Chat</span>
+        </a>
+      </nav>
+
+      <!-- Main content -->
+      <main class="content" role="main">
+
+        <!-- Page header -->
+        <header class="page-header">
+          <h1 class="page-title">My Profile</h1>
+          <div class="page-header-actions">
+            <span class="status-pill">
+              Status: Shift Started <span class="dot" aria-hidden="true"></span>
+            </span>
+            <button class="icon-btn" type="button" aria-label="Notifications">
+              <span class="material-icons-outlined">notifications</span>
+            </button>
+          </div>
+        </header>
+        <hr class="page-divider" aria-hidden="true" />
+
+        <!-- Profile summary card -->
+        <section class="profile-card" aria-labelledby="profile-name">
+          <div class="profile-row">
+            <span class="profile-avatar" aria-hidden="true">JR</span>
+            <div class="profile-id-block">
+              <h2 id="profile-name" class="profile-name">Jude Ron</h2>
+              <span class="profile-subline">
+                <span class="profile-id">#123456</span>
+                <span class="profile-sep">|</span>
+                <span class="profile-email">juderon@sample.com</span>
+                <span class="profile-tags">
+                  <span class="tag">Meter Engineer</span>
+                  <span class="tag">Locksmith</span>
+                  <span class="tag">Warrant Officer</span>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="profile-meta">
+            <span class="item"><span class="material-icons-outlined">cake</span>02/04/1986</span>
+            <span class="item"><span class="material-icons-outlined">call</span>+44 1234 12345</span>
+            <span class="item"><span class="material-icons-outlined">place</span>22 Southampton Rd, Lymington SO41 9GG, UK</span>
+          </div>
+        </section>
+
+        <!-- Average stat cards -->
+        <section class="avg-grid" aria-label="Average shift metrics">
+          <div class="avg-card">
+            <span class="avg-icon" aria-hidden="true"><span class="material-icons-outlined">login</span></span>
+            <div class="avg-body">
+              <span class="avg-label">Average Start time</span>
+              <span class="avg-value">08:42 AM</span>
+            </div>
+          </div>
+          <div class="avg-card">
+            <span class="avg-icon" aria-hidden="true"><span class="material-icons-outlined">logout</span></span>
+            <div class="avg-body">
+              <span class="avg-label">Average Shift end time</span>
+              <span class="avg-value">05:18 PM</span>
+            </div>
+          </div>
+          <div class="avg-card">
+            <span class="avg-icon" aria-hidden="true"><span class="material-icons-outlined">schedule</span></span>
+            <div class="avg-body">
+              <span class="avg-label">Average working hours</span>
+              <span class="avg-value">8h 36m</span>
+            </div>
+          </div>
+          <div class="avg-card">
+            <span class="avg-icon" aria-hidden="true"><span class="material-icons-outlined">donut_large</span></span>
+            <div class="avg-body">
+              <span class="avg-label">Utilization</span>
+              <span class="avg-value">87%</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Performance header -->
+        <div class="perf-header">
+          <h3 class="perf-title">Performance</h3>
+          <div class="header-filters">
+            <label class="filter-select">
+              <span class="sr-only">Client</span>
+              <select aria-label="Filter by client">
+                <option value="">All Clients</option>
+                <option>Client A</option>
+                <option>Client B</option>
+                <option>Client C</option>
+              </select>
+            </label>
+            <label class="filter-select">
+              <span class="sr-only">Workstream</span>
+              <select aria-label="Filter by workstream">
+                <option value="">All Workstreams</option>
+                <option>Workstream 1</option>
+                <option>Workstream 2</option>
+                <option>Workstream 3</option>
+              </select>
+            </label>
+          </div>
+          <div class="header-actions">
+            <div class="kpi-pill" role="img" aria-label="Field performance: 24 success, 4 aborted, 86 percent success rate" hidden aria-hidden="true" style="display:none;">
+              <span class="kpi-donut" aria-hidden="true">
+                <!-- Pie chart: r=6 + stroke-width=12 fills full 24px circle.
+                     circumference = 2*pi*6 ˜ 37.70; Success 85.7% = 32.31; Aborted 14.3% = 5.39 -->
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="6" fill="none" stroke="#43A047" stroke-width="12"
+                          stroke-dasharray="32.31 37.70" stroke-dashoffset="0"/>
+                  <circle cx="12" cy="12" r="6" fill="none" stroke="#F44336" stroke-width="12"
+                          stroke-dasharray="5.39 37.70" stroke-dashoffset="-32.31"/>
+                </svg>
+              </span>
+              <span class="kpi-stat success">
+                <span class="swatch" aria-hidden="true"></span>
+                Success<span class="v">24</span>
+              </span>
+              <span class="kpi-sep" aria-hidden="true"></span>
+              <span class="kpi-stat aborted">
+                <span class="swatch" aria-hidden="true"></span>
+                Aborted<span class="v">4</span>
+              </span>
+              <span class="kpi-pct">86%</span>
+            </div>
+            <div class="range-toggle" role="tablist" aria-label="Performance range">
+              <button type="button" class="active" role="tab" aria-selected="true">Last 7 Days</button>
+              <button type="button" role="tab" aria-selected="false">Last 30 Days</button>
+              <button type="button" role="tab" aria-selected="false">Last 2 Months</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance grid -->
+        <section class="perf-grid" aria-label="Performance metrics">
+
+          <!-- Total Jobs -->
+          <div class="perf-col">
+            <div class="totaljobs-head">
+              <span class="col-title" style="margin:0;">Total Jobs</span>
+              <span class="num">28</span>
+            </div>
+            <div class="totaljobs-legend" aria-label="Legend">
+              <span class="legend-item"><span class="legend-swatch success" aria-hidden="true"></span>Positive</span>
+              <span class="legend-item"><span class="legend-swatch info" aria-hidden="true"></span>Information</span>
+              <span class="legend-item"><span class="legend-swatch aborted" aria-hidden="true"></span>Negative</span>
+            </div>
+            <div class="priority-rows">
+              <div class="priority-row high">
+                <div class="top">
+                  <span class="swatch" aria-hidden="true"></span>
+                  <span class="lbl">High</span>
+                  <span class="stats"><span class="v">5 (<span class="ok">3</span><span class="sep">/</span><span class="info">1</span><span class="sep">/</span><span class="ko">1</span>)</span><span>18%</span></span>
+                </div>
+                <div class="priority-bar" role="img" aria-label="High priority: 5 of 28 jobs (18%) — 3 positive, 1 information, 1 negative">
+                  <span class="seg-success" style="width:10.7%"></span>
+                  <span class="seg-info"    style="width:3.6%"></span>
+                  <span class="seg-aborted" style="width:3.6%"></span>
+                </div>
+              </div>
+              <div class="priority-row medium">
+                <div class="top">
+                  <span class="swatch" aria-hidden="true"></span>
+                  <span class="lbl">Medium</span>
+                  <span class="stats"><span class="v">5 (<span class="ok">3</span><span class="sep">/</span><span class="info">1</span><span class="sep">/</span><span class="ko">1</span>)</span><span>18%</span></span>
+                </div>
+                <div class="priority-bar" role="img" aria-label="Medium priority: 5 of 28 jobs (18%) — 3 positive, 1 information, 1 negative">
+                  <span class="seg-success" style="width:10.7%"></span>
+                  <span class="seg-info"    style="width:3.6%"></span>
+                  <span class="seg-aborted" style="width:3.6%"></span>
+                </div>
+              </div>
+              <div class="priority-row low">
+                <div class="top">
+                  <span class="swatch" aria-hidden="true"></span>
+                  <span class="lbl">Low</span>
+                  <span class="stats"><span class="v">18 (<span class="ok">15</span><span class="sep">/</span><span class="info">2</span><span class="sep">/</span><span class="ko">1</span>)</span><span>64%</span></span>
+                </div>
+                <div class="priority-bar" role="img" aria-label="Low priority: 18 of 28 jobs (64%) — 15 positive, 2 information, 1 negative">
+                  <span class="seg-success" style="width:53.6%"></span>
+                  <span class="seg-info"    style="width:7.1%"></span>
+                  <span class="seg-aborted" style="width:3.6%"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Utilization (hidden — shown as stat card above) -->
+          <div class="perf-col" hidden aria-hidden="true" style="display:none;">
+            <h4 class="col-title">Utilization</h4>
+            <div class="util-wrap">
+              <div class="util-gauge" role="img" aria-label="Utilization 4 of 5 worked days">
+                <!-- Semicircle gauge: 4/5 = 80% -->
+                <svg viewBox="0 0 220 130" aria-hidden="true">
+                  <path d="M 20 120 A 90 90 0 0 1 200 120" fill="none"
+                        stroke="#E0E0E0" stroke-width="22" stroke-linecap="round"/>
+                  <!-- 80% of half circle: dasharray ~ pi*90 = 282.74; offset = 282.74*0.20 = 56.55 -->
+                  <path d="M 20 120 A 90 90 0 0 1 200 120" fill="none"
+                        stroke="#3276CF" stroke-width="22" stroke-linecap="round"
+                        stroke-dasharray="282.74" stroke-dashoffset="56.55"/>
+                </svg>
+                <div class="center">4<span class="total">/5</span><span class="pct">80%</span></div>
+              </div>
+              <div class="util-caption">Total Worked Days</div>
+            </div>
+          </div>
+
+          <!-- Compliance Performance (line chart) -->
+          <div class="perf-col">
+            <h4 class="col-title">Compliance Performance</h4>
+            <div class="compliance-wrap" style="align-items: stretch; padding-top: 0;">
+              <div class="compliance-headline">
+                <span class="pct">92%</span>
+                <span class="lbl">Audit · last 7 days</span>
+              </div>
+              <svg class="compliance-line" viewBox="0 0 180 90" preserveAspectRatio="none"
+                   role="img" aria-label="Audit compliance trend, last 7 days, 92 percent, status good">
+                <!-- Subtle grid baseline -->
+                <line x1="0" y1="80" x2="180" y2="80" stroke="#EEEEEE" stroke-width="1"/>
+                <!-- Team average (dashed reference) -->
+                <polyline fill="none" stroke="#6599DE" stroke-width="2"
+                          stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round"
+                          points="0,50 30,54 60,46 90,50 120,42 150,46 180,46"/>
+                <!-- This user's audit % (solid green) -->
+                <polyline fill="none" stroke="#43A047" stroke-width="2.5"
+                          stroke-linecap="round" stroke-linejoin="round"
+                          points="0,38 30,46 60,26 90,34 120,18 150,30 180,22"/>
+              </svg>
+              <div style="display:flex; justify-content:center;">
+                <span class="status-badge good">
+                  <span class="material-icons-outlined" aria-hidden="true">trending_up</span>
+                  Good
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLA Performance (weekly stacked bars) -->
+          <div class="perf-col">
+            <h4 class="col-title">SLA Performance</h4>
+            <div class="sla-wrap" style="align-items: stretch; padding-top: 0;">
+              <div class="sla-headline">
+                <span class="pct">85%</span>
+                <span class="lbl">In SLA · last 7 days</span>
+              </div>
+              <div class="sla-bars" role="img" aria-label="SLA performance over last 7 days: 24 in SLA, 4 past SLA">
+                <div class="col">
+                  <div class="stack" title="Mon: 4 in / 1 past">
+                    <span class="seg-in" style="height:66.7%"></span>
+                    <span class="seg-past" style="height:16.7%"></span>
+                  </div>
+                  <span class="day">Mon</span>
+                </div>
+                <div class="col">
+                  <div class="stack" title="Tue: 3 in / 0 past">
+                    <span class="seg-in" style="height:50%"></span>
+                    <span class="seg-past" style="height:0%"></span>
+                  </div>
+                  <span class="day">Tue</span>
+                </div>
+                <div class="col">
+                  <div class="stack" title="Wed: 5 in / 1 past">
+                    <span class="seg-in" style="height:83.3%"></span>
+                    <span class="seg-past" style="height:16.7%"></span>
+                  </div>
+                  <span class="day">Wed</span>
+                </div>
+                <div class="col">
+                  <div class="stack" title="Thu: 4 in / 0 past">
+                    <span class="seg-in" style="height:66.7%"></span>
+                    <span class="seg-past" style="height:0%"></span>
+                  </div>
+                  <span class="day">Thu</span>
+                </div>
+                <div class="col">
+                  <div class="stack" title="Fri: 3 in / 1 past">
+                    <span class="seg-in" style="height:50%"></span>
+                    <span class="seg-past" style="height:16.7%"></span>
+                  </div>
+                  <span class="day">Fri</span>
+                </div>
+                <div class="col">
+                  <div class="stack" title="Sat: 3 in / 0 past">
+                    <span class="seg-in" style="height:50%"></span>
+                    <span class="seg-past" style="height:0%"></span>
+                  </div>
+                  <span class="day">Sat</span>
+                </div>
+                <div class="col">
+                  <div class="stack" title="Sun: 2 in / 1 past">
+                    <span class="seg-in" style="height:33.3%"></span>
+                    <span class="seg-past" style="height:16.7%"></span>
+                  </div>
+                  <span class="day">Sun</span>
+                </div>
+              </div>
+              <div class="sla-legend">
+                <span class="item in">
+                  <span class="swatch" aria-hidden="true"></span>
+                  In SLA<span class="v">24</span>
+                </span>
+                <span class="item past">
+                  <span class="swatch" aria-hidden="true"></span>
+                  Past SLA<span class="v">4</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance by Skillset (hidden) -->
+          <div class="perf-col" hidden aria-hidden="true" style="display:none;">
+            <h4 class="col-title">Performance by Skillset</h4>
+            <div class="skill-wrap">
+              <div class="skill-donut" role="img" aria-label="Performance by skillset, 28 jobs total">
+                <!-- Total = 28; segments: 12 Metering, 8 Electric, 5 Lock Smith, 3 Warrant -->
+                <!-- circumference = 2*pi*70 = 439.82 -->
+                <svg viewBox="0 0 180 180" aria-hidden="true">
+                  <circle cx="90" cy="90" r="70" fill="none" stroke="#F5F5F5" stroke-width="22"/>
+                  <!-- Metering 12/28 = 42.86% ? 188.49 -->
+                  <circle cx="90" cy="90" r="70" fill="none" stroke="#2C66B4" stroke-width="22"
+                          stroke-dasharray="188.49 439.82" stroke-dashoffset="0"/>
+                  <!-- Electric 8/28 = 28.57% ? 125.66; offset starts after 188.49 -->
+                  <circle cx="90" cy="90" r="70" fill="none" stroke="#3276CF" stroke-width="22"
+                          stroke-dasharray="125.66 439.82" stroke-dashoffset="-188.49"/>
+                  <!-- Lock Smith 5/28 = 17.86% ? 78.54 -->
+                  <circle cx="90" cy="90" r="70" fill="none" stroke="#6599DE" stroke-width="22"
+                          stroke-dasharray="78.54 439.82" stroke-dashoffset="-314.15"/>
+                  <!-- Warrant 3/28 = 10.71% ? 47.12 -->
+                  <circle cx="90" cy="90" r="70" fill="none" stroke="#C2D7F2" stroke-width="22"
+                          stroke-dasharray="47.12 439.82" stroke-dashoffset="-392.69"/>
+                </svg>
+                <div class="center">
+                  <span class="num">28</span>
+                  <span class="lbl">Jobs</span>
+                </div>
+              </div>
+              <div class="skill-numbers">
+                <span class="n">12</span>
+                <span class="n">8</span>
+                <span class="n">5</span>
+                <span class="n">3</span>
+              </div>
+              <div class="skill-legend">
+                <span class="item"><span class="swatch s1"></span>Metering</span>
+                <span class="item"><span class="swatch s2"></span>Electric</span>
+                <span class="item"><span class="swatch s3"></span>Lock Smith</span>
+                <span class="item"><span class="swatch s4"></span>Warrant</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Field Performance (hidden — summarized in header KPI pill) -->
+          <div class="perf-col" hidden aria-hidden="true" style="display:none;">
+            <h4 class="col-title">Field Performance</h4>
+            <div class="field-wrap">
+              <div class="field-summary">
+                <span class="total">28</span>
+                <span class="label">Total Jobs</span>
+              </div>
+              <div class="field-stack" role="img" aria-label="Field performance: 24 success, 4 aborted">
+                <span class="seg-success" style="width:85.7%"></span>
+                <span class="seg-aborted" style="width:14.3%"></span>
+              </div>
+              <div class="field-legend">
+                <span class="item success">
+                  <span class="swatch" aria-hidden="true"></span>
+                  Success<span class="v">24</span>
+                </span>
+                <span class="item aborted">
+                  <span class="swatch" aria-hidden="true"></span>
+                  Aborted<span class="v">4</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Range toggle
+    document.querySelectorAll('.range-toggle').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        group.querySelectorAll('button').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      });
+    });
+  </script>
+<!-- content-protection:v1 -->
+<script>
+(function initContentProtection() {
+  if (window.__contentProtectionInitialized) {
+    return;
+  }
+  window.__contentProtectionInitialized = true;
+
+  document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+  }, true);
+
+  document.addEventListener('dragstart', function (event) {
+    var target = event.target;
+    if (target && target.tagName && target.tagName.toUpperCase() === 'IMG') {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    var key = String(event.key || '').toUpperCase();
+    var ctrlOrMeta = event.ctrlKey || event.metaKey;
+    var blocked = false;
+
+    if (key === 'F12') {
+      blocked = true;
+    } else if (ctrlOrMeta && event.shiftKey && (key === 'I' || key === 'J' || key === 'C' || key === 'K')) {
+      blocked = true;
+    } else if (ctrlOrMeta && (key === 'U' || key === 'S')) {
+      blocked = true;
+    }
+
+    if (blocked) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>
